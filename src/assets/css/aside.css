@@ -1,0 +1,110 @@
+aside{
+    background: linear-gradient(180deg,rgba(23, 26, 67, 45%) 0%, rgba(9, 11, 44, 45%) 100%);
+}
+
+.aside_link:before {
+    content: '';
+    background: linear-gradient(90deg, rgb(69 140 243 / 32%) 0%, rgba(69, 140, 243, 0) 60%);
+    position: absolute;
+    width: 0;
+    height: 100%;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: .4s ease;
+}
+
+.aside_link * {
+    position: relative;
+    z-index: 99;
+}
+
+.aside_link:hover:before,.aside_link.active:before {
+    opacity: 0.24;
+    width: 100%;
+    transition: .4s ease;
+}
+
+.aside_link-con:before,.aside_link-con:after {
+    content: '';
+    background: linear-gradient(90deg,rgba(68, 133, 241, 0.08) 40%, rgba(45, 82, 162, 0.8) 60%, rgba(19, 22, 69, 1) 84%);
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+}
+
+.aside_link-con:after {
+    top: auto;
+    bottom: 0;
+    background: linear-gradient(90deg,rgba(68, 133, 241, 0.08) 0%, rgba(45, 82, 162, 0.8) 24%, rgba(19, 22, 69, 1) 48%);
+}
+
+.aside_link-con.active:before,.aside_link-con.active:after{
+    opacity:1;
+}
+
+.aside_link span{
+    color: var(--aside-link-col);
+}
+
+.aside_link.active span,.aside_link:hover span{
+    color: var(--white-col);
+}
+
+.sd_social--block h2{
+    background: -webkit-linear-gradient(270deg, rgba(123, 126, 208, 0.4) 0%, rgba(123, 126, 208, 0) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+}
+
+/* === Polygon button css start === */
+
+.btn_polygon-link{
+    background: linear-gradient(180deg,rgba(45, 46, 109, 0.92) 0%, rgba(34, 35, 86, 0.8) 100%);
+     clip-path: url(#polygonClip);
+    width: 16rem;
+    height: 4.5rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--text-size-20);
+    overflow: hidden;
+}
+
+.btn_polygon-link:before,.btn_polygon-link:after{
+    background-image: url(../images/collapse_right.png);
+    width: 4.75rem;
+    height: 7rem;
+    background-repeat: no-repeat;
+    right: 0;
+    background-size: cover;
+}
+
+.btn_polygon-link:after{
+    right: auto;
+    left: 0;
+    transform: scaleX(-1);
+}
+
+.polygon_border:before,.polygon_border:after{
+    left: 50%;
+    width: 6.25rem;
+    height: 0.25rem;
+    top: 0px;
+    transform: translateX(-50%);
+    clip-path: polygon(5% 100%, 0% 0%, 100% 0%, 95% 100%, 5% 100%);
+    background: linear-gradient(0deg, rgb(34, 35, 86) 0%, rgb(94, 95, 184) 100%);
+}
+
+.polygon_border:after{
+    top: auto;
+    bottom: 0px;
+    clip-path: polygon(5% 0%, 0% 100%, 100% 100%, 95% 0%, 5% 0%);
+}
+
+
+
+/* === Polygon button css End === */

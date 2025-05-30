@@ -1,0 +1,310 @@
+/* === Lobby (Q Page) Main Content CSS Start === */
+
+.sd_main-content {
+    overflow-y: auto;
+    height: 100vh;
+}
+
+/*--- Header CSS Start ---*/
+
+.notification_btn:before {
+    background: linear-gradient(180deg, rgba(53, 250, 250, 1) 0%, rgba(17, 143, 122, 1) 100%);
+    width: 1.25rem;
+    height: 1.25rem;
+    top: -0.5rem;
+    right: -0.5rem;
+    border: 0.25rem solid #020326;
+    border-radius: 0.938rem;
+}
+
+.user_img:before {
+    border: 1px solid var(--sky-col);
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 3.5rem;
+    top: -0.25rem;
+    left: -0.25rem;
+}
+
+.notification_btn {
+    background: linear-gradient(180deg, rgba(65, 66, 152, 1) 0%, rgba(45, 47, 124, 1) 100%);
+
+}
+
+.main_con--bg {
+    background-image: url('../images/main_con-bg.png');
+    pointer-events: none;
+    z-index: -1;
+}
+
+.league_price {
+    background: -webkit-linear-gradient(270deg, rgba(255, 200, 112, 1) 0%, rgba(255, 178, 55, 1) 27%, rgba(255, 169, 32, 1) 53%, rgba(255, 99, 32, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+}
+
+.gradiant_bg:before {
+    background: rgb(9 158 178 / 48%);
+    width: 7.5rem;
+    height: 11.25rem;
+    z-index: -1;
+    filter: blur(71px);
+}
+
+.player_two.gradiant_bg:before {
+    background: rgb(145 72 9 / 48%);
+}
+
+
+/* === Game & Platform CSS Start === */
+
+.player_score {
+    background-image: url(../images/score_bg.png);
+    background-size: 14.5rem;
+    width: 14.5rem;
+    background-repeat: no-repeat;
+}
+
+.game_polygon-link {
+    background: linear-gradient(0deg, rgba(34, 35, 86, 20%) 0%, rgba(94, 95, 184, 20%) 100%);
+    clip-path: url(#game_polygon_clip);
+    width: 18.5rem;
+    height: 6rem;
+    box-shadow: inset 0 5px 6px 0px rgb(94 95 184 / 12%);
+}
+
+.sd_game-con.polygon_border:before,
+.sd_game-con.polygon_border:after {
+    width: 5.25rem;
+    background: linear-gradient(0deg, rgba(34, 35, 86, 30%) 0%, rgba(94, 95, 184, 30%) 100%);
+}
+
+.game_polygon-link:before {
+    background: url(../images/line_box.svg);
+    right: 0;
+    width: 10rem;
+    height: 6rem;
+    background-size: cover;
+    opacity: 0.2;
+}
+
+/* --- Individual game card CSS Start --- */
+
+.sd_game--info .game_polygon-link:before {
+    right: auto;
+    left: 0;
+}
+
+.valorant_game .game_polygon-link {
+    background: linear-gradient(141deg, rgba(55, 16, 31, 1) 0%, rgba(157, 45, 58, 1) 100%);
+}
+
+.valorant_game.polygon_border:before,
+.valorant_game.polygon_border:after {
+    background: linear-gradient(141deg, rgba(55, 16, 31, 1) -70%, rgba(157, 45, 58, 1) 100%);
+}
+
+.valorant_game .game_polygon-link:before {
+    background: url(../images/red_lines.svg);
+}
+
+.valorant_game .game_theam--bg {
+    position: absolute;
+    right: -0.625rem;
+    z-index: -2;
+}
+
+.valorant_game .game_theam--bg:before {
+    background: #691d2b;
+    width: 5.625rem;
+    height: 100%;
+    filter: blur(1rem);
+    z-index: 999;
+    left: -3.75rem;
+}
+
+
+/* --- Star Of The Week Bedge Card CSS Start --- */
+.sd_star_bedge--wrap {
+    background: url(../images/bedge_bg.png);
+    background-size: 100% 100%;
+}
+
+.sd_ticker-box {
+    width: 2.5rem;
+    height: 3rem;
+    background: linear-gradient(90deg, rgba(45, 46, 109, 0.92) 0%, rgba(34, 35, 86, 0.8) 100%);
+}
+
+.sd_ticker-box span {
+    background: -webkit-linear-gradient(256deg, rgba(244, 247, 255, 0.92) 40%, rgba(123, 126, 208, 0.8) 92%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sd_score--con h2 {
+    background: -webkit-linear-gradient(271deg, rgba(199, 233, 255, 1) 60%, rgba(115, 218, 255, 1) 92%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+}
+
+.sd_ticker-box:after,
+.sd_ticker-box:before {
+    border-style: solid;
+    border-width: 0 0 12px 12px;
+    height: 0;
+    width: 0;
+    border-color: transparent;
+    border-bottom-color: #3a3b83;
+}
+
+.sd_ticker-box:before {
+    top: 0;
+    left: 0;
+    transform: scale(-1);
+}
+
+.sd_ticker-box:after {
+    bottom: 0;
+    right: 0;
+}
+
+
+/* --- LeaderBoard Table CSS Start --- */
+
+.blue {
+    background: linear-gradient(180deg, rgba(94, 95, 184, 0.2) 0%, rgba(34, 35, 86, 0.2) 100%);
+}
+
+.gold{
+    background: linear-gradient(90deg,rgba(243, 182, 69, 0.5) 0%, rgba(243, 182, 69, 0.2) 20%, rgba(94, 95, 184, 0.2) 80%, rgba(34, 35, 86, 0.6) 100%);
+}
+.silver{
+    background: linear-gradient(90deg,rgba(121, 69, 243, 0.62) 0%, rgba(121, 69, 243, 0.2) 20%, rgba(94, 95, 184, 0.2) 72%, rgba(34, 35, 86, 0.8) 100%);
+}
+.bronze{
+    background: linear-gradient(90deg,rgba(243, 104, 69, 0.52) 0%, rgba(243, 104, 69, 0.2) 20%, rgba(94, 95, 184, 0.2) 72%, rgba(34, 35, 86, 0.8) 100%);
+}
+
+.leaderboard-table tr td:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.leaderboard-table tr td:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.leaderboard-table {
+  border-collapse: separate;
+  border-spacing: 0 1rem; /* horizontal = 0, vertical = 1rem gap */
+}
+.leaderboard-table td {
+    box-shadow: inset 0px 1px 0px rgb(87 89 195 / 20%);
+    position: relative;
+}
+.bedge_bg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.two_digit > div {
+    font-size: 1rem;
+}
+
+
+/* --- Timeline Card CSS Start --- */
+
+    .que_btn:before {
+        background: rgb(244 101 40 / 20%);
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        top: 4px;
+        filter: blur(46px);
+    }
+
+    .timeline-card {
+      background: #08092C;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .timeline-card__header{
+        background: linear-gradient(180deg,rgba(94, 95, 184, 0.3) 0%, rgba(34, 35, 86, 0.4) 100%);
+        box-shadow: inset 0 2px 2px rgba(94, 95, 184, 0.2) ;
+    }
+
+    .timeline-step {
+      position: relative;
+      background-image: url('../images/timeline_bg.png');
+      background-size: 100% 100%;
+    }
+
+     .timeline_wrap.completed::before {
+        background-image: url('../images/completed.png');
+    } 
+
+    .timeline_wrap::before {
+      background-image: url('../images/disable.png');
+      right: -3rem;
+      top: 1.175rem;
+      width: 2rem;
+      height: 2rem;
+      background-size: 2rem;
+      background-repeat: no-repeat;
+      background-color: #0d1038;
+    }  
+
+    .timeline_wrap.disabled .timeline-step {
+      opacity: 0.4;
+    }
+
+    .timeline-card__steps:before {
+        background: #1e2144;
+        right: 2.3rem;
+        width: 0.25rem;
+        height: calc(100% - 4.1rem);
+        bottom: 0;
+    }
+    .timeline_wrap.completed:after {
+        background: linear-gradient(180deg,rgba(68, 112, 238, 0.92) 0%, rgba(70, 147, 245, 0.8) 100%);
+        right: -2.1rem;
+        width: 0.25rem;
+        height: 100%;
+        top: 3.125rem;
+    }
+    .timeline_container {
+        height: 17.5rem;
+        overflow-y: auto;
+    }   
+
+    .timeline_container::-webkit-scrollbar
+    {
+        width: 0.25rem;
+        background-color: #505070;
+    }
+
+    .timeline_container::-webkit-scrollbar-thumb
+    {
+        border-radius: 0.25rem;
+        background: linear-gradient(180deg,rgba(94, 95, 184, 0.3) 0%, rgba(34, 35, 86, 0.4) 100%);
+    }
+
+    /* --- Rules & Regulation Button Design CSS Start --- */
+
+    .sd_rules--btn a:before {
+        background: #020326;
+        width: 2rem;
+        height: 2rem;
+        right: 1.25rem;
+        border-radius: 2rem;
+    }
+
+    .sd_rules--btn a:after{
+        background: #2E3170;
+        width: 1rem;
+        height: 1rem;
+        right: 1.75rem;
+        border-radius: 1rem;
+    }

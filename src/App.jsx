@@ -15,7 +15,7 @@ function App() {
 
   return (
     <Router>
-      <div className="flex h-screen">
+      <div className="flex">
         <Sidebar onItemClick={handleItemClick} selectedItem={selectedItem} />
         <Routes>
           <Route path="/" element={<MainView selectedItem={selectedItem} />}>

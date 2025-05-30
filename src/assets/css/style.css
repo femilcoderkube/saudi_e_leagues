@@ -1,0 +1,87 @@
+:root{
+    --white-col: #F4F7FF;
+    --purple-col: #7B7ED0;
+    --aside-link-col: #BABDFF;
+    --sky-col: #3ECCF3;
+
+    /* --- font variables --- */
+
+    --text-size-16: 16px;
+    --text-size-18: 18px;
+    --text-size-20: 1.25rem;
+    --text-size-24: 24px;
+    --text-size-48px: 48px;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-weight: 500;
+}
+@media(min-width:1280px) {
+    html {
+        font-size: 0.833vw;
+    }
+}
+
+/* ==== Common CSS Start ==== */
+
+.sd_before:before,.sd_after:after{
+    content: '';
+    position: absolute;    
+}
+
+.vertical_center:before{
+    top: 50%;
+    transform: translateY(-50%);
+}
+.horizontal_center:before,.horizontal_center{
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.con_center:before{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.font_oswald{
+    font-family: "Oswald", sans-serif;
+}
+
+.purple_col{
+    color: var(--purple-col);
+}
+
+.sky_col{
+    color: var(--sky-col);
+}
+
+.sd_radial-bg{
+    background: linear-gradient(180deg,rgba(45, 46, 109, 1) 0%, rgba(34, 35, 86, 1) 100%);
+    box-shadow: inset 0px 1px 4px rgb(87 89 195 / 20%);
+}
+
+
+/* ==== Common CSS Start ==== */
+
+body{
+    background: linear-gradient(0deg,rgba(1, 2, 29, 1) 0%, rgba(2, 3, 41, 1) 100%);
+    transition: .2s ease;
+    color: #fff !important;
+    font-family: "Cairo", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.4;
+    overflow: hidden;
+}
+
