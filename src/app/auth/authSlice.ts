@@ -45,13 +45,8 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.token = action.payload.data.token;
-        state.admin = action.payload.data.admin;
-        state.user = {
-          _id: action.payload.data._id,
-          email: action.payload.data.email,
-          isSuperAdmin: action.payload.data.isSuperAdmin,
-        };
-
+        // state.admin = action.payload.data.admin;
+        state.user = action.payload.data.user;
         // Store the token in localStorage
         localStorage.setItem("token", action.payload.data.token);
       })
