@@ -1,0 +1,207 @@
+/* ---------------------------------
+
+    Select Game Card Block CSS Start 
+
+------------------------------------*/
+
+/* --- Select Game dropdown css start --- */
+
+.sel_game-menu .dropdown-header:before{
+    background-image: url(../images/sel_game-bg.png);
+    width: 16rem;
+    height: 4.5rem;
+}
+
+/* ---------------------------------------
+    
+    Select Game Header Block CSS Start 
+    
+----------------------------------------- */
+
+.game_list--view a.active{
+    background: linear-gradient(180deg,rgba(188, 82, 37, 0.92) 0%, rgba(244, 149, 40, 1) 100%);
+    box-shadow: inset 0px 1px 4px #F38155;
+}
+
+.game_status--tab button{
+    background: url(../images/game_tab-bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.game_status--tab button.active-tab{
+    background: url(../images/active_game-tab.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.active-tab.polygon_border:before,.active-tab.polygon_border:after {
+    width: 4.65rem;
+    background: #447df1;
+    height: 0.18rem;
+}
+
+/* -------------------------------
+    
+    Game Card Design CSS Start
+    
+---------------------------------- */
+
+.game_card--body{
+    clip-path: url(#cardclip);
+    margin: 1.375rem 0 0 1.25rem;
+}
+
+.game_img--mask:before {
+    background: linear-gradient(180deg, rgba(1, 2, 33, 0.2) 0%, rgb(1 2 33 / 26%) 50%, rgba(1, 2, 33, 0.8) 80%);
+    box-shadow: inset -0.625rem 1.25rem 3.125rem #010221;
+}
+
+.card_participants{
+    background: url(../images/participant_num-bg.png);
+    padding: 1.875rem;
+    background-size: 100% 100%;
+    top: -0.625rem;
+    right: -0.9rem;
+
+}
+
+.match_date-con{
+    background: -webkit-linear-gradient(271deg, rgba(199, 233, 255, 1) 60%, #7394FF 92%);
+}
+
+.game_intro{
+    background-image: url(../images/GameIntroBG.png);
+    width: 15.5rem;
+    padding-block: 2rem;
+    background-size: 100%;
+    padding-left: 1.3rem;
+}
+
+.match_date{
+    background-image: url(../images/match_dateBG.png);
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+    margin-left: -0.9rem;
+    margin-top: -1.4rem;
+    width: 6rem;
+    background-size: 100%;
+}
+
+.game_card--footer {
+    margin-top: -3.5rem;
+}
+
+.game_label{
+    margin-bottom: 4rem;
+}
+
+
+/* -------------------------------------
+    
+    Game DropDown  Menu Design CSS Start
+    
+---------------------------------------- */
+
+.game_menu-con{
+    background: linear-gradient(180deg,rgba(45, 46, 109, 1) 0%, rgba(34, 35, 86, 1) 100%);
+    clip-path: url(#gamemenu_clip);
+    height: 26.25rem;
+}
+
+.game_search input{
+    background: linear-gradient(180deg,rgba(45, 46, 109, 1) 0%, rgba(29, 30, 78, 0.8) 100%);
+    
+}
+
+.game_dropdown-body:after {
+    background: #010221;
+    z-index: -1;
+    left: -10px;
+    filter: blur(21px);
+}
+.sd_game--link {
+    height: calc(26.25rem - 6.5rem);
+    overflow-y: auto;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.sd_game--wrap {
+    margin-right: 0.7rem;
+}
+
+#style-3::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+#style-3::-webkit-scrollbar-track {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='312' viewBox='0 0 4 312'><path d='M4 0V308L0 312V4L4 0Z' fill='%234A4B98' fill-opacity='0.4'/></svg>");
+
+}
+
+#style-3::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='60' viewBox='0 0 8 60'><path d='M8 0V56L0 60V4L8 0Z' fill='%2346ABF8'/></svg>");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+}
+
+
+
+/* -------------------------------------
+    
+    Game Card Wrapper V2 CSS Start
+    
+---------------------------------------- */
+
+.game_card--wrapv2 .game_image{
+    clip-path: url(#cardclipv2);
+    max-width: 13rem;
+    flex: 0 0 13rem;
+}
+
+.card_participants_v2{
+    background: url(../images/participanBG_v2.png);
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: -2.25rem;
+    z-index: -1;
+}
+
+.game_card--wrapv2 .game_card_wrap--link{
+    background-image: url('../images/game_cardBG_v2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.game_card--wrapv2.game_card--wrapper > a {
+    max-width: 28.75rem;
+    flex: 0 0 28.75rem;
+}
+.league_price_v2{
+    background: linear-gradient(90deg,rgba(255, 178, 55, 0.12) 0%, rgba(255, 178, 55, 0) 100%);
+}
+
+.league_price_v2:before{
+    background: linear-gradient(90deg, rgba(19, 22, 69, 0) 23%, rgba(255, 178, 55, 0.8) 54%, rgba(19, 22, 69, 0) 74%);
+}
+
+.league_price_v2:after{
+    background: linear-gradient(90deg, rgba(19, 22, 69, 0) 14%, rgba(255, 178, 55, 0.8) 42%, rgba(19, 22, 69, 0) 57%);
+}
+
+.game_card--wrapv2 .match_date{
+    background-image: url(../images/card_v2_dateBG.png);
+    padding-top: 0.7rem;
+    margin-left: -0.9rem;
+    margin-top: -1.4rem;
+    width: 4rem;
+    background-size: 100% 100%;
+    height: 6rem;
+    padding-bottom: 0;
+}
