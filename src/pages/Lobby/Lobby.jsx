@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import SelectGame from "../../components/SelectGameComp/GameMenu";
 import { FolderView, ListView } from "../../components/ui/svg";
-import { Link, useParams } from "react-router-dom";
-import GameTab from "../../components/SelectGameComp/GameTab";
-import { fetchGames, fetchLeagues } from "../../app/slices/lobby/lobbySlice";
+import { useParams } from "react-router-dom";
+import {  fetchLeagues } from "../../app/slices/lobby/lobbySlice";
 import { useDispatch, useSelector } from "react-redux";
-import { TabPanel } from "../../components/SelectGameComp/TabArray";
+
 import GameCardV2 from "../../components/SelectGameComp/GameCardV2";
 import GameCard from "../../components/SelectGameComp/GameCard";
 import { items } from "../../utils/constant";
+import GamingLoader from "../../components/Loader/loader";
 
 const Lobby = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isListView , setIsListView] =useState(true);
   const [selectedGame, setselectedGame] = useState({});
   const tabs = ["ongoing", "finished", "all"];
-  const {leagues} = useSelector((state) => state.lobby);
+  const {leagues ,loading } = useSelector((state) => state.lobby);
   const partner = items.find((item) => item.id === useParams().id);
 
   const dispatch = useDispatch();
@@ -74,7 +74,7 @@ const Lobby = () => {
           ))}
         </div>
         <div className="sd_tab_cont--wrap pb-10">
-          {isListView ? <GameCardV2 leagues={leagues} /> : <GameCard leagues={leagues} />}
+          {loading ? <GamingLoader/> : (isListView ? <GameCardV2 leagues={leagues} /> : <GameCard leagues={leagues} />)}
         </div>
       </div>
     </>
