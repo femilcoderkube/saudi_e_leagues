@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import axiosInstance from "../../utils/axios";
+import axiosInstance from "../../../utils/axios";
 
-const initialState: any = {
+const initialState = {
   user: null,
   token: null,
   admin: null,
@@ -12,7 +12,7 @@ const initialState: any = {
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (loginRequest: any, { rejectWithValue }) => {
+  async (loginRequest, { rejectWithValue }) => {
     try {
       // API call to login with /admin/login
       const response = await axiosInstance.post<any>(
@@ -20,7 +20,7 @@ export const login = createAsyncThunk(
         loginRequest
       );
       return response.data;
-    } catch (error: any) {
+    } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Login failed");
     }
   }
@@ -42,7 +42,7 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(login.fulfilled, (state, action: PayloadAction<any>) => {
+      .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.data.token;
         state.admin = action.payload.data.admin;
@@ -57,7 +57,7 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       });
   },
 });

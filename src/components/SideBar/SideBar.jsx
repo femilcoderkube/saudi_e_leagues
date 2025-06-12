@@ -2,35 +2,16 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 import "../../assets/css/aside.css";
 import asideLogo from "../../assets/images/aside_logo.png";
-import bolt from "../../assets/images/bolt.svg";
-import bolt_hover from "../../assets/images/bolt_hover.svg";
-import prime_icon from "../../assets/images/prime_icon.svg";
-import prime_hover from "../../assets/images/prime_hover.svg";
-import scl_league from "../../assets/images/scl_league.svg";
-import scl_lea_hover from "../../assets/images/scl_lea_hover.svg";
-import uni_league from "../../assets/images/uni_league.svg";
-import uni_lea_hover from "../../assets/images/uni_lea_hover.svg";
 import aside_hover from "../../assets/images/aside_hover.png";
 import { Link } from "react-router-dom";
 import { Twitter, Instagram, Youtube, Tiktok } from "../ui/svg/index.jsx";
+import { items } from "../../utils/constant.js";
 
 const Sidebar = ({ onItemClick }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const location = useLocation();
 
-  const items = [
-    {
-      name: "Prime",
-      path: "/:id",
-      src: prime_icon,
-      hoverSrc: prime_hover,
-      _id: "68466ecb6e8d3444d55e85f1",
-      id: "prime",
-    },
-    // { name: "Saudi eLeague", path: "/item2", src: bolt, hoverSrc: bolt_hover },
-    // { name: "Schools eLeague", path: "/item2", src: scl_league, hoverSrc: scl_lea_hover },
-    // { name: "Uni League", path: "/item3", src: uni_league, hoverSrc: uni_lea_hover }
-  ];
+
 
   const social_links = [
     { name: "Twitter", path: "#twitter", Icon: Twitter },

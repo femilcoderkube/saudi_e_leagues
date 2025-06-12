@@ -1,5 +1,5 @@
 import axios from "axios";
-import { logout } from "./app/features/auth/authSlice";
+import { logout } from "../app/slices/auth/authSlice";
 
 export const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -10,8 +10,8 @@ const axiosInstance = axios.create({
   },
 });
 
-let reduxStore: any = null;
-export const setAxiosStore = (storeInstance: any) => {
+let reduxStore = null;
+export const setAxiosStore = (storeInstance) => {
   reduxStore = storeInstance;
 };
 

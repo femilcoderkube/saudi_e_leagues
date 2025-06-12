@@ -61,24 +61,26 @@ export const Champions = () => (
         <path d="M16.3225 0.0286942C16.4369 -0.0116697 16.5624 -0.00951158 16.675 0.0355301L23.467 2.75233C23.7487 2.8652 23.8644 3.20269 23.719 3.46912C18.213 13.5594 19.4514 25.3303 21.3293 30.0599C21.4224 30.2946 21.3376 30.565 21.1165 30.6869C17.5728 32.6397 14.0917 32.211 12.4153 31.6293C12.1746 31.5457 12.0597 31.283 12.1311 31.0385C15.1923 20.5762 9.52786 7.16939 8.1604 3.42127C8.06728 3.16523 8.20616 2.89287 8.46313 2.80213L16.3225 0.0286942ZM17.092 26.1137C17.0653 26.0717 17.0006 26.0903 17.0002 26.14V30.4047C17.0004 30.4424 17.0214 30.4772 17.0559 30.4926C17.825 30.8344 18.9256 30.4833 19.4426 30.0209C19.4772 29.9899 19.4827 29.9383 19.4583 29.8988L17.092 26.1137ZM17.719 1.55311C17.6046 1.50734 17.4768 1.57243 17.4553 1.69373C17.1422 3.47287 16.8627 9.11339 17.9465 18.0326C17.954 18.0913 18.0425 18.0963 18.05 18.0375C18.4771 14.6986 20.1435 7.54705 22.3821 3.66639C22.4433 3.5599 22.3964 3.42518 22.2825 3.37928L17.719 1.55311Z" fill="#3ECCF3"/>
     </svg>
 );
-export const ListView = () => (
+export const ListView = ({isActive}) => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="2.5" cy="4.5" r="2.5" fill="#7B7ED0"/>
-        <circle cx="2.5" cy="11.5" r="2.5" fill="#7B7ED0"/>
-        <circle cx="2.5" cy="18.5" r="2.5" fill="#7B7ED0"/>
-        <rect x="7" y="3" width="17" height="4" rx="2" fill="#7B7ED0"/>
-        <rect x="7" y="10" width="17" height="4" rx="2" fill="#7B7ED0"/>
-        <rect x="7" y="10" width="17" height="4" rx="2" fill="#7B7ED0"/>
-        <rect x="7" y="17" width="17" height="4" rx="2" fill="#7B7ED0"/>
+        <circle cx="2.5" cy="4.5" r="2.5" fill= {isActive ? "#fff":"#7B7ED0"  }/>
+        <circle cx="2.5" cy="11.5" r="2.5" fill={isActive ? "#fff":"#7B7ED0"  }/>
+        <circle cx="2.5" cy="18.5" r="2.5" fill={isActive ? "#fff":"#7B7ED0"  }/>
+        <rect x="7" y="3" width="17" height="4" rx="2" fill={isActive ? "#fff":"#7B7ED0"  }/>
+        <rect x="7" y="10" width="17" height="4" rx="2" fill={isActive ? "#fff":"#7B7ED0"  }/>
+        <rect x="7" y="10" width="17" height="4" rx="2" fill={isActive ? "#fff":"#7B7ED0"  }/>
+        <rect x="7" y="17" width="17" height="4" rx="2" fill={isActive ? "#fff":"#7B7ED0"  }/>
     </svg>
 );
 
-export const FolderView = () => (
+export const FolderView = ({isActive}) => (
+
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="2" width="9" height="7" rx="1.5" fill="#fff"/>
-        <rect x="13" y="15" width="9" height="7" rx="1.5" fill="#fff"/>
-        <rect x="2" y="11" width="9" height="11" rx="1.5" fill="#fff"/>
-        <rect x="13" y="2" width="9" height="11" rx="1.5" fill="#fff"/>
+        <rect x="2" y="2" width="9" height="7" rx="1.5" fill={isActive ? "#fff":"#7B7ED0"  }/>
+        <rect x="13" y="15" width="9" height="7" rx="1.5" fill={isActive ? "#fff":"#7B7ED0"  }/>
+        <rect x="2" y="11" width="9" height="11" rx="1.5" fill={isActive ? "#fff":"#7B7ED0"  }/>
+        <rect x="13" y="2" width="9" height="11" rx="1.5" fill={isActive ? "#fff":"#7B7ED0"  }/>
+
     </svg>
 );
 
