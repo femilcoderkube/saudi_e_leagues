@@ -1,0 +1,11 @@
+.home_hero_right-con,.home_hero_left-con{
+    max-width: calc(100%/2 - 2rem);
+    flex: 0 0 calc(100%/2 - 2rem);
+}
+
+/* .home_hero--sec {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+} */

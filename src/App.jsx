@@ -4,15 +4,14 @@ import Sidebar from "./components/SideBar/SideBar";
 import Main from "./components/MainView/Main";
 // import MainView from "./components/MainView/MainView";
 // import MainView from "./components/MainView/SelectGame.jsx";
-// import MainView from "./components/MainView/WizardForm.jsx";
-import HomePage from "./pages/HomePage";
-import ItemPage from "./pages/ItemPage";
+// import Main from "./components/MainView/WizardForm.jsx";
+
 import "./App.css";
 import Lobby from "./pages/Lobby/Lobby.jsx";
 import PrimeHome from "./pages/Home/PrimeHome.jsx";
 
 function App() {
-  const [selectedItem, setSelectedItem] = useState("Home");
+  const [selectedItem, setSelectedItem] = useState("PrimeHome");
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
