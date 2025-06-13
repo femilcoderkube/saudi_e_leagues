@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/SideBar/SideBar";
 import Main from "./components/MainView/Main";
+
 // import MainView from "./components/MainView/MainView";
 // import MainView from "./components/MainView/SelectGame.jsx";
 // import Main from "./components/MainView/WizardForm.jsx";
@@ -9,6 +10,7 @@ import Main from "./components/MainView/Main";
 import "./App.css";
 import Lobby from "./pages/Lobby/Lobby.jsx";
 import PrimeHome from "./pages/Home/PrimeHome.jsx";
+import LeagueDetail from "./pages/LeagueDetail/LeagueDetail.jsx";
 
 function App() {
   const [selectedItem, setSelectedItem] = useState("PrimeHome");
@@ -25,6 +27,8 @@ function App() {
           <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
             <Route index element={<PrimeHome />} />
             <Route path="lobby" element={<Lobby />} />
+            <Route path="lobby/:lId" element={<LeagueDetail />} />
+            {/* Add more routes as needed */}
           </Route>
         </Routes>
       </div>

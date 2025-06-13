@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import SelectGame from "../../components/SelectGameComp/GameMenu";
+import SelectGame from "../../components/LoddyComponents/GameMenu";
 import { FolderView, ListView } from "../../components/ui/svg";
 import { useParams } from "react-router-dom";
 import {  fetchLeagues } from "../../app/slices/lobby/lobbySlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import GameCardV2 from "../../components/SelectGameComp/GameCardV2";
-import GameCard from "../../components/SelectGameComp/GameCard";
+
+import GameCardV2 from "../../components/LoddyComponents/GameCardV2";
+import GameCard from "../../components/LoddyComponents/GameCard";
 import { items } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
 
@@ -26,6 +27,7 @@ const Lobby = () => {
   const handleGameChange = (game) => {
     setselectedGame(game);
   };
+
   return (
     <>
       {/* --- dashboard main content back groud --- */}

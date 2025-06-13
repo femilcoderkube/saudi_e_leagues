@@ -1,15 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getDayFromISO, getMonthAbbreviation } from "../../utils/constant";
 import { baseURL } from "../../utils/axios";
 
 const GameCardV2 = ({ leagues }) => {
+  const { id } = useParams();
   return (
     <div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-14 gap-[1.9rem]">
       {leagues.map((item, index) => (
         <Link
           key={index}
-          to={item?.path}
+          to={item?._id ? `/${id}/lobby/${item._id}` : "#"}
+          state={{ league: item }}
           className="game_card_wrap--link relative inline-block"
         >
           <div className="game_card--body inline-block relative !m-0 p-5">

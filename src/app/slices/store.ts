@@ -1,12 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./auth/authSlice";
-import lobbyReducer from "./lobby/lobbySlice"
+import authSlice from "./auth/authSlice";
+import lobbySlice from "./lobby/lobbySlice";
+import socketSlice from "./socket/socketSlice";
+import leaguesSlice from "./leagueDetail/leagueDetailSlice";
 
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
-    lobby: lobbyReducer,
+    auth: authSlice,
+    lobby: lobbySlice,
+    socket: socketSlice,
+    leagues : leaguesSlice
   },
 });
 

@@ -19,7 +19,7 @@ const timelineSteps = [
   },
 ];
 
-const TimelineCard = () => {
+const TimelineCard = ({timeLine}) => {
   return (
     <div className="timeline-card rounded-xl overflow-hidden bg-[#0E123A] text-white">
       <div className="timeline-card__header flex items-center gap-3 px-4 py-[1.4rem] border-b border-[#2A2F64]">
@@ -29,10 +29,10 @@ const TimelineCard = () => {
 
       <div className="timeline_container custom_scroll">
         <div className="timeline-card__steps p-4 pr-18 flex flex-col gap-4 sd_before relative">
-          {timelineSteps.map((step, index) => (
+          {timeLine.map((step, index) => (
             <div
               key={index}
-              className={`timeline_wrap ${step.status} relative sd_after sd_before`}
+              className={`timeline_wrap ${step.active ? "completed" : "disabled "} relative sd_after sd_before`}
             >
               <div className="timeline-step bg-no-repeat flex flex-col gap-2 py-[1rem] px-4">
                 <div className="timeline-step__title text-lg">

@@ -1,16 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CardTopLeftShap from "../../assets/images/card_top_left-shap.png";
 import { baseURL } from "../../utils/axios.js";
 import { getDayFromISO, getMonthAbbreviation } from "../../utils/constant.js";
 
 const GameCard = ({ leagues }) => {
+  const { id } = useParams();
   return (
     <div className="game_card--wrapper flex flex-wrap pt-14 gap-[2.188rem]">
       {leagues.map((item, index) => (
         <Link
           key={index}
-          to={item?.path}
+          to={item?._id ? `/${id}/lobby/${item._id}` : "#"}
+          state={{ league: item }}
           className="game_card_wrap--link relative inline-block"
         >
           <div className="card_top_left-shap absolute top-0">

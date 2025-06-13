@@ -1,23 +1,50 @@
-import Header from "../Header/Header";
 import large_prime from "../../assets/images/large_prime.png";
 import wind_girl from "../../assets/images/wind_girl.png";
-import valorant_icon from "../../assets/images/valorant_icon.svg";
+import teamSizeImage from "../../assets/images/teamSize.png";
 import valorant_bg from "../../assets/images/valorant_bg.png";
 import fire_boy from "../../assets/images/fire_boy.png";
 import User from "../../assets/images/user.png";
 import join_btn from "../../assets/images/join_btn.png";
 import star_of_week from "../../assets/images/star_of_week.png";
-import ScoreTicker from "../LobbyPageComp/Score_ticker.jsx";
-import TimelineCard from "../LobbyPageComp/TimeLineCard.jsx";
-import LeaderBoard from "../LobbyPageComp/LeaderBoardTable.jsx";
-import { Link } from "react-router-dom";
-import PopUp from "../ModalPopUp/Popup.jsx";
+import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
+import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
+import LeaderBoard from "../../components/LobbyPageComp/LeaderBoardTable.jsx";
+import { Link, useParams } from "react-router-dom";
+import PopUp from "../../components/ModalPopUp/Popup.jsx";
+import { useEffect } from "react";
+import { socket } from "../../app/socket/socket.js";
+import { generateTailwindGradient, SOCKET } from "../../utils/constant.js";
+import { useSelector, useDispatch } from 'react-redux';
+import { setLeagueData, setJoinStatus } from '../../app/slices/leagueDetail/leagueDetailSlice';
+import GamingLoader from "../../components/Loader/loader.jsx";
+import { baseURL } from "../../utils/axios.js";
 
-const MainView = ({ selectedItem }) => {
+const LeagueDetail = () => {
+  const { lId } = useParams();
+  const dispatch = useDispatch();
+  const isSocketConnected = useSelector((state) => state.socket.isConnected);
+  const { leagueData } = useSelector((state) => state.leagues);
+
+  console.log("League ID:", lId);
+  useEffect(() => {
+    if (isSocketConnected) {
+      // Listen for LEAGUEUPDATE
+      socket.on(SOCKET.LEAGUEUPDATE, (data) => {
+        dispatch(setLeagueData(data.data));
+      });
+
+      // Emit JOINLEAGUE once
+      socket.emit(SOCKET.JOINLEAGUE, { Lid: lId });
+    }
+
+    return () => {
+      // Clean up listeners when component unmounts or socket disconnects
+      socket.off(SOCKET.LEAGUEUPDATE);
+    };
+  }, [isSocketConnected, lId, dispatch]);
+  console.log("League Data:", leagueData);
   return (
-    <div className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20">
-      <Header selectedItem={selectedItem} />
-      <main className="flex-1 pt-[0.5rem] px-[5rem] lobby_page--wrapper">
+      <main className="flex-1 pt-[0.5rem] lobby_page--wrapper">
         {/* --- dashboard main content back groud --- */}
         <div
           className="main_con--bg absolute top-0 left-0 w-full h-full bg-no-repeat"
@@ -25,19 +52,19 @@ const MainView = ({ selectedItem }) => {
         ></div>
         {/* <Outlet /> */}
 
-        <div className="sd_content-wrapper max-w-full">
+       { !leagueData ? <GamingLoader/>  : <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex items-center">
             <div className="sd_content-left flex items-center gap-10 pb-6 mr-[-1rem] relative">
               <div className="sd_com--logo">
-                <img src={large_prime} alt="" style={{ width: "16.5rem" }} />
+                <img src={`${baseURL}/api/v1/${leagueData?.partner?.logo || "" }`} alt="" style={{ width: "16.5rem" }} />
               </div>
               <div className="sd_league--info">
                 <h1 className="uppercase text-5xl !font-black tracking-wide">
-                  Champions <br /> Of the League
+                  {leagueData?.title || "League Title"}
                 </h1>
                 <h2 className="league_price text-5xl !font-black font_oswald pt-10 pb-6 yellow_grad-bg grad_text-clip">
-                  $5.000.000
+                ${leagueData?.prizepool || "0"}
                 </h2>
                 <span className="block purple_col text-xl">Prize Pool</span>
               </div>
@@ -57,7 +84,7 @@ const MainView = ({ selectedItem }) => {
                   <span className="text-2xl font-bold">92</span>
                 </div>
                 <div className="participants p-4 text-right w-full pt-0 relative top-[-1.45rem]">
-                  <span className="text-2xl font-bold">281</span>
+                  <span className="text-2xl font-bold">{leagueData?.totalRegistrations || 0}</span>
                   <h3 className="text-base text-[#D27D63]">Participants</h3>
                 </div>
               </div>
@@ -74,10 +101,10 @@ const MainView = ({ selectedItem }) => {
                 <div className="sd_game-con sd_game--info relative sd_before sd_after polygon_border valorant_game">
                   <Link
                     to={"#"}
-                    className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
+                    className={`game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center ${generateTailwindGradient("#000")}`}
                   >
                     <img
-                      src={valorant_icon}
+                     src={`${baseURL}/api/v1/${leagueData?.game?.logo || "" }`}
                       alt=""
                       className="absolute left-8"
                       style={{ width: "3rem" }}
@@ -86,7 +113,7 @@ const MainView = ({ selectedItem }) => {
                       <p className="text-base mb-2 text-[#E38D9D] font-medium">
                         Game
                       </p>
-                      <h4 className="text-xl font-bold">Valorant</h4>
+                      <h4 className="text-xl font-bold">{leagueData.game.name || ""}</h4>
                     </div>
                     <div className="game_theam--bg sd_before">
                       <img
@@ -103,7 +130,7 @@ const MainView = ({ selectedItem }) => {
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
                   >
                     <img
-                      src={valorant_icon}
+                      src={`${baseURL}/api/v1/${leagueData?.platform?.logo || "" }`}
                       alt=""
                       className="absolute left-8"
                       style={{ width: "3rem" }}
@@ -112,7 +139,7 @@ const MainView = ({ selectedItem }) => {
                       <p className="text-base mb-2 purple_col font-medium">
                         Platform
                       </p>
-                      <h4 className="text-xl font-bold">PC</h4>
+                      <h4 className="text-xl font-bold">{leagueData?.platform?.name || "" }</h4>
                     </div>
                   </Link>
                 </div>
@@ -122,7 +149,7 @@ const MainView = ({ selectedItem }) => {
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
                   >
                     <img
-                      src={valorant_icon}
+                      src={teamSizeImage}
                       alt=""
                       className="absolute left-8"
                       style={{ width: "3rem" }}
@@ -131,7 +158,7 @@ const MainView = ({ selectedItem }) => {
                       <p className="text-base mb-2 purple_col font-medium">
                         Team Size
                       </p>
-                      <h4 className="text-xl font-bold">5v5 </h4>
+                      <h4 className="text-xl font-bold"> {leagueData.playersPerTeam || 1}v{leagueData.playersPerTeam || 1} </h4>
                     </div>
                   </Link>
                 </div>
@@ -225,16 +252,15 @@ const MainView = ({ selectedItem }) => {
 
               {/* --- Timeline-card HTML Block Start --- */}
 
-              <TimelineCard />
+              <TimelineCard timeLine={leagueData?.timeLine || {}} />
 
               {/* --- Rules & Regulation PopUP HTML Start--- */}
               <PopUp />
             </div>
           </div>
-        </div>
+        </div>}
       </main>
-    </div>
   );
 };
 
-export default MainView;
+export default LeagueDetail;
