@@ -1,5 +1,6 @@
 import prime_icon from "../assets/images/prime_icon.svg";
 import prime_hover from "../assets/images/prime_hover.svg";
+import { Prime } from "../components/ui/svg";
 
 export const items = [
   {
@@ -9,6 +10,7 @@ export const items = [
     hoverSrc: prime_hover,
     docId: "68466ecb6e8d3444d55e85f1",
     id: "prime",
+    headerIcon : Prime,
   },
 ];
 export function getDayFromISO(dateString) {

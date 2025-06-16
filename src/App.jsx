@@ -31,7 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/prime" />} />
           <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
-            <Route path="prime" element={<PrimeHome />} />
+            <Route index element={<PrimeHome />} />
             <Route path="lobby" element={<Lobby />} />
             <Route path="lobby/:lId" element={<LeagueDetail />} />
             {/* Add more routes as needed */}
