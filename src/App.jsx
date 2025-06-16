@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Sidebar from "./components/SideBar/SideBar";
 import Main from "./components/MainView/Main";
 
@@ -24,6 +29,7 @@ function App() {
       <div className="flex">
         <Sidebar onItemClick={handleItemClick} selectedItem={selectedItem} />
         <Routes>
+          <Route path="/" element={<Navigate to="/prime" />} />
           <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
             <Route index element={<PrimeHome />} />
             <Route path="lobby" element={<Lobby />} />

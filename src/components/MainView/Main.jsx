@@ -1,41 +1,70 @@
 import React, { useState } from "react";
 import Header from "../Header/Header";
-
 import { Link, Outlet } from "react-router-dom";
 import WizardSteps from "./WizardSteps";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../app/slices/auth/registerSlice";
 
 export default function Main({ selectedItem }) {
+  const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const initialValues = {
     username: "",
+    firstName: "",
+    lastName: "",
     email: "",
-  });
-
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-    setShowModal(false);
-    setStep(1); // reset if you want
+    password: "",
+    nationality: "Saudi Arabia",
+    phone: "",
+    dateOfBirth: "",
+    gender: "",
+    role: null,
+    favoriteGame: null,
+    profilePicture: null,
   };
+
+  const handleSubmit = async (values) => {
+    try {
+      const formData = new FormData();
+      Object.keys(values).forEach((key) => {
+        if (key === "role" || key === "favoriteGame") {
+          formData.append(key, values[key]?.value || "");
+        } else if (key === "profilePicture") {
+          if (values[key]) formData.append(key, values[key]);
+        } else {
+          formData.append(key, values[key]);
+        }
+      });
+
+      console.log(values);
+      await dispatch(registerUser(formData)).unwrap();
+      setShowModal(false);
+      setStep(1);
+      setPreviewImage(null);
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
+
   return (
     <div className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20">
       <Header selectedItem={selectedItem} setShowModal={setShowModal} />
       <main className="flex-1 px-[4.5rem] game_card_main--con border-t border-[#7b7ed02e] mt-5 pt-7">
-        {/* Modal */}
         {showModal && (
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
             <div className="fixed modal_popup-con inset-0 flex justify-center items-center z-50">
-              <div className="bg-[#121331] match_reg--popup !h-[34rem] relative sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
-                {/* Header */}
+              <div className="bg-[#121331] match_reg--popup !h-[38rem] sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Wizard Form</h2>
+                  <h2 className="text-xl font-bold">Registration</h2>
                   <button
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setShowModal(false);
+                      setPreviewImage(null);
+                    }}
                     className="cursor-pointer hover:opacity-70 duration-300"
                   >
                     <svg width="18" height="18" fill="none" stroke="#7B7ED0">
@@ -43,20 +72,17 @@ export default function Main({ selectedItem }) {
                     </svg>
                   </button>
                 </div>
-
-                {/* WizardForm Component */}
                 <WizardSteps
                   step={step}
-                  formData={formData}
-                  onChange={handleChange}
+                  initialValues={initialValues}
+                  onSubmit={handleSubmit}
                   onNext={() => setStep((prev) => prev + 1)}
                   onBack={() => setStep((prev) => prev - 1)}
-                  onSubmit={handleSubmit}
-                  onCustomAction={() => alert("Custom action")}
+                  previewImage={previewImage}
+                  setPreviewImage={setPreviewImage}
                 />
               </div>
             </div>
-            {/* === SVG Clip Path === */}
             <svg
               width="0"
               height="0"

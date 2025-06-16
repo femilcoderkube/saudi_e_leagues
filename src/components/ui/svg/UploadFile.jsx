@@ -14,7 +14,7 @@ const CustomFileUpload = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto text-center">
+    <div className="w-full h-32 max-w-md mx-auto text-center">
       <input
         type="file"
         ref={fileInputRef}
@@ -24,7 +24,7 @@ const CustomFileUpload = () => {
 
       <div
         onClick={handleUploadClick}
-        className="cursor-pointer border-2 border-dashed border-[#7B7ED0] sd_radial-bg p-4 rounded-lg hover:border-blue-500 transition"
+        className="cursor-pointer h-32 border-2 border-dashed border-[#7B7ED0] sd_radial-bg p-4 rounded-lg hover:border-blue-500 transition flex items-center justify-center"
       >
         <p className="purple_col text-lg">Upload Photo</p>
         {fileName && (

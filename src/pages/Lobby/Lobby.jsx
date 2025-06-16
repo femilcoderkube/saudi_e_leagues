@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import SelectGame from "../../components/LoddyComponents/GameMenu";
 import { FolderView, ListView } from "../../components/ui/svg";
 import { useParams } from "react-router-dom";
-import {  fetchLeagues } from "../../app/slices/lobby/lobbySlice";
+import { fetchLeagues } from "../../app/slices/lobby/lobbySlice";
 import { useDispatch, useSelector } from "react-redux";
-
 
 import GameCardV2 from "../../components/LoddyComponents/GameCardV2";
 import GameCard from "../../components/LoddyComponents/GameCard";
@@ -13,19 +12,25 @@ import GamingLoader from "../../components/Loader/loader";
 
 const Lobby = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isListView , setIsListView] =useState(true);
+  const [isListView, setIsListView] = useState(true);
   const [selectedGame, setselectedGame] = useState({});
   const tabs = ["ongoing", "finished", "all"];
-  const {leagues ,loading } = useSelector((state) => state.lobby);
+  const { leagues, loading } = useSelector((state) => state.lobby);
   const partner = items.find((item) => item.id === useParams().id);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchLeagues({partnerId:partner.docId , filter:tabs[activeIndex], GameId: selectedGame?._id}));
-  }, [dispatch , activeIndex , selectedGame]);
+    dispatch(
+      fetchLeagues({
+        partnerId: partner.docId,
+        filter: tabs[activeIndex],
+        GameId: selectedGame?._id,
+      })
+    );
+  }, [dispatch, activeIndex, selectedGame]);
 
   const handleGameChange = (game) => {
-    setselectedGame(game);
+    setselectedGame("dsdsd");
   };
 
   return (
@@ -39,19 +44,23 @@ const Lobby = () => {
       <div className="sd_slect_game--wrapper relative">
         <div className="select_game-header flex items-center justify-between">
           {/* --- Select Game Dropdown HTML Start --- */}
-          <SelectGame onGameChange={handleGameChange}/>
+          <SelectGame onGameChange={handleGameChange} />
 
           {/* Select Game List or Folder View Button HTML */}
           <div className="game_list--view flex sd_radial-bg items-center rounded-xl p-2">
             <button
-              onClick={()=>setIsListView(true)}
-              className={`inline-block p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${isListView ? 'active' : ''}`}
+              onClick={() => setIsListView(true)}
+              className={`inline-block p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
+                isListView ? "active" : ""
+              }`}
             >
               <ListView isActive={isListView} />
             </button>
             <button
-              onClick={()=>setIsListView(false)}
-              className={`inline-block p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${!isListView ? 'active' : ''}`}
+              onClick={() => setIsListView(false)}
+              className={`inline-block p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
+                !isListView ? "active" : ""
+              }`}
             >
               <FolderView isActive={!isListView} />
             </button>
@@ -76,7 +85,13 @@ const Lobby = () => {
           ))}
         </div>
         <div className="sd_tab_cont--wrap pb-10">
-          {loading ? <GamingLoader/> : (isListView ? <GameCardV2 leagues={leagues} /> : <GameCard leagues={leagues} />)}
+          {loading ? (
+            <GamingLoader />
+          ) : isListView ? (
+            <GameCardV2 leagues={leagues} />
+          ) : (
+            <GameCard leagues={leagues} />
+          )}
         </div>
       </div>
     </>

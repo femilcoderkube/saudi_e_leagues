@@ -6,7 +6,7 @@ import { baseURL } from "../../utils/axios";
 const GameCardV2 = ({ leagues }) => {
   const { id } = useParams();
   return (
-    <div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-14 gap-[1.9rem]">
+    <div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-14 gap-[1.7rem]">
       {leagues.map((item, index) => (
         <Link
           key={index}
@@ -20,11 +20,15 @@ const GameCardV2 = ({ leagues }) => {
                 <img
                   src={`${baseURL}/api/v1/${item.logo}`}
                   alt=""
-                  style={{ width: "13rem", height: "16.26rem", objectFit: "cover" }}
+                  style={{
+                    width: "13rem",
+                    height: "16.26rem",
+                    objectFit: "cover",
+                  }}
                 />
               </div>
               <div className="game_mask--con pt-3 relative h-full flex flex-col justify-between">
-                <h3 className="game_label !mb-0 text-2xl !font-bold uppercase leading-tight pl-5">
+                <h3 className="game_label !mb-0 text-2xl !font-bold uppercase leading-tight pl-5 h-[53px]">
                   {" "}
                   {item.title}{" "}
                 </h3>
@@ -35,11 +39,11 @@ const GameCardV2 = ({ leagues }) => {
                 </div>
                 <div className="game_intro_v2 bg-no-repeat pl-5">
                   <div className="game_intro-con flex gap-5 relative bottom-1">
-                  <img
-                  src={`${baseURL}/api/v1/${item.game.logo}`}
-                  alt=""
-                  style={{ width: "2.5rem", height: "2.5rem" }}
-                />
+                    <img
+                      src={`${baseURL}/api/v1/${item.game.logo}`}
+                      alt=""
+                      style={{ width: "2.5rem", height: "2.5rem" }}
+                    />
                     <div className="game_intro-con">
                       <p className="text-xs purple_light font-medium">Game</p>
                       <h4 className="text-base !font-bold">{item.game.name}</h4>
@@ -94,10 +98,10 @@ const GameCardV2 = ({ leagues }) => {
                 Ends:
               </p>
               <h2 className="text-[2rem] match_date-con text-[2rem] pt-1 pb-1  text-center !font-extrabold grad_text-clip">
-              {getDayFromISO(item.endDate)}
+                {getDayFromISO(item.endDate)}
               </h2>
               <p className="text-xs purple_light font-medium  text-center uppercase">
-              {getMonthAbbreviation(item.endDate)}
+                {getMonthAbbreviation(item.endDate)}
               </p>
             </div>
           </div>

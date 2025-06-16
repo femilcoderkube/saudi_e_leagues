@@ -15,10 +15,7 @@ export const login = createAsyncThunk(
   async (loginRequest, { rejectWithValue }) => {
     try {
       // API call to login with /admin/login
-      const response = await axiosInstance.post<any>(
-        "/users/login",
-        loginRequest
-      );
+      const response = await axiosInstance.post("/users/login", loginRequest);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Login failed");

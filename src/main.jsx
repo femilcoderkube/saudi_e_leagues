@@ -9,12 +9,14 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { setAxiosStore } from "./utils/axios.js";
 import { store } from "./app/slices/store.js";
+import { ToastContainer } from "react-toastify";
 setAxiosStore(store);
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
-     <Provider store={store}>
+  <Provider store={store}>
+    <ToastContainer />
     <App />
-    </Provider>
+  </Provider>
   // </StrictMode>
 );
