@@ -1,5 +1,5 @@
 import React from "react";
-import User from "../../assets/images/User.png";
+import User from "../../assets/images/user.png";
 import blue_bedge from "../../assets/images/blue.png";
 import gold_bedge from "../../assets/images/gold.png";
 import silver_bedge from "../../assets/images/silver.png";

@@ -13,10 +13,10 @@ import { ToastContainer } from "react-toastify";
 setAxiosStore(store);
 
 createRoot(document.getElementById("root")).render(
-  // <StrictMode>
+  //  <StrictMode>
   <Provider store={store}>
     <ToastContainer />
     <App />
   </Provider>
-  // </StrictMode>
+  //  </StrictMode>
 );

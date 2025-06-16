@@ -30,7 +30,7 @@ const Lobby = () => {
   }, [dispatch, activeIndex, selectedGame]);
 
   const handleGameChange = (game) => {
-    setselectedGame("dsdsd");
+    setselectedGame(game);
   };
 
   return (
