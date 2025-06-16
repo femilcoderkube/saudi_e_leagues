@@ -4,11 +4,13 @@ import { Link, Outlet } from "react-router-dom";
 import WizardSteps from "./WizardSteps";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../app/slices/auth/registerSlice";
+import LoginModal from "../Modal/LoginModal";
 
 export default function Main({ selectedItem }) {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
 
   const initialValues = {
@@ -51,7 +53,11 @@ export default function Main({ selectedItem }) {
 
   return (
     <div className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20">
-      <Header selectedItem={selectedItem} setShowModal={setShowModal} />
+      <Header
+        selectedItem={selectedItem}
+        setShowModal={setShowModal}
+        setShowLoginModal={setShowLoginModal}
+      />
       <main className="flex-1 px-[4.5rem] game_card_main--con border-t border-[#7b7ed02e] mt-5 pt-7">
         {showModal && (
           <>
@@ -100,6 +106,13 @@ export default function Main({ selectedItem }) {
               </defs>
             </svg>
           </>
+        )}
+
+        {showLoginModal && (
+          <LoginModal
+            showModal={showLoginModal}
+            setShowModal={setShowLoginModal}
+          />
         )}
         <Outlet />
       </main>

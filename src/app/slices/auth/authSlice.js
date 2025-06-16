@@ -10,7 +10,7 @@ const initialState = {
   error: null,
 };
 
-export const login = createAsyncThunk(
+export const loginUser = createAsyncThunk(
   "auth/login",
   async (loginRequest, { rejectWithValue }) => {
     try {
@@ -35,11 +35,11 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(login.pending, (state) => {
+      .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.data.token;
         // state.admin = action.payload.data.admin;
@@ -47,7 +47,7 @@ const authSlice = createSlice({
         // Store the token in localStorage
         localStorage.setItem("token", action.payload.data.token);
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

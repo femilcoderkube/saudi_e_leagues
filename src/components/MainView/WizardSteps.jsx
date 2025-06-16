@@ -22,8 +22,6 @@ const WizardSteps = ({
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
 
-  console.log(games);
-
   const [showPassword, setShowPassword] = useState(false);
   const TOTAL_STEPS = 4;
 

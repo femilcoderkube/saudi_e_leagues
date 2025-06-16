@@ -26,7 +26,7 @@ const breadcrumbItems = [
   },
 ];
 
-const Header = ({ selectedItem, setShowModal }) => {
+const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
   return (
     <header className="text-white pt-[1.4rem] px-[4.5rem] flex items-center justify-between items-center">
       {/* === BreadCrumb HTML Block start ==== */}
@@ -77,6 +77,10 @@ const Header = ({ selectedItem, setShowModal }) => {
             <button
               className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300`}
               style={{ width: "10rem", height: "4rem" }}
+              onClick={(e) => {
+                e.preventDefault();
+                setShowLoginModal(true);
+              }}
             >
               Login In
             </button>
@@ -94,7 +98,7 @@ const Header = ({ selectedItem, setShowModal }) => {
                 setShowModal(true);
               }}
             >
-              Registreation
+              Registration
             </button>
           </div>
         </div>
