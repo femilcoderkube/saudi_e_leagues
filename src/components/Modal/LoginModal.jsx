@@ -4,15 +4,10 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../app/slices/auth/authSlice";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
 
 const LoginModal = ({ showModal, setShowModal }) => {
   const dispatch = useDispatch();
-
-  const path = useParams();
   const [showPassword, setShowPassword] = useState(false);
-
-  console.log(path);
 
   const initialValues = {
     email: "",
@@ -25,10 +20,10 @@ const LoginModal = ({ showModal, setShowModal }) => {
       .required("Password is required")
       .min(8, "Password must be at least 8 characters"),
   });
+
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const res = await dispatch(loginUser(values)).unwrap();
-      console.log(res);
       toast.success(res.message);
       setShowModal(false);
     } catch (error) {
@@ -163,7 +158,7 @@ const LoginModal = ({ showModal, setShowModal }) => {
                         </defs>
                       </svg>
                     </div>
-                    <div className="flex justify-end mt-6">
+                    <div className="wizard_step--btn flex justify-end mt-6 absolute bottom-10 right-12">
                       <div className="game_status--tab wizard_btn">
                         <button
                           type="submit"
@@ -180,6 +175,22 @@ const LoginModal = ({ showModal, setShowModal }) => {
               </Formik>
             </div>
           </div>
+          <svg
+            width="0"
+            height="0"
+            viewBox="0 0 480 416"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ position: "absolute" }}
+          >
+            <defs>
+              <clipPath id="myClipPath" clipPathUnits="objectBoundingBox">
+                <path
+                  transform="scale(0.00208333, 0.00240385)"
+                  d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L24 0H480V100Z"
+                />
+              </clipPath>
+            </defs>
+          </svg>
         </>
       )}
     </>
