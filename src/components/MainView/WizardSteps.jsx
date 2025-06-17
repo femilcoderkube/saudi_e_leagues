@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 import * as Yup from "yup";
 import { FavGame, RoleOptions } from "../ui/svg/SelectMenu.jsx";
@@ -9,6 +9,8 @@ import {
   fetchGames,
   resetGamesState,
 } from "../../app/slices/game/gamesSlice.js";
+import { checkUsersExists } from "../../app/slices/auth/authSlice.js";
+import { debounce } from "lodash";
 
 const WizardSteps = ({
   step,
@@ -25,13 +27,38 @@ const WizardSteps = ({
 
   const [showPassword, setShowPassword] = useState(false);
   const TOTAL_STEPS = 4;
+  const usernameCache = useMemo(() => new Map(), []);
+
+  // Debounced function for checking username existence
+  const debouncedCheckUsername = useMemo(
+    () =>
+      debounce(async (username, resolve) => {
+        if (usernameCache.has(username)) {
+          resolve(usernameCache.get(username));
+          return;
+        }
+        try {
+          const result = await dispatch(
+            checkUsersExists({ userName: username })
+          ).unwrap();
+          const isAvailable = !result.exists;
+          usernameCache.set(username, isAvailable);
+          resolve(isAvailable);
+        } catch (error) {
+          usernameCache.set(username, false);
+          resolve(false);
+        }
+      }, 500), // 500ms debounce delay
+    [dispatch]
+  );
 
   useEffect(() => {
     dispatch(fetchGames());
-    // return () => {
-    //   dispatch(resetGamesState());
-    // };
-  }, [dispatch]);
+    // Cleanup debounce on unmount
+    return () => {
+      debouncedCheckUsername.cancel();
+    };
+  }, [dispatch, debouncedCheckUsername]);
 
   const validationSchemas = [
     Yup.object({
@@ -41,6 +68,17 @@ const WizardSteps = ({
         .matches(
           /^[a-zA-Z0-9_]+$/,
           "Username can only contain letters, numbers, and underscores"
+        )
+        .test(
+          "check-username-exists",
+          "Username is already taken",
+          async (value) => {
+            if (!value) return true; // Skip if empty (handled by required)
+            // Use Promise to handle debounced async validation
+            return new Promise((resolve) => {
+              debouncedCheckUsername(value, resolve);
+            });
+          }
         ),
       firstName: Yup.string()
         .required("First name is required")
@@ -126,6 +164,7 @@ const WizardSteps = ({
                   className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                   placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                 />
+
                 <ErrorMessage
                   name={field}
                   component="div"

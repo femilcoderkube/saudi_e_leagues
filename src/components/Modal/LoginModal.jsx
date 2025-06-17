@@ -24,8 +24,10 @@ const LoginModal = ({ showModal, setShowModal }) => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const res = await dispatch(loginUser(values)).unwrap();
-      console.log("Login successful:", res);
-
+      if (!res.success) {
+        toast.error(res.message || "Login failed");
+        return;
+      }
       toast.success(res.message);
       setShowModal(false);
     } catch (error) {

@@ -11,8 +11,6 @@ const Sidebar = ({ onItemClick }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const location = useLocation();
 
-
-
   const social_links = [
     { name: "Twitter", path: "#twitter", Icon: Twitter },
     { name: "Instagram", path: "#insta", Icon: Instagram },

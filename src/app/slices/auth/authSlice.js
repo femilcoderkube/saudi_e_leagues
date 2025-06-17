@@ -24,6 +24,25 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const checkUsersExists = createAsyncThunk(
+  "users/checkUsersExists",
+  async ({ email, userName }, { rejectWithValue }) => {
+    try {
+      const params = new URLSearchParams();
+      if (email) params.append("email", email);
+      if (userName) params.append("username", userName);
+      const response = await axiosInstance.get(
+        `/users/check?${params.toString()}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Error checking users existence"
+      );
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -56,6 +75,16 @@ const authSlice = createSlice({
         }
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(checkUsersExists.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(checkUsersExists.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(checkUsersExists.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
