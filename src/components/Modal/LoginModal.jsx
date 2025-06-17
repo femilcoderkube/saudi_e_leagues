@@ -24,6 +24,8 @@ const LoginModal = ({ showModal, setShowModal }) => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const res = await dispatch(loginUser(values)).unwrap();
+      console.log("Login successful:", res);
+
       toast.success(res.message);
       setShowModal(false);
     } catch (error) {
@@ -40,8 +42,8 @@ const LoginModal = ({ showModal, setShowModal }) => {
       {showModal && (
         <>
           <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
-          <div className="fixed modal_popup-con inset-0 flex justify-center items-center z-50">
-            <div className="bg-[#121331] match_reg--popup !h-[28rem] sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
+          <div className="fixed inset-0 flex justify-center items-center z-50">
+            <div className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold">Login</h2>
                 <button
@@ -60,7 +62,7 @@ const LoginModal = ({ showModal, setShowModal }) => {
               >
                 {({ isSubmitting }) => (
                   <Form className="space-y-4 mt-7">
-                    <div className="text-center w-full pr-4">
+                    <div className="text-start w-full pr-4">
                       <Field
                         type="email"
                         name="email"
@@ -92,7 +94,7 @@ const LoginModal = ({ showModal, setShowModal }) => {
                         </defs>
                       </svg>
                     </div>
-                    <div className="text-center w-full pr-4">
+                    <div className="text-start w-full mt-4 pr-4">
                       <div className="relative">
                         <Field
                           type={showPassword ? "text" : "password"}
@@ -158,15 +160,41 @@ const LoginModal = ({ showModal, setShowModal }) => {
                         </defs>
                       </svg>
                     </div>
-                    <div className="wizard_step--btn flex justify-end mt-6 absolute bottom-10 right-12">
-                      <div className="game_status--tab wizard_btn">
+                    <div className="wizard_step--btn flex justify-end">
+                      <div className="game_status--tab wizard_btn mt-10 mb-8 mr-5">
                         <button
                           type="submit"
                           disabled={isSubmitting}
-                          className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-                          style={{ width: "8rem", height: "4rem" }}
+                          className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border flex items-center justify-center"
+                          style={{ width: "10rem", height: "4rem" }}
                         >
-                          Login
+                          {isSubmitting ? (
+                            <>
+                              <svg
+                                className="animate-spin h-5 w-5 mr-2 text-white"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                              >
+                                <circle
+                                  className="opacity-25"
+                                  cx="12"
+                                  cy="12"
+                                  r="10"
+                                  stroke="currentColor"
+                                  strokeWidth="4"
+                                ></circle>
+                                <path
+                                  className="opacity-75"
+                                  fill="currentColor"
+                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
+                              </svg>
+                              Loading...
+                            </>
+                          ) : (
+                            "Login"
+                          )}
                         </button>
                       </div>
                     </div>

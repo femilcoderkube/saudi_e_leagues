@@ -18,6 +18,7 @@ const WizardSteps = ({
   initialValues,
   previewImage,
   setPreviewImage,
+  loadingSubmit = false,
 }) => {
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
@@ -31,6 +32,7 @@ const WizardSteps = ({
     //   dispatch(resetGamesState());
     // };
   }, [dispatch]);
+
   const validationSchemas = [
     Yup.object({
       username: Yup.string()
@@ -61,13 +63,26 @@ const WizardSteps = ({
         ),
       nationality: Yup.string().required("Nationality is required"),
       phone: Yup.string()
-        .matches(/^[0-9]{10}$/, "Phone number must be 10 digits")
-        .required("Phone number is required"),
+        .required("Phone number is required")
+        .test(
+          "phone-digit-count",
+          "Phone number must contain between 7 and 15 digits",
+          (value) => {
+            if (!value) return false;
+            const digits = value.replace(/[^0-9]/g, "");
+            return digits.length >= 7 && digits.length <= 15;
+          }
+        )
+        .matches(
+          /^\+?[0-9\s\-\(\)]*$/,
+          "Phone number can only contain digits, +, spaces, hyphens, and parentheses"
+        ),
     }),
     Yup.object({
       dateOfBirth: Yup.date()
         .required("Date of birth is required")
-        .max(new Date(), "Date of birth cannot be in the future"),
+        .max(new Date(), "Date of birth cannot be in the future")
+        .typeError("Please enter a valid date"),
       gender: Yup.string()
         .oneOf(["Male", "Female"], "Gender is required")
         .required("Gender is required"),
@@ -79,24 +94,17 @@ const WizardSteps = ({
         .required("Role is required"),
     }),
     Yup.object({
-      favoriteGame: Yup.object().nullable().shape({
-        value: Yup.string(),
-        label: Yup.string(),
-      }),
+      favoriteGame: Yup.object()
+        .shape({
+          value: Yup.string().required(),
+          label: Yup.string().required(),
+        })
+        .required("FavoriteGame is required"),
+      // favoriteGame: Yup.object().nullable().shape({
+      //   value: Yup.string(),
+      //   label: Yup.string(),
+      // }),
       profilePicture: Yup.mixed().nullable(),
-      // gameId: Yup.string()
-      //   .nullable()
-      //   .matches(/^[a-zA-Z0-9_]+$/, "Game ID can only contain letters, numbers, and underscores")
-      //   .when("favoriteGame", {
-      //     is: (favoriteGame) => favoriteGame && favoriteGame.value,
-      //     then: Yup.string().required("Game ID is required when a favorite game is selected"),
-      //   }),
-      // gameRole: Yup.object()
-      //   .nullable()
-      //   .shape({
-      //     value: Yup.string(),
-      //     label: Yup.string(),
-      //   }),
     }),
   ];
 
@@ -111,7 +119,7 @@ const WizardSteps = ({
         return (
           <div className="space-y-4 mt-7">
             {["username", "firstName", "lastName"].map((field) => (
-              <div key={field} className="text-center w-full pr-4">
+              <div key={field} className="text-start w-full pr-4">
                 <Field
                   type="text"
                   name={field}
@@ -148,7 +156,7 @@ const WizardSteps = ({
         return (
           <div className="space-y-4 mt-7">
             {["email", "password", "nationality", "phone"].map((field) => (
-              <div key={field} className="text-center w-full pr-4">
+              <div key={field} className="text-start w-full pr-4">
                 <div className="relative">
                   <Field
                     type={
@@ -228,12 +236,13 @@ const WizardSteps = ({
       case 3:
         return (
           <div className="space-y-4 mt-7">
-            <div className="text-center w-full pr-4">
+            <div className="text-start w-full pr-4">
               <Field
                 type="date"
                 name="dateOfBirth"
                 className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                 placeholder="dateOfBirth"
+                max={new Date().toISOString().split("T")[0]}
               />
               <ErrorMessage
                 name="dateOfBirth"
@@ -257,7 +266,7 @@ const WizardSteps = ({
                 </defs>
               </svg>
             </div>
-            <div className="text-center w-full pr-4 flex gap-5">
+            <div className="text-start w-full mb-0 pr-4 flex gap-5">
               {["Male", "Female"].map((gender) => (
                 <div key={gender} className="space-y-4">
                   <Field
@@ -268,7 +277,7 @@ const WizardSteps = ({
                     className="hidden"
                   />
                   <label
-                    className="flex gap-4 items-center h-10 px-2 rounded cursor-pointer"
+                    className="flex gap-4 items-center h-10  rounded cursor-pointer"
                     htmlFor={`gender-${gender}`}
                   >
                     <span className="checkbox-inner flex items-center justify-center w-[2rem] h-[2rem] text-transparent rounded-sm bg-[#09092d]"></span>
@@ -278,13 +287,13 @@ const WizardSteps = ({
                   </label>
                 </div>
               ))}
-              <ErrorMessage
-                name="gender"
-                component="div"
-                className="text-red-500 text-sm"
-              />
             </div>
-            <div className="custom_select2 sd_select--menu">
+            <ErrorMessage
+              name="gender"
+              component="div"
+              className="text-red-500 text-sm"
+            />
+            <div className="custom_select2 mt-4 sd_select--menu">
               <Select
                 value={values.role}
                 onChange={(option) => setFieldValue("role", option)}
@@ -319,53 +328,24 @@ const WizardSteps = ({
 
       case 4:
         return (
-          <div className="space-y-4 mt-7 text-center w-full pr-4">
+          <div className="space-y-4 mt-7 text-start w-full pr-4">
             <div className="relative">
               <Field name="profilePicture">
                 {({ form }) => (
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(event) => {
-                      const file = event.currentTarget.files[0];
-                      if (file) {
-                        form.setFieldValue("profilePicture", file);
-                        setPreviewImage(URL.createObjectURL(file));
-                      }
+                  <CustomFileUpload
+                    hasImage={!!previewImage}
+                    onFileChange={(file) => {
+                      form.setFieldValue("profilePicture", file);
+                      setPreviewImage(URL.createObjectURL(file));
                     }}
-                    className="hidden w-full h-32"
-                    id="profilePicture"
+                    previewImage={previewImage}
+                    onRemove={() => {
+                      form.setFieldValue("profilePicture", null);
+                      setPreviewImage(null);
+                    }}
                   />
                 )}
               </Field>
-              <label
-                htmlFor="profilePicture"
-                className="relative block w-full h-32 bg-[#09092d] rounded-lg cursor-pointer overflow-hidden"
-              >
-                {previewImage ? (
-                  <div className="relative flex items-center justify-center m-5">
-                    <img
-                      src={previewImage}
-                      alt="Preview"
-                      className="object-cover h-[100px]"
-                    />
-                    <button
-                      onClick={(e) => {
-                        setFieldValue("profilePicture", null);
-                        setPreviewImage(null);
-                        e.stopPropagation();
-                      }}
-                      className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                    >
-                      ×
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center w-full h-full">
-                    <CustomFileUpload />
-                  </div>
-                )}
-              </label>
               <ErrorMessage
                 name="profilePicture"
                 component="div"
@@ -425,7 +405,7 @@ const WizardSteps = ({
       {({ values, setFieldValue, errors, touched }) => (
         <Form>
           {renderStepContent(values, setFieldValue, errors, touched)}
-          <div className="wizard_step--btn gap-5 flex justify-end mt-6 absolute bottom-10 right-12">
+          <div className="wizard_step--btn gap-5 flex justify-end mt-14 mb-8 mr-5">
             {step > 1 && (
               <div className="game_status--tab wizard_btn back_btn">
                 <button
@@ -433,6 +413,7 @@ const WizardSteps = ({
                   onClick={onBack}
                   className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                   style={{ width: "8rem", height: "4rem" }}
+                  disabled={loadingSubmit}
                 >
                   Back
                 </button>
@@ -441,10 +422,42 @@ const WizardSteps = ({
             <div className="game_status--tab wizard_btn next_btn">
               <button
                 type="submit"
-                className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-                style={{ width: "8rem", height: "4rem" }}
+                className="py-2 px-4 justify-center  flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                style={{
+                  width: "8rem",
+                  height: "4rem",
+                }}
+                disabled={loadingSubmit}
               >
-                {step < TOTAL_STEPS ? "Next" : "Submit"}
+                {step < TOTAL_STEPS ? (
+                  "Next"
+                ) : loadingSubmit ? (
+                  <>
+                    <svg
+                      className="animate-spin h-5 w-5 mr-2 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Loading...
+                  </>
+                ) : (
+                  "Submit"
+                )}
               </button>
             </div>
           </div>

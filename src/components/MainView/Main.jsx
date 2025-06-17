@@ -5,6 +5,7 @@ import WizardSteps from "./WizardSteps";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../app/slices/auth/registerSlice";
 import LoginModal from "../Modal/LoginModal";
+import { toast } from "react-toastify";
 
 export default function Main({ selectedItem }) {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export default function Main({ selectedItem }) {
   const [showModal, setShowModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const initialValues = {
     username: "",
@@ -30,6 +32,7 @@ export default function Main({ selectedItem }) {
 
   const handleSubmit = async (values) => {
     try {
+      setLoadingSubmit(true);
       const formData = new FormData();
       Object.keys(values).forEach((key) => {
         if (key === "role" || key === "favoriteGame") {
@@ -42,12 +45,24 @@ export default function Main({ selectedItem }) {
       });
 
       console.log(values);
-      await dispatch(registerUser(formData)).unwrap();
+      const res = await dispatch(registerUser(formData)).unwrap();
+      console.log("Registration successful:", res);
+      if (res.success) {
+        toast.success(
+          res?.message || "Registration successful! Please log in to continue."
+        );
+        // Optionally, you can redirect the user or show a success message
+      }
+      setLoadingSubmit(false);
+
       setShowModal(false);
       setStep(1);
       setPreviewImage(null);
     } catch (error) {
       console.error("Registration failed:", error);
+      setLoadingSubmit(false);
+    } finally {
+      setLoadingSubmit(false);
     }
   };
 
@@ -62,8 +77,8 @@ export default function Main({ selectedItem }) {
         {showModal && (
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
-            <div className="fixed modal_popup-con inset-0 flex justify-center items-center z-50">
-              <div className="bg-[#121331] match_reg--popup !h-[38rem] sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
+            <div className="fixed  inset-0 flex justify-center items-center z-50">
+              <div className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">Registration</h2>
                   <button
@@ -86,6 +101,7 @@ export default function Main({ selectedItem }) {
                   onBack={() => setStep((prev) => prev - 1)}
                   previewImage={previewImage}
                   setPreviewImage={setPreviewImage}
+                  loadingSubmit={loadingSubmit}
                 />
               </div>
             </div>

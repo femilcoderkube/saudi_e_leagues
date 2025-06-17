@@ -16,9 +16,9 @@ const MainView = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-    setShowModal(false);
-    setStep(1); // reset if you want
+    // console.log("Form submitted:", formData);
+    // setShowModal(false);
+    // setStep(1); // reset if you want
   };
 
   return (

@@ -16,6 +16,7 @@ export const loginUser = createAsyncThunk(
     try {
       // API call to login with /admin/login
       const response = await axiosInstance.post("/users/login", loginRequest);
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Login failed");
@@ -42,15 +43,18 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.token = action.payload.data.token;
+        state.token = action?.payload?.data?.token;
         // state.admin = action.payload.data.admin;
-        state.user = action.payload.data.user;
+        state.user = action.payload?.data?.user;
         // Store the token in localStorage
-        if (!action.payload.data.token || !action.payload.data.user) {
+        if (!action.payload.data?.token || !action.payload.data?.user) {
           toast.success(action.payload.data);
         } else {
           localStorage.setItem("token", action.payload.data.token);
-          localStorage.setItem("user", JSON.stringify(action.payload.data.user));
+          localStorage.setItem(
+            "user",
+            JSON.stringify(action.payload.data.user)
+          );
         }
       })
       .addCase(loginUser.rejected, (state, action) => {
