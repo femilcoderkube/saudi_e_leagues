@@ -6,36 +6,40 @@ import fire_boy from "../../assets/images/fire_boy.png";
 import User from "../../assets/images/user.png";
 import join_btn from "../../assets/images/join_btn.png";
 import need_btn from "../../assets/images/needToLogin.png";
+import Que_btn from "../../assets/images/Que_btn.png";
 import star_of_week from "../../assets/images/star_of_week.png";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
 import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
 import LeaderBoard from "../../components/LobbyPageComp/LeaderBoardTable.jsx";
 import { Link, useParams } from "react-router-dom";
 import PopUp from "../../components/ModalPopUp/Popup.jsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { socket } from "../../app/socket/socket.js";
 import { generateTailwindGradient, SOCKET } from "../../utils/constant.js";
 import { useSelector, useDispatch } from 'react-redux';
 import { setLeagueData, setJoinStatus } from '../../app/slices/leagueDetail/leagueDetailSlice';
 import GamingLoader from "../../components/Loader/loader.jsx";
 import { baseURL } from "../../utils/axios.js";
+import RegistrationModel from "./RegustrationModel.jsx";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { leagueData } = useSelector((state) => state.leagues);
-  const user = JSON.parse(localStorage.getItem("user"));
-  console.log("League ID:", user);
+  const user = useSelector((state) => state.auth.user);
+  const [registrationModal, setRegistrationModal] = useState(false);
+ 
   useEffect(() => {
     if (isSocketConnected) {
       // Listen for LEAGUEUPDATE
       socket.on(SOCKET.LEAGUEUPDATE, (data) => {
+        console.log("League Update Data:", data);
         dispatch(setLeagueData(data.data));
       });
 
       // Emit JOINLEAGUE once
-      socket.emit(SOCKET.JOINLEAGUE, { Lid: lId });
+      socket.emit(SOCKET.JOINLEAGUE, { Lid: lId ,userId: user?._id });
     }
 
     return () => {
@@ -43,7 +47,6 @@ const LeagueDetail = () => {
       socket.off(SOCKET.LEAGUEUPDATE);
     };
   }, [isSocketConnected, lId, dispatch]);
-  console.log("League Data:", leagueData);
   return (
       <main className="flex-1 pt-[0.5rem] lobby_page--wrapper">
         {/* --- dashboard main content back groud --- */}
@@ -52,7 +55,7 @@ const LeagueDetail = () => {
           style={{ backgroundSize: "100rem" }}
         ></div>
         {/* <Outlet /> */}
-
+        {registrationModal && <RegistrationModel setRegistrationModal={setRegistrationModal} fields={leagueData?.customRegistrationFields} user={user} lId={lId}/>}
        { !leagueData ? <GamingLoader/>  : <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex items-center">
@@ -242,14 +245,13 @@ const LeagueDetail = () => {
 
               <LeaderBoard />
             </div>
-
             <div className="sd_content-right w-full">
-            { user?._id ?  <Link
-                to={"#"}
+            { user?._id ? leagueData.isJoined ?  <div className="mb-8 relative"> <img src={ Que_btn} alt="" style={{ width: "30.5rem" }} /> </div> :<div
+                onClick={() => setRegistrationModal(true)}
                 className="lobby_btn que_btn join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative"
               >
                 <img src={ join_btn} alt="" style={{ width: "30.5rem" }} />
-              </Link> : <div className=" lobby_btn mb-8 relative"> <img src={ need_btn} alt="" style={{ width: "30.5rem" }} /> </div>}
+              </div> : <div className=" lobby_btn mb-8 relative"> <img src={ need_btn} alt="" style={{ width: "30.5rem" }} /> </div>}
 
               {/* --- Timeline-card HTML Block Start --- */}
 
