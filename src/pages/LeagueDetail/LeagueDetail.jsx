@@ -5,6 +5,7 @@ import valorant_bg from "../../assets/images/valorant_bg.png";
 import fire_boy from "../../assets/images/fire_boy.png";
 import User from "../../assets/images/user.png";
 import join_btn from "../../assets/images/join_btn.png";
+import need_btn from "../../assets/images/needToLogin.png";
 import star_of_week from "../../assets/images/star_of_week.png";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
 import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
@@ -24,8 +25,8 @@ const LeagueDetail = () => {
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { leagueData } = useSelector((state) => state.leagues);
-
-  console.log("League ID:", lId);
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log("League ID:", user);
   useEffect(() => {
     if (isSocketConnected) {
       // Listen for LEAGUEUPDATE
@@ -243,12 +244,12 @@ const LeagueDetail = () => {
             </div>
 
             <div className="sd_content-right w-full">
-              <Link
+            { user?._id ?  <Link
                 to={"#"}
                 className="lobby_btn que_btn join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative"
               >
-                <img src={join_btn} alt="" style={{ width: "30.5rem" }} />
-              </Link>
+                <img src={ join_btn} alt="" style={{ width: "30.5rem" }} />
+              </Link> : <div className=" lobby_btn mb-8 relative"> <img src={ need_btn} alt="" style={{ width: "30.5rem" }} /> </div>}
 
               {/* --- Timeline-card HTML Block Start --- */}
 

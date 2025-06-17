@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axiosInstance from "../../../utils/axios";
+import { toast } from "react-toastify";
 
 const initialState = {
   user: null,
   token: null,
-  admin: null,
   loading: false,
   error: null,
 };
@@ -31,6 +31,7 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
     },
   },
   extraReducers: (builder) => {
@@ -45,7 +46,12 @@ const authSlice = createSlice({
         // state.admin = action.payload.data.admin;
         state.user = action.payload.data.user;
         // Store the token in localStorage
-        localStorage.setItem("token", action.payload.data.token);
+        if (!action.payload.data.token || !action.payload.data.user) {
+          toast.success(action.payload.data);
+        } else {
+          localStorage.setItem("token", action.payload.data.token);
+          localStorage.setItem("user", JSON.stringify(action.payload.data.user));
+        }
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

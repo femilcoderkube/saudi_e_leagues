@@ -22,6 +22,7 @@ const breadcrumbItems = [
 
 const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
   const { leagueData } = useSelector((state) => state.leagues);
+  const user = localStorage.getItem("user");
   let params = useParams();
   let path = new Set( window.location.pathname.split("/")).has("lobby");
   if(params.id) {
@@ -96,7 +97,7 @@ const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
         </NavLink>
       </div>
 
-      <div className="sd_uaser-menu flex">
+     {!user && <div className="sd_uaser-menu flex">
         <div className="game_status_tab--wrap">
           <div>
             <button
@@ -127,12 +128,12 @@ const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
             </button>
           </div>
         </div>
-      </div>
+      </div>}
 
-      {/* <div className="sd_uaser-menu">
+      {user && <div className="sd_uaser-menu">
   
-        <Dropdown />
-      </div> */}
+        <Dropdown user={user} />
+      </div> }
     </header>
   );
 };
