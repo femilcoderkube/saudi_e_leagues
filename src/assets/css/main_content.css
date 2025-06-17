@@ -46,14 +46,6 @@
     width: calc(100% - 20rem);
 }
 
-.home_page--wrapper .main_con--bg{
-    background-image: url('../images/homepageBG.png');
-    right: auto;
-    width: 100%;
-    background-position: left;
-    left: 20rem;
-}
-
 .gradiant_bg:before {
     background: rgb(9 158 178 / 48%);
     width: 7.5rem;

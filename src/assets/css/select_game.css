@@ -18,7 +18,7 @@
     
 ----------------------------------------- */
 
-.game_list--view button.active{
+.game_list--view a.active{
     background: linear-gradient(180deg,rgba(188, 82, 37, 0.92) 0%, rgba(244, 149, 40, 1) 100%);
     box-shadow: inset 0px 1px 4px #F38155;
 }
@@ -205,7 +205,3 @@
     height: 6rem;
     padding-bottom: 0;
 }
-.game-logo-svg {
-    filter: brightness(0) saturate(100%) invert(76%) sepia(8%) saturate(4019%) hue-rotate(196deg) brightness(103%) contrast(104%);
-    width: 2rem;
-  }

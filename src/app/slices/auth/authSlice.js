@@ -48,7 +48,7 @@ const authSlice = createSlice({
         state.user = action.payload?.data?.user;
         // Store the token in localStorage
         if (!action.payload.data?.token || !action.payload.data?.user) {
-          toast.success(action.payload.data);
+          toast.error(action.payload.data);
         } else {
           localStorage.setItem("token", action.payload.data.token);
           localStorage.setItem("user", JSON.stringify(action.payload.data.user));

@@ -53,13 +53,6 @@ aside{
     color: var(--white-col);
 }
 
-.sd_social--block h2{
-    background: -webkit-linear-gradient(270deg, rgba(123, 126, 208, 0.4) 0%, rgba(123, 126, 208, 0) 80%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
-}
-
 .aside_bottom-block {
     height: calc(100vh - 7.438rem);
     overflow-y: auto;

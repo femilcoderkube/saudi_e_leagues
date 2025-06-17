@@ -105,6 +105,14 @@ body{
     overflow: hidden;
 }
 
+.grad_head--txt{
+    background: -webkit-linear-gradient(270deg, rgba(123, 126, 208, 0.4) 0%, rgba(123, 126, 208, 0) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+}
+
+
 /* === Custom ScrollBar === */
 
 .custom_scroll::-webkit-scrollbar

@@ -1,11 +1,195 @@
-.home_hero_right-con,.home_hero_left-con{
-    max-width: calc(100%/2 - 2rem);
-    flex: 0 0 calc(100%/2 - 2rem);
+.home_hero_left-con{
+    max-width: calc(40%);
+    flex: 0 0 calc(40%);
 }
 
-/* .home_hero--sec {
+.home_hero_right-con{
+    max-width: calc(55%);
+    flex: 0 0 calc(55%);
+}
+.home_page--wrapper .main_con--bg{
+    background-image: url('../images/homepageBG.png');
+    right: auto;
+    width: 100%;
+    background-position: left;
+}
+.swiper-slide {
+    transition: all 600ms linear;
+    transform: scale(0.85) !important;
+    opacity: 0.8;
+}
+.swiper-slide.swiper-slide-active {
+  transform: scale(1) !important;
+  transition: all 600ms linear;
+  margin-right: 2rem;
+  opacity: 1;
+}
+.game_card--body{
+    clip-path: url(#slidercardClip);
+}
+.game_image:before {
+    background: linear-gradient(180deg, rgba(1, 2, 33, 0) 0%, rgb(1 2 33 / 26%) 77%, rgba(1, 2, 33, 0.9) 90%);
+    box-shadow: inset 0rem 0rem 1.125rem #010221;
+    z-index: 9;
+}
+
+.slider_card .game_card--footer{
+    background: url('../images/gamelogoBG.png');
+    background-size: cover;
+    padding: 30px 30px;
+}
+
+.game_card_wrap--link:before{
+    background: linear-gradient(132deg, rgba(50, 63, 121, 1) 4%, rgba(29, 20, 69, 0.8) 15%, rgba(20, 25, 69, 0.4) 100%);
+    clip-path: url('#customHeaderClip');
+    width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    z-index: -1;
+}
+.game_card_wrap--link span {
+    padding: 14px 20px;
+}
+
+.sd_prev-btn,.sd_next-btn{
+    background-image: url(../images/next_arrBG.svg);
+    background-size: cover;
+    padding: 2rem;
+}
+.sd_prev-btn:after,.sd_next-btn:after{
+    font-size: 1.2rem;
+    color: var(--color-white);
+}
+
+.sd_prev-btn,.sd_prev-btn:after{
+    transform: scaleX(-1);
+}
+
+
+/* ----------------------------------------
+
+    Clip-Mask Image Boredr Common CSS Start
+
+------------------------------------------ */
+
+.mask-border:after{
+    left: 0;
+    width: 0.063rem;
+    height: 14rem;
+    background: linear-gradient(180deg,rgba(210, 231, 241, 1) 0%, rgba(210, 231, 241, 0) 100%);
+    top: 0; 
+}
+.mask-border:before{
+    width: 8rem;
+    background: linear-gradient(90deg,rgba(210, 231, 241, 1) 0%, rgba(210, 231, 241, 0) 100%);
+    height: 0.063rem;
+    z-index: 9;
+    left: 0.25rem;
+    box-shadow: none !important;
+}
+
+.mask_img-border:after{
+    content: '';
+    position: absolute;
+    background: linear-gradient(90deg,rgba(210, 231, 241, 1) 0%, rgba(210, 231, 241, 0.55) 100%);
+    width: 2.3rem;
+    height: 0.063rem;
+    left: -0.313rem;
+    top: 0.563rem;
+    transform: rotate(137deg);
+}
+
+/* ----------------------------------------
+
+    Clip-Mask Image Boredr Common CSS End
+
+------------------------------------------ */
+
+
+/* === ----------------------------------
+    
+    About Section HTML block Start 
+    
+---------------------------------- ===  */
+
+.sd_play-link{
+    background-image: url(../images/thumbnailBG.png);
+    background-size: cover;
+    background-position: right;
+}
+
+.sd_play-link:before{
+    background: linear-gradient(90deg, rgb(2 3 38) 0%, rgba(2, 3, 29, 0) 100%);
+}
+
+.about_right--con:before,.about_right--con:after {
+    background: #020326;
+    width: 100%;
+    height: 20%;
+    z-index: 9;
+    filter: blur(31px);
+    top: -5.625rem;
+}
+
+.about_right--con:after {
+    top: auto;
+    bottom: -3.75rem;
+    right: -2rem;
+}
+
+.about_left--con {
+    padding-block: 6.875rem;
+}
+
+/* === ----------------------------------
+
+    How To Play Section CSS Start 
+
+-----------------------------------=== */
+
+.htp_content:before {
+    background: linear-gradient(90deg,rgba(121, 126, 255, 0.6) 0%, rgba(121, 126, 255, 0.2) 100%);
+    height: 0.063rem;
+}
+
+.htp_slider-sec .btn_polygon-link {
+    background: linear-gradient(3deg, rgba(67, 75, 233, 1) 0%, rgba(70, 181, 249, 1) 110%);
+}
+
+.htp_slider-sec .polygon_border:before,.htp_slider-sec .polygon_border:after {
+    background: linear-gradient(3deg, rgba(67, 75, 233, 1) 0%, rgba(70, 181, 249, 1) 110%);
+}
+
+.htp_slider-sec .btn_polygon-link:before,.htp_slider-sec .btn_polygon-link:after {
+    opacity: 0.8;
+    mix-blend-mode: plus-lighter;
+}
+.htp_left-con .grad_text-clip{
+    background: linear-gradient(180deg, rgb(244 247 255) 0%, rgba(186, 189, 255, 1) 36%, rgba(123, 126, 208, 1) 66%);
+}
+
+
+.swiper-slide-active .htp_card--body{
+    background: url(../images/htpcardBG.png);
+    background-size: cover;
+    width: 100%;
+}
+.game_card_wrap--link,.htp_card--body,.htp_right-con .swiper {
+    height: 100%;
+}
+
+.htp_card--body{
+    background: rgb(68, 28, 28);
+}
+
+/* .htp_slider .swiper-slide {
+  width: 300px !important;
+  transition: width 0.4s ease;
+}
+
+.htp_slider .swiper-slide.swiper-slide-active {
+  width: 600px !important;
 } */
+
+.sd_next-btn.sd_next-one:after {
+    transform: scaleX(-1);
+}
