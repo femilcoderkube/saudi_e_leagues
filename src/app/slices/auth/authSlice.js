@@ -4,7 +4,7 @@ import axiosInstance from "../../../utils/axios";
 import { toast } from "react-toastify";
 
 const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
   token: null,
   loading: false,
   error: null,
@@ -70,10 +70,8 @@ const authSlice = createSlice({
           toast.success(action.payload.data);
         } else {
           localStorage.setItem("token", action.payload.data.token);
-          localStorage.setItem(
-            "user",
-            JSON.stringify(action.payload.data.user)
-          );
+          localStorage.setItem("user", JSON.stringify(action.payload.data.user));
+          state.user = action.payload.data.user;
         }
       })
       .addCase(loginUser.rejected, (state, action) => {

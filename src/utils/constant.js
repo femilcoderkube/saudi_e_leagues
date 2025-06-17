@@ -24,6 +24,7 @@ export function getMonthAbbreviation(dateString) {
 export const SOCKET = {
   JOINLEAGUE: "joinLeague",
   LEAGUEUPDATE: "leagueUpdate",
+  LEAGUEJOIN: "leagueJoin",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range

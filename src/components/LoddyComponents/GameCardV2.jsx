@@ -28,7 +28,7 @@ const GameCardV2 = ({ leagues }) => {
                 />
               </div>
               <div className="game_mask--con pt-3 relative h-full flex flex-col justify-between">
-                <h3 className="game_label !mb-0 text-2xl !font-bold uppercase leading-tight pl-5 h-[53px]">
+                <h3 className="game_label !mb-0 text-2xl !font-bold uppercase leading-tight pl-5 h-[60px]">
                   {" "}
                   {item.title}{" "}
                 </h3>
