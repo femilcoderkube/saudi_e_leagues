@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/socket.io": {
-        target: "ws://devnode.coderkubes.com",
+        target: "wss://devnode.coderkubes.com",
         ws: true,
         changeOrigin: true,
         secure: false,
