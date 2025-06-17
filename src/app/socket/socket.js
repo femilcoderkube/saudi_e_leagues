@@ -9,7 +9,8 @@ import {
 import { SOCKET } from "../../utils/constant";
 
 // const SOCKET_URL = "/";
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
+const SOCKET_URL =
+  import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
 
 export const socket = io(SOCKET_URL, {
   transports: ["websocket"],
