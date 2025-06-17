@@ -6,7 +6,7 @@ import fire_boy from "../../assets/images/fire_boy.png";
 import User from "../../assets/images/user.png";
 import join_btn from "../../assets/images/join_btn.png";
 import need_btn from "../../assets/images/needToLogin.png";
-import Que_btn from "../../assets/images/Que_btn.png";
+import Que_btn from "../../assets/images/quebtn.png";
 import star_of_week from "../../assets/images/star_of_week.png";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
 import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
@@ -60,7 +60,7 @@ const LeagueDetail = () => {
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex items-center">
             <div className="sd_content-left flex items-center gap-10 pb-6 mr-[-1rem] relative">
-              <div className="sd_com--logo">
+              <div className="sd_com--logo cursor-hide">
                 <img src={`${baseURL}/api/v1/${leagueData?.partner?.logo || "" }`} alt="" style={{ width: "16.5rem" }} />
               </div>
               <div className="sd_league--info">
@@ -85,7 +85,7 @@ const LeagueDetail = () => {
               <div className="player_score mt-4 flex flex-col items-start h-full ml-[-2.5rem]">
                 <div className="online_user p-4 relative">
                   <h3 className="text-base text-[#63A3D2]">Online Users</h3>
-                  <span className="text-2xl font-bold">92</span>
+                  <span className="text-2xl font-bold">{leagueData?.listOfParticipants}</span>
                 </div>
                 <div className="participants p-4 text-right w-full pt-0 relative top-[-1.45rem]">
                   <span className="text-2xl font-bold">{leagueData?.totalRegistrations || 0}</span>
