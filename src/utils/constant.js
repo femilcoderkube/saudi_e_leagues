@@ -23,6 +23,7 @@ export function getMonthAbbreviation(dateString) {
 }
 export const SOCKET = {
   JOINLEAGUE: "joinLeague",
+  LEAVELEAGUE: "LeaveLeague",
   LEAGUEUPDATE: "leagueUpdate",
   LEAGUEJOIN: "leagueJoin",
 };
