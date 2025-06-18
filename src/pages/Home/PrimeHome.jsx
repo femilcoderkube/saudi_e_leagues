@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 
 import GetStartedBtn from "../../assets/images/get_started_btn.png";
 import Playbtn from "../../assets/images/playbtn.png";
-import Primetxt from "../../assets/images/primetxt.png";
+import Primetxt from "../../assets/images/Prime.png";
 import "../../assets/css/homepage.css";
 import HeroCardSlider from "../../components/HomepageComp/HeroCardSlider.jsx";
 import HtpCardSlider from "../../components/HomepageComp/HtpCardSlider.jsx";
