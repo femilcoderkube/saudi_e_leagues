@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import "../../assets/css/main_content.css";
 import "../../assets/css/select_game.css";
 import {
@@ -61,8 +61,8 @@ const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
           {breadcrumbItems.map((item, index) => (
             <li key={index} className="flex items-center gap-7">
               <div className="breadcrumb-box flex items-center gap-2">
-                <a
-                  href={item.path}
+                <Link
+                  to={item.path}
                   className={`breadcrumb-text flex items-center gap-3 text-lg purple_col font-bold ${
                     item.active ? "sky_col font-semibold" : ""
                   }`}
@@ -70,7 +70,7 @@ const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
                   <item.icon className="text-white" />
 
                   {item.label}
-                </a>
+                </Link>
               </div>
 
               {/* Add arrow only if it's NOT the last item */}

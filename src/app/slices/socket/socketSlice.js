@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { socket } from '../../socket/socket';
 
 const initialState = {
   isConnected: false,

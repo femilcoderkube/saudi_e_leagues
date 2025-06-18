@@ -1,12 +1,7 @@
 import { io } from "socket.io-client";
 import { store } from "../slices/store";
 import { setSocketConnected, setSocketId } from "../slices/socket/socketSlice";
-import {
-  setLeagueData,
-  setJoinStatus,
-  setLeagueError,
-} from "../slices/leagueDetail/leagueDetailSlice";
-import { SOCKET } from "../../utils/constant";
+
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -14,8 +9,9 @@ const SOCKET_URL =
 
 export const socket = io(SOCKET_URL, {
   transports: ["websocket"],
+  autoConnect: false,
 });
-
+socket.connect();
 socket.on("connect", () => {
   console.log("Socket connected:", socket.id);
   store.dispatch(setSocketConnected(true));

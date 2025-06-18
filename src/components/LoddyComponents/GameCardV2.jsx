@@ -12,7 +12,7 @@ const GameCardV2 = ({ leagues }) => {
     className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-14 gap-[1.7rem]"
     variants={containerVariants}
     initial="hidden"
-    state={{ league: leagues }}
+    state={{ leagu: leagues }}
     animate="visible"
     layout // Enable layout animations
   >
