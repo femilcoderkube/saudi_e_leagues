@@ -1,0 +1,134 @@
+
+.gamingLoader .container {
+  position: absolute; /* Ensure container is positioned */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(-30deg) rotateY(-45deg);
+  transform-style: preserve-3d;
+  perspective: 2000px;
+}
+
+.holder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  transform: translate3d(0em, 4em, 2em);
+}
+
+.holder:last-child {
+  transform: rotateY(-90deg) rotateX(90deg) translate3d(0, 4em, 2em);
+}
+
+.holder:first-child {
+  transform: rotateZ(-90deg) rotateX(-90deg) translate3d(0, 4em, 2em);
+}
+
+.holder:nth-child(1) .box {
+  background-color: #bc5225eb;
+}
+
+.holder:nth-child(1) .box:before {
+  background-color: #7e3719;
+}
+
+.holder:nth-child(1) .box:after {
+  background-color: #9e4320;
+}
+
+.holder:nth-child(2) .box {
+  background-color: #F38155;
+}
+
+.holder:nth-child(2) .box:before {
+  background-color: #d95722;
+}
+
+.holder:nth-child(2) .box:after {
+  background-color: #e56a3e;
+}
+
+.holder:nth-child(3) .box {
+  background-color: #f49528;
+}
+
+.holder:nth-child(3) .box:before {
+  background-color: #c5730d;
+}
+
+.holder:nth-child(3) .box:after {
+  background-color: #e08317;
+}
+
+.box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  animation: ani-box 6s infinite;
+  width: 4em;
+  height: 4em;
+}
+
+.box:before,
+.box:after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: "";
+}
+
+.box:before {
+  left: 100%;
+  bottom: 0;
+  transform: rotateY(90deg);
+  transform-origin: 0 50%;
+}
+
+.box:after {
+  left: 0;
+  bottom: 100%;
+  transform: rotateX(90deg);
+  transform-origin: 0 100%;
+}
+
+@keyframes ani-box {
+  8.33% {
+    transform: translate3d(-50%, -50%, 0) scaleZ(2);
+  }
+  16.7% {
+    transform: translate3d(-50%, -50%, -4em) scaleZ(1);
+  }
+  25% {
+    transform: translate3d(-50%, -100%, -4em) scaleY(2);
+  }
+  33.3% {
+    transform: translate3d(-50%, -150%, -4em) scaleY(1);
+  }
+  41.7% {
+    transform: translate3d(-100%, -150%, -4em) scaleX(2);
+  }
+  50% {
+    transform: translate3d(-150%, -150%, -4em) scaleX(1);
+  }
+  58.3% {
+    transform: translate3d(-150%, -150%, 0) scaleZ(2);
+  }
+  66.7% {
+    transform: translate3d(-150%, -150%, 0) scaleZ(1);
+  }
+  75% {
+    transform: translate3d(-150%, -100%, 0) scaleY(2);
+  }
+  83.3% {
+    transform: translate3d(-150%, -50%, 0) scaleY(1);
+  }
+  91.7% {
+    transform: translate3d(-100%, -50%, 0) scaleX(2);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) scaleX(1);
+  }
+}

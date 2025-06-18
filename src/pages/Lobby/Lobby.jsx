@@ -86,6 +86,7 @@ const Lobby = () => {
         </div>
         <div className="sd_tab_cont--wrap pb-10">
           {loading ? (
+            /* {true ? ( */
             <GamingLoader />
           ) : isListView ? (
             <GameCardV2 leagues={leagues} />

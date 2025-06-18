@@ -18,7 +18,7 @@
     
 ----------------------------------------- */
 
-.game_list--view a.active{
+.game_list--view button.active{
     background: linear-gradient(180deg,rgba(188, 82, 37, 0.92) 0%, rgba(244, 149, 40, 1) 100%);
     box-shadow: inset 0px 1px 4px #F38155;
 }

@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 import * as Yup from "yup";
-import { FavGame, RoleOptions } from "../ui/svg/SelectMenu.jsx";
+import { RoleOptions } from "../ui/svg/SelectMenu.jsx";
 import CustomFileUpload from "../ui/svg/UploadFile.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -28,6 +28,7 @@ const WizardSteps = ({
   const [showPassword, setShowPassword] = useState(false);
   const TOTAL_STEPS = 4;
   const usernameCache = useMemo(() => new Map(), []);
+  const emailCache = useMemo(() => new Map(), []);
 
   // Debounced function for checking username existence
   const debouncedCheckUsername = useMemo(
@@ -51,7 +52,25 @@ const WizardSteps = ({
       }, 500), // 500ms debounce delay
     [dispatch]
   );
-
+  const debouncedCheckEmail = useMemo(
+    () =>
+      debounce(async (email, resolve) => {
+        if (emailCache.has(email)) {
+          resolve(emailCache.get(email));
+          return;
+        }
+        try {
+          const result = await dispatch(checkUsersExists({ email })).unwrap();
+          const isAvailable = !result.exists;
+          emailCache.set(email, isAvailable);
+          resolve(isAvailable);
+        } catch (error) {
+          emailCache.set(email, false);
+          resolve(false);
+        }
+      }, 500),
+    [dispatch]
+  );
   useEffect(() => {
     dispatch(fetchGames());
     // Cleanup debounce on unmount
@@ -88,7 +107,15 @@ const WizardSteps = ({
         .matches(/^[a-zA-Z]+$/, "Last name can only contain letters"),
     }),
     Yup.object({
-      email: Yup.string().email("Invalid email").required("Email is required"),
+      email: Yup.string()
+        .email("Invalid email")
+        .required("Email is required")
+        .test("check-email-exists", "Email is already taken", async (value) => {
+          if (!value) return true;
+          return new Promise((resolve) => {
+            debouncedCheckEmail(value, resolve);
+          });
+        }),
       password: Yup.string()
         .required("Password is required")
         .min(8, "Password must be at least 8 characters")
@@ -279,10 +306,11 @@ const WizardSteps = ({
               <Field
                 type="date"
                 name="dateOfBirth"
-                className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                className="sd_custom-input custom-date-icon !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                 placeholder="dateOfBirth"
                 max={new Date().toISOString().split("T")[0]}
               />
+
               <ErrorMessage
                 name="dateOfBirth"
                 component="div"

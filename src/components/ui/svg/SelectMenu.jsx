@@ -1,15 +1,3 @@
-export const FavGame = [
-  { value: "Favorite Game", label: "Favorite Game" },
-  { value: "PUBG", label: "PUBG" },
-  { value: "Dota 2", label: "Dota 2" },
-  { value: "Valorant", label: "Valorant" },
-  { value: "Overwatch 2", label: "Overwatch 2" },
-  { value: "Call of Duty", label: "Call of Duty" },
-  { value: "PUBG", label: "PUBG" },
-  { value: "Dota 2", label: "Dota 2" },
-  { value: "Valorant", label: "Valorant" },
-];
-
 export const RoleOptions = [
   // { value: 'Role', label: 'Role'},
   { value: "Player", label: "Player" },

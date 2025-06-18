@@ -24,7 +24,7 @@ export default function Main({ selectedItem }) {
     nationality: "Saudi Arabia",
     phone: "",
     dateOfBirth: "",
-    gender: "",
+    gender: "Male",
     role: null,
     favoriteGame: null,
     profilePicture: null,
