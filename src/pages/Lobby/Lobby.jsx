@@ -1,24 +1,42 @@
 import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion"; // Import framer-motion
 import SelectGame from "../../components/LoddyComponents/GameMenu";
 import { FolderView, ListView } from "../../components/ui/svg";
 import { useParams } from "react-router-dom";
 import { fetchLeagues } from "../../app/slices/lobby/lobbySlice";
 import { useDispatch, useSelector } from "react-redux";
-
 import GameCardV2 from "../../components/LoddyComponents/GameCardV2";
 import GameCard from "../../components/LoddyComponents/GameCard";
 import { items } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
 
+// Animation variants for the card wrapper
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1, // Stagger the animation of children
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      staggerChildren: 0.05,
+      staggerDirection: -1, // Exit in reverse order
+    },
+  },
+};
+
 const Lobby = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isListView, setIsListView] = useState(true);
-  const [selectedGame, setselectedGame] = useState({});
+  const [selectedGame, setSelectedGame] = useState({});
   const tabs = ["ongoing", "finished", "all"];
   const { leagues, loading } = useSelector((state) => state.lobby);
   const partner = items.find((item) => item.id === useParams().id);
-
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(
       fetchLeagues({
@@ -30,23 +48,18 @@ const Lobby = () => {
   }, [dispatch, activeIndex, selectedGame]);
 
   const handleGameChange = (game) => {
-    setselectedGame(game);
+    setSelectedGame(game);
   };
 
   return (
     <>
-      {/* --- dashboard main content back groud --- */}
       <div
         className="main_con--bg absolute top-0 left-0 w-full h-full bg-no-repeat"
         style={{ backgroundSize: "100rem" }}
       ></div>
-      {/* <Outlet /> */}
       <div className="sd_slect_game--wrapper relative">
         <div className="select_game-header flex items-center justify-between">
-          {/* --- Select Game Dropdown HTML Start --- */}
           <SelectGame onGameChange={handleGameChange} />
-
-          {/* Select Game List or Folder View Button HTML */}
           <div className="game_list--view flex sd_radial-bg items-center rounded-xl p-2">
             <button
               onClick={() => setIsListView(true)}
@@ -76,8 +89,7 @@ const Lobby = () => {
                 activeIndex === index
                   ? "active-tab hover:opacity-100 polygon_border"
                   : "inactive-tab"
-              }
-            `}
+              }`}
               style={{ width: "10rem", height: "4rem" }}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -86,12 +98,24 @@ const Lobby = () => {
         </div>
         <div className="sd_tab_cont--wrap pb-10">
           {loading ? (
-            /* {true ? ( */
             <GamingLoader />
-          ) : isListView ? (
-            <GameCardV2 leagues={leagues} />
           ) : (
-            <GameCard leagues={leagues} />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={isListView ? "list" : "folder"} // Unique key to trigger animation on view change
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="game_card--wrapper"
+              >
+                {isListView ? (
+                  <GameCardV2 leagues={leagues} />
+                ) : (
+                  <GameCard leagues={leagues} />
+                )}
+              </motion.div>
+            </AnimatePresence>
           )}
         </div>
       </div>
