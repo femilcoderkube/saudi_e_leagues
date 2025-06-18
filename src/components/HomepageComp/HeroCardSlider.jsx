@@ -52,7 +52,7 @@ const HeroCardSlider = () => {
         centeredSlides={false}
         loop={true}
         speed={600}
-        style={{ overflow: 'visible' }}
+        // style={{ overflow: 'visible' }}
         onSwiper={(swiper) => {
           // Assign navigation manually after refs are set
           swiper.params.navigation.prevEl = prevRef.current;

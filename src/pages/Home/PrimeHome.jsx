@@ -36,7 +36,7 @@ export default function PrimeHome() {
            </h2>
            <p className="purple_col text-2xl font-semibold py-10">Every Match Counts — Every Player Matters </p>
            <Link
-               to={"#"}
+               to={`/${id}/lobby`}
                className="ml-[-0.5rem] hover:opacity-70 duration-300"
              >
                <img src={GetStartedBtn} alt="" style={{width:'21rem'}}/>                    
