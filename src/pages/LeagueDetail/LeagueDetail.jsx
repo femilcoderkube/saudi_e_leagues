@@ -17,7 +17,10 @@ import { useEffect, useState } from "react";
 import { socket } from "../../app/socket/socket.js";
 import { generateTailwindGradient, SOCKET } from "../../utils/constant.js";
 import { useSelector, useDispatch } from "react-redux";
-import { setLeagueData, setJoinStatus } from "../../app/slices/leagueDetail/leagueDetailSlice";
+import {
+  setLeagueData,
+  setJoinStatus,
+} from "../../app/slices/leagueDetail/leagueDetailSlice";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import { baseURL } from "../../utils/axios.js";
 import RegistrationModel from "./RegustrationModel.jsx";
@@ -31,9 +34,15 @@ const LeagueDetail = () => {
   const [registrationModal, setRegistrationModal] = useState(false);
 
   useEffect(() => {
-    if (!isSocketConnected) {
-      socket.connect();
-      return;
+    if (isSocketConnected) {
+      // Listen for LEAGUEUPDATE
+      socket.on(SOCKET.LEAGUEUPDATE, (data) => {
+        console.log("League Update Data:", data);
+        dispatch(setLeagueData(data.data));
+      });
+
+      // Emit JOINLEAGUE once
+      socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
     }
 
     const handleLeagueUpdate = (data) => {
@@ -63,10 +72,12 @@ const LeagueDetail = () => {
 
   return (
     <main className="flex-1 pt-[0.5rem] lobby_page--wrapper">
+      {/* --- dashboard main content back groud --- */}
       <div
         className="main_con--bg absolute top-0 left-0 w-full h-full bg-no-repeat"
         style={{ backgroundSize: "100rem" }}
       ></div>
+      {/* <Outlet /> */}
       {registrationModal && (
         <RegistrationModel
           setRegistrationModal={setRegistrationModal}
@@ -79,6 +90,7 @@ const LeagueDetail = () => {
         <GamingLoader />
       ) : (
         <div className="sd_content-wrapper max-w-full">
+          {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex items-center">
             <div className="sd_content-left flex items-center gap-10 pb-6 mr-[-1rem] relative">
               <div className="sd_com--logo cursor-hide">
@@ -110,10 +122,14 @@ const LeagueDetail = () => {
               <div className="player_score mt-4 flex flex-col items-start h-full ml-[-2.5rem]">
                 <div className="online_user p-4 relative">
                   <h3 className="text-base text-[#63A3D2]">Online Users</h3>
-                  <span className="text-2xl font-bold">{leagueData?.activeUsers}</span>
+                  <span className="text-2xl font-bold">
+                    {leagueData?.listOfParticipants || 0}
+                  </span>
                 </div>
                 <div className="participants p-4 text-right w-full pt-0 relative top-[-1.45rem]">
-                  <span className="text-2xl font-bold">{leagueData?.totalRegistrations || 0}</span>
+                  <span className="text-2xl font-bold">
+                    {leagueData?.totalRegistrations || 0}
+                  </span>
                   <h3 className="text-base text-[#D27D63]">Participants</h3>
                 </div>
               </div>
@@ -136,11 +152,19 @@ const LeagueDetail = () => {
                       style={{ width: "3rem" }}
                     />
                     <div className="sd_game--con text-center sd_before">
-                      <p className="text-base mb-2 text-[#E38D9D] font-medium">Game</p>
-                      <h4 className="text-xl font-bold">{leagueData.game.name || ""}</h4>
+                      <p className="text-base mb-2 text-[#E38D9D] font-medium">
+                        Game
+                      </p>
+                      <h4 className="text-xl font-bold">
+                        {leagueData.game.name || ""}
+                      </h4>
                     </div>
                     <div className="game_theam--bg sd_before">
-                      <img src={valorant_bg} alt="" style={{ width: "10.75rem" }} />
+                      <img
+                        src={valorant_bg}
+                        alt=""
+                        style={{ width: "10.75rem" }}
+                      />
                     </div>
                   </Link>
                 </div>
@@ -150,14 +174,20 @@ const LeagueDetail = () => {
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
                   >
                     <img
-                      src={`${baseURL}/api/v1/${leagueData?.platform?.logo || ""}`}
+                      src={`${baseURL}/api/v1/${
+                        leagueData?.platform?.logo || ""
+                      }`}
                       alt=""
                       className="absolute left-8"
                       style={{ width: "3rem" }}
                     />
                     <div className="sd_game--con text-center">
-                      <p className="text-base mb-2 purple_col font-medium">Platform</p>
-                      <h4 className="text-xl font-bold">{leagueData?.platform?.name || ""}</h4>
+                      <p className="text-base mb-2 purple_col font-medium">
+                        Platform
+                      </p>
+                      <h4 className="text-xl font-bold">
+                        {leagueData?.platform?.name || ""}
+                      </h4>
                     </div>
                   </Link>
                 </div>
@@ -173,9 +203,13 @@ const LeagueDetail = () => {
                       style={{ width: "3rem" }}
                     />
                     <div className="sd_game--con text-center">
-                      <p className="text-base mb-2 purple_col font-medium">Team Size</p>
+                      <p className="text-base mb-2 purple_col font-medium">
+                        Team Size
+                      </p>
                       <h4 className="text-xl font-bold">
-                        {leagueData.playersPerTeam || 1}v{leagueData.playersPerTeam || 1}
+                        {" "}
+                        {leagueData.playersPerTeam || 1}v
+                        {leagueData.playersPerTeam || 1}{" "}
                       </h4>
                     </div>
                   </Link>
@@ -187,7 +221,10 @@ const LeagueDetail = () => {
                   style={{ position: "absolute" }}
                 >
                   <defs>
-                    <clipPath id="game_polygon_clip" clipPathUnits="objectBoundingBox">
+                    <clipPath
+                      id="game_polygon_clip"
+                      clipPathUnits="objectBoundingBox"
+                    >
                       <path
                         d="
                         M0.3649,0.0833
@@ -230,12 +267,16 @@ const LeagueDetail = () => {
                     </div>
                     <div className="use_con text-left flex flex-col gap-1">
                       <span className="text-lg">Just Larry</span>
-                      <span className="user_id text-md block text-[#87C9F2]">@larrry</span>
+                      <span className="user_id text-md block text-[#87C9F2]">
+                        @larrry
+                      </span>
                     </div>
                   </div>
                 </div>
                 <div className="sd_score--con horizontal_center absolute">
-                  <h2 className="text-[2rem] !font-extrabold grad_text-clip">253.081</h2>
+                  <h2 className="text-[2rem] !font-extrabold grad_text-clip">
+                    253.081
+                  </h2>
                 </div>
                 <ScoreTicker />
               </div>
@@ -245,7 +286,12 @@ const LeagueDetail = () => {
               {user?._id ? (
                 leagueData.isJoined ? (
                   <div className="mb-8 relative">
-                    <img src={Que_btn} alt="" style={{ width: "30.5rem" }} />
+                    {" "}
+                    <img
+                      src={Que_btn}
+                      alt=""
+                      style={{ width: "30.5rem" }}
+                    />{" "}
                   </div>
                 ) : (
                   <div
@@ -256,10 +302,18 @@ const LeagueDetail = () => {
                   </div>
                 )
               ) : (
-                <div className="lobby_btn mb-8 relative">
-                  <img src={need_btn} alt="" style={{ width: "30.5rem" }} />
+                <div className=" lobby_btn mb-8 relative">
+                  {" "}
+                  <img
+                    src={need_btn}
+                    alt=""
+                    style={{ width: "30.5rem" }}
+                  />{" "}
                 </div>
               )}
+
+              {/* --- Timeline-card HTML Block Start --- */}
+
               <TimelineCard timeLine={leagueData?.timeLine || {}} />
               <PopUp />
             </div>

@@ -303,6 +303,9 @@ const WizardSteps = ({
         return (
           <div className="space-y-4 mt-7">
             <div className="text-start w-full pr-4">
+              <label className="flex gap-4 items-center h-10  rounded cursor-pointer">
+                Date of Birth
+              </label>
               <Field
                 type="date"
                 name="dateOfBirth"

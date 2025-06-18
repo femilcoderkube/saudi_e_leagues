@@ -12,6 +12,8 @@ const SelectGame = ({ onGameChange }) => {
   const [filteredGames, setFilteredGames] = useState([]);
   const [selectedGame, setSelectedGame] = useState(null); // Track selected game
 
+  const dropdownRef = useRef(null);
+
   const toggleDropdown = () => setOpen(!isOpen);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,6 +31,19 @@ const SelectGame = ({ onGameChange }) => {
     }
   }, [searchTerm, games]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleItemClick = (game) => {
     setSelectedGame(game); // Set selected game (null for "None")
     if (onGameChange) {
@@ -42,7 +57,7 @@ const SelectGame = ({ onGameChange }) => {
   };
 
   return (
-    <div className="select_game-wrap relative">
+    <div className="select_game-wrap relative" ref={dropdownRef}>
       <div className="sel_game-menu sd_before sd_after relative polygon_border inline-block">
         <Link
           to={"#"}
@@ -154,30 +169,35 @@ const SelectGame = ({ onGameChange }) => {
             <div className="sd_game--wrap">
               <div className="sd_game--link scroll-bar" id="style-3">
                 {/* None Option */}
-                <Link
-                  to={"#"}
-                  className="dropdown-item py-3 px-5 block hover:opacity-50 duration-400 font_oswald flex gap-4 cursor-pointer"
-                  onClick={() => handleItemClick(null)}
-                >
-                  <span className="text-xl purple_light">None</span>
-                </Link>
+
                 {filteredGames.length > 0 ? (
-                  filteredGames.map((item) => (
+                  <>
                     <Link
-                      key={item._id}
                       to={"#"}
                       className="dropdown-item py-3 px-5 block hover:opacity-50 duration-400 font_oswald flex gap-4 cursor-pointer"
-                      onClick={() => handleItemClick(item)}
+                      onClick={() => handleItemClick(null)}
                     >
-                      <img
-                        src={`${baseURL}/api/v1/${item.logo}`}
-                        alt={item.name}
-                        className="game-logo-svg"
-                        style={{ width: "2rem" }}
-                      />
-                      <span className="text-xl purple_light">{item.name}</span>
+                      <span className="text-xl purple_light">None</span>
                     </Link>
-                  ))
+                    {filteredGames.map((item) => (
+                      <Link
+                        key={item._id}
+                        to={"#"}
+                        className="dropdown-item py-3 px-5 block hover:opacity-50 duration-400 font_oswald flex gap-4 cursor-pointer"
+                        onClick={() => handleItemClick(item)}
+                      >
+                        <img
+                          src={`${baseURL}/api/v1/${item.logo}`}
+                          alt={item.name}
+                          className="game-logo-svg"
+                          style={{ width: "2rem" }}
+                        />
+                        <span className="text-xl purple_light">
+                          {item.name}
+                        </span>
+                      </Link>
+                    ))}
+                  </>
                 ) : (
                   <div className="py-3 px-5 text-xl purple_light font_oswald">
                     No games found

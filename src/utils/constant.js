@@ -10,7 +10,7 @@ export const items = [
     hoverSrc: prime_hover,
     docId: "68466ecb6e8d3444d55e85f1",
     id: "prime",
-    headerIcon : Prime,
+    headerIcon: Prime,
   },
 ];
 export function getDayFromISO(dateString) {
@@ -36,7 +36,7 @@ export function generateTailwindGradient(hexColor) {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   };
 
-  const darkShade = 'rgba(55, 16, 31, 1)';
+  const darkShade = "rgba(55, 16, 31, 1)";
   const midShade = toRGBA(hexColor);
 
   // Return Tailwind-compatible inline background string
@@ -68,4 +68,3 @@ export const cardVariants = {
   exit: { opacity: 0, scale: 0.8, y: -20, transition: { duration: 0.3 } },
 };
 // Output: bg-[linear-gradient(141deg, rgba(55, 16, 31, 1) 0%, rgba(157, 45, 58, 1) 100%)]
-
