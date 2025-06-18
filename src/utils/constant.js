@@ -43,6 +43,29 @@ export function generateTailwindGradient(hexColor) {
   const gradient = `linear-gradient(141deg, ${darkShade} 0%, ${midShade} 100%)`;
   return `bg-[${gradient}]`;
 }
+// Animation variants for the card wrapper
+export const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1, // Stagger the animation of children
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      staggerChildren: 0.05,
+      staggerDirection: -1, // Exit in reverse order
+    },
+  },
+};
 
+// Animation variants for individual cards
+export const cardVariants = {
+  hidden: { opacity: 0, scale: 0.8, y: 20 },
+  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.3 } },
+  exit: { opacity: 0, scale: 0.8, y: -20, transition: { duration: 0.3 } },
+};
 // Output: bg-[linear-gradient(141deg, rgba(55, 16, 31, 1) 0%, rgba(157, 45, 58, 1) 100%)]
 

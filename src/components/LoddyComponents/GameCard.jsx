@@ -3,32 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion"; // Import framer-motion
 import CardTopLeftShap from "../../assets/images/card_top_left-shap.png";
 import { baseURL } from "../../utils/axios.js";
-import { getDayFromISO, getMonthAbbreviation } from "../../utils/constant.js";
+import { cardVariants, containerVariants, getDayFromISO, getMonthAbbreviation } from "../../utils/constant.js";
 
-// Animation variants for the card wrapper
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1, // Stagger the animation of children
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      staggerChildren: 0.05,
-      staggerDirection: -1, // Exit in reverse order
-    },
-  },
-};
 
-// Animation variants for individual cards
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.8, y: 20 },
-  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.3 } },
-  exit: { opacity: 0, scale: 0.8, y: -20, transition: { duration: 0.3 } },
-};
 
 const GameCard = ({ leagues }) => {
   const { id } = useParams();
