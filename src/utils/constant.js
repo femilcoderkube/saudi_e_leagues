@@ -26,6 +26,9 @@ export const SOCKET = {
   LEAVELEAGUE: "LeaveLeague",
   LEAGUEUPDATE: "leagueUpdate",
   LEAGUEJOIN: "leagueJoin",
+  READYTOPLAY : "readyToPlay",
+  NOTREADYTOPLAY: "notReadyToPlay",
+  JOINMATCH: "joinMatch",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range

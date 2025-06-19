@@ -23,6 +23,7 @@ html {
 
 h1,h2,h3,h4,h5,h6{
     font-weight: 500;
+    cursor: hidden;
 }
 @media(min-width:1280px) {
     html {
@@ -33,6 +34,9 @@ h1,h2,h3,h4,h5,h6{
 button:focus{
     outline: 0;
     box-shadow: none;
+}
+div{
+    cursor: hidden;
 }
 
 /* ==== Common CSS Start ==== */
@@ -125,4 +129,11 @@ body{
 {
     border-radius: 0.25rem;
     background: #2a2f64;
+}
+
+.header_teture--bg:before{
+    background-image: url(../images/headerBG.png);
+    background-size: 100%;
+    background-position: center;
+    pointer-events: none;
 }

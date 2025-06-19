@@ -24,11 +24,12 @@ const LoginModal = ({ showModal, setShowModal }) => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const res = await dispatch(loginUser(values)).unwrap();
-      if (!res.success) {
+      if (res.status == 203) {
         toast.error(res.message || "Login failed");
         return;
+      } else {
+        toast.success(res.message);
       }
-      toast.success(res.message);
       setShowModal(false);
     } catch (error) {
       toast.error(error.message || "Login failed");

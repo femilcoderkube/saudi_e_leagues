@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../Header/Header";
 import { Link, Outlet } from "react-router-dom";
 import WizardSteps from "./WizardSteps";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../app/slices/auth/registerSlice";
 import LoginModal from "../Modal/LoginModal";
 import { toast } from "react-toastify";
@@ -14,6 +14,7 @@ export default function Main({ selectedItem }) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
 
   const initialValues = {
     username: "",
@@ -29,6 +30,7 @@ export default function Main({ selectedItem }) {
     favoriteGame: null,
     profilePicture: null,
   };
+  console.log("isMatchMaking---",isMatchMaking)
 
   const handleSubmit = async (values) => {
     try {
@@ -73,7 +75,7 @@ export default function Main({ selectedItem }) {
         setShowModal={setShowModal}
         setShowLoginModal={setShowLoginModal}
       />
-      <main className="flex-1 px-[4.5rem] game_card_main--con border-t border-[#7b7ed02e] mt-5 pt-7">
+      <main className={`flex-1 game_card_main--con border-t border-[#7b7ed02e]  ${isMatchMaking ? "" : "px-[4.5rem] mt-5 pt-7 "}`}>
         {showModal && (
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />

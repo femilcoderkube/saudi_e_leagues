@@ -11,7 +11,7 @@ import star_of_week from "../../assets/images/star_of_week.png";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
 import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
 import LeaderBoard from "../../components/LobbyPageComp/LeaderBoardTable.jsx";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import PopUp from "../../components/ModalPopUp/Popup.jsx";
 import { useEffect, useState } from "react";
 import { socket } from "../../app/socket/socket.js";
@@ -26,13 +26,13 @@ import { baseURL } from "../../utils/axios.js";
 import RegistrationModel from "./RegustrationModel.jsx";
 
 const LeagueDetail = () => {
-  const { lId } = useParams();
+  const { lId , id} = useParams();
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { leagueData } = useSelector((state) => state.leagues);
   const user = useSelector((state) => state.auth.user);
   const [registrationModal, setRegistrationModal] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (isSocketConnected) {
       // Listen for LEAGUEUPDATE
@@ -65,7 +65,7 @@ const LeagueDetail = () => {
       socket.off(SOCKET.LEAGUEUPDATE, handleLeagueUpdate);
       // console.log("Leaving league:", lId);
       socket.emit(SOCKET.LEAVELEAGUE, { Lid: lId });
-      socket.disconnect();
+      // socket.disconnect();
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [isSocketConnected, lId, user?._id, dispatch]);
@@ -123,7 +123,7 @@ const LeagueDetail = () => {
                 <div className="online_user p-4 relative">
                   <h3 className="text-base text-[#63A3D2]">Online Users</h3>
                   <span className="text-2xl font-bold">
-                    {leagueData?.listOfParticipants || 0}
+                    {leagueData?.activeUsers || 0}
                   </span>
                 </div>
                 <div className="participants p-4 text-right w-full pt-0 relative top-[-1.45rem]">
@@ -285,7 +285,9 @@ const LeagueDetail = () => {
             <div className="sd_content-right w-full">
               {user?._id ? (
                 leagueData.isJoined ? (
-                  <div className="mb-8 relative">
+                  <div className="mb-8 relative"
+                  onClick ={() => navigate(`/${id}/lobby/${leagueData?._id}/finding-match`)}
+                  >
                     {" "}
                     <img
                       src={Que_btn}
@@ -315,7 +317,8 @@ const LeagueDetail = () => {
               {/* --- Timeline-card HTML Block Start --- */}
 
               <TimelineCard timeLine={leagueData?.timeLine || {}} />
-              <PopUp />
+              <PopUp pdf={baseURL + "/api/v1/" + leagueData?.rules} />
+              
             </div>
           </div>
         </div>
