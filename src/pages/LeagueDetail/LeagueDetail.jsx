@@ -281,7 +281,7 @@ const LeagueDetail = () => {
             </div>
             <div className="sd_content-right w-full">
               {user?._id ? (
-                leagueData.joinedUsers.some(users=> user?._id) ? (
+                leagueData.joinedUsers.some(participant=> participant == user?._id) ? (
                   <div className="mb-8 relative"
                   onClick ={() => navigate(`/${id}/lobby/${leagueData?._id}/finding-match`)}
                   >
