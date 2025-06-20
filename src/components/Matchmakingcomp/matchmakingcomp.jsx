@@ -31,7 +31,7 @@ const Matchmaking = () => {
 
   // Show time over popup if 5 min and not joined
   useEffect(() => {
-    if (seconds >= 10 && !hasJoinedMatch) {
+    if (seconds >= 300 && !hasJoinedMatch) {
       socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user._id });
       setShowTimeOver(true);
       setTimerActive(false);
