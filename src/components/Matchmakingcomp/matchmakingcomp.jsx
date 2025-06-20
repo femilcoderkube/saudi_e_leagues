@@ -13,7 +13,7 @@ const Matchmaking = () => {
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef(null);
   const navigate = useNavigate();
-  const { lId } = useParams();
+  const { lId , id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const [showTimeOver, setShowTimeOver] = useState(false);
@@ -47,21 +47,23 @@ const Matchmaking = () => {
     const handleJoinMatch = (data) => {
       console.log("Match Update Data (Match ID):", data);
       setHasJoinedMatch(true);
-      navigate(`/match/${data.matchId}`);
+      navigate(`/${id}/match/${data.matchId}`);
     };
 
     // Only set up socket listeners if connected
     if (isSocketConnected) {
+      console.log("Socket connected, setting up listeners for JOINMATCH");
       socket.on(SOCKET.JOINMATCH, handleJoinMatch);
 
       if (user?._id) {
+        console.log("Socket connected, setting up called for READYTOPLAY");
         socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user._id });
       }
     }
 
     // Cleanup: remove socket listener and reset match page state
     return () => {
-      socket.off(SOCKET.JOINMATCH, handleJoinMatch);
+      // socket.off(SOCKET.JOINMATCH, handleJoinMatch);
       dispatch(setMatchPage(false));
     };
     // eslint-disable-next-line
