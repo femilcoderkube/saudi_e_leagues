@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../app/socket/socket";
 import { SOCKET } from "../../utils/constant";
 import { setMatchPage } from "../../app/slices/constState/constStateSlice";
+import TimeOverPopup from "../ModalPopUp/TimeOverPopup";
 
 const Matchmaking = () => {
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -15,14 +16,27 @@ const Matchmaking = () => {
   const { lId } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  const [showTimeOver, setShowTimeOver] = useState(false);
+  const [hasJoinedMatch, setHasJoinedMatch] = useState(false);
+  const [timerActive, setTimerActive] = useState(true);
 
   // Timer effect
   useEffect(() => {
+    if (!timerActive) return;
     intervalRef.current = setInterval(() => {
       setSeconds((prev) => prev + 1);
     }, 1000);
     return () => clearInterval(intervalRef.current);
-  }, []);
+  }, [timerActive]);
+
+  // Show time over popup if 5 min and not joined
+  useEffect(() => {
+    if (seconds >= 10 && !hasJoinedMatch) {
+      socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user._id });
+      setShowTimeOver(true);
+      setTimerActive(false);
+    }
+  }, [seconds, hasJoinedMatch]);
 
   // Set match page and handle sockets
   useEffect(() => {
@@ -31,7 +45,8 @@ const Matchmaking = () => {
 
     // Handler for JOINMATCH event
     const handleJoinMatch = (data) => {
-      console.log("Match Update Data:", data);
+      console.log("Match Update Data (Match ID):", data);
+      setHasJoinedMatch(true);
     };
 
     // Only set up socket listeners if connected
@@ -66,8 +81,29 @@ const Matchmaking = () => {
     return `${m}:${s}`;
   };
 
+  const handleTimeOverYes = () => {
+    setShowTimeOver(false);
+    setSeconds(0);
+    setTimerActive(true);
+    if (isSocketConnected && user?._id) {
+      socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user._id });
+    }
+  };
+
+  const handleTimeOverNo = () => {
+    setShowTimeOver(false);
+    if (isSocketConnected && user?._id) {
+      socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user._id });
+      dispatch(setMatchPage(false));
+      navigate(-1);
+    }
+  };
+
   return (
     <div className="match-makingwp overflow-hidden">
+      {showTimeOver && (
+        <TimeOverPopup onYes={handleTimeOverYes} onNo={handleTimeOverNo} />
+      )}
       <div className="grediant"></div>
       <img
         className="left-league absolute -top-60 left-14 opacity-[8%]"

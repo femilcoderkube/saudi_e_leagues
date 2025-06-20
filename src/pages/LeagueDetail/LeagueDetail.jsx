@@ -71,12 +71,9 @@ const LeagueDetail = () => {
   }, [isSocketConnected, lId, user?._id, dispatch]);
 
   return (
-    <main className="flex-1 pt-[0.5rem] lobby_page--wrapper">
+    <main className="flex-1 lobby_page--wrapper">
       {/* --- dashboard main content back groud --- */}
-      <div
-        className="main_con--bg absolute top-0 left-0 w-full h-full bg-no-repeat"
-        style={{ backgroundSize: "100rem" }}
-      ></div>
+      <div className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat" style={{backgroundSize:'100%'}}></div>
       {/* <Outlet /> */}
       {registrationModal && (
         <RegistrationModel
