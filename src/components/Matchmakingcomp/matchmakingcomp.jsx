@@ -47,6 +47,7 @@ const Matchmaking = () => {
     const handleJoinMatch = (data) => {
       console.log("Match Update Data (Match ID):", data);
       setHasJoinedMatch(true);
+      navigate(`/match/${data.matchId}`);
     };
 
     // Only set up socket listeners if connected

@@ -86,7 +86,7 @@ const LeagueDetail = () => {
       {!leagueData ? (
         <GamingLoader />
       ) : (
-        <div className="sd_content-wrapper max-w-full">
+        <div className="sd_content-wrapper max-w-full pt-7">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex items-center">
             <div className="sd_content-left flex items-center gap-10 pb-6 mr-[-1rem] relative">
@@ -281,7 +281,7 @@ const LeagueDetail = () => {
             </div>
             <div className="sd_content-right w-full">
               {user?._id ? (
-                leagueData.isJoined ? (
+                leagueData.joinedUsers.some(users=> user?._id) ? (
                   <div className="mb-8 relative"
                   onClick ={() => navigate(`/${id}/lobby/${leagueData?._id}/finding-match`)}
                   >

@@ -2,8 +2,12 @@ import React from "react";
 
 import "../../assets/css/Matchmaking.css";
 import Matchmakingcomp from "../../components/Matchmakingcomp/matchmakingcomp.jsx";
+import { useParams } from "react-router-dom";
+import { items } from "../../utils/constant.js";
 
 const MatchMaking = () => {
+
+
   return (
     // <div className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20">
 

@@ -53,11 +53,8 @@ const Lobby = () => {
 
   return (
     <>
-      <div
-        className="main_con--bg absolute top-0 left-0 w-full h-full bg-no-repeat"
-        style={{ backgroundSize: "100rem" }}
-      ></div>
-      <div className="sd_slect_game--wrapper relative">
+      <div className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat" style={{backgroundSize:'100%'}}></div>
+      <div className="sd_slect_game--wrapper relative mt-5 ">
         <div className="select_game-header flex items-center justify-between">
           <SelectGame onGameChange={handleGameChange} />
           <div className="game_list--view flex sd_radial-bg items-center rounded-xl p-2">

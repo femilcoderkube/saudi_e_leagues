@@ -1,6 +1,7 @@
 import prime_icon from "../assets/images/prime_icon.svg";
 import prime_hover from "../assets/images/prime_hover.svg";
 import { Prime } from "../components/ui/svg";
+import LargePrime from '../assets/images/large_prime.png';
 
 export const items = [
   {
@@ -8,6 +9,7 @@ export const items = [
     path: "/:id",
     src: prime_icon,
     hoverSrc: prime_hover,
+    logo : LargePrime,
     docId: "68466ecb6e8d3444d55e85f1",
     id: "prime",
     headerIcon: Prime,

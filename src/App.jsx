@@ -16,7 +16,8 @@ import "./App.css";
 import Lobby from "./pages/Lobby/Lobby.jsx";
 import PrimeHome from "./pages/Home/PrimeHome.jsx";
 import LeagueDetail from "./pages/LeagueDetail/LeagueDetail.jsx";
-import MatchMaking from "./pages/LeagueDetail/MatchMacking.jsx";
+import MatchMaking from "./pages/Matchs/MatchMacking.jsx";
+import MatchDetail from "./pages/Matchs/MatchDetail.jsx";
 
 function App() {
   const [selectedItem, setSelectedItem] = useState("PrimeHome");
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<Navigate to="/prime" />} />
           <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
             <Route index element={<PrimeHome />} />
+            <Route path="match/:mId" element={<MatchDetail />} />
             <Route path="lobby" element={<Lobby />} />
             <Route path="lobby/:lId" element={<LeagueDetail />} />
             <Route path="lobby/:lId/finding-match" element={<MatchMaking />} />

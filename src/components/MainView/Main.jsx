@@ -75,7 +75,7 @@ export default function Main({ selectedItem }) {
         setShowModal={setShowModal}
         setShowLoginModal={setShowLoginModal}
       />
-      <main className={`flex-1 game_card_main--con border-t border-[#7b7ed02e]  ${isMatchMaking ? "" : "px-[4.5rem] mt-5 pt-7 "}`}>
+      <main className={`flex-1 game_card_main--con border-t border-[#7b7ed02e]  ${isMatchMaking ? "" : "px-[4.5rem] pt-7 "}`}>
         {showModal && (
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
