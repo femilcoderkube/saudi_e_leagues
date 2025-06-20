@@ -194,7 +194,7 @@ export const Queuebtn = () => (
 
 // <<< --------------------- Match Making Score Card SVG ------------------------ >>>
     
-import User1 from "../../../assets/images/User_1.png";
+import User1 from "../../../assets/images/user_1.png";
 import User2 from "../../../assets/images/user_2.png";
 import User3 from "../../../assets/images/user_3.png";
 import User4 from "../../../assets/images/user_4.png";
