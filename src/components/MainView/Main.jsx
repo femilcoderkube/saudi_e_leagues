@@ -71,7 +71,10 @@ export default function Main({ selectedItem }) {
   };
 
   return (
-    <div className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20">
+    <div
+      className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20"
+      style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+    >
       <Header
         selectedItem={selectedItem}
         setShowModal={setShowModal}
