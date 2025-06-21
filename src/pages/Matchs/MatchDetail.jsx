@@ -109,6 +109,9 @@ const MatchDetail = () => {
 
   useEffect(()=>{
     dispatch(setMatchPage(true));
+    return () => {
+      dispatch(setMatchPage(false));
+    }
   },[])
 
   useEffect(() => {

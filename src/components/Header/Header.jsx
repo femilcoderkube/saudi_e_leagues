@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import "../../assets/css/main_content.css";
 import "../../assets/css/select_game.css";
 import {
@@ -28,12 +28,14 @@ const Header = ({
   setSubmitModal,
 }) => {
   const { leagueData } = useSelector((state) => state.leagues);
+  const navigator = useNavigate();
   const { matchData } = useSelector((state) => state.matchs);
   const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
   const user = localStorage.getItem("user");
-  const { mId } = useParams();
+  let params = useParams();
+
   if (isMatchMaking) {
-    if (mId) {
+    if (params.mId) {
       return (
         <header
           className="header_teture--bg text-white  py-[1.35rem] px-[4.5rem] flex items-center justify-between sd_before before:w-full before:h-full relative "
@@ -43,7 +45,12 @@ const Header = ({
           }}
         >
           <div className="flex items-center ">
-            <div className="back_arrow absolute left-[5rem] scale-x-[-1]">
+            <div
+              className="back_arrow absolute left-[5rem] scale-x-[-1]"
+              onClick={() => {
+                navigator(`/${params.id}/lobby/${matchData?.league?._id}`);
+              }}
+            >
               <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
             </div>
             <h2 className="text-[2rem] !font-black uppercase block ml-12">
@@ -84,7 +91,6 @@ const Header = ({
       );
     }
   } else {
-    let params = useParams();
     let path = new Set(window.location.pathname.split("/")).has("lobby");
 
     if (params.id) {
