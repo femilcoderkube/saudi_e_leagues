@@ -196,9 +196,9 @@ const MatchDetail = () => {
                     <div class="flex flex-col space-y-1 h-full justify-end">
                     {chatData?.map((chat, index) => (
 
-                        <div class={`block ${user?._id  == chat.senderId ? "send_msg-con" : "reply_msg-con" }`}>
+                        <div class={`block ${user?._id  == chat.senderId?._id ? "send_msg-con" : "reply_msg-con" }`}>
                           <div class="px-2 py-1 rounded-lg">
-                            <p className="text-white text-lg font-light "><span className={`!font-bold ${user?._id  == chat.senderId ? "text-[#AAC5FF]" : "text-[#F8D372]" }`}>{chat?.senderId?.username} : </span>{chat.msg}</p>
+                            <p className="text-white text-lg font-light "><span className={`!font-bold ${user?._id  == chat.senderId?._id ? "text-[#AAC5FF]" : "text-[#F8D372]" }`}>{chat?.senderId?.username} : </span>{chat.msg}</p>
                           </div>
                         </div>
                     ))}                   
