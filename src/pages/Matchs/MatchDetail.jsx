@@ -2,37 +2,30 @@ import React, { useEffect, useState } from "react";
 // // import LargePrime from '../../assets/images/large_prime.png';
 // const LargePrime ={`${baseURL}/api/v1/${leagueData?.partner?.logo || ""}`}
 import "../../assets/css/Matchmaking.css";
-import {
-  FirstPosCard,
-  SecondPosCard,
-  ThirdPosCard,
-  ForthPosCard,
-  FifthPosCard,
-  FirstPosCard_Opp,
-  SecondPosCard_Opp,
-  ThirdPosCard_Opp,
-  ForthPosCard_Opp,
-  FifthPosCard_Opp,
-} from "../../components/ui/svg";
+
 import LikeIcon from "../../assets/images/like_icon.png";
 import DisLikeIcon from "../../assets/images/dislike_icon.png";
 import GoldCrown from "../../assets/images/gold_crown.png";
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
 import { Link, useParams } from "react-router-dom";
-import { items } from "../../utils/constant";
+import { items, SOCKET } from "../../utils/constant";
 import { setMatchPage } from "../../app/slices/constState/constStateSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { socket } from "../../app/socket/socket";
+import { setmatchData } from "../../app/slices/MatchSlice/matchDetailSlice";
+import { getCards } from "./matchCards";
 
 // ✅ Card list component for Team 1
-const TeamOneScoreList = ({ showIndexes = [0,1, 2, 3,4] }) => {
+const TeamOneScoreList = ({ playerPerTeam , players }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-
-  const cards = [FirstPosCard, SecondPosCard, ThirdPosCard, ForthPosCard, FifthPosCard];
+  console.log(playerPerTeam)
+  let cards = getCards(playerPerTeam,false);
+ 
 
   return (
     <ul className="team_one--list flex flex-col gap-5 mt-[-1rem]">
       {cards.map((Card, index) => {
-        if (!showIndexes.includes(index)) return null;
+        // if (!showIndexes.includes(index)) return null;
 
         return (
           <li
@@ -46,7 +39,7 @@ const TeamOneScoreList = ({ showIndexes = [0,1, 2, 3,4] }) => {
                 <img src={GoldCrown} alt="Gold Crown" />
               </span>
             )}
-            <Card />
+            <Card player={players[index]}/>
             <div
               className={`review_score--con sd_before absolute top-[0rem] left-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
                 hoveredIndex === index ? "opacity-100 visible" : "opacity-0 invisible"
@@ -66,14 +59,14 @@ const TeamOneScoreList = ({ showIndexes = [0,1, 2, 3,4] }) => {
   );
 };
 
-const TeamTwoScoreList = ({ showIndexes = [0,1, 2, 3,4] }) => {
+const TeamTwoScoreList = ({playerPerTeam , players}) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const cardsV2 = [FirstPosCard_Opp, SecondPosCard_Opp, ThirdPosCard_Opp, ForthPosCard_Opp, FifthPosCard_Opp];
+  let cards = getCards(playerPerTeam,true);
 
   return (
     <ul className="team_two--list flex flex-col gap-5 mt-[-1rem]">
-      {cardsV2.map((Card, index) => {
-        if (!showIndexes.includes(index)) return null;
+      {cards.map((Card, index) => {
+        // if (!showIndexes.includes(index)) return null;
         return (
           <li
             key={index}
@@ -86,7 +79,7 @@ const TeamTwoScoreList = ({ showIndexes = [0,1, 2, 3,4] }) => {
                 <img src={GoldCrown} alt="Gold Crown" />
               </span>
             )}
-            <Card />
+            <Card player={players[index]} />
             <div
               className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
                 hoveredIndex === index ? "opacity-100 visible" : "opacity-0 invisible"
@@ -107,13 +100,39 @@ const TeamTwoScoreList = ({ showIndexes = [0,1, 2, 3,4] }) => {
 };
 
 const MatchDetail = () => {
+  const {id ,mId}= useParams();
+  const isSocketConnected = useSelector((state) => state.socket.isConnected);
+  const { matchData } = useSelector((state) => state.matchs);
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(setMatchPage(true));
   },[])
-  const {id ,mId}= useParams();
+
+  useEffect(() => {
+    const handleMatchUpdate = (data) => {
+      console.log("match Update Data:", data);
+      dispatch(setmatchData(data.data));
+    };
+    if (isSocketConnected) {
+      // Listen for LEAGUEUPDAT
+      socket.on(SOCKET.MATCHUPDATE, handleMatchUpdate);
+
+      // Emit JOINLEAGUE once
+      socket.emit(SOCKET.STARTMATCH, { matchId: mId });
+    }
+
+
+    return () => {
+      socket.off(SOCKET.MATCHUPDATE, handleMatchUpdate);
+      // console.log("Leaving league:", lId);
+
+    };
+  }, [isSocketConnected,mId, dispatch]);
+
+
   const partner = items.find((item) => item.id === id);
   const LargePrime = partner.logo;
+  
   return (
 
       <main
@@ -127,7 +146,7 @@ const MatchDetail = () => {
               <h2 className="grad_head--txt max-w-full text-[4rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
                 Team 1
               </h2>
-              <TeamOneScoreList />
+              <TeamOneScoreList playerPerTeam={matchData?.league?.playersPerTeam} players={matchData?.team1} />
             </div>
 
             {/* Score */}
@@ -197,7 +216,7 @@ const MatchDetail = () => {
               <h2 className="grad_head--txt max-w-full text-[4rem] pr-[2rem] grad_text-clip font_oswald tracking-wide !font-medium text-right leading-none uppercase">
                 Team 2
               </h2>
-              <TeamTwoScoreList />
+              <TeamTwoScoreList playerPerTeam={matchData?.league?.playersPerTeam} players={matchData?.team2}/>
             </div>
           </div>
         </section>

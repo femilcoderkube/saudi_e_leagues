@@ -34,30 +34,26 @@ const LeagueDetail = () => {
   const [registrationModal, setRegistrationModal] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    if (isSocketConnected) {
-      // Listen for LEAGUEUPDATE
-      socket.on(SOCKET.LEAGUEUPDATE, (data) => {
-        console.log("League Update Data:", data);
-        dispatch(setLeagueData(data.data));
-      });
-
-      // Emit JOINLEAGUE once
-      socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
-    }
 
     const handleLeagueUpdate = (data) => {
       console.log("League Update Data:", data);
       dispatch(setLeagueData(data.data));
     };
+    if (isSocketConnected) {
+      // Listen for LEAGUEUPDATE
+      socket.on(SOCKET.LEAGUEUPDATE, handleLeagueUpdate);
+
+      // Emit JOINLEAGUE once
+      socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
+    }
+
+   
 
     const handleBeforeUnload = () => {
       if (isSocketConnected) {
         socket.emit(SOCKET.LEAVELEAGUE, { Lid: lId });
       }
     };
-
-    socket.on(SOCKET.LEAGUEUPDATE, handleLeagueUpdate);
-    socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
 
     window.addEventListener("beforeunload", handleBeforeUnload);
 

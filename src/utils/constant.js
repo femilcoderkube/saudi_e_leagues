@@ -31,6 +31,8 @@ export const SOCKET = {
   READYTOPLAY : "readyToPlay",
   NOTREADYTOPLAY: "notReadyToPlay",
   JOINMATCH: "joinMatch",
+  MATCHUPDATE : "matchUpdate",
+  STARTMATCH: "startMatch",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range

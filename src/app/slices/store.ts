@@ -5,6 +5,7 @@ import socketSlice from "./socket/socketSlice";
 import leaguesSlice from "./leagueDetail/leagueDetailSlice";
 import gameSlice from "./game/gamesSlice";
 import constStateSlice from "./constState/constStateSlice";
+import Matchslice from "./MatchSlice/matchDetailSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
     socket: socketSlice,
     leagues: leaguesSlice,
     games: gameSlice,
-    constState : constStateSlice
+    constState : constStateSlice,
+    matchs : Matchslice
   },
 });
 
