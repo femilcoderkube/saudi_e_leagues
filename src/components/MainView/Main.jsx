@@ -79,7 +79,7 @@ export default function Main({ selectedItem }) {
         setSubmitModal={setSubmitModal}
       />
       <main
-        className={`flex-1 game_card_main--con border-t border-[#7b7ed02e]  ${
+        className={`flex-1 game_card_main--con    ${
           isMatchMaking ? "" : "px-[4.5rem] pt-7 "
         }`}
       >

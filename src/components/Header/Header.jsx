@@ -145,7 +145,7 @@ const Header = ({
     }
 
     return (
-      <header className="text-white pt-[1.4rem] px-[4.5rem] flex items-center justify-between ">
+      <header className="text-white pt-[1.4rem] px-[4.5rem] flex items-center justify-between">
         {/* === BreadCrumb HTML Block start ==== */}
         <nav className="breadcrumb flex-grow-1">
           <ul className="breadcrumb-links flex items-center gap-5">

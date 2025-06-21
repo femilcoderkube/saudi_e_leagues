@@ -1,192 +1,221 @@
-:root{
-    --white-col: #F4F7FF;
-    --purple-col: #7B7ED0;
-    --aside-link-col: #BABDFF;
-    --sky-col: #3ECCF3;
+:root {
+  --white-col: #f4f7ff;
+  --purple-col: #7b7ed0;
+  --aside-link-col: #babdff;
+  --sky-col: #3eccf3;
 
-    /* --- font variables --- */
+  /* --- font variables --- */
 
-    --text-size-16: 16px;
-    --text-size-18: 18px;
-    --text-size-20: 1.25rem;
-    --text-size-24: 24px;
-    --text-size-48px: 48px;
+  --text-size-16: 16px;
+  --text-size-18: 18px;
+  --text-size-20: 1.25rem;
+  --text-size-24: 24px;
+  --text-size-48px: 48px;
 }
 
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 16px;
+  font-size: 16px;
 }
 
-h1,h2,h3,h4,h5,h6{
-    font-weight: 500;
-    cursor: hidden;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  cursor: hidden;
 }
-@media(min-width:1280px) {
-    html {
-        font-size: 0.833vw;
-    }
+@media (min-width: 1280px) {
+  html {
+    font-size: 0.833vw;
+  }
 }
 
-button:focus{
-    outline: 0;
-    box-shadow: none;
+button:focus {
+  outline: 0;
+  box-shadow: none;
 }
-div{
-    cursor: hidden;
+div {
+  cursor: hidden;
 }
 
 /* ==== Common CSS Start ==== */
 
-.sd_before:before,.sd_after:after{
-    content: '';
-    position: absolute;    
+.sd_before:before,
+.sd_after:after {
+  content: "";
+  position: absolute;
 }
 
-.vertical_center:before{
-    top: 50%;
-    transform: translateY(-50%);
+.vertical_center:before {
+  top: 50%;
+  transform: translateY(-50%);
 }
-.horizontal_center:before,.horizontal_center{
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.con_center:before{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+.horizontal_center:before,
+.horizontal_center {
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.font_oswald{
-    font-family: "Oswald", sans-serif;
+.con_center:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.font_oswald {
+  font-family: "Oswald", sans-serif;
 }
 
 /* === Color Common Class CSS Start === */
 
-.purple_col{
-    color: var(--purple-col);
+.purple_col {
+  color: var(--purple-col);
 }
 
-.purple_light{
-    color: var(--aside-link-col);
+.purple_light {
+  color: var(--aside-link-col);
 }
 
-.sky_col{
-    color: var(--sky-col);
+.sky_col {
+  color: var(--sky-col);
 }
 
-.sd_radial-bg{
-    background: linear-gradient(180deg,rgba(45, 46, 109, 1) 0%, rgba(34, 35, 86, 1) 100%);
-    box-shadow: inset 0px 1px 4px rgb(87 89 195 / 20%);
-}   
-
-.yellow_grad-bg{
-    background: -webkit-linear-gradient(270deg, rgba(255, 200, 112, 1) 0%, rgba(255, 178, 55, 1) 27%, rgba(255, 169, 32, 1) 63%, rgb(255 119 61) 100%);
+.sd_radial-bg {
+  background: linear-gradient(
+    180deg,
+    rgba(45, 46, 109, 1) 0%,
+    rgba(34, 35, 86, 1) 100%
+  );
+  box-shadow: inset 0px 1px 4px rgb(87 89 195 / 20%);
 }
 
-.grad_text-clip{
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
+.yellow_grad-bg {
+  background: -webkit-linear-gradient(
+    270deg,
+    rgba(255, 200, 112, 1) 0%,
+    rgba(255, 178, 55, 1) 27%,
+    rgba(255, 169, 32, 1) 63%,
+    rgb(255 119 61) 100%
+  );
+}
+
+.grad_text-clip {
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
 }
 
 /* ==== Common CSS Start ==== */
 
-body{
-    background: linear-gradient(0deg,rgba(1, 2, 29, 1) 0%, rgba(2, 3, 41, 1) 100%);
-    transition: .2s ease;
-    color: #fff !important;
-    font-family: "Cairo", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 1.4;
-    overflow: hidden;
+body {
+  background: linear-gradient(
+    0deg,
+    rgba(1, 2, 29, 1) 0%,
+    rgba(2, 3, 41, 1) 100%
+  );
+  transition: 0.2s ease;
+  color: #fff !important;
+  font-family: "Cairo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.4;
+  overflow: hidden;
 }
 
-.grad_head--txt{
-    background: -webkit-linear-gradient(270deg, rgba(123, 126, 208, 0.4) 0%, rgba(123, 126, 208, 0) 80%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
+.grad_head--txt {
+  background: -webkit-linear-gradient(
+    270deg,
+    rgba(123, 126, 208, 0.4) 0%,
+    rgba(123, 126, 208, 0) 80%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
 }
-
 
 /* === Custom ScrollBar === */
 
-.custom_scroll::-webkit-scrollbar
-{
-    width: 0.25rem;
-    background-color: #505070;
+.custom_scroll::-webkit-scrollbar {
+  width: 0.25rem;
+  background-color: #505070;
 }
 
-.custom_scroll::-webkit-scrollbar-thumb
-{
-    border-radius: 0.25rem;
-    background: #2a2f64;
+.custom_scroll::-webkit-scrollbar-thumb {
+  border-radius: 0.25rem;
+  background: #2a2f64;
 }
 
-.header_teture--bg:before{
-    background-image: url(../images/headerBG.png);
-    background-size: 100%;
-    background-position: center;
-    pointer-events: none;
+.header_teture--bg:before {
+  background-image: url(../images/headerBG.png);
+  background-size: 100%;
+  background-position: center;
+  pointer-events: none;
 }
 
 .sd_main-content {
-    overflow-y: auto;
-    height: 100vh;
-    overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
-.header_teture--bg:before{
-    background-image: url(../images/headerBG.png);
-    background-size: 100%;
-    background-position: center;
-    pointer-events: none;
+.header_teture--bg:before {
+  background-image: url(../images/headerBG.png);
+  background-size: 100%;
+  background-position: center;
+  pointer-events: none;
 }
 .gradiant_bg:before {
-    background: rgb(9 158 178 / 48%);
-    width: 7.5rem;
-    height: 11.25rem;
-    z-index: -1;
-    filter: blur(71px);
+  background: rgb(9 158 178 / 48%);
+  width: 7.5rem;
+  height: 11.25rem;
+  z-index: -1;
+  filter: blur(71px);
 }
 
 /* --- Submit Score Button CSS Start --- */
 .submit_score-btn .btn_polygon-link,
-.submit_score-btn.polygon_border:before,.submit_score-btn.polygon_border:after{
-    background: linear-gradient(3deg, rgba(67, 75, 233, 1) 0%, rgba(70, 181, 249, 1) 110%);
+.submit_score-btn.polygon_border:before,
+.submit_score-btn.polygon_border:after {
+  background: linear-gradient(
+    3deg,
+    rgba(67, 75, 233, 1) 0%,
+    rgba(70, 181, 249, 1) 110%
+  );
 }
 
-.submit_score-btn.polygon_border:before,.submit_score-btn.polygon_border:after{
-    width: 5.25rem;
+.submit_score-btn.polygon_border:before,
+.submit_score-btn.polygon_border:after {
+  width: 5.25rem;
 }
 
-.submit_score-btn .btn_polygon-link:before,.submit_score-btn .btn_polygon-link:after {
-    opacity: 0.8;
-    width: 1.75rem;
-    mix-blend-mode: plus-lighter;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: auto;
+.submit_score-btn .btn_polygon-link:before,
+.submit_score-btn .btn_polygon-link:after {
+  opacity: 0.8;
+  width: 1.75rem;
+  mix-blend-mode: plus-lighter;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
 }
 
-.submit_score-btn .btn_polygon-link:before{
-    background-image: url(../images/right_submit_bg.png);
+.submit_score-btn .btn_polygon-link:before {
+  background-image: url(../images/right_submit_bg.png);
 }
 
-.submit_score-btn .btn_polygon-link:after{
-    transform: scaleX(1);
-    background-image: url(../images/submit_bg.png);
+.submit_score-btn .btn_polygon-link:after {
+  transform: scaleX(1);
+  background-image: url(../images/submit_bg.png);
 }
 
 .submit_score-btn .btn_polygon-link {
-    width: 12.5rem;
-    height: 3.5rem;
+  width: 12.5rem;
+  height: 3.5rem;
 }
