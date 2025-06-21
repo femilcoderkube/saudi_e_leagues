@@ -171,7 +171,7 @@ const MatchDetail = () => {
   return (
 
       <main
-        className="flex-1 pt-[0.5rem] match_page--wrapper h-full"
+        className="flex-1 pt-[0.5rem] match_page--wrapper h-full "
         style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
       >
         <section className="match_team--wrap flex pt-[6rem] justify-between items-end pl-[7.5rem] pr-[7.5rem] ">

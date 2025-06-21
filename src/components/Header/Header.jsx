@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import "../../assets/css/main_content.css";
 import "../../assets/css/select_game.css";
@@ -31,11 +31,17 @@ const Header = ({
   const navigator = useNavigate();
   const { matchData } = useSelector((state) => state.matchs);
   const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
-  const user = localStorage.getItem("user");
+  const user = useSelector((state) => state.auth.user);
   let params = useParams();
+  useEffect(() => {},[matchData, user])
 
   if (isMatchMaking) {
     if (params.mId) {
+      // let isCaptain = matchData?.team1?.find(participant => participant.userId?._id === user?._id) || matchData?.team2?.find(participant => participant.userId?._id === user?._id);
+      console.log("matchData team1", matchData?.team1[0]?.participant?.userId?._id);
+      console.log("user _id", user?._id);
+      console.log("matchData team2", matchData?.team2[0]?.participant?.userId?._id);
+      let isCaptain = (matchData?.team1[0]?.participant?.userId?._id == user?._id || matchData?.team2[0]?.participant?.userId?._id == user?._id);
       return (
         <header
           className="header_teture--bg text-white  py-[1.35rem] px-[4.5rem] flex items-center justify-between sd_before before:w-full before:h-full relative "
@@ -57,13 +63,47 @@ const Header = ({
               {matchData?.league?.title || "Finding Matchmaking"}
             </h2>
           </div>
-          <div className="flex items-center gap-20">
-            <SubmitScoreBtn
+          <div className="flex items-center gap-15">
+            {(user && isCaptain )&& <SubmitScoreBtn
               onClick={(e) => {
                 e.preventDefault();
                 setSubmitModal(true);
               }}
-            />
+            />}
+             {!user && (
+          <div className="sd_uaser-menu flex ">
+            <div className="game_status_tab--wrap">
+              <div>
+                <button
+                  className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300`}
+                  style={{ width: "10rem", height: "4rem" }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowLoginModal(true);
+                  }}
+                >
+                  Log In
+                </button>
+              </div>
+            </div>
+            <div className="game_status_tab--wrap">
+              <div className="game_status--tab rounded-xl">
+                <button
+                  className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300
+             active-tab polygon_border
+            `}
+                  style={{ width: "10rem", height: "4rem" }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowModal(true);
+                  }}
+                >
+                  Registration
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
             {user && (
               <div className="sd_uaser-menu">
                 <Dropdown user={user} />

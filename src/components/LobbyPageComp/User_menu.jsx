@@ -13,7 +13,6 @@ const data = [
 const Dropdown = ({ user }) => {
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
-  user = user !== undefined && JSON.parse(user);
   const toggleDropdown = () => setOpen(!isOpen);
 
   const handleItemClick = (id) => {
