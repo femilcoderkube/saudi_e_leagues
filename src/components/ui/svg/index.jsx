@@ -6162,7 +6162,7 @@ export const FirstPosCard_gold = (player) => (
     letterSpacing="0em"
   >
     <tspan x={210.562} y={69.856}>
-      {"@" + player.player.participant.gameId}
+      {"@" + player.player.userId?.username}
     </tspan>
   </text>
       <defs>
@@ -7267,7 +7267,7 @@ export const FirstPosCard_gold = (player) => (
     letterSpacing="0em"
   >
     <tspan x={210.562} y={69.856}>
-      {"@" + player.player.participant.gameId}
+      {"@" + player.player.participant.userId?.username}
     </tspan>
   </text>
       <path
@@ -8343,7 +8343,7 @@ export const FirstPosCard_gold = (player) => (
     letterSpacing="0em"
   >
     <tspan x={210.562} y={69.856}>
-      {"@" + player.player.participant.gameId}
+      {"@" + player.player.participant.userId.username}
     </tspan>
   </text>
       <path
@@ -9419,7 +9419,7 @@ export const FirstPosCard_gold = (player) => (
     letterSpacing="0em"
   >
     <tspan x={210.562} y={69.856}>
-      {"@" + player.player.participant.gameId}
+      {"@" + player.player.participant.userId.username}
     </tspan>
   </text>
       <mask
@@ -10521,7 +10521,7 @@ export const FirstPosCard_gold = (player) => (
     letterSpacing="0em"
   >
     <tspan x={210.562} y={69.856}>
-      {"@" + player.player.participant.gameId}
+      {"@" + player.player.userId?.username}
     </tspan>
   </text>
       <path
@@ -12679,7 +12679,7 @@ export const FirstPosCard_gold = (player) => (
     letterSpacing="0em"
   >
     <tspan x={210.562} y={69.856}>
-      {"@" + player.player.participant.gameId}
+      {"@" + player.player.participant.userId.username}
     </tspan>
   </text>
       <g filter="url(#filter2_d_3079_266)">
@@ -12700,7 +12700,7 @@ export const FirstPosCard_gold = (player) => (
     letterSpacing="0em"
   >
     <tspan x={213.484} y={43.32}>
-      {player.player.participant.userId.username}
+      {player.player.participant.gameId}
     </tspan>
   </text>
       <path
