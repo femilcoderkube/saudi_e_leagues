@@ -23,7 +23,6 @@ html {
 
 h1,h2,h3,h4,h5,h6{
     font-weight: 500;
-    cursor: hidden;
 }
 @media(min-width:1280px) {
     html {
@@ -34,9 +33,6 @@ h1,h2,h3,h4,h5,h6{
 button:focus{
     outline: 0;
     box-shadow: none;
-}
-div{
-    cursor: hidden;
 }
 
 /* ==== Common CSS Start ==== */
@@ -116,6 +112,58 @@ body{
     line-height: 1;
 }
 
+.sd_main-content {
+    overflow-y: auto;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.header_teture--bg:before{
+    background-image: url(../images/headerBG.png);
+    background-size: 100%;
+    background-position: center;
+    pointer-events: none;
+}
+.gradiant_bg:before {
+    background: rgb(9 158 178 / 48%);
+    width: 7.5rem;
+    height: 11.25rem;
+    z-index: -1;
+    filter: blur(71px);
+}
+
+/* --- Submit Score Button CSS Start --- */
+.submit_score-btn .btn_polygon-link,
+.submit_score-btn.polygon_border:before,.submit_score-btn.polygon_border:after{
+    background: linear-gradient(3deg, rgba(67, 75, 233, 1) 0%, rgba(70, 181, 249, 1) 110%);
+}
+
+.submit_score-btn.polygon_border:before,.submit_score-btn.polygon_border:after{
+    width: 5.25rem;
+}
+
+.submit_score-btn .btn_polygon-link:before,.submit_score-btn .btn_polygon-link:after {
+    opacity: 0.8;
+    width: 1.75rem;
+    mix-blend-mode: plus-lighter;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.submit_score-btn .btn_polygon-link:before{
+    background-image: url(../images/right_submit_bg.png);
+}
+
+.submit_score-btn .btn_polygon-link:after{
+    transform: scaleX(1);
+    background-image: url(../images/submit_bg.png);
+}
+
+.submit_score-btn .btn_polygon-link {
+    width: 12.5rem;
+    height: 3.5rem;
+}
 
 /* === Custom ScrollBar === */
 
@@ -129,11 +177,4 @@ body{
 {
     border-radius: 0.25rem;
     background: #2a2f64;
-}
-
-.header_teture--bg:before{
-    background-image: url(../images/headerBG.png);
-    background-size: 100%;
-    background-position: center;
-    pointer-events: none;
 }
