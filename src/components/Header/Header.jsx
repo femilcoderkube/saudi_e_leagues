@@ -125,7 +125,7 @@ const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
     }
 
     return (
-      <header className="text-white pt-[1.4rem] px-[4.5rem] flex items-center justify-between items-center">
+      <header className="text-white pt-[1.4rem] px-[4.5rem] flex items-center justify-between ">
         {/* === BreadCrumb HTML Block start ==== */}
         <nav className="breadcrumb flex-grow-1">
           <ul className="breadcrumb-links flex items-center gap-5">
@@ -169,7 +169,7 @@ const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
         </div>
 
         {!user && (
-          <div className="sd_uaser-menu flex">
+          <div className="sd_uaser-menu flex pb-[1.4rem]">
             <div className="game_status_tab--wrap">
               <div>
                 <button
@@ -204,7 +204,7 @@ const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
         )}
 
         {user && (
-          <div className="sd_uaser-menu">
+          <div className="sd_uaser-menu pb-[1.4rem]">
             <Dropdown user={user} />
           </div>
         )}

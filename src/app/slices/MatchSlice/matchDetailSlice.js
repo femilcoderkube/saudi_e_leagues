@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   matchData: null,
   chatData : [],
-  isTeamOne : false
+  isTeamOne : false,
+  isMyMatch : false,
 
 };
 
@@ -19,6 +20,10 @@ const matchDetailSlice = createSlice({
       state.isTeamOne = action.payload;
       state.error = null;
     },
+    setIsMyMatch: (state, action) => {
+      state.isMyMatch = action.payload;
+      state.error = null;
+    },
     setChatData: (state, action) => {
       state.chatData = action.payload;
       state.error = null;
@@ -30,6 +35,6 @@ const matchDetailSlice = createSlice({
   },
 });
 
-export const { setmatchData,clearmatchDetail, setChatData, setIsTeamOne } = matchDetailSlice.actions;
+export const { setmatchData,clearmatchDetail, setIsMyMatch,setChatData, setIsTeamOne } = matchDetailSlice.actions;
 
 export default matchDetailSlice.reducer; 

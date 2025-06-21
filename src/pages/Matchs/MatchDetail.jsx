@@ -11,12 +11,12 @@ import { items, SOCKET } from "../../utils/constant";
 import { setMatchPage } from "../../app/slices/constState/constStateSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../app/socket/socket";
-import { setChatData, setIsTeamOne, setmatchData } from "../../app/slices/MatchSlice/matchDetailSlice";
+import { setChatData, setIsMyMatch, setIsTeamOne, setmatchData } from "../../app/slices/MatchSlice/matchDetailSlice";
 import { getCards } from "./matchCards";
 import GamingLoader from "../../components/Loader/loader";
 
 // ✅ Card list component for Team 1
-const TeamOneScoreList = ({ playerPerTeam , players }) => {
+const TeamOneScoreList = ({ playerPerTeam , players ,isMyMatch, isTeamOne}) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   console.log(playerPerTeam)
   let cards = getCards(playerPerTeam,false);
@@ -40,7 +40,7 @@ const TeamOneScoreList = ({ playerPerTeam , players }) => {
               </span>
             )}
             <Card player={players[index]}/>
-            <div
+           {(isMyMatch && isTeamOne) && <div
               className={`review_score--con sd_before absolute top-[0rem] left-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
                 hoveredIndex === index ? "opacity-100 visible" : "opacity-0 invisible"
               }`}
@@ -51,7 +51,7 @@ const TeamOneScoreList = ({ playerPerTeam , players }) => {
               <Link to="#" className="like_icon hover:opacity-70 duration-400">
                 <img src={DisLikeIcon} alt="Dislike" style={{ width: "2.625rem" }} />
               </Link>
-            </div>
+            </div>}
           </li>
         );
       })}
@@ -59,7 +59,7 @@ const TeamOneScoreList = ({ playerPerTeam , players }) => {
   );
 };
 
-const TeamTwoScoreList = ({playerPerTeam , players}) => {
+const TeamTwoScoreList = ({playerPerTeam , players ,isMyMatch ,isTeamOne}) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   let cards = getCards(playerPerTeam,true);
 
@@ -80,7 +80,7 @@ const TeamTwoScoreList = ({playerPerTeam , players}) => {
               </span>
             )}
             <Card player={players[index]} />
-            <div
+            {(isMyMatch && !isTeamOne) && <div
               className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
                 hoveredIndex === index ? "opacity-100 visible" : "opacity-0 invisible"
               }`}
@@ -91,7 +91,7 @@ const TeamTwoScoreList = ({playerPerTeam , players}) => {
               <Link to="#" className="like_icon hover:opacity-70 duration-400">
                 <img src={DisLikeIcon} alt="Dislike" style={{ width: "2.625rem" }} />
               </Link>
-            </div>
+            </div>}
           </li>
         );
       })}
@@ -102,7 +102,7 @@ const TeamTwoScoreList = ({playerPerTeam , players}) => {
 const MatchDetail = () => {
   const {id ,mId}= useParams();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { matchData , chatData ,isTeamOne } = useSelector((state) => state.matchs);
+  const { matchData , chatData ,isTeamOne ,isMyMatch } = useSelector((state) => state.matchs);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [messageInput, setMessageInput] = useState("");
@@ -117,8 +117,9 @@ const MatchDetail = () => {
       if(data.isMatchUpdate == true){
       dispatch(setmatchData(data.data));
       dispatch(setIsTeamOne(matchData?.team1?.some(player => player.participant.userId._id === user?._id)));
+      dispatch(setIsMyMatch((matchData?.team1?.some(player => player.participant.userId._id === user?._id)) || (matchData?.team2?.some(player => player.participant.userId._id === user?._id)) ));
       }else {
-        dispatch(setChatData(data.data));
+        dispatch(setChatData(data.data.reverse()));
       }
     };
     if (isSocketConnected) {
@@ -134,7 +135,7 @@ const MatchDetail = () => {
       // console.log("Leaving league:", lId);
 
     };
-  }, [isSocketConnected,mId,user, dispatch]);
+  }, [isSocketConnected,mId,user, dispatch,isMyMatch,isTeamOne]);
 
   const OnMsgSend = (msg) => {
     if (isSocketConnected) {
@@ -167,30 +168,31 @@ const MatchDetail = () => {
   return (
 
       <main
-        className="flex-1 pt-[0.5rem] match_page--wrapper"
+        className="flex-1 pt-[0.5rem] match_page--wrapper h-full"
         style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
       >
-        <section className="match_team--wrap flex pt-[6rem] justify-between items-end pl-[7.5rem] pr-[7.5rem]">
+        <section className="match_team--wrap flex pt-[6rem] justify-between items-end pl-[7.5rem] pr-[7.5rem] ">
           <div className="team_score--con flex justify-between w-full gap-10">
             {/* Team 1 */}
             <div className="team_score--wrap">
               <h2 className="grad_head--txt max-w-full text-[4rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
                 Team 1
               </h2>
-              <TeamOneScoreList playerPerTeam={matchData?.league?.playersPerTeam} players={matchData?.team1} />
+              <TeamOneScoreList playerPerTeam={matchData?.league?.playersPerTeam} players={matchData?.team1} isMyMatch={isMyMatch} isTeamOne={isTeamOne}/>
             </div>
 
             {/* Score */}
             <div className="match_center-con flex-1">
                
               <h2 className="text-[4rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center text-center tracking-wider !font-black pb-[4rem]">
-                <span>12</span>:<span>9</span>
+                <span>-</span>:<span>-</span>
               </h2>
 
               <div className="prime_logo--con flex justify-center sd_before gradiant_bg relative">
                 <img src={LargePrime} alt="" style={{width:'17.5rem'}} />
               </div>
 
+             { isMyMatch &&
               <div class="chat_block--con pt-[4rem] h-[25rem] sd_before relative  flex flex-col max-w-lg mx-auto">
                 <div class="flex-1 chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4 ">
                     <div class="flex flex-col space-y-1 h-full justify-end">
@@ -223,7 +225,7 @@ const MatchDetail = () => {
                       </svg>
                     </button>
                 </div>    
-              </div>
+              </div>}
    
             </div>
 
@@ -232,7 +234,7 @@ const MatchDetail = () => {
               <h2 className="grad_head--txt max-w-full text-[4rem] pr-[2rem] grad_text-clip font_oswald tracking-wide !font-medium text-right leading-none uppercase">
                 Team 2
               </h2>
-              <TeamTwoScoreList playerPerTeam={matchData?.league?.playersPerTeam} players={matchData?.team2}/>
+              <TeamTwoScoreList playerPerTeam={matchData?.league?.playersPerTeam} players={matchData?.team2} isMyMatch={isMyMatch} isTeamOne={isTeamOne}/>
             </div>
           </div>
         </section>
