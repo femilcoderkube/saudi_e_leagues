@@ -23,6 +23,7 @@ html {
 
 h1,h2,h3,h4,h5,h6{
     font-weight: 500;
+    cursor: hidden;
 }
 @media(min-width:1280px) {
     html {
@@ -33,6 +34,9 @@ h1,h2,h3,h4,h5,h6{
 button:focus{
     outline: 0;
     box-shadow: none;
+}
+div{
+    cursor: hidden;
 }
 
 /* ==== Common CSS Start ==== */
@@ -112,6 +116,28 @@ body{
     line-height: 1;
 }
 
+
+/* === Custom ScrollBar === */
+
+.custom_scroll::-webkit-scrollbar
+{
+    width: 0.25rem;
+    background-color: #505070;
+}
+
+.custom_scroll::-webkit-scrollbar-thumb
+{
+    border-radius: 0.25rem;
+    background: #2a2f64;
+}
+
+.header_teture--bg:before{
+    background-image: url(../images/headerBG.png);
+    background-size: 100%;
+    background-position: center;
+    pointer-events: none;
+}
+
 .sd_main-content {
     overflow-y: auto;
     height: 100vh;
@@ -163,18 +189,4 @@ body{
 .submit_score-btn .btn_polygon-link {
     width: 12.5rem;
     height: 3.5rem;
-}
-
-/* === Custom ScrollBar === */
-
-.custom_scroll::-webkit-scrollbar
-{
-    width: 0.25rem;
-    background-color: #505070;
-}
-
-.custom_scroll::-webkit-scrollbar-thumb
-{
-    border-radius: 0.25rem;
-    background: #2a2f64;
 }

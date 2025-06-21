@@ -49,59 +49,6 @@ header {
     z-index: -1;
 }
 
-/* ---- Mach Loading CSS Start ---- */
-.bolt-center {
-    transform: translate(calc(-50% + -0.38rem), 0%);
-}
-
-.one-vs-one {
-    transform: translate(calc(-50% + 2.2rem), -50%);
-}
-
-/***** Slide Left *****/
-.pink-left {
-  animation: pink-left ease-in-out  0.5s;
-  height: 100%;
-}
-@keyframes pink-left {
-  from {
-    left: -100%;
-  }
-  to {
-    left: 0%;
-  }
-}
-
-/***** Slide Right *****/
-.blue-right {
-  animation: blue-right ease-in-out  0.5s;
-  height: 100%;
-}
-@keyframes blue-right {
-  from {
-    right: -100%;
-  }
-  to {
-    right: 0%;
-  }
-}
-
-/***** fade in *****/
-.vs-in {
-  animation: vs-in ease-in-out 0.5s;
-  animation-delay: 0.5s;
-  animation-fill-mode: forwards;
-  opacity: 0;
-}
-@keyframes vs-in{
-  0% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
-}
-
 
 /* ---------------------------------------
 
@@ -173,3 +120,58 @@ li.team_score--card:hover .review_score--con:before {
     background: linear-gradient(90deg,rgba(47, 48, 108, 0.35) 0%, rgba(47, 48, 108, 0.15) 100%);
     box-shadow: inset 0px 3px 0px rgba(47, 48, 108, 0.24);
 }
+
+/* ---- Mach Loading CSS Start ---- */
+.bolt-center {
+    transform: translate(calc(-50% + -0.38rem), 0%);
+}
+
+.one-vs-one {
+    transform: translate(calc(-50% + 2.2rem), -50%);
+}
+
+/***** Slide Left *****/
+.pink-left {
+  animation: pink-left ease-in-out  0.5s;
+  height: 100%;
+}
+@keyframes pink-left {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 0%;
+  }
+}
+
+/***** Slide Right *****/
+.blue-right {
+  animation: blue-right ease-in-out  0.5s;
+  height: 100%;
+}
+@keyframes blue-right {
+  from {
+    right: -100%;
+  }
+  to {
+    right: 0%;
+  }
+}
+
+/***** fade in *****/
+.vs-in {
+  animation: vs-in ease-in-out 0.5s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+@keyframes vs-in{
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+
