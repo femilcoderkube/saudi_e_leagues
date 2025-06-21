@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../app/slices/auth/registerSlice";
 import LoginModal from "../Modal/LoginModal";
 import { toast } from "react-toastify";
+import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp";
 
 export default function Main({ selectedItem }) {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const [submitModal, setSubmitModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -30,7 +32,7 @@ export default function Main({ selectedItem }) {
     favoriteGame: null,
     profilePicture: null,
   };
-  console.log("isMatchMaking---",isMatchMaking)
+  console.log("isMatchMaking---", isMatchMaking);
 
   const handleSubmit = async (values) => {
     try {
@@ -74,8 +76,13 @@ export default function Main({ selectedItem }) {
         selectedItem={selectedItem}
         setShowModal={setShowModal}
         setShowLoginModal={setShowLoginModal}
+        setSubmitModal={setSubmitModal}
       />
-      <main className={`flex-1 game_card_main--con border-t border-[#7b7ed02e]  ${isMatchMaking ? "" : "px-[4.5rem] pt-7 "}`}>
+      <main
+        className={`flex-1 game_card_main--con border-t border-[#7b7ed02e]  ${
+          isMatchMaking ? "" : "px-[4.5rem] pt-7 "
+        }`}
+      >
         {showModal && (
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
@@ -130,6 +137,13 @@ export default function Main({ selectedItem }) {
           <LoginModal
             showModal={showLoginModal}
             setShowModal={setShowLoginModal}
+          />
+        )}
+
+        {submitModal && (
+          <SubmitPopUp
+            showModal={submitModal}
+            handleClose={() => setSubmitModal(false)}
           />
         )}
         <Outlet />

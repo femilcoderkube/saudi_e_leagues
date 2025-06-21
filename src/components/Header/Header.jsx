@@ -21,55 +21,69 @@ import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
 }
 const breadcrumbItems = [];
 
-const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
+const Header = ({
+  selectedItem,
+  setShowModal,
+  setShowLoginModal,
+  setSubmitModal,
+}) => {
   const { leagueData } = useSelector((state) => state.leagues);
-  const { matchData  } = useSelector((state) => state.matchs);
+  const { matchData } = useSelector((state) => state.matchs);
   const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
   const user = localStorage.getItem("user");
-  const {mId} = useParams();
+  const { mId } = useParams();
   if (isMatchMaking) {
-    if(mId){
+    if (mId) {
       return (
-        <header className="header_teture--bg text-white  py-[1.35rem] px-[4.5rem] flex items-center justify-between sd_before before:w-full before:h-full relative "style={{
-          background: "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
-        }}>
+        <header
+          className="header_teture--bg text-white  py-[1.35rem] px-[4.5rem] flex items-center justify-between sd_before before:w-full before:h-full relative "
+          style={{
+            background:
+              "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
+          }}
+        >
           <div className="flex items-center ">
-
-          <div className="back_arrow absolute left-[5rem] scale-x-[-1]">
-          <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
+            <div className="back_arrow absolute left-[5rem] scale-x-[-1]">
+              <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
+            </div>
+            <h2 className="text-[2rem] !font-black uppercase block ml-12">
+              {matchData?.league?.title || "Finding Matchmaking"}
+            </h2>
           </div>
-          <h2 className="text-[2rem] !font-black uppercase block ml-12">
-          {matchData?.league?.title || "Finding Matchmaking"}
-          </h2>
+          <div className="flex items-center gap-20">
+            <SubmitScoreBtn
+              onClick={(e) => {
+                e.preventDefault();
+                setSubmitModal(true);
+              }}
+            />
+            {user && (
+              <div className="sd_uaser-menu">
+                <Dropdown user={user} />
+              </div>
+            )}
           </div>
-          <div className="flex items-center ">
-          {/* <SubmitScoreBtn/> */}
-          {user && (
-          <div className="sd_uaser-menu">
-            <Dropdown user={user} />
-          </div>
-        )}
-        </div>
         </header>
       );
-    }else{
-    return (
-      <header className="header_teture--bg text-white  py-[2.35rem] px-[4.5rem] flex items-center justify-center sd_before before:w-full before:h-full relative "style={{
-        background: "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
-      }}>
-        <div className="back_arrow absolute left-[5rem] scale-x-[-1]">
-          <NextArrow width="0.8rem" height="1.5rem" fill="#7378C0" />
-        </div>
-        <h2 className="text-[2rem] !font-black uppercase text-center block">
-        {leagueData?.title || "Finding Matchmaking"}
-        </h2>
-
-        
-      </header>
-    );
-  }
+    } else {
+      return (
+        <header
+          className="header_teture--bg text-white  py-[2.35rem] px-[4.5rem] flex items-center justify-center sd_before before:w-full before:h-full relative "
+          style={{
+            background:
+              "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
+          }}
+        >
+          <div className="back_arrow absolute left-[5rem] scale-x-[-1]">
+            <NextArrow width="0.8rem" height="1.5rem" fill="#7378C0" />
+          </div>
+          <h2 className="text-[2rem] !font-black uppercase text-center block">
+            {leagueData?.title || "Finding Matchmaking"}
+          </h2>
+        </header>
+      );
+    }
   } else {
-    
     let params = useParams();
     let path = new Set(window.location.pathname.split("/")).has("lobby");
 
