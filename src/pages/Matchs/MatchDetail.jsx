@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-// // import LargePrime from '../../assets/images/large_prime.png';
-// const LargePrime ={`${baseURL}/api/v1/${leagueData?.partner?.logo || ""}`}
+
 import "../../assets/css/Matchmaking.css";
 
 import LikeIcon from "../../assets/images/like_icon.png";
@@ -12,8 +11,9 @@ import { items, SOCKET } from "../../utils/constant";
 import { setMatchPage } from "../../app/slices/constState/constStateSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../app/socket/socket";
-import { setmatchData } from "../../app/slices/MatchSlice/matchDetailSlice";
+import { setChatData, setIsTeamOne, setmatchData } from "../../app/slices/MatchSlice/matchDetailSlice";
 import { getCards } from "./matchCards";
+import GamingLoader from "../../components/Loader/loader";
 
 // ✅ Card list component for Team 1
 const TeamOneScoreList = ({ playerPerTeam , players }) => {
@@ -36,7 +36,7 @@ const TeamOneScoreList = ({ playerPerTeam , players }) => {
           >
             {index === 0 && (
               <span className="gold_crown absolute top-[-3rem] right-8 z-10">
-                <img src={GoldCrown} alt="Gold Crown" />
+                <img src={GoldCrown} alt="Gold Crown" className="h-10" />
               </span>
             )}
             <Card player={players[index]}/>
@@ -76,7 +76,7 @@ const TeamTwoScoreList = ({playerPerTeam , players}) => {
           >
             {index === 0 && (
               <span className="gold_crown absolute top-[-3rem] left-8 z-10">
-                <img src={GoldCrown} alt="Gold Crown" />
+                <img src={GoldCrown} alt="Gold Crown" className="h-10"/>
               </span>
             )}
             <Card player={players[index]} />
@@ -102,8 +102,11 @@ const TeamTwoScoreList = ({playerPerTeam , players}) => {
 const MatchDetail = () => {
   const {id ,mId}= useParams();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { matchData } = useSelector((state) => state.matchs);
+  const { matchData , chatData ,isTeamOne } = useSelector((state) => state.matchs);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const [messageInput, setMessageInput] = useState("");
+
   useEffect(()=>{
     dispatch(setMatchPage(true));
   },[])
@@ -111,12 +114,16 @@ const MatchDetail = () => {
   useEffect(() => {
     const handleMatchUpdate = (data) => {
       console.log("match Update Data:", data);
+      if(data.isMatchUpdate == true){
       dispatch(setmatchData(data.data));
+      dispatch(setIsTeamOne(matchData?.team1?.some(player => player.participant.userId._id === user?._id)));
+      }else {
+        dispatch(setChatData(data.data));
+      }
     };
     if (isSocketConnected) {
       // Listen for LEAGUEUPDAT
       socket.on(SOCKET.MATCHUPDATE, handleMatchUpdate);
-
       // Emit JOINLEAGUE once
       socket.emit(SOCKET.STARTMATCH, { matchId: mId });
     }
@@ -127,11 +134,35 @@ const MatchDetail = () => {
       // console.log("Leaving league:", lId);
 
     };
-  }, [isSocketConnected,mId, dispatch]);
+  }, [isSocketConnected,mId,user, dispatch]);
 
+  const OnMsgSend = (msg) => {
+    if (isSocketConnected) {
+      socket.emit(SOCKET.ONMESSAGE, { roomId: mId, msg:msg ,senderId : user?._id , isTeam1: isTeamOne || false});
+    } else {
+      console.error("Socket not connected");
+    }
+  }
+
+  const handleSendMessage = () => {
+    if (messageInput.trim()) {
+      OnMsgSend(messageInput);
+      setMessageInput("");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
 
   const partner = items.find((item) => item.id === id);
   const LargePrime = partner.logo;
+
+  if(!matchData)
+    return (
+      <GamingLoader/>)
   
   return (
 
@@ -163,48 +194,33 @@ const MatchDetail = () => {
               <div class="chat_block--con pt-[4rem] h-[25rem] sd_before relative  flex flex-col max-w-lg mx-auto">
                 <div class="flex-1 chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4 ">
                     <div class="flex flex-col space-y-1 h-full justify-end">
-                        <div class="block send_msg-con">
-                          <div class="px-2 py-1 rounded-lg">
-                            <p className="text-white text-lg font-light "><span className="!font-bold text-[#AAC5FF]">Rick Moon: </span>Hiking sounds fun. Hope the weather cooperates for you!</p>
-                          </div>
-                        </div>
+                    {chatData?.map((chat, index) => (
 
-                        <div class="block reply_msg-con">
+                        <div class={`block ${user?._id  == chat.senderId ? "send_msg-con" : "reply_msg-con" }`}>
                           <div class="px-2 py-1 rounded-lg">
-                            <p className="text-white text-lg font-light "> <span className="!font-bold text-[#F8D372]">Julia Ber_01: </span>I might go hiking if the weather's nice. Otherwise, just taking it easy</p>
+                            <p className="text-white text-lg font-light "><span className={`!font-bold ${user?._id  == chat.senderId ? "text-[#AAC5FF]" : "text-[#F8D372]" }`}>{chat?.senderId?.username} : </span>{chat.msg}</p>
                           </div>
                         </div>
-                        
-                      
-                        <div class="block send_msg-con">
-                          <div class="px-2 py-1 rounded-lg">
-                            <p className="text-white text-lg font-light "><span className="!font-bold text-[#AAC5FF]">Rick Moon: </span>Hiking sounds fun. Hope the weather cooperates for you!</p>
-                          </div>
-                        </div>
-                  
-                        <div class="block reply_msg-con">
-                          <div class="px-2 py-1 rounded-lg">
-                            <p className="text-white text-lg font-light "> <span className="!font-bold text-[#F8D372]">Julia Ber_01: </span>Thanks! Fingers crossed. Enjoy your day!</p>
-                          </div>
-                        </div>
-                        
-                    
-                        <div class="block send_msg-con">
-                          <div class="px-2 py-1 rounded-lg">
-                            <p className="text-white text-lg font-light "><span className="!font-bold text-[#AAC5FF]">Rick Moon: </span>You too, take care!</p>
-                          </div>
-                        </div>
-                      
+                    ))}                   
                     </div>
                 </div>
                 
                 <div class=" py-2 flex items-center">
-                    <input type="text" placeholder="Chat Message" class="chat_msg-input text-lg placeholder:text-[#7B7ED0] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"></input>
-                    <button class="absolute right-0 text-white cursor-pointer hover:opacity-65 duration-400 rounded-full p-2 ml-2 focus:outline-none">
+                    <input 
+                        type="text" 
+                        placeholder="Chat Message" 
+                        class="chat_msg-input text-lg placeholder:text-[#7B7ED0] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"
+                        value={messageInput}
+                        onChange={(e) => setMessageInput(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                    />
+                    <button 
+                        class="absolute right-0 text-white cursor-pointer hover:opacity-65 duration-400 rounded-full p-2 ml-2 focus:outline-none"
+                        onClick={handleSendMessage}
+                    >
                       <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M2.34505 2.24501C2.49432 2.11534 2.67867 2.03283 2.87482 2.00791C3.07097 1.98299 3.2701 2.01678 3.44705 2.10501L21.447 11.105C21.6135 11.1879 21.7534 11.3156 21.8513 11.4737C21.9491 11.6318 22.001 11.8141 22.001 12C22.001 12.1859 21.9491 12.3682 21.8513 12.5263C21.7534 12.6844 21.6135 12.8121 21.447 12.895L3.44705 21.895C3.27011 21.9835 3.07089 22.0176 2.87459 21.9929C2.6783 21.9681 2.49374 21.8857 2.34429 21.7561C2.19484 21.6264 2.0872 21.4554 2.035 21.2645C1.98281 21.0737 1.98839 20.8717 2.05105 20.684L4.61305 13H10C10.2653 13 10.5196 12.8946 10.7072 12.7071C10.8947 12.5196 11 12.2652 11 12C11 11.7348 10.8947 11.4804 10.7072 11.2929C10.5196 11.1054 10.2653 11 10 11H4.61305L2.05005 3.31601C1.98771 3.12842 1.98237 2.92656 2.0347 2.73594C2.08703 2.54532 2.19568 2.37448 2.34505 2.24501Z" fill="#7B7ED0" fill-opacity="0.4"/>
                       </svg>
-
                     </button>
                 </div>    
               </div>

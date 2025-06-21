@@ -8,11 +8,13 @@ import {
   NextArrow,
   Notification,
   Champions,
+  NextArrow2,
 } from "../ui/svg/index.jsx";
 import country_us from "../../assets/images/country_us.png";
 import Dropdown from "../LobbyPageComp/User_menu.jsx";
 import { items } from "../../utils/constant.js";
 import { useSelector } from "react-redux";
+import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
 
 {
   /* === BreadCrumb items array ==== */
@@ -21,8 +23,36 @@ const breadcrumbItems = [];
 
 const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
   const { leagueData } = useSelector((state) => state.leagues);
+  const { matchData  } = useSelector((state) => state.matchs);
   const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
+  const user = localStorage.getItem("user");
+  const {mId} = useParams();
   if (isMatchMaking) {
+    if(mId){
+      return (
+        <header className="header_teture--bg text-white  py-[1.35rem] px-[4.5rem] flex items-center justify-between sd_before before:w-full before:h-full relative "style={{
+          background: "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
+        }}>
+          <div className="flex items-center ">
+
+          <div className="back_arrow absolute left-[5rem] scale-x-[-1]">
+          <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
+          </div>
+          <h2 className="text-[2rem] !font-black uppercase block ml-12">
+          {matchData?.league?.title || "Finding Matchmaking"}
+          </h2>
+          </div>
+          <div className="flex items-center ">
+          {/* <SubmitScoreBtn/> */}
+          {user && (
+          <div className="sd_uaser-menu">
+            <Dropdown user={user} />
+          </div>
+        )}
+        </div>
+        </header>
+      );
+    }else{
     return (
       <header className="header_teture--bg text-white  py-[2.35rem] px-[4.5rem] flex items-center justify-center sd_before before:w-full before:h-full relative "style={{
         background: "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
@@ -33,10 +63,13 @@ const Header = ({ selectedItem, setShowModal, setShowLoginModal }) => {
         <h2 className="text-[2rem] !font-black uppercase text-center block">
         {leagueData?.title || "Finding Matchmaking"}
         </h2>
+
+        
       </header>
     );
+  }
   } else {
-    const user = localStorage.getItem("user");
+    
     let params = useParams();
     let path = new Set(window.location.pathname.split("/")).has("lobby");
 
