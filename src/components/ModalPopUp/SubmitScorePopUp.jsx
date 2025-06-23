@@ -1,11 +1,94 @@
-import { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import rules_icon from "../../assets/images/rules_icon.png";
 import match_reg from "../../assets/images/match_reg.png";
 import { Link } from "react-router-dom";
 import { Popup_btn } from "../ui/svg/index.jsx";
 import CustomFileUpload from "../ui/svg/UploadFile.jsx";
+import { useState } from "react";
 
 function SubmitPopUp({ showModal, handleClose }) {
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const formik = useFormik({
+    initialValues: {
+      yourScore: "",
+      opponentScore: "",
+      description: "",
+      file: null,
+    },
+    validationSchema: Yup.object({
+      yourScore: Yup.number()
+        .typeError("Please enter a valid number")
+        .required("Your score is required")
+        .min(0, "Score cannot be negative"),
+      opponentScore: Yup.number()
+        .typeError("Please enter a valid number")
+        .required("Opponent score is required")
+        .min(0, "Score cannot be negative"),
+      description: Yup.string(), // Optional field
+      file: Yup.mixed().required("An image is required"),
+    }),
+    onSubmit: (values) => {
+      // Proceed with form submission logic (e.g., API call)
+      console.log("Form submitted:", values);
+      handleClose(); // Close modal on successful submission
+      setPreviewImage(null); // Reset preview after submission
+    },
+  });
+
+  const handleFileChange = (file) => {
+    formik.setFieldValue("file", file); // Update Formik file field
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result); // Set preview image
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewImage(null);
+    }
+  };
+
+  const handleRemove = () => {
+    formik.setFieldValue("file", null); // Clear file in Formik
+    setPreviewImage(null); // Clear preview
+  };
+
+  const handlePointInput = (e) => {
+    const value = e.target.value
+      .replace(/[^0-9.]/g, "")
+      .replace(/(\..*)\./g, "$1");
+    e.target.value = value;
+    formik.handleChange(e);
+  };
+
+  const handlePointKeyDown = (e) => {
+    const allowedKeys = [
+      "Backspace",
+      "Delete",
+      "Tab",
+      "Escape",
+      "Enter",
+      "ArrowLeft",
+      "ArrowRight",
+      ".", // Allow decimal point
+    ];
+    if (
+      allowedKeys.includes(e.key) ||
+      // Allow Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+      (e.ctrlKey && ["a", "c", "v", "x"].includes(e.key.toLowerCase())) ||
+      // Allow only digits (0-9), block minus sign
+      (/^\d$/.test(e.key) && e.key !== "-")
+    ) {
+      return;
+    }
+    e.preventDefault();
+  };
+
+  // Determine if the submit button should be disabled
+  const isSubmitDisabled = !formik.isValid || !formik.dirty;
+
   return (
     <>
       {/* Modal */}
@@ -18,7 +101,7 @@ function SubmitPopUp({ showModal, handleClose }) {
 
           <div className="fixed modal_popup-con inset-0 overflow-y-auto flex justify-center items-center z-50">
             <div className="popup-wrap inline-flex items-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
-              <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-[40rem]">
+              <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-[42rem]">
                 <div className="popup_header px-8 pt-4 flex items-start justify-end mt-3 text-center sm:mt-0 sm:text-left">
                   <button
                     type="button"
@@ -44,14 +127,26 @@ function SubmitPopUp({ showModal, handleClose }) {
                 </div>
 
                 <div className="popup_body space-y-4 px-4 py-3 flex flex-col items-center">
-                  <div className="text-center w-full">
+                  <div className="text-center w-full relative">
                     <input
                       type="text"
-                      id="first_name"
+                      id="your_score"
+                      name="yourScore"
+                      value={formik.values.yourScore}
+                      onChange={handlePointInput}
+                      onKeyDown={handlePointKeyDown}
+                      onBlur={formik.handleBlur}
                       className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
                       placeholder="Your Score"
-                      required
                     />
+                    <span className="text-red-500 text-xl absolute right-10 top-3">
+                      *
+                    </span>
+                    {formik.touched.yourScore && formik.errors.yourScore && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {formik.errors.yourScore}
+                      </p>
+                    )}
                     <svg
                       width="0"
                       height="0"
@@ -73,14 +168,27 @@ function SubmitPopUp({ showModal, handleClose }) {
                     </svg>
                   </div>
 
-                  <div className="text-center w-full">
+                  <div className="text-center w-full relative">
                     <input
                       type="text"
-                      id="first_name"
+                      id="opponent_score"
+                      name="opponentScore"
+                      value={formik.values.opponentScore}
+                      onChange={handlePointInput}
+                      onKeyDown={handlePointKeyDown}
+                      onBlur={formik.handleBlur}
                       className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
                       placeholder="Opponent Score"
-                      required
                     />
+                    <span className="text-red-500 text-xl absolute right-10 top-3">
+                      *
+                    </span>
+                    {formik.touched.opponentScore &&
+                      formik.errors.opponentScore && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {formik.errors.opponentScore}
+                        </p>
+                      )}
                     <svg
                       width="0"
                       height="0"
@@ -104,10 +212,14 @@ function SubmitPopUp({ showModal, handleClose }) {
 
                   <div className="text-center w-full">
                     <textarea
-                      id="message"
+                      id="description"
+                      name="description"
                       rows="4"
-                      class=" sd_custom-input pt-5 pl-4 !h-[5.5rem] pr-3 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
-                      placeholder="Dicription Box..."
+                      value={formik.values.description}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className="sd_custom-input pt-5 pl-4 !h-[5.5rem] pr-3 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
+                      placeholder="Description Box..."
                     ></textarea>
                     <svg
                       width="0"
@@ -131,16 +243,35 @@ function SubmitPopUp({ showModal, handleClose }) {
                   </div>
 
                   <div className="text-center w-[24rem]">
-                    <CustomFileUpload />
+                    <div className="relative">
+                      <CustomFileUpload
+                        hasImage={!!previewImage}
+                        onFileChange={handleFileChange}
+                        previewImage={previewImage}
+                        onRemove={handleRemove}
+                      />
+                      <p className="text-[#7B7ED0] text-sm mt-1">
+                        Upload Photo <span className="text-red-500">*</span>
+                      </p>
+                      {formik.touched.file && formik.errors.file && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {formik.errors.file}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="popup_footer px-12 pt-6">
-                  <Link
-                    to={"#"}
-                    className="popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400"
+                  <button
+                    type="submit"
+                    onClick={formik.handleSubmit}
+                    disabled={isSubmitDisabled}
+                    className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 ${
+                      isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
                   >
                     Submit Score
-                  </Link>
+                  </button>
                   <Popup_btn />
                 </div>
               </div>
