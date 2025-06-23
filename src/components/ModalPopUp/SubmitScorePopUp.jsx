@@ -51,7 +51,7 @@ function SubmitPopUp({ showModal, handleClose }) {
           opponentScore: values.opponentScore,
           description: values.description,
           attachment: uploadResult.data,
-          submittedBy: participantId,
+          submittedBy: user?._id,
         }
         console.log("Submit Data:", data);
         socket.emit(SOCKET.ONSUBMIT, data);
@@ -118,15 +118,6 @@ function SubmitPopUp({ showModal, handleClose }) {
     const isInTeam1 = matchData?.team1?.some(
       (participant) => participant?.participant?.userId?._id === user?._id
     );
-    const isInTeam2 = matchData?.team2?.some(
-      (participant) => participant?.participant?.userId?._id === user?._id
-    );
-    const participantId1 = matchData?.team1?.find(
-      (participant) => participant?.participant?.userId?._id === user?._id)
-      const participantId2 = matchData?.team2?.find(
-        (participant) => participant?.participant?.userId?._id === user?._id)
-
-    setParticipantId(participantId1?._id || participantId2?._id);
     setTeam(isInTeam1 ? "team1" : "team2");
 
   },[])

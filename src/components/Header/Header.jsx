@@ -40,6 +40,11 @@ const Header = ({
       // let isCaptain = matchData?.team1?.find(participant => participant.userId?._id === user?._id) || matchData?.team2?.find(participant => participant.userId?._id === user?._id);
 
       let isCaptain = (matchData?.team1[0]?.participant?.userId?._id == user?._id || matchData?.team2[0]?.participant?.userId?._id == user?._id);
+     if(isCaptain){
+
+     }
+      let IsSubmited  = matchData?.team1ScoreDetails?.submittedBy == user?._id || matchData?.team2ScoreDetails?.submittedBy == user?._id;
+     
    
       return (
         <header
@@ -63,7 +68,7 @@ const Header = ({
             </h2>
           </div>
           <div className="flex items-center gap-15">
-            {(user && isCaptain )&& <SubmitScoreBtn
+            {(user && isCaptain && !IsSubmited )&& <SubmitScoreBtn
               onClick={(e) => {
                 e.preventDefault();
                 setSubmitModal(true);
