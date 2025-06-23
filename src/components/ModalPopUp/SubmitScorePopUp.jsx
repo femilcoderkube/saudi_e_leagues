@@ -5,10 +5,21 @@ import match_reg from "../../assets/images/match_reg.png";
 import { Link } from "react-router-dom";
 import { Popup_btn } from "../ui/svg/index.jsx";
 import CustomFileUpload from "../ui/svg/UploadFile.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadFile } from "../../app/slices/MatchSlice/matchDetailSlice.js";
+import { socket } from "../../app/socket/socket.js";
+import { SOCKET } from "../../utils/constant.js";
 
 function SubmitPopUp({ showModal, handleClose }) {
   const [previewImage, setPreviewImage] = useState(null);
+  const dispatch = useDispatch();
+  // Temporary variable for URL
+  const { fileUploadLoading } = useSelector((state) => state.matchs); // Get loading state from Redux
+  const { matchData } = useSelector((state) => state.matchs);
+  const [team, setTeam] = useState(null);
+  const [participantId, setParticipantId] = useState(null);
+  const user = useSelector((state) => state.auth.user);
 
   const formik = useFormik({
     initialValues: {
@@ -29,11 +40,28 @@ function SubmitPopUp({ showModal, handleClose }) {
       description: Yup.string(), // Optional field
       file: Yup.mixed().required("An image is required"),
     }),
-    onSubmit: (values) => {
-      // Proceed with form submission logic (e.g., API call)
-      console.log("Form submitted:", values);
-      handleClose(); // Close modal on successful submission
-      setPreviewImage(null); // Reset preview after submission
+    onSubmit: async (values) => {
+      try {
+        // Upload the file
+        const uploadResult = await dispatch(uploadFile(values.file)).unwrap();
+        let data = {
+          team:team,
+          matchId: matchData?._id || "", // Use matchData from Redux state
+          yourScore: values.yourScore,
+          opponentScore: values.opponentScore,
+          description: values.description,
+          attachment: uploadResult.data,
+          submittedBy: participantId,
+        }
+        console.log("Submit Data:", data);
+        socket.emit(SOCKET.ONSUBMIT, data);
+        // Clear form and close modal after successful upload
+        formik.resetForm();
+        handleClose();
+      } catch (error) {
+        console.error('File upload failed:', error);
+        // Optionally show error message to user
+      }
     },
   });
 
@@ -86,13 +114,27 @@ function SubmitPopUp({ showModal, handleClose }) {
     e.preventDefault();
   };
 
+  useEffect(()=>{
+    const isInTeam1 = matchData?.team1?.some(
+      (participant) => participant?.participant?.userId?._id === user?._id
+    );
+    const isInTeam2 = matchData?.team2?.some(
+      (participant) => participant?.participant?.userId?._id === user?._id
+    );
+    const participantId1 = matchData?.team1?.find(
+      (participant) => participant?.participant?.userId?._id === user?._id)
+      const participantId2 = matchData?.team2?.find(
+        (participant) => participant?.participant?.userId?._id === user?._id)
+
+    setParticipantId(participantId1?._id || participantId2?._id);
+    setTeam(isInTeam1 ? "team1" : "team2");
+
+  },[])
   // Determine if the submit button should be disabled
-  const isSubmitDisabled = !formik.isValid || !formik.dirty;
+  const isSubmitDisabled = !formik.isValid || !formik.dirty || fileUploadLoading;
 
   return (
-    <>
-      {/* Modal */}
-      {showModal && (
+    
         <>
           <div
             className="fixed inset-0 popup-overlay transition-opacity"
@@ -103,6 +145,11 @@ function SubmitPopUp({ showModal, handleClose }) {
             <div className="popup-wrap inline-flex items-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
               <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-[42rem]">
                 <div className="popup_header px-8 pt-4 flex items-start justify-end mt-3 text-center sm:mt-0 sm:text-left">
+                  <div className="flex items-center gap-2 absolute left-12 top-5">
+                    <span className="text-[#7B7ED0] font-bold text-lg">
+                      {team}
+                    </span>
+                  </div>
                   <button
                     type="button"
                     onClick={handleClose}
@@ -143,7 +190,7 @@ function SubmitPopUp({ showModal, handleClose }) {
                       *
                     </span>
                     {formik.touched.yourScore && formik.errors.yourScore && (
-                      <p className="text-red-500 text-sm mt-1">
+                      <p className="text-red-500 text-sm mt-1 text-left ml-8">
                         {formik.errors.yourScore}
                       </p>
                     )}
@@ -185,7 +232,7 @@ function SubmitPopUp({ showModal, handleClose }) {
                     </span>
                     {formik.touched.opponentScore &&
                       formik.errors.opponentScore && (
-                        <p className="text-red-500 text-sm mt-1">
+                        <p className="text-red-500 text-sm mt-1 text-left ml-8">
                           {formik.errors.opponentScore}
                         </p>
                       )}
@@ -254,7 +301,7 @@ function SubmitPopUp({ showModal, handleClose }) {
                         Upload Photo <span className="text-red-500">*</span>
                       </p>
                       {formik.touched.file && formik.errors.file && (
-                        <p className="text-red-500 text-sm mt-1">
+                        <p className="text-red-500 text-sm mt-1 text-left ml-8">
                           {formik.errors.file}
                         </p>
                       )}
@@ -266,11 +313,33 @@ function SubmitPopUp({ showModal, handleClose }) {
                     type="submit"
                     onClick={formik.handleSubmit}
                     disabled={isSubmitDisabled}
-                    className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 ${
+                    className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 flex items-center justify-center ${
                       isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
                     }`}
                   >
-                    Submit Score
+                    {fileUploadLoading ? (
+                      <svg
+                        className="animate-spin h-5 w-5 mr-2 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                    ) : null}
+                    {fileUploadLoading ? "Uploading..." : "Submit Score"}
                   </button>
                   <Popup_btn />
                 </div>
@@ -296,8 +365,7 @@ function SubmitPopUp({ showModal, handleClose }) {
             </div>
           </div>
         </>
-      )}
-    </>
+      
   );
 }
 

@@ -38,10 +38,9 @@ const Header = ({
   if (isMatchMaking) {
     if (params.mId) {
       // let isCaptain = matchData?.team1?.find(participant => participant.userId?._id === user?._id) || matchData?.team2?.find(participant => participant.userId?._id === user?._id);
-      console.log("matchData team1", matchData?.team1[0]?.participant?.userId?._id);
-      console.log("user _id", user?._id);
-      console.log("matchData team2", matchData?.team2[0]?.participant?.userId?._id);
+
       let isCaptain = (matchData?.team1[0]?.participant?.userId?._id == user?._id || matchData?.team2[0]?.participant?.userId?._id == user?._id);
+   
       return (
         <header
           className="header_teture--bg text-white  py-[1.35rem] px-[4.5rem] flex items-center justify-between sd_before before:w-full before:h-full relative "

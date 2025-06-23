@@ -152,7 +152,6 @@ if(isMatchLoader){
 
         {submitModal && (
           <SubmitPopUp
-            showModal={submitModal}
             handleClose={() => setSubmitModal(false)}
           />
         )}
