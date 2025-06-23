@@ -8,7 +8,7 @@ import { SOCKET } from "../../utils/constant";
 import { setMatchPage } from "../../app/slices/constState/constStateSlice";
 import TimeOverPopup from "../ModalPopUp/TimeOverPopup";
 
-const Matchmaking = () => {
+const Matchmaking = ({setMatchLoading}) => {
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef(null);
@@ -41,13 +41,15 @@ const Matchmaking = () => {
   // Set match page and handle sockets
   useEffect(() => {
     // Set match page state in redux
-    dispatch(setMatchPage(true));
+    
 
     // Handler for JOINMATCH event
     const handleJoinMatch = (data) => {
       console.log("Match Update Data (Match ID):", data);
       setHasJoinedMatch(true);
-      navigate(`/${id}/match/${data.matchId}`);
+      
+      setMatchLoading(data.matchId);
+      
     };
 
     // Only set up socket listeners if connected
@@ -61,11 +63,6 @@ const Matchmaking = () => {
       }
     }
 
-    // Cleanup: remove socket listener and reset match page state
-    return () => {
-      // socket.off(SOCKET.JOINMATCH, handleJoinMatch);
-      dispatch(setMatchPage(false));
-    };
     // eslint-disable-next-line
   }, [isSocketConnected, lId, user?._id, dispatch]);
 

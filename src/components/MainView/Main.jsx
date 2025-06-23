@@ -17,6 +17,7 @@ export default function Main({ selectedItem }) {
   const [previewImage, setPreviewImage] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
+  const isMatchLoader = useSelector((state) => state.constState.isMatchLoader);
 
   const initialValues = {
     username: "",
@@ -69,7 +70,13 @@ export default function Main({ selectedItem }) {
       setLoadingSubmit(false);
     }
   };
-
+if(isMatchLoader){
+  return (
+    <div className="flex items-center justify-center h-screen">
+        <Outlet />
+    </div>
+  )
+}
   return (
     <div className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20">
       <Header
