@@ -26,7 +26,7 @@ import { baseURL } from "../../utils/axios.js";
 import RegistrationModel from "./RegustrationModel.jsx";
 
 const LeagueDetail = () => {
-  const { lId , id} = useParams();
+  const { lId, id } = useParams();
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { leagueData } = useSelector((state) => state.leagues);
@@ -34,7 +34,6 @@ const LeagueDetail = () => {
   const [registrationModal, setRegistrationModal] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-
     const handleLeagueUpdate = (data) => {
       console.log("League Update Data:", data);
       dispatch(setLeagueData(data.data));
@@ -46,8 +45,6 @@ const LeagueDetail = () => {
       // Emit JOINLEAGUE once
       socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
     }
-
-   
 
     const handleBeforeUnload = () => {
       if (isSocketConnected) {
@@ -69,7 +66,10 @@ const LeagueDetail = () => {
   return (
     <main className="flex-1 lobby_page--wrapper">
       {/* --- dashboard main content back groud --- */}
-      <div className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat" style={{backgroundSize:'100%'}}></div>
+      <div
+        className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
+        style={{ backgroundSize: "100%" }}
+      ></div>
       {/* <Outlet /> */}
       {registrationModal && (
         <RegistrationModel
@@ -84,7 +84,7 @@ const LeagueDetail = () => {
       ) : (
         <div className="sd_content-wrapper max-w-full pt-7">
           {/* === League Top Hero Block HTML block Start === */}
-          <div className="sd_top-wraper flex items-center">
+          <div className="sd_top-wraper flex items-center justify-between">
             <div className="sd_content-left flex items-center gap-10 pb-6 mr-[-1rem] relative">
               <div className="sd_com--logo cursor-hide">
                 <img
@@ -277,9 +277,14 @@ const LeagueDetail = () => {
             </div>
             <div className="sd_content-right w-full">
               {user?._id ? (
-                leagueData.joinedUsers.some(participant=> participant == user?._id) ? (
-                  <div className="mb-8 relative"
-                  onClick ={() => navigate(`/${id}/lobby/${leagueData?._id}/finding-match`)}
+                leagueData.joinedUsers.some(
+                  (participant) => participant == user?._id
+                ) ? (
+                  <div
+                    className="mb-8 relative"
+                    onClick={() =>
+                      navigate(`/${id}/lobby/${leagueData?._id}/finding-match`)
+                    }
                   >
                     {" "}
                     <img
@@ -311,7 +316,6 @@ const LeagueDetail = () => {
 
               <TimelineCard timeLine={leagueData?.timeLine || {}} />
               <PopUp pdf={baseURL + "/api/v1/" + leagueData?.rules} />
-              
             </div>
           </div>
         </div>
