@@ -8,12 +8,13 @@ import GoldCrown from "../../assets/images/gold_crown.png";
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
 import { Link, useParams } from "react-router-dom";
 import { items, SOCKET } from "../../utils/constant";
-import { setMatchPage } from "../../app/slices/constState/constStateSlice";
+import { setMatchLoader, setMatchPage } from "../../app/slices/constState/constStateSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../app/socket/socket";
 import { setChatData, setIsMyMatch, setIsTeamOne, setmatchData } from "../../app/slices/MatchSlice/matchDetailSlice";
 import { getCards } from "./matchCards";
 import GamingLoader from "../../components/Loader/loader";
+import MatchLoader from "../../components/Loader/MatchLoader";
 
 // ✅ Card list component for Team 1
 const TeamOneScoreList = ({ playerPerTeam , players ,isMyMatch, isTeamOne}) => {
@@ -106,6 +107,7 @@ const MatchDetail = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [messageInput, setMessageInput] = useState("");
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(()=>{
     dispatch(setMatchPage(true));
@@ -140,6 +142,14 @@ const MatchDetail = () => {
     };
   }, [isSocketConnected,mId,user, dispatch,isMyMatch,isTeamOne]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(false)
+      dispatch(setMatchLoader(false));
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const OnMsgSend = (msg) => {
     if (isSocketConnected) {
       socket.emit(SOCKET.ONMESSAGE, { roomId: mId, msg:msg ,senderId : user?._id , isTeam1: isTeamOne || false});
@@ -163,6 +173,10 @@ const MatchDetail = () => {
 
   const partner = items.find((item) => item.id === id);
   const LargePrime = partner.logo;
+
+  if (showLoader) {
+    return <MatchLoader />;
+  }
 
   if(!matchData)
     return (

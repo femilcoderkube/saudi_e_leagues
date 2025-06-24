@@ -24,8 +24,6 @@ const handleONLoadingEnd = (mId) => {
   useEffect(() => {
     // Set match page state in redux
     dispatch(setMatchPage(true));
-
-
     // Cleanup: remove socket listener and reset match page state
     return () => {
       // socket.off(SOCKET.JOINMATCH, handleJoinMatch);

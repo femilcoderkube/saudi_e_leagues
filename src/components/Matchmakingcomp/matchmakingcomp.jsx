@@ -5,7 +5,7 @@ import cancel_btn from "../../assets/images/cancel-btn.png";
 import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../app/socket/socket";
 import { SOCKET } from "../../utils/constant";
-import { setMatchPage } from "../../app/slices/constState/constStateSlice";
+import { setMatchLoader, setMatchPage } from "../../app/slices/constState/constStateSlice";
 import TimeOverPopup from "../ModalPopUp/TimeOverPopup";
 
 const Matchmaking = ({setMatchLoading}) => {
@@ -45,7 +45,9 @@ const Matchmaking = ({setMatchLoading}) => {
     const handleJoinMatch = (data) => {
       console.log("Match Update Data (Match ID):", data);
       setHasJoinedMatch(true);
-      setMatchLoading(data.matchId);
+      dispatch(setMatchLoader(true));
+      navigate(`/${id}/match/${data.matchId}`);
+      // setMatchLoading(data.matchId);
     };
 
     // Only set up socket listeners if connected

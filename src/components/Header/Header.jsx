@@ -30,19 +30,17 @@ const Header = ({
   const dispatch = useDispatch();
   const { matchData } = useSelector((state) => state.matchs);
   const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
+  const isMatchLoader = useSelector((state) => state.constState.isMatchLoader);
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
   useEffect(() => {},[matchData, user])
 
-  if (isMatchMaking) {
+  if (isMatchMaking || isMatchLoader ) {
     if (params.mId) {
       // let isCaptain = matchData?.team1?.find(participant => participant.userId?._id === user?._id) || matchData?.team2?.find(participant => participant.userId?._id === user?._id);
 
       let isCaptain = (matchData?.team1[0]?.participant?.userId?._id == user?._id || matchData?.team2[0]?.participant?.userId?._id == user?._id);
-     if(isCaptain){
-
-     }
       let IsSubmited  = matchData?.team1ScoreDetails?.submittedBy == user?._id || matchData?.team2ScoreDetails?.submittedBy == user?._id;
      
    
@@ -125,10 +123,10 @@ const Header = ({
               "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
           }}
         >
-          <div className="back_arrow absolute left-[5rem] scale-x-[-1]"
+          {!isMatchLoader && <div className="back_arrow absolute left-[5rem] scale-x-[-1]"
           onClick={() => {navigator(-1)}}>
             <NextArrow width="0.8rem" height="1.5rem" fill="#7378C0"  />
-          </div>
+          </div>}
           <h2 className="text-[2rem] !font-black uppercase text-center block">
             {leagueData?.title || "Finding Matchmaking"}
           </h2>

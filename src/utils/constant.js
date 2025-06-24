@@ -35,6 +35,7 @@ export const SOCKET = {
   STARTMATCH: "startMatch",
   ONMESSAGE: "onMessage",
   ONSUBMIT : "onSubmit",
+  JOINUSEROOM: "joinUserRoom",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range
