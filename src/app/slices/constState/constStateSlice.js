@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isMatchMaking: false,
-  isMatchLoader:false
+  isMatchLoader:false,
+  isLogin: false,
+  isRegisteration: false,
 };
 
 const constStateSlice = createSlice({
@@ -17,9 +19,17 @@ const constStateSlice = createSlice({
       // Accepts a boolean to set isMatchMaking
       state.isMatchLoader = !!action.payload;
     },
+    setLogin: (state, action) => {
+      // Accepts a boolean to set isLogin
+      state.isLogin = !!action.payload;
+    },
+    setRegisteration: (state, action) => {
+      // Accepts a boolean to set isRegisteration
+      state.isRegisteration = !!action.payload;
+    }
   },
 });
 
-export const { setMatchPage ,setMatchLoader} = constStateSlice.actions;
+export const { setMatchPage ,setMatchLoader ,setLogin ,setRegisteration} = constStateSlice.actions;
 
 export default constStateSlice.reducer;

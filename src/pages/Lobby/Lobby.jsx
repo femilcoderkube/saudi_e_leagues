@@ -9,6 +9,7 @@ import GameCardV2 from "../../components/LoddyComponents/GameCardV2";
 import GameCard from "../../components/LoddyComponents/GameCard";
 import { items } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
+import { setLeagueData } from "../../app/slices/leagueDetail/leagueDetailSlice";
 
 // Animation variants for the card wrapper
 const containerVariants = {
@@ -45,6 +46,7 @@ const Lobby = () => {
         GameId: selectedGame?._id,
       })
     );
+    dispatch(setLeagueData(null))
   }, [dispatch, activeIndex, selectedGame]);
 
   const handleGameChange = (game) => {

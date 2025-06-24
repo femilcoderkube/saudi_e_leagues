@@ -31,7 +31,7 @@ function App() {
       <div className="flex">
         <Sidebar onItemClick={handleItemClick} selectedItem={selectedItem} />
         <Routes>
-          <Route path="/" element={<Navigate to="/prime" />} />
+          <Route path="/" element={<Navigate to="/prime/lobby/" />} />
           <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
             <Route index element={<PrimeHome />} />
             <Route path="match/:mId" element={<MatchDetail />} />

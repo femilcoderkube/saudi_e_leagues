@@ -7,17 +7,20 @@ import { registerUser } from "../../app/slices/auth/registerSlice";
 import LoginModal from "../Modal/LoginModal";
 import { toast } from "react-toastify";
 import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp";
+import { setRegisteration } from "../../app/slices/constState/constStateSlice";
 
-export default function Main({ selectedItem }) {
+export default function Main() {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
-  const [showModal, setShowModal] = useState(false);
+
   const [submitModal, setSubmitModal] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+ 
   const [previewImage, setPreviewImage] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
   const isMatchLoader = useSelector((state) => state.constState.isMatchLoader);
+  const isLogin = useSelector((state) => state.constState.isLogin);
+  const isRegisteration = useSelector((state) => state.constState.isRegisteration);
 
   const initialValues = {
     username: "",
@@ -40,7 +43,7 @@ export default function Main({ selectedItem }) {
       setLoadingSubmit(true);
       const formData = new FormData();
       Object.keys(values).forEach((key) => {
-        if (key === "role" || key === "favoriteGame") {
+        if (key === "role" || key === "favoriteGame" || key === "nationality") {
           formData.append(key, values[key]?.value || "");
         } else if (key === "profilePicture") {
           if (values[key]) formData.append(key, values[key]);
@@ -60,7 +63,7 @@ export default function Main({ selectedItem }) {
       }
       setLoadingSubmit(false);
 
-      setShowModal(false);
+      dispatch(setRegisteration(false));
       setStep(1);
       setPreviewImage(null);
     } catch (error) {
@@ -83,9 +86,6 @@ if(isMatchLoader){
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
       <Header
-        selectedItem={selectedItem}
-        setShowModal={setShowModal}
-        setShowLoginModal={setShowLoginModal}
         setSubmitModal={setSubmitModal}
       />
       <main
@@ -93,7 +93,7 @@ if(isMatchLoader){
           isMatchMaking ? "" : "px-[4.5rem] pt-7 "
         }`}
       >
-        {showModal && (
+        {isRegisteration && (
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
             <div className="fixed  inset-0 flex justify-center items-center z-50">
@@ -102,7 +102,7 @@ if(isMatchLoader){
                   <h2 className="text-xl font-bold">Registration</h2>
                   <button
                     onClick={() => {
-                      setShowModal(false);
+                      dispatch(setRegisteration(false));
                       setPreviewImage(null);
                     }}
                     className="cursor-pointer hover:opacity-70 duration-300"
@@ -143,10 +143,8 @@ if(isMatchLoader){
           </>
         )}
 
-        {showLoginModal && (
+        {isLogin && (
           <LoginModal
-            showModal={showLoginModal}
-            setShowModal={setShowLoginModal}
           />
         )}
 

@@ -11,6 +11,7 @@ import {
 } from "../../app/slices/game/gamesSlice.js";
 import { checkUsersExists } from "../../app/slices/auth/authSlice.js";
 import { debounce } from "lodash";
+import { countries } from "../../utils/countries.js";
 
 const WizardSteps = ({
   step,
@@ -123,10 +124,13 @@ const WizardSteps = ({
         .matches(/[a-z]/, "Password must contain at least one lowercase letter")
         .matches(/[0-9]/, "Password must contain at least one number")
         .matches(
-          /[!@#$%^&*]/,
+          /[!@#$%^&*()_\-+=\{\}\[\]:;"'<>,.?\/|\\~`]/,
           "Password must contain at least one special character"
         ),
-      nationality: Yup.string().required("Nationality is required"),
+      nationality: Yup.object().shape({
+        value: Yup.string().required(),
+        label: Yup.string().required(),
+      }).required("Nationality is required"),
       phone: Yup.string()
         .required("Phone number is required")
         .test(
@@ -221,7 +225,7 @@ const WizardSteps = ({
       case 2:
         return (
           <div className="space-y-4 mt-7">
-            {["email", "password", "nationality", "phone"].map((field) => (
+            {["email", "password", "phone"].map((field) => (
               <div key={field} className="text-start w-full pr-4">
                 <div className="relative">
                   <Field
@@ -296,6 +300,38 @@ const WizardSteps = ({
                 </svg>
               </div>
             ))}
+            {/* Nationality Dropdown */}
+            <div className="custom_select2 mt-4 sd_select--menu">
+              <Select
+                value={values.nationality}
+                onChange={(option) => setFieldValue("nationality", option)}
+                options={countries}
+                placeholder="Select Your Nationality"
+                className="basic-multi-select focus:outline-0 focus:shadow-none"
+                classNamePrefix="select"
+              />
+              <ErrorMessage
+                name="nationality"
+                component="div"
+                className="text-red-500 text-sm"
+              />
+              <svg
+                width="0"
+                height="0"
+                viewBox="0 0 400 72"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ position: "absolute" }}
+              >
+                <defs>
+                  <clipPath id="inputclip" clipPathUnits="objectBoundingBox">
+                    <path
+                      transform="scale(0.0025, 0.0138889)"
+                      d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
           </div>
         );
 
@@ -368,6 +404,7 @@ const WizardSteps = ({
                 value={values.role}
                 onChange={(option) => setFieldValue("role", option)}
                 options={RoleOptions}
+                placeholder="Select Your Role"
                 className="basic-multi-select focus:outline-0 focus:shadow-none"
                 classNamePrefix="select"
               />
@@ -427,6 +464,7 @@ const WizardSteps = ({
                 value={values.favoriteGame}
                 onChange={(option) => setFieldValue("favoriteGame", option)}
                 options={gameOptions}
+                placeholder="Select your Favorite Game"
                 className="basic-multi-select focus:outline-0 focus:shadow-none"
                 classNamePrefix="select"
               />

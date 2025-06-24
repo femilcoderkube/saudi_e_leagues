@@ -13,24 +13,24 @@ import {
 import country_us from "../../assets/images/country_us.png";
 import Dropdown from "../LobbyPageComp/User_menu.jsx";
 import { items } from "../../utils/constant.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
+import { setLogin, setRegisteration } from "../../app/slices/constState/constStateSlice.js";
 
 {
   /* === BreadCrumb items array ==== */
 }
-const breadcrumbItems = [];
+
 
 const Header = ({
-  selectedItem,
-  setShowModal,
-  setShowLoginModal,
   setSubmitModal,
 }) => {
   const { leagueData } = useSelector((state) => state.leagues);
   const navigator = useNavigate();
+  const dispatch = useDispatch();
   const { matchData } = useSelector((state) => state.matchs);
   const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
+
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
   useEffect(() => {},[matchData, user])
@@ -99,7 +99,7 @@ const Header = ({
                   style={{ width: "10rem", height: "4rem" }}
                   onClick={(e) => {
                     e.preventDefault();
-                    setShowModal(true);
+                    dispatch(setRegisteration(true));
                   }}
                 >
                   Registration
@@ -125,8 +125,9 @@ const Header = ({
               "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
           }}
         >
-          <div className="back_arrow absolute left-[5rem] scale-x-[-1]">
-            <NextArrow width="0.8rem" height="1.5rem" fill="#7378C0" />
+          <div className="back_arrow absolute left-[5rem] scale-x-[-1]"
+          onClick={() => {navigator(-1)}}>
+            <NextArrow width="0.8rem" height="1.5rem" fill="#7378C0"  />
           </div>
           <h2 className="text-[2rem] !font-black uppercase text-center block">
             {leagueData?.title || "Finding Matchmaking"}
@@ -135,25 +136,26 @@ const Header = ({
       );
     }
   } else {
+    const breadcrumbItems = [];
     let path = new Set(window.location.pathname.split("/")).has("lobby");
 
-    if (params.id) {
-      const partner = items.find((item) => item.id === params.id);
-      if (partner) {
-        let item = {
-          label: "Home",
-          path: `/${partner.id}`,
-          icon: partner.headerIcon,
-          active: true,
-        };
-        if (
-          breadcrumbItems.length === 0 ||
-          breadcrumbItems[0].label !== item.label
-        ) {
-          breadcrumbItems.push(item);
-        }
-      }
-    }
+    // if (params.id) {
+    //   const partner = items.find((item) => item.id === params.id);
+    //   if (partner) {
+    //     let item = {
+    //       label: "Home",
+    //       path: `/${partner.id}`,
+    //       icon: partner.headerIcon,
+    //       active: true,
+    //     };
+    //     if (
+    //       breadcrumbItems.length === 0 ||
+    //       breadcrumbItems[0].label !== item.label
+    //     ) {
+    //       breadcrumbItems.push(item);
+    //     }
+    //   }
+    // }
     if (path) {
       let item = {
         label: "Lobby",
@@ -162,15 +164,15 @@ const Header = ({
         active: true,
       };
       if (
-        breadcrumbItems.length === 1 ||
-        breadcrumbItems[1].label !== item.label
+        breadcrumbItems.length === 0 ||
+        breadcrumbItems[0].label !== item.label
       ) {
-        breadcrumbItems[0].active = false; // Set the previous item to inactive
+        // breadcrumbItems[0].active = false; // Set the previous item to inactive
         breadcrumbItems.push(item);
       }
     }
     if (params.lId) {
-      if (breadcrumbItems.length === 3) {
+      if (breadcrumbItems.length === 2) {
         breadcrumbItems.pop(); // Remove the last item if it exists
       }
       let item = {
@@ -180,10 +182,10 @@ const Header = ({
         active: true,
       };
       if (
-        breadcrumbItems.length === 2 ||
-        breadcrumbItems[2].label !== item.label
+        breadcrumbItems.length === 1 ||
+        breadcrumbItems[1].label !== item.label
       ) {
-        breadcrumbItems[1].active = false; // Set the previous item to inactive
+        breadcrumbItems[0].active = false; // Set the previous item to inactive
         breadcrumbItems.push(item);
       }
     }
@@ -198,11 +200,12 @@ const Header = ({
                 <div className="breadcrumb-box flex items-center gap-2">
                   <Link
                     to={item.path}
+                    
                     className={`breadcrumb-text flex items-center gap-3 text-lg purple_col font-bold ${
                       item.active ? "sky_col font-semibold" : ""
                     }`}
                   >
-                    <item.icon className="text-white" />
+                    { item.label && <item.icon className="text-white" />}
 
                     {item.label}
                   </Link>
@@ -241,7 +244,7 @@ const Header = ({
                   style={{ width: "10rem", height: "4rem" }}
                   onClick={(e) => {
                     e.preventDefault();
-                    setShowLoginModal(true);
+                    dispatch(setLogin(true));
                   }}
                 >
                   Log In
@@ -257,7 +260,7 @@ const Header = ({
                   style={{ width: "10rem", height: "4rem" }}
                   onClick={(e) => {
                     e.preventDefault();
-                    setShowModal(true);
+                    dispatch(setRegisteration(true));
                   }}
                 >
                   Registration

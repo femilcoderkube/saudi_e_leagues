@@ -7,6 +7,7 @@ import User from "../../assets/images/user.png";
 import join_btn from "../../assets/images/join_btn.png";
 import need_btn from "../../assets/images/needToLogin.png";
 import Que_btn from "../../assets/images/quebtn.png";
+import Cancel_btn from "../../assets/images/cancelbtn.png";
 import star_of_week from "../../assets/images/star_of_week.png";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
 import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
@@ -24,6 +25,7 @@ import {
 import GamingLoader from "../../components/Loader/loader.jsx";
 import { baseURL } from "../../utils/axios.js";
 import RegistrationModel from "./RegustrationModel.jsx";
+import { setLogin } from "../../app/slices/constState/constStateSlice.js";
 
 const LeagueDetail = () => {
   const { lId, id } = useParams();
@@ -45,7 +47,7 @@ const LeagueDetail = () => {
       // Emit JOINLEAGUE once
       socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
     }
-
+  
     const handleBeforeUnload = () => {
       if (isSocketConnected) {
         socket.emit(SOCKET.LEAVELEAGUE, { Lid: lId });
@@ -62,6 +64,25 @@ const LeagueDetail = () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [isSocketConnected, lId, user?._id, dispatch]);
+
+  const handleCancel = () => {
+    if (isSocketConnected && user?._id) {
+      console.log("Cancelling matchmaking for user:", user._id);
+      socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user?._id });
+      // Remove the user from inQueue locally
+      if (leagueData && leagueData.inQueue) {
+        const updatedInQueue = leagueData.inQueue.filter(
+          (participant) => participant !== user?._id
+        );
+        dispatch(
+          setLeagueData({
+            ...leagueData,
+            inQueue: updatedInQueue,
+          })
+        );
+      }
+    }
+  };
 
   return (
     <main className="flex-1 lobby_page--wrapper">
@@ -279,19 +300,29 @@ const LeagueDetail = () => {
               {user?._id ? (
                 leagueData.joinedUsers.some(
                   (participant) => participant == user?._id
+                ) ? leagueData.inQueue.some(
+                  (participant) => participant == user?._id
                 ) ? (
+                  <div
+                    className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
+                    onClick={handleCancel}
+                  >
+                   
+                    <img
+                      src={Cancel_btn}
+                      alt=""
+                      style={{ width: "30.5rem" }}
+                    />{" "}
+                  </div>
+                ) :(
                   <Link
                     className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before"
                     to={`/${id}/lobby/${leagueData?._id}/finding-match`}
-                    // onClick={() =>
-                    //   navigate(`/${id}/lobby/${leagueData?._id}/finding-match`)
-                    // }
                   >
                    <span
                      className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"
                      style={{
                        fontFamily: "Yapari",
-          
                        textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)"
                      }}
                    >
@@ -306,13 +337,16 @@ const LeagueDetail = () => {
                 ) : (
                   <div
                     onClick={() => setRegistrationModal(true)}
-                    className="lobby_btn que_btn join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
+                    className="join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
                   >
                     <img src={join_btn} alt="" style={{ width: "30.5rem" }} />
                   </div>
                 )
               ) : (
-                <div className=" lobby_btn mb-8 relative">
+                <div className=" lobby_btn mb-8 relative cursor-pointer"
+                onClick={() => {
+                  dispatch(setLogin(true))
+                }}>
                   {" "}
                   <img
                     src={need_btn}

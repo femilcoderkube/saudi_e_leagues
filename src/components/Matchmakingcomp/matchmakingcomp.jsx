@@ -41,15 +41,11 @@ const Matchmaking = ({setMatchLoading}) => {
   // Set match page and handle sockets
   useEffect(() => {
     // Set match page state in redux
-    
-
     // Handler for JOINMATCH event
     const handleJoinMatch = (data) => {
       console.log("Match Update Data (Match ID):", data);
       setHasJoinedMatch(true);
-      
       setMatchLoading(data.matchId);
-      
     };
 
     // Only set up socket listeners if connected

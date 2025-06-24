@@ -4,8 +4,9 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../app/slices/auth/authSlice";
 import { toast } from "react-toastify";
+import { setLogin } from "../../app/slices/constState/constStateSlice";
 
-const LoginModal = ({ showModal, setShowModal }) => {
+const LoginModal = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,19 +31,17 @@ const LoginModal = ({ showModal, setShowModal }) => {
       } else {
         toast.success(res.message);
       }
-      setShowModal(false);
+      dispatch(setLogin(false));
     } catch (error) {
       toast.error(error.message || "Login failed");
       console.error("Login failed:", error);
-      setShowModal(false);
+      dispatch(setLogin(false));
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <>
-      {showModal && (
         <>
           <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
           <div className="fixed inset-0 flex justify-center items-center z-50">
@@ -50,7 +49,7 @@ const LoginModal = ({ showModal, setShowModal }) => {
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold">Login</h2>
                 <button
-                  onClick={() => setShowModal(false)}
+                  onClick={() => dispatch(setLogin(false))}
                   className="cursor-pointer hover:opacity-70 duration-300"
                 >
                   <svg width="18" height="18" fill="none" stroke="#7B7ED0">
@@ -223,8 +222,7 @@ const LoginModal = ({ showModal, setShowModal }) => {
             </defs>
           </svg>
         </>
-      )}
-    </>
+    
   );
 };
 
