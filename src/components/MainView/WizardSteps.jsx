@@ -11,7 +11,7 @@ import {
 } from "../../app/slices/game/gamesSlice.js";
 import { checkUsersExists } from "../../app/slices/auth/authSlice.js";
 import { debounce } from "lodash";
-import { countries } from "../../utils/countries.js";
+import { countryData } from "../../utils/CountryCodes.js";
 
 const WizardSteps = ({
   step,
@@ -31,7 +31,6 @@ const WizardSteps = ({
   const usernameCache = useMemo(() => new Map(), []);
   const emailCache = useMemo(() => new Map(), []);
 
-  // Debounced function for checking username existence
   const debouncedCheckUsername = useMemo(
     () =>
       debounce(async (username, resolve) => {
@@ -50,9 +49,10 @@ const WizardSteps = ({
           usernameCache.set(username, false);
           resolve(false);
         }
-      }, 500), // 500ms debounce delay
+      }, 500),
     [dispatch]
   );
+
   const debouncedCheckEmail = useMemo(
     () =>
       debounce(async (email, resolve) => {
@@ -72,13 +72,32 @@ const WizardSteps = ({
       }, 500),
     [dispatch]
   );
+
   useEffect(() => {
     dispatch(fetchGames());
-    // Cleanup debounce on unmount
     return () => {
       debouncedCheckUsername.cancel();
     };
   }, [dispatch, debouncedCheckUsername]);
+
+  const countryOptions = countryData.map((country) => ({
+    value: country.name,
+    label: country.name,
+  }));
+
+  const dialCodeOptions = countryData.map((country) => ({
+    value: country.dial_code,
+    label: `${country.dial_code} (${country.code})`,
+  }));
+
+  console.log("dialCodeOptions", dialCodeOptions);
+
+  const defaultNationality = countryOptions.find(
+    (option) => option.value === "Saudi Arabia"
+  );
+  const defaultDialCode = dialCodeOptions.find(
+    (option) => option.value === "+966"
+  );
 
   const validationSchemas = [
     Yup.object({
@@ -93,8 +112,7 @@ const WizardSteps = ({
           "check-username-exists",
           "Username is already taken",
           async (value) => {
-            if (!value) return true; // Skip if empty (handled by required)
-            // Use Promise to handle debounced async validation
+            if (!value) return true;
             return new Promise((resolve) => {
               debouncedCheckUsername(value, resolve);
             });
@@ -124,14 +142,22 @@ const WizardSteps = ({
         .matches(/[a-z]/, "Password must contain at least one lowercase letter")
         .matches(/[0-9]/, "Password must contain at least one number")
         .matches(
-          /[!@#$%^&*()_\-+=\{\}\[\]:;"'<>,.?\/|\\~`]/,
+          /[!@#$%^&*]/,
           "Password must contain at least one special character"
         ),
-      nationality: Yup.object().shape({
-        value: Yup.string().required(),
-        label: Yup.string().required(),
-      }).required("Nationality is required"),
-      phone: Yup.string()
+      nationality: Yup.object()
+        .shape({
+          value: Yup.string().required(),
+          label: Yup.string().required(),
+        })
+        .required("Nationality is required"),
+      dialCode: Yup.object()
+        .shape({
+          value: Yup.string().required(),
+          label: Yup.string().required(),
+        })
+        .required("Dial code is required"),
+      phoneNumber: Yup.string()
         .required("Phone number is required")
         .test(
           "phone-digit-count",
@@ -143,8 +169,8 @@ const WizardSteps = ({
           }
         )
         .matches(
-          /^\+?[0-9\s\-\(\)]*$/,
-          "Phone number can only contain digits, +, spaces, hyphens, and parentheses"
+          /^[0-9\s\-\(\)]*$/,
+          "Phone number can only contain digits, spaces, hyphens, and parentheses"
         ),
     }),
     Yup.object({
@@ -168,11 +194,7 @@ const WizardSteps = ({
           value: Yup.string().required(),
           label: Yup.string().required(),
         })
-        .required("FavoriteGame is required"),
-      // favoriteGame: Yup.object().nullable().shape({
-      //   value: Yup.string(),
-      //   label: Yup.string(),
-      // }),
+        .required("Favorite game is required"),
       profilePicture: Yup.mixed().nullable(),
     }),
   ];
@@ -195,7 +217,6 @@ const WizardSteps = ({
                   className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                   placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                 />
-
                 <ErrorMessage
                   name={field}
                   component="div"
@@ -225,7 +246,7 @@ const WizardSteps = ({
       case 2:
         return (
           <div className="space-y-4 mt-7">
-            {["email", "password", "phone"].map((field) => (
+            {["email", "password"].map((field) => (
               <div key={field} className="text-start w-full pr-4">
                 <div className="relative">
                   <Field
@@ -234,9 +255,7 @@ const WizardSteps = ({
                         ? showPassword
                           ? "text"
                           : "password"
-                        : field === "email"
-                        ? "email"
-                        : "text"
+                        : "email"
                     }
                     name={field}
                     className="sd_custom-input !w-full px-4 pr-10 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
@@ -246,7 +265,7 @@ const WizardSteps = ({
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-6 top-1/2  transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
+                      className="absolute right-6 top-1/2 transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
                     >
                       <svg
                         width="20"
@@ -300,21 +319,38 @@ const WizardSteps = ({
                 </svg>
               </div>
             ))}
-            {/* Nationality Dropdown */}
-            <div className="custom_select2 mt-4 sd_select--menu">
-              <Select
-                value={values.nationality}
-                onChange={(option) => setFieldValue("nationality", option)}
-                options={countries}
-                placeholder="Select Your Nationality"
-                className="basic-multi-select focus:outline-0 focus:shadow-none"
-                classNamePrefix="select"
-              />
-              <ErrorMessage
-                name="nationality"
-                component="div"
-                className="text-red-500 text-sm"
-              />
+            <div className="text-start w-full pr-4">
+              <div className="flex gap-4">
+                <div className="custom_select2 sd_select--menu w-1/3">
+                  <Select
+                    // value={values.dialCode}
+                    defaultValue={defaultDialCode}
+                    onChange={(option) => setFieldValue("dialCode", option)}
+                    options={dialCodeOptions}
+                    className="basic-multi-select focus:outline-0 focus:shadow-none"
+                    classNamePrefix="select"
+                    // placeholder="Code"
+                  />
+                  <ErrorMessage
+                    name="dialCode"
+                    component="div"
+                    className="text-red-500 text-sm"
+                  />
+                </div>
+                <div className="w-2/3">
+                  <Field
+                    type="text"
+                    name="phoneNumber"
+                    className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                    placeholder="Phone Number"
+                  />
+                  <ErrorMessage
+                    name="phoneNumber"
+                    component="div"
+                    className="text-red-500 text-sm"
+                  />
+                </div>
+              </div>
               <svg
                 width="0"
                 height="0"
@@ -332,6 +368,40 @@ const WizardSteps = ({
                 </defs>
               </svg>
             </div>
+            <div className="text-start w-full pr-4">
+              <div className="custom_select2 sd_select--menu">
+                <Select
+                  // value={values.nationality}
+                  defaultValue={defaultNationality}
+                  onChange={(option) => setFieldValue("nationality", option)}
+                  options={countryOptions}
+                  className="basic-multi-select focus:outline-0 focus:shadow-none"
+                  classNamePrefix="select"
+                  placeholder="Select Nationality"
+                />
+                <ErrorMessage
+                  name="nationality"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+                <svg
+                  width="0"
+                  height="0"
+                  viewBox="0 0 400 72"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ position: "absolute" }}
+                >
+                  <defs>
+                    <clipPath id="inputclip" clipPathUnits="objectBoundingBox">
+                      <path
+                        transform="scale(0.0025, 0.0138889)"
+                        d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+            </div>
           </div>
         );
 
@@ -339,7 +409,7 @@ const WizardSteps = ({
         return (
           <div className="space-y-4 mt-7">
             <div className="text-start w-full pr-4">
-              <label className="flex gap-4 items-center h-10  rounded cursor-pointer">
+              <label className="flex gap-4 items-center h-10 rounded cursor-pointer">
                 Date of Birth
               </label>
               <Field
@@ -349,7 +419,6 @@ const WizardSteps = ({
                 placeholder="dateOfBirth"
                 max={new Date().toISOString().split("T")[0]}
               />
-
               <ErrorMessage
                 name="dateOfBirth"
                 component="div"
@@ -383,7 +452,7 @@ const WizardSteps = ({
                     className="hidden"
                   />
                   <label
-                    className="flex gap-4 items-center h-10  rounded cursor-pointer"
+                    className="flex gap-4 items-center h-10 rounded cursor-pointer"
                     htmlFor={`gender-${gender}`}
                   >
                     <span className="checkbox-inner flex items-center justify-center w-[2rem] h-[2rem] text-transparent rounded-sm bg-[#09092d]"></span>
@@ -404,7 +473,6 @@ const WizardSteps = ({
                 value={values.role}
                 onChange={(option) => setFieldValue("role", option)}
                 options={RoleOptions}
-                placeholder="Select Your Role"
                 className="basic-multi-select focus:outline-0 focus:shadow-none"
                 classNamePrefix="select"
               />
@@ -464,7 +532,6 @@ const WizardSteps = ({
                 value={values.favoriteGame}
                 onChange={(option) => setFieldValue("favoriteGame", option)}
                 options={gameOptions}
-                placeholder="Select your Favorite Game"
                 className="basic-multi-select focus:outline-0 focus:shadow-none"
                 classNamePrefix="select"
               />
@@ -500,13 +567,21 @@ const WizardSteps = ({
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{
+        ...initialValues,
+        dialCode: null,
+        phoneNumber: "",
+      }}
       validationSchema={validationSchemas[step - 1]}
       onSubmit={(values) => {
         if (step < TOTAL_STEPS) {
           onNext();
         } else {
-          onSubmit(values);
+          // Combine dialCode and phoneNumber before submitting
+          const phone = values.dialCode
+            ? `${values.dialCode.value}${values.phoneNumber}`
+            : values.phoneNumber;
+          onSubmit({ ...values, phone });
         }
       }}
     >
@@ -530,7 +605,7 @@ const WizardSteps = ({
             <div className="game_status--tab wizard_btn next_btn">
               <button
                 type="submit"
-                className="py-2 px-4 justify-center  flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                 style={{
                   width: "8rem",
                   height: "4rem",

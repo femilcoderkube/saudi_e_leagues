@@ -14,13 +14,15 @@ export default function Main() {
   const [step, setStep] = useState(1);
 
   const [submitModal, setSubmitModal] = useState(false);
- 
+
   const [previewImage, setPreviewImage] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
   const isMatchLoader = useSelector((state) => state.constState.isMatchLoader);
   const isLogin = useSelector((state) => state.constState.isLogin);
-  const isRegisteration = useSelector((state) => state.constState.isRegisteration);
+  const isRegisteration = useSelector(
+    (state) => state.constState.isRegisteration
+  );
 
   const initialValues = {
     username: "",
@@ -29,6 +31,7 @@ export default function Main() {
     email: "",
     password: "",
     nationality: "Saudi Arabia",
+    dialCode: "+966",
     phone: "",
     dateOfBirth: "",
     gender: "Male",
@@ -73,21 +76,19 @@ export default function Main() {
       setLoadingSubmit(false);
     }
   };
-if(isMatchLoader){
-  return (
-    <div className="flex items-center justify-center h-screen">
+  if (isMatchLoader) {
+    return (
+      <div className="flex items-center justify-center h-screen">
         <Outlet />
-    </div>
-  )
-}
+      </div>
+    );
+  }
   return (
     <div
       className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20"
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
-      <Header
-        setSubmitModal={setSubmitModal}
-      />
+      <Header setSubmitModal={setSubmitModal} />
       <main
         className={`flex-1 game_card_main--con    ${
           isMatchMaking ? "" : "px-[4.5rem] pt-7 "
@@ -143,15 +144,10 @@ if(isMatchLoader){
           </>
         )}
 
-        {isLogin && (
-          <LoginModal
-          />
-        )}
+        {isLogin && <LoginModal />}
 
         {submitModal && (
-          <SubmitPopUp
-            handleClose={() => setSubmitModal(false)}
-          />
+          <SubmitPopUp handleClose={() => setSubmitModal(false)} />
         )}
         <Outlet />
       </main>
