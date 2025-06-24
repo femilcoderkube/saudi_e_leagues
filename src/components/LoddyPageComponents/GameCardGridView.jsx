@@ -7,7 +7,7 @@ import { cardVariants, containerVariants, getDayFromISO, getMonthAbbreviation } 
 
 
 
-const GameCard = ({ leagues }) => {
+const GameCardGridView = ({ leagues }) => {
   const { id } = useParams();
 
   return (
@@ -129,4 +129,4 @@ const GameCard = ({ leagues }) => {
   );
 };
 
-export default GameCard;
+export default GameCardGridView;

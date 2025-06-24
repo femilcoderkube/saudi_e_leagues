@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion"; // Import framer-motion
-import SelectGame from "../../components/LoddyComponents/GameMenu";
-import { FolderView, ListView } from "../../components/ui/svg";
+import GameDropDown from "../../components/LoddyPageComponents/GameDropDown";
+import { FolderIcon, ListIcon } from "../../components/ui/svg";
 import { useParams } from "react-router-dom";
-import { fetchLeagues } from "../../app/slices/lobby/lobbySlice";
+import {
+  fetchLeagues,
+  setActiveIndex,
+  setIsListView,
+} from "../../app/slices/lobby/lobbySlice";
 import { useDispatch, useSelector } from "react-redux";
-import GameCardV2 from "../../components/LoddyComponents/GameCardV2";
-import GameCard from "../../components/LoddyComponents/GameCard";
-import { items } from "../../utils/constant";
+import GameCardListView from "../../components/LoddyPageComponents/GameCardListView";
+import GameCardGridView from "../../components/LoddyPageComponents/GameCardGridView";
+import { getPartnerById } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
 import { setLeagueData } from "../../app/slices/leagueDetail/leagueDetailSlice";
 
@@ -30,51 +34,48 @@ const containerVariants = {
 };
 
 const Lobby = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isListView, setIsListView] = useState(true);
-  const [selectedGame, setSelectedGame] = useState({});
-  const tabs = ["ongoing", "finished", "all"];
-  const { leagues, loading } = useSelector((state) => state.lobby);
-  const partner = items.find((item) => item.id === useParams().id);
+  const { id } = useParams();
+  const { leagues, loading, activeIndex, tabs, isListView, selectedGame } =
+    useSelector((state) => state.lobby);
+  const partnerID = getPartnerById(id).docId;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(
       fetchLeagues({
-        partnerId: partner.docId,
+        partnerId: partnerID,
         filter: tabs[activeIndex],
         GameId: selectedGame?._id,
       })
     );
-    dispatch(setLeagueData(null))
+    dispatch(setLeagueData(null));
   }, [dispatch, activeIndex, selectedGame]);
-
-  const handleGameChange = (game) => {
-    setSelectedGame(game);
-  };
 
   return (
     <>
-      <div className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat" style={{backgroundSize:'100%'}}></div>
+      <div
+        className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
+        style={{ backgroundSize: "100%" }}
+      ></div>
       <div className="sd_slect_game--wrapper relative mt-5 ">
         <div className="select_game-header flex items-center justify-between">
-          <SelectGame onGameChange={handleGameChange} />
+          <GameDropDown />
           <div className="game_list--view flex sd_radial-bg items-center rounded-xl p-2">
             <button
-              onClick={() => setIsListView(true)}
+              onClick={() => dispatch(setIsListView(true))}
               className={`inline-block p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
                 isListView ? "active" : ""
               }`}
             >
-              <ListView isActive={isListView} />
+              <ListIcon isActive={isListView} />
             </button>
             <button
-              onClick={() => setIsListView(false)}
+              onClick={() => dispatch(setIsListView(false))}
               className={`inline-block p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
                 !isListView ? "active" : ""
               }`}
             >
-              <FolderView isActive={!isListView} />
+              <FolderIcon isActive={!isListView} />
             </button>
           </div>
         </div>
@@ -82,7 +83,7 @@ const Lobby = () => {
           {tabs.map((tab, index) => (
             <button
               key={index}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => dispatch(setActiveIndex(index))}
               className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
               ${
                 activeIndex === index
@@ -109,9 +110,9 @@ const Lobby = () => {
                 className="game_card--wrapper"
               >
                 {isListView ? (
-                  <GameCardV2 leagues={leagues} />
+                  <GameCardListView leagues={leagues} />
                 ) : (
-                  <GameCard leagues={leagues} />
+                  <GameCardGridView leagues={leagues} />
                 )}
               </motion.div>
             </AnimatePresence>

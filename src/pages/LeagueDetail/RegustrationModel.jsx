@@ -3,13 +3,18 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import rules_icon from "../../assets/images/rules_icon.png";
 import match_reg from "../../assets/images/match_reg.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Popup_btn } from "../../components/ui/svg/index.jsx";
 import { socket } from "../../app/socket/socket.js";
 import { SOCKET } from "../../utils/constant.js";
+import { setIsAgreedToJoin, setRegistrationModal } from "../../app/slices/leagueDetail/leagueDetailSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 
-function RegistrationModel({ setRegistrationModal, fields, user, lId }) {
-  const [isChecked, setIsChecked] = useState(false);
+const RegistrationModel = () => {
+  const { isAgreedToJoin } = useSelector((state) => state.leagues);
+  const { lId } = useParams();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
 
   const validationSchema = Yup.object({
     inputId: Yup.string()
@@ -23,7 +28,7 @@ function RegistrationModel({ setRegistrationModal, fields, user, lId }) {
       userId: user._id,
       gameId: values.inputId,
     });
-    setRegistrationModal(false);
+    dispatch(setRegistrationModal(false));
   };
 
   return (
@@ -46,7 +51,7 @@ function RegistrationModel({ setRegistrationModal, fields, user, lId }) {
                 <img src={match_reg} alt="" style={{ width: "10rem" }} />
                 <button
                   type="button"
-                  onClick={() => setRegistrationModal(false)}
+                  onClick={() => dispatch(setRegistrationModal(false))}
                   className="pt-2 cursor-pointer"
                 >
                   <svg
@@ -115,8 +120,8 @@ function RegistrationModel({ setRegistrationModal, fields, user, lId }) {
                           className="hidden"
                           type="checkbox"
                           id="check-round01"
-                          checked={isChecked}
-                          onChange={() => setIsChecked(!isChecked)}
+                          checked={isAgreedToJoin}
+                          onChange={() => dispatch(setIsAgreedToJoin(!isAgreedToJoin))}
                         />
                         <label
                           className="flex gap-4 items-center h-10 px-2 rounded cursor-pointer"
@@ -143,9 +148,9 @@ function RegistrationModel({ setRegistrationModal, fields, user, lId }) {
                       <div className="popup_footer px-6 mt-5 pt-6">
                         <button
                           type="submit"
-                          disabled={!isChecked || !isValid}
+                          disabled={!isAgreedToJoin || !isValid}
                           className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 ${
-                            !isChecked || !isValid
+                            !isAgreedToJoin || !isValid
                               ? "opacity-50 cursor-not-allowed"
                               : ""
                           }`}

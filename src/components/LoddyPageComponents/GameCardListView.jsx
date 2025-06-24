@@ -6,7 +6,7 @@ import {
   getMonthAbbreviation,
 } from "../../utils/constant";
 
-const GameCardV2 = ({ leagues }) => {
+const GameCardListView = ({ leagues }) => {
   const { id } = useParams();
   return (
     <div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-14 gap-[1.7rem]">
@@ -116,4 +116,4 @@ const GameCardV2 = ({ leagues }) => {
   );
 };
 
-export default GameCardV2;
+export default GameCardListView;

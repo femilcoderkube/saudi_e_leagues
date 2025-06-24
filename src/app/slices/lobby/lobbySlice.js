@@ -10,6 +10,13 @@ const initialState = {
   perPage: 10,
   totalPages: 0,
   searchTerm: "",
+  activeIndex : 0,
+  tabs : ["ongoing", "finished", "all"],
+  isListView : true,
+  selectedGame :{},
+  isGameDropDownOpen : false,
+  gameSearchTerm : "",
+  filteredGames :[],
 };
 
 export const fetchGames = createAsyncThunk(
@@ -62,6 +69,25 @@ const lobbySlice = createSlice({
   name: "lobby",
   initialState,
   reducers: {
+    setGameSearchTerm:  (state, action) => {
+      state.gameSearchTerm = action.payload;
+      state.filteredGames = state.games.filter((game) =>
+        game.name.toLowerCase().includes(state.gameSearchTerm.toLowerCase())
+      )
+    }, 
+    setGameDropDownOpen: (state, action) => {
+      state.isGameDropDownOpen = action.payload;
+    }, 
+    setSelectedGame : (state, action) => {
+      state.selectedGame = action.payload;
+      state.isGameDropDownOpen =false;
+    },
+    setActiveIndex: (state, action) => {
+      state.activeIndex = action.payload;
+    },
+    setIsListView : (state, action) => {
+      state.isListView = action.payload;
+    },
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
       state.currentPage = 1;
@@ -82,6 +108,7 @@ const lobbySlice = createSlice({
       .addCase(fetchGames.fulfilled, (state, action) => {
         state.loading = false;
         state.games = action.payload.data;
+        state.filteredGames = action.payload.data;
       })
       .addCase(fetchGames.rejected, (state, action) => {
         state.loading = false;
@@ -102,6 +129,6 @@ const lobbySlice = createSlice({
   },
 });
 
-export const { setSearchTerm, setPerPage, setPage } = lobbySlice.actions;
+export const { setSearchTerm, setPerPage, setPage ,setActiveIndex ,setIsListView ,setSelectedGame ,setGameDropDownOpen ,setGameSearchTerm} = lobbySlice.actions;
 
 export default lobbySlice.reducer;

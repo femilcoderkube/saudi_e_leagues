@@ -111,7 +111,12 @@ const MatchDetail = () => {
 
   useEffect(()=>{
     dispatch(setMatchPage(true));
+    const timer = setTimeout(() => {
+      setShowLoader(false)
+      dispatch(setMatchLoader(false));
+    }, 3000);
     return () => {
+      clearTimeout(timer)
       dispatch(setMatchPage(false));
     }
   },[])
@@ -123,6 +128,7 @@ const MatchDetail = () => {
       dispatch(setmatchData(data.data));
       dispatch(setIsTeamOne(matchData?.team1?.some(player => player.participant.userId._id === user?._id)));
       dispatch(setIsMyMatch((matchData?.team1?.some(player => player.participant.userId._id === user?._id)) || (matchData?.team2?.some(player => player.participant.userId._id === user?._id)) ));
+
       }else {
         dispatch(setChatData(data.data.reverse()));
       }
@@ -141,14 +147,6 @@ const MatchDetail = () => {
 
     };
   }, [isSocketConnected,mId,user, dispatch,isMyMatch,isTeamOne]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLoader(false)
-      dispatch(setMatchLoader(false));
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
 
   const OnMsgSend = (msg) => {
     if (isSocketConnected) {
@@ -202,7 +200,9 @@ const MatchDetail = () => {
             <div className="match_center-con flex-1">
                
               <h2 className="text-[4rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center text-center tracking-wider !font-black pb-[4rem]">
-                <span>-</span>:<span>-</span>
+              {matchData.winner == "team1" && <><span>{matchData.team1ScoreDetails.yourScore}</span>:<span>{matchData.team1ScoreDetails.opponentScore}</span></>}
+              {matchData.winner == "team2" && <><span>{matchData.team2ScoreDetails.yourScore}</span>:<span>{matchData.team2ScoreDetails.opponentScore}</span></>}
+              {matchData.winner == null && <><span>-</span>:<span>-</span></>}
               </h2>
 
               <div className="prime_logo--con flex justify-center sd_before gradiant_bg relative">

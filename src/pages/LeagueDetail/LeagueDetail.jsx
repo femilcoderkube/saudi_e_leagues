@@ -20,7 +20,7 @@ import { generateTailwindGradient, SOCKET } from "../../utils/constant.js";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setLeagueData,
-  setJoinStatus,
+  setRegistrationModal,
 } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import { baseURL } from "../../utils/axios.js";
@@ -30,10 +30,10 @@ import { setLogin } from "../../app/slices/constState/constStateSlice.js";
 const LeagueDetail = () => {
   const { lId, id } = useParams();
   const dispatch = useDispatch();
-  const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { leagueData } = useSelector((state) => state.leagues);
   const user = useSelector((state) => state.auth.user);
-  const [registrationModal, setRegistrationModal] = useState(false);
+  const isSocketConnected = useSelector((state) => state.socket.isConnected);
+  const { leagueData ,registrationModal } = useSelector((state) => state.leagues);
+
   const navigate = useNavigate();
   useEffect(() => {
     const handleLeagueUpdate = (data) => {
@@ -93,12 +93,7 @@ const LeagueDetail = () => {
       ></div>
       {/* <Outlet /> */}
       {registrationModal && (
-        <RegistrationModel
-          setRegistrationModal={setRegistrationModal}
-          fields={leagueData?.customRegistrationFields}
-          user={user}
-          lId={lId}
-        />
+        <RegistrationModel/>
       )}
       {!leagueData ? (
         <GamingLoader />
@@ -336,7 +331,7 @@ const LeagueDetail = () => {
                   </Link>
                 ) : (
                   <div
-                    onClick={() => setRegistrationModal(true)}
+                    onClick={() => dispatch(setRegistrationModal(true))}
                     className="join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
                   >
                     <img src={join_btn} alt="" style={{ width: "30.5rem" }} />

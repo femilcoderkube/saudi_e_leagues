@@ -3,38 +3,20 @@ import Sel_game from "../../assets/images/sel_game.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { baseURL } from "../../utils/axios";
-import { fetchGames } from "../../app/slices/lobby/lobbySlice";
+import { fetchGames, setGameDropDownOpen, setGameSearchTerm, setSelectedGame } from "../../app/slices/lobby/lobbySlice";
 
-const SelectGame = ({ onGameChange }) => {
-  const { games } = useSelector((state) => state.lobby);
-  const [isOpen, setOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredGames, setFilteredGames] = useState([]);
-  const [selectedGame, setSelectedGame] = useState(null); // Track selected game
-
-  const dropdownRef = useRef(null);
-
-  const toggleDropdown = () => setOpen(!isOpen);
+const GameDropDown = () => {
+  const {filteredGames,selectedGame ,isGameDropDownOpen ,gameSearchTerm} = useSelector((state) => state.lobby);
   const dispatch = useDispatch();
+  const dropdownRef = useRef(null);
   useEffect(() => {
-    console.log("useEffect triggered");
     dispatch(fetchGames(""));
   }, [dispatch]);
-  // Update filtered games when searchTerm or games change
-  useEffect(() => {
-    if (games) {
-      setFilteredGames(
-        games.filter((game) =>
-          game.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
-    }
-  }, [searchTerm, games]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setOpen(false);
+        dispatch(setGameDropDownOpen(false));
       }
     };
 
@@ -44,36 +26,24 @@ const SelectGame = ({ onGameChange }) => {
     };
   }, []);
 
-  const handleItemClick = (game) => {
-    setSelectedGame(game); // Set selected game (null for "None")
-    if (onGameChange) {
-      onGameChange(game); // Call onGameChange with selected game
-    }
-    setOpen(false); // Close dropdown
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
   return (
     <div className="select_game-wrap relative" ref={dropdownRef}>
       <div className="sel_game-menu sd_before sd_after relative polygon_border inline-block">
         <Link
           to={"#"}
           className="dropdown-header btn_polygon-link gap-6 p-3 hover:opacity-70 duration-400 inline-flex justify-between items-center relative sd_before vertical_center"
-          onClick={toggleDropdown}
+          onClick={()=>{dispatch(setGameDropDownOpen(!isGameDropDownOpen))}}
         >
           <img
             src={
-              selectedGame ? `${baseURL}/api/v1/${selectedGame.logo}` : Sel_game
+              selectedGame?.logo ? `${baseURL}/api/v1/${selectedGame.logo}` : Sel_game
             }
             alt="Select Game"
             className="game-logo-svg"
             style={{ width: "2rem" }}
           />
           <span className="text-xl font_oswald font-medium purple_col">
-            {selectedGame ? selectedGame.name : "Select Game"}
+            {selectedGame?.name ? selectedGame.name : "Select Game"}
           </span>
           <svg
             width="0.75rem"
@@ -92,7 +62,7 @@ const SelectGame = ({ onGameChange }) => {
         </Link>
       </div>
 
-      {isOpen && (
+      {isGameDropDownOpen && (
         <div className="game_dropdown-body absolute sd_after after:w-full after:h-full after:top-0 rounded-lg z-10 mt-6 w-full z-50">
           <div className="game_menu-con relative">
             <form className="game_search max-w-md mx-auto">
@@ -132,8 +102,8 @@ const SelectGame = ({ onGameChange }) => {
                   id="default-search"
                   className="block w-full border-b border-[#4a4b988c] focus:outline-0 focus:border-0 p-4 ps-15 placeholder-[#7B7ED0] text-lg"
                   placeholder="Search Game"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
+                  value={gameSearchTerm}
+                  onChange={(e) => dispatch(setGameSearchTerm(e.target.value))}
                   required
                 />
                 <svg
@@ -175,7 +145,7 @@ const SelectGame = ({ onGameChange }) => {
                     <Link
                       to={"#"}
                       className="dropdown-item py-3 px-5 block hover:opacity-50 duration-400 font_oswald flex gap-4 cursor-pointer"
-                      onClick={() => handleItemClick(null)}
+                      onClick={() =>  dispatch(setSelectedGame({}))}
                     >
                       <span className="text-xl purple_light">None</span>
                     </Link>
@@ -184,7 +154,7 @@ const SelectGame = ({ onGameChange }) => {
                         key={item._id}
                         to={"#"}
                         className="dropdown-item py-3 px-5 block hover:opacity-50 duration-400 font_oswald flex gap-4 cursor-pointer"
-                        onClick={() => handleItemClick(item)}
+                        onClick={() =>  dispatch(setSelectedGame(item))}
                       >
                         <img
                           src={`${baseURL}/api/v1/${item.logo}`}
@@ -212,4 +182,4 @@ const SelectGame = ({ onGameChange }) => {
   );
 };
 
-export default SelectGame;
+export default GameDropDown;
