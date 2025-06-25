@@ -32,7 +32,7 @@ const TeamOneScoreList = ({
   isTeamOne,
   mId,
   uId,
-  givedReputations
+  givedReputations,
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   console.log(playerPerTeam);
@@ -55,13 +55,16 @@ const TeamOneScoreList = ({
       reputation: -1,
     });
   };
-  
 
   return (
     <ul className="team_one--list flex flex-col gap-5 mt-[-1rem]">
       {cards.map((Card, index) => {
         // if (!showIndexes.includes(index)) return null;
-        let IsReputationGived = givedReputations.find(rep => rep.giver == uId && rep.receiver == players[index]?.participant?.userId?._id);
+        let IsReputationGived = givedReputations.find(
+          (rep) =>
+            rep.giver == uId &&
+            rep.receiver == players[index]?.participant?.userId?._id
+        );
         // console.log("IsReputationGived:", IsReputationGived);
         return (
           <li
@@ -78,36 +81,54 @@ const TeamOneScoreList = ({
               </span>
             )}
             <Card player={players[index]} />
-            {isMyMatch && isTeamOne && players[index].participant.userId._id != uId && (
-              <div
-                className={`review_score--con sd_before absolute top-[0rem] left-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
-                  hoveredIndex === index
-                    ? "opacity-100 visible"
-                    : "opacity-0 invisible"
-                }`}
-              >
+            {isMyMatch &&
+              isTeamOne &&
+              players[index].participant.userId._id != uId && (
                 <div
-                  onClick={() => IsReputationGived?.reputation != 1 ? submitUpVote(players[index]): null}
-                  className={`like_icon duration-400 ${ IsReputationGived?.reputation == 1 ? "opacity-50 visible" : "hover:opacity-70"}`}
+                  className={`review_score--con sd_before absolute top-[0rem] left-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
+                    hoveredIndex === index
+                      ? "opacity-100 visible"
+                      : "opacity-0 invisible"
+                  }`}
                 >
-                  <img
-                    src={LikeIcon}
-                    alt="Like"
-                    style={{ width: "2.625rem" }}
-                  />
+                  <div
+                    onClick={() =>
+                      IsReputationGived?.reputation != 1
+                        ? submitUpVote(players[index])
+                        : null
+                    }
+                    className={`like_icon duration-400 ${
+                      IsReputationGived?.reputation == 1
+                        ? "opacity-50 visible"
+                        : "hover:opacity-70"
+                    }`}
+                  >
+                    <img
+                      src={LikeIcon}
+                      alt="Like"
+                      style={{ width: "2.625rem" }}
+                    />
+                  </div>
+                  <div
+                    onClick={() =>
+                      IsReputationGived?.reputation != -1
+                        ? submitDownVote(players[index])
+                        : null
+                    }
+                    className={`like_icon duration-400 ${
+                      IsReputationGived?.reputation == -1
+                        ? "opacity-50 visible"
+                        : "hover:opacity-70"
+                    }`}
+                  >
+                    <img
+                      src={DisLikeIcon}
+                      alt="Dislike"
+                      style={{ width: "2.625rem" }}
+                    />
+                  </div>
                 </div>
-                <div
-                  onClick={() => IsReputationGived?.reputation != -1 ? submitDownVote(players[index]): null}
-                  className={`like_icon duration-400 ${ IsReputationGived?.reputation == -1 ? "opacity-50 visible" : "hover:opacity-70"}`}
-                >
-                  <img
-                    src={DisLikeIcon}
-                    alt="Dislike"
-                    style={{ width: "2.625rem" }}
-                  />
-                </div>
-              </div>
-            )}
+              )}
           </li>
         );
       })}
@@ -115,13 +136,43 @@ const TeamOneScoreList = ({
   );
 };
 
-const TeamTwoScoreList = ({ playerPerTeam, players, isMyMatch, isTeamOne }) => {
+const TeamTwoScoreList = ({
+  playerPerTeam,
+  players,
+  isMyMatch,
+  isTeamOne,
+  mId,
+  uId,
+  givedReputations,
+}) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   let cards = getCards(playerPerTeam, true);
-
+  const submitUpVote = (player) => {
+    console.log("Upvote clicked for player:", player);
+    socket.emit(SOCKET.GIVEREPUTATION, {
+      matchId: mId,
+      giver: uId,
+      receiver: player.participant.userId._id,
+      reputation: 1,
+    });
+  };
+  const submitDownVote = (player) => {
+    console.log("submitDownVote clicked for player:", player);
+    socket.emit(SOCKET.GIVEREPUTATION, {
+      matchId: mId,
+      giver: uId,
+      receiver: player.participant.userId._id,
+      reputation: -1,
+    });
+  };
   return (
     <ul className="team_two--list flex flex-col gap-5 mt-[-1rem]">
       {cards.map((Card, index) => {
+          let IsReputationGived = givedReputations.find(
+            (rep) =>
+              rep.giver == uId &&
+              rep.receiver == players[index]?.participant?.userId?._id
+          );
         // if (!showIndexes.includes(index)) return null;
         return (
           <li
@@ -138,7 +189,8 @@ const TeamTwoScoreList = ({ playerPerTeam, players, isMyMatch, isTeamOne }) => {
               </span>
             )}
             <Card player={players[index]} />
-            {isMyMatch && !isTeamOne && (
+            {isMyMatch && !isTeamOne&&
+              players[index].participant.userId._id != uId && (
               <div
                 className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
                   hoveredIndex === index
@@ -146,26 +198,42 @@ const TeamTwoScoreList = ({ playerPerTeam, players, isMyMatch, isTeamOne }) => {
                     : "opacity-0 invisible"
                 }`}
               >
-                <Link
-                  to="#"
-                  className="like_icon hover:opacity-70 duration-400"
+                <div
+                   onClick={() =>
+                    IsReputationGived?.reputation != 1
+                      ? submitUpVote(players[index])
+                      : null
+                  }
+                  className={`like_icon duration-400 ${
+                    IsReputationGived?.reputation == 1
+                      ? "opacity-50 visible"
+                      : "hover:opacity-70"
+                  }`}
                 >
                   <img
                     src={LikeIcon}
                     alt="Like"
                     style={{ width: "2.625rem" }}
                   />
-                </Link>
-                <Link
-                  to="#"
-                  className="like_icon hover:opacity-70 duration-400"
+                </div>
+                <div
+                 onClick={() =>
+                  IsReputationGived?.reputation != -1
+                    ? submitDownVote(players[index])
+                    : null
+                }
+                className={`like_icon duration-400 ${
+                  IsReputationGived?.reputation == -1
+                    ? "opacity-50 visible"
+                    : "hover:opacity-70"
+                }`}
                 >
                   <img
                     src={DisLikeIcon}
                     alt="Dislike"
                     style={{ width: "2.625rem" }}
                   />
-                </Link>
+                </div>
               </div>
             )}
           </li>
