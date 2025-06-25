@@ -414,6 +414,27 @@
   top: 0;
 }
 
+.match_reg2--popup {
+  background: linear-gradient(
+    180deg,
+    rgba(31, 34, 90, 1) 0%,
+    rgba(16, 19, 63, 1) 100%
+  );
+  clip-path: url(#myClipPath);
+
+}
+
+.match_reg2--popup:before {
+  background-image: url("../images/pop_up_bg.png");
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  top: 0;
+}
+
+
 .popup-overlay {
   background: linear-gradient(
     180deg,

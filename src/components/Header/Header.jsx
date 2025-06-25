@@ -81,7 +81,7 @@ const Header = ({
                   style={{ width: "10rem", height: "4rem" }}
                   onClick={(e) => {
                     e.preventDefault();
-                    setShowLoginModal(true);
+                    dispatch(setLogin(true));
                   }}
                 >
                   Log In
