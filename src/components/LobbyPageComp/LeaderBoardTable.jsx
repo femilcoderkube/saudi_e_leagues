@@ -180,7 +180,7 @@ const LeaderBoard = ({ leaderBoard }) => {
                 </td>
 
                 <td className="avarage_score text-center text-lg font-bold">
-                  {requestedUser.rep} 
+                  { requestedUser.rep} 
                 </td>
 
                 <td className="py-4 px-4 text-center text-lg">

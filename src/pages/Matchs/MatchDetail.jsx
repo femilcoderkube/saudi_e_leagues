@@ -20,9 +20,10 @@ import {
   setIsTeamOne,
   setmatchData,
 } from "../../app/slices/MatchSlice/matchDetailSlice";
-import { getCards } from "./matchCards";
+import { getCards } from "../../components/MatchDeatilComponents/matchCards";
 import GamingLoader from "../../components/Loader/loader";
 import MatchLoader from "../../components/Loader/MatchLoader";
+import { baseURL } from "../../utils/axios";
 
 // ✅ Card list component for Team 1
 const TeamOneScoreList = ({
@@ -38,7 +39,6 @@ const TeamOneScoreList = ({
   console.log(playerPerTeam);
   let cards = getCards(playerPerTeam, false);
   const submitUpVote = (player) => {
-    console.log("Upvote clicked for player:", player);
     socket.emit(SOCKET.GIVEREPUTATION, {
       matchId: mId,
       giver: uId,
@@ -47,7 +47,6 @@ const TeamOneScoreList = ({
     });
   };
   const submitDownVote = (player) => {
-    console.log("submitDownVote clicked for player:", player);
     socket.emit(SOCKET.GIVEREPUTATION, {
       matchId: mId,
       giver: uId,
@@ -59,6 +58,15 @@ const TeamOneScoreList = ({
   return (
     <ul className="team_one--list flex flex-col gap-5 mt-[-1rem]">
       {cards.map((Card, index) => {
+
+        let data = {
+          username: players[index]?.participant?.userId?.username || "",
+          gameID:players[index]?.participant?.gameId || "",
+          rep : players[index]?.participant?.raputations?.wilsonScore || 0 ,
+          profilePic: (baseURL +'/api/v1/'+ players[index]?.participant?.userId?.profilePicture || ""),
+          score : players[index]?.leaguesScore || 0,
+        }
+        console.log("Player Data:", data);
         // if (!showIndexes.includes(index)) return null;
         let IsReputationGived = givedReputations.find(
           (rep) =>
@@ -80,7 +88,7 @@ const TeamOneScoreList = ({
                 <img src={GoldCrown} alt="Gold Crown" className="h-10" />
               </span>
             )}
-            <Card player={players[index]} />
+            <Card player={data} />
             {isMyMatch &&
               isTeamOne &&
               players[index].participant.userId._id != uId && (
@@ -148,7 +156,6 @@ const TeamTwoScoreList = ({
   const [hoveredIndex, setHoveredIndex] = useState(null);
   let cards = getCards(playerPerTeam, true);
   const submitUpVote = (player) => {
-    console.log("Upvote clicked for player:", player);
     socket.emit(SOCKET.GIVEREPUTATION, {
       matchId: mId,
       giver: uId,
@@ -157,7 +164,6 @@ const TeamTwoScoreList = ({
     });
   };
   const submitDownVote = (player) => {
-    console.log("submitDownVote clicked for player:", player);
     socket.emit(SOCKET.GIVEREPUTATION, {
       matchId: mId,
       giver: uId,
@@ -168,6 +174,13 @@ const TeamTwoScoreList = ({
   return (
     <ul className="team_two--list flex flex-col gap-5 mt-[-1rem]">
       {cards.map((Card, index) => {
+         let data = {
+          username: players[index]?.participant?.userId?.username || "",
+          gameID:players[index]?.participant?.gameId || "",
+          rep : players[index]?.participant?.raputations?.wilsonScore || 0 ,
+          profilePic: (baseURL +'/api/v1/'+ players[index]?.participant?.userId?.profilePicture || ""),
+          score : players[index]?.leaguesScore || 0,
+        }
           let IsReputationGived = givedReputations.find(
             (rep) =>
               rep.giver == uId &&
@@ -188,7 +201,7 @@ const TeamTwoScoreList = ({
                 <img src={GoldCrown} alt="Gold Crown" className="h-10" />
               </span>
             )}
-            <Card player={players[index]} />
+            <Card player={data} />
             {isMyMatch && !isTeamOne&&
               players[index].participant.userId._id != uId && (
               <div
