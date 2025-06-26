@@ -29,7 +29,7 @@ const Sidebar = ({ onItemClick }) => {
   return (
     <aside className="w-[22.5rem] text-white">
       <Link
-        to={"/admin-control/partners"}
+        to={"/"}
         className="sd_logo"
         style={{ height: "7.438rem", display: "block" }}
       >
@@ -56,7 +56,7 @@ const Sidebar = ({ onItemClick }) => {
                   }`}
                 >
                   <NavLink
-                    to={item?.id ? `/${item.id}` : item.path}
+                    to={item?.id ? `/${item.id}/lobby` : item.path}
                     className="aside_link block px-5 py-8 rounded flex items-center gap-3 relative border-b border-[#131645] bg-opacity-5"
                     style={
                       isHovered || isActive

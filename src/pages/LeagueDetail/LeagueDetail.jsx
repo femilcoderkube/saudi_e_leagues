@@ -309,7 +309,7 @@ const LeagueDetail = () => {
                       style={{ width: "30.5rem" }}
                     />{" "}
                   </div>
-                ) :(
+                ) : canJoinQueue(leagueData) ? (
                   <Link
                     className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before"
                     to={`/${id}/lobby/${leagueData?._id}/finding-match`}
@@ -321,7 +321,7 @@ const LeagueDetail = () => {
                        textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)"
                      }}
                    >
-                     QUEUE
+                   {getQueueText(leagueData)}
                    </span>
                     <img
                       src={Que_btn}
@@ -329,6 +329,26 @@ const LeagueDetail = () => {
                       style={{ width: "30.5rem" }}
                     />{" "}
                   </Link>
+                ) :(
+                  <div
+                    className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed"
+                    
+                  >
+                   <span
+                     className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"
+                     style={{
+                       fontFamily: "Yapari",
+                       textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)"
+                     }}
+                   >
+                   {getQueueText(leagueData)}
+                   </span>
+                    <img
+                      src={Que_btn}
+                      alt=""
+                      style={{ width: "30.5rem" }}
+                    />{" "}
+                  </div>
                 ) : (
                   <div
                     onClick={() => dispatch(setRegistrationModal(true))}
@@ -364,3 +384,143 @@ const LeagueDetail = () => {
 };
 
 export default LeagueDetail;
+function getQueueText(leagueData) {
+  if (!leagueData || !leagueData.queueSettings) return "";
+
+  const { alwaysOn, schedule } = leagueData.queueSettings;
+
+  // Always On: Use startDate/endDate logic
+  if (alwaysOn) {
+    const now = new Date();
+    const start = new Date(leagueData.startDate);
+    const end = new Date(leagueData.endDate);
+
+    if (start > now) {
+      return "STARTS IN " + GetTimeString(leagueData.startDate);
+    } else if (end < now) {
+      return "LEAGUE ENDED";
+    } else {
+      return "QUEUE";
+    }
+  }
+
+  // Scheduled: Use schedule.days, startTime, endTime
+  if (
+    schedule &&
+    Array.isArray(schedule.days) &&
+    schedule.days.length > 0 &&
+    schedule.startTime &&
+    schedule.endTime
+  ) {
+    // Get today's day in lowercase
+    const today = new Date();
+    const daysOfWeek = [
+      "sunday",
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+    ];
+    const todayName = daysOfWeek[today.getDay()];
+
+    // Is today a queue day?
+    const isTodayQueueDay = schedule.days
+      .map((d) => d.toLowerCase())
+      .includes(todayName);
+
+    // Parse start and end time for today
+    function parseTimeToDate(timeStr, baseDate) {
+      const [h, m] = timeStr.split(":").map(Number);
+      const d = new Date(baseDate);
+      d.setHours(h, m, 0, 0);
+      return d;
+    }
+
+    if (isTodayQueueDay) {
+      const startTime = parseTimeToDate(schedule.startTime, today);
+      const endTime = parseTimeToDate(schedule.endTime, today);
+
+      if (today < startTime) {
+        return `OPENS IN ${GetTimeString(startTime)}`;
+      } else if (today >= startTime && today <= endTime) {
+        return "QUEUE";
+      } else {
+        // Find next queue day
+        let nextDayIndex = null;
+        for (let i = 1; i <= 7; i++) {
+          const next = (today.getDay() + i) % 7;
+          if (
+            schedule.days.map((d) => d.toLowerCase()).includes(daysOfWeek[next])
+          ) {
+            nextDayIndex = next;
+            break;
+          }
+        }
+        if (nextDayIndex !== null) {
+          // Calculate next queue day date
+          const nextDate = new Date(today);
+          nextDate.setDate(
+            today.getDate() + ((nextDayIndex + 7 - today.getDay()) % 7)
+          );
+          const nextStartTime = parseTimeToDate(schedule.startTime, nextDate);
+          return `OPENS IN ${GetTimeString(nextStartTime)}`;
+        }
+        return "QUEUE CLOSED";
+      }
+    } else {
+      // Find next queue day
+      let nextDayIndex = null;
+      for (let i = 1; i <= 7; i++) {
+        const next = (today.getDay() + i) % 7;
+        if (
+          schedule.days.map((d) => d.toLowerCase()).includes(daysOfWeek[next])
+        ) {
+          nextDayIndex = next;
+          break;
+        }
+      }
+      if (nextDayIndex !== null) {
+        // Calculate next queue day date
+        const nextDate = new Date(today);
+        nextDate.setDate(
+          today.getDate() + ((nextDayIndex + 7 - today.getDay()) % 7)
+        );
+        const nextStartTime = parseTimeToDate(schedule.startTime, nextDate);
+        return `OPENS IN ${GetTimeString(nextStartTime)}`;
+      }
+      return "QUEUE CLOSED";
+    }
+  }
+
+  return "QUEUE CLOSED";
+}
+
+// Returns true if user is able to join queue (when getQueueText returns "QUEUE"), else false
+function canJoinQueue(leagueData) {
+  const text = getQueueText(leagueData);
+  return text === "QUEUE";
+}
+
+function GetTimeString(date) {
+  if (!date) return "";
+  const now = new Date();
+  const target = new Date(date);
+  let diff = Math.max(0, target - now); // in ms
+
+  const sec = Math.floor(diff / 1000) % 60;
+  const min = Math.floor(diff / (1000 * 60)) % 60;
+  const hour = Math.floor(diff / (1000 * 60 * 60)) % 24;
+  const day = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const month = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+
+  let parts = [];
+  if (month > 0) parts.push(month === 1 ? "1 mon" : `${month} mon`);
+  if (day > 0 && month === 0) parts.push(day === 1 ? "1 day" : `${day} day`);
+  if (hour > 0 && month === 0 && day === 0) parts.push(hour === 1 ? "1 hr" : `${hour} hrs`);
+  if (min > 0 && month === 0 && day === 0 && hour === 0) parts.push(min === 1 ? "1 min" : `${min} min`);
+  if (sec > 0 && month === 0 && day === 0 && hour === 0 && min === 0) parts.push(sec === 1 ? "1 sec" : `${sec} sec`);
+  if (parts.length === 0) parts.push("0 sec");
+  return parts.join(" ");
+}

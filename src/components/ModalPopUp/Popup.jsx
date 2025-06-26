@@ -2,7 +2,7 @@ import { useState } from "react";
 import rules_icon from "../../assets/images/rules_icon.png";
 import PdfModal from "./PdfModal";
 
-function PopUp() {
+function PopUp({pdf}) {
   const [showModal, setShowModal] = useState(false);
 
   const handleOpen = () => setShowModal(true);
@@ -24,7 +24,7 @@ function PopUp() {
       </div>
 
       {/* Modal */}
-      {showModal && <PdfModal onClose={handleClose} />}
+      {showModal && <PdfModal onClose={handleClose} pdf={pdf} />}
     </>
   );
 }

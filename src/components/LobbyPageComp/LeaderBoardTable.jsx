@@ -5,6 +5,7 @@ import gold_bedge from "../../assets/images/gold.png";
 import silver_bedge from "../../assets/images/silver.png";
 import bronze_bedge from "../../assets/images/bronze.png";
 import { baseURL } from "../../utils/axios";
+import { getSmile } from "../MatchDeatilComponents/matchCards";
 
 const leaderboardData = [
   {
@@ -77,7 +78,7 @@ const leaderboardData = [
 
 const LeaderBoard = ({ leaderBoard }) => {
   let requestedUser = leaderBoard?.requestedUser || null;
-  if(requestedUser){
+  if (requestedUser) {
     let user = {
       username: requestedUser?.userId?.username,
       points: requestedUser?.totalScore,
@@ -85,8 +86,8 @@ const LeaderBoard = ({ leaderBoard }) => {
       losses: requestedUser?.totalLosses,
       rep: requestedUser?.wilsonScore,
       winRate: requestedUser?.winPercentage + "%",
-      rank : requestedUser?.rank || 0,
-      profilePic : requestedUser?.userId?.profilePic || null,
+      rank: requestedUser?.rank || 0,
+      profilePic: requestedUser?.userId?.profilePic || null,
     };
 
     if (requestedUser?.rank === 1) {
@@ -104,6 +105,14 @@ const LeaderBoard = ({ leaderBoard }) => {
     }
     requestedUser = user;
     // var index = requestedUser.rank - 1;
+  }
+  if (leaderBoard?.topUsers?.length === 0 && !requestedUser) {
+    return (
+      <div className="leaderboard-wrapper pt-8">
+        <h2 className="text-2xl !font-bold">Leaderboard</h2>
+        <p className="text-lg text-center mt-4">No data available</p>
+      </div>
+    );
   }
   return (
     <div className="leaderboard-wrapper pt-8">
@@ -134,10 +143,15 @@ const LeaderBoard = ({ leaderBoard }) => {
         <tbody>
           {requestedUser && (
             <>
-              <tr key={-1} className={`${requestedUser.badgeColor} overflow-hidden`}>
+              <tr
+                key={-1}
+                className={`${requestedUser.badgeColor} overflow-hidden`}
+              >
                 <td
-                  className={`py-4 px-4 ${requestedUser.bedgeBG} ${
-                    String(requestedUser.rank).length === 1 ? "one_digit" : "two_digit"
+                  className={`py-4 px-4 w-[6rem] ${requestedUser.bedgeBG} ${
+                    String(requestedUser.rank).length === 1
+                      ? "one_digit"
+                      : "two_digit"
                   }`}
                 >
                   <img
@@ -172,16 +186,26 @@ const LeaderBoard = ({ leaderBoard }) => {
                 </td>
 
                 <td className="py-4 px-4 text-center">
-                  <span className="win text-lg sky_col">{requestedUser.wins}</span>{" "}
+                  <span className="win text-lg sky_col">
+                    {requestedUser.wins}
+                  </span>{" "}
                   <b className="font-bold text-xs">/</b>{" "}
                   <span className="loss text-lg text-[#FA4768]">
                     {requestedUser.losses}
                   </span>
                 </td>
 
-                <td className="avarage_score text-center text-lg font-bold">
-                  { requestedUser.rep} 
-                </td>
+                <td className="py-4 px-4">
+                    <div className="flex items-center justify-center">
+                      <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
+                        <img
+                          src={getSmile(requestedUser.rep)}
+                          alt={requestedUser.username}
+                          style={{ width: "1.5rem" }}
+                        />
+                      </div>
+                    </div>
+                  </td>
 
                 <td className="py-4 px-4 text-center text-lg">
                   {requestedUser.winRate}
@@ -197,7 +221,7 @@ const LeaderBoard = ({ leaderBoard }) => {
               losses: data?.totalLosses,
               rep: data?.wilsonScore,
               winRate: data?.winPercentage + "%",
-              profilePic : data?.userId?.profilePic || Null,
+              profilePic: data?.userId?.profilePic || Null,
             };
 
             if (index == 0) {
@@ -238,11 +262,11 @@ const LeaderBoard = ({ leaderBoard }) => {
                     </div>
                   </td>
 
-                  <td className="py-4 px-4">
+                  <td className="py-4 px-2">
                     <div className="flex items-center gap-2">
                       <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
                         <img
-                           src={baseURL + "/api/v1/" + user.profilePic}
+                          src={baseURL + "/api/v1/" + user.profilePic}
                           alt={user.username}
                           style={{ width: "2.5rem" }}
                         />
@@ -264,9 +288,16 @@ const LeaderBoard = ({ leaderBoard }) => {
                       {user.losses}
                     </span>
                   </td>
-
-                  <td className="avarage_score text-center text-lg font-bold">
-                    {user.rep} 
+                  <td className="py-4 px-4">
+                    <div className="flex items-center justify-center">
+                      <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
+                        <img
+                          src={getSmile(user.rep)}
+                          alt={user.username}
+                          style={{ width: "1.5rem" }}
+                        />
+                      </div>
+                    </div>
                   </td>
 
                   <td className="py-4 px-4 text-center text-lg">

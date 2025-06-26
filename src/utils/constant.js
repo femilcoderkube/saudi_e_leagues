@@ -1,7 +1,7 @@
 import prime_icon from "../assets/images/prime_icon.svg";
 import prime_hover from "../assets/images/prime_hover.svg";
 import { Prime } from "../components/ui/svg";
-import LargePrime from '../assets/images/large_prime.png';
+import LargePrime from "../assets/images/large_prime.png";
 
 export const items = [
   {
@@ -9,7 +9,7 @@ export const items = [
     path: "/:id",
     src: prime_icon,
     hoverSrc: prime_hover,
-    logo : LargePrime,
+    logo: LargePrime,
     docId: "68466ecb6e8d3444d55e85f1",
     id: "prime",
     headerIcon: Prime,
@@ -17,7 +17,7 @@ export const items = [
 ];
 export const getPartnerById = (id) => {
   return items.find((item) => item.id === id);
-}
+};
 export function getDayFromISO(dateString) {
   const date = new Date(dateString);
   return String(date.getUTCDate()).padStart(2, "0");
@@ -31,13 +31,13 @@ export const SOCKET = {
   LEAVELEAGUE: "LeaveLeague",
   LEAGUEUPDATE: "leagueUpdate",
   LEAGUEJOIN: "leagueJoin",
-  READYTOPLAY : "readyToPlay",
+  READYTOPLAY: "readyToPlay",
   NOTREADYTOPLAY: "notReadyToPlay",
   JOINMATCH: "joinMatch",
-  MATCHUPDATE : "matchUpdate",
+  MATCHUPDATE: "matchUpdate",
   STARTMATCH: "startMatch",
   ONMESSAGE: "onMessage",
-  ONSUBMIT : "onSubmit",
+  ONSUBMIT: "onSubmit",
   JOINUSEROOM: "joinUserRoom",
   GIVEREPUTATION: "giveReputation",
 };
@@ -83,3 +83,37 @@ export const cardVariants = {
   exit: { opacity: 0, scale: 0.8, y: -20, transition: { duration: 0.3 } },
 };
 // Output: bg-[linear-gradient(141deg, rgba(55, 16, 31, 1) 0%, rgba(157, 45, 58, 1) 100%)]
+export function formatDateToMonthDay(dateStr) {
+  const date = new Date(dateStr);
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const day = date.getUTCDate();
+  const month = months[date.getUTCMonth()];
+
+  const getOrdinal = (n) => {
+    if (n > 3 && n < 21) return `${n}th`;
+    switch (n % 10) {
+      case 1:
+        return `${n}st`;
+      case 2:
+        return `${n}nd`;
+      case 3:
+        return `${n}rd`;
+      default:
+        return `${n}th`;
+    }
+  };
+  return `${month} ${getOrdinal(day)}`;
+}

@@ -8,7 +8,7 @@ import { baseURL } from "../../utils/axios";
 // Set the workerSrc to match react-pdf's PDF.js version
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@4.8.69/build/pdf.worker.min.mjs`;
 
-function PdfModal({ onClose }) {
+function PdfModal({ onClose  ,pdf}) {
   const [numPages, setNumPages] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [pageWidth, setPageWidth] = useState(null);
@@ -95,7 +95,7 @@ function PdfModal({ onClose }) {
           style={hideScrollbarStyle}
         >
           <Document
-            file={baseURL +"/api/v1/uploads/1750831957415-(SRS) – Nafes Super Platform.pdf" }
+            file={pdf}
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={onDocumentLoadError}
             className="w-full rounded-lg scroll-hide"
