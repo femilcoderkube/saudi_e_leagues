@@ -8,6 +8,7 @@ import LoginModal from "../Modal/LoginModal";
 import { toast } from "react-toastify";
 import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp";
 import { setRegisteration } from "../../app/slices/constState/constStateSlice";
+import { countryData } from "../../utils/CountryCodes";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -24,14 +25,31 @@ export default function Main() {
     (state) => state.constState.isRegisteration
   );
 
+  const countryOptions = countryData.map((country) => ({
+    value: country.name,
+    label: country.name,
+  }));
+
+  const dialCodeOptions = countryData.map((country) => ({
+    value: country.dial_code,
+    label: `${country.dial_code} (${country.code})`,
+  }));
+
+  const defaultNationality = countryOptions.find(
+    (option) => option.value === "Saudi Arabia"
+  );
+  const defaultDialCode = dialCodeOptions.find(
+    (option) => option.value === "+966"
+  );
+
   const initialValues = {
     username: "",
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    nationality: "Saudi Arabia",
-    dialCode: "+966",
+    nationality: defaultNationality,
+    dialCode: defaultDialCode,
     phone: "",
     dateOfBirth: "",
     gender: "Male",
