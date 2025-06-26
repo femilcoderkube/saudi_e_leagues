@@ -289,7 +289,7 @@ const MatchDetail = () => {
           )
         );
       } else {
-        dispatch(setChatData(data.data.reverse()));
+        dispatch(setChatData(data.data?.reverse()));
       }
     };
     if (isSocketConnected) {

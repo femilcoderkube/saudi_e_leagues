@@ -260,7 +260,7 @@ const LeagueDetail = () => {
                   </defs>
                 </svg>
               </div>
-              <div className="sd_star_bedge--wrap flex items-center mt-8 bg-no-repeat justify-between relative py-[0.625rem]">
+              { leagueData?.leaderBoard.weekOfTheStartUsers && <div className="sd_star_bedge--wrap flex items-center mt-8 bg-no-repeat justify-between relative py-[0.625rem]">
                 <div className="sd_bedge_left-con flex items-center gap-4 pl-[2rem]">
                   <div className="sd_bedge-lable border-r-1 border-[#7b7ed047] pr-6">
                     <img src={star_of_week} alt="" style={{ width: "6rem" }} />
@@ -268,28 +268,28 @@ const LeagueDetail = () => {
                   <div className="sd_avtar-info gap-6 p-3 inline-flex justify-between items-center cursor-pointer text-white rounded">
                     <div className="user_img relative sd_before">
                       <img
-                        src={User}
+                        src={baseURL + "/api/v1/" + leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.profilePic}
                         alt=""
                         className="rounded-[3rem]"
                         style={{ width: "3rem" }}
                       />
                     </div>
                     <div className="use_con text-left flex flex-col gap-1">
-                      <span className="text-lg">Just Larry</span>
+                      <span className="text-lg">{leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.fullName}</span>
                       <span className="user_id text-md block text-[#87C9F2]">
-                        @larrry
+                        @{leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.username}
                       </span>
                     </div>
                   </div>
                 </div>
                 <div className="sd_score--con horizontal_center absolute">
                   <h2 className="text-[2rem] !font-extrabold grad_text-clip">
-                    253.081
+                  {leagueData?.leaderBoard?.weekOfTheStartUsers?.weeklyScore}
                   </h2>
                 </div>
                 <ScoreTicker />
-              </div>
-              <LeaderBoard />
+              </div> }
+              <LeaderBoard leaderBoard={leagueData?.leaderBoard} />
             </div>
             <div className="sd_content-right w-full">
               {user?._id ? (
