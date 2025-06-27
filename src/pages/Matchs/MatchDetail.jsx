@@ -344,8 +344,8 @@ const MatchDetail = () => {
     }
   };
 
-  const partner = items.find((item) => item.id === id);
-  const LargePrime = partner.logo;
+  const partner = items.find((item) => item.id == id);
+  const LargePrime = partner?.logo;
 
   if (showLoader) {
     return <MatchLoader />;
@@ -370,7 +370,7 @@ const MatchDetail = () => {
               players={matchData?.team1}
               isMyMatch={isMyMatch}
               isTeamOne={isTeamOne}
-              mId={matchData._id}
+              mId={matchData?._id}
               uId={user?._id}
               givedReputations={matchData?.givedReputations || []}
             />
