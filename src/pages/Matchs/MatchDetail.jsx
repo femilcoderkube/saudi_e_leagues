@@ -91,7 +91,7 @@ const TeamOneScoreList = ({
             <Card player={data} />
             {isMyMatch &&
               isTeamOne &&
-              players[index].participant.userId._id != uId && (
+              players[index]?.participant?.userId?._id != uId && (
                 <div
                   className={`review_score--con sd_before absolute top-[0rem] left-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
                     hoveredIndex === index
@@ -202,8 +202,8 @@ const TeamTwoScoreList = ({
               </span>
             )}
             <Card player={data} />
-            {isMyMatch && !isTeamOne&&
-              players[index].participant.userId._id != uId && (
+            {isMyMatch && !isTeamOne &&
+              players[index]?.participant?.userId?._id != uId && (
               <div
                 className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
                   hoveredIndex === index

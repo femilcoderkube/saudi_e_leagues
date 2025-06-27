@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import { store } from "../slices/store";
 import { setSocketConnected, setSocketId } from "../slices/socket/socketSlice";
 import { SOCKET } from "../../utils/constant";
-import { setLeagueData, setRegistrationModal } from "../slices/leagueDetail/leagueDetailSlice";
+import { removeFromQueue, setLeagueData, setRegistrationModal } from "../slices/leagueDetail/leagueDetailSlice";
 import { useSelector } from "react-redux";
 
 // const SOCKET_URL = "/";
@@ -42,11 +42,11 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
     // Remove any previous listener to prevent duplicate handlers
     stopLeagueSocket();
     // Emit join league event
-    socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user._id });
+    socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
     // Listen for league updates and update state
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
       console.log("League Update Data:", data);
-      data.data.userId = user._id;
+      data.data.userId = user?._id;
       store.dispatch(setLeagueData(data.data));
     });
   }
@@ -58,11 +58,12 @@ export function stopLeagueSocket() {
 
 export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
-  socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user._id });
+  socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user?._id });
 }
 export function stopReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
-  socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user._id });
+  socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user?._id });
+  store.dispatch(removeFromQueue(user._id))
 }
 export function joinLeagueSocket({ isSocketConnected, payload }) {
   if (!isSocketConnected) return;

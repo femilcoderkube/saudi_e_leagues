@@ -60,9 +60,10 @@ const RegistrationModel = () => {
     if (fieldList.length > 0) {
       // Attach all custom fields to payload
       for (const field of fieldList) {
-        payload[field.fieldName == "Game ID" ? "gameId" : field.fieldName] = values[field.fieldName];
+        payload[ "gameId" ] = values[field.fieldName];
       }
     }
+    console.log("----------------",payload)
     joinLeagueSocket({payload,isSocketConnected})
     
   };
