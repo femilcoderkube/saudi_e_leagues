@@ -344,8 +344,9 @@ const MatchDetail = () => {
     }
   };
 
-  const partner = items.find((item) => item.id == id);
-  const LargePrime = getPartnerById(id);
+console.log("Match Data:", id);
+  const LargePrime = getPartnerById(id).logo;
+
 
   if (showLoader) {
     return <MatchLoader />;
