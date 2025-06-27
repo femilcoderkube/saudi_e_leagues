@@ -1,34 +1,70 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import rules_icon from "../../assets/images/rules_icon.png";
 import match_reg from "../../assets/images/match_reg.png";
 import { Link, useParams } from "react-router-dom";
 import { Popup_btn } from "../../components/ui/svg/index.jsx";
-import { socket } from "../../app/socket/socket.js";
+import { joinLeagueSocket, socket } from "../../app/socket/socket.js";
 import { SOCKET } from "../../utils/constant.js";
 import { setIsAgreedToJoin, setRegistrationModal } from "../../app/slices/leagueDetail/leagueDetailSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 const RegistrationModel = () => {
-  const { isAgreedToJoin } = useSelector((state) => state.leagues);
-  const { lId } = useParams();
+  const { isAgreedToJoin, leagueData } = useSelector((state) => state.leagues);
   const dispatch = useDispatch();
+  const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const user = useSelector((state) => state.auth.user);
 
-  const validationSchema = Yup.object({
-    inputId: Yup.string()
-      .min(2, "Input ID must be at least 2 characters")
-      .required("Input ID is required"),
-  });
+  // Get custom fields from leagueData, fallback to empty array
+  const customFields = Array.isArray(leagueData?.customRegistrationFields)
+    ? leagueData.customRegistrationFields
+    : [];
 
+  // Build initialValues and validationSchema dynamically
+  const { initialValues, validationSchema, fieldList } = useMemo(() => {
+    let vals = {};
+    let shape = {};
+    let fields = [];
+
+    if (customFields.length > 0) {
+      for (const field of customFields) {
+        vals[field.fieldName] = "";
+        let validator = null;
+        switch (field.fieldType) {
+          case "text":
+          default:
+            validator = Yup.string();
+            break;
+        }
+        if (field.required) {
+          validator = validator.required(`${field.fieldName.replace(/^\w/, c => c.toUpperCase())} is required`);
+        }
+        shape[field.fieldName] = validator;
+        fields.push(field);
+      }
+    }
+    return {
+      initialValues: vals,
+      validationSchema: Yup.object(shape),
+      fieldList: fields,
+    };
+  }, [customFields]);
+
+  // Handle form submit
   const handleSubmit = (values) => {
-    socket.emit(SOCKET.LEAGUEJOIN, {
-      Lid: lId,
+    // If there are custom fields, send all of them
+    let payload = {
+      Lid: leagueData._id,
       userId: user._id,
-      gameId: values.inputId,
-    });
-    dispatch(setRegistrationModal(false));
+    };
+    if (fieldList.length > 0) {
+      // Attach all custom fields to payload
+      for (const field of fieldList) {
+        payload[field.fieldName == "Game ID" ? "gameId" : field.fieldName] = values[field.fieldName];
+      }
+    }
+    joinLeagueSocket({payload,isSocketConnected})
+    
   };
 
   return (
@@ -73,48 +109,56 @@ const RegistrationModel = () => {
               </div>
               <div className="popup_body px-4 py-3">
                 <Formik
-                  initialValues={{ inputId: "" }}
+                  initialValues={initialValues}
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
+                  enableReinitialize
                 >
                   {({ isValid }) => (
                     <Form>
-                      <div className="text-center w-full">
-                        <Field
-                          type="text"
-                          id="inputId"
-                          name="inputId"
-                          className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
-                          placeholder="Input ID"
-                        />
-                        <div className="text-start px-7">
-                          <ErrorMessage
-                            name="inputId"
-                            component="div"
-                            className="text-red-500  text-sm mt-1"
-                          />
-                        </div>
-                        <svg
-                          width="0"
-                          height="0"
-                          viewBox="0 0 400 72"
-                          xmlns="http://www.w3.org/2000/svg"
-                          style={{ position: "absolute" }}
-                        >
-                          <defs>
-                            <clipPath
-                              id="inputclip"
-                              clipPathUnits="objectBoundingBox"
-                            >
-                              <path
-                                transform="scale(0.0025, 0.0138889)"
-                                d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
+                      {fieldList.length > 0 && (
+                        <div className="text-center w-full">
+                          {fieldList.map((field) => (
+                            <div key={field._id} className="mb-4">
+                              <Field
+                                type={field.fieldType}
+                                id={field.fieldName}
+                                name={field.fieldName}
+                                className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
+                                placeholder={field.fieldName.replace(/^\w/, c => c.toUpperCase())}
                               />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
+                              <div className="text-start px-7">
+                                <ErrorMessage
+                                  name={field.fieldName}
+                                  component="div"
+                                  className="text-red-500 text-sm mt-1"
+                                />
+                              </div>
+                            </div>
+                          ))}
+                          <svg
+                            width="0"
+                            height="0"
+                            viewBox="0 0 400 72"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style={{ position: "absolute" }}
+                          >
+                            <defs>
+                              <clipPath
+                                id="inputclip"
+                                clipPathUnits="objectBoundingBox"
+                              >
+                                <path
+                                  transform="scale(0.0025, 0.0138889)"
+                                  d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
+                                />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                      )}
 
+                      {/* Terms and Conditions Checkbox */}
                       <div className="px-4 pt-6">
                         <input
                           className="hidden"
@@ -143,19 +187,26 @@ const RegistrationModel = () => {
                             </Link>
                           </div>
                         </label>
+                        {!isAgreedToJoin && (
+                          <div className="text-red-500 text-sm mt-1 px-2">
+                            You must agree to the Terms and Conditions to register.
+                          </div>
+                        )}
                       </div>
 
                       <div className="popup_footer px-6 mt-5 pt-6">
                         <button
                           type="submit"
-                          disabled={!isAgreedToJoin || !isValid}
+                          disabled={!isAgreedToJoin || (fieldList.length > 0 && !isValid)}
                           className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 ${
-                            !isAgreedToJoin || !isValid
+                            !isAgreedToJoin || (fieldList.length > 0 && !isValid)
                               ? "opacity-50 cursor-not-allowed"
                               : ""
                           }`}
                         >
-                          Input ID
+                          {fieldList.length > 0
+                            ? "Submit"
+                            : "Register"}
                         </button>
                         <Popup_btn />
                       </div>
@@ -187,6 +238,6 @@ const RegistrationModel = () => {
       </div>
     </>
   );
-}
+};
 
 export default RegistrationModel;

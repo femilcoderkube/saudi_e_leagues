@@ -7,7 +7,7 @@ import DisLikeIcon from "../../assets/images/dislike_icon.png";
 import GoldCrown from "../../assets/images/gold_crown.png";
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
 import { Link, useParams } from "react-router-dom";
-import { items, SOCKET } from "../../utils/constant";
+import { getServerURL, items, SOCKET } from "../../utils/constant";
 import {
   setMatchLoader,
   setMatchPage,
@@ -63,7 +63,7 @@ const TeamOneScoreList = ({
           username: players[index]?.participant?.userId?.username || "",
           gameID:players[index]?.participant?.gameId || "",
           rep : players[index]?.participant?.raputations?.wilsonScore || 0 ,
-          profilePic: (baseURL +'/api/v1/'+ players[index]?.participant?.userId?.profilePicture || ""),
+          profilePic: getServerURL( players[index]?.participant?.userId?.profilePicture || ""),
           score : players[index]?.leaguesScore || 0,
         }
         console.log("Player Data:", data);
@@ -178,7 +178,7 @@ const TeamTwoScoreList = ({
           username: players[index]?.participant?.userId?.username || "",
           gameID:players[index]?.participant?.gameId || "",
           rep : players[index]?.participant?.raputations?.wilsonScore || 0 ,
-          profilePic: (baseURL +'/api/v1/'+ players[index]?.participant?.userId?.profilePicture || ""),
+          profilePic:  getServerURL( players[index]?.participant?.userId?.profilePicture || ""),
           score : players[index]?.leaguesScore || 0,
         }
           let IsReputationGived = givedReputations.find(

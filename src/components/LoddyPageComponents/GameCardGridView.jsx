@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion"; // Import framer-motion
 import CardTopLeftShap from "../../assets/images/card_top_left-shap.png";
 import { baseURL } from "../../utils/axios.js";
-import { cardVariants, containerVariants, getDayFromISO, getMonthAbbreviation } from "../../utils/constant.js";
+import { cardVariants, containerVariants, getDayFromISO, getMonthAbbreviation, getServerURL } from "../../utils/constant.js";
 
 
 
@@ -46,7 +46,7 @@ const GameCardGridView = ({ leagues }) => {
                   layout // Smoothly animate image position
                 >
                   <img
-                    src={`${baseURL}/api/v1/${item.logo}`}
+                    src={getServerURL(item.logo)}
                     alt=""
                     style={{
                       width: "18.5rem",
@@ -103,7 +103,7 @@ const GameCardGridView = ({ leagues }) => {
               <div className="game_intro bg-no-repeat">
                 <div className="game_intro-con flex gap-5 relative bottom-1">
                   <img
-                    src={`${baseURL}/api/v1/${item.game.logo}`}
+                    src={getServerURL(item.game.logo)}
                     alt=""
                     style={{ width: "2.5rem", height: "2.5rem" }}
                   />

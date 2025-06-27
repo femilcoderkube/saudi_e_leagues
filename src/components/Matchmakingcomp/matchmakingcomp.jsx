@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import center_league from "../../assets/images/center_league.png";
 import cancel_btn from "../../assets/images/cancel-btn.png";
 import { useDispatch, useSelector } from "react-redux";
-import { socket } from "../../app/socket/socket";
+import { socket, startReadyToPlaySocket, stopReadyToPlaySocket } from "../../app/socket/socket";
 import { SOCKET } from "../../utils/constant";
 import { setMatchLoader, setMatchPage } from "../../app/slices/constState/constStateSlice";
 import TimeOverPopup from "../ModalPopUp/TimeOverPopup";
@@ -32,7 +32,8 @@ const Matchmaking = ({setMatchLoading}) => {
   // Show time over popup if 5 min and not joined
   useEffect(() => {
     if (seconds >= 300 && !hasJoinedMatch) {
-      socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user._id });
+      stopReadyToPlaySocket({ lId, user, isSocketConnected });
+
       setShowTimeOver(true);
       setTimerActive(false);
     }
@@ -57,7 +58,7 @@ const Matchmaking = ({setMatchLoading}) => {
 
       if (user?._id) {
         console.log("Socket connected, setting up called for READYTOPLAY");
-        socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user._id });
+        startReadyToPlaySocket({ lId, user, isSocketConnected });
       }
     }
 
@@ -67,7 +68,8 @@ const Matchmaking = ({setMatchLoading}) => {
   const handleCancel = () => {
     if (isSocketConnected && user?._id) {
       console.log("Cancelling matchmaking for user:", user._id);
-      socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user._id });
+      stopReadyToPlaySocket({ lId, user, isSocketConnected });
+
       dispatch(setMatchPage(false));
       navigate(-1);
     }
@@ -84,14 +86,15 @@ const Matchmaking = ({setMatchLoading}) => {
     setSeconds(0);
     setTimerActive(true);
     if (isSocketConnected && user?._id) {
-      socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user._id });
+      startReadyToPlaySocket({ lId, user, isSocketConnected });
+      
     }
   };
 
   const handleTimeOverNo = () => {
     setShowTimeOver(false);
     if (isSocketConnected && user?._id) {
-      socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user._id });
+      stopReadyToPlaySocket({ lId, user, isSocketConnected });
       dispatch(setMatchPage(false));
       navigate(-1);
     }

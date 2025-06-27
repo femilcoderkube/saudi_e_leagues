@@ -1,83 +1,16 @@
 import React from "react";
-import User from "../../assets/images/user.png";
 import blue_bedge from "../../assets/images/blue.png";
 import gold_bedge from "../../assets/images/gold.png";
 import silver_bedge from "../../assets/images/silver.png";
 import bronze_bedge from "../../assets/images/bronze.png";
-import { baseURL } from "../../utils/axios";
 import { getSmile } from "../MatchDeatilComponents/matchCards";
+import { getServerURL } from "../../utils/constant";
+import { useSelector } from "react-redux";
 
-const leaderboardData = [
-  {
-    place: 54,
-    username: "You",
-    points: "150.402",
-    wins: 245,
-    losses: 213,
-    rep: "4",
-    winRate: "54.4%",
-    badgeColor: "blue",
-    bedgesrc: blue_bedge,
-  },
-  {
-    place: 1,
-    username: "RickMoon",
-    points: "289.059",
-    wins: 361,
-    losses: 292,
-    rep: "5",
-    winRate: "58.1%",
-    badgeColor: "gold",
-    bedgesrc: gold_bedge,
-  },
-  {
-    place: 2,
-    username: "JuliaBer_29",
-    points: "272.077",
-    wins: 353,
-    losses: 321,
-    rep: "5",
-    winRate: "52.1%",
-    badgeColor: "silver",
-    bedgesrc: silver_bedge,
-  },
-  {
-    place: 3,
-    username: "Elon_Plush",
-    points: "255.126",
-    wins: 299,
-    losses: 222,
-    rep: "5",
-    winRate: "53.0%",
-    badgeColor: "bronze",
-    bedgesrc: bronze_bedge,
-  },
-  {
-    place: 4,
-    username: "Ranger13",
-    points: "150.402",
-    wins: 245,
-    losses: 213,
-    rep: "4",
-    winRate: "54.4%",
-    badgeColor: "blue",
-    bedgesrc: blue_bedge,
-  },
-  {
-    place: 5,
-    username: "Just Larry",
-    points: "150.402",
-    wins: 245,
-    losses: 213,
-    rep: "4",
-    winRate: "54.4%",
-    badgeColor: "blue",
-    bedgesrc: blue_bedge,
-  },
-];
 
-const LeaderBoard = ({ leaderBoard }) => {
-  let requestedUser = leaderBoard?.requestedUser || null;
+const LeaderBoard = () => {
+  const { leagueData  } = useSelector((state) => state.leagues);
+  let requestedUser = leagueData?.leaderBoard?.requestedUser || null;
   if (requestedUser) {
     let user = {
       username: requestedUser?.userId?.username,
@@ -106,7 +39,7 @@ const LeaderBoard = ({ leaderBoard }) => {
     requestedUser = user;
     // var index = requestedUser.rank - 1;
   }
-  if (leaderBoard?.topUsers?.length === 0 && !requestedUser) {
+  if (leagueData?.leaderBoard?.topUsers?.length === 0 && !requestedUser) {
     return (
       <div className="leaderboard-wrapper pt-8">
         <h2 className="text-2xl !font-bold">Leaderboard</h2>
@@ -172,7 +105,7 @@ const LeaderBoard = ({ leaderBoard }) => {
                   <div className="flex items-center gap-2">
                     <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
                       <img
-                        src={baseURL + "/api/v1/" + requestedUser.profilePic}
+                        src={getServerURL(requestedUser.profilePic)}
                         alt={requestedUser.username}
                         style={{ width: "2.5rem" }}
                       />
@@ -213,7 +146,7 @@ const LeaderBoard = ({ leaderBoard }) => {
               </tr>
             </>
           )}
-          {leaderBoard?.topUsers?.map((data, index) => {
+          {leagueData?.leaderBoard?.topUsers?.map((data, index) => {
             let user = {
               username: data?.userId?.username,
               points: data?.totalScore,
@@ -266,7 +199,7 @@ const LeaderBoard = ({ leaderBoard }) => {
                     <div className="flex items-center gap-2">
                       <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
                         <img
-                          src={baseURL + "/api/v1/" + user.profilePic}
+                          src={getServerURL(user.profilePic)}
                           alt={user.username}
                           style={{ width: "2.5rem" }}
                         />

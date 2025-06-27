@@ -1,88 +1,38 @@
-import large_prime from "../../assets/images/large_prime.png";
+
 import wind_girl from "../../assets/images/wind_girl.png";
 import teamSizeImage from "../../assets/images/teamSize.png";
 import valorant_bg from "../../assets/images/valorant_bg.png";
 import fire_boy from "../../assets/images/fire_boy.png";
-import User from "../../assets/images/user.png";
-import join_btn from "../../assets/images/join_btn.png";
-import need_btn from "../../assets/images/needToLogin.png";
-import Que_btn from "../../assets/images/quebtn.png";
-import Cancel_btn from "../../assets/images/cancelbtn.png";
+
 import star_of_week from "../../assets/images/star_of_week.png";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
 import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
 import LeaderBoard from "../../components/LobbyPageComp/LeaderBoardTable.jsx";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PopUp from "../../components/ModalPopUp/Popup.jsx";
 import { useEffect, useState } from "react";
-import { socket } from "../../app/socket/socket.js";
-import { generateTailwindGradient, SOCKET } from "../../utils/constant.js";
+import { socket, startLeagueSocket, stopLeagueSocket } from "../../app/socket/socket.js";
+import { canJoinQueue, generateTailwindGradient, getQueueText, getServerURL, SOCKET } from "../../utils/constant.js";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setLeagueData,
-  setRegistrationModal,
-} from "../../app/slices/leagueDetail/leagueDetailSlice";
+
 import GamingLoader from "../../components/Loader/loader.jsx";
-import { baseURL } from "../../utils/axios.js";
 import RegistrationModel from "./RegustrationModel.jsx";
-import { setLogin } from "../../app/slices/constState/constStateSlice.js";
+import GetQueueButton from "./queueButton.jsx";
 
 const LeagueDetail = () => {
   const { lId, id } = useParams();
-  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.auth.user);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { leagueData ,registrationModal } = useSelector((state) => state.leagues);
 
-  const navigate = useNavigate();
   useEffect(() => {
-    const handleLeagueUpdate = (data) => {
-      console.log("League Update Data:", data);
-      dispatch(setLeagueData(data.data));
-    };
-    if (isSocketConnected) {
-      // Listen for LEAGUEUPDATE
-      socket.on(SOCKET.LEAGUEUPDATE, handleLeagueUpdate);
-
-      // Emit JOINLEAGUE once
-      socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
-    }
-  
-    const handleBeforeUnload = () => {
-      if (isSocketConnected) {
-        socket.emit(SOCKET.LEAVELEAGUE, { Lid: lId });
-      }
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
+    startLeagueSocket({lId, user, isSocketConnected});
     return () => {
-      socket.off(SOCKET.LEAGUEUPDATE, handleLeagueUpdate);
-      // console.log("Leaving league:", lId);
-      socket.emit(SOCKET.LEAVELEAGUE, { Lid: lId });
-      // socket.disconnect();
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+      stopLeagueSocket();
     };
-  }, [isSocketConnected, lId, user?._id, dispatch]);
+  }, [isSocketConnected, lId, user]);
 
-  const handleCancel = () => {
-    if (isSocketConnected && user?._id) {
-      console.log("Cancelling matchmaking for user:", user._id);
-      socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user?._id });
-      // Remove the user from inQueue locally
-      if (leagueData && leagueData.inQueue) {
-        const updatedInQueue = leagueData.inQueue.filter(
-          (participant) => participant !== user?._id
-        );
-        dispatch(
-          setLeagueData({
-            ...leagueData,
-            inQueue: updatedInQueue,
-          })
-        );
-      }
-    }
-  };
 
   return (
     <main className="flex-1 lobby_page--wrapper">
@@ -104,7 +54,7 @@ const LeagueDetail = () => {
             <div className="sd_content-left flex items-center gap-10 pb-6 mr-[-1rem] relative">
               <div className="sd_com--logo cursor-hide">
                 <img
-                  src={`${baseURL}/api/v1/${leagueData?.partner?.logo || ""}`}
+                  src={getServerURL(leagueData?.partner?.logo || "")}
                   alt=""
                   style={{ width: "16.5rem" }}
                 />
@@ -155,7 +105,7 @@ const LeagueDetail = () => {
                     )}`}
                   >
                     <img
-                      src={`${baseURL}/api/v1/${leagueData?.game?.logo || ""}`}
+                      src={getServerURL(leagueData?.game?.logo || "")}
                       alt=""
                       className="absolute left-8"
                       style={{ width: "3rem" }}
@@ -183,9 +133,8 @@ const LeagueDetail = () => {
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
                   >
                     <img
-                      src={`${baseURL}/api/v1/${
-                        leagueData?.platform?.logo || ""
-                      }`}
+                      src={getServerURL(leagueData?.platform?.logo || "")
+                      }
                       alt=""
                       className="absolute left-8"
                       style={{ width: "3rem" }}
@@ -268,7 +217,7 @@ const LeagueDetail = () => {
                   <div className="sd_avtar-info gap-6 p-3 inline-flex justify-between items-center cursor-pointer text-white rounded">
                     <div className="user_img relative sd_before">
                       <img
-                        src={baseURL + "/api/v1/" + leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.profilePic}
+                        src={getServerURL(leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.profilePic)}
                         alt=""
                         className="rounded-[3rem]"
                         style={{ width: "3rem" }}
@@ -289,92 +238,15 @@ const LeagueDetail = () => {
                 </div>
                 <ScoreTicker />
               </div> }
-              <LeaderBoard leaderBoard={leagueData?.leaderBoard} />
+              <LeaderBoard  />
             </div>
             <div className="sd_content-right w-full">
-              {user?._id ? (
-                leagueData.joinedUsers.some(
-                  (participant) => participant == user?._id
-                ) ? leagueData.inQueue.some(
-                  (participant) => participant == user?._id
-                ) ? (
-                  <div
-                    className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
-                    onClick={handleCancel}
-                  >
-                   
-                    <img
-                      src={Cancel_btn}
-                      alt=""
-                      style={{ width: "30.5rem" }}
-                    />{" "}
-                  </div>
-                ) : canJoinQueue(leagueData) ? (
-                  <Link
-                    className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before"
-                    to={`/${id}/lobby/${leagueData?._id}/finding-match`}
-                  >
-                   <span
-                     className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"
-                     style={{
-                       fontFamily: "Yapari",
-                       textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)"
-                     }}
-                   >
-                   {getQueueText(leagueData)}
-                   </span>
-                    <img
-                      src={Que_btn}
-                      alt=""
-                      style={{ width: "30.5rem" }}
-                    />{" "}
-                  </Link>
-                ) :(
-                  <div
-                    className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed"
-                    
-                  >
-                   <span
-                     className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"
-                     style={{
-                       fontFamily: "Yapari",
-                       textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)"
-                     }}
-                   >
-                   {getQueueText(leagueData)}
-                   </span>
-                    <img
-                      src={Que_btn}
-                      alt=""
-                      style={{ width: "30.5rem" }}
-                    />{" "}
-                  </div>
-                ) : (
-                  <div
-                    onClick={() => dispatch(setRegistrationModal(true))}
-                    className="join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
-                  >
-                    <img src={join_btn} alt="" style={{ width: "30.5rem" }} />
-                  </div>
-                )
-              ) : (
-                <div className=" lobby_btn mb-8 relative cursor-pointer"
-                onClick={() => {
-                  dispatch(setLogin(true))
-                }}>
-                  {" "}
-                  <img
-                    src={need_btn}
-                    alt=""
-                    style={{ width: "30.5rem" }}
-                  />{" "}
-                </div>
-              )}
+            <GetQueueButton/>
 
               {/* --- Timeline-card HTML Block Start --- */}
 
               <TimelineCard timeLine={leagueData?.timeLine || {}} />
-              <PopUp pdf={baseURL + "/api/v1/" + leagueData?.rules} />
+              <PopUp pdf={getServerURL(leagueData?.rules)} />
             </div>
           </div>
         </div>
@@ -384,143 +256,6 @@ const LeagueDetail = () => {
 };
 
 export default LeagueDetail;
-function getQueueText(leagueData) {
-  if (!leagueData || !leagueData.queueSettings) return "";
-
-  const { alwaysOn, schedule } = leagueData.queueSettings;
-
-  // Always On: Use startDate/endDate logic
-  if (alwaysOn) {
-    const now = new Date();
-    const start = new Date(leagueData.startDate);
-    const end = new Date(leagueData.endDate);
-
-    if (start > now) {
-      return "STARTS IN " + GetTimeString(leagueData.startDate);
-    } else if (end < now) {
-      return "LEAGUE ENDED";
-    } else {
-      return "QUEUE";
-    }
-  }
-
-  // Scheduled: Use schedule.days, startTime, endTime
-  if (
-    schedule &&
-    Array.isArray(schedule.days) &&
-    schedule.days.length > 0 &&
-    schedule.startTime &&
-    schedule.endTime
-  ) {
-    // Get today's day in lowercase
-    const today = new Date();
-    const daysOfWeek = [
-      "sunday",
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday",
-      "friday",
-      "saturday",
-    ];
-    const todayName = daysOfWeek[today.getDay()];
-
-    // Is today a queue day?
-    const isTodayQueueDay = schedule.days
-      .map((d) => d.toLowerCase())
-      .includes(todayName);
-
-    // Parse start and end time for today
-    function parseTimeToDate(timeStr, baseDate) {
-      const [h, m] = timeStr.split(":").map(Number);
-      const d = new Date(baseDate);
-      d.setHours(h, m, 0, 0);
-      return d;
-    }
-
-    if (isTodayQueueDay) {
-      const startTime = parseTimeToDate(schedule.startTime, today);
-      const endTime = parseTimeToDate(schedule.endTime, today);
-
-      if (today < startTime) {
-        return `OPENS IN ${GetTimeString(startTime)}`;
-      } else if (today >= startTime && today <= endTime) {
-        return "QUEUE";
-      } else {
-        // Find next queue day
-        let nextDayIndex = null;
-        for (let i = 1; i <= 7; i++) {
-          const next = (today.getDay() + i) % 7;
-          if (
-            schedule.days.map((d) => d.toLowerCase()).includes(daysOfWeek[next])
-          ) {
-            nextDayIndex = next;
-            break;
-          }
-        }
-        if (nextDayIndex !== null) {
-          // Calculate next queue day date
-          const nextDate = new Date(today);
-          nextDate.setDate(
-            today.getDate() + ((nextDayIndex + 7 - today.getDay()) % 7)
-          );
-          const nextStartTime = parseTimeToDate(schedule.startTime, nextDate);
-          return `OPENS IN ${GetTimeString(nextStartTime)}`;
-        }
-        return "QUEUE CLOSED";
-      }
-    } else {
-      // Find next queue day
-      let nextDayIndex = null;
-      for (let i = 1; i <= 7; i++) {
-        const next = (today.getDay() + i) % 7;
-        if (
-          schedule.days.map((d) => d.toLowerCase()).includes(daysOfWeek[next])
-        ) {
-          nextDayIndex = next;
-          break;
-        }
-      }
-      if (nextDayIndex !== null) {
-        // Calculate next queue day date
-        const nextDate = new Date(today);
-        nextDate.setDate(
-          today.getDate() + ((nextDayIndex + 7 - today.getDay()) % 7)
-        );
-        const nextStartTime = parseTimeToDate(schedule.startTime, nextDate);
-        return `OPENS IN ${GetTimeString(nextStartTime)}`;
-      }
-      return "QUEUE CLOSED";
-    }
-  }
-
-  return "QUEUE CLOSED";
-}
 
 // Returns true if user is able to join queue (when getQueueText returns "QUEUE"), else false
-function canJoinQueue(leagueData) {
-  const text = getQueueText(leagueData);
-  return text === "QUEUE";
-}
 
-function GetTimeString(date) {
-  if (!date) return "";
-  const now = new Date();
-  const target = new Date(date);
-  let diff = Math.max(0, target - now); // in ms
-
-  const sec = Math.floor(diff / 1000) % 60;
-  const min = Math.floor(diff / (1000 * 60)) % 60;
-  const hour = Math.floor(diff / (1000 * 60 * 60)) % 24;
-  const day = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const month = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
-
-  let parts = [];
-  if (month > 0) parts.push(month === 1 ? "1 mon" : `${month} mon`);
-  if (day > 0 && month === 0) parts.push(day === 1 ? "1 day" : `${day} day`);
-  if (hour > 0 && month === 0 && day === 0) parts.push(hour === 1 ? "1 hr" : `${hour} hrs`);
-  if (min > 0 && month === 0 && day === 0 && hour === 0) parts.push(min === 1 ? "1 min" : `${min} min`);
-  if (sec > 0 && month === 0 && day === 0 && hour === 0 && min === 0) parts.push(sec === 1 ? "1 sec" : `${sec} sec`);
-  if (parts.length === 0) parts.push("0 sec");
-  return parts.join(" ");
-}

@@ -1,28 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import { socket } from "../../socket/socket";
+import { SOCKET } from "../../../utils/constant";
+import { act } from "react";
 
 const initialState = {
   leagueData: null,
-  registrationModal : false ,
+  registrationModal: false,
   isAgreedToJoin: false,
+  isJoinedUser : null,
+  isQueueUser : null ,
 };
 
 const leagueDetailSlice = createSlice({
-  name: 'leagueDetail',
+  name: "leagueDetail",
   initialState,
   reducers: {
-    setIsAgreedToJoin :  (state, action) => {
+    setIsAgreedToJoin: (state, action) => {
       state.isAgreedToJoin = action.payload;
     },
-    setRegistrationModal : (state, action) => {
+    setRegistrationModal: (state, action) => {
       state.registrationModal = action.payload;
     },
     setLeagueData: (state, action) => {
       state.leagueData = action.payload;
-    },
+      if(action.payload && action.payload.joinedUsers) {
+        state.isJoinedUser = action.payload.joinedUsers.some(
+          (participant) => participant == action.payload.userId
+        );
+      }
+      if(action.payload && action.payload.inQueue) {
+        state.isQueueUser = action.payload.inQueue.some(
+          (participant) => participant == action.payload.userId
+        );
+      }
     
+    },
   },
 });
 
-export const { setLeagueData ,setRegistrationModal ,setIsAgreedToJoin } = leagueDetailSlice.actions;
+export const {
+  setLeagueData,
+  setRegistrationModal,
+  setIsAgreedToJoin,
 
-export default leagueDetailSlice.reducer; 
+} = leagueDetailSlice.actions;
+
+export default leagueDetailSlice.reducer;

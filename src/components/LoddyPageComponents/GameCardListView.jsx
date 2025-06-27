@@ -4,6 +4,7 @@ import {
   cardVariants,
   getDayFromISO,
   getMonthAbbreviation,
+  getServerURL,
 } from "../../utils/constant";
 
 const GameCardListView = ({ leagues }) => {
@@ -23,7 +24,7 @@ const GameCardListView = ({ leagues }) => {
             <div className="game_img--mask relative flex">
               <div className="game_image relative">
                 <img
-                  src={`${baseURL}/api/v1/${item.logo}`}
+                  src={getServerURL(item.logo)}
                   alt=""
                   style={{
                     width: "13rem",
@@ -45,7 +46,7 @@ const GameCardListView = ({ leagues }) => {
                 <div className="game_intro_v2 bg-no-repeat pl-5">
                   <div className="game_intro-con flex gap-5 relative bottom-1">
                     <img
-                      src={`${baseURL}/api/v1/${item.game.logo}`}
+                      src={getServerURL(item.game.logo)}
                       alt=""
                       style={{ width: "2.5rem", height: "2.5rem" }}
                     />

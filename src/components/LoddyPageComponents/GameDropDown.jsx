@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { baseURL } from "../../utils/axios";
 import { fetchGames, setGameDropDownOpen, setGameSearchTerm, setSelectedGame } from "../../app/slices/lobby/lobbySlice";
+import { getServerURL } from "../../utils/constant";
 
 const GameDropDown = () => {
   const {filteredGames,selectedGame ,isGameDropDownOpen ,gameSearchTerm} = useSelector((state) => state.lobby);
@@ -36,7 +37,7 @@ const GameDropDown = () => {
         >
           <img
             src={
-              selectedGame?.logo ? `${baseURL}/api/v1/${selectedGame.logo}` : Sel_game
+              selectedGame?.logo ? getServerURL(selectedGame.logo) : Sel_game
             }
             alt="Select Game"
             className="game-logo-svg"
@@ -157,7 +158,7 @@ const GameDropDown = () => {
                         onClick={() =>  dispatch(setSelectedGame(item))}
                       >
                         <img
-                          src={`${baseURL}/api/v1/${item.logo}`}
+                          src={getServerURL(item.logo)}
                           alt={item.name}
                           className="game-logo-svg"
                           style={{ width: "2rem" }}

@@ -408,7 +408,8 @@
   );
   clip-path: url(#myClipPath);
   width: 30rem;
-  height: 26rem;
+  padding-bottom: 2rem;
+  /* height: 32rem; */
 }
 
 .match_reg--popup:before {

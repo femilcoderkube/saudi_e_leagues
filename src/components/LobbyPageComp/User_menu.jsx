@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { baseURL } from "../../utils/axios";
 import { logout } from "../../app/slices/auth/authSlice";
 import { useDispatch } from "react-redux";
+import { getServerURL } from "../../utils/constant";
 
 const data = [
   { id: 0, label: "My Profile" },
@@ -37,7 +38,7 @@ const Dropdown = ({ user }) => {
         </div>
         <div className="user_img  relative sd_before ">
           <img
-            src={baseURL + "/api/v1/" + user.profilePicture}
+            src={getServerURL(user.profilePicture)}
             alt=""
             className="rounded-[3rem]"
             style={{ width: "3rem", height: "3rem" }}
