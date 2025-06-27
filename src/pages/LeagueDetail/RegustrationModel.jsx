@@ -63,8 +63,7 @@ const RegistrationModel = () => {
         payload[ "gameId" ] = values[field.fieldName];
       }
     }
-    console.log("----------------",payload)
-    joinLeagueSocket({payload,isSocketConnected})
+    joinLeagueSocket({isSocketConnected, payload})
     
   };
 

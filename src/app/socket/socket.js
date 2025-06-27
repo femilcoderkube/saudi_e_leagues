@@ -67,6 +67,6 @@ export function stopReadyToPlaySocket({ lId, user, isSocketConnected }) {
 }
 export function joinLeagueSocket({ isSocketConnected, payload }) {
   if (!isSocketConnected) return;
-  socket.emit(SOCKET.JOINLEAGUE, payload);
+  socket.emit(SOCKET.LEAGUEJOIN, payload);
   store.dispatch(setRegistrationModal(false));
 }
