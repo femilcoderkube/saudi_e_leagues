@@ -1,12 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { getDigitList } from "../../utils/constant";
 
 const ScoreTicker = () => {
-  const digits = [0, 1, 5, 6, 2, 9];
-
+  const { leagueData  } = useSelector((state) => state.leagues);
+  let price = leagueData?.weekOfTheStarPrice
   return (
     <div className="sd_bedge_right-con pr-[2rem]">
       <div className="sd_score--ticker flex gap-2">
-        {digits.map((digit, index) => (
+        {getDigitList(price).map((digit, index) => (
           <div
             key={index}
             className="sd_ticker-box flex items-center justify-center relative rounded-lg sd_after sd_before"

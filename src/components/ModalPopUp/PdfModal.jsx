@@ -4,16 +4,18 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import dummyPdf from "../../assets/newpdf.pdf";
 import { baseURL } from "../../utils/axios";
+import { useSelector } from "react-redux";
+import { getServerURL } from "../../utils/constant";
 
 // Set the workerSrc to match react-pdf's PDF.js version
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@4.8.69/build/pdf.worker.min.mjs`;
 
-function PdfModal({ onClose  ,pdf}) {
+function PdfModal({ onClose  }) {
   const [numPages, setNumPages] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [pageWidth, setPageWidth] = useState(null);
   const containerRef = useRef(null);
-
+  const { leagueData  } = useSelector((state) => state.leagues);
   // Trigger animation on mount
   useEffect(() => {
     setIsOpen(true);
@@ -95,7 +97,7 @@ function PdfModal({ onClose  ,pdf}) {
           style={hideScrollbarStyle}
         >
           <Document
-            file={pdf}
+            file={getServerURL(leagueData?.rules)}
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={onDocumentLoadError}
             className="w-full rounded-lg scroll-hide"

@@ -10,18 +10,17 @@ import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
 import LeaderBoard from "../../components/LobbyPageComp/LeaderBoardTable.jsx";
 import { Link, useParams } from "react-router-dom";
 import PopUp from "../../components/ModalPopUp/Popup.jsx";
-import { useEffect, useState } from "react";
-import { socket, startLeagueSocket, stopLeagueSocket } from "../../app/socket/socket.js";
-import { canJoinQueue, generateTailwindGradient, getQueueText, getServerURL, SOCKET } from "../../utils/constant.js";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect,  } from "react";
+import {  startLeagueSocket, stopLeagueSocket } from "../../app/socket/socket.js";
+import {  generateTailwindGradient, getQueueText, getServerURL, SOCKET } from "../../utils/constant.js";
+import { useSelector } from "react-redux";
 
 import GamingLoader from "../../components/Loader/loader.jsx";
 import RegistrationModel from "./RegustrationModel.jsx";
 import GetQueueButton from "./queueButton.jsx";
 
 const LeagueDetail = () => {
-  const { lId, id } = useParams();
-
+  const { lId } = useParams();
   const user = useSelector((state) => state.auth.user);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { leagueData ,registrationModal } = useSelector((state) => state.leagues);
@@ -245,8 +244,8 @@ const LeagueDetail = () => {
 
               {/* --- Timeline-card HTML Block Start --- */}
 
-              <TimelineCard timeLine={leagueData?.timeLine || {}} />
-              <PopUp pdf={getServerURL(leagueData?.rules)} />
+              <TimelineCard  />
+              <PopUp />
             </div>
           </div>
         </div>
