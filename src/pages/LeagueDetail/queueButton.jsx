@@ -7,10 +7,11 @@ import Cancel_btn from "../../assets/images/cancelbtn.png";
 import { setRegistrationModal } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { getQueueText } from "../../utils/constant";
 import { stopReadyToPlaySocket } from "../../app/socket/socket";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 
 const GetQueueButton = () => {
+  const {id} = useParams();
   const { leagueData ,isJoinedUser ,isQueueUser } = useSelector((state) => state.leagues);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const user = useSelector((state) => state.auth.user);
@@ -74,7 +75,7 @@ const GetQueueButton = () => {
       return (
         <Link
           className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before"
-          to={`/${leagueData?.partner?._id}/lobby/${leagueData?._id}/finding-match`}
+          to={`/${id}/lobby/${leagueData?._id}/finding-match`}
         >
           <span
             className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"

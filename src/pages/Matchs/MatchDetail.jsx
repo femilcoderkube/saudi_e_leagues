@@ -7,7 +7,7 @@ import DisLikeIcon from "../../assets/images/dislike_icon.png";
 import GoldCrown from "../../assets/images/gold_crown.png";
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
 import { Link, useParams } from "react-router-dom";
-import { getServerURL, items, SOCKET } from "../../utils/constant";
+import { getPartnerById, getServerURL, items, SOCKET } from "../../utils/constant";
 import {
   setMatchLoader,
   setMatchPage,
@@ -345,7 +345,7 @@ const MatchDetail = () => {
   };
 
   const partner = items.find((item) => item.id == id);
-  const LargePrime = partner?.logo;
+  const LargePrime = getPartnerById(id);
 
   if (showLoader) {
     return <MatchLoader />;
