@@ -58,3 +58,17 @@ export function getSmile(rep) {
     return RedSmile;
   }
 }
+
+
+export function getColor(rep) {
+  if (rep >= 70) {
+    // 70% – 100% Positive
+    return "#09D75F";
+  } else if (rep >= 40) {
+    // 40% – 69% Neutral
+    return "#D7BF09";
+  } else {
+    // 0% – 39% Needs Improve
+    return "#FA4768";
+  }
+}

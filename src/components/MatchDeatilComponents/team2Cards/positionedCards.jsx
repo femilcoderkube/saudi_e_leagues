@@ -1,4 +1,4 @@
-import { getSmile } from "../matchCards";
+import { getColor, getSmile } from "../matchCards";
 
 export const FirstPosCard_Opp_gold = ({player}) => (
   console.log("-----------------",player),
@@ -373,7 +373,7 @@ export const FirstPosCard_Opp_gold = ({player}) => (
       width={20}
       height={20}
       transform="matrix(-1 0 0 1 389.778 12)"
-      fill="#09D75F"
+      fill={getColor(player.rep)}
     />
   </g>
   <text
@@ -405,7 +405,7 @@ export const FirstPosCard_Opp_gold = ({player}) => (
       letterSpacing="0em"
     >
       <tspan x={37.7971} y={56.516}>
-        {player.score}
+        {player.score.toFixed(2)}
       </tspan>
     </text>
   </g>
@@ -1523,7 +1523,7 @@ export const SecondPosCard_Opp = ({player}) => (
         letterSpacing="0em"
       >
         <tspan x={38.7778} y={56.516}>
-          {player.score}
+          {player.score.toFixed(2)}
         </tspan>
       </text>
     </g>
@@ -1575,7 +1575,7 @@ export const SecondPosCard_Opp = ({player}) => (
       />
     </mask>
     <g mask="url(#mask3_2928_2322)">
-      <rect x={359} y={12} width={20} height={20} fill="#09D75F" />
+      <rect x={359} y={12} width={20} height={20} fill={getColor(player.rep)} />
     </g>
     <defs>
       <clipPath
@@ -2613,7 +2613,7 @@ export const ThirdPosCard_Opp = ({player}) => (
         letterSpacing="0em"
       >
         <tspan x={38.3076} y={56.516}>
-          {player.score}
+          {player.score.toFixed(2)}
         </tspan>
       </text>
     </g>
@@ -2658,7 +2658,7 @@ export const ThirdPosCard_Opp = ({player}) => (
       />
     </mask>
     <g mask="url(#mask3_2928_2624)">
-      <rect x={361} y={12} width={20} height={20} fill="#09D75F" />
+      <rect x={361} y={12} width={20} height={20} fill={getColor(player.rep)} />
     </g>
     <g filter="url(#filter3_d_2928_2624)">
       <path
@@ -3702,7 +3702,7 @@ export const ForthPosCard_Opp = ({player}) => (
       letterSpacing="0em"
     >
       <tspan x={38.7778} y={56.516}>
-        {player.score}
+        {player.score.toFixed(2)}
       </tspan>
     </text>
   </g>
@@ -3731,7 +3731,7 @@ export const ForthPosCard_Opp = ({player}) => (
     />
   </mask>
   <g mask="url(#mask3_2928_2794)">
-    <rect x={359} y={12} width={20} height={20} fill="#09D75F" />
+    <rect x={359} y={12} width={20} height={20} fill={getColor(player.rep)} />
   </g>
   <g filter="url(#filter3_d_2928_2794)">
     <path
@@ -4824,7 +4824,7 @@ export const FifthPosCard_Opp = ({player}) => (
       letterSpacing="0em"
     >
       <tspan x={37.7778} y={56.516}>
-        {player.score}
+        {player.score.toFixed(2)}
       </tspan>
     </text>
   </g>
@@ -4869,7 +4869,7 @@ export const FifthPosCard_Opp = ({player}) => (
     />
   </mask>
   <g mask="url(#mask3_2928_2476)">
-    <rect x={370} y={12} width={20} height={20} fill="#09D75F" />
+    <rect x={370} y={12} width={20} height={20} fill={getColor(player.rep)} />
   </g>
   <g filter="url(#filter3_d_2928_2476)">
     <path
@@ -5958,7 +5958,7 @@ export const FifthPosCard_Opp = ({player}) => (
       letterSpacing="0em"
     >
       <tspan x={38.3076} y={56.516}>
-        {player.score}
+        {player.score.toFixed(2)}
       </tspan>
     </text>
   </g>
@@ -6013,7 +6013,7 @@ export const FifthPosCard_Opp = ({player}) => (
       width={20}
       height={20}
       transform="matrix(-1 0 0 1 378.288 12)"
-      fill="#09D75F"
+      fill={getColor(player.rep)}
     />
   </g>
   <defs>

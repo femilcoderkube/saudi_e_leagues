@@ -14,11 +14,11 @@ const LeaderBoard = () => {
   if (requestedUser) {
     let user = {
       username: requestedUser?.userId?.username,
-      points: requestedUser?.totalScore,
+      points: requestedUser?.totalScore?.toFixed(2),
       wins: requestedUser?.totalWins,
       losses: requestedUser?.totalLosses,
       rep: requestedUser?.wilsonScore,
-      winRate: requestedUser?.winPercentage + "%",
+      winRate: requestedUser?.winPercentage?.toFixed(2) + "%",
       rank: requestedUser?.rank || 0,
       profilePic: requestedUser?.userId?.profilePic || null,
     };
@@ -149,11 +149,11 @@ const LeaderBoard = () => {
           {leagueData?.leaderBoard?.topUsers?.map((data, index) => {
             let user = {
               username: data?.userId?.username,
-              points: data?.totalScore,
+              points: data?.totalScore?.toFixed(2),
               wins: data?.totalWins,
               losses: data?.totalLosses,
               rep: data?.wilsonScore,
-              winRate: data?.winPercentage + "%",
+              winRate: data?.winPercentage?.toFixed(2) + "%",
               profilePic: data?.userId?.profilePic || Null,
             };
 

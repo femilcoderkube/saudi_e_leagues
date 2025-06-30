@@ -1,4 +1,4 @@
-import { getSmile } from "../matchCards";
+import { getColor, getSmile } from "../matchCards";
 
 export const FirstPosCard_gold = ({player}) => (
   <svg
@@ -368,7 +368,7 @@ export const FirstPosCard_gold = ({player}) => (
     />
   </mask>
   <g mask="url(#mask3_3098_2)">
-    <rect x={18.4087} y={12} width={20} height={20} fill="#09D75F" />
+    <rect x={18.4087} y={12} width={20} height={20} fill={getColor(player.rep)} />
   </g>
   <text
     fill="#F4F7FF"
@@ -399,7 +399,7 @@ export const FirstPosCard_gold = ({player}) => (
       letterSpacing="0em"
     >
       <tspan x={370} y={56.516}>
-        {player.score}
+        {player.score.toFixed(2)}
       </tspan>
     </text>
   </g>
@@ -1515,7 +1515,7 @@ export const FirstPosCard_gold = ({player}) => (
         letterSpacing="0em"
       >
         <tspan x={350} y={56.516}>
-          {player.score}
+          {player.score.toFixed(2)}
         </tspan>
       </text>
     </g>
@@ -1566,7 +1566,7 @@ export const FirstPosCard_gold = ({player}) => (
       />
     </mask>
     <g mask="url(#mask3_2928_2236)">
-      <rect x={16} y={12} width={20} height={20} fill="#09D75F" />
+      <rect x={16} y={12} width={20} height={20} fill={getColor(player.rep)} />
     </g>
     <defs>
       <clipPath
@@ -2603,7 +2603,7 @@ export const FirstPosCard_gold = ({player}) => (
         letterSpacing="0em"
       >
         <tspan x={350} y={56.516}>
-          {player.score}
+          {player.score.toFixed(2)}
         </tspan>
       </text>
     </g>
@@ -2654,7 +2654,7 @@ export const FirstPosCard_gold = ({player}) => (
       />
     </mask>
     <g mask="url(#mask3_2928_2544)">
-      <rect x={12} y={12} width={20} height={20} fill="#FA4768" />
+      <rect x={12} y={12} width={20} height={20} fill={getColor(player.rep)} />
     </g>
     <defs>
       <clipPath
@@ -2787,7 +2787,7 @@ export const FirstPosCard_gold = ({player}) => (
       >
         <use
           xlinkHref="#image1_2928_2544"
-          transform="translate(-0.0423729 -0.0423729) scale(0.00847458)"
+          transform="scale(0.00747458)"
         />
       </pattern>
       <linearGradient
@@ -3694,7 +3694,7 @@ export const FirstPosCard_gold = ({player}) => (
         letterSpacing="0em"
       >
         <tspan x={350} y={56.516}>
-          {player.score}
+          {player.score.toFixed(2)}
         </tspan>
       </text>
     </g>
@@ -3730,7 +3730,7 @@ export const FirstPosCard_gold = ({player}) => (
       />
     </mask>
     <g mask="url(#mask3_2928_2708)">
-      <rect x={16} y={12} width={20} height={20} fill="#D7BF09" />
+      <rect x={16} y={12} width={20} height={20} fill={getColor(player.rep)} />
     </g>
     <text
       fill="#8598F6"
@@ -4815,7 +4815,7 @@ export const FirstPosCard_gold = ({player}) => (
         letterSpacing="0em"
       >
         <tspan x={360} y={56.516}>
-          {player.score}
+          {player.score.toFixed(2)}
         </tspan>
       </text>
     </g>
@@ -4859,7 +4859,7 @@ export const FirstPosCard_gold = ({player}) => (
       />
     </mask>
     <g mask="url(#mask3_2928_2408)">
-      <rect x={19} y={12} width={20} height={20} fill="#09D75F" />
+      <rect x={19} y={12} width={20} height={20} fill={getColor(player.rep)} />
     </g>
     <g filter="url(#filter3_d_2928_2408)">
       <path
@@ -5950,7 +5950,7 @@ export const FirstPosCard_gold = ({player}) => (
         letterSpacing="0em"
       >
         <tspan x={350} y={56.516}>
-          {player.score}
+          {player.score.toFixed(2)}
         </tspan>
       </text>
     </g>
@@ -6001,7 +6001,7 @@ export const FirstPosCard_gold = ({player}) => (
       />
     </mask>
     <g mask="url(#mask3_2928_3534)">
-      <rect x={16} y={12} width={20} height={20} fill="#09D75F" />
+      <rect x={16} y={12} width={20} height={20} fill={getColor(player.rep)} />
     </g>
     <defs>
       <clipPath
