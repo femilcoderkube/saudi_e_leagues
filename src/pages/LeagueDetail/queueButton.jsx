@@ -71,7 +71,26 @@ const GetQueueButton = () => {
     );
   } else {
     let text = getQueueText(leagueData);
-    if (text == "QUEUE") {
+    if (leagueData.isMatchJoind != null || leagueData.isMatchJoind != undefined) {
+      return (
+        <Link
+          className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before"
+          to={`/${id}/match/${leagueData?.isMatchJoind}`}
+        >
+          <span
+            className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"
+            style={{
+              fontFamily: "Yapari",
+              textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            {"VIEW MATCH"}
+          </span>
+          <img src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "}
+        </Link>
+      );
+    }
+    else if (text == "QUEUE") {
       return (
         <Link
           className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before"
