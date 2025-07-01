@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import "../../assets/css/main_content.css";
 import "../../assets/css/select_game.css";
 import {
@@ -12,7 +12,7 @@ import {
 } from "../ui/svg/index.jsx";
 import country_us from "../../assets/images/country_us.png";
 import Dropdown from "../LobbyPageComp/User_menu.jsx";
-import { items } from "../../utils/constant.js";
+import { checkParams, items } from "../../utils/constant.js";
 import { useDispatch, useSelector } from "react-redux";
 import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
 import { setLogin, setRegisteration } from "../../app/slices/constState/constStateSlice.js";
@@ -28,24 +28,22 @@ const Header = ({
   const { leagueData } = useSelector((state) => state.leagues);
   const navigator = useNavigate();
   const dispatch = useDispatch();
-  const { matchData } = useSelector((state) => state.matchs);
-  const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
-  const isMatchLoader = useSelector((state) => state.constState.isMatchLoader);
+  const location = useLocation();
+
+  const { matchData ,isCaptain ,IsSubmited } = useSelector((state) => state.matchs);
+  // const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
-  useEffect(() => {},[matchData, user])
+  useEffect(() => {
 
-  if (isMatchMaking || isMatchLoader ) {
+  },[matchData, user ,location])
+
+  if (checkParams('finding-match') || checkParams('match')) {
     if (params.mId) {
-      // let isCaptain = matchData?.team1?.find(participant => participant.userId?._id === user?._id) || matchData?.team2?.find(participant => participant.userId?._id === user?._id);
-
-      let isCaptain = (matchData?.team1[0]?.participant?.userId?._id == user?._id || matchData?.team2[0]?.participant?.userId?._id == user?._id);
-      let IsSubmited  = matchData?.team1ScoreDetails?.submittedBy == user?._id || matchData?.team2ScoreDetails?.submittedBy == user?._id;
-     
-   
       return (
         <header
+        key={location.pathname}
           className="header_teture--bg text-white  py-[1.35rem] px-[4.5rem] flex items-center justify-between sd_before before:w-full before:h-full relative "
           style={{
             background:
@@ -54,7 +52,7 @@ const Header = ({
         >
           <div className="flex items-center ">
             <div
-              className="back_arrow absolute left-[5rem] scale-x-[-1]"
+              className="back_arrow absolute left-[5rem] scale-x-[-1] cursor-pointer"
               onClick={() => {
                 navigator(`/${params.id}/lobby/${matchData?.league?._id}`);
               }}
@@ -123,10 +121,10 @@ const Header = ({
               "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
           }}
         >
-          {!isMatchLoader && <div className="back_arrow absolute left-[5rem] scale-x-[-1]"
+          <div className="back_arrow absolute left-[5rem] scale-x-[-1] cursor-pointer"
           onClick={() => {navigator(-1)}}>
-            <NextArrow width="0.8rem" height="1.5rem" fill="#7378C0"  />
-          </div>}
+            <NextArrow2 width="0.8rem" height="1.5rem" fill="#7378C0"  />
+          </div>
           <h2 className="text-[2rem] !font-black uppercase text-center block">
             {leagueData?.title || "Finding Matchmaking"}
           </h2>
@@ -136,24 +134,6 @@ const Header = ({
   } else {
     const breadcrumbItems = [];
     let path = new Set(window.location.pathname.split("/")).has("lobby");
-
-    // if (params.id) {
-    //   const partner = items.find((item) => item.id === params.id);
-    //   if (partner) {
-    //     let item = {
-    //       label: "Home",
-    //       path: `/${partner.id}`,
-    //       icon: partner.headerIcon,
-    //       active: true,
-    //     };
-    //     if (
-    //       breadcrumbItems.length === 0 ||
-    //       breadcrumbItems[0].label !== item.label
-    //     ) {
-    //       breadcrumbItems.push(item);
-    //     }
-    //   }
-    // }
     if (path) {
       let item = {
         label: "Lobby",

@@ -134,7 +134,7 @@ export function getQueueText(leagueData) {
     const start = new Date(leagueData.startDate);
     if (start > now) {
       return "STARTS IN " + GetTimeString(leagueData.startDate);
-    }  else {
+    } else {
       return "QUEUE";
     }
   }
@@ -257,15 +257,33 @@ export function GetTimeString(date) {
   return parts.join(" ");
 }
 
-export function getServerURL(path){
-  return `${baseURL}/api/v1/${path}`
+export function getServerURL(path) {
+  return `${baseURL}/api/v1/${path}`;
 }
 export function getDigitList(num) {
   if (num == null) return Array(6).fill(0);
-  const digits = num.toString().split('').map(Number);
+  const digits = num.toString().split("").map(Number);
   // Take the first 6 digits if more than 6, otherwise pad at the start
-  const firstSix = digits.length >= 6
-    ? digits.slice(0, 6)
-    : Array(6 - digits.length).fill(0).concat(digits);
+  const firstSix =
+    digits.length >= 6
+      ? digits.slice(0, 6)
+      : Array(6 - digits.length)
+          .fill(0)
+          .concat(digits);
   return firstSix;
 }
+export const formatTime = (secs) => {
+  const m = String(Math.floor(secs / 60)).padStart(2, "0");
+  const s = String(secs % 60).padStart(2, "0");
+  return `${m}:${s}`;
+};
+// Utility function to check for a specific path segment
+export function checkParams(param) {
+  const pathSegments = window.location.pathname.split('/').filter(Boolean);
+  return pathSegments.includes(param);
+}
+
+// Example usage
+// const isFindingMatch = checkParams('finding-match');
+// console.log(isFindingMatch); // true if 'finding-match' is in the path
+

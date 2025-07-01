@@ -7,13 +7,23 @@ import DisLikeIcon from "../../assets/images/dislike_icon.png";
 import GoldCrown from "../../assets/images/gold_crown.png";
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
 import { Link, useParams } from "react-router-dom";
-import { getPartnerById, getServerURL, items, SOCKET } from "../../utils/constant";
+import {
+  getPartnerById,
+  getServerURL,
+  items,
+  SOCKET,
+} from "../../utils/constant";
 import {
   setMatchLoader,
   setMatchPage,
 } from "../../app/slices/constState/constStateSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { socket } from "../../app/socket/socket";
+import {
+  sendMatchMsg,
+  socket,
+  startMatchUpdate,
+  stopMatchUpdate,
+} from "../../app/socket/socket";
 import {
   setChatData,
   setIsMyMatch,
@@ -58,15 +68,16 @@ const TeamOneScoreList = ({
   return (
     <ul className="team_one--list flex flex-col gap-5 mt-[-1rem]">
       {cards.map((Card, index) => {
-
         let data = {
           username: players[index]?.participant?.userId?.username || "",
-          gameID:players[index]?.participant?.gameId || "",
-          rep : players[index]?.participant?.raputations?.wilsonScore || 0 ,
-          profilePic: getServerURL( players[index]?.participant?.userId?.profilePicture || ""),
-          score : players[index]?.leaguesScore || 0,
-        }
-        console.log("Player Data:", data);
+          gameID: players[index]?.participant?.gameId || "",
+          rep: players[index]?.participant?.raputations?.wilsonScore || 0,
+          profilePic: getServerURL(
+            players[index]?.participant?.userId?.profilePicture || ""
+          ),
+          score: players[index]?.leaguesScore || 0,
+        };
+
         // if (!showIndexes.includes(index)) return null;
         let IsReputationGived = givedReputations.find(
           (rep) =>
@@ -174,18 +185,20 @@ const TeamTwoScoreList = ({
   return (
     <ul className="team_two--list flex flex-col gap-5 mt-[-1rem]">
       {cards.map((Card, index) => {
-         let data = {
+        let data = {
           username: players[index]?.participant?.userId?.username || "",
-          gameID:players[index]?.participant?.gameId || "",
-          rep : players[index]?.participant?.raputations?.wilsonScore || 0 ,
-          profilePic:  getServerURL( players[index]?.participant?.userId?.profilePicture || ""),
-          score : players[index]?.leaguesScore || 0,
-        }
-          let IsReputationGived = givedReputations.find(
-            (rep) =>
-              rep.giver == uId &&
-              rep.receiver == players[index]?.participant?.userId?._id
-          );
+          gameID: players[index]?.participant?.gameId || "",
+          rep: players[index]?.participant?.raputations?.wilsonScore || 0,
+          profilePic: getServerURL(
+            players[index]?.participant?.userId?.profilePicture || ""
+          ),
+          score: players[index]?.leaguesScore || 0,
+        };
+        let IsReputationGived = givedReputations.find(
+          (rep) =>
+            rep.giver == uId &&
+            rep.receiver == players[index]?.participant?.userId?._id
+        );
         // if (!showIndexes.includes(index)) return null;
         return (
           <li
@@ -202,53 +215,54 @@ const TeamTwoScoreList = ({
               </span>
             )}
             <Card player={data} />
-            {isMyMatch && !isTeamOne &&
+            {isMyMatch &&
+              !isTeamOne &&
               players[index]?.participant?.userId?._id != uId && (
-              <div
-                className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
-                  hoveredIndex === index
-                    ? "opacity-100 visible"
-                    : "opacity-0 invisible"
-                }`}
-              >
                 <div
-                   onClick={() =>
-                    IsReputationGived?.reputation != 1
-                      ? submitUpVote(players[index])
-                      : null
-                  }
-                  className={`like_icon duration-400 ${
-                    IsReputationGived?.reputation == 1
-                      ? "opacity-50 visible"
-                      : "hover:opacity-70"
+                  className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
+                    hoveredIndex === index
+                      ? "opacity-100 visible"
+                      : "opacity-0 invisible"
                   }`}
                 >
-                  <img
-                    src={LikeIcon}
-                    alt="Like"
-                    style={{ width: "2.625rem" }}
-                  />
+                  <div
+                    onClick={() =>
+                      IsReputationGived?.reputation != 1
+                        ? submitUpVote(players[index])
+                        : null
+                    }
+                    className={`like_icon duration-400 ${
+                      IsReputationGived?.reputation == 1
+                        ? "opacity-50 visible"
+                        : "hover:opacity-70"
+                    }`}
+                  >
+                    <img
+                      src={LikeIcon}
+                      alt="Like"
+                      style={{ width: "2.625rem" }}
+                    />
+                  </div>
+                  <div
+                    onClick={() =>
+                      IsReputationGived?.reputation != -1
+                        ? submitDownVote(players[index])
+                        : null
+                    }
+                    className={`like_icon duration-400 ${
+                      IsReputationGived?.reputation == -1
+                        ? "opacity-50 visible"
+                        : "hover:opacity-70"
+                    }`}
+                  >
+                    <img
+                      src={DisLikeIcon}
+                      alt="Dislike"
+                      style={{ width: "2.625rem" }}
+                    />
+                  </div>
                 </div>
-                <div
-                 onClick={() =>
-                  IsReputationGived?.reputation != -1
-                    ? submitDownVote(players[index])
-                    : null
-                }
-                className={`like_icon duration-400 ${
-                  IsReputationGived?.reputation == -1
-                    ? "opacity-50 visible"
-                    : "hover:opacity-70"
-                }`}
-                >
-                  <img
-                    src={DisLikeIcon}
-                    alt="Dislike"
-                    style={{ width: "2.625rem" }}
-                  />
-                </div>
-              </div>
-            )}
+              )}
           </li>
         );
       })}
@@ -259,75 +273,38 @@ const TeamTwoScoreList = ({
 const MatchDetail = () => {
   const { id, mId } = useParams();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { matchData, chatData, isTeamOne, isMyMatch } = useSelector(
-    (state) => state.matchs
-  );
+  const { matchData, chatData, isTeamOne, isMyMatch, isShowChat, winnerScore } =
+    useSelector((state) => state.matchs);
   const user = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
   const [messageInput, setMessageInput] = useState("");
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    dispatch(setMatchPage(true));
     const timer = setTimeout(() => {
       setShowLoader(false);
-      dispatch(setMatchLoader(false));
     }, 3000);
     return () => {
       clearTimeout(timer);
-      dispatch(setMatchPage(false));
     };
   }, []);
 
   useEffect(() => {
-    const handleMatchUpdate = (data) => {
-      console.log("match Update Data:", data);
-      if (data.isMatchUpdate == true) {
-        dispatch(setmatchData(data.data));
-        dispatch(
-          setIsTeamOne(
-            matchData?.team1?.some(
-              (player) => player.participant.userId._id === user?._id
-            )
-          )
-        );
-        dispatch(
-          setIsMyMatch(
-            matchData?.team1?.some(
-              (player) => player.participant.userId._id === user?._id
-            ) ||
-              matchData?.team2?.some(
-                (player) => player.participant.userId._id === user?._id
-              )
-          )
-        );
-      } else {
-        dispatch(setChatData(data.data?.reverse()));
-      }
-    };
     if (isSocketConnected) {
-      // Listen for LEAGUEUPDAT
-      socket.on(SOCKET.MATCHUPDATE, handleMatchUpdate);
-      // Emit JOINLEAGUE once
-      socket.emit(SOCKET.STARTMATCH, { matchId: mId });
+      startMatchUpdate(mId, user);
     }
-
     return () => {
-      socket.off(SOCKET.MATCHUPDATE, handleMatchUpdate);
-      // console.log("Leaving league:", lId);
+      stopMatchUpdate();
     };
-  }, [isSocketConnected, mId, user, dispatch, isMyMatch, isTeamOne]);
+  }, [isSocketConnected, mId, user]);
 
   const OnMsgSend = (msg) => {
     if (isSocketConnected) {
-      socket.emit(SOCKET.ONMESSAGE, {
+      sendMatchMsg({
         roomId: mId,
         msg: msg,
         senderId: user?._id,
         isTeam1: isTeamOne || false,
       });
-    } else {
-      console.error("Socket not connected");
     }
   };
 
@@ -343,20 +320,13 @@ const MatchDetail = () => {
       handleSendMessage();
     }
   };
-
-console.log("Match Data:", id);
   const LargePrime = getPartnerById(id).logo;
-
-
-  if (showLoader) {
+  if (showLoader || !matchData) {
     return <MatchLoader />;
   }
-
-  if (!matchData) return <GamingLoader />;
-
   return (
     <main
-      className="flex-1 pt-[0.5rem] match_page--wrapper h-full "
+      className="flex-1 pt-[0.5rem] match_page--wrapper h-full"
       style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
     >
       <section className="match_team--wrap flex pt-[6rem] justify-between items-end pl-[7.5rem] pr-[7.5rem] ">
@@ -380,31 +350,18 @@ console.log("Match Data:", id);
           {/* Score */}
           <div className="match_center-con flex-1">
             <h2 className="text-[4rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center text-center tracking-wider !font-black pb-[4rem]">
-              {matchData.winner == "team1" && (
-                <>
-                  <span>{matchData.team1ScoreDetails.yourScore}</span>:
-                  <span>{matchData.team1ScoreDetails.opponentScore}</span>
-                </>
-              )}
-              {matchData.winner == "team2" && (
-                <>
-                  <span>{matchData.team2ScoreDetails.yourScore}</span>:
-                  <span>{matchData.team2ScoreDetails.opponentScore}</span>
-                </>
-              )}
-              {matchData.winner == null && (
-                <>
-                  <span>-</span>:<span>-</span>
-                </>
-              )}
+              <>
+                <span>{winnerScore.teamOne}</span>:
+                <span>{winnerScore.teamTwo}</span>
+              </>
             </h2>
 
             <div className="prime_logo--con flex justify-center sd_before gradiant_bg relative">
               <img src={LargePrime} alt="" style={{ width: "17.5rem" }} />
             </div>
 
-            {isMyMatch && (
-              <div class="chat_block--con pt-[4rem] h-[25rem] sd_before relative  flex flex-col max-w-lg mx-auto">
+            {isShowChat && (
+              <div class="chat_block--con pt-[1rem] h-[25rem] sd_before relative  flex flex-col max-w-lg mx-auto">
                 <div class="flex-1 chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4 ">
                   <div class="flex flex-col space-y-1 h-full justify-end">
                     {chatData?.map((chat, index) => (

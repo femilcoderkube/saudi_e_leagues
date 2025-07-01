@@ -5621,7 +5621,7 @@ export const FifthPosCard_Opp = ({player}) => (
 
   // <<< --------------------- Match Making Score Third Position Opposite Gold Card side SVG ------------------------ >>>
   export const ThirdPos_OppGold = ({player}) => (
-  console.log("-----------------",player),
+ 
   <svg
   width={'24.625rem'}
   height={'6rem'}

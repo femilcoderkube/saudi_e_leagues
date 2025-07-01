@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import WizardSteps from "./WizardSteps";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../app/slices/auth/registerSlice";
@@ -9,17 +9,16 @@ import { toast } from "react-toastify";
 import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp";
 import { setRegisteration } from "../../app/slices/constState/constStateSlice";
 import { countryData } from "../../utils/CountryCodes";
+import { checkParams } from "../../utils/constant";
 
 export default function Main() {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
 
   const [submitModal, setSubmitModal] = useState(false);
-
+  const location = useLocation();
   const [previewImage, setPreviewImage] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
-  const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
-  const isMatchLoader = useSelector((state) => state.constState.isMatchLoader);
   const isLogin = useSelector((state) => state.constState.isLogin);
   const isRegisteration = useSelector(
     (state) => state.constState.isRegisteration
@@ -57,7 +56,7 @@ export default function Main() {
     favoriteGame: null,
     profilePicture: null,
   };
-  console.log("isMatchMaking---", isMatchMaking);
+
 
   const handleSubmit = async (values) => {
     try {
@@ -94,13 +93,7 @@ export default function Main() {
       setLoadingSubmit(false);
     }
   };
-  if (isMatchLoader) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Outlet />
-      </div>
-    );
-  }
+  useEffect(()=>{},[location])
   return (
     <div
       className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20"
@@ -109,7 +102,7 @@ export default function Main() {
       <Header setSubmitModal={setSubmitModal} />
       <main
         className={`flex-1 game_card_main--con    ${
-          isMatchMaking ? "" : "px-[4.5rem] pt-7 "
+          checkParams('finding-match') || checkParams('match') ? "" : "px-[4.5rem] pt-7"
         }`}
       >
         {isRegisteration && (

@@ -2,8 +2,14 @@ import { io } from "socket.io-client";
 import { store } from "../slices/store";
 import { setSocketConnected, setSocketId } from "../slices/socket/socketSlice";
 import { SOCKET } from "../../utils/constant";
-import { removeFromQueue, setLeagueData, setRegistrationModal } from "../slices/leagueDetail/leagueDetailSlice";
+import {
+  removeFromQueue,
+  setLeagueData,
+  setRegistrationModal,
+} from "../slices/leagueDetail/leagueDetailSlice";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setChatData, setIsMyMatch, setIsTeamOne, setmatchData } from "../slices/MatchSlice/matchDetailSlice";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -21,7 +27,12 @@ socket.on("connect", () => {
   store.dispatch(setSocketConnected(true));
   store.dispatch(setSocketId(socket.id));
 });
-
+socket.on(SOCKET.JOINMATCH, (data) => {
+  const navigate = useNavigate();
+  if (data.matchId) {
+    navigate(`/${id}/match/${data.matchId}`);
+  }
+});
 socket.on("disconnect", (reason) => {
   console.log("Socket disconnected:", reason);
   store.dispatch(setSocketConnected(false));
@@ -63,10 +74,30 @@ export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {
 export function stopReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user?._id });
-  store.dispatch(removeFromQueue(user._id))
+  store.dispatch(removeFromQueue(user._id));
 }
 export function joinLeagueSocket({ isSocketConnected, payload }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.LEAGUEJOIN, payload);
   store.dispatch(setRegistrationModal(false));
+}
+export function startMatchUpdate(mId , user){
+  socket.on(SOCKET.MATCHUPDATE, (data)=>{
+    if (data.isMatchUpdate == true) {
+      store.dispatch(setmatchData({match : data.data ,
+        user : user
+      })); 
+    } else {
+      store.dispatch(setChatData(data.data?.reverse()));
+    }
+  });
+  // Emit JOINLEAGUE once
+  socket.emit(SOCKET.STARTMATCH, { matchId: mId });
+}
+
+export function stopMatchUpdate(){
+  socket.off(SOCKET.STARTMATCH);
+}
+export function sendMatchMsg(body){
+  socket.emit(SOCKET.ONMESSAGE, body);
 }
