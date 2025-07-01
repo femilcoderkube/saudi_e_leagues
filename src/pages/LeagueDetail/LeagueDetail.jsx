@@ -232,7 +232,7 @@ const LeagueDetail = () => {
                 </div>
                 <div className="sd_score--con horizontal_center absolute">
                   <h2 className="text-[2rem] !font-extrabold grad_text-clip">
-                  {leagueData?.leaderBoard?.weekOfTheStartUsers?.weeklyScore}
+                  {leagueData?.leaderBoard?.weekOfTheStartUsers?.weeklyScore?.toFixed(2)}
                   </h2>
                 </div>
                 <ScoreTicker />
