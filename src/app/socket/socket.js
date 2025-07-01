@@ -24,15 +24,16 @@ socket.on("connect", () => {
   const user = JSON.parse(localStorage.getItem("user")) || null;
   console.log("Socket connected:", socket.id);
   socket.emit(SOCKET.JOINUSEROOM, { userId: user?._id }); // Join a specific room or channel if needed
+  socket.on(SOCKET.JOINMATCH, (data) => {
+    const navigate = useNavigate();
+    if (data.matchId) {
+      navigate(`/${id}/match/${data.matchId}`);
+    }
+  });
   store.dispatch(setSocketConnected(true));
   store.dispatch(setSocketId(socket.id));
 });
-socket.on(SOCKET.JOINMATCH, (data) => {
-  const navigate = useNavigate();
-  if (data.matchId) {
-    navigate(`/${id}/match/${data.matchId}`);
-  }
-});
+
 socket.on("disconnect", (reason) => {
   console.log("Socket disconnected:", reason);
   store.dispatch(setSocketConnected(false));
