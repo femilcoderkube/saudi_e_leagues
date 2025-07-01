@@ -77,7 +77,7 @@ const LeaderBoard = () => {
           {requestedUser && (
             <>
               <tr
-                key={-1}
+          
                 className={`${requestedUser.badgeColor} overflow-hidden`}
               >
                 <td
@@ -173,7 +173,6 @@ const LeaderBoard = () => {
             return (
               <>
                 <tr
-                  key={index}
                   className={`${user.badgeColor} overflow-hidden`}
                 >
                   <td
@@ -226,7 +225,7 @@ const LeaderBoard = () => {
                       <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
                         <img
                           src={getSmile(user.rep)}
-                          alt={user.username}
+                          alt={user.rep}
                           style={{ width: "1.5rem" }}
                         />
                       </div>

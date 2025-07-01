@@ -261,7 +261,11 @@ export function getServerURL(path){
   return `${baseURL}/api/v1/${path}`
 }
 export function getDigitList(num) {
+  if (num == null) return Array(6).fill(0);
   const digits = num.toString().split('').map(Number);
-  const padded = Array(6).fill(0).slice(0, 6 - digits.length).concat(digits);
-  return padded.slice(0, 6);
+  // Take the first 6 digits if more than 6, otherwise pad at the start
+  const firstSix = digits.length >= 6
+    ? digits.slice(0, 6)
+    : Array(6 - digits.length).fill(0).concat(digits);
+  return firstSix;
 }
