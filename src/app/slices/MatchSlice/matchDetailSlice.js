@@ -51,9 +51,15 @@ const matchDetailSlice = createSlice({
         const userId = user._id;
         const team1 = match.team1 || [];
         const team2 = match.team2 || [];
-        const team1ScoreDetails = match.team1ScoreDetails || {};
-        const team2ScoreDetails = match.team2ScoreDetails || {};
-
+        const team1ScoreDetails = match.matchScores.find(
+          (score) => score.submittedBy == "team1"
+        ) ||{}
+        const team2ScoreDetails = match.matchScores.find(
+          (score) => score.submittedBy == "team2" 
+        ) || {}
+        
+        console.log("datatatd  team1ScoreDetails",team1ScoreDetails )
+        console.log("datatatd  team2ScoreDetails",team2ScoreDetails )
         // Flatten userIds for quick lookup
         const team1UserIds = team1.map(p => p?.participant?.userId?._id);
         const team2UserIds = team2.map(p => p?.participant?.userId?._id);
@@ -68,9 +74,9 @@ const matchDetailSlice = createSlice({
           team2[0]?.participant?.userId?._id === userId;
 
         // Submission check
-        state.IsSubmited =
-          team1ScoreDetails.submittedBy == userId ||
-          team2ScoreDetails.submittedBy == userId;
+  
+        state.IsSubmited = state.isTeamOne ? team1ScoreDetails.submittedBy == "team1" : team2ScoreDetails.submittedBy == "team2"
+         
           if(state.isCaptain){
             state.isShowChat = true;
           }else if (state.isMyMatch && !(
