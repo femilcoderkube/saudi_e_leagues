@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import { store } from "../slices/store";
 import { setSocketConnected, setSocketId } from "../slices/socket/socketSlice";
-import { SOCKET } from "../../utils/constant";
+import { getPartnerByDocId, getPartnerById, items, SOCKET } from "../../utils/constant";
 import {
   removeFromQueue,
   setLeagueData,
@@ -24,12 +24,20 @@ socket.on("connect", () => {
   const user = JSON.parse(localStorage.getItem("user")) || null;
   console.log("Socket connected:", socket.id);
   socket.emit(SOCKET.JOINUSEROOM, { userId: user?._id }); // Join a specific room or channel if needed
+
+  // Remove any previous listener to avoid duplicate navigation
+  socket.off(SOCKET.JOINMATCH);
+
   socket.on(SOCKET.JOINMATCH, (data) => {
-    const navigate = useNavigate();
-    if (data.matchId) {
-      navigate(`/${id}/match/${data.matchId}`);
+    // Use window.location for navigation since hooks can't be used here
+    if (data?.matchId && data?.partner) {
+      // If already on a /match/ page, do nothing
+      if (window.location.pathname.includes("/match/")) return;
+      let pId = getPartnerByDocId(data.partner).id;
+      window.location.href = `/${pId}/match/${data.matchId}`;
     }
   });
+
   store.dispatch(setSocketConnected(true));
   store.dispatch(setSocketId(socket.id));
 });
@@ -101,4 +109,7 @@ export function stopMatchUpdate(){
 }
 export function sendMatchMsg(body){
   socket.emit(SOCKET.ONMESSAGE, body);
+}
+export function giveReputation(body){
+  socket.emit(SOCKET.GIVEREPUTATION,body);
 }

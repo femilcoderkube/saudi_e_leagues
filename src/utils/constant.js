@@ -19,6 +19,9 @@ export const items = [
 export const getPartnerById = (id) => {
   return items.find((item) => item.id === id);
 };
+export const getPartnerByDocId = (id) => {
+  return items.find((item) => item.docId == id);
+};
 export function getDayFromISO(dateString) {
   const date = new Date(dateString);
   return String(date.getUTCDate()).padStart(2, "0");

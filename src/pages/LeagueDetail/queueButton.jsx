@@ -33,7 +33,7 @@ const GetQueueButton = () => {
     );
   } else if (end < now) {
     return (
-      <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-none">
+      <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
         <span
           className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"
           style={{

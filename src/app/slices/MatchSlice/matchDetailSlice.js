@@ -71,18 +71,17 @@ const matchDetailSlice = createSlice({
         state.IsSubmited =
           team1ScoreDetails.submittedBy == userId ||
           team2ScoreDetails.submittedBy == userId;
-
-          if (
-            (state.isCaptain && state.isMyMatch) &&
-            !(
-              (state.isTeamOne && team1ScoreDetails?.submittedBy) ||
-              (!state.isTeamOne && team2ScoreDetails?.submittedBy)
-            )
-          ) {
+          if(state.isCaptain){
             state.isShowChat = true;
-          } else {
+          }else if (state.isMyMatch && !(
+            (state.isTeamOne && team1ScoreDetails?.submittedBy) ||
+            (!state.isTeamOne && team2ScoreDetails?.submittedBy)
+          )){
+            state.isShowChat = true;
+          }else {
             state.isShowChat = false;
           }
+
 
           if(state.matchData.winner == "team1"){
             state.winnerScore.teamOne = team1ScoreDetails.yourScore;

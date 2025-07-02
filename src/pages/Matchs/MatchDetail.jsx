@@ -2,273 +2,260 @@ import React, { useEffect, useState } from "react";
 
 import "../../assets/css/Matchmaking.css";
 
-import LikeIcon from "../../assets/images/like_icon.png";
-import DisLikeIcon from "../../assets/images/dislike_icon.png";
-import GoldCrown from "../../assets/images/gold_crown.png";
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   getPartnerById,
-  getServerURL,
-  items,
-  SOCKET,
 } from "../../utils/constant";
-import {
-  setMatchLoader,
-  setMatchPage,
-} from "../../app/slices/constState/constStateSlice";
-import { useDispatch, useSelector } from "react-redux";
+
+import {  useSelector } from "react-redux";
 import {
   sendMatchMsg,
-  socket,
   startMatchUpdate,
   stopMatchUpdate,
 } from "../../app/socket/socket";
-import {
-  setChatData,
-  setIsMyMatch,
-  setIsTeamOne,
-  setmatchData,
-} from "../../app/slices/MatchSlice/matchDetailSlice";
-import { getCards } from "../../components/MatchDeatilComponents/matchCards";
-import GamingLoader from "../../components/Loader/loader";
+
+
+
 import MatchLoader from "../../components/Loader/MatchLoader";
-import { baseURL } from "../../utils/axios";
 
-// ✅ Card list component for Team 1
-const TeamOneScoreList = ({
-  playerPerTeam,
-  players,
-  isMyMatch,
-  isTeamOne,
-  mId,
-  uId,
-  givedReputations,
-}) => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  console.log(playerPerTeam);
-  let cards = getCards(playerPerTeam, false);
-  const submitUpVote = (player) => {
-    socket.emit(SOCKET.GIVEREPUTATION, {
-      matchId: mId,
-      giver: uId,
-      receiver: player.participant.userId._id,
-      reputation: 1,
-    });
-  };
-  const submitDownVote = (player) => {
-    socket.emit(SOCKET.GIVEREPUTATION, {
-      matchId: mId,
-      giver: uId,
-      receiver: player.participant.userId._id,
-      reputation: -1,
-    });
-  };
+import { TeamOneScoreList } from "./teamOneSection";
+import { TeamTwoScoreList } from "./teamTwoSection";
 
-  return (
-    <ul className="team_one--list flex flex-col gap-5 mt-[-1rem]">
-      {cards.map((Card, index) => {
-        let data = {
-          username: players[index]?.participant?.userId?.username || "",
-          gameID: players[index]?.participant?.gameId || "",
-          rep: players[index]?.participant?.raputations?.wilsonScore || 0,
-          profilePic: getServerURL(
-            players[index]?.participant?.userId?.profilePicture || ""
-          ),
-          score: players[index]?.leaguesScore || 0,
-        };
+// // ✅ Card list component for Team 1
+// const TeamOneScoreList = ({
+//   playerPerTeam,
+//   players,
+//   isMyMatch,
+//   isTeamOne,
+//   mId,
+//   uId,
+//   givedReputations,
+// }) => {
+//   const [hoveredIndex, setHoveredIndex] = useState(null);
+//   console.log(playerPerTeam);
+//   let cards = getCards(playerPerTeam, false);
+//   const submitUpVote = (player) => {
+//     socket.emit(SOCKET.GIVEREPUTATION, {
+//       matchId: mId,
+//       giver: uId,
+//       receiver: player.participant.userId._id,
+//       reputation: 1,
+//     });
+//   };
+//   const submitDownVote = (player) => {
+//     socket.emit(SOCKET.GIVEREPUTATION, {
+//       matchId: mId,
+//       giver: uId,
+//       receiver: player.participant.userId._id,
+//       reputation: -1,
+//     });
+//   };
 
-        // if (!showIndexes.includes(index)) return null;
-        let IsReputationGived = givedReputations.find(
-          (rep) =>
-            rep.giver == uId &&
-            rep.receiver == players[index]?.participant?.userId?._id
-        );
-        // console.log("IsReputationGived:", IsReputationGived);
-        return (
-          <li
-            key={index}
-            className={`team_score--card relative ${
-              index === 0 ? "gold_rank" : ""
-            }`}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            {index === 0 && (
-              <span className="gold_crown absolute top-[-3rem] right-8 z-10">
-                <img src={GoldCrown} alt="Gold Crown" className="h-10" />
-              </span>
-            )}
-            <Card player={data} />
-            {isMyMatch &&
-              isTeamOne &&
-              players[index]?.participant?.userId?._id != uId && (
-                <div
-                  className={`review_score--con sd_before absolute top-[0rem] left-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
-                    hoveredIndex === index
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible"
-                  }`}
-                >
-                  <div
-                    onClick={() =>
-                      IsReputationGived?.reputation != 1
-                        ? submitUpVote(players[index])
-                        : null
-                    }
-                    className={`like_icon duration-400 ${
-                      IsReputationGived?.reputation == 1
-                        ? "opacity-50 visible"
-                        : "hover:opacity-70"
-                    }`}
-                  >
-                    <img
-                      src={LikeIcon}
-                      alt="Like"
-                      style={{ width: "2.625rem" }}
-                    />
-                  </div>
-                  <div
-                    onClick={() =>
-                      IsReputationGived?.reputation != -1
-                        ? submitDownVote(players[index])
-                        : null
-                    }
-                    className={`like_icon duration-400 ${
-                      IsReputationGived?.reputation == -1
-                        ? "opacity-50 visible"
-                        : "hover:opacity-70"
-                    }`}
-                  >
-                    <img
-                      src={DisLikeIcon}
-                      alt="Dislike"
-                      style={{ width: "2.625rem" }}
-                    />
-                  </div>
-                </div>
-              )}
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
+//   return (
+//     <ul className="team_one--list flex flex-col gap-5 mt-[-1rem]">
+//       {cards.map((Card, index) => {
+//         let data = {
+//           username: players[index]?.participant?.userId?.username || "",
+//           gameID: players[index]?.participant?.gameId || "",
+//           rep: players[index]?.participant?.raputations?.wilsonScore || 0,
+//           profilePic: getServerURL(
+//             players[index]?.participant?.userId?.profilePicture || ""
+//           ),
+//           score: players[index]?.leaguesScore || 0,
+//         };
 
-const TeamTwoScoreList = ({
-  playerPerTeam,
-  players,
-  isMyMatch,
-  isTeamOne,
-  mId,
-  uId,
-  givedReputations,
-}) => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  let cards = getCards(playerPerTeam, true);
-  const submitUpVote = (player) => {
-    socket.emit(SOCKET.GIVEREPUTATION, {
-      matchId: mId,
-      giver: uId,
-      receiver: player.participant.userId._id,
-      reputation: 1,
-    });
-  };
-  const submitDownVote = (player) => {
-    socket.emit(SOCKET.GIVEREPUTATION, {
-      matchId: mId,
-      giver: uId,
-      receiver: player.participant.userId._id,
-      reputation: -1,
-    });
-  };
-  return (
-    <ul className="team_two--list flex flex-col gap-5 mt-[-1rem]">
-      {cards.map((Card, index) => {
-        let data = {
-          username: players[index]?.participant?.userId?.username || "",
-          gameID: players[index]?.participant?.gameId || "",
-          rep: players[index]?.participant?.raputations?.wilsonScore || 0,
-          profilePic: getServerURL(
-            players[index]?.participant?.userId?.profilePicture || ""
-          ),
-          score: players[index]?.leaguesScore || 0,
-        };
-        let IsReputationGived = givedReputations.find(
-          (rep) =>
-            rep.giver == uId &&
-            rep.receiver == players[index]?.participant?.userId?._id
-        );
-        // if (!showIndexes.includes(index)) return null;
-        return (
-          <li
-            key={index}
-            className={`team_score--card relative ${
-              index === 0 ? "gold_rank" : ""
-            }`}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            {index === 0 && (
-              <span className="gold_crown absolute top-[-3rem] left-8 z-10">
-                <img src={GoldCrown} alt="Gold Crown" className="h-10" />
-              </span>
-            )}
-            <Card player={data} />
-            {isMyMatch &&
-              !isTeamOne &&
-              players[index]?.participant?.userId?._id != uId && (
-                <div
-                  className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
-                    hoveredIndex === index
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible"
-                  }`}
-                >
-                  <div
-                    onClick={() =>
-                      IsReputationGived?.reputation != 1
-                        ? submitUpVote(players[index])
-                        : null
-                    }
-                    className={`like_icon duration-400 ${
-                      IsReputationGived?.reputation == 1
-                        ? "opacity-50 visible"
-                        : "hover:opacity-70"
-                    }`}
-                  >
-                    <img
-                      src={LikeIcon}
-                      alt="Like"
-                      style={{ width: "2.625rem" }}
-                    />
-                  </div>
-                  <div
-                    onClick={() =>
-                      IsReputationGived?.reputation != -1
-                        ? submitDownVote(players[index])
-                        : null
-                    }
-                    className={`like_icon duration-400 ${
-                      IsReputationGived?.reputation == -1
-                        ? "opacity-50 visible"
-                        : "hover:opacity-70"
-                    }`}
-                  >
-                    <img
-                      src={DisLikeIcon}
-                      alt="Dislike"
-                      style={{ width: "2.625rem" }}
-                    />
-                  </div>
-                </div>
-              )}
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
+//         // if (!showIndexes.includes(index)) return null;
+//         let IsReputationGived = givedReputations.find(
+//           (rep) =>
+//             rep.giver == uId &&
+//             rep.receiver == players[index]?.participant?.userId?._id
+//         );
+//         // console.log("IsReputationGived:", IsReputationGived);
+//         return (
+//           <li
+//             key={index}
+//             className={`team_score--card relative ${
+//               index === 0 ? "gold_rank" : ""
+//             }`}
+//             onMouseEnter={() => setHoveredIndex(index)}
+//             onMouseLeave={() => setHoveredIndex(null)}
+//           >
+//             {index === 0 && (
+//               <span className="gold_crown absolute top-[-3rem] right-8 z-10">
+//                 <img src={GoldCrown} alt="Gold Crown" className="h-10" />
+//               </span>
+//             )}
+//             <Card player={data} />
+//             {isMyMatch &&
+//               isTeamOne &&
+//               players[index]?.participant?.userId?._id != uId && (
+//                 <div
+//                   className={`review_score--con sd_before absolute top-[0rem] left-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
+//                     hoveredIndex === index
+//                       ? "opacity-100 visible"
+//                       : "opacity-0 invisible"
+//                   }`}
+//                 >
+//                   <div
+//                     onClick={() =>
+//                       IsReputationGived?.reputation != 1
+//                         ? submitUpVote(players[index])
+//                         : null
+//                     }
+//                     className={`like_icon duration-400 ${
+//                       IsReputationGived?.reputation == 1
+//                         ? "opacity-50 visible"
+//                         : "hover:opacity-70"
+//                     }`}
+//                   >
+//                     <img
+//                       src={LikeIcon}
+//                       alt="Like"
+//                       style={{ width: "2.625rem" }}
+//                     />
+//                   </div>
+//                   <div
+//                     onClick={() =>
+//                       IsReputationGived?.reputation != -1
+//                         ? submitDownVote(players[index])
+//                         : null
+//                     }
+//                     className={`like_icon duration-400 ${
+//                       IsReputationGived?.reputation == -1
+//                         ? "opacity-50 visible"
+//                         : "hover:opacity-70"
+//                     }`}
+//                   >
+//                     <img
+//                       src={DisLikeIcon}
+//                       alt="Dislike"
+//                       style={{ width: "2.625rem" }}
+//                     />
+//                   </div>
+//                 </div>
+//               )}
+//           </li>
+//         );
+//       })}
+//     </ul>
+//   );
+// };
+
+// const TeamTwoScoreList = ({
+//   playerPerTeam,
+//   players,
+//   isMyMatch,
+//   isTeamOne,
+//   mId,
+//   uId,
+//   givedReputations,
+// }) => {
+//   const [hoveredIndex, setHoveredIndex] = useState(null);
+//   let cards = getCards(playerPerTeam, true);
+//   const submitUpVote = (player) => {
+//     socket.emit(SOCKET.GIVEREPUTATION, {
+//       matchId: mId,
+//       giver: uId,
+//       receiver: player.participant.userId._id,
+//       reputation: 1,
+//     });
+//   };
+//   const submitDownVote = (player) => {
+//     socket.emit(SOCKET.GIVEREPUTATION, {
+//       matchId: mId,
+//       giver: uId,
+//       receiver: player.participant.userId._id,
+//       reputation: -1,
+//     });
+//   };
+//   return (
+//     <ul className="team_two--list flex flex-col gap-5 mt-[-1rem]">
+//       {cards.map((Card, index) => {
+//         let data = {
+//           username: players[index]?.participant?.userId?.username || "",
+//           gameID: players[index]?.participant?.gameId || "",
+//           rep: players[index]?.participant?.raputations?.wilsonScore || 0,
+//           profilePic: getServerURL(
+//             players[index]?.participant?.userId?.profilePicture || ""
+//           ),
+//           score: players[index]?.leaguesScore || 0,
+//         };
+//         let IsReputationGived = givedReputations.find(
+//           (rep) =>
+//             rep.giver == uId &&
+//             rep.receiver == players[index]?.participant?.userId?._id
+//         );
+//         // if (!showIndexes.includes(index)) return null;
+//         return (
+//           <li
+//             key={index}
+//             className={`team_score--card relative ${
+//               index === 0 ? "gold_rank" : ""
+//             }`}
+//             onMouseEnter={() => setHoveredIndex(index)}
+//             onMouseLeave={() => setHoveredIndex(null)}
+//           >
+//             {index === 0 && (
+//               <span className="gold_crown absolute top-[-3rem] left-8 z-10">
+//                 <img src={GoldCrown} alt="Gold Crown" className="h-10" />
+//               </span>
+//             )}
+//             <Card player={data} />
+//             {isMyMatch &&
+//               !isTeamOne &&
+//               players[index]?.participant?.userId?._id != uId && (
+//                 <div
+//                   className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
+//                     hoveredIndex === index
+//                       ? "opacity-100 visible"
+//                       : "opacity-0 invisible"
+//                   }`}
+//                 >
+//                   <div
+//                     onClick={() =>
+//                       IsReputationGived?.reputation != 1
+//                         ? submitUpVote(players[index])
+//                         : null
+//                     }
+//                     className={`like_icon duration-400 ${
+//                       IsReputationGived?.reputation == 1
+//                         ? "opacity-50 visible"
+//                         : "hover:opacity-70"
+//                     }`}
+//                   >
+//                     <img
+//                       src={LikeIcon}
+//                       alt="Like"
+//                       style={{ width: "2.625rem" }}
+//                     />
+//                   </div>
+//                   <div
+//                     onClick={() =>
+//                       IsReputationGived?.reputation != -1
+//                         ? submitDownVote(players[index])
+//                         : null
+//                     }
+//                     className={`like_icon duration-400 ${
+//                       IsReputationGived?.reputation == -1
+//                         ? "opacity-50 visible"
+//                         : "hover:opacity-70"
+//                     }`}
+//                   >
+//                     <img
+//                       src={DisLikeIcon}
+//                       alt="Dislike"
+//                       style={{ width: "2.625rem" }}
+//                     />
+//                   </div>
+//                 </div>
+//               )}
+//           </li>
+//         );
+//       })}
+//     </ul>
+//   );
+// };
 
 const MatchDetail = () => {
   const { id, mId } = useParams();
@@ -336,15 +323,7 @@ const MatchDetail = () => {
             <h2 className="grad_head--txt max-w-full text-[4rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
               Team 1
             </h2>
-            <TeamOneScoreList
-              playerPerTeam={matchData?.league?.playersPerTeam}
-              players={matchData?.team1}
-              isMyMatch={isMyMatch}
-              isTeamOne={isTeamOne}
-              mId={matchData?._id}
-              uId={user?._id}
-              givedReputations={matchData?.givedReputations || []}
-            />
+            <TeamOneScoreList/>
           </div>
 
           {/* Score */}
@@ -430,15 +409,7 @@ const MatchDetail = () => {
             <h2 className="grad_head--txt max-w-full text-[4rem] pr-[2rem] grad_text-clip font_oswald tracking-wide !font-medium text-right leading-none uppercase">
               Team 2
             </h2>
-            <TeamTwoScoreList
-              playerPerTeam={matchData?.league?.playersPerTeam}
-              players={matchData?.team2}
-              isMyMatch={isMyMatch}
-              isTeamOne={isTeamOne}
-              mId={matchData._id}
-              uId={user?._id}
-              givedReputations={matchData?.givedReputations || []}
-            />
+            <TeamTwoScoreList/>
           </div>
         </div>
       </section>
