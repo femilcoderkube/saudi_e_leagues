@@ -353,16 +353,20 @@ const MatchDetail = () => {
                       >
                         <div class="px-2 py-1 rounded-lg">
                           <p className="text-white text-lg font-light ">
-                            <span
+                            {!chat.isMsg &&<span
                               className={`!font-bold ${
                                 user?._id == chat.senderId?._id
                                   ? "text-[#AAC5FF]"
                                   : "text-[#F8D372]"
                               }`}
                             >
-                              {chat?.senderId?.username} :{" "}
-                            </span>
-                            {chat.msg}
+                              {chat?.isAdmin ? "Admin" : chat?.senderId?.username} :{" "}
+                            </span>}
+                            {chat.isMsg === true ? (
+                              <span className="flex justify-center w-full">{chat.msg}</span>
+                            ) : (
+                              chat.msg
+                            )}
                           </p>
                         </div>
                       </div>

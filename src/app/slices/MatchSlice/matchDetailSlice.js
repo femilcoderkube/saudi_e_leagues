@@ -87,8 +87,6 @@ const matchDetailSlice = createSlice({
           }else {
             state.isShowChat = false;
           }
-
-
           if(state.matchData.winner == "team1"){
             state.winnerScore.teamOne = team1ScoreDetails.yourScore;
             state.winnerScore.teamTwo = team1ScoreDetails.opponentScore;

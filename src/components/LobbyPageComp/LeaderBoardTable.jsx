@@ -66,9 +66,9 @@ const LeaderBoard = () => {
             <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
               W/L
             </th>
-            <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
+           { leagueData.playersPerTeam != 1 && <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
               Rep
-            </th>
+            </th>}
             <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
               Win rate
             </th>
@@ -126,7 +126,7 @@ const LeaderBoard = () => {
                   </span>
                 </td>
 
-                <td className="py-4 px-4">
+               {leagueData.playersPerTeam != 1 &&  <td className="py-4 px-4">
                   <div className="flex items-center justify-center">
                     <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
                       <img
@@ -136,7 +136,7 @@ const LeaderBoard = () => {
                       />
                     </div>
                   </div>
-                </td>
+                </td>}
 
                 <td className="py-4 px-4 text-center text-lg">
                   {requestedUser.winRate}
@@ -217,7 +217,7 @@ const LeaderBoard = () => {
                       {user.losses}
                     </span>
                   </td>
-                  <td className="py-4 px-4">
+                  {leagueData.playersPerTeam != 1 && <td className="py-4 px-4">
                     <div className="flex items-center justify-center">
                       <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
                         <img
@@ -227,7 +227,7 @@ const LeaderBoard = () => {
                         />
                       </div>
                     </div>
-                  </td>
+                  </td>}
 
                   <td className="py-4 px-4 text-center text-lg">
                     {user.winRate}
