@@ -1,7 +1,7 @@
 import prime_icon from "../assets/images/prime_icon.svg";
 import prime_hover from "../assets/images/prime_hover.png";
 import { Prime } from "../components/ui/svg";
-import LargePrime from "../assets/images/large_prime.png";
+import LargePrime from "../assets/images/prime_hover.png";
 import { baseURL } from "./axios";
 
 export const items = [

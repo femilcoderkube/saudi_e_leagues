@@ -4,18 +4,14 @@ import "../../assets/css/Matchmaking.css";
 
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
 import { useParams } from "react-router-dom";
-import {
-  getPartnerById,
-} from "../../utils/constant";
+import { getPartnerById } from "../../utils/constant";
 
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   sendMatchMsg,
   startMatchUpdate,
   stopMatchUpdate,
 } from "../../app/socket/socket";
-
-
 
 import MatchLoader from "../../components/Loader/MatchLoader";
 
@@ -323,7 +319,7 @@ const MatchDetail = () => {
             <h2 className="grad_head--txt max-w-full text-[4rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
               Team 1
             </h2>
-            <TeamOneScoreList/>
+            <TeamOneScoreList />
           </div>
 
           {/* Score */}
@@ -342,7 +338,7 @@ const MatchDetail = () => {
             {isShowChat && (
               <div class="chat_block--con pt-[1rem] h-[25rem] sd_before relative  flex flex-col max-w-lg mx-auto">
                 <div class="flex-1 chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4 ">
-                  <div class="flex flex-col space-y-1 h-full justify-end">
+                  <div class="flex flex-col space-y-1 justify-end">
                     {chatData?.map((chat, index) => (
                       <div
                         class={`block ${
@@ -413,7 +409,7 @@ const MatchDetail = () => {
             <h2 className="grad_head--txt max-w-full text-[4rem] pr-[2rem] grad_text-clip font_oswald tracking-wide !font-medium text-right leading-none uppercase">
               Team 2
             </h2>
-            <TeamTwoScoreList/>
+            <TeamTwoScoreList />
           </div>
         </div>
       </section>

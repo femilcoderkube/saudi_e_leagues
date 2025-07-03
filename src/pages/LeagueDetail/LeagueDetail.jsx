@@ -60,7 +60,7 @@ const LeagueDetail = () => {
             <div className="sd_content-left flex items-center gap-10 pb-6 mr-[-1rem] relative">
               <div className="sd_com--logo cursor-hide">
                 <img
-                  src={getServerURL(leagueData?.partner?.logo || "")}
+                  src={getServerURL(leagueData?.logo || "")}
                   alt=""
                   style={{ width: "16.5rem" }}
                 />
