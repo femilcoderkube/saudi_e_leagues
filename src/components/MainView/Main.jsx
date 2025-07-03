@@ -52,18 +52,18 @@ export default function Main() {
     phone: "",
     dateOfBirth: "",
     gender: "Male",
-    role: null,
+    role: "Player",
     favoriteGame: null,
     profilePicture: null,
   };
 
-
   const handleSubmit = async (values) => {
+    console.log("values", values);
     try {
       setLoadingSubmit(true);
       const formData = new FormData();
       Object.keys(values).forEach((key) => {
-        if (key === "role" || key === "favoriteGame" || key === "nationality") {
+        if (key === "favoriteGame" || key === "nationality") {
           formData.append(key, values[key]?.value || "");
         } else if (key === "profilePicture") {
           if (values[key]) formData.append(key, values[key]);
@@ -93,7 +93,7 @@ export default function Main() {
       setLoadingSubmit(false);
     }
   };
-  useEffect(()=>{},[location])
+  useEffect(() => {}, [location]);
   return (
     <div
       className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20"
@@ -102,7 +102,9 @@ export default function Main() {
       <Header setSubmitModal={setSubmitModal} />
       <main
         className={`flex-1 game_card_main--con    ${
-          checkParams('finding-match') || checkParams('match') ? "" : "px-[4.5rem] pt-7"
+          checkParams("finding-match") || checkParams("match")
+            ? ""
+            : "px-[4.5rem] pt-7"
         }`}
       >
         {isRegisteration && (

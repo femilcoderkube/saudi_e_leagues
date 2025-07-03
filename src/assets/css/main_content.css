@@ -429,7 +429,6 @@
     rgba(16, 19, 63, 1) 100%
   );
   clip-path: url(#myClipPath);
-
 }
 
 .match_reg2--popup:before {
@@ -441,7 +440,6 @@
   pointer-events: none;
   top: 0;
 }
-
 
 .popup-overlay {
   background: linear-gradient(
@@ -489,17 +487,14 @@ input[type="radio"]:checked + label .checkbox-inner:before {
 }
 
 .popup_submit-btn {
-  background: linear-gradient(
-    180deg,
-    rgba(94, 95, 184, 0.4) 0%,
-    rgba(34, 35, 86, 0.4) 100%
-  );
+  background: linear-gradient(180deg, #6090ff 0%, #5988f6 100%);
   clip-path: url(#popup_btn);
   width: 25rem;
   height: 4.5rem;
   display: flex;
   justify-content: center;
   align-items: anchor-center;
+  color: #fff;
 }
 
 /* ----------------------------------

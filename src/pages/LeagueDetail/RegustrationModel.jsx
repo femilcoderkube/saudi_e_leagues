@@ -6,7 +6,10 @@ import { Link, useParams } from "react-router-dom";
 import { Popup_btn } from "../../components/ui/svg/index.jsx";
 import { joinLeagueSocket, socket } from "../../app/socket/socket.js";
 import { SOCKET } from "../../utils/constant.js";
-import { setIsAgreedToJoin, setRegistrationModal } from "../../app/slices/leagueDetail/leagueDetailSlice.js";
+import {
+  setIsAgreedToJoin,
+  setRegistrationModal,
+} from "../../app/slices/leagueDetail/leagueDetailSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 const RegistrationModel = () => {
@@ -37,7 +40,11 @@ const RegistrationModel = () => {
             break;
         }
         if (field.required) {
-          validator = validator.required(`${field.fieldName.replace(/^\w/, c => c.toUpperCase())} is required`);
+          validator = validator.required(
+            `${field.fieldName.replace(/^\w/, (c) =>
+              c.toUpperCase()
+            )} is required`
+          );
         }
         shape[field.fieldName] = validator;
         fields.push(field);
@@ -60,11 +67,10 @@ const RegistrationModel = () => {
     if (fieldList.length > 0) {
       // Attach all custom fields to payload
       for (const field of fieldList) {
-        payload[ "gameId" ] = values[field.fieldName];
+        payload["gameId"] = values[field.fieldName];
       }
     }
-    joinLeagueSocket({isSocketConnected, payload})
-    
+    joinLeagueSocket({ isSocketConnected, payload });
   };
 
   return (
@@ -125,7 +131,10 @@ const RegistrationModel = () => {
                                 id={field.fieldName}
                                 name={field.fieldName}
                                 className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
-                                placeholder={field.fieldName.replace(/^\w/, c => c.toUpperCase())}
+                                placeholder={field.fieldName.replace(
+                                  /^\w/,
+                                  (c) => c.toUpperCase()
+                                )}
                               />
                               <div className="text-start px-7">
                                 <ErrorMessage
@@ -165,7 +174,9 @@ const RegistrationModel = () => {
                           type="checkbox"
                           id="check-round01"
                           checked={isAgreedToJoin}
-                          onChange={() => dispatch(setIsAgreedToJoin(!isAgreedToJoin))}
+                          onChange={() =>
+                            dispatch(setIsAgreedToJoin(!isAgreedToJoin))
+                          }
                         />
                         <label
                           className="flex gap-4 items-center h-10 px-2 rounded cursor-pointer"
@@ -189,7 +200,8 @@ const RegistrationModel = () => {
                         </label>
                         {!isAgreedToJoin && (
                           <div className="text-red-500 text-sm mt-1 px-2">
-                            You must agree to the Terms and Conditions to register.
+                            You must agree to the Terms and Conditions to
+                            register.
                           </div>
                         )}
                       </div>
@@ -197,16 +209,18 @@ const RegistrationModel = () => {
                       <div className="popup_footer px-6 mt-5 pt-6">
                         <button
                           type="submit"
-                          disabled={!isAgreedToJoin || (fieldList.length > 0 && !isValid)}
+                          disabled={
+                            !isAgreedToJoin ||
+                            (fieldList.length > 0 && !isValid)
+                          }
                           className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 ${
-                            !isAgreedToJoin || (fieldList.length > 0 && !isValid)
+                            !isAgreedToJoin ||
+                            (fieldList.length > 0 && !isValid)
                               ? "opacity-50 cursor-not-allowed"
                               : ""
                           }`}
                         >
-                          {fieldList.length > 0
-                            ? "Submit"
-                            : "Register"}
+                          {fieldList.length > 0 ? "Submit" : "Register"}
                         </button>
                         <Popup_btn />
                       </div>

@@ -1,5 +1,5 @@
 import prime_icon from "../assets/images/prime_icon.svg";
-import prime_hover from "../assets/images/prime_hover.svg";
+import prime_hover from "../assets/images/prime_hover.png";
 import { Prime } from "../components/ui/svg";
 import LargePrime from "../assets/images/large_prime.png";
 import { baseURL } from "./axios";
@@ -282,7 +282,7 @@ export const formatTime = (secs) => {
 };
 // Utility function to check for a specific path segment
 export function checkParams(param) {
-  const pathSegments = window.location.pathname.split('/').filter(Boolean);
+  const pathSegments = window.location.pathname.split("/").filter(Boolean);
   return pathSegments.includes(param);
 }
 
@@ -290,3 +290,7 @@ export function checkParams(param) {
 // const isFindingMatch = checkParams('finding-match');
 // console.log(isFindingMatch); // true if 'finding-match' is in the path
 
+export function formatAmountWithCommas(amount) {
+  if (amount == null) return "";
+  return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

@@ -56,6 +56,7 @@ const registerSlice = createSlice({
         state.user = action.payload.data.user;
         state.success = true;
         localStorage.setItem("token", action.payload.data.token);
+        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;

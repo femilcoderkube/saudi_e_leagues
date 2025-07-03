@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { baseURL } from "../../utils/axios";
 import {
   cardVariants,
+  formatAmountWithCommas,
   getDayFromISO,
   getMonthAbbreviation,
   getServerURL,
@@ -40,7 +41,8 @@ const GameCardListView = ({ leagues }) => {
                 </h3>
                 <div className="league_price_v2 mt-5 mb-7 pl-5 py-3 relative sd_before sd_after before:top-0 before:left-0 before:w-full before:h-[0.063rem] after:bottom-0 after:left-0 after:w-full after:h-[0.063rem]">
                   <h2 className="league_price text-2xl  !font-bold font_oswald yellow_grad-bg grad_text-clip">
-                    ${item.prizepool}
+                    <span className="icon-saudi_riyal !p-0"></span>
+                    {formatAmountWithCommas(item?.prizepool)}
                   </h2>
                 </div>
                 <div className="game_intro_v2 bg-no-repeat pl-5">

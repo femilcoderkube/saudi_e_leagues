@@ -3,9 +3,14 @@ import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion"; // Import framer-motion
 import CardTopLeftShap from "../../assets/images/card_top_left-shap.png";
 import { baseURL } from "../../utils/axios.js";
-import { cardVariants, containerVariants, getDayFromISO, getMonthAbbreviation, getServerURL } from "../../utils/constant.js";
-
-
+import {
+  cardVariants,
+  containerVariants,
+  formatAmountWithCommas,
+  getDayFromISO,
+  getMonthAbbreviation,
+  getServerURL,
+} from "../../utils/constant.js";
 
 const GameCardGridView = ({ leagues }) => {
   const { id } = useParams();
@@ -57,7 +62,8 @@ const GameCardGridView = ({ leagues }) => {
                 </motion.div>
                 <div className="game_mask--con absolute bottom-0 h-full flex flex-col justify-between">
                   <h2 className="league_price text-[2rem] !font-bold font_oswald yellow_grad-bg grad_text-clip pl-5 pt-5">
-                    ${item.prizepool}
+                    <span className="icon-saudi_riyal !p-0"></span>
+                    {formatAmountWithCommas(item?.prizepool)}
                   </h2>
                   <h3 className="game_label text-[2rem] !font-bold uppercase leading-tight pl-5">
                     {item.title}

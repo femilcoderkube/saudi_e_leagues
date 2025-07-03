@@ -11,7 +11,7 @@ import { setAxiosStore } from "./utils/axios.js";
 import { store } from "./app/slices/store.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Don't forget to import the CSS!
-
+import "@emran-alhaddad/saudi-riyal-font/index.css";
 setAxiosStore(store);
 
 createRoot(document.getElementById("root")).render(

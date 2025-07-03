@@ -5,6 +5,7 @@ const CustomFileUpload = ({
   onFileChange,
   previewImage,
   onRemove,
+  isReg = false,
 }) => {
   const fileInputRef = useRef(null);
   const [fileName, setFileName] = useState("");
@@ -61,7 +62,9 @@ const CustomFileUpload = ({
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center">
-            <p className="text-[#7B7ED0] text-lg font-medium">Upload Photo</p>
+            <p className="text-[#7B7ED0] text-lg font-medium">
+              {isReg ? "Upload Profile Picture" : "Upload Photo"}
+            </p>
             <p className="text-[#7B7ED0]/70 text-sm mt-1">
               Click to select an image
             </p>

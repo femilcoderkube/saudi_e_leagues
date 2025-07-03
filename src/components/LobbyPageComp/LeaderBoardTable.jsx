@@ -7,14 +7,15 @@ import { getSmile } from "../MatchDeatilComponents/matchCards";
 import { getServerURL } from "../../utils/constant";
 import { useSelector } from "react-redux";
 
-
 const LeaderBoard = () => {
-  const { leagueData  } = useSelector((state) => state.leagues);
+  const { leagueData } = useSelector((state) => state.leagues);
   let requestedUser = leagueData?.leaderBoard?.requestedUser || null;
   if (requestedUser) {
     let user = {
       username: requestedUser?.userId?.username,
-      points: requestedUser?.totalScore?.toFixed(2),
+      points: requestedUser?.totalScore
+        ? Math.round(requestedUser?.totalScore)
+        : 0,
       wins: requestedUser?.totalWins,
       losses: requestedUser?.totalLosses,
       rep: requestedUser?.wilsonScore,
@@ -76,10 +77,7 @@ const LeaderBoard = () => {
         <tbody>
           {requestedUser && (
             <>
-              <tr
-          
-                className={`${requestedUser.badgeColor} overflow-hidden`}
-              >
+              <tr className={`${requestedUser.badgeColor} overflow-hidden`}>
                 <td
                   className={`py-4 px-4 w-[6rem] ${requestedUser.bedgeBG} ${
                     String(requestedUser.rank).length === 1
@@ -129,16 +127,16 @@ const LeaderBoard = () => {
                 </td>
 
                 <td className="py-4 px-4">
-                    <div className="flex items-center justify-center">
-                      <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
-                        <img
-                          src={getSmile(requestedUser.rep)}
-                          alt={requestedUser.username}
-                          style={{ width: "1.5rem" }}
-                        />
-                      </div>
+                  <div className="flex items-center justify-center">
+                    <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
+                      <img
+                        src={getSmile(requestedUser.rep)}
+                        alt={requestedUser.username}
+                        style={{ width: "1.5rem" }}
+                      />
                     </div>
-                  </td>
+                  </div>
+                </td>
 
                 <td className="py-4 px-4 text-center text-lg">
                   {requestedUser.winRate}
@@ -149,12 +147,13 @@ const LeaderBoard = () => {
           {leagueData?.leaderBoard?.topUsers?.map((data, index) => {
             let user = {
               username: data?.userId?.username,
-              points: data?.totalScore?.toFixed(2),
+              points: data?.totalScore ? Math.round(data?.totalScore) : 0,
               wins: data?.totalWins,
               losses: data?.totalLosses,
               rep: data?.wilsonScore,
               winRate: data?.winPercentage?.toFixed(2) + "%",
               profilePic: data?.userId?.profilePic || Null,
+              rank: data?.rank || index + 1,
             };
 
             if (index == 0) {
@@ -172,12 +171,10 @@ const LeaderBoard = () => {
             }
             return (
               <>
-                <tr
-                  className={`${user.badgeColor} overflow-hidden`}
-                >
+                <tr className={`${user.badgeColor} overflow-hidden`}>
                   <td
                     className={`py-4 px-4 ${user.bedgeBG} ${
-                      String(index + 1).length === 1 ? "one_digit" : "two_digit"
+                      String(user.rank).length === 1 ? "one_digit" : "two_digit"
                     }`}
                   >
                     <img
@@ -190,7 +187,7 @@ const LeaderBoard = () => {
                       className="badge text-lg text-center pl-1 font-bold"
                       style={{ width: "3rem" }}
                     >
-                      {index + 1}
+                      {user.rank}
                     </div>
                   </td>
 

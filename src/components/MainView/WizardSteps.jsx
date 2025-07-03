@@ -179,12 +179,12 @@ const WizardSteps = ({
       gender: Yup.string()
         .oneOf(["Male", "Female"], "Gender is required")
         .required("Gender is required"),
-      role: Yup.object()
-        .shape({
-          value: Yup.string().required(),
-          label: Yup.string().required(),
-        })
-        .required("Role is required"),
+      // role: Yup.object()
+      //   .shape({
+      //     value: Yup.string().required(),
+      //     label: Yup.string().required(),
+      //   })
+      //   .required("Role is required"),
     }),
     Yup.object({
       favoriteGame: Yup.object()
@@ -368,6 +368,9 @@ const WizardSteps = ({
             </div>
             <div className="text-start w-full pr-4">
               <div className="custom_select2 sd_select--menu">
+                <label className="flex gap-4 items-center h-10 rounded cursor-pointer">
+                  Nationality
+                </label>
                 <Select
                   // value={values.nationality}
                   defaultValue={defaultNationality}
@@ -466,7 +469,7 @@ const WizardSteps = ({
               component="div"
               className="text-red-500 text-sm"
             />
-            <div className="custom_select2 mt-4 sd_select--menu">
+            {/* <div className="custom_select2 mt-4 sd_select--menu">
               <Select
                 value={values.role}
                 onChange={(option) => setFieldValue("role", option)}
@@ -496,7 +499,7 @@ const WizardSteps = ({
                   </clipPath>
                 </defs>
               </svg>
-            </div>
+            </div> */}
           </div>
         );
 
@@ -507,6 +510,7 @@ const WizardSteps = ({
               <Field name="profilePicture">
                 {({ form }) => (
                   <CustomFileUpload
+                    isReg={true}
                     hasImage={!!previewImage}
                     onFileChange={(file) => {
                       form.setFieldValue("profilePicture", file);
@@ -571,6 +575,7 @@ const WizardSteps = ({
         ...initialValues,
         // dialCode: null,
         phoneNumber: "",
+        role: "Player",
       }}
       validationSchema={validationSchemas[step - 1]}
       onSubmit={(values) => {

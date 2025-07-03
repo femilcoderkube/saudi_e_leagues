@@ -1,4 +1,3 @@
-
 import wind_girl from "../../assets/images/wind_girl.png";
 import teamSizeImage from "../../assets/images/teamSize.png";
 import valorant_bg from "../../assets/images/valorant_bg.png";
@@ -10,9 +9,18 @@ import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
 import LeaderBoard from "../../components/LobbyPageComp/LeaderBoardTable.jsx";
 import { Link, useParams } from "react-router-dom";
 import PopUp from "../../components/ModalPopUp/Popup.jsx";
-import { useEffect,  } from "react";
-import {  startLeagueSocket, stopLeagueSocket } from "../../app/socket/socket.js";
-import {  generateTailwindGradient, getQueueText, getServerURL, SOCKET } from "../../utils/constant.js";
+import { useEffect } from "react";
+import {
+  startLeagueSocket,
+  stopLeagueSocket,
+} from "../../app/socket/socket.js";
+import {
+  formatAmountWithCommas,
+  generateTailwindGradient,
+  getQueueText,
+  getServerURL,
+  SOCKET,
+} from "../../utils/constant.js";
 import { useSelector } from "react-redux";
 
 import GamingLoader from "../../components/Loader/loader.jsx";
@@ -23,15 +31,16 @@ const LeagueDetail = () => {
   const { lId } = useParams();
   const user = useSelector((state) => state.auth.user);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { leagueData ,registrationModal } = useSelector((state) => state.leagues);
+  const { leagueData, registrationModal } = useSelector(
+    (state) => state.leagues
+  );
 
   useEffect(() => {
-    startLeagueSocket({lId, user, isSocketConnected});
+    startLeagueSocket({ lId, user, isSocketConnected });
     return () => {
       stopLeagueSocket();
     };
   }, [isSocketConnected, lId, user]);
-
 
   return (
     <main className="flex-1 lobby_page--wrapper">
@@ -41,9 +50,7 @@ const LeagueDetail = () => {
         style={{ backgroundSize: "100%" }}
       ></div>
       {/* <Outlet /> */}
-      {registrationModal && (
-        <RegistrationModel/>
-      )}
+      {registrationModal && <RegistrationModel />}
       {!leagueData ? (
         <GamingLoader />
       ) : (
@@ -63,7 +70,8 @@ const LeagueDetail = () => {
                   {leagueData?.title || "League Title"}
                 </h1>
                 <h2 className="league_price text-5xl !font-black font_oswald pt-10 pb-6 yellow_grad-bg grad_text-clip">
-                  ${leagueData?.prizepool || "0"}
+                  <span className="icon-saudi_riyal !p-0"></span>
+                  {formatAmountWithCommas(leagueData?.prizepool)}
                 </h2>
                 <span className="block purple_col text-xl">Prize Pool</span>
               </div>
@@ -132,8 +140,7 @@ const LeagueDetail = () => {
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
                   >
                     <img
-                      src={getServerURL(leagueData?.platform?.logo || "")
-                      }
+                      src={getServerURL(leagueData?.platform?.logo || "")}
                       alt=""
                       className="absolute left-8"
                       style={{ width: "3rem" }}
@@ -208,43 +215,63 @@ const LeagueDetail = () => {
                   </defs>
                 </svg>
               </div>
-              { leagueData?.leaderBoard.weekOfTheStartUsers && <div className="sd_star_bedge--wrap flex items-center mt-8 bg-no-repeat justify-between relative py-[0.625rem]">
-                <div className="sd_bedge_left-con flex items-center gap-4 pl-[2rem]">
-                  <div className="sd_bedge-lable border-r-1 border-[#7b7ed047] pr-6">
-                    <img src={star_of_week} alt="" style={{ width: "6rem" }} />
-                  </div>
-                  <div className="sd_avtar-info gap-6 p-3 inline-flex justify-between items-center cursor-pointer text-white rounded">
-                    <div className="user_img relative sd_before">
+              {leagueData?.leaderBoard.weekOfTheStartUsers && (
+                <div className="sd_star_bedge--wrap flex items-center mt-8 bg-no-repeat justify-between relative py-[0.625rem]">
+                  <div className="sd_bedge_left-con flex items-center gap-4 pl-[2rem]">
+                    <div className="sd_bedge-lable border-r-1 border-[#7b7ed047] pr-6">
                       <img
-                        src={getServerURL(leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.profilePic)}
+                        src={star_of_week}
                         alt=""
-                        className="rounded-[3rem]"
-                        style={{ width: "3rem" }}
+                        style={{ width: "6rem" }}
                       />
                     </div>
-                    <div className="use_con text-left flex flex-col gap-1">
-                      <span className="text-lg">{leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.fullName}</span>
-                      <span className="user_id text-md block text-[#87C9F2]">
-                        @{leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.username}
-                      </span>
+                    <div className="sd_avtar-info gap-6 p-3 inline-flex justify-between items-center cursor-pointer text-white rounded">
+                      <div className="user_img relative sd_before">
+                        <img
+                          src={getServerURL(
+                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                              ?.profilePic
+                          )}
+                          alt=""
+                          className="rounded-[3rem]"
+                          style={{ width: "3rem" }}
+                        />
+                      </div>
+                      <div className="use_con text-left flex flex-col gap-1">
+                        <span className="text-lg">
+                          {
+                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                              ?.fullName
+                          }
+                        </span>
+                        <span className="user_id text-md block text-[#87C9F2]">
+                          @
+                          {
+                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                              ?.username
+                          }
+                        </span>
+                      </div>
                     </div>
                   </div>
+                  <div className="sd_score--con horizontal_center absolute">
+                    <h2 className="text-[2rem] !font-extrabold grad_text-clip">
+                      {leagueData?.leaderBoard?.weekOfTheStartUsers?.weeklyScore?.toFixed(
+                        2
+                      )}
+                    </h2>
+                  </div>
+                  <ScoreTicker />
                 </div>
-                <div className="sd_score--con horizontal_center absolute">
-                  <h2 className="text-[2rem] !font-extrabold grad_text-clip">
-                  {leagueData?.leaderBoard?.weekOfTheStartUsers?.weeklyScore?.toFixed(2)}
-                  </h2>
-                </div>
-                <ScoreTicker />
-              </div> }
-              <LeaderBoard  />
+              )}
+              <LeaderBoard />
             </div>
             <div className="sd_content-right w-full">
-            <GetQueueButton/>
+              <GetQueueButton />
 
               {/* --- Timeline-card HTML Block Start --- */}
 
-              <TimelineCard  />
+              <TimelineCard />
               <PopUp />
             </div>
           </div>
@@ -257,4 +284,3 @@ const LeagueDetail = () => {
 export default LeagueDetail;
 
 // Returns true if user is able to join queue (when getQueueText returns "QUEUE"), else false
-
