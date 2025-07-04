@@ -42,7 +42,7 @@ export const TeamOneScoreList = () => {
           profilePic: getServerURL(
             player?.participant?.userId?.profilePicture || ""
           ),
-          score: player?.leaguesScore || 0,
+          score: player?.allScores || 0,
         };
 
         let IsReputationGived = matchData?.givedReputations?.find(
