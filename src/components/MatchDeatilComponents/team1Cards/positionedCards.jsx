@@ -13,7 +13,7 @@ export const FirstPosCard_gold = ({player}) => (
     <div
       xmlns="http://www.w3.org/1999/xhtml"
       style={{
-        backdropFilter: "blur(6px)",
+        // backdropFilter: "blur(6px)",
         clipPath: "url(#bgblur_0_3098_2_clip_path)",
         height: "100%",
         width: "100%",
@@ -1173,7 +1173,7 @@ export const FirstPosCard_gold = ({player}) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(6px)",
+          // backdropFilter: "blur(6px)",
           clipPath: "url(#bgblur_0_2928_2236_clip_path)",
           height: "100%",
           width: "100%",
@@ -2260,7 +2260,7 @@ export const FirstPosCard_gold = ({player}) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(6px)",
+          // backdropFilter: "blur(6px)",
           clipPath: "url(#bgblur_0_2928_2544_clip_path)",
           height: "100%",
           width: "100%",
@@ -3351,7 +3351,7 @@ export const FirstPosCard_gold = ({player}) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(6px)",
+          // backdropFilter: "blur(6px)",
           clipPath: "url(#bgblur_0_2928_2708_clip_path)",
           height: "100%",
           width: "100%",
@@ -4439,7 +4439,7 @@ export const FirstPosCard_gold = ({player}) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(6px)",
+          // backdropFilter: "blur(6px)",
           clipPath: "url(#bgblur_0_2928_2408_clip_path)",
           height: "100%",
           width: "100%",
@@ -5628,7 +5628,7 @@ export const FirstPosCard_gold = ({player}) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(6px)",
+          // backdropFilter: "blur(6px)",
           clipPath: "url(#bgblur_0_2928_3534_clip_path)",
           height: "100%",
           width: "100%",
