@@ -11,7 +11,7 @@ const data = [
   { id: 1, label: "Logout" },
 ];
 
-const Dropdown = ({ user }) => {
+const Dropdown = ({ user, setProfileVisible }) => {
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
   const toggleDropdown = () => setOpen(!isOpen);
@@ -20,6 +20,8 @@ const Dropdown = ({ user }) => {
     if (id == 1) {
       dispatch(logout());
       localStorage.clear();
+    } else if (id == 0) {
+      setProfileVisible(true);
     }
     setOpen(false); // Optional: close dropdown on click
   };

@@ -12,6 +12,7 @@ import {
 import { checkUsersExists } from "../../app/slices/auth/authSlice.js";
 import { debounce } from "lodash";
 import { countryData } from "../../utils/CountryCodes.js";
+import { baseURL } from "../../utils/axios.js";
 
 const WizardSteps = ({
   step,
@@ -22,15 +23,15 @@ const WizardSteps = ({
   previewImage,
   setPreviewImage,
   loadingSubmit = false,
+  isEdit = false,
 }) => {
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
-
   const [showPassword, setShowPassword] = useState(false);
   const TOTAL_STEPS = 4;
   const usernameCache = useMemo(() => new Map(), []);
   const emailCache = useMemo(() => new Map(), []);
-
+  console.log("previewImage", previewImage);
   const debouncedCheckUsername = useMemo(
     () =>
       debounce(async (username, resolve) => {
@@ -77,8 +78,9 @@ const WizardSteps = ({
     dispatch(fetchGames());
     return () => {
       debouncedCheckUsername.cancel();
+      debouncedCheckEmail.cancel();
     };
-  }, [dispatch, debouncedCheckUsername]);
+  }, [dispatch, debouncedCheckUsername, debouncedCheckEmail]);
 
   const countryOptions = countryData.map((country) => ({
     value: country.name,
@@ -90,12 +92,10 @@ const WizardSteps = ({
     label: `${country.dial_code} (${country.code})`,
   }));
 
-  const defaultNationality = countryOptions.find(
-    (option) => option.value === "Saudi Arabia"
-  );
-  const defaultDialCode = dialCodeOptions.find(
-    (option) => option.value === "+966"
-  );
+  const gameOptions = games.map((game) => ({
+    value: game._id,
+    label: game.name,
+  }));
 
   const validationSchemas = [
     Yup.object({
@@ -109,11 +109,12 @@ const WizardSteps = ({
         .test(
           "check-username-exists",
           "Username is already taken",
-          async (value) => {
-            if (!value) return true;
-            return new Promise((resolve) => {
-              debouncedCheckUsername(value, resolve);
-            });
+          async (value, context) => {
+            if (!value || (isEdit && value === initialValues.username))
+              return true; // Skip for unchanged username in edit mode
+            return new Promise((resolve) =>
+              debouncedCheckUsername(value, resolve)
+            );
           }
         ),
       firstName: Yup.string()
@@ -127,22 +128,35 @@ const WizardSteps = ({
       email: Yup.string()
         .email("Invalid email")
         .required("Email is required")
-        .test("check-email-exists", "Email is already taken", async (value) => {
-          if (!value) return true;
-          return new Promise((resolve) => {
-            debouncedCheckEmail(value, resolve);
-          });
-        }),
-      password: Yup.string()
-        .required("Password is required")
-        .min(8, "Password must be at least 8 characters")
-        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-        .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-        .matches(/[0-9]/, "Password must contain at least one number")
-        .matches(
-          /[!@#$%^&*]/,
-          "Password must contain at least one special character"
+        .test(
+          "check-email-exists",
+          "Email is already taken",
+          async (value, context) => {
+            if (!value || (isEdit && value === initialValues.email))
+              return true; // Skip for unchanged email in edit mode
+            return new Promise((resolve) =>
+              debouncedCheckEmail(value, resolve)
+            );
+          }
         ),
+      password: isEdit
+        ? Yup.string().notRequired() // Password optional for editing
+        : Yup.string()
+            .required("Password is required")
+            .min(8, "Password must be at least 8 characters")
+            .matches(
+              /[A-Z]/,
+              "Password must contain at least one uppercase letter"
+            )
+            .matches(
+              /[a-z]/,
+              "Password must contain at least one lowercase letter"
+            )
+            .matches(/[0-9]/, "Password must contain at least one number")
+            .matches(
+              /[!@#$%^&*]/,
+              "Password must contain at least one special character"
+            ),
       nationality: Yup.object()
         .shape({
           value: Yup.string().required(),
@@ -179,12 +193,6 @@ const WizardSteps = ({
       gender: Yup.string()
         .oneOf(["Male", "Female"], "Gender is required")
         .required("Gender is required"),
-      // role: Yup.object()
-      //   .shape({
-      //     value: Yup.string().required(),
-      //     label: Yup.string().required(),
-      //   })
-      //   .required("Role is required"),
     }),
     Yup.object({
       favoriteGame: Yup.object()
@@ -196,11 +204,6 @@ const WizardSteps = ({
       profilePicture: Yup.mixed().nullable(),
     }),
   ];
-
-  const gameOptions = games.map((game) => ({
-    value: game._id,
-    label: game.name,
-  }));
 
   const renderStepContent = (values, setFieldValue) => {
     switch (step) {
@@ -244,7 +247,7 @@ const WizardSteps = ({
       case 2:
         return (
           <div className="space-y-4 mt-7">
-            {["email", "password"].map((field) => (
+            {["email", ...(isEdit ? [] : ["password"])].map((field) => (
               <div key={field} className="text-start w-full pr-4">
                 <div className="relative">
                   <Field
@@ -321,13 +324,11 @@ const WizardSteps = ({
               <div className="flex gap-4">
                 <div className="custom_select2 sd_select--menu w-1/3">
                   <Select
-                    // value={values.dialCode}
-                    defaultValue={defaultDialCode}
+                    value={values.dialCode}
                     onChange={(option) => setFieldValue("dialCode", option)}
                     options={dialCodeOptions}
                     className="basic-multi-select focus:outline-0 focus:shadow-none"
                     classNamePrefix="select"
-                    // placeholder="Code"
                   />
                   <ErrorMessage
                     name="dialCode"
@@ -372,8 +373,7 @@ const WizardSteps = ({
                   Nationality
                 </label>
                 <Select
-                  // value={values.nationality}
-                  defaultValue={defaultNationality}
+                  value={values.nationality}
                   onChange={(option) => setFieldValue("nationality", option)}
                   options={countryOptions}
                   className="basic-multi-select focus:outline-0 focus:shadow-none"
@@ -469,37 +469,6 @@ const WizardSteps = ({
               component="div"
               className="text-red-500 text-sm"
             />
-            {/* <div className="custom_select2 mt-4 sd_select--menu">
-              <Select
-                value={values.role}
-                onChange={(option) => setFieldValue("role", option)}
-                options={RoleOptions}
-                placeholder="Select Your Role"
-                className="basic-multi-select focus:outline-0 focus:shadow-none"
-                classNamePrefix="select"
-              />
-              <ErrorMessage
-                name="role"
-                component="div"
-                className="text-red-500 text-sm"
-              />
-              <svg
-                width="0"
-                height="0"
-                viewBox="0 0 400 72"
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ position: "absolute" }}
-              >
-                <defs>
-                  <clipPath id="inputclip" clipPathUnits="objectBoundingBox">
-                    <path
-                      transform="scale(0.0025, 0.0138889)"
-                      d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
-                    />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div> */}
           </div>
         );
 
@@ -514,7 +483,7 @@ const WizardSteps = ({
                     hasImage={!!previewImage}
                     onFileChange={(file) => {
                       form.setFieldValue("profilePicture", file);
-                      setPreviewImage(URL.createObjectURL(file));
+                      setPreviewImage(file ? URL.createObjectURL(file) : null);
                     }}
                     previewImage={previewImage}
                     onRemove={() => {
@@ -571,89 +540,80 @@ const WizardSteps = ({
 
   return (
     <Formik
-      initialValues={{
-        ...initialValues,
-        // dialCode: null,
-        phoneNumber: "",
-        role: "Player",
-      }}
+      initialValues={initialValues}
       validationSchema={validationSchemas[step - 1]}
       onSubmit={(values) => {
         if (step < TOTAL_STEPS) {
           onNext();
         } else {
-          // Combine dialCode and phoneNumber before submitting
           const phone = values.dialCode
-            ? `${values.dialCode.value}${values.phoneNumber}`
+            ? `${values.dialCode.value}-${values.phoneNumber}`
             : values.phoneNumber;
           onSubmit({ ...values, phone });
         }
       }}
+      enableReinitialize // Allow reinitialization when initialValues change
     >
-      {({ values, setFieldValue, errors, touched }) => {
-        console.log("errors", errors);
-        return (
-          <Form>
-            {renderStepContent(values, setFieldValue, errors, touched)}
-            <div className="wizard_step--btn gap-5 flex justify-end mt-14 mb-8 mr-5">
-              {step > 1 && (
-                <div className="game_status--tab wizard_btn back_btn">
-                  <button
-                    type="button"
-                    onClick={onBack}
-                    className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-                    style={{ width: "8rem", height: "4rem" }}
-                    disabled={loadingSubmit}
-                  >
-                    Back
-                  </button>
-                </div>
-              )}
-              <div className="game_status--tab wizard_btn next_btn">
+      {({ values, setFieldValue, errors, touched }) => (
+        <Form>
+          {renderStepContent(values, setFieldValue)}
+          <div className="wizard_step--btn gap-5 flex justify-end mt-14 mb-8 mr-5">
+            {step > 1 && (
+              <div className="game_status--tab wizard_btn back_btn">
                 <button
-                  type="submit"
-                  className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-                  style={{
-                    width: "8rem",
-                    height: "4rem",
-                  }}
+                  type="button"
+                  onClick={onBack}
+                  className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                  style={{ width: "8rem", height: "4rem" }}
                   disabled={loadingSubmit}
                 >
-                  {step < TOTAL_STEPS ? (
-                    "Next"
-                  ) : loadingSubmit ? (
-                    <>
-                      <svg
-                        className="animate-spin h-5 w-5 mr-2 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Loading...
-                    </>
-                  ) : (
-                    "Submit"
-                  )}
+                  Back
                 </button>
               </div>
+            )}
+            <div className="game_status--tab wizard_btn next_btn">
+              <button
+                type="submit"
+                className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                style={{ width: "8rem", height: "4rem" }}
+                disabled={loadingSubmit}
+              >
+                {step < TOTAL_STEPS ? (
+                  "Next"
+                ) : loadingSubmit ? (
+                  <>
+                    <svg
+                      className="animate-spin h-5 w-5 mr-2 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Loading...
+                  </>
+                ) : isEdit ? (
+                  "Update"
+                ) : (
+                  "Submit"
+                )}
+              </button>
             </div>
-          </Form>
-        );
-      }}
+          </div>
+        </Form>
+      )}
     </Formik>
   );
 };

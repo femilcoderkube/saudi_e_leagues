@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import "../../assets/css/main_content.css";
 import "../../assets/css/select_game.css";
 import {
@@ -15,35 +21,35 @@ import Dropdown from "../LobbyPageComp/User_menu.jsx";
 import { checkParams, items } from "../../utils/constant.js";
 import { useDispatch, useSelector } from "react-redux";
 import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
-import { setLogin, setRegisteration } from "../../app/slices/constState/constStateSlice.js";
+import {
+  setLogin,
+  setRegisteration,
+} from "../../app/slices/constState/constStateSlice.js";
 
 {
   /* === BreadCrumb items array ==== */
 }
 
-
-const Header = ({
-  setSubmitModal,
-}) => {
+const Header = ({ setSubmitModal, setProfileVisible }) => {
   const { leagueData } = useSelector((state) => state.leagues);
   const navigator = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { matchData ,isCaptain ,IsSubmited } = useSelector((state) => state.matchs);
+  const { matchData, isCaptain, IsSubmited } = useSelector(
+    (state) => state.matchs
+  );
   // const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
-  useEffect(() => {
+  useEffect(() => {}, [matchData, user, location]);
 
-  },[matchData, user ,location])
-
-  if (checkParams('finding-match') || checkParams('match')) {
+  if (checkParams("finding-match") || checkParams("match")) {
     if (params.mId) {
       return (
         <header
-        key={location.pathname}
+          key={location.pathname}
           className="header_teture--bg text-white  py-[1.35rem] px-[4.5rem] flex items-center justify-between sd_before before:w-full before:h-full relative "
           style={{
             background:
@@ -64,49 +70,51 @@ const Header = ({
             </h2>
           </div>
           <div className="flex items-center gap-15">
-            {(user && isCaptain && !IsSubmited )&& <SubmitScoreBtn
-              onClick={(e) => {
-                e.preventDefault();
-                setSubmitModal(true);
-              }}
-            />}
-             {!user && (
-          <div className="sd_uaser-menu flex ">
-            <div className="game_status_tab--wrap">
-              <div>
-                <button
-                  className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300`}
-                  style={{ width: "10rem", height: "4rem" }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(setLogin(true));
-                  }}
-                >
-                  Log In
-                </button>
-              </div>
-            </div>
-            <div className="game_status_tab--wrap">
-              <div className="game_status--tab rounded-xl">
-                <button
-                  className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300
+            {user && isCaptain && !IsSubmited && (
+              <SubmitScoreBtn
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSubmitModal(true);
+                }}
+              />
+            )}
+            {!user && (
+              <div className="sd_uaser-menu flex ">
+                <div className="game_status_tab--wrap">
+                  <div>
+                    <button
+                      className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300`}
+                      style={{ width: "10rem", height: "4rem" }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        dispatch(setLogin(true));
+                      }}
+                    >
+                      Log In
+                    </button>
+                  </div>
+                </div>
+                <div className="game_status_tab--wrap">
+                  <div className="game_status--tab rounded-xl">
+                    <button
+                      className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300
              active-tab polygon_border
             `}
-                  style={{ width: "10rem", height: "4rem" }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(setRegisteration(true));
-                  }}
-                >
-                  Registration
-                </button>
+                      style={{ width: "10rem", height: "4rem" }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        dispatch(setRegisteration(true));
+                      }}
+                    >
+                      Registration
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            )}
             {user && (
               <div className="sd_uaser-menu">
-                <Dropdown user={user} />
+                <Dropdown user={user} setProfileVisible={setProfileVisible} />
               </div>
             )}
           </div>
@@ -121,9 +129,13 @@ const Header = ({
               "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
           }}
         >
-          <div className="back_arrow absolute left-[5rem] scale-x-[-1] cursor-pointer"
-          onClick={() => {navigator(-1)}}>
-            <NextArrow2 width="0.8rem" height="1.5rem" fill="#7378C0"  />
+          <div
+            className="back_arrow absolute left-[5rem] scale-x-[-1] cursor-pointer"
+            onClick={() => {
+              navigator(-1);
+            }}
+          >
+            <NextArrow2 width="0.8rem" height="1.5rem" fill="#7378C0" />
           </div>
           <h2 className="text-[2rem] !font-black uppercase text-center block">
             {leagueData?.title || "Finding Matchmaking"}
@@ -178,12 +190,11 @@ const Header = ({
                 <div className="breadcrumb-box flex items-center gap-2">
                   <Link
                     to={item.path}
-                    
                     className={`breadcrumb-text flex items-center gap-3 text-lg purple_col font-bold ${
                       item.active ? "sky_col font-semibold" : ""
                     }`}
                   >
-                    { item.label && <item.icon className="text-white" />}
+                    {item.label && <item.icon className="text-white" />}
 
                     {item.label}
                   </Link>
@@ -250,7 +261,7 @@ const Header = ({
 
         {user && (
           <div className="sd_uaser-menu pb-[1.4rem]">
-            <Dropdown user={user} />
+            <Dropdown user={user} setProfileVisible={setProfileVisible} />
           </div>
         )}
       </header>
