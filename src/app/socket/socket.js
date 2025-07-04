@@ -72,7 +72,6 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         delete data.data.leaderBoard.requestedUser;
         store.dispatch(setLeagueData(data.data));
       }
-      
     });
   }
 }

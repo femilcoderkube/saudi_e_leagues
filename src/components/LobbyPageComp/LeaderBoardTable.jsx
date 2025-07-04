@@ -75,7 +75,7 @@ const LeaderBoard = () => {
           </tr>
         </thead>
         <tbody>
-          {requestedUser && (
+          {requestedUser && requestedUser.rank != 1 && (
             <>
               <tr className={`${requestedUser.badgeColor} overflow-hidden`}>
                 <td
@@ -108,7 +108,10 @@ const LeaderBoard = () => {
                         style={{ width: "2.5rem" }}
                       />
                     </div>
-                    <span className="text-lg !font-bold">You</span>
+                    <span className="text-lg !font-bold">
+                        {requestedUser.username}
+                      </span>
+                     <span className="text-base purple_col font-medium">(You)</span>
                   </div>
                 </td>
 
@@ -154,6 +157,7 @@ const LeaderBoard = () => {
               winRate: data?.winPercentage?.toFixed(2) + "%",
               profilePic: data?.userId?.profilePic || Null,
               rank: data?.rank || index + 1,
+              itsYou: data?.userId?._id == leagueData?.leaderBoard?.requestedUser?.userId?._id,
             };
 
             if (index == 0) {
@@ -203,6 +207,7 @@ const LeaderBoard = () => {
                       <span className="text-lg !font-bold">
                         {user.username}
                       </span>
+                      {user.itsYou && <span className="text-base purple_col font-medium">(You)</span>}
                     </div>
                   </td>
 
