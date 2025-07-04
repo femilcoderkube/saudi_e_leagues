@@ -44,6 +44,7 @@ const Header = ({ setSubmitModal, setProfileVisible }) => {
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
   useEffect(() => {}, [matchData, user, location]);
+  const userUpdate = useSelector((state) => state.users.userDetail);
 
   if (checkParams("finding-match") || checkParams("match")) {
     if (params.mId) {
@@ -114,7 +115,10 @@ const Header = ({ setSubmitModal, setProfileVisible }) => {
             )}
             {user && (
               <div className="sd_uaser-menu">
-                <Dropdown user={user} setProfileVisible={setProfileVisible} />
+                <Dropdown
+                  user={userUpdate ? userUpdate : user}
+                  setProfileVisible={setProfileVisible}
+                />
               </div>
             )}
           </div>
@@ -261,7 +265,10 @@ const Header = ({ setSubmitModal, setProfileVisible }) => {
 
         {user && (
           <div className="sd_uaser-menu pb-[1.4rem]">
-            <Dropdown user={user} setProfileVisible={setProfileVisible} />
+            <Dropdown
+              user={userUpdate ? userUpdate : user}
+              setProfileVisible={setProfileVisible}
+            />
           </div>
         )}
       </header>

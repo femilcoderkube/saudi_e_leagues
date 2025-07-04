@@ -26,7 +26,7 @@ export default function Main() {
   const isRegisteration = useSelector(
     (state) => state.constState.isRegisteration
   );
-  const user = useSelector((state) => state.users.userDetail); // Get user data from Redux
+  const user = useSelector((state) => state.users.userDetail);
 
   const countryOptions = countryData.map((country) => ({
     value: country.name,
@@ -118,10 +118,7 @@ export default function Main() {
         if (res.success) {
           console.log("res", res?.data);
           localStorage.setItem("user", JSON.stringify(res?.data));
-          setTimeout(() => {
-            window.location.reload();
-          }, 100);
-
+          dispatch(fetchUserById(user?._id));
           setProfileVisible(false);
         }
         // Update user
