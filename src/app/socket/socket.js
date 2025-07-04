@@ -66,6 +66,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
     // Listen for league updates and update state
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
       console.log("League Update Data:", data);
+      data.data.userId = user?._id;
       if(data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id){
         store.dispatch(setLeagueData(data.data));
       }else{
