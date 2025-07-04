@@ -57,7 +57,9 @@ const matchDetailSlice = createSlice({
         const team2ScoreDetails = match.matchScores.find(
           (score) => score.submittedBy == "team2" 
         ) || {}
-        
+        const winnerScore = match.matchScores.find(
+          (score) => score.isActive == true 
+        ) ||{}
         console.log("datatatd  team1ScoreDetails",team1ScoreDetails )
         console.log("datatatd  team2ScoreDetails",team2ScoreDetails )
         // Flatten userIds for quick lookup
@@ -88,11 +90,11 @@ const matchDetailSlice = createSlice({
             state.isShowChat = false;
           }
           if(state.matchData.winner == "team1"){
-            state.winnerScore.teamOne = team1ScoreDetails.yourScore;
-            state.winnerScore.teamTwo = team1ScoreDetails.opponentScore;
+            state.winnerScore.teamOne = winnerScore.yourScore;
+            state.winnerScore.teamTwo = winnerScore.opponentScore;
           }else if(state.matchData.winner == "team2"){
-            state.winnerScore.teamOne = team2ScoreDetails.opponentScore;
-            state.winnerScore.teamTwo = team2ScoreDetails.yourScore;
+            state.winnerScore.teamOne = winnerScore.opponentScore;
+            state.winnerScore.teamTwo = winnerScore.yourScore;
           }
       }
       state.error = null;
