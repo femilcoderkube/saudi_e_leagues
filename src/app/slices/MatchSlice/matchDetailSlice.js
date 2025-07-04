@@ -47,6 +47,7 @@ const matchDetailSlice = createSlice({
   reducers: {
     setmatchData: (state, action) => {
       const { match, user } = action.payload || {};
+      console.log("match",match);
       if (match) {
         const userId = user?._id;
         const team1 = match.team1 || [];

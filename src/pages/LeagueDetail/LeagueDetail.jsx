@@ -150,7 +150,7 @@ const LeagueDetail = () => {
                         Platform
                       </p>
                       <h4 className="text-xl font-bold">
-                        {leagueData?.platform?.name || ""}
+                        {leagueData?.platform?.name?.toUpperCase() || ""}
                       </h4>
                     </div>
                   </Link>
