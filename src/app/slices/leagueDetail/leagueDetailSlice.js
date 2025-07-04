@@ -30,7 +30,14 @@ const leagueDetailSlice = createSlice({
       state.isQueueUser = false;
     },
     setLeagueData: (state, action) => {
+      // Fix: Avoid optional chaining on left-hand side and preserve requestedUser if missing
+      if (action.payload?.leaderBoard) {
+        if (!action.payload.leaderBoard.requestedUser && state.leagueData?.leaderBoard?.requestedUser) {
+          action.payload.leaderBoard.requestedUser = state.leagueData.leaderBoard.requestedUser;
+        }
+      }
       state.leagueData = action.payload;
+
       if(action.payload && action.payload.joinedUsers && action.payload.userId) {
         state.isJoinedUser = action.payload.joinedUsers.some(
           (participant) => participant == action.payload.userId

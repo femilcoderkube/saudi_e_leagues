@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const LeaderBoard = () => {
   const { leagueData } = useSelector((state) => state.leagues);
-  let requestedUser = leagueData?.leaderBoard?.requestedUser || null;
+  let requestedUser = leagueData?.leaderBoard?.requestedUser  || null;
   if (requestedUser) {
     let user = {
       username: requestedUser?.userId?.username,
