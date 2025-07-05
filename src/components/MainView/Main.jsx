@@ -18,6 +18,7 @@ export default function Main() {
   const [step, setStep] = useState(1);
   const { games } = useSelector((state) => state.games);
   const [submitModal, setSubmitModal] = useState(false);
+  const [viewModal, setViewModal] = useState(false);
   const location = useLocation();
   const [previewImage, setPreviewImage] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -173,6 +174,7 @@ export default function Main() {
     >
       <Header
         setSubmitModal={setSubmitModal}
+        setViewModal={setViewModal}
         setProfileVisible={setProfileVisible}
       />
       <main
@@ -245,6 +247,7 @@ export default function Main() {
         {submitModal && (
           <SubmitPopUp handleClose={() => setSubmitModal(false)} />
         )}
+        {viewModal && <SubmitPopUp handleClose={() => setViewModal(false)} />}
         <Outlet />
       </main>
     </div>

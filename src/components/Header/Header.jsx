@@ -25,12 +25,13 @@ import {
   setLogin,
   setRegisteration,
 } from "../../app/slices/constState/constStateSlice.js";
+import ViewScoreBtn from "../Matchmakingcomp/viewScoreButton.jsx";
 
 {
   /* === BreadCrumb items array ==== */
 }
 
-const Header = ({ setSubmitModal, setProfileVisible }) => {
+const Header = ({ setSubmitModal, setViewModal, setProfileVisible }) => {
   const { leagueData } = useSelector((state) => state.leagues);
   const navigator = useNavigate();
   const dispatch = useDispatch();
@@ -39,12 +40,14 @@ const Header = ({ setSubmitModal, setProfileVisible }) => {
   const { matchData, isCaptain, IsSubmited } = useSelector(
     (state) => state.matchs
   );
+
   // const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
   useEffect(() => {}, [matchData, user, location]);
   const userUpdate = useSelector((state) => state.users.userDetail);
+  console.log("user", user);
 
   if (checkParams("finding-match") || checkParams("match")) {
     if (params.mId) {
@@ -76,6 +79,14 @@ const Header = ({ setSubmitModal, setProfileVisible }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   setSubmitModal(true);
+                }}
+              />
+            )}
+            {user && isCaptain && IsSubmited && !matchData?.winner && (
+              <ViewScoreBtn
+                onClick={(e) => {
+                  e.preventDefault();
+                  setViewModal(true);
                 }}
               />
             )}
