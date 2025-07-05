@@ -294,3 +294,14 @@ export function formatAmountWithCommas(amount) {
   if (amount == null) return "";
   return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export const getRandomColor = (senderId) => {
+  // Simple hash function to generate consistent color for the same senderId
+  let hash = 0;
+  for (let i = 0; i < senderId.length; i++) {
+    hash = senderId.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  // Convert hash to a 6-digit hex color
+  const color = `#${((hash >> 0) & 0xffffff).toString(16).padStart(6, "0")}`;
+  return color;
+};

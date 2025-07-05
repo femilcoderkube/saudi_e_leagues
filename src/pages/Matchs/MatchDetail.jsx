@@ -4,7 +4,7 @@ import "../../assets/css/Matchmaking.css";
 
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
 import { useParams } from "react-router-dom";
-import { getPartnerById } from "../../utils/constant";
+import { getPartnerById, getRandomColor } from "../../utils/constant";
 
 import { useSelector } from "react-redux";
 import {
@@ -348,18 +348,24 @@ const MatchDetail = () => {
                         }`}
                       >
                         <div class="px-2 py-1 rounded-lg">
-                          <p className="text-white text-lg font-light ">
-                            {!chat.isMsg &&<span
-                              className={`!font-bold ${
-                                user?._id == chat.senderId?._id
-                                  ? "text-[#AAC5FF]"
-                                  : "text-[#F8D372]"
-                              }`}
-                            >
-                              {chat?.isAdmin ? "Admin" : chat?.senderId?.username} :{" "}
-                            </span>}
+                          <p className="text-white text-lg font-light">
+                            {!chat.isMsg && (
+                              <span
+                                className={`!font-bold`}
+                                style={{
+                                  color: getRandomColor(chat?.senderId?._id), // Apply random color based on senderId
+                                }}
+                              >
+                                {chat?.isAdmin
+                                  ? "Admin"
+                                  : chat?.senderId?.username}{" "}
+                                :{" "}
+                              </span>
+                            )}
                             {chat.isMsg === true ? (
-                              <span className="flex justify-center w-full">{chat.msg}</span>
+                              <span className="flex justify-center w-full">
+                                {chat.msg}
+                              </span>
                             ) : (
                               chat.msg
                             )}
