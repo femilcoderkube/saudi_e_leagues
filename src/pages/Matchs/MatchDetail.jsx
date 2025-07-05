@@ -339,40 +339,43 @@ const MatchDetail = () => {
               <div class="chat_block--con pt-[1rem] h-[25rem] sd_before relative  flex flex-col max-w-lg mx-auto">
                 <div class="flex-1 chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4 ">
                   <div class="flex flex-col space-y-1 justify-end">
-                    {chatData?.map((chat, index) => (
-                      <div
-                        class={`block ${
-                          user?._id == chat.senderId?._id
-                            ? "send_msg-con"
-                            : "reply_msg-con"
-                        }`}
-                      >
-                        <div class="px-2 py-1 rounded-lg">
-                          <p className="text-white text-lg font-light">
-                            {!chat.isMsg && (
-                              <span
-                                className={`!font-bold`}
-                                style={{
-                                  color: getRandomColor(chat?.senderId?._id), // Apply random color based on senderId
-                                }}
-                              >
-                                {chat?.isAdmin
-                                  ? "Admin"
-                                  : chat?.senderId?.username}{" "}
-                                :{" "}
-                              </span>
-                            )}
-                            {chat.isMsg === true ? (
-                              <span className="flex justify-center w-full">
-                                {chat.msg}
-                              </span>
-                            ) : (
-                              chat.msg
-                            )}
-                          </p>
+                    {chatData?.map((chat, index) => {
+                      console.log("chat", chat);
+                      return (
+                        <div
+                          class={`block ${
+                            user?._id == chat.senderId?._id
+                              ? "send_msg-con"
+                              : "reply_msg-con"
+                          }`}
+                        >
+                          <div class="px-2 py-1 rounded-lg">
+                            <p className="text-white text-lg font-light">
+                              {!chat.isMsg && (
+                                <span
+                                  className={`!font-bold`}
+                                  style={{
+                                    color: getRandomColor(chat?.senderId?._id), // Apply random color based on senderId
+                                  }}
+                                >
+                                  {chat?.isAdmin
+                                    ? "Admin"
+                                    : chat?.senderId?.username}{" "}
+                                  :{" "}
+                                </span>
+                              )}
+                              {chat.isMsg === true ? (
+                                <span className="flex justify-center w-full">
+                                  {chat.msg}
+                                </span>
+                              ) : (
+                                chat.msg
+                              )}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
