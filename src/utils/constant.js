@@ -298,7 +298,7 @@ export function formatAmountWithCommas(amount) {
 export const getRandomColor = (senderId) => {
   // Simple hash function to generate consistent color for the same senderId
   let hash = 0;
-  for (let i = 0; i < senderId.length; i++) {
+  for (let i = 0; i < senderId?.length; i++) {
     hash = senderId.charCodeAt(i) + ((hash << 5) - hash);
   }
   // Convert hash to a 6-digit hex color
