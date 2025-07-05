@@ -301,7 +301,13 @@ export const getRandomColor = (senderId) => {
   for (let i = 0; i < senderId?.length; i++) {
     hash = senderId.charCodeAt(i) + ((hash << 5) - hash);
   }
-  // Convert hash to a 6-digit hex color
-  const color = `#${((hash >> 0) & 0xffffff).toString(16).padStart(6, "0")}`;
+  
+  // Generate RGB values ensuring they're not too dark (minimum brightness)
+  const r = Math.max(128, (hash >> 16) & 0xFF);
+  const g = Math.max(128, (hash >> 8) & 0xFF);
+  const b = Math.max(128, hash & 0xFF);
+  
+  // Convert to hex color
+  const color = `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
   return color;
 };

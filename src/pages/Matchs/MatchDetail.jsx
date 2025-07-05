@@ -336,26 +336,31 @@ const MatchDetail = () => {
             </div>
 
             {isShowChat && (
-              <div class="chat_block--con pt-[1rem] h-[25rem] sd_before relative  flex flex-col max-w-lg mx-auto">
-                <div class="flex-1 chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4 ">
-                  <div class="flex flex-col space-y-1 justify-end">
-                    {chatData?.map((chat, index) => {
-                      console.log("chat", chat);
+              <div className="chat_block--con pt-[1rem] h-[25rem] sd_before relative flex flex-col max-w-lg mx-auto">
+                <div
+                  className="flex-1 chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4 flex flex-col justify-end"
+                  style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
+                >
+                  <div className="flex flex-col space-y-1">
+                    {chatData?.map((chat) => {
+                      // Removed index to avoid lint warning
                       return (
                         <div
-                          class={`block ${
+                          className={`block ${
                             user?._id == chat.senderId?._id
                               ? "send_msg-con"
                               : "reply_msg-con"
                           }`}
                         >
-                          <div class="px-2 py-1 rounded-lg">
+                          <div className="px-2 py-1 rounded-lg">
                             <p className="text-white text-lg font-light">
                               {!chat.isMsg && (
                                 <span
-                                  className={`!font-bold`}
+                                  className="!font-bold"
                                   style={{
-                                    color: getRandomColor(chat?.senderId?._id), // Apply random color based on senderId
+                                    color: chat?.isAdmin
+                                      ? "red"
+                                      : getRandomColor(chat?.senderId?._id), // Apply random color based on senderId
                                   }}
                                 >
                                   {chat?.isAdmin
@@ -379,17 +384,17 @@ const MatchDetail = () => {
                   </div>
                 </div>
 
-                <div class=" py-2 flex items-center">
+                <div className="py-2 flex items-center">
                   <input
                     type="text"
                     placeholder="Chat Message"
-                    class="chat_msg-input text-lg placeholder:text-[#7B7ED0] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"
+                    className="chat_msg-input text-lg placeholder:text-[#7B7ED0] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
                     onKeyPress={handleKeyPress}
                   />
                   <button
-                    class="absolute right-0 text-white cursor-pointer hover:opacity-65 duration-400 rounded-full p-2 ml-2 focus:outline-none"
+                    className="absolute right-0 text-white cursor-pointer hover:opacity-65 duration-400 rounded-full p-2 ml-2 focus:outline-none"
                     onClick={handleSendMessage}
                   >
                     <svg
@@ -400,11 +405,11 @@ const MatchDetail = () => {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M2.34505 2.24501C2.49432 2.11534 2.67867 2.03283 2.87482 2.00791C3.07097 1.98299 3.2701 2.01678 3.44705 2.10501L21.447 11.105C21.6135 11.1879 21.7534 11.3156 21.8513 11.4737C21.9491 11.6318 22.001 11.8141 22.001 12C22.001 12.1859 21.9491 12.3682 21.8513 12.5263C21.7534 12.6844 21.6135 12.8121 21.447 12.895L3.44705 21.895C3.27011 21.9835 3.07089 22.0176 2.87459 21.9929C2.6783 21.9681 2.49374 21.8857 2.34429 21.7561C2.19484 21.6264 2.0872 21.4554 2.035 21.2645C1.98281 21.0737 1.98839 20.8717 2.05105 20.684L4.61305 13H10C10.2653 13 10.5196 12.8946 10.7072 12.7071C10.8947 12.5196 11 12.2652 11 12C11 11.7348 10.8947 11.4804 10.7072 11.2929C10.5196 11.1054 10.2653 11 10 11H4.61305L2.05005 3.31601C1.98771 3.12842 1.98237 2.92656 2.0347 2.73594C2.08703 2.54532 2.19568 2.37448 2.34505 2.24501Z"
                         fill="#7B7ED0"
-                        fill-opacity="0.4"
+                        fillOpacity="0.4"
                       />
                     </svg>
                   </button>
