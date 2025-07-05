@@ -90,6 +90,11 @@ const matchDetailSlice = createSlice({
           }else {
             state.isShowChat = false;
           }
+          if(winnerScore.submittedBy == "admin"){
+            state.winnerScore.teamOne = winnerScore.yourScore;
+            state.winnerScore.teamTwo = winnerScore.opponentScore;
+            state.IsSubmited = true;
+          }else{
           if(state.matchData.winner == "team1"){
             state.winnerScore.teamOne = winnerScore.yourScore;
             state.winnerScore.teamTwo = winnerScore.opponentScore;
@@ -97,6 +102,7 @@ const matchDetailSlice = createSlice({
             state.winnerScore.teamOne = winnerScore.opponentScore;
             state.winnerScore.teamTwo = winnerScore.yourScore;
           }
+        }
       }
       state.error = null;
     },
