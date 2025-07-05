@@ -82,14 +82,14 @@ const Header = ({ setSubmitModal, setViewModal, setProfileVisible }) => {
                 }}
               />
             )}
-            {user && isCaptain && IsSubmited && !matchData?.winner && (
+            {/* {user && isCaptain && IsSubmited && !matchData?.winner && (
               <ViewScoreBtn
                 onClick={(e) => {
                   e.preventDefault();
                   setViewModal(true);
                 }}
               />
-            )}
+            )} */}
             {!user && (
               <div className="sd_uaser-menu flex ">
                 <div className="game_status_tab--wrap">

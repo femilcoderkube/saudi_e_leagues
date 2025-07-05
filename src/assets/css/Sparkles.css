@@ -1,0 +1,63 @@
+.sparkles-overlay {
+  position: absolute;
+  /* inset: 0; */
+  pointer-events: none;
+  z-index: 1;
+  bottom: 2rem;
+  right: 0;
+  height: 5.5rem;
+  width: 20.5rem;
+}
+
+/* Remove conflicting .sparkle styles since they're handled inline in the component */
+
+@keyframes sparkle-smooth {
+  0% {
+    transform: scale(0.6) translateY(0);
+    opacity: 0.3;
+  }
+  20% {
+    transform: scale(1) translateY(-3px);
+    opacity: 0.7;
+  }
+  40% {
+    transform: scale(1.2) translateY(-5px);
+    opacity: 0.9;
+  }
+  60% {
+    transform: scale(1.1) translateY(-4px);
+    opacity: 0.8;
+  }
+  80% {
+    transform: scale(0.9) translateY(-2px);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(0.6) translateY(0);
+    opacity: 0.3;
+  }
+}
+
+/* Alternative smoother animation for variety */
+@keyframes sparkle-gentle {
+  0% {
+    transform: scale(0.8) translateY(0);
+    opacity: 0.4;
+  }
+  25% {
+    transform: scale(1.1) translateY(-2px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.3) translateY(-4px);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(1.1) translateY(-2px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.8) translateY(0);
+    opacity: 0.4;
+  }
+}

@@ -9,7 +9,8 @@ import {
 } from "../../app/socket/socket.js";
 import TimeOverPopup from "../../components/ModalPopUp/TimeOverPopup";
 import center_league from "../../assets/images/center_league.png";
-import cancel_btn from "../../assets/images/cancel-btn.png";
+import cancel_btn from "../../assets/images/cancelbtn.png";
+import Sparkles from "./Sparkles.jsx";
 
 
 const MatchMaking = () => {
@@ -124,11 +125,12 @@ const MatchMaking = () => {
               />
               <div onClick={handleCancel}>
                 <img
-                  className="cancel-btn absolute bottom-0 right-0 hover:opacity-70 duration-400 cursor-pointer"
+                  className="cancel-btn absolute bottom-[2.5rem] right-[2.5rem] duration-400 cursor-pointer z-2"
                   src={cancel_btn}
                   alt=""
                   style={{ width: "25rem" }}
                 />
+                <Sparkles />
               </div>
               <div className="player-search text-center pt-14">
                 <span className="text-[5.254rem] font-bold grad_head--txt">
