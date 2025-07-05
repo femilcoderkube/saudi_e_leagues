@@ -17,9 +17,9 @@ import {
 import {
   formatAmountWithCommas,
   generateTailwindGradient,
-  getQueueText,
+
   getServerURL,
-  SOCKET,
+
 } from "../../utils/constant.js";
 import { useSelector } from "react-redux";
 
@@ -40,7 +40,7 @@ const LeagueDetail = () => {
     return () => {
       stopLeagueSocket();
     };
-  }, [isSocketConnected, lId, user]);
+  }, [isSocketConnected, lId, user,window.location.pathname]);
 
   return (
     <main className="flex-1 lobby_page--wrapper">
