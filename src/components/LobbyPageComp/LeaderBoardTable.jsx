@@ -75,7 +75,7 @@ const LeaderBoard = () => {
           </tr>
         </thead>
         <tbody>
-          {requestedUser && requestedUser.rank != 1 && (
+          {requestedUser && requestedUser.rank > 3 && (
             <>
               <tr className={`${requestedUser.badgeColor} overflow-hidden`}>
                 <td
