@@ -86,9 +86,6 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         }
       }
     });
-    return true;
-  } else {
-    return false;
   }
 }
 export function stopLeagueSocket() {

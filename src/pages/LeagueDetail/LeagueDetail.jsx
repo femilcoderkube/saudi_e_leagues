@@ -35,10 +35,10 @@ const LeagueDetail = () => {
   );
 
   useEffect(() => {
-    let res = startLeagueSocket({ lId, user, isSocketConnected });
-    if (res === false) {
-      handleBack();
-    }
+    startLeagueSocket({ lId, user, isSocketConnected });
+    // if (res === false) {
+    //   handleBack();
+    // }
     return () => {
       stopLeagueSocket();
     };
