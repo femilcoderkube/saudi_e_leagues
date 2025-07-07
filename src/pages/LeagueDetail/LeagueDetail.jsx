@@ -7,7 +7,7 @@ import star_of_week from "../../assets/images/star_of_week.png";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
 import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
 import LeaderBoard from "../../components/LobbyPageComp/LeaderBoardTable.jsx";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import PopUp from "../../components/ModalPopUp/Popup.jsx";
 import { useEffect } from "react";
 import {
@@ -17,9 +17,7 @@ import {
 import {
   formatAmountWithCommas,
   generateTailwindGradient,
-
   getServerURL,
-
 } from "../../utils/constant.js";
 import { useSelector } from "react-redux";
 
@@ -28,6 +26,7 @@ import RegistrationModel from "./RegustrationModel.jsx";
 import GetQueueButton from "./queueButton.jsx";
 
 const LeagueDetail = () => {
+  const navigate = useNavigate();
   const { lId } = useParams();
   const user = useSelector((state) => state.auth.user);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -36,11 +35,18 @@ const LeagueDetail = () => {
   );
 
   useEffect(() => {
-    startLeagueSocket({ lId, user, isSocketConnected });
+    let res = startLeagueSocket({ lId, user, isSocketConnected });
+    if (res === false) {
+      handleBack();
+    }
     return () => {
       stopLeagueSocket();
     };
-  }, [isSocketConnected, lId, user,window.location.pathname]);
+  }, [isSocketConnected, lId, user, window.location.pathname]);
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <main className="flex-1 lobby_page--wrapper">

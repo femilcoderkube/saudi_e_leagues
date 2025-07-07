@@ -1,7 +1,12 @@
 import { io } from "socket.io-client";
 import { store } from "../slices/store";
 import { setSocketConnected, setSocketId } from "../slices/socket/socketSlice";
-import { getPartnerByDocId, getPartnerById, items, SOCKET } from "../../utils/constant";
+import {
+  getPartnerByDocId,
+  getPartnerById,
+  items,
+  SOCKET,
+} from "../../utils/constant";
 import {
   removeFromQueue,
   setLeagueData,
@@ -9,7 +14,12 @@ import {
 } from "../slices/leagueDetail/leagueDetailSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setChatData, setIsMyMatch, setIsTeamOne, setmatchData } from "../slices/MatchSlice/matchDetailSlice";
+import {
+  setChatData,
+  setIsMyMatch,
+  setIsTeamOne,
+  setmatchData,
+} from "../slices/MatchSlice/matchDetailSlice";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -76,6 +86,9 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         }
       }
     });
+    return true;
+  } else {
+    return false;
   }
 }
 export function stopLeagueSocket() {
@@ -100,10 +113,12 @@ export function joinLeagueSocket({ isSocketConnected, payload }) {
 export function startMatchUpdate(mId, user) {
   socket.on(SOCKET.MATCHUPDATE, (data) => {
     if (data.isMatchUpdate == true) {
-      store.dispatch(setmatchData({
-        match: data.data,
-        user: user
-      }));
+      store.dispatch(
+        setmatchData({
+          match: data.data,
+          user: user,
+        })
+      );
     } else {
       store.dispatch(setChatData(data.data?.reverse()));
     }
