@@ -225,7 +225,7 @@ const Header = ({ setSubmitModal, setViewModal, setProfileVisible }) => {
         </nav>
 
         <div className="sd_notification-block flex gap-4 mr-[9rem]">
-          <NavLink
+          {/* <NavLink
             to="#"
             className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg"
           >
@@ -236,7 +236,7 @@ const Header = ({ setSubmitModal, setViewModal, setProfileVisible }) => {
             className="notification_btn inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
           >
             <Notification />
-          </NavLink>
+          </NavLink> */}
         </div>
 
         {!user && (
