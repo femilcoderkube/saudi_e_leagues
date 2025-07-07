@@ -53,6 +53,10 @@
       opacity: 0.12;
     }
   }
+  /* @keyframes rotate-slow {
+    0% { transform: rotate(44.26deg); }
+    100% { transform: rotate(404.26deg); }
+  } */
   
   .right-league {
   transform: rotate(139.6deg);

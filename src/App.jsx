@@ -31,6 +31,7 @@ function App() {
       <div className="flex">
         <Sidebar onItemClick={handleItemClick} selectedItem={selectedItem} />
         <Routes>
+          {/* <Route index element={<MainView selectedItem={selectedItem} />} /> */}
           <Route path="/" element={<Navigate to="/prime/lobby" />} />
           {/* Redirect "/:id" to "/:id/lobby" */}
           <Route path="/:id" element={<Navigate to={`/${window.location.pathname.split('/')[1]}/lobby`} replace />} />
@@ -42,6 +43,7 @@ function App() {
             <Route path="lobby/:lId/finding-match" element={<MatchMaking />} />
             {/* Add more routes as needed */}
           </Route>
+          <Route path="*" element={<Navigate to="/prime/lobby" />} />
         </Routes>
       </div>
     </Router>
