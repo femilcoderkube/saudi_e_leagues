@@ -155,7 +155,7 @@ const LeaderBoard = () => {
               losses: data?.totalLosses,
               rep: data?.wilsonScore,
               winRate: data?.winPercentage?.toFixed(2) + "%",
-              profilePic: data?.userId?.profilePic || Null,
+              profilePic: data?.userId?.profilePic || "",
               rank: data?.rank || index + 1,
               itsYou: data?.userId?._id == leagueData?.leaderBoard?.requestedUser?.userId?._id,
             };
