@@ -66,12 +66,14 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
     // Listen for league updates and update state
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
       console.log("League Update Data:", data);
-      data.data.userId = user?._id;
-      if(data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id){
-        store.dispatch(setLeagueData(data.data));
-      }else{
-        delete data.data.leaderBoard.requestedUser;
-        store.dispatch(setLeagueData(data.data));
+      if (window.location.pathname.includes(data?.data?._id?.toString())) {
+        data.data.userId = user?._id;
+        if (data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id) {
+          store.dispatch(setLeagueData(data.data));
+        } else {
+          delete data.data.leaderBoard.requestedUser;
+          store.dispatch(setLeagueData(data.data));
+        }
       }
     });
   }
@@ -95,12 +97,13 @@ export function joinLeagueSocket({ isSocketConnected, payload }) {
   socket.emit(SOCKET.LEAGUEJOIN, payload);
   store.dispatch(setRegistrationModal(false));
 }
-export function startMatchUpdate(mId , user){
-  socket.on(SOCKET.MATCHUPDATE, (data)=>{
+export function startMatchUpdate(mId, user) {
+  socket.on(SOCKET.MATCHUPDATE, (data) => {
     if (data.isMatchUpdate == true) {
-      store.dispatch(setmatchData({match : data.data ,
-        user : user
-      })); 
+      store.dispatch(setmatchData({
+        match: data.data,
+        user: user
+      }));
     } else {
       store.dispatch(setChatData(data.data?.reverse()));
     }
@@ -109,12 +112,12 @@ export function startMatchUpdate(mId , user){
   socket.emit(SOCKET.STARTMATCH, { matchId: mId });
 }
 
-export function stopMatchUpdate(){
+export function stopMatchUpdate() {
   socket.off(SOCKET.STARTMATCH);
 }
-export function sendMatchMsg(body){
+export function sendMatchMsg(body) {
   socket.emit(SOCKET.ONMESSAGE, body);
 }
-export function giveReputation(body){
-  socket.emit(SOCKET.GIVEREPUTATION,body);
+export function giveReputation(body) {
+  socket.emit(SOCKET.GIVEREPUTATION, body);
 }
