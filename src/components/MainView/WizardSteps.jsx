@@ -13,6 +13,7 @@ import { checkUsersExists } from "../../app/slices/auth/authSlice.js";
 import { debounce } from "lodash";
 import { countryData } from "../../utils/CountryCodes.js";
 import { baseURL } from "../../utils/axios.js";
+import { getServerURL } from "../../utils/constant.js";
 
 const WizardSteps = ({
   step,
@@ -20,18 +21,23 @@ const WizardSteps = ({
   onBack,
   onSubmit,
   initialValues,
-  previewImage,
-  setPreviewImage,
   loadingSubmit = false,
   isEdit = false,
 }) => {
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
   const [showPassword, setShowPassword] = useState(false);
+  const [previewImage, setPreviewImage] = useState(() => {
+    const pic = initialValues?.profilePicture || null;
+    if (typeof pic === "string" && pic.startsWith("uploads/")) {
+      return getServerURL(pic);
+    }
+    return pic;
+  });
   const TOTAL_STEPS = 4;
   const usernameCache = useMemo(() => new Map(), []);
   const emailCache = useMemo(() => new Map(), []);
-  console.log("previewImage", previewImage);
+
   const debouncedCheckUsername = useMemo(
     () =>
       debounce(async (username, resolve) => {

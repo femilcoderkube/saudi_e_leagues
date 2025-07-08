@@ -3,41 +3,24 @@ import Header from "../Header/Header";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import WizardSteps from "./WizardSteps";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../app/slices/auth/registerSlice"; // Add updateUser
+import { registerUser } from "../../app/slices/auth/authSlice"; // Add updateUser
 import LoginModal from "../Modal/LoginModal";
 import { toast } from "react-toastify";
 import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp";
-import { setRegisteration } from "../../app/slices/constState/constStateSlice";
+import { setProfileVisible, setRegisteration, setSubmitModal, setViewModal } from "../../app/slices/constState/constStateSlice";
 import { countryData } from "../../utils/CountryCodes";
 import { checkParams } from "../../utils/constant";
-import { fetchUserById, updateUser } from "../../app/slices/users/usersSlice";
+import { fetchUserById, updateUser } from "../../app/slices/auth/authSlice";
 import { baseURL } from "../../utils/axios";
 
 export default function Main() {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const { games } = useSelector((state) => state.games);
-  const [submitModal, setSubmitModal] = useState(false);
-  const [viewModal, setViewModal] = useState(false);
+  const { profileVisible ,submitModal ,viewModal ,countryOptions ,dialCodeOptions ,isLogin ,isRegisteration } = useSelector((state) => state.constState);
   const location = useLocation();
-  const [previewImage, setPreviewImage] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
-  const [profileVisible, setProfileVisible] = useState(false);
-  const isLogin = useSelector((state) => state.constState.isLogin);
-  const isRegisteration = useSelector(
-    (state) => state.constState.isRegisteration
-  );
-  const user = useSelector((state) => state.users.userDetail);
-
-  const countryOptions = countryData.map((country) => ({
-    value: country.name,
-    label: country.name,
-  }));
-
-  const dialCodeOptions = countryData.map((country) => ({
-    value: country.dial_code,
-    label: `${country.dial_code} (${country.code})`,
-  }));
+  const {user ,userDetail} = useSelector((state) => state.auth);
 
   const defaultNationality = countryOptions.find(
     (option) => option.value === "Saudi Arabia"
@@ -120,7 +103,7 @@ export default function Main() {
           console.log("res", res?.data);
           localStorage.setItem("user", JSON.stringify(res?.data));
           dispatch(fetchUserById(user?._id));
-          setProfileVisible(false);
+          dispatch(setProfileVisible(false));
         }
         // Update user
       } else {
@@ -136,7 +119,6 @@ export default function Main() {
       }
       setLoadingSubmit(false);
       setStep(1);
-      setPreviewImage(null);
     } catch (error) {
       console.error(`${isEdit ? "Update" : "Registration"} failed:`, error);
       toast.error(
@@ -147,25 +129,12 @@ export default function Main() {
   };
   useEffect(() => {}, [location]);
   useEffect(() => {
-    if (profileVisible) {
-      let userData = localStorage.getItem("user");
-      const jsonVal = JSON.parse(userData);
-
-      dispatch(fetchUserById(jsonVal?._id));
+    if (profileVisible && user?._id) {
+      dispatch(fetchUserById(user?._id));
     }
   }, [profileVisible, dispatch]);
 
-  useEffect(() => {
-    if (isRegisteration) {
-      setPreviewImage("");
-    }
-  }, [isRegisteration]);
 
-  useEffect(() => {
-    if (user?.profilePicture) {
-      setPreviewImage(baseURL + "/api/v1/" + user?.profilePicture);
-    }
-  }, [user?.profilePicture, profileVisible]);
 
   return (
     <div
@@ -173,9 +142,6 @@ export default function Main() {
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
       <Header
-        setSubmitModal={setSubmitModal}
-        setViewModal={setViewModal}
-        setProfileVisible={setProfileVisible}
       />
       <main
         className={`flex-1 game_card_main--con ${
@@ -198,9 +164,8 @@ export default function Main() {
                       if (isRegisteration) {
                         dispatch(setRegisteration(false));
                       } else {
-                        setProfileVisible(false);
+                        dispatch(setProfileVisible(false));
                       }
-                      setPreviewImage(null);
                       setStep(1);
                     }}
                     className="cursor-pointer hover:opacity-70 duration-300"
@@ -218,8 +183,6 @@ export default function Main() {
                   onSubmit={(values) => handleSubmit(values, profileVisible)}
                   onNext={() => setStep((prev) => prev + 1)}
                   onBack={() => setStep((prev) => prev - 1)}
-                  previewImage={previewImage}
-                  setPreviewImage={setPreviewImage}
                   loadingSubmit={loadingSubmit}
                   isEdit={profileVisible}
                 />
@@ -245,9 +208,8 @@ export default function Main() {
         )}
         {isLogin && <LoginModal />}
         {submitModal && (
-          <SubmitPopUp handleClose={() => setSubmitModal(false)} />
+          <SubmitPopUp handleClose={() => dispatch(setSubmitModal(false))} />
         )}
-        {viewModal && <SubmitPopUp handleClose={() => setViewModal(false)} />}
         <Outlet />
       </main>
     </div>

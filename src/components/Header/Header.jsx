@@ -20,34 +20,40 @@ import country_us from "../../assets/images/country_us.png";
 import Dropdown from "../LobbyPageComp/User_menu.jsx";
 import { checkParams, items } from "../../utils/constant.js";
 import { useDispatch, useSelector } from "react-redux";
-import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
 import {
   setLogin,
   setRegisteration,
+  setSubmitModal,
 } from "../../app/slices/constState/constStateSlice.js";
-import ViewScoreBtn from "../Matchmakingcomp/viewScoreButton.jsx";
+import { useTranslation } from 'react-i18next';
 
 {
   /* === BreadCrumb items array ==== */
 }
 
-const Header = ({ setSubmitModal, setViewModal, setProfileVisible }) => {
+const Header = () => {
   const { leagueData } = useSelector((state) => state.leagues);
   const navigator = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { matchData, isCaptain, IsSubmited } = useSelector(
+  const { matchData, isCaptain, IsSubmited ,isEditScore } = useSelector(
     (state) => state.matchs
   );
-
-  // const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
-
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
   useEffect(() => {}, [matchData, user, location]);
-  const userUpdate = useSelector((state) => state.users.userDetail);
+  const userUpdate = useSelector((state) => state.auth.userDetail);
   console.log("user", user);
+
+  const { i18n, t } = useTranslation();
+
+  // Language toggle handler
+  const handleLangToggle = () => {
+    const newLang = i18n.language === 'en' ? 'ar' : 'en';
+    i18n.changeLanguage(newLang);
+    localStorage.setItem('lang', newLang);
+  };
 
   if (checkParams("finding-match") || checkParams("match")) {
     if (params.mId) {
@@ -74,13 +80,20 @@ const Header = ({ setSubmitModal, setViewModal, setProfileVisible }) => {
             </h2>
           </div>
           <div className="flex items-center gap-15">
-            {user && isCaptain && !IsSubmited && (
-              <SubmitScoreBtn
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSubmitModal(true);
-                }}
-              />
+            {user && isCaptain && (!IsSubmited || isEditScore != null) && (
+              <div className="submit_score-btn btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
+              onClick={() => {
+                  
+                dispatch(setSubmitModal(true));
+              }}>
+              <Link
+                
+                
+                className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center"
+              >
+               {IsSubmited? "View Score":"Submit Score"} 
+              </Link>
+            </div>
             )}
             {/* {user && isCaptain && IsSubmited && !matchData?.winner && (
               <ViewScoreBtn
@@ -128,7 +141,6 @@ const Header = ({ setSubmitModal, setViewModal, setProfileVisible }) => {
               <div className="sd_uaser-menu">
                 <Dropdown
                   user={userUpdate ? userUpdate : user}
-                  setProfileVisible={setProfileVisible}
                 />
               </div>
             )}
@@ -225,13 +237,18 @@ const Header = ({ setSubmitModal, setViewModal, setProfileVisible }) => {
         </nav>
 
         <div className="sd_notification-block flex gap-4 mr-[9rem]">
-          {/* <NavLink
-            to="#"
+          <button
+            onClick={handleLangToggle}
+            title={i18n.language === 'en' ? 'العربية' : 'English'}
             className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg"
+            style={{ border: 'none', background: 'none' }}
           >
-            <img src={country_us} alt="" style={{ width: "1.5rem" }} />
-          </NavLink>
-          <NavLink
+            <img src={country_us} alt="lang" style={{ width: '1.5rem' }} />
+            <span style={{ marginLeft: 8, fontWeight: 'bold' }}>
+              {i18n.language === 'en' ? 'EN' : 'AR'}
+            </span>
+          </button>
+          {/* <NavLink
             to="#"
             className="notification_btn inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
           >
@@ -278,7 +295,6 @@ const Header = ({ setSubmitModal, setViewModal, setProfileVisible }) => {
           <div className="sd_uaser-menu pb-[1.4rem]">
             <Dropdown
               user={userUpdate ? userUpdate : user}
-              setProfileVisible={setProfileVisible}
             />
           </div>
         )}

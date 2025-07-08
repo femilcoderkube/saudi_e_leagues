@@ -17,6 +17,7 @@ import {
 import {
   formatAmountWithCommas,
   generateTailwindGradient,
+  getRandomColor,
   getServerURL,
 } from "../../utils/constant.js";
 import { useSelector } from "react-redux";
@@ -226,15 +227,38 @@ const LeagueDetail = () => {
                     </div>
                     <div className="sd_avtar-info gap-6 p-3 inline-flex justify-between items-center cursor-pointer text-white rounded">
                       <div className="user_img relative sd_before">
-                        <img
-                          src={getServerURL(
-                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                              ?.profilePic
-                          )}
-                          alt=""
-                          className="rounded-[3rem]"
-                          style={{ width: "3rem" }}
-                        />
+                        
+                         {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                             ?.profilePic ? (
+                         <img
+                         src={getServerURL(
+                           leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                             ?.profilePic
+                         )}
+                         alt=""
+                         className="rounded-[3rem]"
+                         style={{ width: "3rem",height: "3rem" }}
+                       />
+                        ) : (
+                          <div
+                            style={{
+                              width: "3rem",
+                              height: "3rem",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: getRandomColor(leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                                ?.username),
+                              color: "#fff",
+                              fontWeight: "bold",
+                              fontSize: "1.5rem",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                              ?.username?.charAt(0)?.toUpperCase() || "?"}
+                          </div>
+                        )}
                       </div>
                       <div className="use_con text-left flex flex-col gap-1">
                         <span className="text-lg">

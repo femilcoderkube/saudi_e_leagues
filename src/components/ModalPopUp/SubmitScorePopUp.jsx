@@ -9,24 +9,23 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadFile } from "../../app/slices/MatchSlice/matchDetailSlice.js";
 import { socket } from "../../app/socket/socket.js";
-import { SOCKET } from "../../utils/constant.js";
+import { getServerURL, SOCKET } from "../../utils/constant.js";
 
-function SubmitPopUp({ showModal, handleClose }) {
-  const [previewImage, setPreviewImage] = useState(null);
+function SubmitPopUp({ handleClose }) {
   const dispatch = useDispatch();
   // Temporary variable for URL
   const { fileUploadLoading } = useSelector((state) => state.matchs); // Get loading state from Redux
-  const { matchData } = useSelector((state) => state.matchs);
+  const { matchData ,isEditScore} = useSelector((state) => state.matchs);
+  const [previewImage, setPreviewImage] = useState(isEditScore?.attachment ? getServerURL(isEditScore?.attachment) : null );
   const [team, setTeam] = useState(null);
-  const [participantId, setParticipantId] = useState(null);
   const user = useSelector((state) => state.auth.user);
-
+ // setPreviewImage(isEditScore?.attachment || null);
   const formik = useFormik({
     initialValues: {
-      yourScore: "",
-      opponentScore: "",
-      description: "",
-      file: null,
+      yourScore: isEditScore?.yourScore || "",
+      opponentScore: isEditScore?.opponentScore ||"",
+      description:isEditScore?.description || "",
+      file:isEditScore?.attachment || null,
     },
     validationSchema: Yup.object({
       yourScore: Yup.number()
@@ -43,7 +42,7 @@ function SubmitPopUp({ showModal, handleClose }) {
     onSubmit: async (values) => {
       try {
         // Upload the file
-        const uploadResult = await dispatch(uploadFile(values.file)).unwrap();
+        const uploadResult =  values.file == isEditScore.attachment ?  {data : isEditScore.attachment}  :await dispatch(uploadFile(values.file)).unwrap() ;
         let data = {
           team: team,
           matchId: matchData?._id || "", // Use matchData from Redux state
@@ -319,7 +318,7 @@ function SubmitPopUp({ showModal, handleClose }) {
                     ></path>
                   </svg>
                 ) : null}
-                {fileUploadLoading ? "Uploading..." : "Submit Score"}
+                {fileUploadLoading ? "Uploading..." : isEditScore ? "Edit Score" : "Submit Score"}
               </button>
               <Popup_btn />
             </div>

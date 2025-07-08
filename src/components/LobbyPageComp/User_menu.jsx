@@ -5,13 +5,14 @@ import { baseURL } from "../../utils/axios";
 import { logout } from "../../app/slices/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { getServerURL } from "../../utils/constant";
+import { setProfileVisible } from "../../app/slices/constState/constStateSlice";
 
 const data = [
   { id: 0, label: "My Profile" },
   { id: 1, label: "Logout" },
 ];
 
-const Dropdown = ({ user, setProfileVisible }) => {
+const Dropdown = ({ user }) => {
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
   const toggleDropdown = () => setOpen(!isOpen);
@@ -21,7 +22,7 @@ const Dropdown = ({ user, setProfileVisible }) => {
       dispatch(logout());
       localStorage.clear();
     } else if (id == 0) {
-      setProfileVisible(true);
+      dispatch(setProfileVisible(true));
     }
     setOpen(false); // Optional: close dropdown on click
   };

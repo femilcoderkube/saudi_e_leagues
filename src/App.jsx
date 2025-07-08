@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,8 +18,18 @@ import PrimeHome from "./pages/Home/PrimeHome.jsx";
 import LeagueDetail from "./pages/LeagueDetail/LeagueDetail.jsx";
 import MatchMaking from "./pages/Matchs/MatchMacking.jsx";
 import MatchDetail from "./pages/Matchs/MatchDetail.jsx";
+import './i18n';
+import { useTranslation } from 'react-i18next';
 
 function App() {
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    const dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('dir', dir);
+    document.body.setAttribute('dir', dir); // for extra safety
+  }, [i18n.language]);
+
   const [selectedItem, setSelectedItem] = useState("PrimeHome");
 
   const handleItemClick = (item) => {

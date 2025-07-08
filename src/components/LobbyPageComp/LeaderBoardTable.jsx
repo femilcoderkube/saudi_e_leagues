@@ -4,7 +4,7 @@ import gold_bedge from "../../assets/images/gold.png";
 import silver_bedge from "../../assets/images/silver.png";
 import bronze_bedge from "../../assets/images/bronze.png";
 import { getSmile } from "../MatchDeatilComponents/matchCards";
-import { getServerURL } from "../../utils/constant";
+import { getServerURL, getRandomColor } from "../../utils/constant";
 import { useSelector } from "react-redux";
 
 const LeaderBoard = () => {
@@ -102,11 +102,30 @@ const LeaderBoard = () => {
                 <td className="py-4 px-4">
                   <div className="flex items-center gap-2">
                     <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
-                      <img
-                        src={getServerURL(requestedUser.profilePic)}
-                        alt={requestedUser.username}
-                        style={{ width: "2.5rem" }}
-                      />
+                       {requestedUser.profilePic ? (
+                          <img
+                            src={getServerURL(requestedUser.profilePic)}
+                            alt={requestedUser.username}
+                            style={{ width: "2.5rem", height: "2.5rem" }}
+                          />
+                        ) : (
+                          <div
+                            style={{
+                              width: "2.5rem",
+                              height: "2.5rem",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: getRandomColor(requestedUser.username),
+                              color: "#fff",
+                              fontWeight: "bold",
+                              fontSize: "1.5rem",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            {requestedUser.username?.charAt(0)?.toUpperCase() || "?"}
+                          </div>
+                        )}
                     </div>
                     <span className="text-lg !font-bold">
                         {requestedUser.username}
@@ -198,11 +217,30 @@ const LeaderBoard = () => {
                   <td className="py-4 px-2">
                     <div className="flex items-center gap-2">
                       <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
-                        <img
-                          src={getServerURL(user.profilePic)}
-                          alt={user.username}
-                          style={{ width: "2.5rem" }}
-                        />
+                        {user.profilePic ? (
+                          <img
+                            src={getServerURL(user.profilePic)}
+                            alt={user.username}
+                            style={{ width: "2.5rem", height: "2.5rem" }}
+                          />
+                        ) : (
+                          <div
+                            style={{
+                              width: "2.5rem",
+                              height: "2.5rem",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: getRandomColor(user.username),
+                              color: "#fff",
+                              fontWeight: "bold",
+                              fontSize: "1.5rem",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            {user.username?.charAt(0)?.toUpperCase() || "?"}
+                          </div>
+                        )}
                       </div>
                       <span className="text-lg !font-bold">
                         {user.username}

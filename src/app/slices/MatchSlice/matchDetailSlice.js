@@ -35,6 +35,7 @@ const initialState = {
   isCaptain: false,
   IsSubmited: false,
   isShowChat: false,
+  isEditScore: null,
   winnerScore: {
     teamOne: "-",
     teamTwo: "-",
@@ -57,7 +58,7 @@ const matchDetailSlice = createSlice({
         const team2ScoreDetails =
           match.matchScores.find((score) => score.submittedBy == "team2") || {};
         const winnerScore =
-          match.matchScores.find((score) => score.isActive == true) || {};
+          match.matchScores.find((score) => score.isActive == true) || null;
         console.log("datatatd  team1ScoreDetails", team1ScoreDetails);
         console.log("datatatd  team2ScoreDetails", team2ScoreDetails);
         // Flatten userIds for quick lookup
@@ -92,7 +93,15 @@ const matchDetailSlice = createSlice({
         } else {
           state.isShowChat = false;
         }
-        if (winnerScore.submittedBy == "admin") {
+        if (!winnerScore) {
+          state.isEditScore = state.isTeamOne
+            ? team1ScoreDetails
+            : team2ScoreDetails;
+        }else{
+          state.isEditScore= null;
+        }
+
+        if (winnerScore?.submittedBy == "admin") {
           state.winnerScore.teamOne = winnerScore.yourScore;
           state.winnerScore.teamTwo = winnerScore.opponentScore;
           state.IsSubmited = true;
