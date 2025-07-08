@@ -113,6 +113,10 @@ export function joinLeagueSocket({ isSocketConnected, payload }) {
 }
 export function startMatchUpdate(mId, user) {
   socket.on(SOCKET.MATCHUPDATE, (data) => {
+    if (!data?.status) {
+      window.location.href = "/";
+      return;
+    }
     if (data.isMatchUpdate == true) {
       store.dispatch(
         setmatchData({

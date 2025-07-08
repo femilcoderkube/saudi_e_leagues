@@ -32,13 +32,13 @@ const initialState = {
   fileUploadLoading: false,
   fileUploadError: null,
   fileUploadResult: null,
-  isCaptain : false,
-  IsSubmited : false,
-  isShowChat : false,
-  winnerScore : {
-    teamOne : "-",
-    teamTwo : "-"
-  }
+  isCaptain: false,
+  IsSubmited: false,
+  isShowChat: false,
+  winnerScore: {
+    teamOne: "-",
+    teamTwo: "-",
+  },
 };
 
 const matchDetailSlice = createSlice({
@@ -47,25 +47,22 @@ const matchDetailSlice = createSlice({
   reducers: {
     setmatchData: (state, action) => {
       const { match, user } = action.payload || {};
-      console.log("match",match);
+      console.log("match", match);
       if (match) {
         const userId = user?._id;
         const team1 = match.team1 || [];
         const team2 = match.team2 || [];
-        const team1ScoreDetails = match.matchScores.find(
-          (score) => score.submittedBy == "team1"
-        ) ||{}
-        const team2ScoreDetails = match.matchScores.find(
-          (score) => score.submittedBy == "team2" 
-        ) || {}
-        const winnerScore = match.matchScores.find(
-          (score) => score.isActive == true 
-        ) ||{}
-        console.log("datatatd  team1ScoreDetails",team1ScoreDetails )
-        console.log("datatatd  team2ScoreDetails",team2ScoreDetails )
+        const team1ScoreDetails =
+          match.matchScores.find((score) => score.submittedBy == "team1") || {};
+        const team2ScoreDetails =
+          match.matchScores.find((score) => score.submittedBy == "team2") || {};
+        const winnerScore =
+          match.matchScores.find((score) => score.isActive == true) || {};
+        console.log("datatatd  team1ScoreDetails", team1ScoreDetails);
+        console.log("datatatd  team2ScoreDetails", team2ScoreDetails);
         // Flatten userIds for quick lookup
-        const team1UserIds = team1.map(p => p?.participant?.userId?._id);
-        const team2UserIds = team2.map(p => p?.participant?.userId?._id);
+        const team1UserIds = team1.map((p) => p?.participant?.userId?._id);
+        const team2UserIds = team2.map((p) => p?.participant?.userId?._id);
 
         state.matchData = match;
         state.isTeamOne = team1UserIds.includes(userId);
@@ -77,28 +74,33 @@ const matchDetailSlice = createSlice({
           team2[0]?.participant?.userId?._id === userId;
 
         // Submission check
-  
-        state.IsSubmited = state.isTeamOne ? team1ScoreDetails.submittedBy == "team1" : team2ScoreDetails.submittedBy == "team2"
-         
-          if(state.isCaptain){
-            state.isShowChat = true;
-          }else if (state.isMyMatch && !(
+
+        state.IsSubmited = state.isTeamOne
+          ? team1ScoreDetails.submittedBy == "team1"
+          : team2ScoreDetails.submittedBy == "team2";
+
+        if (state.isCaptain) {
+          state.isShowChat = true;
+        } else if (
+          state.isMyMatch &&
+          !(
             (state.isTeamOne && team1ScoreDetails?.submittedBy) ||
             (!state.isTeamOne && team2ScoreDetails?.submittedBy)
-          )){
-            state.isShowChat = true;
-          }else {
-            state.isShowChat = false;
-          }
-          if(winnerScore.submittedBy == "admin"){
+          )
+        ) {
+          state.isShowChat = true;
+        } else {
+          state.isShowChat = false;
+        }
+        if (winnerScore.submittedBy == "admin") {
+          state.winnerScore.teamOne = winnerScore.yourScore;
+          state.winnerScore.teamTwo = winnerScore.opponentScore;
+          state.IsSubmited = true;
+        } else {
+          if (state.matchData.winner == "team1") {
             state.winnerScore.teamOne = winnerScore.yourScore;
             state.winnerScore.teamTwo = winnerScore.opponentScore;
-            state.IsSubmited = true;
-          }else{
-          if(state.matchData.winner == "team1"){
-            state.winnerScore.teamOne = winnerScore.yourScore;
-            state.winnerScore.teamTwo = winnerScore.opponentScore;
-          }else if(state.matchData.winner == "team2"){
+          } else if (state.matchData.winner == "team2") {
             state.winnerScore.teamOne = winnerScore.opponentScore;
             state.winnerScore.teamTwo = winnerScore.yourScore;
           }
