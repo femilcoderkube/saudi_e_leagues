@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const LeaderBoard = () => {
   const { leagueData } = useSelector((state) => state.leagues);
-  let requestedUser = leagueData?.leaderBoard?.requestedUser  || null;
+  let requestedUser = leagueData?.leaderBoard?.requestedUser || null;
   if (requestedUser) {
     let user = {
       username: requestedUser?.userId?.username,
@@ -19,7 +19,7 @@ const LeaderBoard = () => {
       wins: requestedUser?.totalWins,
       losses: requestedUser?.totalLosses,
       rep: requestedUser?.wilsonScore,
-      winRate: requestedUser?.winPercentage?.toFixed(2) + "%",
+      winRate: Math.round(requestedUser?.winPercentage) + "%",
       rank: requestedUser?.rank || 0,
       profilePic: requestedUser?.userId?.profilePic || null,
     };
@@ -66,9 +66,11 @@ const LeaderBoard = () => {
             <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
               W/L
             </th>
-           { leagueData.playersPerTeam != 1 && <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
-              Rep
-            </th>}
+            {leagueData.playersPerTeam != 1 && (
+              <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
+                Rep
+              </th>
+            )}
             <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
               Win rate
             </th>
@@ -102,35 +104,38 @@ const LeaderBoard = () => {
                 <td className="py-4 px-4">
                   <div className="flex items-center gap-2">
                     <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
-                       {requestedUser.profilePic ? (
-                          <img
-                            src={getServerURL(requestedUser.profilePic)}
-                            alt={requestedUser.username}
-                            style={{ width: "2.5rem", height: "2.5rem" }}
-                          />
-                        ) : (
-                          <div
-                            style={{
-                              width: "2.5rem",
-                              height: "2.5rem",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              background: getRandomColor(requestedUser.username),
-                              color: "#fff",
-                              fontWeight: "bold",
-                              fontSize: "1.5rem",
-                              borderRadius: "50%",
-                            }}
-                          >
-                            {requestedUser.username?.charAt(0)?.toUpperCase() || "?"}
-                          </div>
-                        )}
+                      {requestedUser.profilePic ? (
+                        <img
+                          src={getServerURL(requestedUser.profilePic)}
+                          alt={requestedUser.username}
+                          style={{ width: "2.5rem", height: "2.5rem" }}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            width: "2.5rem",
+                            height: "2.5rem",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: getRandomColor(requestedUser.username),
+                            color: "#fff",
+                            fontWeight: "bold",
+                            fontSize: "1.5rem",
+                            borderRadius: "50%",
+                          }}
+                        >
+                          {requestedUser.username?.charAt(0)?.toUpperCase() ||
+                            "?"}
+                        </div>
+                      )}
                     </div>
                     <span className="text-lg !font-bold">
-                        {requestedUser.username}
-                      </span>
-                     <span className="text-base purple_col font-medium">(You)</span>
+                      {requestedUser.username}
+                    </span>
+                    <span className="text-base purple_col font-medium">
+                      (You)
+                    </span>
                   </div>
                 </td>
 
@@ -148,17 +153,19 @@ const LeaderBoard = () => {
                   </span>
                 </td>
 
-               {leagueData.playersPerTeam != 1 &&  <td className="py-4 px-4">
-                  <div className="flex items-center justify-center">
-                    <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
-                      <img
-                        src={getSmile(requestedUser.rep)}
-                        alt={requestedUser.username}
-                        style={{ width: "1.5rem" }}
-                      />
+                {leagueData.playersPerTeam != 1 && (
+                  <td className="py-4 px-4">
+                    <div className="flex items-center justify-center">
+                      <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
+                        <img
+                          src={getSmile(requestedUser.rep)}
+                          alt={requestedUser.username}
+                          style={{ width: "1.5rem" }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                </td>}
+                  </td>
+                )}
 
                 <td className="py-4 px-4 text-center text-lg">
                   {requestedUser.winRate}
@@ -173,10 +180,12 @@ const LeaderBoard = () => {
               wins: data?.totalWins,
               losses: data?.totalLosses,
               rep: data?.wilsonScore,
-              winRate: data?.winPercentage?.toFixed(2) + "%",
+              winRate: Math.round(data?.winPercentage) + "%",
               profilePic: data?.userId?.profilePic || "",
               rank: data?.rank || index + 1,
-              itsYou: data?.userId?._id == leagueData?.leaderBoard?.requestedUser?.userId?._id,
+              itsYou:
+                data?.userId?._id ==
+                leagueData?.leaderBoard?.requestedUser?.userId?._id,
             };
 
             if (index == 0) {
@@ -245,7 +254,11 @@ const LeaderBoard = () => {
                       <span className="text-lg !font-bold">
                         {user.username}
                       </span>
-                      {user.itsYou && <span className="text-base purple_col font-medium">(You)</span>}
+                      {user.itsYou && (
+                        <span className="text-base purple_col font-medium">
+                          (You)
+                        </span>
+                      )}
                     </div>
                   </td>
 
@@ -260,17 +273,19 @@ const LeaderBoard = () => {
                       {user.losses}
                     </span>
                   </td>
-                  {leagueData.playersPerTeam != 1 && <td className="py-4 px-4">
-                    <div className="flex items-center justify-center">
-                      <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
-                        <img
-                          src={getSmile(user.rep)}
-                          alt={user.rep}
-                          style={{ width: "1.5rem" }}
-                        />
+                  {leagueData.playersPerTeam != 1 && (
+                    <td className="py-4 px-4">
+                      <div className="flex items-center justify-center">
+                        <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
+                          <img
+                            src={getSmile(user.rep)}
+                            alt={user.rep}
+                            style={{ width: "1.5rem" }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </td>}
+                    </td>
+                  )}
 
                   <td className="py-4 px-4 text-center text-lg">
                     {user.winRate}

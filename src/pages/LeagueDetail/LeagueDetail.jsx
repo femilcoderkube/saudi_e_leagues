@@ -35,6 +35,12 @@ const LeagueDetail = () => {
   );
 
   useEffect(() => {
+    if (leagueData?.title) {
+      document.title = `Prime eLeague - ${leagueData?.title}`;
+    }
+  }, [leagueData]);
+
+  useEffect(() => {
     let res = startLeagueSocket({ lId, user, isSocketConnected });
     console.log("res", res);
     return () => {
@@ -104,7 +110,7 @@ const LeagueDetail = () => {
           <div className="sd_bottom-wraper flex gap-[2.5rem] items-start">
             <div className="sd_content-left">
               <div className="sd_game_info--wrap inline-flex gap-5 items-center">
-                <div className="sd_game-con sd_game--info relative sd_before sd_after polygon_border valorant_game">
+                {/* <div className="sd_game-con sd_game--info relative sd_before sd_after polygon_border valorant_game">
                   <Link
                     to={"#"}
                     className={`game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center ${generateTailwindGradient(
@@ -131,6 +137,27 @@ const LeagueDetail = () => {
                         alt=""
                         style={{ width: "10.75rem" }}
                       />
+                    </div>
+                  </Link>
+                </div> */}
+                <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
+                  <Link
+                    to={"#"}
+                    className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
+                  >
+                    <img
+                      src={getServerURL(leagueData?.game?.logo || "")}
+                      alt=""
+                      className="absolute left-8"
+                      style={{ width: "3rem" }}
+                    />
+                    <div className="sd_game--con text-center">
+                      <p className="text-base mb-2 purple_col font-medium">
+                        Game
+                      </p>
+                      <h4 className="text-xl font-bold">
+                        {leagueData.game.name || ""}
+                      </h4>
                     </div>
                   </Link>
                 </div>
@@ -227,18 +254,17 @@ const LeagueDetail = () => {
                     </div>
                     <div className="sd_avtar-info gap-6 p-3 inline-flex justify-between items-center cursor-pointer text-white rounded">
                       <div className="user_img relative sd_before">
-                        
-                         {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                             ?.profilePic ? (
-                         <img
-                         src={getServerURL(
-                           leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                             ?.profilePic
-                         )}
-                         alt=""
-                         className="rounded-[3rem]"
-                         style={{ width: "3rem",height: "3rem" }}
-                       />
+                        {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                          ?.profilePic ? (
+                          <img
+                            src={getServerURL(
+                              leagueData?.leaderBoard?.weekOfTheStartUsers
+                                ?.userId?.profilePic
+                            )}
+                            alt=""
+                            className="rounded-[3rem]"
+                            style={{ width: "3rem", height: "3rem" }}
+                          />
                         ) : (
                           <div
                             style={{
@@ -247,16 +273,19 @@ const LeagueDetail = () => {
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
-                              background: getRandomColor(leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                                ?.username),
+                              background: getRandomColor(
+                                leagueData?.leaderBoard?.weekOfTheStartUsers
+                                  ?.userId?.username
+                              ),
                               color: "#fff",
                               fontWeight: "bold",
                               fontSize: "1.5rem",
                               borderRadius: "50%",
                             }}
                           >
-                            {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                              ?.username?.charAt(0)?.toUpperCase() || "?"}
+                            {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.username
+                              ?.charAt(0)
+                              ?.toUpperCase() || "?"}
                           </div>
                         )}
                       </div>

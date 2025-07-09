@@ -41,6 +41,10 @@ const Lobby = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    document.title = `Prime eLeague`;
+  }, [id]);
+
+  useEffect(() => {
     dispatch(
       fetchLeagues({
         partnerId: partnerID,
