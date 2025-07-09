@@ -83,13 +83,20 @@ const LeagueDetail = () => {
               </div>
             </div>
             <div className="sd_content-right flex">
-              <div className="player_img flex items-center gap-5">
+              <div className="player_img flex items-center">
                 <div className="player_one sd_before relative gradiant_bg con_center">
+                  <img
+                    src={getServerURL(leagueData?.headerPhoto)}
+                    alt=""
+                    style={{ width: "41rem" }}
+                  />
+                </div>
+                {/* <div className="player_one sd_before relative gradiant_bg con_center">
                   <img src={wind_girl} alt="" style={{ width: "18.5rem" }} />
                 </div>
                 <div className="player_two sd_before relative gradiant_bg con_center">
                   <img src={fire_boy} alt="" style={{ width: "17.5rem" }} />
-                </div>
+                </div> */}
               </div>
               <div className="player_score mt-4 flex flex-col items-start h-full ml-[-2.5rem]">
                 <div className="online_user p-4 relative">
