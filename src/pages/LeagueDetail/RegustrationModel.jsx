@@ -11,6 +11,7 @@ import {
   setRegistrationModal,
 } from "../../app/slices/leagueDetail/leagueDetailSlice.js";
 import { useDispatch, useSelector } from "react-redux";
+import { baseURL } from "../../utils/axios.js";
 
 const RegistrationModel = () => {
   const { isAgreedToJoin, leagueData } = useSelector((state) => state.leagues);
@@ -56,7 +57,9 @@ const RegistrationModel = () => {
       fieldList: fields,
     };
   }, [customFields]);
-
+  const allRequiredChecked = fieldList
+    ?.filter((field) => field.required)
+    ?.every((field) => isAgreedToJoin[field._id]);
   // Handle form submit
   const handleSubmit = (values) => {
     // If there are custom fields, send all of them
@@ -125,23 +128,36 @@ const RegistrationModel = () => {
                       {fieldList.length > 0 && (
                         <div className="text-center w-full">
                           {fieldList.map((field) => (
-                            <div key={field._id} className="mb-4">
-                              <Field
-                                type={field.fieldType}
-                                id={field.fieldName}
-                                name={field.fieldName}
-                                className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
-                                placeholder={field.fieldName.replace(
-                                  /^\w/,
-                                  (c) => c.toUpperCase()
-                                )}
-                              />
-                              <div className="text-start px-7">
-                                <ErrorMessage
-                                  name={field.fieldName}
-                                  component="div"
-                                  className="text-red-500 text-sm mt-1"
+                            <div
+                              key={field._id}
+                              className="mb-4 flex items-center"
+                            >
+                              {/* Image displayed next to the field */}
+                              {field?.image && (
+                                <img
+                                  src={`${baseURL}/api/v1/${field?.image}`}
+                                  alt={`${field.fieldName} image`}
+                                  className="w-8 h-8 mr-2 object-cover"
                                 />
+                              )}
+                              <div className="flex-1">
+                                <Field
+                                  type={field.fieldType}
+                                  id={field.fieldName}
+                                  name={field.fieldName}
+                                  className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
+                                  placeholder={field.fieldName.replace(
+                                    /^\w/,
+                                    (c) => c.toUpperCase()
+                                  )}
+                                />
+                                <div className="text-start px-7">
+                                  <ErrorMessage
+                                    name={field.fieldName}
+                                    component="div"
+                                    className="text-red-500 text-sm mt-1"
+                                  />
+                                </div>
                               </div>
                             </div>
                           ))}
@@ -169,7 +185,39 @@ const RegistrationModel = () => {
 
                       {/* Terms and Conditions Checkbox */}
                       <div className="px-4 pt-6">
-                        <input
+                        {customFields.map((field) => (
+                          <div key={field._id} className="mb-4">
+                            <input
+                              className="hidden"
+                              type="checkbox"
+                              id={`check-${field._id}`} // Unique ID for each checkbox
+                              onChange={() =>
+                                dispatch(
+                                  setIsAgreedToJoin({
+                                    id: field._id,
+                                    value: !isAgreedToJoin[field._id],
+                                  })
+                                )
+                              }
+                            />
+                            <label
+                              className="flex gap-4 items-center h-10 px-2 rounded cursor-pointer"
+                              htmlFor={`check-${field._id}`}
+                            >
+                              <span className="checkbox-inner flex items-center justify-center w-[2rem] h-[2rem] text-transparent rounded-sm bg-[#09092d]"></span>
+                              <div className="text-base flex-[1]">
+                                <span
+                                  className="purple_light"
+                                  dangerouslySetInnerHTML={{
+                                    __html: field.checkboxText,
+                                  }}
+                                />
+                              </div>
+                            </label>
+                          </div>
+                        ))}
+
+                        {/* <input
                           className="hidden"
                           type="checkbox"
                           id="check-round01"
@@ -203,18 +251,18 @@ const RegistrationModel = () => {
                             You must agree to the Terms and Conditions to
                             register.
                           </div>
-                        )}
+                        )} */}
                       </div>
 
                       <div className="popup_footer px-6 mt-5 pt-6">
                         <button
                           type="submit"
                           disabled={
-                            !isAgreedToJoin ||
+                            !allRequiredChecked ||
                             (fieldList.length > 0 && !isValid)
                           }
                           className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 ${
-                            !isAgreedToJoin ||
+                            !allRequiredChecked ||
                             (fieldList.length > 0 && !isValid)
                               ? "opacity-50 cursor-not-allowed"
                               : ""

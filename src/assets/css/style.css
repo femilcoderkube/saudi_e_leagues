@@ -13,13 +13,13 @@
   --text-size-48px: 48px;
 }
 @font-face {
-  font-family: 'Yapari';
-  src: url('../font/YapariTrial-Bold.eot');
-  src: url('../font/YapariTrial-Bold.eot?#iefix') format('embedded-opentype'),
-      url('../font/YapariTrial-Bold.woff2') format('woff2'),
-      url('../font/YapariTrial-Bold.woff') format('woff'),
-      url('../font/YapariTrial-Bold.ttf') format('truetype'),
-      url('../font/YapariTrial-Bold.svg#YapariTrial-Bold') format('svg');
+  font-family: "Yapari";
+  src: url("../font/YapariTrial-Bold.eot");
+  src: url("../font/YapariTrial-Bold.eot?#iefix") format("embedded-opentype"),
+    url("../font/YapariTrial-Bold.woff2") format("woff2"),
+    url("../font/YapariTrial-Bold.woff") format("woff"),
+    url("../font/YapariTrial-Bold.ttf") format("truetype"),
+    url("../font/YapariTrial-Bold.svg#YapariTrial-Bold") format("svg");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -230,4 +230,8 @@ body {
 .submit_score-btn .btn_polygon-link {
   width: 12.5rem;
   height: 3.5rem;
+}
+.purple_light p a {
+  color: #51adff;
+  text-decoration: underline;
 }

@@ -6,9 +6,9 @@ import { act } from "react";
 const initialState = {
   leagueData: null,
   registrationModal: false,
-  isAgreedToJoin: false,
-  isJoinedUser : null,
-  isQueueUser : null ,
+  isAgreedToJoin: {},
+  isJoinedUser: null,
+  isQueueUser: null,
 };
 
 const leagueDetailSlice = createSlice({
@@ -16,7 +16,8 @@ const leagueDetailSlice = createSlice({
   initialState,
   reducers: {
     setIsAgreedToJoin: (state, action) => {
-      state.isAgreedToJoin = action.payload;
+      const { id, value } = action.payload;
+      state.isAgreedToJoin[id] = value;
     },
     setRegistrationModal: (state, action) => {
       state.registrationModal = action.payload;
@@ -32,18 +33,26 @@ const leagueDetailSlice = createSlice({
     setLeagueData: (state, action) => {
       // Fix: Avoid optional chaining on left-hand side and preserve requestedUser if missing
       if (action.payload?.leaderBoard) {
-        if (!action.payload.leaderBoard.requestedUser && state.leagueData?.leaderBoard?.requestedUser) {
-          action.payload.leaderBoard.requestedUser = state.leagueData.leaderBoard.requestedUser;
+        if (
+          !action.payload.leaderBoard.requestedUser &&
+          state.leagueData?.leaderBoard?.requestedUser
+        ) {
+          action.payload.leaderBoard.requestedUser =
+            state.leagueData.leaderBoard.requestedUser;
         }
       }
       state.leagueData = action.payload;
 
-      if(action.payload && action.payload.joinedUsers && action.payload.userId) {
+      if (
+        action.payload &&
+        action.payload.joinedUsers &&
+        action.payload.userId
+      ) {
         state.isJoinedUser = action.payload.joinedUsers.some(
           (participant) => participant == action.payload.userId
         );
       }
-      if(action.payload && action.payload.inQueue && action.payload.userId) {
+      if (action.payload && action.payload.inQueue && action.payload.userId) {
         state.isQueueUser = action.payload.inQueue.some(
           (participant) => participant == action.payload.userId
         );
@@ -56,7 +65,7 @@ export const {
   setLeagueData,
   setRegistrationModal,
   setIsAgreedToJoin,
-  removeFromQueue
+  removeFromQueue,
 } = leagueDetailSlice.actions;
 
 export default leagueDetailSlice.reducer;
