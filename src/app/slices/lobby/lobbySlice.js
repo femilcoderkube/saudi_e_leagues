@@ -52,7 +52,10 @@ export const fetchLeagues = createAsyncThunk(
       if (filter || filter != "All") {
         params.filter = filter;
       }
-      console.log("tabs----",params)
+      // also add Local date 
+      // Add the current local date to the params
+      const localDate = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+      params.localDate = localDate;
       const response = await axiosInstance.get("/leagues/user", {
         params: params,
       });

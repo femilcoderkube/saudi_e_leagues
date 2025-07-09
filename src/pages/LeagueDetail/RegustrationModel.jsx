@@ -67,11 +67,24 @@ const RegistrationModel = () => {
       Lid: leagueData._id,
       userId: user._id,
     };
-    if (fieldList.length > 0) {
+    payload["otherFields"] = [];
+    try{if (fieldList.length > 0) {
       // Attach all custom fields to payload
       for (const field of fieldList) {
-        payload["gameId"] = values[field.fieldName];
+        if (
+          field.fieldName.trim().toLowerCase() === "game id" ||
+          field.fieldName.trim().toLowerCase() === "gameid"
+        ) {
+          payload["gameId"] = values[field.fieldName];
+        } else {
+          payload["otherFields"].push({
+            key: field.fieldName,
+            value: values[field.fieldName],
+          });
+        }
       }
+    }}catch(e){
+      console.log("asdasda");
     }
     joinLeagueSocket({ isSocketConnected, payload });
   };
