@@ -21,7 +21,7 @@ const LeaderBoard = () => {
       rep: requestedUser?.wilsonScore,
       winRate: Math.round(requestedUser?.winPercentage) + "%",
       rank: requestedUser?.rank || 0,
-      profilePic: requestedUser?.userId?.profilePic || null,
+      profilePic: requestedUser?.userId?.profilePicture || "-",
     };
 
     if (requestedUser?.rank === 1) {
@@ -104,7 +104,7 @@ const LeaderBoard = () => {
                 <td className="py-4 px-4">
                   <div className="flex items-center gap-2">
                     <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
-                      {requestedUser.profilePic ? (
+                      {requestedUser.profilePic != "-" ? (
                         <img
                           src={getServerURL(requestedUser.profilePic)}
                           alt={requestedUser.username}
@@ -181,7 +181,7 @@ const LeaderBoard = () => {
               losses: data?.totalLosses,
               rep: data?.wilsonScore,
               winRate: Math.round(data?.winPercentage) + "%",
-              profilePic: data?.userId?.profilePic || "",
+              profilePic: data?.userId?.profilePicture || "",
               rank: data?.rank || index + 1,
               itsYou:
                 data?.userId?._id ==
