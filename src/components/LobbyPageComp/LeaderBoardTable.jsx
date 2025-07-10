@@ -13,8 +13,8 @@ const LeaderBoard = () => {
   if (requestedUser) {
     let user = {
       username: requestedUser?.userId?.username,
-      points: requestedUser?.totalScore
-        ? Math.round(requestedUser?.totalScore)
+      points: requestedUser?.totalLeaguesScore
+        ? Math.round(requestedUser?.totalLeaguesScore)
         : 0,
       wins: requestedUser?.totalWins,
       losses: requestedUser?.totalLosses,
@@ -176,7 +176,7 @@ const LeaderBoard = () => {
           {leagueData?.leaderBoard?.topUsers?.map((data, index) => {
             let user = {
               username: data?.userId?.username,
-              points: data?.totalScore ? Math.round(data?.totalScore) : 0,
+              points: data?.totalLeaguesScore ? Math.round(data?.totalLeaguesScore) : 0,
               wins: data?.totalWins,
               losses: data?.totalLosses,
               rep: data?.wilsonScore,
