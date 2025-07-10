@@ -108,6 +108,7 @@ const matchDetailSlice = createSlice({
         } else if (winnerScore?.submittedBy == "team2") {
           state.winnerScore.teamOne = winnerScore.opponentScore;
           state.winnerScore.teamTwo = winnerScore.yourScore;
+          state.IsSubmited = true;
         }
       }
       state.error = null;
