@@ -318,7 +318,7 @@ function SubmitPopUp({ handleClose }) {
                     ></path>
                   </svg>
                 ) : null}
-                {fileUploadLoading ? "Uploading..." :   isEditScore?.yourScore ? "Edit Score" : "Submit Score"}
+                {fileUploadLoading ? "Uploading..." :   isEditScore?.yourScore && isEditScore?.opponentScore ? "Edit Score" : "Submit Score"}
               </button>
               <Popup_btn />
             </div>
