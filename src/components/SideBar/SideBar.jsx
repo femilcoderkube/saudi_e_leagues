@@ -4,7 +4,13 @@ import "../../assets/css/aside.css";
 import asideLogo from "../../assets/images/aside_logo.png";
 import aside_hover from "../../assets/images/aside_hover.png";
 import { Link } from "react-router-dom";
-import { Twitter, Instagram, Youtube, Tiktok } from "../ui/svg/index.jsx";
+import {
+  Twitter,
+  Instagram,
+  Youtube,
+  Tiktok,
+  Discord,
+} from "../ui/svg/index.jsx";
 import { items } from "../../utils/constant.js";
 
 const Sidebar = ({ onItemClick }) => {
@@ -12,10 +18,18 @@ const Sidebar = ({ onItemClick }) => {
   const location = useLocation();
 
   const social_links = [
-    { name: "Twitter", path: "#twitter", Icon: Twitter },
-    { name: "Instagram", path: "#insta", Icon: Instagram },
-    { name: "YouTube", path: "#youtube", Icon: Youtube },
-    { name: "TikTok", path: "#tiktok", Icon: Tiktok },
+    { name: "Twitter", path: "https://x.com/primeeleague_", Icon: Twitter },
+    {
+      name: "Instagram",
+      path: "https://www.instagram.com/primeeleague_ ",
+      Icon: Instagram,
+    },
+    { name: "Discord", path: "https://discord.gg/YrxDPPp9gx", Icon: Discord },
+    {
+      name: "TikTok",
+      path: "https://www.tiktok.com/@primeeleague_",
+      Icon: Tiktok,
+    },
   ];
 
   // Get current item name based on the path
