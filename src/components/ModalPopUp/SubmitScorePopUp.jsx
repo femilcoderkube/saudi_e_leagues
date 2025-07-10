@@ -22,8 +22,8 @@ function SubmitPopUp({ handleClose }) {
  // setPreviewImage(isEditScore?.attachment || null);
   const formik = useFormik({
     initialValues: {
-      yourScore: isEditScore?.yourScore || "",
-      opponentScore: isEditScore?.opponentScore ||"",
+      yourScore: isEditScore?.yourScore == 0 ? 0 : isEditScore?.yourScore || "",
+      opponentScore: isEditScore?.opponentScore == 0 ? 0 : isEditScore?.opponentScore || "",
       description:isEditScore?.description || "",
       file:isEditScore?.attachment || null,
     },
@@ -318,7 +318,7 @@ function SubmitPopUp({ handleClose }) {
                     ></path>
                   </svg>
                 ) : null}
-                {fileUploadLoading ? "Uploading..." : isEditScore ? "Edit Score" : "Submit Score"}
+                {fileUploadLoading ? "Uploading..." :   isEditScore?.yourScore ? "Edit Score" : "Submit Score"}
               </button>
               <Popup_btn />
             </div>
