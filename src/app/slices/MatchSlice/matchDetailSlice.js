@@ -97,22 +97,17 @@ const matchDetailSlice = createSlice({
           state.isEditScore = state.isTeamOne
             ? team1ScoreDetails
             : team2ScoreDetails;
-        }else{
-          state.isEditScore= null;
+        } else {
+          state.isEditScore = null;
         }
 
-        if (winnerScore?.submittedBy == "admin") {
+        if ((winnerScore?.submittedBy == "admin") || (winnerScore?.submittedBy == "team1")) {
           state.winnerScore.teamOne = winnerScore.yourScore;
           state.winnerScore.teamTwo = winnerScore.opponentScore;
           state.IsSubmited = true;
-        } else {
-          if (state.matchData.winner == "team1") {
-            state.winnerScore.teamOne = winnerScore.yourScore;
-            state.winnerScore.teamTwo = winnerScore.opponentScore;
-          } else if (state.matchData.winner == "team2") {
-            state.winnerScore.teamOne = winnerScore.opponentScore;
-            state.winnerScore.teamTwo = winnerScore.yourScore;
-          }
+        } else if (winnerScore.submittedBy == "team2") {
+          state.winnerScore.teamOne = winnerScore.opponentScore;
+          state.winnerScore.teamTwo = winnerScore.yourScore;
         }
       }
       state.error = null;
