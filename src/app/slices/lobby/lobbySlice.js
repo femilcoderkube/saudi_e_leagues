@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../../utils/axios";
-import { getLocalDateTimeString } from "../../../utils/constant";
 
 const initialState = {
   games: [],
@@ -53,9 +52,9 @@ export const fetchLeagues = createAsyncThunk(
       if (filter || filter != "All") {
         params.filter = filter;
       }
-      let date = getLocalDateTimeString();
+      console.log("tabs----", params);
       const response = await axiosInstance.get("/leagues/user", {
-        params: { ...params, date: date },
+        params: params,
       });
       return response.data;
     } catch (error) {

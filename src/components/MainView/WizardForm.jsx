@@ -2,8 +2,10 @@ import { useState } from "react";
 import Header from "../Header/Header";
 import rules_icon from "../../assets/images/rules_icon.png";
 import WizardSteps from "./WizardSteps";
+import { useTranslation } from "react-i18next";
 
 const MainView = () => {
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -30,8 +32,14 @@ const MainView = () => {
             onClick={() => setShowModal(true)}
             className="timeline-card__header w-full mt-5 flex items-center gap-3 rounded-xl cursor-pointer relative sd_before sd_after px-4 py-[1.4rem]"
           >
-            <img src={rules_icon} alt="rules" className="w-7" />
-            <h3 className="text-xl font_oswald">Rules and Regulations</h3>
+            <img
+              src={rules_icon}
+              alt={t("images.rules_icon")}
+              className="w-7"
+            />
+            <h3 className="text-xl font_oswald">
+              {t("wizard.rules_and_regulations")}
+            </h3>
           </button>
         </div>
 
@@ -43,7 +51,9 @@ const MainView = () => {
               <div className="bg-[#121331] match_reg--popup !h-[32rem] relative sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Wizard Form</h2>
+                  <h2 className="text-xl font-bold">
+                    {t("wizard.wizard_form")}
+                  </h2>
                   <button
                     onClick={() => setShowModal(false)}
                     className="cursor-pointer hover:opacity-70 duration-300"
@@ -62,7 +72,7 @@ const MainView = () => {
                   onNext={() => setStep((prev) => prev + 1)}
                   onBack={() => setStep((prev) => prev - 1)}
                   onSubmit={handleSubmit}
-                  onCustomAction={() => alert("Custom action")}
+                  onCustomAction={() => alert(t("actions.custom_action"))}
                 />
               </div>
             </div>

@@ -16,6 +16,7 @@ import { checkParams } from "../../utils/constant";
 import { fetchUserById, updateUser } from "../../app/slices/users/usersSlice";
 import { baseURL } from "../../utils/axios";
 import { registerUser } from "../../app/slices/auth/authSlice";
+import { useTranslation } from "react-i18next";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ export default function Main() {
   const location = useLocation();
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const { user, userDetail } = useSelector((state) => state.auth);
+  const { t } = useTranslation();
 
   const defaultNationality = countryOptions.find(
     (option) => option.value === "Saudi Arabia"
@@ -74,25 +76,20 @@ export default function Main() {
           defaultNationality,
         dialCode:
           dialCodeOptions.find(
-            (option) =>
-              option.value === (userDetail.phone?.split("-")[0] || "+966")
+            (option) => option.value === (userDetail?.phone?.split("-")[0] || "+966")
           ) || defaultDialCode,
-        phoneNumber: userDetail.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
+        phoneNumber: userDetail?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
         dateOfBirth: user.dateOfBirth
           ? new Date(user.dateOfBirth).toISOString().split("T")[0]
           : "",
         gender: user.gender || "Male",
         role: user.role || "Player",
         favoriteGame: userDetail?.favoriteGame
-          ? gameOptions?.find(
-              (option) => option.value === userDetail?.favoriteGame
-            )
+          ? gameOptions?.find((option) => option.value === userDetail?.favoriteGame)
           : null,
         profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
       }
     : initialValues;
-
-  console.log("editInitialValues", editInitialValues);
 
   const handleSubmit = async (values, isEdit = false) => {
     try {
@@ -165,7 +162,7 @@ export default function Main() {
         className={`flex-1 game_card_main--con ${
           checkParams("finding-match") || checkParams("match")
             ? ""
-            : "px-4 md:px-[4.5rem] pt-7"
+            : "px-4 md:px-[4.5rem] pt-7 md:pr-7.5"
         }`}
       >
         {(isRegisteration || profileVisible) && (
@@ -175,7 +172,9 @@ export default function Main() {
               <div className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">
-                    {isRegisteration ? "Registration" : "Edit Profile"}
+                    {isRegisteration
+                      ? t("auth.registration")
+                      : t("form.edit_profile")}
                   </h2>
                   <button
                     onClick={() => {

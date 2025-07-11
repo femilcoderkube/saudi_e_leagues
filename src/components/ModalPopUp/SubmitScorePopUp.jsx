@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { uploadFile } from "../../app/slices/MatchSlice/matchDetailSlice.js";
 import { socket } from "../../app/socket/socket.js";
 import { getServerURL, SOCKET } from "../../utils/constant.js";
+import { useTranslation } from "react-i18next";
 
 function SubmitPopUp({ handleClose }) {
   const dispatch = useDispatch();
@@ -24,9 +25,8 @@ function SubmitPopUp({ handleClose }) {
   // setPreviewImage(isEditScore?.attachment || null);
   const formik = useFormik({
     initialValues: {
-      yourScore: isEditScore?.yourScore == 0 ? 0 : isEditScore?.yourScore || "",
-      opponentScore:
-        isEditScore?.opponentScore == 0 ? 0 : isEditScore?.opponentScore || "",
+      yourScore: isEditScore?.yourScore || "",
+      opponentScore: isEditScore?.opponentScore || "",
       description: isEditScore?.description || "",
       file: isEditScore?.attachment || null,
     },
@@ -129,6 +129,8 @@ function SubmitPopUp({ handleClose }) {
   const isSubmitDisabled =
     !formik.isValid || !formik.dirty || fileUploadLoading;
 
+  const { t } = useTranslation();
+
   return (
     <>
       <div
@@ -177,7 +179,7 @@ function SubmitPopUp({ handleClose }) {
                   onKeyDown={handlePointKeyDown}
                   onBlur={formik.handleBlur}
                   className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
-                  placeholder="Your Score"
+                  placeholder={t("score.your_score")}
                 />
                 <span className="text-red-500 text-xl absolute right-10 top-3">
                   *
@@ -215,7 +217,7 @@ function SubmitPopUp({ handleClose }) {
                   onKeyDown={handlePointKeyDown}
                   onBlur={formik.handleBlur}
                   className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
-                  placeholder="Opponent Score"
+                  placeholder={t("score.opponent_score")}
                 />
                 <span className="text-red-500 text-xl absolute right-10 top-3">
                   *
@@ -253,8 +255,7 @@ function SubmitPopUp({ handleClose }) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   className="sd_custom-input pt-5 pl-4 !h-[5.5rem] pr-3 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
-                  // placeholder="Description Box..."
-                  placeholder="Notes"
+                  placeholder={t("score.notes")}
                 ></textarea>
                 <svg
                   width="0"
@@ -283,7 +284,8 @@ function SubmitPopUp({ handleClose }) {
                     onRemove={handleRemove}
                   />
                   <p className="text-[#7B7ED0] text-sm mt-1">
-                    Upload Score Proof <span className="text-red-500">*</span>
+                    {t("upload.score_proof")}{" "}
+                    <span className="text-red-500">*</span>
                   </p>
                   {formik.touched.file && formik.errors.file && (
                     <p className="text-red-500 text-sm mt-1 text-left ml-8">
@@ -325,10 +327,10 @@ function SubmitPopUp({ handleClose }) {
                   </svg>
                 ) : null}
                 {fileUploadLoading
-                  ? "Uploading..."
+                  ? t("common.uploading")
                   : isEditScore?.yourScore
-                  ? "Edit Score"
-                  : "Submit Score"}
+                  ? t("auth.update")
+                  : t("auth.submit_score")}
               </button>
               <Popup_btn />
             </div>

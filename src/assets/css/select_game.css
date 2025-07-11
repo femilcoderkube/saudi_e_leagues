@@ -19,8 +19,9 @@
 ----------------------------------------- */
 
 .game_list--view button.active{
-    background: linear-gradient(180deg,rgba(188, 82, 37, 0.92) 0%, rgba(244, 149, 40, 1) 100%);
-    box-shadow: inset 0px 1px 4px #F38155;
+    /* background: linear-gradient(180deg,rgba(188, 82, 37, 0.92) 0%, rgba(244, 149, 40, 1) 100%);
+    box-shadow: inset 0px 1px 4px #F38155; */
+    background: url(../images/list-grid-active.png);
 }
 
 .game_status--tab button{
@@ -252,6 +253,16 @@ html[dir="rtl"] .game_card--wrapv2 .match_date{
  background-image: url(../images/rtl_card_v2_dateBG.png);   
 }
 
+@media (min-width: 768px) and (max-width: 991px){
+  .select_game-header{
+    margin-top: 5rem;
+  }
+
+  .game_status--tab{
+    top: -5rem;
+  }
+}
+
 /* md */
 @media (max-width: 767px) {
     .card_participants {
@@ -270,14 +281,55 @@ html[dir="rtl"] .game_card--wrapv2 .match_date{
         padding-block: 1.3rem;
     }
 
-    .btn_polygon-link {
-        width: 9rem;
-        height: 3rem;
+        .btn_polygon-link {
+        width: 13.38rem;
+        height: 3.5rem;
     }
 
     .game_card--wrapv2 .game_image {
         max-width: 10rem;
         flex: 0 0 10rem;
+    }
+
+    .game_status--tab{
+        border-radius: 0;
+    }
+
+    .game_status--tab::before{
+        position: absolute;
+        content: '';
+        height: 0.1rem;
+        width: 100%;
+        bottom: 0;
+        background:linear-gradient(to bottom, rgb(123 16 208 / 20%) 0%, rgb(121 126 255 / 20%) 100%);
+    }
+
+    .game_status--tab button{
+        background: unset;
+        height: auto;
+        width: auto;
+        color: var(--purple-col);
+    }
+
+    .game_status--tab button.active-tab{
+        background:linear-gradient(to bottom, rgb(68 107 238 / 6%) 0%, rgb(68 107 238 / 6%) 100%);
+        position: relative;
+        color: var(--color-white);
+    }
+
+    .game_status--tab button.active-tab::before{
+        position: absolute;
+        content: '';
+        height: 0.1rem;
+        width: 100%;
+        background: linear-gradient(to left,);
+        bottom: 0;
+        top: auto;
+        clip-path: unset;
+    }
+
+    .active-tab.polygon_border:before, .active-tab.polygon_border:after{
+        content: none;
     }
 }
 

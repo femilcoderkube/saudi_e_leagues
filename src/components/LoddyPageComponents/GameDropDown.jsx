@@ -3,13 +3,21 @@ import Sel_game from "../../assets/images/sel_game.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { baseURL } from "../../utils/axios";
-import { fetchGames, setGameDropDownOpen, setGameSearchTerm, setSelectedGame } from "../../app/slices/lobby/lobbySlice";
+import {
+  fetchGames,
+  setGameDropDownOpen,
+  setGameSearchTerm,
+  setSelectedGame,
+} from "../../app/slices/lobby/lobbySlice";
 import { getServerURL } from "../../utils/constant";
+import { useTranslation } from "react-i18next";
 
 const GameDropDown = () => {
-  const {filteredGames,selectedGame ,isGameDropDownOpen ,gameSearchTerm} = useSelector((state) => state.lobby);
+  const { filteredGames, selectedGame, isGameDropDownOpen, gameSearchTerm } =
+    useSelector((state) => state.lobby);
   const dispatch = useDispatch();
   const dropdownRef = useRef(null);
+  const { t } = useTranslation();
   useEffect(() => {
     dispatch(fetchGames(""));
   }, [dispatch]);
@@ -33,18 +41,20 @@ const GameDropDown = () => {
         <Link
           to={"#"}
           className="dropdown-header btn_polygon-link gap-2 md:gap-6 p-1.5 md:p-3 hover:opacity-70 duration-400 inline-flex justify-between items-center relative sd_before vertical_center"
-          onClick={()=>{dispatch(setGameDropDownOpen(!isGameDropDownOpen))}}
+          onClick={() => {
+            dispatch(setGameDropDownOpen(!isGameDropDownOpen));
+          }}
         >
           <img
             src={
               selectedGame?.logo ? getServerURL(selectedGame.logo) : Sel_game
             }
-            alt="Select Game"
+            alt={t("games.select_game")}
             className="game-logo-svg"
             style={{ width: "2rem" }}
           />
           <span className="text-sm md:text-xl font_oswald font-medium purple_col">
-            {selectedGame?.name ? selectedGame.name : "Select Game"}
+            {selectedGame?.name ? selectedGame.name : t("games.select_game")}
           </span>
           <svg
             width="0.75rem"
@@ -60,6 +70,39 @@ const GameDropDown = () => {
               fill="#BABDFF"
             />
           </svg>
+          <svg
+        width="0"
+        height="0"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ position: "absolute" }}
+      >
+        <defs>
+          <clipPath id="polygonClipDropdown" clipPathUnits="objectBoundingBox">
+            <path
+              d="
+              M1,0.1111
+              V0.8889
+              L0.9219,1
+              H0.7266
+              L0.6953,0.9028
+              H0.3047
+              L0.2734,1
+              H0.0781
+              L0,0.8889
+              V0.1111
+              L0.0781,0
+              H0.2734
+              L0.3047,0.0972
+              H0.6953
+              L0.7266,0
+              H0.9219
+              L1,0.1111
+              Z
+            "
+            />
+          </clipPath>
+        </defs>
+      </svg>
         </Link>
       </div>
 
@@ -102,7 +145,7 @@ const GameDropDown = () => {
                   type="search"
                   id="default-search"
                   className="block w-full border-b border-[#4a4b988c] focus:outline-0 focus:border-0 p-4 ps-15 placeholder-[#7B7ED0] text-lg"
-                  placeholder="Search Game"
+                  placeholder={t("games.search_game")}
                   value={gameSearchTerm}
                   onChange={(e) => dispatch(setGameSearchTerm(e.target.value))}
                   required
@@ -146,16 +189,18 @@ const GameDropDown = () => {
                     <Link
                       to={"#"}
                       className="dropdown-item py-3 px-5 block hover:opacity-50 duration-400 font_oswald flex gap-4 cursor-pointer"
-                      onClick={() =>  dispatch(setSelectedGame({}))}
+                      onClick={() => dispatch(setSelectedGame({}))}
                     >
-                      <span className="text-xl purple_light">None</span>
+                      <span className="text-xl purple_light">
+                        {t("common.none")}
+                      </span>
                     </Link>
                     {filteredGames.map((item) => (
                       <Link
                         key={item._id}
                         to={"#"}
                         className="dropdown-item py-3 px-5 block hover:opacity-50 duration-400 font_oswald flex gap-4 cursor-pointer"
-                        onClick={() =>  dispatch(setSelectedGame(item))}
+                        onClick={() => dispatch(setSelectedGame(item))}
                       >
                         <img
                           src={getServerURL(item.logo)}
@@ -171,7 +216,7 @@ const GameDropDown = () => {
                   </>
                 ) : (
                   <div className="py-3 px-5 text-xl purple_light font_oswald">
-                    No games found
+                    {t("common.no_games_found")}
                   </div>
                 )}
               </div>

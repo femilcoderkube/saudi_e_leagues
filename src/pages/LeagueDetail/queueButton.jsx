@@ -9,6 +9,7 @@ import { setRegistrationModal } from "../../app/slices/leagueDetail/leagueDetail
 import { getQueueText } from "../../utils/constant";
 import { stopReadyToPlaySocket } from "../../app/socket/socket";
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const GetQueueButton = () => {
   const { id } = useParams();
@@ -20,6 +21,7 @@ const GetQueueButton = () => {
   const dispatch = useDispatch();
   const now = new Date();
   const end = new Date(leagueData?.endDate);
+  const { t } = useTranslation();
 
   if (user?._id == null || user?._id == undefined) {
     return (
@@ -30,7 +32,11 @@ const GetQueueButton = () => {
         }}
       >
         {" "}
-        <img src={need_btn} alt="" style={{ width: "30.5rem" }} />{" "}
+        <img
+          src={need_btn}
+          alt={t("images.need_login")}
+          style={{ width: "30.5rem" }}
+        />{" "}
       </div>
     );
   } else if (end < now) {
@@ -43,9 +49,14 @@ const GetQueueButton = () => {
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
           }}
         >
-          {"LEAGUE ENDED"}
+          {t("league.league_ended")}
         </span>
-        <img className="mx-auto" src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "}
+        <img
+          className="mx-auto"
+          src={Que_btn}
+          alt=""
+          style={{ width: "30.5rem" }}
+        />{" "}
       </div>
     );
   } else if (!isJoinedUser) {
@@ -54,7 +65,7 @@ const GetQueueButton = () => {
         onClick={() => dispatch(setRegistrationModal(true))}
         className="join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
       >
-        <img src={join_btn} alt="" style={{ width: "30.5rem" }} />
+        <img className="mx-auto" src={join_btn} alt="" style={{ width: "30.5rem" }} />
       </div>
     );
   } else if (isQueueUser) {
@@ -69,7 +80,12 @@ const GetQueueButton = () => {
           });
         }}
       >
-        <img className="mx-auto" src={Cancel_btn} alt="" style={{ width: "30.5rem" }} />{" "}
+        <img
+          className="mx-auto"
+          src={Cancel_btn}
+          alt=""
+          style={{ width: "30.5rem" }}
+        />{" "}
       </div>
     );
   } else {
@@ -90,9 +106,14 @@ const GetQueueButton = () => {
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
             }}
           >
-            {"VIEW MATCH"}
+            {t("league.view_match")}
           </span>
-          <img className="mx-auto" src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "}
+          <img
+            className="mx-auto"
+            src={Que_btn}
+            alt=""
+            style={{ width: "30.5rem" }}
+          />{" "}
         </Link>
       );
     } else if (text == "QUEUE") {
@@ -110,7 +131,12 @@ const GetQueueButton = () => {
           >
             {text}
           </span>
-          <img className="mx-auto" src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "}
+          <img
+            className="mx-auto"
+            src={Que_btn}
+            alt=""
+            style={{ width: "30.5rem" }}
+          />{" "}
         </Link>
       );
     } else {
@@ -127,7 +153,8 @@ const GetQueueButton = () => {
             {getQueueText(leagueData)}
           </span>
           {/* <img src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "} */}
-          <img className="mx-auto"
+          <img
+            className="mx-auto"
             src={text.includes("OPEN") ? Open_btn : Que_btn}
             alt=""
             style={{ width: "30.5rem" }}

@@ -1,10 +1,328 @@
 {
   "player_search": "Player Search",
-  "time_over": "Time is over!",
+  "time_over": "Time is Over",
   "yes": "Yes",
   "no": "No",
   "cancel": "Cancel",
   "matchmaking": "Matchmaking",
   "welcome": "Welcome",
-  "language": "Language"
-} 
+  "language": "Language",
+
+  "auth": {
+    "log_in": "Log In",
+    "registration": "Registration",
+    "login": "Login",
+    "submit": "Submit",
+    "update": "Update",
+    "back": "Back",
+    "next": "Next",
+    "loading": "Loading...",
+    "view_score": "View Score",
+    "submit_score": "Submit Score",
+    "login_failed": "Login failed",
+    "login_success": "Login successful!"
+  },
+
+  "form": {
+    "username": "Username",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "nationality": "Nationality",
+    "dial_code": "Dial Code",
+    "phone_number": "Phone Number",
+    "date_of_birth": "Date of Birth",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "Male": "Male",
+    "Female": "Female",
+    "favorite_game": "Favorite Game",
+    "profile_picture": "Profile Picture",
+    "role": "Role",
+    "player": "Player",
+    "edit_profile": "Edit Profile",
+    "field_placeholder": "Enter {{field}}",
+    "select_nationality": "Select Nationality",
+    "select_favorite_game": "Select your Favorite Game"
+  },
+
+  "countries": {
+    "saudi_arabia": "Saudi Arabia"
+  },
+
+  "validation": {
+    "username_required": "Username is required",
+    "username_min_length": "Username must be at least 3 characters",
+    "username_format": "Username can only contain letters, numbers, and underscores",
+    "username_taken": "Username is already taken",
+    "first_name_required": "First name is required",
+    "first_name_format": "First name can only contain letters",
+    "last_name_required": "Last name is required",
+    "last_name_format": "Last name can only contain letters",
+    "email_required": "Email is required",
+    "email_invalid": "Invalid email",
+    "email_taken": "Email is already taken",
+    "password_required": "Password is required",
+    "password_min_length": "Password must be at least 8 characters",
+    "password_uppercase": "Password must contain at least one uppercase letter",
+    "password_lowercase": "Password must contain at least one lowercase letter",
+    "password_number": "Password must contain at least one number",
+    "password_special": "Password must contain at least one special character",
+    "nationality_required": "Nationality is required",
+    "dial_code_required": "Dial code is required",
+    "phone_required": "Phone number is required",
+    "phone_digit_count": "Phone number must contain between 7 and 15 digits",
+    "phone_format": "Phone number can only contain digits, spaces, hyphens, and parentheses",
+    "dob_required": "Date of birth is required",
+    "dob_future": "Date of birth cannot be in the future",
+    "dob_invalid": "Please enter a valid date",
+    "gender_required": "Gender is required",
+    "favorite_game_required": "Favorite game is required",
+    "field_required": "{{field}} is required"
+  },
+
+  "homepage": {
+    "level_up": "Level Up",
+    "your_game": "Your Game",
+    "join": "Join",
+    "epic": "Epic",
+    "matchmaking": "matchmaking",
+    "tagline": "Every Match Counts — Every Player Matters",
+    "choose_your": "Choose your",
+    "game": "Game",
+    "about": "About",
+    "prime_description_1": "Prime is where skill meets purpose.",
+    "prime_description_2": "Born from the heart of the grassroots scene, Prime is not just a league — it's a living system designed to reward dedication, amplify visibility, and connect ambitious players through real, meaningful competition.",
+    "prime_description_3": "In Prime you don't just play — you grind.",
+    "prime_description_4": "Every match is a step forward. Every queue is a shot at growth. Every match builds your story. Whether you're playing solo or as part of a squad, PRIME creates the space for authentic connection and continuous competition.",
+    "prime_description_5": "This is where grassroots players rise to their prime!",
+    "watch_video": "Whatch the Video",
+    "how": "How",
+    "to_play": "to Play?",
+    "htp_description": "Pellentesque dictum porta, lacinia molestie ante maximus at",
+    "go_play_now": "Go Play Now",
+    "join_now": "Join Now"
+  },
+
+  "lobby": {
+    "leaderboard": "Leaderboard",
+    "no_data_available": "No data available",
+    "place": "Place",
+    "user": "User",
+    "points": "Points",
+    "wins_losses": "W/L",
+    "reputation": "Rep",
+    "win_rate": "Win rate",
+    "you": "(You)",
+    "tournament_timeline": "Tournament Timeline",
+    "tabs": {
+      "all": "All",
+      "active": "Active",
+      "completed": "Completed",
+      "upcoming": "Upcoming",
+      "ongoing": "Ongoing",
+      "finished": "Completed"
+    }
+  },
+
+  "league": {
+    "league_title": "League Title",
+    "prize_pool": "Prize Pool",
+    "online_users": "Online Users",
+    "participants": "Participants",
+    "game": "Game",
+    "platform": "Platform",
+    "team_size": "Team Size",
+    "view_match": "VIEW MATCH",
+    "league_ended": "LEAGUE ENDED",
+    "queue": "QUEUE",
+    "open": "OPEN",
+    "ends": "Ends:"
+  },
+
+  "match": {
+    "finding_matchmaking": "Finding Matchmaking",
+    "chat_message": "Chat Message",
+    "admin": "Admin",
+    "system": "System",
+    "team_one": "Team 1",
+    "team_two": "Team 2",
+    "gold_crown": "Gold Crown",
+    "like": "Like",
+    "dislike": "Dislike"
+  },
+
+  "rules": {
+    "rules_and_regulations": "Rules and Regulations",
+    "wizard_form": "Wizard Form"
+  },
+
+  "common": {
+    "no_data": "No data available",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "clock": "Clock",
+    "preview": "Preview",
+    "beta": "Beta",
+    "none": "None",
+    "no_games_found": "No games found",
+    "yes_wait_more": "Yes, Wait More",
+    "no_cancel": "No, Cancel",
+    "uploading": "Uploading...",
+    "loading_pdf": "Loading PDF..."
+  },
+
+  "games": {
+    "game": "Game",
+    "game_2": "Game 2",
+    "game_3": "Game 3",
+    "game_4": "Game 4",
+    "game_5": "Game 5",
+    "game_6": "Game 6",
+    "valorant": "Valorant",
+    "dota2": "Dota 2",
+    "csgo": "CSGO",
+    "apex": "Apex",
+    "select_game": "Select Game",
+    "search_game": "Search Game"
+  },
+
+  "navigation": {
+    "lobby": "Lobby"
+  },
+
+  "user_menu": {
+    "my_profile": "My Profile",
+    "logout": "Logout"
+  },
+
+  "language": {
+    "english": "English",
+    "arabic": "العربية",
+    "language": "Language"
+  },
+
+  "roles": {
+    "referee": "Referee",
+    "couch": "Coach",
+    "team_manager": "Team Manager",
+    "club_admin": "Club Admin",
+    "analyst": "Analyst",
+    "caster": "Caster",
+    "media_outlet": "Media Outlet",
+    "video_editor": "Video Editor",
+    "graphic_designer": "Graphic Designer",
+    "streamer": "Streamer",
+    "frontend_creator": "Frontend Creator",
+    "game_developer": "Game Developer",
+    "tournament_organizer": "Tournament Organizer",
+    "club_owner": "Club Owner"
+  },
+
+  "upload": {
+    "profile_picture": "Upload Profile Picture",
+    "photo": "Upload Photo",
+    "click_to_select": "Click to select an image",
+    "score_proof": "Upload Score Proof"
+  },
+
+  "social": {
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "tiktok": "TikTok",
+    "discord": "Discord"
+  },
+
+  "footer": {
+    "contact_us": "Contact Us",
+    "privacy_policy": "Privacy Policy",
+    "follow_us": "Follow Us"
+  },
+
+  "sidebar": {
+    "collapse_menu": "Collapse Menu"
+  },
+
+  "badges": {
+    "gold": "gold",
+    "silver": "silver",
+    "bronze": "bronze",
+    "blue": "blue"
+  },
+
+  "score": {
+    "your_score": "Your Score",
+    "opponent_score": "Opponent Score",
+    "notes": "Notes"
+  },
+
+  "validation_messages": {
+    "username_required": "Username is required",
+    "username_min_length": "Username must be at least 3 characters",
+    "username_format": "Username can only contain letters, numbers, and underscores",
+    "username_taken": "Username is already taken",
+    "first_name_required": "First name is required",
+    "first_name_format": "First name can only contain letters",
+    "last_name_required": "Last name is required",
+    "last_name_format": "Last name can only contain letters",
+    "email_required": "Email is required",
+    "email_invalid": "Invalid email",
+    "email_taken": "Email is already taken",
+    "password_required": "Password is required",
+    "password_min_length": "Password must be at least 8 characters",
+    "password_uppercase": "Password must contain at least one uppercase letter",
+    "password_lowercase": "Password must contain at least one lowercase letter",
+    "password_number": "Password must contain at least one number",
+    "password_special": "Password must contain at least one special character",
+    "nationality_required": "Nationality is required",
+    "dial_code_required": "Dial code is required",
+    "phone_required": "Phone number is required",
+    "phone_digit_count": "Phone number must contain between 7 and 15 digits",
+    "phone_format": "Phone number can only contain digits, spaces, hyphens, and parentheses",
+    "dob_required": "Date of birth is required",
+    "dob_future": "Date of birth cannot be in the future",
+    "dob_invalid": "Please enter a valid date",
+    "gender_required": "Gender is required",
+    "favorite_game_required": "Favorite game is required",
+    "field_required": "{{field}} is required"
+  },
+
+  "wizard": {
+    "rules_and_regulations": "Rules and Regulations",
+    "wizard_form": "Wizard Form"
+  },
+
+  "images": {
+    "rules_icon": "Rules icon",
+    "get_started_button": "Get Started button",
+    "prime_logo": "Prime logo",
+    "play_button": "Play button",
+    "match_registration": "Match registration",
+    "large_prime": "Large Prime",
+    "need_login": "Need to login",
+    "join_button": "Join button",
+    "queue_button": "Queue button",
+    "open_button": "Open button",
+    "cancel_button": "Cancel button",
+    "wind_girl": "Wind girl",
+    "fire_boy": "Fire boy",
+    "card_top_left_shape": "Card top left shape",
+    "game_image": "Game image",
+    "user_avatar": "User avatar",
+    "badge_image": "Badge image",
+    "game_card": "Game card",
+    "game_logo": "Game logo",
+    "game_background": "Game background",
+    "follow_us": "Follow us"
+  },
+
+  "actions": {
+    "custom_action": "Custom action"
+  }
+}

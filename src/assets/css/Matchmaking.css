@@ -120,6 +120,31 @@
     filter: brightness(1.2);
   }
 }
+.center-league-loader {
+  transform: translate(-50%, 0px) rotateY(0deg) scale(0.9);
+  /* Coin spin and stop effect */
+  animation: coin-spin-stop 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes coin-spin-stop {
+  0% {
+    transform: translate(-50%, 0px) rotateY(0deg) scale(0.9);
+    filter: brightness(1);
+  }
+  /* Make the spin slower by reducing the degree change per percent of animation */
+  60% {
+    transform: translate(-50%, 0px) rotateY(720deg) scale(1.1);
+    filter: brightness(1.2);
+  }
+  80% {
+    transform: translate(-50%, 0px) rotateY(900deg) scale(1.05);
+    filter: brightness(1.1);
+  }
+  100% {
+    transform: translate(-50%, 0px) rotateY(1080deg) scale(1);
+    filter: brightness(1);
+  }
+}
 
 /* header {
     background: linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%);

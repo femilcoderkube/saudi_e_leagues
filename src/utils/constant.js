@@ -3,7 +3,6 @@ import prime_hover from "../assets/images/prime_hover.png";
 import { Prime } from "../components/ui/svg";
 import LargePrime from "../assets/images/prime_hover.png";
 import { baseURL } from "./axios";
-import moment from "moment";
 
 export const items = [
   {
@@ -178,8 +177,20 @@ export function getQueueText(leagueData) {
     }
 
     if (isTodayQueueDay) {
-      const startTime = parseTimeToDate(schedule.startTime, today);
-      const endTime = parseTimeToDate(schedule.endTime, today);
+      // Use moment-timezone to convert to Saudi Riyadh timezone
+      // Make sure to import moment and moment-timezone at the top of your file:
+      // import moment from "moment-timezone";
+      const saTz = "Asia/Riyadh";
+      const startTime = moment.tz(
+        `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${schedule.startTime}`,
+        "YYYY-M-D HH:mm",
+        saTz
+      ).toDate();
+      const endTime = moment.tz(
+        `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${schedule.endTime}`,
+        "YYYY-M-D HH:mm",
+        saTz
+      ).toDate();
 
       if (today < startTime) {
         return `OPENS IN ${GetTimeString(startTime)}`;
@@ -302,21 +313,13 @@ export const getRandomColor = (senderId) => {
   for (let i = 0; i < senderId?.length; i++) {
     hash = senderId.charCodeAt(i) + ((hash << 5) - hash);
   }
-
+  
   // Generate RGB values ensuring they're not too dark (minimum brightness)
-  const r = Math.max(128, (hash >> 16) & 0xff);
-  const g = Math.max(128, (hash >> 8) & 0xff);
-  const b = Math.max(128, hash & 0xff);
-
+  const r = Math.max(128, (hash >> 16) & 0xFF);
+  const g = Math.max(128, (hash >> 8) & 0xFF);
+  const b = Math.max(128, hash & 0xFF);
+  
   // Convert to hex color
-  const color = `#${r.toString(16).padStart(2, "0")}${g
-    .toString(16)
-    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+  const color = `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
   return color;
-};
-
-export const getLocalDateTimeString = () => {
-  // If moment is not imported, assume it's available globally or imported elsewhere
-  // Get the current date and time in user's local timezone
-  return moment().format(); // ISO 8601 string in local time
 };

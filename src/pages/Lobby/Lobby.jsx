@@ -14,6 +14,7 @@ import GameCardGridView from "../../components/LoddyPageComponents/GameCardGridV
 import { getPartnerById } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
 import { setLeagueData } from "../../app/slices/leagueDetail/leagueDetailSlice";
+import { useTranslation } from "react-i18next";
 
 // Animation variants for the card wrapper
 const containerVariants = {
@@ -37,6 +38,7 @@ const Lobby = () => {
   const { id } = useParams();
   const { leagues, loading, activeIndex, tabs, isListView, selectedGame } =
     useSelector((state) => state.lobby);
+  const { t } = useTranslation();
   const partnerID = getPartnerById(id).docId;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -48,7 +50,7 @@ const Lobby = () => {
         dispatch(setIsListView(false));
       }
     };
-    handleResize(); 
+    handleResize();
     window.addEventListener("resize", handleResize);
     dispatch(
       fetchLeagues({
@@ -66,34 +68,13 @@ const Lobby = () => {
         className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
         style={{ backgroundSize: "100%" }}
       ></div>
-      <div className="sd_slect_game--wrapper relative mt-5 ">
-        <div className="select_game-header flex items-center justify-between">
-          <GameDropDown />
-          <div className="game_list--view flex sd_radial-bg items-center rounded-xl p-2">
-            <button
-              onClick={() => dispatch(setIsListView(true))}
-              className={`sm:inline-block p-[0.50rem] hidden md:p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
-                isListView ? "active" : ""
-              }`}
-            >
-              <ListIcon isActive={isListView} />
-            </button>
-            <button
-              onClick={() => dispatch(setIsListView(false))}
-              className={`inline-block p-[0.50rem] md:p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
-                !isListView ? "active" : ""
-              }`}
-            >
-              <FolderIcon isActive={!isListView} />
-            </button>
-          </div>
-        </div>
-        <div className="game_status--tab rounded-xl overflow-hidden relative left-1/2 mt-5 md:mt-0 md:left-auto md:-translate-x-0 -translate-x-[50%] md:absolute top-1 ltr:right-32 rtl:right-70 inline-flex mb-4">
+      <div className="sd_slect_game--wrapper relative md:mt-5 ">
+        <div className="game_status--tab rounded-xl overflow-hidden relative left-1/2 mt-0 md:left-auto md:-translate-x-0 -translate-x-[50%] md:absolute top-1 ltr:right-32 rtl:right-70 inline-flex mb-8 md:mb-4">
           {tabs.map((tab, index) => (
             <button
               key={index}
               onClick={() => dispatch(setActiveIndex(index))}
-              className={`w-[6rem] sm:w-[10rem] sm:h-[4rem] py-2 px-2.5 sm:px-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+              className={`w-[6rem] sm:w-[10rem] sm:h-[4rem] md:py-2 md:px-2.5 px-7 py-6 pt-0 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
               ${
                 activeIndex === index
                   ? "active-tab hover:opacity-100 polygon_border"
@@ -104,6 +85,28 @@ const Lobby = () => {
             </button>
           ))}
         </div>
+        <div className="select_game-header flex items-center justify-between">
+          <GameDropDown />
+          <div className="game_list--view flex sd_radial-bg items-center rounded-xl p-2">
+            <button
+              onClick={() => dispatch(setIsListView(true))}
+              className={`inline-block p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
+                isListView ? "active" : ""
+              }`}
+            >
+              <ListIcon isActive={isListView} />
+            </button>
+            <button
+              onClick={() => dispatch(setIsListView(false))}
+              className={`inline-block p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
+                !isListView ? "active" : ""
+              }`}
+            >
+              <FolderIcon isActive={!isListView} />
+            </button>
+          </div>
+        </div>
+       
         <div className="sd_tab_cont--wrap pb-10">
           {loading ? (
             <GamingLoader />

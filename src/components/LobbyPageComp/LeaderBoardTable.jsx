@@ -6,8 +6,10 @@ import bronze_bedge from "../../assets/images/bronze.png";
 import { getSmile } from "../MatchDeatilComponents/matchCards";
 import { getRandomColor, getServerURL } from "../../utils/constant";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const LeaderBoard = () => {
+  const { t } = useTranslation();
   const { leagueData } = useSelector((state) => state.leagues);
   let requestedUser = leagueData?.leaderBoard?.requestedUser || null;
   if (requestedUser) {
@@ -19,7 +21,7 @@ const LeaderBoard = () => {
       wins: requestedUser?.totalWins,
       losses: requestedUser?.totalLosses,
       rep: requestedUser?.wilsonScore,
-      winRate: requestedUser?.winPercentage?.toFixed(2) + "%",
+      winRate: requestedUser?.winPercentage?.toFixed(0) + "%",
       rank: requestedUser?.rank || 0,
       profilePic: requestedUser?.userId?.profilePicture || null,
     };
@@ -46,7 +48,9 @@ const LeaderBoard = () => {
         <h2 className="text-center md:text-start text-2xl !font-bold">
           Leaderboard
         </h2>
-        <p className="text-lg text-center mt-4">No data available</p>
+        <p className="text-lg text-center mt-4">
+          {t("lobby.no_data_available")}
+        </p>
       </div>
     );
   }
@@ -56,25 +60,25 @@ const LeaderBoard = () => {
       <table className="leaderboard-table" style={{ width: "100%" }}>
         <thead>
           <tr>
-            <th className="text-left py-3 px-3 purple_col text-lg !font-normal">
-              Place
+            <th className="ltr:text-left rtl:text-right py-3 px-3 purple_col text-lg !font-normal">
+              {t("lobby.place")}
             </th>
-            <th className="text-left py-3 px-3 purple_col text-lg !font-normal">
-              User
-            </th>
-            <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
-              Points
+            <th className="ltr:text-left rtl:text-right py-3 px-3 purple_col text-lg !font-normal">
+              {t("lobby.user")}
             </th>
             <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
-              W/L
+              {t("lobby.points")}
+            </th>
+            <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
+              {t("lobby.wins_losses")}
             </th>
             {leagueData.playersPerTeam != 1 && (
               <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
-                Rep
+                {t("lobby.reputation")}
               </th>
             )}
             <th className="text-center py-3 px-3 purple_col text-lg !font-normal">
-              Win rate
+              {t("lobby.win_rate")}
             </th>
           </tr>
         </thead>
@@ -90,9 +94,9 @@ const LeaderBoard = () => {
                   }`}
                 >
                   <img
-                    className="bedge_bg"
+                   className="bedge_bg"
                     src={requestedUser.bedgesrc}
-                    alt=""
+                    alt={t(`badges.${requestedUser.badgeColor}`)}
                     style={{ width: "3rem" }}
                   />
                   <div
@@ -106,7 +110,7 @@ const LeaderBoard = () => {
                 <td className="py-4 px-4">
                   <div className="flex items-center justify-center md:justify-start gap-2">
                     <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
-                      {requestedUser.profilePic != "-" ? (
+                      {requestedUser.profilePic ? (
                         <img
                           src={getServerURL(requestedUser.profilePic)}
                           alt={requestedUser.username}
@@ -136,7 +140,7 @@ const LeaderBoard = () => {
                       {requestedUser.username}
                     </span>
                     <span className="text-base purple_col font-medium">
-                      (You)
+                      {t("lobby.you")}
                     </span>
                   </div>
                 </td>
@@ -190,7 +194,7 @@ const LeaderBoard = () => {
               wins: data?.totalWins,
               losses: data?.totalLosses,
               rep: data?.wilsonScore,
-              winRate: data?.winPercentage?.toFixed(2) + "%",
+              winRate: data?.winPercentage?.toFixed(0) + "%",
               profilePic: data?.userId?.profilePicture || "",
               rank: data?.rank || index + 1,
               itsYou:
@@ -213,101 +217,101 @@ const LeaderBoard = () => {
             }
             return (
               <>
-                <tr className={`${user.badgeColor} overflow-hidden`}>
-                  <td
-                    className={`py-4 px-4 ${user.bedgeBG} ${
-                      String(user.rank).length === 1 ? "one_digit" : "two_digit"
-                    }`}
+              <tr className={`${user.badgeColor} overflow-hidden`}>
+                <td
+                  className={`py-4 px-4 ${user.bedgeBG} ${
+                    String(user.rank).length === 1 ? "one_digit" : "two_digit"
+                  }`}
+                >
+                  <img
+                    className="bedge_bg"
+                    src={user.bedgesrc}
+                    alt=""
+                    style={{ width: "3rem" }}
+                  />
+                  <div
+                    className="badge text-lg text-center pl-1 font-bold"
+                    style={{ width: "3rem" }}
                   >
-                    <img
-                      className="bedge_bg"
-                      src={user.bedgesrc}
-                      alt=""
-                      style={{ width: "3rem" }}
-                    />
-                    <div
-                      className="badge text-lg text-center pl-1 font-bold"
-                      style={{ width: "3rem" }}
-                    >
-                      {user.rank}
-                    </div>
-                  </td>
+                    {user.rank}
+                  </div>
+                </td>
 
-                  <td className="py-4 px-2">
-                    <div className="flex items-center justify-center md:justify-start gap-2">
-                      <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
-                        {user.profilePic ? (
-                          <img
-                            src={getServerURL(user.profilePic)}
-                            alt={user.username}
-                            style={{ width: "2.5rem", height: "2.5rem" }}
-                          />
-                        ) : (
-                          <div
-                            style={{
-                              width: "2.5rem",
-                              height: "2.5rem",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              background: getRandomColor(user.username),
-                              color: "#fff",
-                              fontWeight: "bold",
-                              fontSize: "1.5rem",
-                              borderRadius: "50%",
-                            }}
-                          >
-                            {user.username?.charAt(0)?.toUpperCase() || "?"}
-                          </div>
-                        )}
-                      </div>
-                      <span className="text-lg !font-bold">
-                        {user.username}
-                      </span>
-                      {user.itsYou && (
-                        <span className="text-base purple_col font-medium">
-                          (You)
-                        </span>
+                <td className="py-4 px-2">
+                  <div className="flex items-center justify-center md:justify-start gap-2">
+                    <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
+                      {user.profilePic ? (
+                        <img
+                          src={getServerURL(user.profilePic)}
+                          alt={user.username}
+                          style={{ width: "2.5rem", height: "2.5rem" }}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            width: "2.5rem",
+                            height: "2.5rem",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: getRandomColor(user.username),
+                            color: "#fff",
+                            fontWeight: "bold",
+                            fontSize: "1.5rem",
+                            borderRadius: "50%",
+                          }}
+                        >
+                          {user.username?.charAt(0)?.toUpperCase() || "?"}
+                        </div>
                       )}
                     </div>
-                  </td>
-
-                  <td className="py-4 px-4 text-right md:text-center text-lg !font-bold">
-                    {user.points}
-                  </td>
-
-                  <td
-                    data-title="Win/Loss"
-                    className="pb-11 md:pb-4 py-4 px-4 text-left md:text-center"
-                  >
-                    <span className="win text-lg sky_col">{user.wins}</span>{" "}
-                    <b className="font-bold text-xs">/</b>{" "}
-                    <span className="loss text-lg text-[#FA4768]">
-                      {user.losses}
+                    <span className="text-lg !font-bold">
+                      {user.username}
                     </span>
-                  </td>
-                  {leagueData.playersPerTeam != 1 && (
-                    <td data-title="Rep" className="pb-11 md:pb-4 py-4 px-4">
-                      <div className="flex items-center justify-center">
-                        <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
-                          <img
-                            src={getSmile(user.rep)}
-                            alt={user.rep}
-                            style={{ width: "1.5rem" }}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  )}
+                    {user.itsYou && (
+                      <span className="text-base purple_col font-medium">
+                         {t("lobby.you")}
+                      </span>
+                    )}
+                  </div>
+                </td>
 
-                  <td
-                    data-title="Win rate"
-                    className="pb-11 md:pb-4 py-4 px-4 text-right md:text-center text-lg"
-                  >
-                    {user.winRate}
+                <td className="py-4 px-4 text-right md:text-center text-lg !font-bold">
+                  {user.points}
+                </td>
+
+                <td
+                  data-title="Win/Loss"
+                  className="pb-11 md:pb-4 py-4 px-4 text-left md:text-center"
+                >
+                  <span className="win text-lg sky_col">{user.wins}</span>{" "}
+                  <b className="font-bold text-xs">/</b>{" "}
+                  <span className="loss text-lg text-[#FA4768]">
+                    {user.losses}
+                  </span>
+                </td>
+                {leagueData.playersPerTeam != 1 && (
+                  <td data-title="Rep" className="pb-11 md:pb-4 py-4 px-4">
+                    <div className="flex items-center justify-center">
+                      <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
+                        <img
+                          src={getSmile(user.rep)}
+                          alt={user.rep}
+                          style={{ width: "1.5rem" }}
+                        />
+                      </div>
+                    </div>
                   </td>
-                </tr>
-              </>
+                )}
+
+                <td
+                  data-title="Win rate"
+                  className="pb-11 md:pb-4 py-4 px-4 text-right md:text-center text-lg"
+                >
+                  {user.winRate}
+                </td>
+              </tr>
+            </>
             );
           })}
         </tbody>

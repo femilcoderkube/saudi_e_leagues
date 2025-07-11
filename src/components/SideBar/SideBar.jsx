@@ -9,21 +9,31 @@ import aside_hover from "../../assets/images/aside_hover.png";
 import { Link } from "react-router-dom";
 import { Twitter, Instagram, discord, Tiktok } from "../ui/svg/index.jsx";
 import { items } from "../../utils/constant.js";
+import { useTranslation } from "react-i18next";
 
 const Sidebar = ({ onItemClick }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const location = useLocation();
+  const { t } = useTranslation();
 
   const social_links = [
-    { name: "Twitter", path: "https://x.com/primeeleague_", Icon: Twitter },
     {
-      name: "Instagram",
+      name: t("social.twitter"),
+      path: "https://x.com/primeeleague_",
+      Icon: Twitter,
+    },
+    {
+      name: t("social.instagram"),
       path: "https://www.instagram.com/primeeleague_ ",
       Icon: Instagram,
     },
-    { name: "Discord", path: "https://discord.gg/YrxDPPp9gx", Icon: discord },
     {
-      name: "TikTok",
+      name: t("social.discord"),
+      path: "https://discord.gg/YrxDPPp9gx",
+      Icon: discord,
+    },
+    {
+      name: t("social.tiktok"),
       path: "https://www.tiktok.com/@primeeleague_",
       Icon: Tiktok,
     },
@@ -45,17 +55,17 @@ const Sidebar = ({ onItemClick }) => {
       >
         <img
           src={asideLogo_rtl}
-          alt=""
+          alt={t("images.prime_logo")}
           className="max-w-[11rem] w-full pr-5 h-auto ltr:hidden"
         />
         <img
           src={asideLogo_ltr}
-          alt=""
+          alt={t("images.prime_logo")}
           className="max-w-[11rem] h-auto pl-5 w-full rtl:hidden"
         />
 
         <span className="text-xl font-bold text-black ltr:ml-[16px] rtl:mr-[16px] bg-[#3ECCF3] px-3 rounded-[10px] min-h-[1.75rem] min-w-[4.063rem]">
-          Beta
+          {t("common.beta")}
         </span>
       </Link>
 
@@ -133,8 +143,8 @@ const Sidebar = ({ onItemClick }) => {
           </h2> */}
           <img
             src={follwers}
-            alt=""
-            className="h-[28px] max-w-max ltr:ml-[40px] rtl:mr-[40px] object-contain"
+            alt={t("images.follow_us")}
+            className="h-7 max-w-max ltr:ml-10 rtl:mr-10 object-contain"
           />
           <ul className="sd_social--links flex gap-4 justify-center self-center flex-wrap ">
             {social_links.map(({ name, path, Icon }) => (

@@ -9,6 +9,7 @@ export default defineConfig({
     proxy: {
       "/socket.io": {
         target: "https://devnode.coderkubes.com",
+        // target: "https://backend.primeeleague.com",
         ws: true,
         changeOrigin: true,
         secure: false,

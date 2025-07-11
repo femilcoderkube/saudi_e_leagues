@@ -14,6 +14,7 @@ import { debounce } from "lodash";
 import { countryData } from "../../utils/CountryCodes.js";
 import { baseURL } from "../../utils/axios.js";
 import { getServerURL } from "../../utils/constant.js";
+import { useTranslation } from "react-i18next";
 
 const WizardSteps = ({
   step,
@@ -24,6 +25,7 @@ const WizardSteps = ({
   loadingSubmit = false,
   isEdit = false,
 }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
   const [showPassword, setShowPassword] = useState(false);
@@ -106,15 +108,12 @@ const WizardSteps = ({
   const validationSchemas = [
     Yup.object({
       username: Yup.string()
-        .required("Username is required")
-        .min(3, "Username must be at least 3 characters")
-        .matches(
-          /^[a-zA-Z0-9_]+$/,
-          "Username can only contain letters, numbers, and underscores"
-        )
+        .required(t("validation_messages.username_required"))
+        .min(3, t("validation_messages.username_min_length"))
+        .matches(/^[a-zA-Z0-9_]+$/, t("validation_messages.username_format"))
         .test(
           "check-username-exists",
-          "Username is already taken",
+          t("validation_messages.username_taken"),
           async (value, context) => {
             if (!value || (isEdit && value === initialValues.username))
               return true; // Skip for unchanged username in edit mode
@@ -124,19 +123,19 @@ const WizardSteps = ({
           }
         ),
       firstName: Yup.string()
-        .required("First name is required")
-        .matches(/^[a-zA-Z]+$/, "First name can only contain letters"),
+        .required(t("validation_messages.first_name_required"))
+        .matches(/^[a-zA-Z]+$/, t("validation_messages.first_name_format")),
       lastName: Yup.string()
-        .required("Last name is required")
-        .matches(/^[a-zA-Z]+$/, "Last name can only contain letters"),
+        .required(t("validation_messages.last_name_required"))
+        .matches(/^[a-zA-Z]+$/, t("validation_messages.last_name_format")),
     }),
     Yup.object({
       email: Yup.string()
-        .email("Invalid email")
-        .required("Email is required")
+        .email(t("validation_messages.email_invalid"))
+        .required(t("validation_messages.email_required"))
         .test(
           "check-email-exists",
-          "Email is already taken",
+          t("validation_messages.email_taken"),
           async (value, context) => {
             if (!value || (isEdit && value === initialValues.email))
               return true; // Skip for unchanged email in edit mode
@@ -148,57 +147,45 @@ const WizardSteps = ({
       password: isEdit
         ? Yup.string().notRequired() // Password optional for editing
         : Yup.string()
-            .required("Password is required")
-            .min(8, "Password must be at least 8 characters")
-            .matches(
-              /[A-Z]/,
-              "Password must contain at least one uppercase letter"
-            )
-            .matches(
-              /[a-z]/,
-              "Password must contain at least one lowercase letter"
-            )
-            .matches(/[0-9]/, "Password must contain at least one number")
-            .matches(
-              /[!@#$%^&*]/,
-              "Password must contain at least one special character"
-            ),
+            .required(t("validation_messages.password_required"))
+            .min(8, t("validation_messages.password_min_length"))
+            .matches(/[A-Z]/, t("validation_messages.password_uppercase"))
+            .matches(/[a-z]/, t("validation_messages.password_lowercase"))
+            .matches(/[0-9]/, t("validation_messages.password_number"))
+            .matches(/[!@#$%^&*]/, t("validation_messages.password_special")),
       nationality: Yup.object()
         .shape({
           value: Yup.string().required(),
           label: Yup.string().required(),
         })
-        .required("Nationality is required"),
+        .required(t("validation_messages.nationality_required")),
       dialCode: Yup.object()
         .shape({
           value: Yup.string().required(),
           label: Yup.string().required(),
         })
-        .required("Dial code is required"),
+        .required(t("validation_messages.dial_code_required")),
       phoneNumber: Yup.string()
-        .required("Phone number is required")
+        .required(t("validation_messages.phone_required"))
         .test(
           "phone-digit-count",
-          "Phone number must contain between 7 and 15 digits",
+          t("validation_messages.phone_digit_count"),
           (value) => {
             if (!value) return false;
             const digits = value.replace(/[^0-9]/g, "");
             return digits.length >= 7 && digits.length <= 15;
           }
         )
-        .matches(
-          /^[0-9\s\-\(\)]*$/,
-          "Phone number can only contain digits, spaces, hyphens, and parentheses"
-        ),
+        .matches(/^[0-9\s\-\(\)]*$/, t("validation_messages.phone_format")),
     }),
     Yup.object({
       dateOfBirth: Yup.date()
-        .required("Date of birth is required")
-        .max(new Date(), "Date of birth cannot be in the future")
-        .typeError("Please enter a valid date"),
+        .required(t("validation_messages.dob_required"))
+        .max(new Date(), t("validation_messages.dob_future"))
+        .typeError(t("validation_messages.dob_invalid")),
       gender: Yup.string()
-        .oneOf(["Male", "Female"], "Gender is required")
-        .required("Gender is required"),
+        .oneOf(["Male", "Female"], t("validation_messages.gender_required"))
+        .required(t("validation_messages.gender_required")),
     }),
     Yup.object({
       favoriteGame: Yup.object()
@@ -206,7 +193,7 @@ const WizardSteps = ({
           value: Yup.string().required(),
           label: Yup.string().required(),
         })
-        .required("Favorite game is required"),
+        .required(t("validation_messages.favorite_game_required")),
       profilePicture: Yup.mixed().nullable(),
     }),
   ];
@@ -222,7 +209,7 @@ const WizardSteps = ({
                   type="text"
                   name={field}
                   className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
-                  placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                  placeholder={t("form." + field)}
                 />
                 <ErrorMessage
                   name={field}
@@ -265,11 +252,13 @@ const WizardSteps = ({
                         : "email"
                     }
                     name={field}
-                      className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
-                    placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                    className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                    placeholder={t("form." + field)}
+                    // placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                   />
                   {field === "password" && (
                     <button
+                      type="button"
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
@@ -347,7 +336,7 @@ const WizardSteps = ({
                     type="text"
                     name="phoneNumber"
                     className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
-                    placeholder="Phone Number"
+                    placeholder={t("form.phone_number")}
                   />
                   <ErrorMessage
                     name="phoneNumber"
@@ -376,7 +365,7 @@ const WizardSteps = ({
             <div className="text-start w-full pr-4">
               <div className="custom_select2 sd_select--menu">
                 <label className="flex gap-4 items-center h-10 rounded cursor-pointer">
-                  Nationality
+                  {t("form.nationality")}
                 </label>
                 <Select
                   value={values.nationality}
@@ -384,7 +373,7 @@ const WizardSteps = ({
                   options={countryOptions}
                   className="basic-multi-select focus:outline-0 focus:shadow-none"
                   classNamePrefix="select"
-                  placeholder="Select Nationality"
+                  placeholder={t("form.select_nationality")}
                 />
                 <ErrorMessage
                   name="nationality"
@@ -417,13 +406,13 @@ const WizardSteps = ({
           <div className="space-y-4 mt-7">
             <div className="text-start w-full pr-4">
               <label className="flex gap-4 items-center h-10 rounded cursor-pointer">
-                Date of Birth
+                {t("form.date_of_birth")}
               </label>
               <Field
                 type="date"
                 name="dateOfBirth"
                 className="sd_custom-input custom-date-icon !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
-                placeholder="dateOfBirth"
+                placeholder={t("form.date_of_birth")}
                 max={new Date().toISOString().split("T")[0]}
               />
               <ErrorMessage
@@ -459,12 +448,14 @@ const WizardSteps = ({
                     className="hidden"
                   />
                   <label
-                    className="flex gap-4 items-center h-10 rounded cursor-pointer"
                     htmlFor={`gender-${gender}`}
+                    className="flex gap-4 items-center h-10 rounded cursor-pointer"
                   >
                     <span className="checkbox-inner flex items-center justify-center w-[2rem] h-[2rem] text-transparent rounded-sm bg-[#09092d]"></span>
                     <div className="text-base">
-                      <span className="purple_light">{gender}</span>
+                      <span className="purple_light">
+                        {t("form." + gender)}
+                      </span>
                     </div>
                   </label>
                 </div>
@@ -512,7 +503,7 @@ const WizardSteps = ({
                 options={gameOptions}
                 className="basic-multi-select focus:outline-0 focus:shadow-none"
                 classNamePrefix="select"
-                placeholder="Select your Favorite Game"
+                placeholder={t("form.select_favorite_game")}
               />
               <ErrorMessage
                 name="favoriteGame"
@@ -573,7 +564,7 @@ const WizardSteps = ({
                   style={{ width: "8rem", height: "4rem" }}
                   disabled={loadingSubmit}
                 >
-                  Back
+                  {t("auth.back")}
                 </button>
               </div>
             )}
@@ -585,7 +576,7 @@ const WizardSteps = ({
                 disabled={loadingSubmit}
               >
                 {step < TOTAL_STEPS ? (
-                  "Next"
+                  t("auth.next")
                 ) : loadingSubmit ? (
                   <>
                     <svg
@@ -608,12 +599,12 @@ const WizardSteps = ({
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       ></path>
                     </svg>
-                    Loading...
+                    {t("auth.loading")}
                   </>
                 ) : isEdit ? (
-                  "Update"
+                  t("auth.update")
                 ) : (
-                  "Submit"
+                  t("auth.submit")
                 )}
               </button>
             </div>

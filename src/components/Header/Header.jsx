@@ -81,7 +81,9 @@ const Header = () => {
               <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
             </div>
             <h2 className="text-[2rem] !font-black uppercase block ml-12">
-              {matchData?.league?.title || "Finding Matchmaking"}
+              {i18n.language === "en"
+                ? matchData?.league?.title
+                : matchData?.league?.titleAr || t("match.finding_matchmaking")}
             </h2>
           </div>
           <div className="flex items-center gap-15">
@@ -93,7 +95,7 @@ const Header = () => {
                 }}
               >
                 <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
-                  {IsSubmited ? "View Score" : "Submit Score"}
+                  {IsSubmited ? t("auth.view_score") : t("auth.submit_score")}
                 </Link>
               </div>
             )}
@@ -117,7 +119,7 @@ const Header = () => {
                         dispatch(setLogin(true));
                       }}
                     >
-                      Log In
+                      {t("auth.log_in")}
                     </button>
                   </div>
                 </div>
@@ -133,7 +135,7 @@ const Header = () => {
                         dispatch(setRegisteration(true));
                       }}
                     >
-                      Registration
+                      {t("auth.registration")}
                     </button>
                   </div>
                 </div>
@@ -165,7 +167,7 @@ const Header = () => {
             <NextArrow2 width="0.8rem" height="1.5rem" fill="#7378C0" />
           </div>
           <h2 className="text-[2rem] !font-black uppercase text-center block">
-            {leagueData?.title || "Finding Matchmaking"}
+            {leagueData?.title || t("match.finding_matchmaking")}
           </h2>
         </header>
       );
@@ -175,7 +177,7 @@ const Header = () => {
     let path = new Set(window.location.pathname.split("/")).has("lobby");
     if (path) {
       let item = {
-        label: "Lobby",
+        label: t("navigation.lobby"),
         path: `/${params.id}/lobby`,
         icon: Lobby,
         active: true,
@@ -208,7 +210,7 @@ const Header = () => {
     }
 
     return (
-      <header className="text-white pt-4 sm:pt-[1.4rem] px-4 md:px-[4.5rem] flex items-center justify-between">
+      <header className="text-white pt-4 sm:pt-[1.4rem] px-4 md:px-[4.5rem] md:pr-7.5 flex items-center justify-between">
         {/* === BreadCrumb HTML Block start ==== */}
         <nav className="breadcrumb flex-grow-1">
           <ul className="breadcrumb-links flex items-center gap-2.5 md:gap-5">
@@ -240,17 +242,17 @@ const Header = () => {
         </nav>
 
         <div className="sd_notification-block flex gap-4 ltr:ml-[1rem] md:ltr:mr-[9rem] rtl:ml-[1rem] md:rtl:ml-[9rem]">
-          {/* <button
+          <button
             onClick={handleLangToggle}
-            title={i18n.language === 'en' ? 'العربية' : 'English'}
+            title={i18n.language === "en" ? "العربية" : "English"}
             className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg"
-            style={{ border: 'none', background: 'none' }}
+            style={{ border: "none", background: "none" }}
           >
-            <img src={country_us} alt="lang" style={{ width: '1.5rem' }} />
+            <img src={country_us} alt="lang" style={{ width: "1.5rem" }} />
             <span className="font-bold mt-0.5 block">
-              {i18n.language === 'en' ? 'EN' : 'AR'}
+              {i18n.language === "en" ? "EN" : "AR"}
             </span>
-          </button> */}
+          </button>
           {/* <NavLink
             to="#"
             className="notification_btn inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
@@ -270,7 +272,7 @@ const Header = () => {
                     dispatch(setLogin(true));
                   }}
                 >
-                  Log In
+                  {t("auth.log_in")}
                 </button>
               </div>
             </div>
@@ -285,7 +287,7 @@ const Header = () => {
                     dispatch(setRegisteration(true));
                   }}
                 >
-                  Registration
+                  {t("auth.registration")}
                 </button>
               </div>
             </div>

@@ -17,6 +17,7 @@ import MatchLoader from "../../components/Loader/MatchLoader";
 
 import { TeamOneScoreList } from "./teamOneSection";
 import { TeamTwoScoreList } from "./teamTwoSection";
+import { useTranslation } from "react-i18next";
 const MatchDetail = () => {
   const { id, mId } = useParams();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -25,6 +26,7 @@ const MatchDetail = () => {
   const user = useSelector((state) => state.auth.user);
   const [messageInput, setMessageInput] = useState("");
   const [showLoader, setShowLoader] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -81,7 +83,7 @@ const MatchDetail = () => {
           {/* Team 1 */}
           <div className="team_score--wrap">
             <h2 className="grad_head--txt max-w-full text-[4rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
-              Team 1
+              {t("match.team_one")}
             </h2>
             <TeamOneScoreList />
           </div>
@@ -96,7 +98,11 @@ const MatchDetail = () => {
             </h2>
 
             <div className="prime_logo--con flex justify-center sd_before gradiant_bg relative">
-              <img src={LargePrime} alt="" style={{ width: "17.5rem" }} />
+              <img
+                src={LargePrime}
+                alt={t("images.large_prime")}
+                style={{ width: "17.5rem" }}
+              />
             </div>
 
             {isShowChat && (
@@ -126,7 +132,7 @@ const MatchDetail = () => {
                                     color: "red", // Apply random color based on senderId
                                   }}
                                 >
-                                  {"System"} :{""}
+                                  {t("match.system")} :{""}
                                 </span>
                                 <span
                                   key={`system-msg-${chatIdx}`}
@@ -149,8 +155,14 @@ const MatchDetail = () => {
                         // console.log("chat----", chat);
                         return chat.randomMessages.map((msg, msgIdx) => {
                           let tags = "";
-                          if (msg.tags.length > 0) {
-                            tags = ": " + msg.tags.join(" ");
+                          if (Array.isArray(msg.tags) && msg.tags.length > 0) {
+                            // Shuffle the tags array and pick the first one for true randomness
+                            const shuffledTags = msg.tags
+                              .map(value => ({ value, sort: Math.random() }))
+                              .sort((a, b) => a.sort - b.sort)
+                              .map(({ value }) => value);
+                            const randomTag = shuffledTags[0];
+                            tags = ": " + randomTag;
                           }
                           return (
                             <div className={`block send_msg-con`}>
@@ -162,7 +174,7 @@ const MatchDetail = () => {
                                       color: "red", // Apply random color based on senderId
                                     }}
                                   >
-                                    {"System"} :{""}
+                                    {t("match.system")} :{""}
                                   </span>
                                   <span
                                     key={`system-randomMessages-${msgIdx}`}
@@ -200,7 +212,7 @@ const MatchDetail = () => {
                                   }}
                                 >
                                   {chat?.isAdmin
-                                    ? "Admin"
+                                    ? t("match.admin")
                                     : chat?.senderId?.username}{" "}
                                   :{" "}
                                 </span>
@@ -223,7 +235,7 @@ const MatchDetail = () => {
                 <div className="py-2 flex items-center">
                   <input
                     type="text"
-                    placeholder="Chat Message"
+                    placeholder={t("match.chat_message")}
                     className="chat_msg-input rtl:text-right text-lg placeholder:text-[#7B7ED0] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
@@ -257,7 +269,7 @@ const MatchDetail = () => {
           {/* Team 2 */}
           <div className="team_score--wrap">
             <h2 className="grad_head--txt max-w-full text-[4rem] pr-[2rem] grad_text-clip font_oswald tracking-wide !font-medium text-right leading-none uppercase">
-              Team 2
+              {t("match.team_two")}
             </h2>
             <TeamTwoScoreList />
           </div>

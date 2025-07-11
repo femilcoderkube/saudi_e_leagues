@@ -7,9 +7,11 @@ import {
   getMonthAbbreviation,
   getServerURL,
 } from "../../utils/constant";
+import { useTranslation } from "react-i18next";
 
 const GameCardListView = ({ leagues }) => {
   const { id } = useParams();
+  const { t, i18n } = useTranslation();
   return (
     <div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-5 sm:pt-10 md:pt-14 gap-[1.7rem] justify-center md:justify-start">
       {leagues.map((item, index) => (
@@ -26,13 +28,14 @@ const GameCardListView = ({ leagues }) => {
               <div className="game_image relative">
                 <img
                   src={getServerURL(item.logo)}
-                  alt="" className="w-[10rem] md:w-[13rem] h-[16.26rem] object-cover"
+                  alt={t("images.game_logo")}
+                  className="w-[10rem] md:w-[13rem] h-[16.26rem] object-cover"
                 />
               </div>
               <div className="game_mask--con pt-3 relative h-full flex flex-col justify-between">
                 <h3 className="game_label !mb-0 text-2xl !font-bold uppercase leading-tight ltr:pl-5 rtl:pr-5 h-[60px]">
                   {" "}
-                  {item.title}{" "}
+                  {i18n.language === "ar" ? item.titleAr : item.title}{" "}
                 </h3>
                 <div className="league_price_v2 mt-5 mb-7 ltr:pl-5 rtl:pr-5 py-3 relative sd_before sd_after before:top-0 before:left-0 before:w-full before:h-[0.063rem] after:bottom-0 after:left-0 after:w-full after:h-[0.063rem]">
                   <h2 className="league_price text-2xl  !font-bold font_oswald yellow_grad-bg grad_text-clip">
@@ -44,12 +47,19 @@ const GameCardListView = ({ leagues }) => {
                   <div className="game_intro-con flex gap-5 relative bottom-1">
                     <img
                       src={getServerURL(item.game.logo)}
-                      alt=""
+                      alt={t("images.game_logo")}
                       style={{ width: "2.5rem", height: "2.5rem" }}
                     />
                     <div className="game_intro-con">
-                      <p className="text-xs purple_light font-medium">Game</p>
-                      <h4 title={item.game.name} className="text-base !font-bold">{item.game.name}</h4>
+                      <p className="text-xs purple_light font-medium">
+                        {t("games.game")}
+                      </p>
+                      <h4
+                        title={item.game.name}
+                        className="text-base !font-bold"
+                      >
+                        {item.game.name}
+                      </h4>
                     </div>
                   </div>
                 </div>
@@ -58,7 +68,7 @@ const GameCardListView = ({ leagues }) => {
                     {item.totalRegistrations}
                   </h3>
                   <p className="text-xs purple_light font-medium">
-                    Participants
+                    {t("league.participants")}
                   </p>
                 </div>
               </div>
@@ -98,7 +108,7 @@ const GameCardListView = ({ leagues }) => {
           <div className="game_card--footer !m-0 flex justify-between items-center ">
             <div className="match_date absolute ltr:right-[0] rtl:left-[0] bottom-[0.3rem] bg-no-repeat">
               <p className="text-xs purple_light font-medium  text-center">
-                Ends:
+                {t("league.ends")}
               </p>
               <h2 className="text-[2rem] match_date-con  pt-1 pb-1  text-center !font-extrabold grad_text-clip">
                 {getDayFromISO(item.endDate)}

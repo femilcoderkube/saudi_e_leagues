@@ -1,21 +1,23 @@
 import { useState, useEffect, useRef } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
 import dummyPdf from "../../assets/newpdf.pdf";
 import { baseURL } from "../../utils/axios";
 import { useSelector } from "react-redux";
 import { getServerURL } from "../../utils/constant";
+import { useTranslation } from "react-i18next";
 
 // Set the workerSrc to match react-pdf's PDF.js version
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@4.8.69/build/pdf.worker.min.mjs`;
 
-function PdfModal({ onClose  }) {
+function PdfModal({ onClose }) {
   const [numPages, setNumPages] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [pageWidth, setPageWidth] = useState(null);
   const containerRef = useRef(null);
-  const { leagueData  } = useSelector((state) => state.leagues);
+  const { leagueData } = useSelector((state) => state.leagues);
+  const { t } = useTranslation();
   // Trigger animation on mount
   useEffect(() => {
     setIsOpen(true);
@@ -71,12 +73,10 @@ function PdfModal({ onClose  }) {
   }, []);
 
   return (
-    <div
-      className="fixed inset-0 bg-transparent bg-opacity-60 flex items-center justify-center z-[999] m-4 md:m-0 transition-opacity duration-300"
-    >
+    <div className="fixed inset-0 bg-transparent bg-opacity-60 flex items-center justify-center z-[999] m-4 md:m-0 transition-opacity duration-300">
       <div
         className={`match_reg2--popup rounded-2xl p-6 w-full max-w-4xl max-h-[95vh] relative overflow-hidden shadow-2xl transform transition-all scroll-hide duration-300 ${
-          isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+          isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
         }`}
       >
         {/* Close button - Fixed position */}
@@ -85,8 +85,18 @@ function PdfModal({ onClose  }) {
           className="fixed top-3 right-4 text-gray-300 hover:text-white transform hover:rotate-90 hover:scale-110 transition-all duration-200 z-10"
           aria-label="Close modal"
         >
-          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="w-7 h-7"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
 
@@ -101,7 +111,11 @@ function PdfModal({ onClose  }) {
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={onDocumentLoadError}
             className="w-full rounded-lg scroll-hide"
-            loading={<div className="text-white text-lg animate-pulse">Loading PDF...</div>}
+            loading={
+              <div className="text-white text-lg animate-pulse">
+                {t("common.loading_pdf")}
+              </div>
+            }
           >
             {Array.from(new Array(numPages), (el, index) => (
               <Page

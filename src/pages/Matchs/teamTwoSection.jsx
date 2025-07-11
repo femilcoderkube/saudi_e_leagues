@@ -6,6 +6,7 @@ import { getServerURL } from "../../utils/constant";
 import LikeIcon from "../../assets/images/like_icon.png";
 import DisLikeIcon from "../../assets/images/dislike_icon.png";
 import GoldCrown from "../../assets/images/gold_crown.png";
+import { useTranslation } from "react-i18next";
 // ✅ Card list component for Team 1
 export const TeamTwoScoreList = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -30,6 +31,7 @@ export const TeamTwoScoreList = () => {
       reputation: -1,
     });
   };
+  const { t } = useTranslation();
   return (
     <ul className="team_two--list flex flex-col gap-5 mt-[-1rem]">
       {cards.map((Card, index) => {
@@ -89,7 +91,7 @@ export const TeamTwoScoreList = () => {
                   >
                     <img
                       src={LikeIcon}
-                      alt="Like"
+                      alt={t("match.like")}
                       style={{ width: "2.625rem" }}
                     />
                   </div>
@@ -107,7 +109,7 @@ export const TeamTwoScoreList = () => {
                   >
                     <img
                       src={DisLikeIcon}
-                      alt="Dislike"
+                      alt={t("match.dislike")}
                       style={{ width: "2.625rem" }}
                     />
                   </div>

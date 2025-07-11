@@ -8,7 +8,7 @@ const MainView = ({ selectedItem }) => {
   return (
     <div className="flex-1 flex flex-col sd_main-content ltr:ml-[-2.5rem] rtl:mr-[-2.5rem] relative bg-[#020326] ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20">
       <Header selectedItem={selectedItem} />
-      <main className="flex-1 px-[4.5rem] game_card_main--con border-t border-[#7b7ed02e] mt-5 pt-7">
+      <main className="flex-1 md:px-[4.5rem] md:pr-7.5 game_card_main--con border-t border-[#7b7ed02e] mt-5 pt-7">
 
         {/* --- dashboard main content back groud --- */}
         <div className="main_con--bg absolute top-0 left-0 w-full h-full bg-no-repeat" style={{backgroundSize:'100rem'}}></div>

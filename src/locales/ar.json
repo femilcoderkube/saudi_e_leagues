@@ -6,5 +6,322 @@
   "cancel": "إلغاء",
   "matchmaking": "توفيق اللاعبين",
   "welcome": "مرحبا",
-  "language": "اللغة"
-} 
+  "language": "اللغة",
+
+  "auth": {
+    "log_in": "تسجيل الدخول",
+    "registration": "التسجيل",
+    "login": "تسجيل الدخول",
+    "submit": "إرسال",
+    "update": "تحديث",
+    "back": "رجوع",
+    "next": "التالي",
+    "loading": "جاري التحميل...",
+    "view_score": "عرض النتيجة",
+    "submit_score": "إرسال النتيجة",
+    "login_failed": "فشل تسجيل الدخول",
+    "login_success": "تم تسجيل الدخول بنجاح!"
+  },
+
+  "form": {
+    "username": "اسم المستخدم",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "nationality": "الجنسية",
+    "dial_code": "رمز الاتصال",
+    "phone_number": "رقم الهاتف",
+    "date_of_birth": "تاريخ الميلاد",
+    "gender": "الجنس",
+    "male": "ذكر",
+    "female": "أنثى",
+    "Male": "ذكر",
+    "Female": "أنثى",
+    "favorite_game": "اللعبة المفضلة",
+    "profile_picture": "صورة الملف الشخصي",
+    "role": "الدور",
+    "player": "لاعب",
+    "edit_profile": "تعديل الملف الشخصي",
+    "field_placeholder": "أدخل {{field}}",
+    "select_nationality": "اختر الجنسية",
+    "select_favorite_game": "اختر لعبتك المفضلة"
+  },
+
+  "countries": {
+    "saudi_arabia": "المملكة العربية السعودية"
+  },
+
+  "validation": {
+    "username_required": "اسم المستخدم مطلوب",
+    "username_min_length": "يجب أن يكون اسم المستخدم 3 أحرف على الأقل",
+    "username_format": "يمكن أن يحتوي اسم المستخدم على أحرف وأرقام وشرطة سفلية فقط",
+    "username_taken": "اسم المستخدم مستخدم بالفعل",
+    "first_name_required": "الاسم الأول مطلوب",
+    "first_name_format": "يمكن أن يحتوي الاسم الأول على أحرف فقط",
+    "last_name_required": "اسم العائلة مطلوب",
+    "last_name_format": "يمكن أن يحتوي اسم العائلة على أحرف فقط",
+    "email_required": "البريد الإلكتروني مطلوب",
+    "email_invalid": "بريد إلكتروني غير صحيح",
+    "email_taken": "البريد الإلكتروني مستخدم بالفعل",
+    "password_required": "كلمة المرور مطلوبة",
+    "password_min_length": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+    "password_uppercase": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
+    "password_lowercase": "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل",
+    "password_number": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل",
+    "password_special": "يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل",
+    "nationality_required": "الجنسية مطلوبة",
+    "dial_code_required": "رمز الاتصال مطلوب",
+    "phone_required": "رقم الهاتف مطلوب",
+    "phone_digit_count": "يجب أن يحتوي رقم الهاتف على 7 إلى 15 رقم",
+    "phone_format": "يمكن أن يحتوي رقم الهاتف على أرقام ومسافات وشرطات وأقواس فقط",
+    "dob_required": "تاريخ الميلاد مطلوب",
+    "dob_future": "لا يمكن أن يكون تاريخ الميلاد في المستقبل",
+    "dob_invalid": "يرجى إدخال تاريخ صحيح",
+    "gender_required": "الجنس مطلوب",
+    "favorite_game_required": "اللعبة المفضلة مطلوبة",
+    "field_required": "{{field}} مطلوب"
+  },
+
+  "homepage": {
+    "level_up": "ارتقِ",
+    "your_game": "لعبتك",
+    "join": "انضم",
+    "epic": "ملحمة",
+    "matchmaking": "توفيق اللاعبين",
+    "tagline": "كل مباراة مهمة — كل لاعب مهم",
+    "choose_your": "اختر",
+    "game": "لعبتك",
+    "about": "حول",
+    "prime_description_1": "برايم هو المكان الذي يلتقي فيه المهارة بالهدف.",
+    "prime_description_2": "ولد من قلب المشهد الشعبي، برايم ليس مجرد دوري — إنه نظام حي مصمم لمكافأة التفاني، وتضخيم الرؤية، وربط اللاعبين الطموحين من خلال المنافسة الحقيقية والهادفة.",
+    "prime_description_3": "في برايم لا تلعب فقط — تطحن.",
+    "prime_description_4": "كل مباراة خطوة للأمام. كل طابور فرصة للنمو. كل مباراة تبني قصتك. سواء كنت تلعب منفرداً أو كجزء من فريق، برايم يخلق مساحة للاتصال الأصيل والمنافسة المستمرة.",
+    "prime_description_5": "هنا يرتقي اللاعبون الشعبيون إلى ذروتهم!",
+    "watch_video": "شاهد الفيديو",
+    "how": "كيف",
+    "to_play": "تلعب؟",
+    "htp_description": "بيليتسكي ديكتوم بورتا، لاكينيا مولستي أنتي ماكسيموس أت",
+    "go_play_now": "اذهب والعب الآن",
+    "join_now": "انضم الآن"
+  },
+
+  "lobby": {
+    "leaderboard": "لوحة المتصدرين",
+    "no_data_available": "لا توجد بيانات متاحة",
+    "place": "المركز",
+    "user": "المستخدم",
+    "points": "النقاط",
+    "wins_losses": "ف/خ",
+    "reputation": "السمعة",
+    "win_rate": "معدل الفوز",
+    "you": "(أنت)",
+    "tournament_timeline": "جدول البطولة الزمني",
+    "tabs": {
+      "all": "الكل",
+      "active": "نشط",
+      "completed": "مكتمل",
+      "upcoming": "قادمة",
+      "ongoing": "جارية",
+      "finished": "مكتمل"
+    }
+  },
+
+  "league": {
+    "league_title": "عنوان الدوري",
+    "prize_pool": "صندوق الجوائز",
+    "online_users": "المستخدمون المتصلون",
+    "participants": "المشاركون",
+    "game": "اللعبة",
+    "platform": "المنصة",
+    "team_size": "حجم الفريق",
+    "view_match": "عرض المباراة",
+    "league_ended": "انتهى الدوري",
+    "queue": "طابور",
+    "open": "مفتوح",
+    "ends": "ينتهي في:"
+  },
+
+  "match": {
+    "finding_matchmaking": "البحث عن توفيق اللاعبين",
+    "chat_message": "رسالة الدردشة",
+    "admin": "مدير",
+    "system": "نظام",
+    "team_one": "الفريق الأول",
+    "team_two": "الفريق الثاني",
+    "gold_crown": "التاج الذهبي",
+    "like": "إعجاب",
+    "dislike": "عدم إعجاب"
+  },
+
+  "rules": {
+    "rules_and_regulations": "القواعد واللوائح",
+    "wizard_form": "نموذج المعالج"
+  },
+
+  "common": {
+    "no_data": "لا توجد بيانات متاحة",
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "warning": "تحذير",
+    "info": "معلومات",
+    "clock": "الساعة",
+    "preview": "معاينة",
+    "beta": "بيتا",
+    "none": "بدون",
+    "no_games_found": "لم يتم العثور على ألعاب",
+    "yes_wait_more": "نعم، انتظر أكثر",
+    "no_cancel": "لا، إلغاء",
+    "uploading": "جاري الرفع...",
+    "loading_pdf": "جاري تحميل PDF..."
+  },
+
+  "games": {
+    "game": "اللعبة",
+    "game_2": "اللعبة 2",
+    "game_3": "اللعبة 3",
+    "game_4": "اللعبة 4",
+    "game_5": "اللعبة 5",
+    "game_6": "اللعبة 6",
+    "valorant": "فالورانت",
+    "dota2": "دوتا 2",
+    "csgo": "سي إس جي أو",
+    "apex": "إيبكس",
+    "select_game": "اختر اللعبة",
+    "search_game": "البحث عن لعبة"
+  },
+
+  "navigation": {
+    "lobby": "الردهة"
+  },
+
+  "user_menu": {
+    "my_profile": "ملفي الشخصي",
+    "logout": "تسجيل الخروج"
+  },
+
+  "language": {
+    "english": "English",
+    "arabic": "العربية",
+    "language": "اللغة"
+  },
+
+  "roles": {
+    "referee": "حكم",
+    "couch": "مدرب",
+    "team_manager": "مدير الفريق",
+    "club_admin": "مدير النادي",
+    "analyst": "محلل",
+    "caster": "معلق",
+    "media_outlet": "وسيلة إعلامية",
+    "video_editor": "محرر الفيديو",
+    "graphic_designer": "مصمم جرافيك",
+    "streamer": "مذيع",
+    "frontend_creator": "مطور الواجهة الأمامية",
+    "game_developer": "مطور الألعاب",
+    "tournament_organizer": "منظم البطولات",
+    "club_owner": "مالك النادي"
+  },
+
+  "upload": {
+    "profile_picture": "رفع صورة الملف الشخصي",
+    "photo": "رفع صورة",
+    "click_to_select": "انقر لاختيار صورة",
+    "score_proof": "رفع دليل النتيجة"
+  },
+
+  "social": {
+    "twitter": "تويتر",
+    "instagram": "انستغرام",
+    "discord": "ديسكورد",
+    "tiktok": "تيك توك"
+  },
+
+  "footer": {
+    "contact_us": "اتصل بنا",
+    "privacy_policy": "سياسة الخصوصية",
+    "follow_us": "تابعنا"
+  },
+
+  "sidebar": {
+    "collapse_menu": "طي القائمة"
+  },
+
+  "badges": {
+    "gold": "ذهبي",
+    "silver": "فضي",
+    "bronze": "برونزي",
+    "blue": "أزرق"
+  },
+
+  "score": {
+    "your_score": "نتيجتك",
+    "opponent_score": "نتيجة الخصم",
+    "notes": "ملاحظات"
+  },
+
+  "validation_messages": {
+    "username_required": "اسم المستخدم مطلوب",
+    "username_min_length": "يجب أن يكون اسم المستخدم 3 أحرف على الأقل",
+    "username_format": "يمكن أن يحتوي اسم المستخدم على أحرف وأرقام وشرطات سفلية فقط",
+    "username_taken": "اسم المستخدم مستخدم بالفعل",
+    "first_name_required": "الاسم الأول مطلوب",
+    "first_name_format": "يمكن أن يحتوي الاسم الأول على أحرف فقط",
+    "last_name_required": "اسم العائلة مطلوب",
+    "last_name_format": "يمكن أن يحتوي اسم العائلة على أحرف فقط",
+    "email_required": "البريد الإلكتروني مطلوب",
+    "email_invalid": "بريد إلكتروني غير صحيح",
+    "email_taken": "البريد الإلكتروني مستخدم بالفعل",
+    "password_required": "كلمة المرور مطلوبة",
+    "password_min_length": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+    "password_uppercase": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
+    "password_lowercase": "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل",
+    "password_number": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل",
+    "password_special": "يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل",
+    "nationality_required": "الجنسية مطلوبة",
+    "dial_code_required": "رمز الاتصال مطلوب",
+    "phone_required": "رقم الهاتف مطلوب",
+    "phone_digit_count": "يجب أن يحتوي رقم الهاتف على 7 إلى 15 رقم",
+    "phone_format": "يمكن أن يحتوي رقم الهاتف على أرقام ومسافات وشرطات وأقواس فقط",
+    "dob_required": "تاريخ الميلاد مطلوب",
+    "dob_future": "لا يمكن أن يكون تاريخ الميلاد في المستقبل",
+    "dob_invalid": "يرجى إدخال تاريخ صحيح",
+    "gender_required": "الجنس مطلوب",
+    "favorite_game_required": "اللعبة المفضلة مطلوبة",
+    "field_required": "حقل {{field}} مطلوب"
+  },
+
+  "wizard": {
+    "rules_and_regulations": "القواعد والأنظمة",
+    "wizard_form": "نموذج المعالج"
+  },
+
+  "images": {
+    "rules_icon": "أيقونة القواعد",
+    "get_started_button": "زر البدء",
+    "prime_logo": "شعار برايم",
+    "play_button": "زر التشغيل",
+    "match_registration": "تسجيل المباراة",
+    "large_prime": "برايم كبير",
+    "need_login": "تحتاج إلى تسجيل الدخول",
+    "join_button": "زر الانضمام",
+    "queue_button": "زر الطابور",
+    "open_button": "زر الفتح",
+    "cancel_button": "زر الإلغاء",
+    "wind_girl": "فتاة الريح",
+    "fire_boy": "صبي النار",
+    "card_top_left_shape": "شكل البطاقة العلوي الأيسر",
+    "game_image": "صورة اللعبة",
+    "user_avatar": "صورة المستخدم",
+    "badge_image": "صورة الشارة",
+    "game_card": "بطاقة اللعبة",
+    "game_logo": "شعار اللعبة",
+    "game_background": "خلفية اللعبة",
+    "follow_us": "تابعنا"
+  },
+
+  "actions": {
+    "custom_action": "إجراء مخصص"
+  }
+}

@@ -12,12 +12,14 @@ import {
 } from "../../app/slices/leagueDetail/leagueDetailSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { baseURL } from "../../utils/axios.js";
+import { useTranslation } from "react-i18next";
 
 const RegistrationModel = () => {
   const { isAgreedToJoin, leagueData } = useSelector((state) => state.leagues);
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const user = useSelector((state) => state.auth.user);
+  const { t } = useTranslation();
 
   // Get custom fields from leagueData, fallback to empty array
   const customFields = Array.isArray(leagueData?.customRegistrationFields)
@@ -42,9 +44,9 @@ const RegistrationModel = () => {
         }
         if (field.required) {
           validator = validator.required(
-            `${field.fieldName.replace(/^\w/, (c) =>
-              c.toUpperCase()
-            )} is required`
+            t("validation.field_required", {
+              field: t("form." + field.fieldName, field.fieldName),
+            })
           );
         }
         shape[field.fieldName] = validator;
@@ -68,22 +70,24 @@ const RegistrationModel = () => {
       userId: user._id,
     };
     payload["otherFields"] = [];
-    try{if (fieldList.length > 0) {
-      // Attach all custom fields to payload
-      for (const field of fieldList) {
-        if (
-          field.fieldName.trim().toLowerCase() === "game id" ||
-          field.fieldName.trim().toLowerCase() === "gameid"
-        ) {
-          payload["gameId"] = values[field.fieldName];
-        } else {
-          payload["otherFields"].push({
-            key: field.fieldName,
-            value: values[field.fieldName],
-          });
+    try {
+      if (fieldList.length > 0) {
+        // Attach all custom fields to payload
+        for (const field of fieldList) {
+          if (
+            field.fieldName.trim().toLowerCase() === "game id" ||
+            field.fieldName.trim().toLowerCase() === "gameid"
+          ) {
+            payload["gameId"] = values[field.fieldName];
+          } else {
+            payload["otherFields"].push({
+              key: field.fieldName,
+              value: values[field.fieldName],
+            });
+          }
         }
       }
-    }}catch(e){
+    } catch (e) {
       console.log("asdasda");
     }
     joinLeagueSocket({ isSocketConnected, payload });
@@ -106,7 +110,11 @@ const RegistrationModel = () => {
           <div className="popup-wrap inline-flex items-center h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60 ">
             <div className="match_reg--popup relative sd_before sd_after">
               <div className="popup_header px-8 pt-8 pb-5 flex items-start justify-between mt-3 text-center sm:mt-0 sm:text-left">
-                <img src={match_reg} alt="" style={{ width: "10rem" }} />
+                <img
+                  src={match_reg}
+                  alt={t("images.match_registration")}
+                  style={{ width: "10rem" }}
+                />
                 <button
                   type="button"
                   onClick={() => dispatch(setRegistrationModal(false))}
@@ -159,10 +167,7 @@ const RegistrationModel = () => {
                                   id={field.fieldName}
                                   name={field.fieldName}
                                   className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
-                                  placeholder={field.fieldName.replace(
-                                    /^\w/,
-                                    (c) => c.toUpperCase()
-                                  )}
+                                  placeholder={field.fieldName}
                                 />
                                 <div className="text-start px-7">
                                   <ErrorMessage
@@ -278,10 +283,12 @@ const RegistrationModel = () => {
                             !allRequiredChecked ||
                             (fieldList.length > 0 && !isValid)
                               ? "opacity-50 cursor-not-allowed"
-                              : ""
+                              : "cursor-pointer"
                           }`}
                         >
-                          {fieldList.length > 0 ? "Submit" : "Register"}
+                          {fieldList.length > 0
+                            ? t("auth.submit")
+                            : t("auth.registration")}
                         </button>
                         <Popup_btn />
                       </div>
