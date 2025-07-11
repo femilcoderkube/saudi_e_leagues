@@ -154,16 +154,8 @@ const MatchDetail = () => {
                       ) {
                         // console.log("chat----", chat);
                         return chat.randomMessages.map((msg, msgIdx) => {
-                          let tags = "";
-                          if (Array.isArray(msg.tags) && msg.tags.length > 0) {
-                            // Shuffle the tags array and pick the first one for true randomness
-                            const shuffledTags = msg.tags
-                              .map(value => ({ value, sort: Math.random() }))
-                              .sort((a, b) => a.sort - b.sort)
-                              .map(({ value }) => value);
-                            const randomTag = shuffledTags[0];
-                            tags = ": " + randomTag;
-                          }
+                        
+                          
                           return (
                             <div className={`block send_msg-con`}>
                               <div className="px-2 py-1 rounded-lg">
@@ -184,7 +176,7 @@ const MatchDetail = () => {
                                     }}
                                   />
                                   <span className="text-white text-lg font-bold">
-                                    {tags}
+                                    {msg.tags}
                                   </span>
                                 </div>
                               </div>
