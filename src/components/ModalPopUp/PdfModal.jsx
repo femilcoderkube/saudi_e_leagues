@@ -72,7 +72,7 @@ function PdfModal({ onClose  }) {
 
   return (
     <div
-      className="fixed inset-0 bg-transparent bg-opacity-60 flex items-center justify-center z-50 transition-opacity duration-300"
+      className="fixed inset-0 bg-transparent bg-opacity-60 flex items-center justify-center z-[999] m-4 md:m-0 transition-opacity duration-300"
     >
       <div
         className={`match_reg2--popup rounded-2xl p-6 w-full max-w-4xl max-h-[95vh] relative overflow-hidden shadow-2xl transform transition-all scroll-hide duration-300 ${

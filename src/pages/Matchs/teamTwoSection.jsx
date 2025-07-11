@@ -10,7 +10,7 @@ import GoldCrown from "../../assets/images/gold_crown.png";
 export const TeamTwoScoreList = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const user = useSelector((state) => state.auth.user);
-  const { matchData, isTeamOne, isMyMatch,winnerScore } = useSelector(
+  const { matchData, isTeamOne, isMyMatch, winnerScore } = useSelector(
     (state) => state.matchs
   );
   let cards = getCards(matchData?.league?.playersPerTeam, true);
@@ -41,7 +41,7 @@ export const TeamTwoScoreList = () => {
           profilePic: getServerURL(
             player?.participant?.userId?.profilePicture || ""
           ),
-          score: player?.allScores || 0,
+          score: Math.round(player?.allScores || 0),
         };
         let IsReputationGived = matchData?.givedReputations?.find(
           (rep) =>
@@ -65,7 +65,8 @@ export const TeamTwoScoreList = () => {
             )}
             <Card player={data} />
             {isMyMatch &&
-              !isTeamOne && (winnerScore?.teamTwo == "-") &&
+              !isTeamOne &&
+              winnerScore?.teamTwo == "-" &&
               player?.participant?.userId?._id != user?._id && (
                 <div
                   className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
@@ -118,4 +119,3 @@ export const TeamTwoScoreList = () => {
     </ul>
   );
 };
-

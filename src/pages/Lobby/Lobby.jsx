@@ -39,12 +39,17 @@ const Lobby = () => {
     useSelector((state) => state.lobby);
   const partnerID = getPartnerById(id).docId;
   const dispatch = useDispatch();
-
   useEffect(() => {
     document.title = `Prime eLeague`;
   }, [id]);
-
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        dispatch(setIsListView(false));
+      }
+    };
+    handleResize(); 
+    window.addEventListener("resize", handleResize);
     dispatch(
       fetchLeagues({
         partnerId: partnerID,
@@ -67,7 +72,7 @@ const Lobby = () => {
           <div className="game_list--view flex sd_radial-bg items-center rounded-xl p-2">
             <button
               onClick={() => dispatch(setIsListView(true))}
-              className={`inline-block p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
+              className={`sm:inline-block p-[0.50rem] hidden md:p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
                 isListView ? "active" : ""
               }`}
             >
@@ -75,7 +80,7 @@ const Lobby = () => {
             </button>
             <button
               onClick={() => dispatch(setIsListView(false))}
-              className={`inline-block p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
+              className={`inline-block p-[0.50rem] md:p-[0.75rem] rounded-lg hover:opacity-70 duration-400 ${
                 !isListView ? "active" : ""
               }`}
             >
@@ -83,18 +88,17 @@ const Lobby = () => {
             </button>
           </div>
         </div>
-        <div className="game_status--tab rounded-xl overflow-hidden absolute top-1 right-32 inline-flex mb-4">
+        <div className="game_status--tab rounded-xl overflow-hidden relative left-1/2 mt-5 md:mt-0 md:left-auto md:-translate-x-0 -translate-x-[50%] md:absolute top-1 ltr:right-32 rtl:right-70 inline-flex mb-4">
           {tabs.map((tab, index) => (
             <button
               key={index}
               onClick={() => dispatch(setActiveIndex(index))}
-              className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+              className={`w-[6rem] sm:w-[10rem] sm:h-[4rem] py-2 px-2.5 sm:px-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
               ${
                 activeIndex === index
                   ? "active-tab hover:opacity-100 polygon_border"
                   : "inactive-tab"
               }`}
-              style={{ width: "10rem", height: "4rem" }}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>

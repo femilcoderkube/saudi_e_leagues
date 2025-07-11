@@ -3,15 +3,15 @@ import Header from "../Header/Header";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import WizardSteps from "./WizardSteps";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../app/slices/auth/authSlice"; // Add updateUser
 import LoginModal from "../Modal/LoginModal";
 import { toast } from "react-toastify";
-import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp";
-import { setProfileVisible, setRegisteration, setSubmitModal, setViewModal } from "../../app/slices/constState/constStateSlice";
+import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp"; 
+import { setProfileVisible, setRegisteration, setSubmitModal } from "../../app/slices/constState/constStateSlice";
 import { countryData } from "../../utils/CountryCodes";
 import { checkParams } from "../../utils/constant";
-import { fetchUserById, updateUser } from "../../app/slices/auth/authSlice";
+import { fetchUserById, updateUser } from "../../app/slices/users/usersSlice";
 import { baseURL } from "../../utils/axios";
+import { registerUser } from "../../app/slices/auth/authSlice";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -135,19 +135,22 @@ export default function Main() {
   }, [profileVisible, dispatch]);
 
 
-
   return (
     <div
-      className="flex-1 flex flex-col sd_main-content ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20"
+      className="flex-1 flex flex-col sd_main-content md:ltr:ml-[-2.5rem] md:rtl:mr-[-2.5rem] relative bg-[#020326] ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20"
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
+    {/* <div
+      className="flex-1 flex flex-col sd_main-content md:ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20"
+      style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+    > */}
       <Header
       />
       <main
         className={`flex-1 game_card_main--con ${
           checkParams("finding-match") || checkParams("match")
             ? ""
-            : "px-[4.5rem] pt-7"
+            : "px-4 md:px-[4.5rem] pt-7"
         }`}
       >
         {(isRegisteration || profileVisible) && (
@@ -166,6 +169,7 @@ export default function Main() {
                       } else {
                         dispatch(setProfileVisible(false));
                       }
+                      setPreviewImage(null);
                       setStep(1);
                     }}
                     className="cursor-pointer hover:opacity-70 duration-300"

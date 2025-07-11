@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { socket } from "../../socket/socket";
 import { SOCKET } from "../../../utils/constant";
 import { act } from "react";
-
+ 
 const initialState = {
   leagueData: null,
   registrationModal: false,
@@ -10,7 +10,7 @@ const initialState = {
   isJoinedUser: null,
   isQueueUser: null,
 };
-
+ 
 const leagueDetailSlice = createSlice({
   name: "leagueDetail",
   initialState,
@@ -42,7 +42,7 @@ const leagueDetailSlice = createSlice({
         }
       }
       state.leagueData = action.payload;
-
+ 
       if (
         action.payload &&
         action.payload.joinedUsers &&
@@ -60,12 +60,12 @@ const leagueDetailSlice = createSlice({
     },
   },
 });
-
+ 
 export const {
   setLeagueData,
   setRegistrationModal,
   setIsAgreedToJoin,
   removeFromQueue,
 } = leagueDetailSlice.actions;
-
+ 
 export default leagueDetailSlice.reducer;

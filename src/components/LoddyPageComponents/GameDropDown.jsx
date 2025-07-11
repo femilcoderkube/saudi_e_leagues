@@ -32,7 +32,7 @@ const GameDropDown = () => {
       <div className="sel_game-menu sd_before sd_after relative polygon_border inline-block">
         <Link
           to={"#"}
-          className="dropdown-header btn_polygon-link gap-6 p-3 hover:opacity-70 duration-400 inline-flex justify-between items-center relative sd_before vertical_center"
+          className="dropdown-header btn_polygon-link gap-2 md:gap-6 p-1.5 md:p-3 hover:opacity-70 duration-400 inline-flex justify-between items-center relative sd_before vertical_center"
           onClick={()=>{dispatch(setGameDropDownOpen(!isGameDropDownOpen))}}
         >
           <img
@@ -43,7 +43,7 @@ const GameDropDown = () => {
             className="game-logo-svg"
             style={{ width: "2rem" }}
           />
-          <span className="text-xl font_oswald font-medium purple_col">
+          <span className="text-sm md:text-xl font_oswald font-medium purple_col">
             {selectedGame?.name ? selectedGame.name : "Select Game"}
           </span>
           <svg
@@ -66,7 +66,7 @@ const GameDropDown = () => {
       {isGameDropDownOpen && (
         <div className="game_dropdown-body absolute sd_after after:w-full after:h-full after:top-0 rounded-lg z-10 mt-6 w-full z-50">
           <div className="game_menu-con relative">
-            <form className="game_search max-w-md mx-auto">
+            <form className="game_search max-w-full md:max-w-md mx-auto">
               <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

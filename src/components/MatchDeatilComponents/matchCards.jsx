@@ -1,14 +1,22 @@
-
-
-
-
 import GreenSmile from "../../assets/images/green_smile.png";
 import RedSmile from "../../assets/images/red_smile.png";
 import YellowSmile from "../../assets/images/yellow_smile.png";
-import { FifthPosCard, FirstPosCard_gold, ForthPosCard, SecondPosCard, ThirdPos_Gold, ThirdPosCard } from "./team1Cards/positionedCards";
-import { FifthPosCard_Opp, FirstPosCard_Opp_gold, ForthPosCard_Opp, SecondPosCard_Opp, ThirdPos_OppGold, ThirdPosCard_Opp } from "./team2Cards/positionedCards";
-
-
+import {
+  FifthPosCard,
+  FirstPosCard_gold,
+  ForthPosCard,
+  SecondPosCard,
+  ThirdPos_Gold,
+  ThirdPosCard,
+} from "./team1Cards/positionedCards";
+import {
+  FifthPosCard_Opp,
+  FirstPosCard_Opp_gold,
+  ForthPosCard_Opp,
+  SecondPosCard_Opp,
+  ThirdPos_OppGold,
+  ThirdPosCard_Opp,
+} from "./team2Cards/positionedCards";
 
 export function getCards(position, isOpponent = false) {
   // Choose card sets based on isOpponent
@@ -58,7 +66,6 @@ export function getSmile(rep) {
     return RedSmile;
   }
 }
-
 
 export function getColor(rep) {
   if (rep >= 70) {

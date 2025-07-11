@@ -9,7 +9,7 @@ const initialState = {
   loading: false,
   error: null,
   success: false, // from registerSlice
-  userDetail : null,
+  userDetail: null,
 };
 
 export const loginUser = createAsyncThunk(
@@ -83,24 +83,24 @@ export const fetchUserById = createAsyncThunk(
   }
 );
 
-// updateUser thunk from usersSlice
-export const updateUser = createAsyncThunk(
-  "users/updateUser",
-  async ({ id, user }, { rejectWithValue }) => {
-    try {
-      const response = await axiosInstance.put(`/users?id=${id}`, user, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || "Error updating user"
-      );
-    }
-  }
-);
+// // updateUser thunk from usersSlice
+// export const updateUser = createAsyncThunk(
+//   "users/updateUser",
+//   async ({ id, user }, { rejectWithValue }) => {
+//     try {
+//       const response = await axiosInstance.put(`/users?id=${id}`, user, {
+//         headers: {
+//           "Content-Type": "multipart/form-data",
+//         },
+//       });
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(
+//         error.response?.data?.message || "Error updating user"
+//       );
+//     }
+//   }
+// );
 
 const authSlice = createSlice({
   name: "auth",
@@ -136,7 +136,10 @@ const authSlice = createSlice({
           // toast.error(action.payload.data);
         } else {
           localStorage.setItem("token", action.payload.data.token);
-          localStorage.setItem("user", JSON.stringify(action.payload.data.user));
+          localStorage.setItem(
+            "user",
+            JSON.stringify(action.payload.data.user)
+          );
           state.user = action.payload.data.user;
         }
       })
@@ -168,6 +171,7 @@ const authSlice = createSlice({
         state.success = true;
         localStorage.setItem("token", action.payload.data.token);
         localStorage.setItem("user", JSON.stringify(action.payload.data.user));
+        state.user = action.payload.data.user;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
@@ -187,19 +191,19 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       // updateUser logic from usersSlice
-      .addCase(updateUser.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.userDetail = action.payload.data;
-        toast.success("Profile updated successfully!");
-      })
-      .addCase(updateUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-        toast.error(action.payload);
-      });
+      // .addCase(updateUser.pending, (state) => {
+      //   state.loading = true;
+      // })
+      // .addCase(updateUser.fulfilled, (state, action) => {
+      //   state.loading = false;
+      //   state.userDetail = action.payload.data;
+      //   toast.success("Profile updated successfully!");
+      // })
+      // .addCase(updateUser.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.error = action.payload;
+      //   toast.error(action.payload);
+      // });
   },
 });
 

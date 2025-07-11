@@ -11,7 +11,7 @@ import {
 const GameCardListView = ({ leagues }) => {
   const { id } = useParams();
   return (
-    <div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-14 gap-[1.7rem]">
+    <div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-5 sm:pt-10 md:pt-14 gap-[1.7rem] justify-center md:justify-start">
       {leagues.map((item, index) => (
         <Link
           key={index}
@@ -26,26 +26,21 @@ const GameCardListView = ({ leagues }) => {
               <div className="game_image relative">
                 <img
                   src={getServerURL(item.logo)}
-                  alt=""
-                  style={{
-                    width: "13rem",
-                    height: "16.26rem",
-                    objectFit: "cover",
-                  }}
+                  alt="" className="w-[10rem] md:w-[13rem] h-[16.26rem] object-cover"
                 />
               </div>
               <div className="game_mask--con pt-3 relative h-full flex flex-col justify-between">
-                <h3 className="game_label !mb-0 text-2xl !font-bold uppercase leading-tight pl-5 h-[60px]">
+                <h3 className="game_label !mb-0 text-2xl !font-bold uppercase leading-tight ltr:pl-5 rtl:pr-5 h-[60px]">
                   {" "}
                   {item.title}{" "}
                 </h3>
-                <div className="league_price_v2 mt-5 mb-7 pl-5 py-3 relative sd_before sd_after before:top-0 before:left-0 before:w-full before:h-[0.063rem] after:bottom-0 after:left-0 after:w-full after:h-[0.063rem]">
+                <div className="league_price_v2 mt-5 mb-7 ltr:pl-5 rtl:pr-5 py-3 relative sd_before sd_after before:top-0 before:left-0 before:w-full before:h-[0.063rem] after:bottom-0 after:left-0 after:w-full after:h-[0.063rem]">
                   <h2 className="league_price text-2xl  !font-bold font_oswald yellow_grad-bg grad_text-clip">
                     <span className="icon-saudi_riyal !p-0"></span>
                     {formatAmountWithCommas(item?.prizepool)}
                   </h2>
                 </div>
-                <div className="game_intro_v2 bg-no-repeat pl-5">
+                <div className="game_intro_v2 bg-no-repeat ltr:pl-5 rtl:pr-5">
                   <div className="game_intro-con flex gap-5 relative bottom-1">
                     <img
                       src={getServerURL(item.game.logo)}
@@ -54,11 +49,11 @@ const GameCardListView = ({ leagues }) => {
                     />
                     <div className="game_intro-con">
                       <p className="text-xs purple_light font-medium">Game</p>
-                      <h4 className="text-base !font-bold">{item.game.name}</h4>
+                      <h4 title={item.game.name} className="text-base !font-bold">{item.game.name}</h4>
                     </div>
                   </div>
                 </div>
-                <div className="card_participants_v2 mt-3 relative pl-13  z-40">
+                <div className="card_participants_v2 mt-3 relative ltr:pl-13 rtl:pr-13 z-40">
                   <h3 className="part_number text-lg !font-bold leading-tight">
                     {item.totalRegistrations}
                   </h3>
@@ -101,7 +96,7 @@ const GameCardListView = ({ leagues }) => {
             </div>
           </div>
           <div className="game_card--footer !m-0 flex justify-between items-center ">
-            <div className="match_date absolute right-[0] bottom-[0.3rem] bg-no-repeat">
+            <div className="match_date absolute ltr:right-[0] rtl:left-[0] bottom-[0.3rem] bg-no-repeat">
               <p className="text-xs purple_light font-medium  text-center">
                 Ends:
               </p>

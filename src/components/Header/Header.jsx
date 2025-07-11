@@ -20,12 +20,14 @@ import country_us from "../../assets/images/country_us.png";
 import Dropdown from "../LobbyPageComp/User_menu.jsx";
 import { checkParams, items } from "../../utils/constant.js";
 import { useDispatch, useSelector } from "react-redux";
+import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
 import {
   setLogin,
   setRegisteration,
   setSubmitModal,
 } from "../../app/slices/constState/constStateSlice.js";
-import { useTranslation } from 'react-i18next';
+import ViewScoreBtn from "../Matchmakingcomp/viewScoreButton.jsx";
+import { useTranslation } from "react-i18next";
 
 {
   /* === BreadCrumb items array ==== */
@@ -37,22 +39,25 @@ const Header = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { matchData, isCaptain, IsSubmited ,isEditScore } = useSelector(
+  const { matchData, isCaptain, IsSubmited, isEditScore } = useSelector(
     (state) => state.matchs
   );
+
+  // const isMatchMaking = useSelector((state) => state.constState.isMatchMaking);
+
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
   useEffect(() => {}, [matchData, user, location]);
-  const userUpdate = useSelector((state) => state.auth.userDetail);
+  const userUpdate = useSelector((state) => state.users.userDetail);
   console.log("user", user);
 
   const { i18n, t } = useTranslation();
 
   // Language toggle handler
   const handleLangToggle = () => {
-    const newLang = i18n.language === 'en' ? 'ar' : 'en';
+    const newLang = i18n.language === "en" ? "ar" : "en";
     i18n.changeLanguage(newLang);
-    localStorage.setItem('lang', newLang);
+    localStorage.setItem("lang", newLang);
   };
 
   if (checkParams("finding-match") || checkParams("match")) {
@@ -81,19 +86,16 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-15">
             {user && isCaptain && (!IsSubmited || isEditScore != null) && (
-              <div className="submit_score-btn btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
-              onClick={() => {
-                  
-                dispatch(setSubmitModal(true));
-              }}>
-              <Link
-                
-                
-                className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center"
+              <div
+                className="submit_score-btn btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
+                onClick={() => {
+                  dispatch(setSubmitModal(true));
+                }}
               >
-               {IsSubmited? "View Score":"Submit Score"} 
-              </Link>
-            </div>
+                <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
+                  {IsSubmited ? "View Score" : "Submit Score"}
+                </Link>
+              </div>
             )}
             {/* {user && isCaptain && IsSubmited && !matchData?.winner && (
               <ViewScoreBtn
@@ -139,9 +141,7 @@ const Header = () => {
             )}
             {user && (
               <div className="sd_uaser-menu">
-                <Dropdown
-                  user={userUpdate ? userUpdate : user}
-                />
+                <Dropdown user={userUpdate ? userUpdate : user} />
               </div>
             )}
           </div>
@@ -208,16 +208,19 @@ const Header = () => {
     }
 
     return (
-      <header className="text-white pt-[1.4rem] px-[4.5rem] flex items-center justify-between">
+      <header className="text-white pt-4 sm:pt-[1.4rem] px-4 md:px-[4.5rem] flex items-center justify-between">
         {/* === BreadCrumb HTML Block start ==== */}
         <nav className="breadcrumb flex-grow-1">
-          <ul className="breadcrumb-links flex items-center gap-5">
+          <ul className="breadcrumb-links flex items-center gap-2.5 md:gap-5">
             {breadcrumbItems.map((item, index) => (
-              <li key={index} className="flex items-center gap-7">
+              <li
+                key={index}
+                className="flex items-center gap-2 sm:gap-4 md:gap-7"
+              >
                 <div className="breadcrumb-box flex items-center gap-2">
                   <Link
                     to={item.path}
-                    className={`breadcrumb-text flex items-center gap-3 text-lg purple_col font-bold ${
+                    className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
                       item.active ? "sky_col font-semibold" : ""
                     }`}
                   >
@@ -236,18 +239,18 @@ const Header = () => {
           </ul>
         </nav>
 
-        <div className="sd_notification-block flex gap-4 mr-[9rem]">
-          <button
+        <div className="sd_notification-block flex gap-4 ltr:ml-[1rem] md:ltr:mr-[9rem] rtl:ml-[1rem] md:rtl:ml-[9rem]">
+          {/* <button
             onClick={handleLangToggle}
             title={i18n.language === 'en' ? 'العربية' : 'English'}
             className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg"
             style={{ border: 'none', background: 'none' }}
           >
             <img src={country_us} alt="lang" style={{ width: '1.5rem' }} />
-            <span style={{ marginLeft: 8, fontWeight: 'bold' }}>
+            <span className="font-bold mt-0.5 block">
               {i18n.language === 'en' ? 'EN' : 'AR'}
             </span>
-          </button>
+          </button> */}
           {/* <NavLink
             to="#"
             className="notification_btn inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
@@ -261,8 +264,7 @@ const Header = () => {
             <div className="game_status_tab--wrap">
               <div>
                 <button
-                  className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300`}
-                  style={{ width: "10rem", height: "4rem" }}
+                  className={`py-2 px-2.5 sm:px-4 text-sm sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300 w-[4rem] sm:w-[10rem] sm:h-[4rem]`}
                   onClick={(e) => {
                     e.preventDefault();
                     dispatch(setLogin(true));
@@ -275,10 +277,9 @@ const Header = () => {
             <div className="game_status_tab--wrap">
               <div className="game_status--tab rounded-xl">
                 <button
-                  className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300
-             active-tab polygon_border
+                  className={`py-2 px-2.5 sm:px-4 text-sm sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300
+             active-tab polygon_border w-[6.2rem] h-[2.5rem] sm:w-[10rem] sm:h-[4rem]
             `}
-                  style={{ width: "10rem", height: "4rem" }}
                   onClick={(e) => {
                     e.preventDefault();
                     dispatch(setRegisteration(true));
@@ -293,9 +294,7 @@ const Header = () => {
 
         {user && (
           <div className="sd_uaser-menu pb-[1.4rem]">
-            <Dropdown
-              user={userUpdate ? userUpdate : user}
-            />
+            <Dropdown user={userUpdate ? userUpdate : user} />
           </div>
         )}
       </header>

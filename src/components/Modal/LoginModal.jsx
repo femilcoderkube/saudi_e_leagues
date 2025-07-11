@@ -44,8 +44,8 @@ const LoginModal = () => {
   return (
         <>
           <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
-          <div className="fixed inset-0 flex justify-center items-center z-50">
-            <div className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
+          <div className="fixed inset-0 flex justify-center items-center z-[999]">
+            <div className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative m-4 md:m-0">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold">Login</h2>
                 <button
@@ -101,13 +101,13 @@ const LoginModal = () => {
                         <Field
                           type={showPassword ? "text" : "password"}
                           name="password"
-                          className="sd_custom-input !w-full px-4 pr-10 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                          className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                           placeholder="Password"
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-6 top-1/2 transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
+                          className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
                         >
                           <svg
                             width="20"

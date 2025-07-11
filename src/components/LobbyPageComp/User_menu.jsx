@@ -6,7 +6,6 @@ import { logout } from "../../app/slices/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { getServerURL } from "../../utils/constant";
 import { setProfileVisible } from "../../app/slices/constState/constStateSlice";
-
 const data = [
   { id: 0, label: "My Profile" },
   { id: 1, label: "Logout" },

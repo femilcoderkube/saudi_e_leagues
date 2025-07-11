@@ -10,7 +10,7 @@ import GoldCrown from "../../assets/images/gold_crown.png";
 export const TeamOneScoreList = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const user = useSelector((state) => state.auth.user);
-  const { matchData, isTeamOne, isMyMatch ,winnerScore} = useSelector(
+  const { matchData, isTeamOne, isMyMatch, winnerScore } = useSelector(
     (state) => state.matchs
   );
   let cards = getCards(matchData?.league?.playersPerTeam, false);
@@ -42,12 +42,13 @@ export const TeamOneScoreList = () => {
           profilePic: getServerURL(
             player?.participant?.userId?.profilePicture || ""
           ),
-          score: player?.allScores || 0,
+          score: Math.round(player?.allScores || 0),
         };
 
         let IsReputationGived = matchData?.givedReputations?.find(
           (rep) =>
-            rep.giver == user?._id && rep.receiver == player?.participant?.userId?._id
+            rep.giver == user?._id &&
+            rep.receiver == player?.participant?.userId?._id
         );
         return (
           <li
@@ -65,7 +66,8 @@ export const TeamOneScoreList = () => {
             )}
             <Card player={data} />
             {isMyMatch &&
-              isTeamOne && (winnerScore?.teamOne == "-") &&
+              isTeamOne &&
+              winnerScore?.teamOne == "-" &&
               player?.participant?.userId?._id != user?._id && (
                 <div
                   className={`review_score--con sd_before absolute top-[0rem] left-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${

@@ -167,7 +167,6 @@
     background: linear-gradient(180deg, rgb(244 247 255) 0%, rgba(186, 189, 255, 1) 36%, rgba(123, 126, 208, 1) 66%);
 }
 
-
 .swiper-slide-active .htp_card--body{
     background: url(../images/htpcardBG.png);
     background-size: cover;
@@ -192,4 +191,10 @@
 
 .sd_next-btn.sd_next-one:after {
     transform: scaleX(-1);
+}
+
+.game_card_wrap--link,.htp_card--body,.htp_right-con .swiper {
+    /* height: 20.5rem; */
+    min-height: 20.5rem;
+    height: 100%;
 }

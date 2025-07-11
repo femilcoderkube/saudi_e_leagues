@@ -45,10 +45,16 @@
     Game Card Design CSS Start
     
 ---------------------------------- */
-
+html[dir=rtl] .card_top_left-shap{
+    rotate: 180deg;
+}
 .game_card--body{
     clip-path: url(#cardclip);
     margin: 1.375rem 0 0 1.25rem;
+}
+
+html[dir=rtl] .game_card--body{
+    margin: 1.375rem 1.25rem 0 0;
 }
 
 .game_img--mask:before {
@@ -62,7 +68,12 @@
     background-size: 100% 100%;
     top: -0.625rem;
     right: -0.9rem;
+}
 
+html[dir=rtl] .card_participants{
+    right: auto;
+    left: -0.9rem;
+    background: url(../images/rtl_participant_num-bg.png);
 }
 
 .match_date-con{
@@ -76,15 +87,22 @@
     background-size: 100%;
     padding-left: 1.3rem;
 }
-
+html[dir=rtl] .game_intro{
+    background-image: url(../images/rtl_GameIntroBG.png);
+    padding-left:0;
+    padding-right: 1.3rem;
+}
 .match_date{
     background-image: url(../images/match_dateBG.png);
     padding-top: 1.5rem;
     padding-bottom: 2.5rem;
-    margin-left: -0.9rem;
     margin-top: -1.4rem;
     width: 6rem;
     background-size: 100%;
+}
+
+html[dir=rtl] .match_date{
+ background-image: url(../images/rtl_match_dateBG.png);   
 }
 
 .game_card--footer {
@@ -157,11 +175,22 @@
     Game Card Wrapper V2 CSS Start
     
 ---------------------------------------- */
-
 .game_card--wrapv2 .game_image{
     clip-path: url(#cardclipv2);
     max-width: 13rem;
     flex: 0 0 13rem;
+}
+
+html[dir=rtl] .game_card--wrapv2 .game_image{    
+    transform: rotateY(180deg);
+}
+
+html[dir=rtl] .game_card--wrapv2 .game_image img{
+    transform: rotateY(180deg);
+}
+
+.game_img--mask svg{
+    rotate: 180deg;
 }
 
 .card_participants_v2{
@@ -172,13 +201,27 @@
     background-repeat: no-repeat;
     margin-left: -2.25rem;
     z-index: -1;
+    max-width: 10.5rem;
 }
 
-.game_card--wrapv2 .game_card_wrap--link{
+html[dir="rtl"] .card_participants_v2{
+    background: url(../images/rtl_participanBG_v2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 0;
+    left:1.45rem;
+}
+
+.game_card--wrapv2 .game_card_wrap--link {
     background-image: url('../images/game_cardBG_v2.png');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
 }
+
+html[dir="rtl"] .game_card--wrapv2 .game_card_wrap--link {
+    background-image: url('../images/rtl-gamecard-bg.png');
+}
+
 .game_card--wrapv2.game_card--wrapper > a {
     max-width: 28.75rem;
     flex: 0 0 28.75rem;
@@ -198,10 +241,61 @@
 .game_card--wrapv2 .match_date{
     background-image: url(../images/card_v2_dateBG.png);
     padding-top: 0.7rem;
-    margin-left: -0.9rem;
     margin-top: -1.4rem;
     width: 4rem;
     background-size: 100% 100%;
     height: 6rem;
     padding-bottom: 0;
 }
+
+html[dir="rtl"] .game_card--wrapv2 .match_date{
+ background-image: url(../images/rtl_card_v2_dateBG.png);   
+}
+
+/* md */
+@media (max-width: 767px) {
+    .card_participants {
+        padding: 1.5rem;
+        right: -0.8rem;
+    }
+
+    .match_date {
+        padding-top: 1.1rem;
+        padding-bottom: 1.5rem;
+        width: 4.5rem;
+    }
+
+    .game_intro {
+        width: 12rem;
+        padding-block: 1.3rem;
+    }
+
+    .btn_polygon-link {
+        width: 9rem;
+        height: 3rem;
+    }
+
+    .game_card--wrapv2 .game_image {
+        max-width: 10rem;
+        flex: 0 0 10rem;
+    }
+}
+
+/* sm */
+@media (max-width: 640px) {
+
+    .active-tab.polygon_border:before,
+    .active-tab.polygon_border:after {
+        width: 2.65rem;
+        background: #447df1;
+        height: 0.08rem;
+    }
+}
+
+
+
+/* lg */
+@media (min-width: 1024px) {}
+
+/* xl */
+@media (min-width: 1280px) {}

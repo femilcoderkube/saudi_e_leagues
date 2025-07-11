@@ -17,7 +17,7 @@ function PopUp() {
           className="timeline-card__header w-full mt-5 flex items-center gap-3 rounded-xl cursor-pointer relative sd_before sd_after px-4 py-[1.4rem] bg-white hover:bg-gray-100 transition-colors"
         >
           <img src={rules_icon} alt="Rules icon" style={{ width: "1.75rem" }} />
-          <h3 className="timeline-card__title text-xl font_oswald">
+          <h3 className="timeline-card__title text-base sm:text-xl font_oswald">
             Rules and Regulations
           </h3>
         </button>

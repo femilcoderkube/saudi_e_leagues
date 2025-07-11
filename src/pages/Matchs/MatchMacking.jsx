@@ -11,6 +11,7 @@ import TimeOverPopup from "../../components/ModalPopUp/TimeOverPopup";
 import center_league from "../../assets/images/center_league.png";
 import cancel_btn from "../../assets/images/cancelbtn.png";
 import Sparkles from "./Sparkles.jsx";
+import { useTranslation } from 'react-i18next';
 
 
 const MatchMaking = () => {
@@ -22,6 +23,7 @@ const MatchMaking = () => {
   const navigate = useNavigate();
   const { lId } = useParams();
   const [timerActive, setTimerActive] = useState(true);
+  const { t } = useTranslation();
 
 
   // Timer effect
@@ -90,6 +92,9 @@ const MatchMaking = () => {
                 <TimeOverPopup
                   onYes={handleTimeOverYes}
                   onNo={handleTimeOverNo}
+                  yesText={t('yes')}
+                  noText={t('no')}
+                  message={t('time_over')}
                 />
               )}
               <div className="grediant"></div>
@@ -125,9 +130,9 @@ const MatchMaking = () => {
               />
               <div onClick={handleCancel}>
                 <img
-                  className="cancel-btn absolute bottom-[2.5rem] right-[2.5rem] duration-400 cursor-pointer z-2"
+                  className="cancel-btn absolute bottom-[2.5rem] ltr:right-[2.5rem] rtl:left-[4.5rem] duration-400 cursor-pointer z-2"
                   src={cancel_btn}
-                  alt=""
+                  alt={t('cancel')}
                   style={{ width: "25rem" }}
                 />
                 <Sparkles />
@@ -136,7 +141,7 @@ const MatchMaking = () => {
                 <span className="text-[5.254rem] font-bold grad_head--txt">
                   {formatTime(seconds)}
                 </span>
-                <h5 className="purple_col pt-5 text-2xl">Player Search</h5>
+                <h5 className="purple_col pt-5 text-2xl">{t('player_search')}</h5>
               </div>
             </div>
           </div>

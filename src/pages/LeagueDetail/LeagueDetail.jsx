@@ -17,7 +17,6 @@ import {
 import {
   formatAmountWithCommas,
   generateTailwindGradient,
-  getRandomColor,
   getServerURL,
 } from "../../utils/constant.js";
 import { useSelector } from "react-redux";
@@ -35,18 +34,18 @@ const LeagueDetail = () => {
   );
 
   useEffect(() => {
-    if (leagueData?.title) {
-      document.title = `Prime eLeague - ${leagueData?.title}`;
-    }
-  }, [leagueData]);
-
-  useEffect(() => {
     let res = startLeagueSocket({ lId, user, isSocketConnected });
     console.log("res", res);
     return () => {
       stopLeagueSocket();
     };
   }, [isSocketConnected, lId, user, window.location.pathname]);
+
+  useEffect(() => {
+    if (leagueData?.title) {
+      document.title = `Prime eLeague - ${leagueData?.title}`;
+    }
+  }, [leagueData]);
 
   return (
     <main className="flex-1 lobby_page--wrapper">
@@ -60,94 +59,63 @@ const LeagueDetail = () => {
       {!leagueData ? (
         <GamingLoader />
       ) : (
-        <div className="sd_content-wrapper max-w-full pt-7">
+        <div className="sd_content-wrapper max-w-full md:pt-7 pt-0">
           {/* === League Top Hero Block HTML block Start === */}
-          <div className="sd_top-wraper flex items-center justify-between">
-            <div className="sd_content-left flex items-center gap-10 pb-6 mr-[-1rem] relative">
+          <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8">
+            <div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1">
               <div className="sd_com--logo cursor-hide">
                 <img
                   src={getServerURL(leagueData?.internalPhoto || "")}
-                  alt=""
-                  style={{ width: "16.5rem" }}
+                  alt="" className="w-[8rem] md:w-[16.5rem]"
                 />
               </div>
               <div className="sd_league--info">
-                <h1 className="uppercase text-5xl !font-black tracking-wide">
+                <h1 className="uppercase text-2xl md:text-5xl !font-black tracking-wide">
                   {leagueData?.title || "League Title"}
                 </h1>
-                <h2 className="league_price text-5xl !font-black font_oswald pt-10 pb-6 yellow_grad-bg grad_text-clip">
+                <h2 className="league_price text-2xl md:text-5xl !font-black font_oswald pt-5 sm:pt-3.5 md:pt-10 sm:pb-6 pb-3 yellow_grad-bg grad_text-clip">
                   <span className="icon-saudi_riyal !p-0"></span>
                   {formatAmountWithCommas(leagueData?.prizepool)}
                 </h2>
-                <span className="block purple_col text-xl">Prize Pool</span>
+                <span className="block purple_col text-sm sm:text-xl">Prize Pool</span>
               </div>
             </div>
-            <div className="sd_content-right flex">
-              <div className="player_img flex items-center">
-                <div className="player_one sd_before relative gradiant_bg con_center">
+            <div className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2">
+              <div className="player_img flex flex-row items-center gap-2 sm:gap-5">
+              <div className="player_one sd_before relative gradiant_bg con_center">
                   <img
                     src={getServerURL(leagueData?.headerPhoto)}
                     alt=""
                     style={{ width: "41rem" }}
                   />
                 </div>
-                {/* <div className="player_one sd_before relative gradiant_bg con_center">
-                  <img src={wind_girl} alt="" style={{ width: "18.5rem" }} />
+                {/* <div className="player_one sd_before relative gradiant_bg con_center -left-7 sm:left-0">
+                  <img src={wind_girl} alt="" className="w-[10rem] md:w-[18.5rem]" />
                 </div>
                 <div className="player_two sd_before relative gradiant_bg con_center">
-                  <img src={fire_boy} alt="" style={{ width: "17.5rem" }} />
+                  <img src={fire_boy} alt="" className="w-[10rem] md:w-[17.5rem]" />
                 </div> */}
               </div>
-              <div className="player_score mt-4 flex flex-col items-start h-full ml-[-2.5rem]">
-                <div className="online_user p-4 relative">
-                  <h3 className="text-base text-[#63A3D2]">Online Users</h3>
-                  <span className="text-2xl font-bold">
+              <div className="player_score mt-4 flex md:flex-col items-start md:h-full sm:ltr:ml-[-2.5rem] sm:rtl:ml-0 z-2">
+                <div className="online_user md:p-4 px-4 py-1 relative md:flex-shrink flex-shrink-0 flex md:block flex-col md:flex-row">
+                  <h3 className="sm:text-base text-sm text-[#63A3D2] order-2 md:order-1">Online Users</h3>
+                  <span className="sm:text-2xl text-lg font-bold order-1 md:order-2">
                     {leagueData?.activeUsers || 0}
                   </span>
                 </div>
-                <div className="participants p-4 text-right w-full pt-0 relative top-[-1.45rem]">
-                  <span className="text-2xl font-bold">
+                <div className="participants md:p-4 px-5 py-1 ltr:text-right rtl:text-left w-full pt-0 relative md:top-[-1.45rem] ">
+                  <span className="sm:text-2xl text-lg font-bold">
                     {leagueData?.totalRegistrations || 0}
                   </span>
-                  <h3 className="text-base text-[#D27D63]">Participants</h3>
+                  <h3 className="sm:text-base text-sm text-[#D27D63]">Participants</h3>
                 </div>
               </div>
             </div>
           </div>
-          <div className="sd_bottom-wraper flex gap-[2.5rem] items-start">
+          <div className="sd_bottom-wraper flex flex-col xl:flex-row gap-[2.5rem] items-center md:items-start">
             <div className="sd_content-left">
-              <div className="sd_game_info--wrap inline-flex gap-5 items-center">
-                {/* <div className="sd_game-con sd_game--info relative sd_before sd_after polygon_border valorant_game">
-                  <Link
-                    to={"#"}
-                    className={`game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center ${generateTailwindGradient(
-                      "#000"
-                    )}`}
-                  >
-                    <img
-                      src={getServerURL(leagueData?.game?.logo || "")}
-                      alt=""
-                      className="absolute left-8"
-                      style={{ width: "3rem" }}
-                    />
-                    <div className="sd_game--con text-center sd_before">
-                      <p className="text-base mb-2 text-[#E38D9D] font-medium">
-                        Game
-                      </p>
-                      <h4 className="text-xl font-bold">
-                        {leagueData.game.name || ""}
-                      </h4>
-                    </div>
-                    <div className="game_theam--bg sd_before">
-                      <img
-                        src={valorant_bg}
-                        alt=""
-                        style={{ width: "10.75rem" }}
-                      />
-                    </div>
-                  </Link>
-                </div> */}
-                <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
+              <div className="sd_game_info--wrap md:flex-row inline-flex gap-3 md:gap-5 items-center justify-center md:justify-baseline w-full">
+              <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
                   <Link
                     to={"#"}
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
@@ -159,10 +127,10 @@ const LeagueDetail = () => {
                       style={{ width: "3rem" }}
                     />
                     <div className="sd_game--con text-center">
-                      <p className="text-base mb-2 purple_col font-medium">
+                      <p className="text-sm md:text-base mb-2 purple_col font-medium">
                         Game
                       </p>
-                      <h4 className="text-xl font-bold">
+                      <h4 className="text-lg md:text-xl font-bold">
                         {leagueData.game.name || ""}
                       </h4>
                     </div>
@@ -180,10 +148,10 @@ const LeagueDetail = () => {
                       style={{ width: "3rem" }}
                     />
                     <div className="sd_game--con text-center">
-                      <p className="text-base mb-2 purple_col font-medium">
+                      <p className="text-sm md:text-base mb-2 purple_col font-medium">
                         Platform
                       </p>
-                      <h4 className="text-xl font-bold">
+                      <h4 className="text-lg md:text-xl font-bold">
                         {leagueData?.platform?.name?.toUpperCase() || ""}
                       </h4>
                     </div>
@@ -201,10 +169,10 @@ const LeagueDetail = () => {
                       style={{ width: "3rem" }}
                     />
                     <div className="sd_game--con text-center">
-                      <p className="text-base mb-2 purple_col font-medium">
+                      <p className="text-sm md:text-base mb-2 purple_col font-medium">
                         Team Size
                       </p>
-                      <h4 className="text-xl font-bold">
+                      <h4 className="text-lg md:text-xl font-bold">
                         {" "}
                         {leagueData.playersPerTeam || 1}v
                         {leagueData.playersPerTeam || 1}{" "}
@@ -261,17 +229,17 @@ const LeagueDetail = () => {
                     </div>
                     <div className="sd_avtar-info gap-6 p-3 inline-flex justify-between items-center cursor-pointer text-white rounded">
                       <div className="user_img relative sd_before">
-                        {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                          ?.profilePic ? (
-                          <img
-                            src={getServerURL(
-                              leagueData?.leaderBoard?.weekOfTheStartUsers
-                                ?.userId?.profilePic
-                            )}
-                            alt=""
-                            className="rounded-[3rem]"
-                            style={{ width: "3rem", height: "3rem" }}
-                          />
+                      {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                             ?.profilePic ? (
+                         <img
+                         src={getServerURL(
+                           leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                             ?.profilePic
+                         )}
+                         alt=""
+                         className="rounded-[3rem]"
+                         style={{ width: "3rem",height: "3rem" }}
+                       />
                         ) : (
                           <div
                             style={{
@@ -280,19 +248,16 @@ const LeagueDetail = () => {
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
-                              background: getRandomColor(
-                                leagueData?.leaderBoard?.weekOfTheStartUsers
-                                  ?.userId?.username
-                              ),
+                              background: getRandomColor(leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                                ?.username),
                               color: "#fff",
                               fontWeight: "bold",
                               fontSize: "1.5rem",
                               borderRadius: "50%",
                             }}
                           >
-                            {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.username
-                              ?.charAt(0)
-                              ?.toUpperCase() || "?"}
+                            {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                              ?.username?.charAt(0)?.toUpperCase() || "?"}
                           </div>
                         )}
                       </div>

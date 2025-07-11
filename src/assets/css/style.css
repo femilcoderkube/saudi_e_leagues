@@ -231,7 +231,49 @@ body {
   width: 12.5rem;
   height: 3.5rem;
 }
+
+.game_image {
+  background: #191a4a;
+}
+.game_intro-con h4 {
+  white-space: nowrap;
+  width: 5.09rem;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+html[dir="rtl"] .sparkles-overlay {
+  right: auto;
+  left: 1.5rem;
+}
+
+html[dir="rtl"] .team_score--con {
+  direction: ltr;
+}
 .purple_light p a {
   color: #51adff;
   text-decoration: underline;
+}
+.txt_purple_light p a {
+  color: #51adff;
+  text-decoration: underline;
+}
+
+@media (max-width: 1279px) {
+  .game_polygon-link {
+    width: 14rem;
+  }
+  aside,
+  .player_one {
+    display: none;
+  }
+}
+
+@media (max-width: 475px) {
+  .sd_content-right a span {
+    top: 1.25rem;
+  }
+  .sd_content-right a img {
+    height: 3.8rem;
+  }
 }

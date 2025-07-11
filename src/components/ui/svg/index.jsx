@@ -31,21 +31,7 @@ export const Instagram = () => (
   </svg>
 );
 
-export const Youtube = () => (
-  <svg
-    width="2.5rem"
-    height="2.5rem"
-    viewBox="0 0 40 40"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M31.4 14.1803C31.1 13.1178 30.35 12.3589 29.3 12.0553C27.5 11.6 19.85 11.6 19.85 11.6C19.85 11.6 12.35 11.6 10.4 12.0553C9.35001 12.3589 8.6 13.1178 8.3 14.1803C8 16.1535 8 20.1 8 20.1C8 20.1 8 24.0464 8.45 26.0196C8.75 27.0821 9.5 27.841 10.55 28.1446C12.35 28.6 20 28.6 20 28.6C20 28.6 27.5 28.6 29.45 28.1446C30.5 27.841 31.25 27.0821 31.55 26.0196C32 24.0464 32 20.1 32 20.1C32 20.1 32 16.1535 31.4 14.1803ZM17.6 23.7428V16.4571L23.9 20.1L17.6 23.7428Z"
-      fill="#7B7ED0"
-    />
-  </svg>
-);
-export const Discord = () => (
+export const discord = () => (
   <svg
     width="2.5rem"
     height="2.5rem"
@@ -91,6 +77,7 @@ export const Prime = () => (
 );
 export const Lobby = () => (
   <svg
+    className="w-[2rem] h-[2rem] sm:w-[2.5rem] sm:h-[2.5rem]"
     width="2.5rem"
     height="2.5rem"
     viewBox="0 0 40 40"
@@ -177,8 +164,7 @@ export const Champions = () => (
 );
 export const ListIcon = ({ isActive }) => (
   <svg
-    width="24"
-    height="24"
+    className="w-4 h-4 md:w-[24px] md:h-[24px]"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -223,8 +209,7 @@ export const ListIcon = ({ isActive }) => (
 
 export const FolderIcon = ({ isActive }) => (
   <svg
-    width="24"
-    height="24"
+    className="w-4 h-4 md:w-[24px] md:h-[24px]"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

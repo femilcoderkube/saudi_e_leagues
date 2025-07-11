@@ -1,7 +1,7 @@
 import match_reg from "../../assets/images/match_reg.png";
 import { Popup_btn } from "../ui/svg/index.jsx";
 
-function TimeOverPopup({ onYes, onNo }) {
+function TimeOverPopup({ onYes, onNo, yesText = 'Yes, Wait More', noText = 'No, Cancel', message = 'Time is Over' }) {
   return (
     <div
       className="relative z-1000"
@@ -20,23 +20,24 @@ function TimeOverPopup({ onYes, onNo }) {
               <img src={match_reg} alt="" style={{ width: "10rem" }} />
             </div>
             <div className="popup_body px-4 py-3 text-center">
-              <h2 className="text-2xl font-bold mb-4 purple_col">Time is Over</h2>
+              <h2 className="text-2xl font-bold mb-4 purple_col">{message}</h2>
               <p className="text-lg mb-6 purple_light">
-                Didn't find enough players to do match.<br />
-                Can you wait more or not?
+                {/* Optionally, you can add more translation keys here if needed */}
+                {/* t('not_enough_players') */}
+                {/* t('wait_more_question') */}
               </p>
               <div className="popup_footer px-6 mt-5 pt-6 flex justify-center gap-6">
                 <button
                   onClick={onYes}
                   className="popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400"
                 >
-                  Yes, Wait More
+                  {yesText}
                 </button>
                 <button
                   onClick={onNo}
                   className="popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 bg-red-500"
                 >
-                  No, Cancel
+                  {noText}
                 </button>
                 <Popup_btn />
               </div>

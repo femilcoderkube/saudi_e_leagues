@@ -77,7 +77,7 @@ const MatchDetail = () => {
       style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
     >
       <section className="match_team--wrap flex pt-[6rem] justify-between items-end pl-[7.5rem] pr-[7.5rem] ">
-        <div className="team_score--con flex justify-between w-full gap-10">
+        <div className="team_score--con flex justify-between w-full gap-10 max-[1280px]:flex-col max-[1280px]:items-center">
           {/* Team 1 */}
           <div className="team_score--wrap">
             <h2 className="grad_head--txt max-w-full text-[4rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
@@ -106,8 +106,80 @@ const MatchDetail = () => {
                   // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
                 >
                   <div className="flex flex-col space-y-1">
-                    {chatData?.map((chat) => {
-                      // Removed index to avoid lint warning
+                    {chatData?.map((chat, chatIdx) => {
+                      if (chat.isSystemMsg) {
+                        console.log("chat", chat?.randomMessages);
+                      }
+                      if (
+                        chat.isSystemMsg &&
+                        Array.isArray(chat.messages) &&
+                        chat.messages.length > 0
+                      ) {
+                        // Render each system message as a separate div
+                        return chat.messages.map((msg, msgIdx) => (
+                          <div className={`block send_msg-con`}>
+                            <div className="px-2 py-1 rounded-lg">
+                              <div className="flex items-center gap-2">
+                                <span
+                                  className="!font-bold"
+                                  style={{
+                                    color: "red", // Apply random color based on senderId
+                                  }}
+                                >
+                                  {"System"} :{""}
+                                </span>
+                                <span
+                                  key={`system-msg-${chatIdx}`}
+                                  className="txt_purple_light"
+                                  dangerouslySetInnerHTML={{
+                                    __html: msg,
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ));
+                      }
+
+                      if (
+                        chat.isSystemMsg &&
+                        Array.isArray(chat.randomMessages) &&
+                        chat.randomMessages.length > 0
+                      ) {
+                        // console.log("chat----", chat);
+                        return chat.randomMessages.map((msg, msgIdx) => {
+                          let tags = "";
+                          if (msg.tags.length > 0) {
+                            tags = ": " + msg.tags.join(" ");
+                          }
+                          return (
+                            <div className={`block send_msg-con`}>
+                              <div className="px-2 py-1 rounded-lg">
+                                <div className="flex items-center gap-2">
+                                  <span
+                                    className="!font-bold"
+                                    style={{
+                                      color: "red", // Apply random color based on senderId
+                                    }}
+                                  >
+                                    {"System"} :{""}
+                                  </span>
+                                  <span
+                                    key={`system-randomMessages-${msgIdx}`}
+                                    className="txt_purple_light"
+                                    dangerouslySetInnerHTML={{
+                                      __html: msg.randomText,
+                                    }}
+                                  />
+                                  <span className="text-white text-lg font-bold">
+                                    {tags}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        });
+                      }
                       return (
                         <div
                           className={`block ${
@@ -152,13 +224,13 @@ const MatchDetail = () => {
                   <input
                     type="text"
                     placeholder="Chat Message"
-                    className="chat_msg-input text-lg placeholder:text-[#7B7ED0] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"
+                    className="chat_msg-input rtl:text-right text-lg placeholder:text-[#7B7ED0] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
                     onKeyPress={handleKeyPress}
                   />
                   <button
-                    className="absolute right-0 text-white cursor-pointer hover:opacity-65 duration-400 rounded-full p-2 ml-2 focus:outline-none"
+                    className="absolute ltr:right-0 rtl:left-0 text-white cursor-pointer hover:opacity-65 duration-400 rounded-full p-2 ml-2 focus:outline-none"
                     onClick={handleSendMessage}
                   >
                     <svg

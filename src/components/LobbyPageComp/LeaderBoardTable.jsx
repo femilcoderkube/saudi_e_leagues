@@ -4,7 +4,7 @@ import gold_bedge from "../../assets/images/gold.png";
 import silver_bedge from "../../assets/images/silver.png";
 import bronze_bedge from "../../assets/images/bronze.png";
 import { getSmile } from "../MatchDeatilComponents/matchCards";
-import { getServerURL, getRandomColor } from "../../utils/constant";
+import { getRandomColor, getServerURL } from "../../utils/constant";
 import { useSelector } from "react-redux";
 
 const LeaderBoard = () => {
@@ -19,9 +19,9 @@ const LeaderBoard = () => {
       wins: requestedUser?.totalWins,
       losses: requestedUser?.totalLosses,
       rep: requestedUser?.wilsonScore,
-      winRate: Math.round(requestedUser?.winPercentage) + "%",
+      winRate: requestedUser?.winPercentage?.toFixed(2) + "%",
       rank: requestedUser?.rank || 0,
-      profilePic: requestedUser?.userId?.profilePicture || "-",
+      profilePic: requestedUser?.userId?.profilePicture || null,
     };
 
     if (requestedUser?.rank === 1) {
@@ -43,14 +43,16 @@ const LeaderBoard = () => {
   if (leagueData?.leaderBoard?.topUsers?.length === 0 && !requestedUser) {
     return (
       <div className="leaderboard-wrapper pt-8">
-        <h2 className="text-2xl !font-bold">Leaderboard</h2>
+        <h2 className="text-center md:text-start text-2xl !font-bold">
+          Leaderboard
+        </h2>
         <p className="text-lg text-center mt-4">No data available</p>
       </div>
     );
   }
   return (
     <div className="leaderboard-wrapper pt-8">
-      <h2 className="text-2xl !font-bold">Leaderboard</h2>
+      <h2 className="text-xl sm:text-2xl !font-bold">Leaderboard</h2>
       <table className="leaderboard-table" style={{ width: "100%" }}>
         <thead>
           <tr>
@@ -102,7 +104,7 @@ const LeaderBoard = () => {
                 </td>
 
                 <td className="py-4 px-4">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-center md:justify-start gap-2">
                     <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
                       {requestedUser.profilePic != "-" ? (
                         <img
@@ -139,11 +141,14 @@ const LeaderBoard = () => {
                   </div>
                 </td>
 
-                <td className="py-4 px-4 text-center text-lg !font-bold">
+                <td className="py-4 px-4 md:text-center text-lg !font-bold">
                   {requestedUser.points}
                 </td>
 
-                <td className="py-4 px-4 text-center">
+                <td
+                  data-title="Win/Loss"
+                  className="pb-11 md:pb-4 py-4 px-4 text-left md:text-center"
+                >
                   <span className="win text-lg sky_col">
                     {requestedUser.wins}
                   </span>{" "}
@@ -154,7 +159,7 @@ const LeaderBoard = () => {
                 </td>
 
                 {leagueData.playersPerTeam != 1 && (
-                  <td className="py-4 px-4">
+                  <td data-title="Rep" className="pb-11 md:pb-4 py-4 px-4">
                     <div className="flex items-center justify-center">
                       <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
                         <img
@@ -167,7 +172,10 @@ const LeaderBoard = () => {
                   </td>
                 )}
 
-                <td className="py-4 px-4 text-center text-lg">
+                <td
+                  data-title="Win rate"
+                  className="pb-11 md:pb-4 py-4 px-4 text-center text-lg"
+                >
                   {requestedUser.winRate}
                 </td>
               </tr>
@@ -176,11 +184,13 @@ const LeaderBoard = () => {
           {leagueData?.leaderBoard?.topUsers?.map((data, index) => {
             let user = {
               username: data?.userId?.username,
-              points: data?.totalLeaguesScore ? Math.round(data?.totalLeaguesScore) : 0,
+              points: data?.totalLeaguesScore
+                ? Math.round(data?.totalLeaguesScore)
+                : 0,
               wins: data?.totalWins,
               losses: data?.totalLosses,
               rep: data?.wilsonScore,
-              winRate: Math.round(data?.winPercentage) + "%",
+              winRate: data?.winPercentage?.toFixed(2) + "%",
               profilePic: data?.userId?.profilePicture || "",
               rank: data?.rank || index + 1,
               itsYou:
@@ -224,7 +234,7 @@ const LeaderBoard = () => {
                   </td>
 
                   <td className="py-4 px-2">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center md:justify-start gap-2">
                       <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
                         {user.profilePic ? (
                           <img
@@ -262,11 +272,14 @@ const LeaderBoard = () => {
                     </div>
                   </td>
 
-                  <td className="py-4 px-4 text-center text-lg !font-bold">
+                  <td className="py-4 px-4 text-right md:text-center text-lg !font-bold">
                     {user.points}
                   </td>
 
-                  <td className="py-4 px-4 text-center">
+                  <td
+                    data-title="Win/Loss"
+                    className="pb-11 md:pb-4 py-4 px-4 text-left md:text-center"
+                  >
                     <span className="win text-lg sky_col">{user.wins}</span>{" "}
                     <b className="font-bold text-xs">/</b>{" "}
                     <span className="loss text-lg text-[#FA4768]">
@@ -274,7 +287,7 @@ const LeaderBoard = () => {
                     </span>
                   </td>
                   {leagueData.playersPerTeam != 1 && (
-                    <td className="py-4 px-4">
+                    <td data-title="Rep" className="pb-11 md:pb-4 py-4 px-4">
                       <div className="flex items-center justify-center">
                         <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
                           <img
@@ -287,7 +300,10 @@ const LeaderBoard = () => {
                     </td>
                   )}
 
-                  <td className="py-4 px-4 text-center text-lg">
+                  <td
+                    data-title="Win rate"
+                    className="pb-11 md:pb-4 py-4 px-4 text-right md:text-center text-lg"
+                  >
                     {user.winRate}
                   </td>
                 </tr>

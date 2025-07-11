@@ -1,16 +1,13 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 import "../../assets/css/aside.css";
-import asideLogo from "../../assets/images/aside_logo.png";
+import asideLogo_rtl from "../../assets/images/logo-rtl.svg";
+import asideLogo_ltr from "../../assets/images/logo-lrt.svg";
+import follwers from "../../assets/images/Follow_Us.png";
+// import asideBackground from "../../assets/images/logo-background.svg";
 import aside_hover from "../../assets/images/aside_hover.png";
 import { Link } from "react-router-dom";
-import {
-  Twitter,
-  Instagram,
-  Youtube,
-  Tiktok,
-  Discord,
-} from "../ui/svg/index.jsx";
+import { Twitter, Instagram, discord, Tiktok } from "../ui/svg/index.jsx";
 import { items } from "../../utils/constant.js";
 
 const Sidebar = ({ onItemClick }) => {
@@ -24,7 +21,7 @@ const Sidebar = ({ onItemClick }) => {
       path: "https://www.instagram.com/primeeleague_ ",
       Icon: Instagram,
     },
-    { name: "Discord", path: "https://discord.gg/YrxDPPp9gx", Icon: Discord },
+    { name: "Discord", path: "https://discord.gg/YrxDPPp9gx", Icon: discord },
     {
       name: "TikTok",
       path: "https://www.tiktok.com/@primeeleague_",
@@ -41,29 +38,36 @@ const Sidebar = ({ onItemClick }) => {
   const activeItem = getActiveItem();
 
   return (
-    <aside className="w-[22.5rem] text-white">
+    <aside className="w-[22.5rem] text-white hidden md:block">
       <Link
         to={"/"}
-        className="sd_logo"
-        style={{ height: "7.438rem", display: "block" }}
+        className="sd_logo flex items-center h-[7.438rem] ltr:justify-start rtl:justify-end rtl:pl-16 bg-[url(./assets/images/logo-background.svg)] bg-cover bg-no-repeat object-center"
       >
         <img
-          src={asideLogo}
+          src={asideLogo_rtl}
           alt=""
-          className="max-w-[initial] object-cover w-full"
+          className="max-w-[11rem] w-full pr-5 h-auto ltr:hidden"
         />
+        <img
+          src={asideLogo_ltr}
+          alt=""
+          className="max-w-[11rem] h-auto pl-5 w-full rtl:hidden"
+        />
+
+        <span className="text-xl font-bold text-black ltr:ml-[16px] rtl:mr-[16px] bg-[#3ECCF3] px-3 rounded-[10px] min-h-[1.75rem] min-w-[4.063rem]">
+          Beta
+        </span>
       </Link>
 
-      <div className="aside_bottom-block w-[20rem] custom_scroll">
+      <div className="aside_bottom-block custom_scroll flex w-[calc(100%-40px)]">
         {/* === Sidebar navlink Block Start === */}
-        <ul className="sd_nav--link mb-10">
+        {/* <ul className="sd_nav--link mb-10">
           {items.map((item) => {
             const isHovered = hoveredItem === item.name;
             const isActive = activeItem === item.name;
 
             return (
               <li key={item.name}>
-                {/* ✅ Active class only on this div */}
                 <div
                   className={`aside_link-con relative ${
                     isActive ? "active" : ""
@@ -103,8 +107,8 @@ const Sidebar = ({ onItemClick }) => {
               </li>
             );
           })}
-        </ul>
-
+        </ul> */}
+        {/* 
         <Link
           to={"/admin-control/partners"}
           className="block hover:opacity-70 duration-400"
@@ -112,21 +116,26 @@ const Sidebar = ({ onItemClick }) => {
           <span className="ml-2 px-6 py-3 block text-xl font_oswald purple_col font-medium">
             Contact Us
           </span>
-        </Link>
-        <Link
+        </Link> */}
+        {/* <Link
           to={"/admin-control/partners"}
           className="block hover:opacity-70 duration-400"
         >
           <span className="ml-2 px-6 py-3 block text-xl font_oswald purple_col font-medium">
             Privacy Policy
           </span>
-        </Link>
+        </Link> */}
 
         {/* === Social Links Block Start === */}
-        <div className="sd_social--block flex flex-col mt-[6rem] border-b border-[#131645] pb-6">
-          <h2 className="text-[2rem] font_oswald max-w-full px-8 tracking-wide uppercase">
+        <div className="sd_social--block flex flex-col mt-auto w-full pb-6">
+          {/* <h2 className="text-[2rem] font_oswald max-w-full px-8 tracking-wide uppercase">
             Follow Us
-          </h2>
+          </h2> */}
+          <img
+            src={follwers}
+            alt=""
+            className="h-[28px] max-w-max ltr:ml-[40px] rtl:mr-[40px] object-contain"
+          />
           <ul className="sd_social--links flex gap-4 justify-center self-center flex-wrap ">
             {social_links.map(({ name, path, Icon }) => (
               <li key={name}>
@@ -142,14 +151,14 @@ const Sidebar = ({ onItemClick }) => {
         </div>
 
         {/* === Collapse Menu Button Start === */}
-        <div className="btn_polygon--mask flex justify-center my-8 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
+        {/* <div className="btn_polygon--mask flex justify-center my-8 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
           <Link
             to={"#"}
             className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center"
           >
             Collapse Menu
           </Link>
-        </div>
+        </div> */}
       </div>
       <svg
         width="0"

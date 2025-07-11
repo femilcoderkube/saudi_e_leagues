@@ -17,7 +17,7 @@ const GameCardGridView = ({ leagues }) => {
 
   return (
     <motion.div
-      className="game_card--wrapper flex flex-wrap pt-14 gap-[2.188rem]"
+      className="game_card--wrapper flex flex-wrap pt-14 gap-y-2 md:gap-y-[2.188rem] gap-[2.188rem] justify-center md:justify-start"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -36,10 +36,10 @@ const GameCardGridView = ({ leagues }) => {
             state={{ league: item }}
           >
             <div className="card_top_left-shap absolute top-0">
-              <img src={CardTopLeftShap} alt="" style={{ width: "11.25rem" }} />
+              <img src={CardTopLeftShap} alt="" className="w-[7rem] md:w-[11.25rem]" />
             </div>
             <div className="card_participants absolute z-40">
-              <h3 className="part_number text-[2rem] !font-bold leading-tight">
+              <h3 className="part_number text-[1.5rem] md:text-[2rem] !font-bold leading-tight">
                 {item.totalRegistrations}
               </h3>
               <p className="text-sm purple_light font-medium">Participants</p>
@@ -52,20 +52,14 @@ const GameCardGridView = ({ leagues }) => {
                 >
                   <img
                     src={getServerURL(item.logo)}
-                    alt=""
-                    style={{
-                      width: "18.5rem",
-                      height: "22.5rem",
-                      objectFit: "cover",
-                    }}
-                  />
+                    alt="" className="w-64 h-60 md:w-[18.5rem] md:h-[22.5rem] object-cover" />
                 </motion.div>
                 <div className="game_mask--con absolute bottom-0 h-full flex flex-col justify-between">
                   <h2 className="league_price text-[2rem] !font-bold font_oswald yellow_grad-bg grad_text-clip pl-5 pt-5">
                     <span className="icon-saudi_riyal !p-0"></span>
                     {formatAmountWithCommas(item?.prizepool)}
                   </h2>
-                  <h3 className="game_label text-[2rem] !font-bold uppercase leading-tight pl-5">
+                  <h3 className="game_label text-[2rem] !font-bold uppercase leading-tight ltr:pl-5 rtl:pr-5">
                     {item.title}
                   </h3>
                 </div>
@@ -120,10 +114,10 @@ const GameCardGridView = ({ leagues }) => {
                 </div>
               </div>
               <div className="match_date relative bg-no-repeat">
-                <h2 className="text-[2rem] match_date-con text-[3.25rem] text-right pr-4 !font-extrabold grad_text-clip">
+                <h2 className="text-[2rem] match_date-con md:text-[3.25rem] ltr:text-right rtl:text-left ltr:pr-4 rtl:pl-4 !font-extrabold grad_text-clip">
                   {getDayFromISO(item.endDate)}
                 </h2>
-                <p className="text-sm purple_light font-medium text-right pr-4 uppercase">
+                <p className="text-sm purple_light font-medium ltr:text-right rtl:text-left ltr:pr-4 rtl:pl-4 uppercase">
                   {getMonthAbbreviation(item.endDate)}
                 </p>
               </div>

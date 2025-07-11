@@ -15,17 +15,20 @@ function SubmitPopUp({ handleClose }) {
   const dispatch = useDispatch();
   // Temporary variable for URL
   const { fileUploadLoading } = useSelector((state) => state.matchs); // Get loading state from Redux
-  const { matchData ,isEditScore} = useSelector((state) => state.matchs);
-  const [previewImage, setPreviewImage] = useState(isEditScore?.attachment ? getServerURL(isEditScore?.attachment) : null );
+  const { matchData, isEditScore } = useSelector((state) => state.matchs);
+  const [previewImage, setPreviewImage] = useState(
+    isEditScore?.attachment ? getServerURL(isEditScore?.attachment) : null
+  );
   const [team, setTeam] = useState(null);
   const user = useSelector((state) => state.auth.user);
- // setPreviewImage(isEditScore?.attachment || null);
+  // setPreviewImage(isEditScore?.attachment || null);
   const formik = useFormik({
     initialValues: {
       yourScore: isEditScore?.yourScore == 0 ? 0 : isEditScore?.yourScore || "",
-      opponentScore: isEditScore?.opponentScore == 0 ? 0 : isEditScore?.opponentScore || "",
-      description:isEditScore?.description || "",
-      file:isEditScore?.attachment || null,
+      opponentScore:
+        isEditScore?.opponentScore == 0 ? 0 : isEditScore?.opponentScore || "",
+      description: isEditScore?.description || "",
+      file: isEditScore?.attachment || null,
     },
     validationSchema: Yup.object({
       yourScore: Yup.number()
@@ -42,7 +45,10 @@ function SubmitPopUp({ handleClose }) {
     onSubmit: async (values) => {
       try {
         // Upload the file
-        const uploadResult =  values.file == isEditScore.attachment ?  {data : isEditScore.attachment}  :await dispatch(uploadFile(values.file)).unwrap() ;
+        const uploadResult =
+          values.file == isEditScore.attachment
+            ? { data: isEditScore.attachment }
+            : await dispatch(uploadFile(values.file)).unwrap();
         let data = {
           team: team,
           matchId: matchData?._id || "", // Use matchData from Redux state
@@ -318,7 +324,11 @@ function SubmitPopUp({ handleClose }) {
                     ></path>
                   </svg>
                 ) : null}
-                {fileUploadLoading ? "Uploading..." :   isEditScore?.yourScore && isEditScore?.opponentScore ? "Edit Score" : "Submit Score"}
+                {fileUploadLoading
+                  ? "Uploading..."
+                  : isEditScore?.yourScore
+                  ? "Edit Score"
+                  : "Submit Score"}
               </button>
               <Popup_btn />
             </div>

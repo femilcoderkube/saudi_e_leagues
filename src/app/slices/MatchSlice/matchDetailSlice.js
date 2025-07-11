@@ -86,7 +86,8 @@ const matchDetailSlice = createSlice({
           state.isMyMatch &&
           !(
             (state.isTeamOne && team1ScoreDetails?.submittedBy) ||
-            (!state.isTeamOne && team2ScoreDetails?.submittedBy)
+            (!state.isTeamOne && team2ScoreDetails?.submittedBy) ||
+            winnerScore?.submittedBy == "admin"
           )
         ) {
           state.isShowChat = true;
@@ -101,7 +102,10 @@ const matchDetailSlice = createSlice({
           state.isEditScore = null;
         }
 
-        if ((winnerScore?.submittedBy == "admin") || (winnerScore?.submittedBy == "team1")) {
+        if (
+          winnerScore?.submittedBy == "admin" ||
+          winnerScore?.submittedBy == "team1"
+        ) {
           state.winnerScore.teamOne = winnerScore.yourScore;
           state.winnerScore.teamTwo = winnerScore.opponentScore;
           state.IsSubmited = true;

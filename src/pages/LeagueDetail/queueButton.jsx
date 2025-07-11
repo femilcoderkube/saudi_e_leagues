@@ -24,7 +24,7 @@ const GetQueueButton = () => {
   if (user?._id == null || user?._id == undefined) {
     return (
       <div
-        className=" lobby_btn mb-8 relative cursor-pointer"
+        className=" lobby_btn mb-8 relative cursor-pointer flex items-center justify-center md:justify-start"
         onClick={() => {
           dispatch(setLogin(true));
         }}
@@ -37,7 +37,7 @@ const GetQueueButton = () => {
     return (
       <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
         <span
-          className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"
+          className="absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
           style={{
             fontFamily: "Yapari",
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
@@ -45,7 +45,7 @@ const GetQueueButton = () => {
         >
           {"LEAGUE ENDED"}
         </span>
-        <img src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "}
+        <img className="mx-auto" src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "}
       </div>
     );
   } else if (!isJoinedUser) {
@@ -69,7 +69,7 @@ const GetQueueButton = () => {
           });
         }}
       >
-        <img src={Cancel_btn} alt="" style={{ width: "30.5rem" }} />{" "}
+        <img className="mx-auto" src={Cancel_btn} alt="" style={{ width: "30.5rem" }} />{" "}
       </div>
     );
   } else {
@@ -84,7 +84,7 @@ const GetQueueButton = () => {
           to={`/${id}/match/${leagueData?.isMatchJoind}`}
         >
           <span
-            className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"
+            className="absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
               fontFamily: "Yapari",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
@@ -92,7 +92,7 @@ const GetQueueButton = () => {
           >
             {"VIEW MATCH"}
           </span>
-          <img src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "}
+          <img className="mx-auto" src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "}
         </Link>
       );
     } else if (text == "QUEUE") {
@@ -102,7 +102,7 @@ const GetQueueButton = () => {
           to={`/${id}/lobby/${leagueData?._id}/finding-match`}
         >
           <span
-            className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"
+            className="absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
               fontFamily: "Yapari",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
@@ -110,7 +110,7 @@ const GetQueueButton = () => {
           >
             {text}
           </span>
-          <img src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "}
+          <img className="mx-auto" src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "}
         </Link>
       );
     } else {
@@ -118,7 +118,7 @@ const GetQueueButton = () => {
       return (
         <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
           <span
-            className="absolute top-[2.5rem] left-0 w-full text-center text-3xl"
+            className="absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
               fontFamily: "Yapari",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
@@ -127,7 +127,7 @@ const GetQueueButton = () => {
             {getQueueText(leagueData)}
           </span>
           {/* <img src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "} */}
-          <img
+          <img className="mx-auto"
             src={text.includes("OPEN") ? Open_btn : Que_btn}
             alt=""
             style={{ width: "30.5rem" }}
