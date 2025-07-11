@@ -5,8 +5,12 @@ import WizardSteps from "./WizardSteps";
 import { useDispatch, useSelector } from "react-redux";
 import LoginModal from "../Modal/LoginModal";
 import { toast } from "react-toastify";
-import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp"; 
-import { setProfileVisible, setRegisteration, setSubmitModal } from "../../app/slices/constState/constStateSlice";
+import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp";
+import {
+  setProfileVisible,
+  setRegisteration,
+  setSubmitModal,
+} from "../../app/slices/constState/constStateSlice";
 import { countryData } from "../../utils/CountryCodes";
 import { checkParams } from "../../utils/constant";
 import { fetchUserById, updateUser } from "../../app/slices/users/usersSlice";
@@ -17,10 +21,18 @@ export default function Main() {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const { games } = useSelector((state) => state.games);
-  const { profileVisible ,submitModal ,viewModal ,countryOptions ,dialCodeOptions ,isLogin ,isRegisteration } = useSelector((state) => state.constState);
+  const {
+    profileVisible,
+    submitModal,
+    viewModal,
+    countryOptions,
+    dialCodeOptions,
+    isLogin,
+    isRegisteration,
+  } = useSelector((state) => state.constState);
   const location = useLocation();
   const [loadingSubmit, setLoadingSubmit] = useState(false);
-  const {user ,userDetail} = useSelector((state) => state.auth);
+  const { user, userDetail } = useSelector((state) => state.auth);
 
   const defaultNationality = countryOptions.find(
     (option) => option.value === "Saudi Arabia"
@@ -62,20 +74,25 @@ export default function Main() {
           defaultNationality,
         dialCode:
           dialCodeOptions.find(
-            (option) => option.value === (user.phone?.split("-")[0] || "+966")
+            (option) =>
+              option.value === (userDetail.phone?.split("-")[0] || "+966")
           ) || defaultDialCode,
-        phoneNumber: user.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
+        phoneNumber: userDetail.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
         dateOfBirth: user.dateOfBirth
           ? new Date(user.dateOfBirth).toISOString().split("T")[0]
           : "",
         gender: user.gender || "Male",
         role: user.role || "Player",
-        favoriteGame: user?.favoriteGame
-          ? gameOptions?.find((option) => option.value === user?.favoriteGame)
+        favoriteGame: userDetail?.favoriteGame
+          ? gameOptions?.find(
+              (option) => option.value === userDetail?.favoriteGame
+            )
           : null,
         profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
       }
     : initialValues;
+
+  console.log("editInitialValues", editInitialValues);
 
   const handleSubmit = async (values, isEdit = false) => {
     try {
@@ -134,18 +151,16 @@ export default function Main() {
     }
   }, [profileVisible, dispatch]);
 
-
   return (
     <div
       className="flex-1 flex flex-col sd_main-content md:ltr:ml-[-2.5rem] md:rtl:mr-[-2.5rem] relative bg-[#020326] ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20"
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
-    {/* <div
+      {/* <div
       className="flex-1 flex flex-col sd_main-content md:ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20"
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     > */}
-      <Header
-      />
+      <Header />
       <main
         className={`flex-1 game_card_main--con ${
           checkParams("finding-match") || checkParams("match")
