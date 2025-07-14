@@ -403,8 +403,8 @@ html[dir=rtl] .timeline-card__steps::before {
   background: #1e2144;
   right: 2.3rem;
   width: 0.25rem;
-  height: calc(100% - 4.1rem);
-  bottom: 0;
+  height: calc(100% - 7.1rem);
+    top: 2.125rem;
 }
 
 .timeline_wrap.completed:after {
@@ -802,6 +802,29 @@ input[type="radio"]:checked+label .checkbox-inner:before {
     width: 100%;
   }
 }
+@media (min-width: 768px) and (max-width: 991px){
+.sd_bedge_left-con{
+  padding-left: 0.9rem;
+  gap: 0.7rem;
+}
+
+.sd_bedge_right-con{
+  padding-right: 0.9rem;
+}
+
+.user_img:before{
+      width: 3rem;
+    height: 3rem;
+}
+
+.sd_bedge-lable  img{
+  width: 3.5rem !important;
+}
+
+.sd_bedge_left-con .sd_avtar-info{
+gap: 0.7rem;
+}
+}
 /* md */
 @media (max-width: 767px) {
   .sd_content-left{
@@ -813,8 +836,13 @@ input[type="radio"]:checked+label .checkbox-inner:before {
     width: 21.38rem;
   }
 
+  html[dir=rtl] .player_score{
+  background-image: url(/src/assets/images/mob_score_bg.png);
+}
+
   .game_polygon-link {
     width: 9rem;
+    padding: 0 0.8rem;
   }
 
   .game_polygon-link:before {
@@ -908,9 +936,19 @@ input[type="radio"]:checked+label .checkbox-inner:before {
     right: 1.25rem;
   }
 
+   html[dir=rtl] .timeline-card__header::before{
+    left: 1.25rem;
+    right: auto;
+  }
+
   .timeline-card__header::after{
     right: 1.9rem;
     transform: rotate(0deg);
+  }
+
+   html[dir=rtl] .timeline-card__header::after{
+    left: 1.9rem;
+    right: auto;
   }
 
    .gold {
@@ -923,6 +961,9 @@ input[type="radio"]:checked+label .checkbox-inner:before {
 
 .bronze {
     background: linear-gradient(145deg, rgba(243, 104, 69, 0.52) 0%, rgba(243, 104, 69, 0.2) 20%, rgba(94, 95, 184, 0.2) 72%, rgba(34, 35, 86, 0.8) 100%),linear-gradient(to bottom,#050523 0%, #060725 100%);    
+}
+.sd_main-content{
+  border-radius: 0;
 }
 }
 

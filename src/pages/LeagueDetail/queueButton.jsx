@@ -150,7 +150,7 @@ const GetQueueButton = () => {
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
             }}
           >
-            {getQueueText(leagueData)}
+            {text}
           </span>
           {/* <img src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "} */}
           <img

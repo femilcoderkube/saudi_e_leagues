@@ -18,10 +18,12 @@
 }
 
 @keyframes text-pulse {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.7;
   }
@@ -35,13 +37,14 @@
 }
 
 @keyframes float-left {
+
   0%,
   100% {
     transform: rotateX(169deg) rotateY(0deg) skew(10deg, -15deg) translateY(0px);
   }
+
   50% {
-    transform: rotateX(169deg) rotateY(0deg) skew(10deg, -15deg)
-      translateY(-10px);
+    transform: rotateX(169deg) rotateY(0deg) skew(10deg, -15deg) translateY(-10px);
   }
 }
 
@@ -54,16 +57,21 @@
 }
 
 @keyframes rotate-slow {
+
   0%,
   100% {
-    transform: rotateX(0deg) rotateY(164deg) skew(10deg, -15deg) scale(1);
+    /* transform: rotateX(0deg) rotateY(164deg) skew(10deg, -15deg) scale(1); */
+    transform: rotate(44.26deg) scale(1);
     opacity: 0.08;
   }
+
   50% {
-    transform: rotateX(0deg) rotateY(164deg) skew(10deg, -15deg) scale(1.05);
+    /* transform:rotateY(44.26deg) skew(10deg, -15deg) scale(1.05); */
+    transform: rotate(44.26deg) scale(1.05);
     opacity: 0.12;
   }
 }
+
 /* @keyframes rotate-slow {
     0% { transform: rotate(44.26deg); }
     100% { transform: rotate(404.26deg); }
@@ -76,10 +84,12 @@
 }
 
 @keyframes float-right {
+
   0%,
   100% {
     transform: rotate(139.6deg) translateY(0px);
   }
+
   50% {
     transform: rotate(139.6deg) translateY(-12px);
   }
@@ -92,11 +102,13 @@
 }
 
 @keyframes breathe {
+
   0%,
   100% {
     transform: rotateX(0deg) rotateY(164deg) skew(10deg, -15deg) scale(1);
     opacity: 0.08;
   }
+
   50% {
     transform: rotateX(0deg) rotateY(164deg) skew(10deg, -15deg) scale(1.05);
     opacity: 0.12;
@@ -110,20 +122,23 @@
 }
 
 @keyframes center-pulse {
+
   0%,
   100% {
     transform: translate(-50%, 0px) rotate(-16deg) scale(1);
     filter: brightness(1);
   }
+
   50% {
     transform: translate(-50%, 0px) rotate(-16deg) scale(1.08);
     filter: brightness(1.2);
   }
 }
+
 .center-league-loader {
   transform: translate(-50%, 0px) rotateY(0deg) scale(0.9);
-  /* Coin spin and stop effect */
-  animation: coin-spin-stop 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  /* Coin spin and stop effect - SLOWER SPIN */
+  animation: coin-spin-stop 3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 @keyframes coin-spin-stop {
@@ -131,15 +146,19 @@
     transform: translate(-50%, 0px) rotateY(0deg) scale(0.9);
     filter: brightness(1);
   }
+  /* Spin much slower: less degree change per percent, longer duration */
+
   /* Make the spin slower by reducing the degree change per percent of animation */
   60% {
-    transform: translate(-50%, 0px) rotateY(720deg) scale(1.1);
+    transform: translate(-50%, 0px) rotateY(540deg) scale(1.1);
     filter: brightness(1.2);
   }
+
   80% {
-    transform: translate(-50%, 0px) rotateY(900deg) scale(1.05);
+    transform: translate(-50%, 0px) rotateY(810deg) scale(1.05);
     filter: brightness(1.1);
   }
+
   100% {
     transform: translate(-50%, 0px) rotateY(1080deg) scale(1);
     filter: brightness(1);
@@ -156,10 +175,12 @@
 }
 
 @keyframes gentle-bounce {
+
   0%,
   100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-5px);
   }
@@ -169,6 +190,7 @@
   transform: scale(1.05) translateY(-3px) !important;
   filter: brightness(1.2);
 }
+
 /* Enhanced gradient animation */
 .grediant {
   position: absolute;
@@ -177,11 +199,9 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(
-    circle,
-    rgba(0, 62, 177, 0.24) 0%,
-    rgba(14, 38, 70, 1) 100%
-  );
+  background: radial-gradient(circle,
+      rgba(0, 62, 177, 0.24) 0%,
+      rgba(14, 38, 70, 1) 100%);
   background-position: center;
   background-repeat: no-repeat;
   filter: blur(200px);
@@ -191,24 +211,23 @@
 }
 
 @keyframes gradient-pulse {
+
   0%,
   100% {
-    background: radial-gradient(
-      circle,
-      rgba(0, 62, 177, 0.24) 0%,
-      rgba(14, 38, 70, 1) 100%
-    );
+    background: radial-gradient(circle,
+        rgba(0, 62, 177, 0.24) 0%,
+        rgba(14, 38, 70, 1) 100%);
     transform: translate(-50%, -50%) scale(1);
   }
+
   50% {
-    background: radial-gradient(
-      circle,
-      rgba(0, 62, 177, 0.35) 0%,
-      rgba(14, 38, 70, 1) 100%
-    );
+    background: radial-gradient(circle,
+        rgba(0, 62, 177, 0.35) 0%,
+        rgba(14, 38, 70, 1) 100%);
     transform: translate(-50%, -50%) scale(1.1);
   }
 }
+
 /* Player search container animation */
 .player-search {
   animation: container-fade-in 1s ease-out;
@@ -219,6 +238,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0px);
@@ -232,18 +252,22 @@
 }
 
 @keyframes dots {
+
   0%,
   20% {
     content: "";
   }
+
   25%,
   45% {
     content: ".";
   }
+
   50%,
   70% {
     content: "..";
   }
+
   75%,
   95% {
     content: "...";
@@ -265,11 +289,9 @@
 }
 
 .player_stroke:before {
-  background: linear-gradient(
-    180deg,
-    rgba(7, 26, 27, 0.25) -18%,
-    rgba(7, 26, 27, 0.25) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(7, 26, 27, 0.25) -18%,
+      rgba(7, 26, 27, 0.25) 100%);
   width: 72px;
   height: 72px;
   z-index: 1;
@@ -283,26 +305,21 @@ ul.team_two--list li {
 }
 
 .match_center-con .grad_text-clip {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(147, 185, 255, 1) 60%
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(147, 185, 255, 1) 60%);
 }
+
 .team_score--wrap .grad_head--txt {
-  background: -webkit-linear-gradient(
-    270deg,
-    rgba(123, 126, 208, 0.6) 0%,
-    rgba(123, 126, 208, 0) 80%
-  );
+  background: -webkit-linear-gradient(270deg,
+      rgba(123, 126, 208, 0.6) 0%,
+      rgba(123, 126, 208, 0) 80%);
 }
 
 .review_score--con:before {
-  background: linear-gradient(
-    90deg,
-    rgba(99, 112, 255, 0) 0%,
-    rgba(99, 112, 255, 0.12) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(99, 112, 255, 0) 0%,
+      rgba(99, 112, 255, 0.12) 100%);
   width: 6rem;
   left: -2rem;
   height: 100%;
@@ -315,6 +332,7 @@ li.team_score--card:hover .review_score--con:before {
   opacity: 1;
   transition: 2s eas;
 }
+
 .team_two--list .review_score--con:before {
   left: auto;
   right: -2rem;
@@ -324,12 +342,11 @@ li.team_score--card:hover .review_score--con:before {
 .prime_logo--con.gradiant_bg:before {
   width: 18.5rem;
   top: 2rem;
-  background: radial-gradient(
-    circle,
-    rgba(0, 62, 177, 0.24) 0%,
-    rgba(14, 38, 70, 1) 100%
-  );
+  background: radial-gradient(circle,
+      rgba(0, 62, 177, 0.24) 0%,
+      rgba(14, 38, 70, 1) 100%);
 }
+
 .chat_block--con:before {
   background: #050529;
   width: 100%;
@@ -338,12 +355,11 @@ li.team_score--card:hover .review_score--con:before {
   top: 0rem;
   display: none;
 }
+
 .chat_msg-input {
-  background: linear-gradient(
-    90deg,
-    rgba(47, 48, 108, 0.35) 0%,
-    rgba(47, 48, 108, 0.15) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(47, 48, 108, 0.35) 0%,
+      rgba(47, 48, 108, 0.15) 100%);
   box-shadow: inset 0px 3px 0px rgba(47, 48, 108, 0.24);
 }
 
@@ -361,10 +377,12 @@ li.team_score--card:hover .review_score--con:before {
   animation: pink-left ease-in-out 0.5s;
   height: 100%;
 }
+
 @keyframes pink-left {
   from {
     left: -100%;
   }
+
   to {
     left: 0%;
   }
@@ -375,10 +393,12 @@ li.team_score--card:hover .review_score--con:before {
   animation: blue-right ease-in-out 0.5s;
   height: 100%;
 }
+
 @keyframes blue-right {
   from {
     right: -100%;
   }
+
   to {
     right: 0%;
   }
@@ -391,11 +411,74 @@ li.team_score--card:hover .review_score--con:before {
   animation-fill-mode: forwards;
   opacity: 0;
 }
+
 @keyframes vs-in {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
+}
+
+@media (max-width: 991px) {
+  .left-league {
+    width: 16rem !important;
+    left: 2rem;
+  }
+
+  .right-league {
+    right: 5rem;
+    top: 1rem;
+    width: 7rem !important;
+  }
+
+  .left-bottom-league {
+    bottom: 1rem;
+    left: 5rem;
+  }
+
+  .right-bottom-league {
+    width: 17rem !important;
+  }
+
+  .center-league {
+    width: 10rem !important;
+  }
+}
+
+@media (max-width:767px) {
+  .left-league {
+    width: 12rem !important;
+    left: -6rem;
+    top: -12rem;
+  }
+
+  .right-league {
+    right: -1.5rem;
+    top: 2rem;
+    width: 5rem !important;
+  }
+  .right-bottom-league {
+        width: 13rem !important;
+        bottom: -3rem;
+    }
+        .left-bottom-league {
+        bottom: 4rem;
+        left: -1rem;
+    }
+    .center-league {
+        width: 9rem !important;
+        top: 13rem;
+    }
+
+    .cancel-btn{
+      left: 50%;
+      transform: translate(-50%,0);
+      width: 22.5rem !important;
+    }
+    .cancel-btn:hover {
+    transform: scale(1.05) translate(-50%,0) !important;
+    }
 }

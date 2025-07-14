@@ -105,13 +105,13 @@ const MatchMaking = () => {
                 style={{ width: "20rem" }}
               />
               <img
-                className="left-bottom-league absolute bottom-25 left-80 opacity-[8%]"
+                className="left-bottom-league absolute xl:bottom-25 xl:left-80 md:bottom-15 md:left-60 opacity-[8%]"
                 src={center_league}
                 alt=""
                 style={{ width: "5.5rem" }}
               />
               <img
-                className="right-league absolute top-20 right-60 opacity-[8%]"
+                className="right-league absolute xl:top-20 xl:right-60 md:top-10 md:right-40 opacity-[8%]"
                 src={center_league}
                 alt=""
                 style={{ width: "9.5rem" }}
@@ -138,10 +138,10 @@ const MatchMaking = () => {
                 <Sparkles />
               </div>
               <div className="player-search text-center pt-14">
-                <span className="text-[5.254rem] font-bold grad_head--txt">
+                <span className="md:text-[5.254rem] text-[3.75rem] font-bold grad_head--txt">
                   {formatTime(seconds)}
                 </span>
-                <h5 className="purple_col pt-5 text-2xl">{t('player_search')}</h5>
+                <h5 className="purple_col md:pt-5 pt-4 md:text-2xl text-base">{t('player_search')}</h5>
               </div>
             </div>
           </div>

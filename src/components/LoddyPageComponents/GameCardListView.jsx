@@ -33,12 +33,12 @@ const GameCardListView = ({ leagues }) => {
                 />
               </div>
               <div className="game_mask--con pt-3 relative h-full flex flex-col justify-between">
-                <h3 className="game_label !mb-0 text-2xl !font-bold uppercase leading-tight ltr:pl-5 rtl:pr-5 h-[60px]">
+                <h3 className="game_label !mb-0 sm:text-2xl text-lg !font-bold uppercase leading-tight ltr:pl-5 rtl:pr-5 h-[60px]">
                   {" "}
                   {i18n.language === "ar" ? item.titleAr : item.title}{" "}
                 </h3>
                 <div className="league_price_v2 mt-5 mb-7 ltr:pl-5 rtl:pr-5 py-3 relative sd_before sd_after before:top-0 before:left-0 before:w-full before:h-[0.063rem] after:bottom-0 after:left-0 after:w-full after:h-[0.063rem]">
-                  <h2 className="league_price text-2xl  !font-bold font_oswald yellow_grad-bg grad_text-clip">
+                  <h2 className="league_price sm:text-2xl text-lg !font-bold font_oswald yellow_grad-bg grad_text-clip">
                     <span className="icon-saudi_riyal !p-0"></span>
                     {formatAmountWithCommas(item?.prizepool)}
                   </h2>
@@ -56,7 +56,7 @@ const GameCardListView = ({ leagues }) => {
                       </p>
                       <h4
                         title={item.game.name}
-                        className="text-base !font-bold"
+                        className="sm:text-base text-sm !font-bold"
                       >
                         {item.game.name}
                       </h4>
@@ -64,7 +64,7 @@ const GameCardListView = ({ leagues }) => {
                   </div>
                 </div>
                 <div className="card_participants_v2 mt-3 relative ltr:pl-13 rtl:pr-13 z-40">
-                  <h3 className="part_number text-lg !font-bold leading-tight">
+                  <h3 className="part_number sm:text-lg text-base !font-bold leading-tight">
                     {item.totalRegistrations}
                   </h3>
                   <p className="text-xs purple_light font-medium">

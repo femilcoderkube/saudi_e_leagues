@@ -3,6 +3,7 @@ import prime_hover from "../assets/images/prime_hover.png";
 import { Prime } from "../components/ui/svg";
 import LargePrime from "../assets/images/prime_hover.png";
 import { baseURL } from "./axios";
+import moment from "moment-timezone";
 
 export const items = [
   {
@@ -131,7 +132,7 @@ export function getQueueText(leagueData) {
 
   const { alwaysOn, schedule } = leagueData.queueSettings;
 
-  // Always On: Use startDate/endDate logic
+  // If alwaysOn at the root, use startDate logic
   if (alwaysOn) {
     const now = new Date();
     const start = new Date(leagueData.startDate);
@@ -142,13 +143,11 @@ export function getQueueText(leagueData) {
     }
   }
 
-  // Scheduled: Use schedule.days, startTime, endTime
+  // New schedule.days structure
   if (
     schedule &&
     Array.isArray(schedule.days) &&
-    schedule.days.length > 0 &&
-    schedule.startTime &&
-    schedule.endTime
+    schedule.days.length > 0
   ) {
     // Get today's day in lowercase
     const today = new Date();
@@ -163,85 +162,122 @@ export function getQueueText(leagueData) {
     ];
     const todayName = daysOfWeek[today.getDay()];
 
-    // Is today a queue day?
-    const isTodayQueueDay = schedule.days
-      .map((d) => d.toLowerCase())
-      .includes(todayName);
+    // Find today's schedule object
+    const todaySchedule = schedule.days.find(
+      (d) => d.day && d.day.toLowerCase() === todayName
+    );
 
-    // Parse start and end time for today
-    function parseTimeToDate(timeStr, baseDate) {
-      const [h, m] = timeStr.split(":").map(Number);
-      const d = new Date(baseDate);
-      d.setHours(h, m, 0, 0);
-      return d;
-    }
-
-    if (isTodayQueueDay) {
-      // Use moment-timezone to convert to Saudi Riyadh timezone
-      // Make sure to import moment and moment-timezone at the top of your file:
-      // import moment from "moment-timezone";
-      const saTz = "Asia/Riyadh";
-      const startTime = moment.tz(
-        `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${schedule.startTime}`,
-        "YYYY-M-D HH:mm",
-        saTz
-      ).toDate();
-      const endTime = moment.tz(
-        `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${schedule.endTime}`,
-        "YYYY-M-D HH:mm",
-        saTz
-      ).toDate();
-
-      if (today < startTime) {
-        return `OPENS IN ${GetTimeString(startTime)}`;
-      } else if (today >= startTime && today <= endTime) {
+    // If today is a queue day
+    if (todaySchedule) {
+      // If alwaysOn for today, queue is always open
+      if (todaySchedule.alwaysOn) {
         return "QUEUE";
-      } else {
-        // Find next queue day
-        let nextDayIndex = null;
-        for (let i = 1; i <= 7; i++) {
-          const next = (today.getDay() + i) % 7;
-          if (
-            schedule.days.map((d) => d.toLowerCase()).includes(daysOfWeek[next])
-          ) {
-            nextDayIndex = next;
+      }
+
+      // If there are time slots for today
+      if (Array.isArray(todaySchedule.time) && todaySchedule.time.length > 0) {
+        // Use moment-timezone to convert to Saudi Riyadh timezone
+        // import moment from "moment-timezone";
+        const saTz = "Asia/Riyadh";
+        const nowRiyadh = moment.tz(new Date(), saTz);
+
+        // Find the current or next slot
+        let foundOpen = false;
+        let nextOpenTime = null;
+
+        for (let slot of todaySchedule.time) {
+          const startTime = moment.tz(
+            `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${slot.startTime}`,
+            "YYYY-M-D HH:mm",
+            saTz
+          );
+          const endTime = moment.tz(
+            `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${slot.endTime}`,
+            "YYYY-M-D HH:mm",
+            saTz
+          );
+
+          if (nowRiyadh.isBefore(startTime)) {
+            // Next slot not started yet
+            if (!nextOpenTime || startTime.isBefore(nextOpenTime)) {
+              nextOpenTime = startTime;
+            }
+          } else if (nowRiyadh.isSameOrAfter(startTime) && nowRiyadh.isSameOrBefore(endTime)) {
+            // Currently in a slot
+            foundOpen = true;
             break;
           }
         }
-        if (nextDayIndex !== null) {
-          // Calculate next queue day date
-          const nextDate = new Date(today);
-          nextDate.setDate(
-            today.getDate() + ((nextDayIndex + 7 - today.getDay()) % 7)
-          );
-          const nextStartTime = parseTimeToDate(schedule.startTime, nextDate);
-          return `OPENS IN ${GetTimeString(nextStartTime)}`;
+
+        if (foundOpen) {
+          return "QUEUE";
+        } else if (nextOpenTime) {
+          return `OPENS IN ${GetTimeString(nextOpenTime.toDate())}`;
         }
-        return "QUEUE CLOSED";
+        // If no more slots today, look for next available day
       }
-    } else {
-      // Find next queue day
-      let nextDayIndex = null;
-      for (let i = 1; i <= 7; i++) {
-        const next = (today.getDay() + i) % 7;
-        if (
-          schedule.days.map((d) => d.toLowerCase()).includes(daysOfWeek[next])
-        ) {
-          nextDayIndex = next;
+      // If no time slots, treat as closed for today unless alwaysOn
+    }
+
+    // Find the next available day with alwaysOn or a time slot
+    let soonestDay = null;
+    let soonestTime = null;
+    for (let i = 1; i <= 7; i++) {
+      const nextDayIdx = (today.getDay() + i) % 7;
+      const nextDayName = daysOfWeek[nextDayIdx];
+      const nextDayObj = schedule.days.find(
+        (d) => d.day && d.day.toLowerCase() === nextDayName
+      );
+      if (nextDayObj) {
+        // If alwaysOn for that day, that's the soonest
+        if (nextDayObj.alwaysOn) {
+          soonestDay = i;
+          soonestTime = null;
           break;
         }
+        // If there are time slots, pick the earliest slot
+        if (Array.isArray(nextDayObj.time) && nextDayObj.time.length > 0) {
+          const nextDate = new Date(today);
+          nextDate.setDate(today.getDate() + i);
+          // Find earliest slot
+          let earliestSlot = nextDayObj.time[0];
+          for (let slot of nextDayObj.time) {
+            if (
+              slot.startTime < earliestSlot.startTime
+            ) {
+              earliestSlot = slot;
+            }
+          }
+          const saTz = "Asia/Riyadh";
+          const slotStart = moment.tz(
+            `${nextDate.getFullYear()}-${nextDate.getMonth() + 1}-${nextDate.getDate()} ${earliestSlot.startTime}`,
+            "YYYY-M-D HH:mm",
+            saTz
+          );
+          if (
+            soonestTime === null ||
+            slotStart.isBefore(soonestTime)
+          ) {
+            soonestDay = i;
+            soonestTime = slotStart;
+          }
+        }
       }
-      if (nextDayIndex !== null) {
-        // Calculate next queue day date
-        const nextDate = new Date(today);
-        nextDate.setDate(
-          today.getDate() + ((nextDayIndex + 7 - today.getDay()) % 7)
-        );
-        const nextStartTime = parseTimeToDate(schedule.startTime, nextDate);
-        return `OPENS IN ${GetTimeString(nextStartTime)}`;
-      }
-      return "QUEUE CLOSED";
     }
+
+    if (soonestDay !== null) {
+      if (soonestTime) {
+        return `OPENS IN ${GetTimeString(soonestTime.toDate())}`;
+      } else {
+        // Next day is alwaysOn, so opens at midnight
+        const nextDate = new Date(today);
+        nextDate.setDate(today.getDate() + soonestDay);
+        nextDate.setHours(0, 0, 0, 0);
+        return `OPENS IN ${GetTimeString(nextDate)}`;
+      }
+    }
+
+    return "QUEUE CLOSED";
   }
 
   return "QUEUE CLOSED";

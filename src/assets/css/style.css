@@ -282,3 +282,36 @@ html[dir="rtl"] .team_score--con {
     height: 3.8rem;
   }
 }
+
+/* mobilemenu */
+.navigation{
+  background: linear-gradient(180deg,#101237 0%,#070828 100%);
+}
+
+.navigation li.indicator {
+    position: absolute;
+}
+
+.navigation ul.listWrap {
+    padding: 0 30px;
+}
+
+.navigation .list {
+    flex: 1;
+    height: 100%;
+    display: flex;
+}
+
+.navigation .list a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.navigation .list a span {
+    margin-top: 12px;
+    font-weight: 700;
+}

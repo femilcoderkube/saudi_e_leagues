@@ -42,11 +42,11 @@ function App() {
         <Sidebar onItemClick={handleItemClick} selectedItem={selectedItem} />
         <Routes>
           {/* <Route index element={<MainView selectedItem={selectedItem} />} /> */}
-          <Route path="/" element={<Navigate to="/prime/lobby" />} />
+          <Route path="/" element={<Navigate to="/prime" />} />
           {/* Redirect "/:id" to "/:id/lobby" */}
-          <Route path="/:id" element={<Navigate to={`/${window.location.pathname.split('/')[1]}/lobby`} replace />} />
+          {/* <Route path="/:id" element={<Navigate to={`/${window.location.pathname.split('/')[1]}/lobby`} replace />} /> */}
           <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
-            {/* <Route index element={<PrimeHome />} /> */}
+            <Route index element={<PrimeHome />} />
             <Route path="match/:mId" element={<MatchDetail />} />
             <Route path="lobby" element={<Lobby />} />
             <Route path="lobby/:lId" element={<LeagueDetail />} />

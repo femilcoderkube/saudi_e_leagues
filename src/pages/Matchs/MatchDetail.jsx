@@ -79,7 +79,7 @@ const MatchDetail = () => {
       style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
     >
       <section className="match_team--wrap flex pt-[6rem] justify-between items-end pl-[7.5rem] pr-[7.5rem] ">
-        <div className="team_score--con flex justify-between w-full gap-10 max-[1280px]:flex-col max-[1280px]:items-center">
+        <div className="team_score--con flex justify-between w-full gap-10">
           {/* Team 1 */}
           <div className="team_score--wrap">
             <h2 className="grad_head--txt max-w-full text-[4rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
@@ -103,6 +103,11 @@ const MatchDetail = () => {
                 alt={t("images.large_prime")}
                 style={{ width: "17.5rem" }}
               />
+            </div>
+
+            <div className="xl-hidden block">
+               <div className="submit_score-btn btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">     
+    </div>
             </div>
 
             {isShowChat && (
@@ -155,7 +160,6 @@ const MatchDetail = () => {
                         // console.log("chat----", chat);
                         return chat.randomMessages.map((msg, msgIdx) => {
                         
-                          
                           return (
                             <div className={`block send_msg-con`}>
                               <div className="px-2 py-1 rounded-lg">
@@ -166,7 +170,7 @@ const MatchDetail = () => {
                                       color: "red", // Apply random color based on senderId
                                     }}
                                   >
-                                    {t("match.system")} :{""}
+                                    {t("match.system")} : {""}
                                   </span>
                                   <span
                                     key={`system-randomMessages-${msgIdx}`}
@@ -176,7 +180,7 @@ const MatchDetail = () => {
                                     }}
                                   />
                                   <span className="text-white text-lg font-bold">
-                                    {msg.tags}
+                                    {": "}{msg.tags}
                                   </span>
                                 </div>
                               </div>

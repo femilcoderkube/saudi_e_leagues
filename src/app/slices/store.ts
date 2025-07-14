@@ -6,7 +6,6 @@ import leaguesSlice from "./leagueDetail/leagueDetailSlice";
 import gameSlice from "./game/gamesSlice";
 import constStateSlice from "./constState/constStateSlice";
 import Matchslice from "./MatchSlice/matchDetailSlice";
-import usersSlice from "./users/usersSlice";
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +16,6 @@ export const store = configureStore({
     games: gameSlice,
     constState: constStateSlice,
     matchs: Matchslice,
-    users: usersSlice,
   },
 });
 

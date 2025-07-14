@@ -18,6 +18,7 @@ const GameCardGridView = ({ leagues }) => {
   const { t } = useTranslation();
 
   return (
+    <div className="game-card-wp">
     <motion.div
       className="game_card--wrapper flex flex-wrap pt-14 gap-y-2 md:gap-y-[2.188rem] gap-[1.626rem] justify-center md:justify-start"
       variants={containerVariants}
@@ -138,6 +139,7 @@ const GameCardGridView = ({ leagues }) => {
         </motion.div>
       ))}
     </motion.div>
+    </div>
   );
 };
 

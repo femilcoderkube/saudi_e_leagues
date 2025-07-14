@@ -4,6 +4,7 @@ import valorant_bg from "../../assets/images/valorant_bg.png";
 import fire_boy from "../../assets/images/fire_boy.png";
 
 import star_of_week from "../../assets/images/star_of_week.png";
+import mob_star_of_week from "../../assets/images/mob_star_week.png";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
 import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
 import LeaderBoard from "../../components/LobbyPageComp/LeaderBoardTable.jsx";
@@ -227,7 +228,7 @@ const LeagueDetail = () => {
                 </svg> */}
               </div>
               {leagueData?.leaderBoard.weekOfTheStartUsers && (
-                <div className="sd_star_bedge--wrap flex items-center mt-8 bg-no-repeat justify-between relative py-[0.625rem]">
+                <div className="sd_star_bedge--wrap md:flex hidden items-center mt-8 bg-no-repeat justify-between relative py-[0.625rem]">
                   <div className="sd_bedge_left-con flex items-center gap-4 pl-[2rem]">
                     <div className="sd_bedge-lable border-r-1 border-[#7b7ed047] pr-6">
                       <img
@@ -297,11 +298,85 @@ const LeagueDetail = () => {
                   <ScoreTicker />
                 </div>
               )}
+              {/* mobile version */}
+              {leagueData?.leaderBoard.weekOfTheStartUsers && (
+                <div className="bg-[url(./assets/images/mob-star-week-shape.png)] max-w-[21.38rem] w-full flex md:hidden flex-col md:mt-8 bg-no-repeat relative p-5 mx-auto">
+                  <div className="sd_bedge_left-con flex flex-row items-center pb-6 gap-4 w-full">
+                    <div className="sd_bedge-lable border-b-1 border-[#7b7ed047] pb-5 w-full">
+                      <img
+                        src={mob_star_of_week}
+                        alt=""
+                        style={{ width: "12.35rem" }}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between gap-3 pb-8">
+                    <div className="sd_avtar-info gap-6 inline-flex justify-between items-center cursor-pointer text-white rounded">
+                      <div className="user_img relative sd_before">
+                      {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                             ?.profilePic ? (
+                         <img
+                         src={getServerURL(
+                           leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                             ?.profilePic
+                         )}
+                         alt=""
+                         className="rounded-[3rem]"
+                         style={{ width: "3rem",height: "3rem" }}
+                       />
+                        ) : (
+                          <div
+                            style={{
+                              width: "3rem",
+                              height: "3rem",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: getRandomColor(leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                                ?.username),
+                              color: "#fff",
+                              fontWeight: "bold",
+                              fontSize: "1.5rem",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                              ?.username?.charAt(0)?.toUpperCase() || "?"}
+                          </div>
+                        )}
+                      </div>
+                      <div className="use_con text-left flex flex-col gap-1">
+                        <span className="text-lg">
+                          {
+                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                              ?.fullName
+                          }
+                        </span>
+                        <span className="user_id md:text-md text-sm block text-[#87C9F2]">
+                          @
+                          {
+                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                              ?.username
+                          }
+                        </span>
+                      </div>
+                    </div>
+                  <div className="sd_score--con">
+                    <h2 className="text-[1.5rem] !font-extrabold grad_text-clip">
+                      {leagueData?.leaderBoard?.weekOfTheStartUsers?.weeklyScore?.toFixed(
+                        2
+                      )}
+                    </h2>
+                  </div>
+                  </div>
+                  <ScoreTicker />
+                </div>
+              )}
               <LeaderBoard />
             </div>
             <div className="sd_content-right w-full order-1 md:order-2">
               <GetQueueButton />
-        <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 md:pb-0 pb-6 items-center justify-center md:justify-baseline w-full">
+        <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 md:pb-0 pb-6 items-center justify-center md:justify-baseline">
               <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
                   <Link
                     to={"#"}

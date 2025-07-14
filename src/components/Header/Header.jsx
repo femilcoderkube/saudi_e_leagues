@@ -17,6 +17,9 @@ import {
   NextArrow2,
 } from "../ui/svg/index.jsx";
 import country_us from "../../assets/images/country_us.png";
+import lobyIcon from "../../assets/images/loby-icon.svg";
+// import homeIcon from "../../assets/images/country_us.png";
+// import profileIcon from "../../assets/images/country_us.png";
 import Dropdown from "../LobbyPageComp/User_menu.jsx";
 import { checkParams, items } from "../../utils/constant.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,7 +51,7 @@ const Header = () => {
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
   useEffect(() => {}, [matchData, user, location]);
-  const userUpdate = useSelector((state) => state.users.userDetail);
+  const userUpdate = useSelector((state) => state.auth.userDetail);
   console.log("user", user);
 
   const { i18n, t } = useTranslation();
@@ -166,7 +169,7 @@ const Header = () => {
           >
             <NextArrow2 width="0.8rem" height="1.5rem" fill="#7378C0" />
           </div>
-          <h2 className="text-[2rem] !font-black uppercase text-center block">
+          <h2 className="sm:text-[2rem] text-lg !font-black uppercase text-center block">
             {leagueData?.title || t("match.finding_matchmaking")}
           </h2>
         </header>
@@ -299,6 +302,35 @@ const Header = () => {
             <Dropdown user={userUpdate ? userUpdate : user} />
           </div>
         )}
+        <div className="navigation sm:hidden w-full h-[6.5rem] left-0 fixed bottom-0 z-100">
+          <ul className="listWrap h-full flex justify-around items-center">
+            <li className="list active">
+              <a href="javascript:void(0);">
+                <i className="icon">
+                  <img src={lobyIcon} alt="lang" />
+                </i>
+                <span className="text">Lobby</span>
+              </a>
+            </li>
+            <li className="list">
+              <a href="javascript:void(0);">
+                <i className="icon">
+                  <img src={lobyIcon} alt="lang" />
+                </i>
+                <span className="text">Home</span>
+              </a>
+            </li>
+            <li className="list">
+              <a href="javascript:void(0);">
+                <i className="icon">
+                  <img src={lobyIcon} alt="lang" />
+                </i>
+                <span class="text">Profile</span>
+              </a>
+            </li>
+            <li className="indicator"></li>
+          </ul>
+        </div>
       </header>
     );
   }

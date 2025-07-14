@@ -6,8 +6,8 @@ const ScoreTicker = () => {
   const { leagueData  } = useSelector((state) => state.leagues);
   let price = leagueData?.weekOfTheStarPrice
   return (
-    <div className="sd_bedge_right-con ltr:pr-[2rem] rtl:pl-[2rem]">
-      <div className="sd_score--ticker flex gap-2">
+    <div className="sd_bedge_right-con md:ltr:pr-[2rem] md:rtl:pl-[2rem]">
+      <div className="sd_score--ticker justify-center md:justify-start flex gap-2">
         {getDigitList(price).map((digit, index) => (
           <div
             key={index}

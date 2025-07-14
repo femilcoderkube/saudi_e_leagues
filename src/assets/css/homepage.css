@@ -176,6 +176,15 @@
     height: 100%;
 }
 
+.game_card_wrap--link a{
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.game_card_wrap--link a:hover{
+    transform: scale(1.03);
+}
+
 .htp_card--body{
     background: rgb(68, 28, 28);
 }

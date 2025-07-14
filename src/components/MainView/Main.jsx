@@ -13,7 +13,7 @@ import {
 } from "../../app/slices/constState/constStateSlice";
 import { countryData } from "../../utils/CountryCodes";
 import { checkParams } from "../../utils/constant";
-import { fetchUserById, updateUser } from "../../app/slices/users/usersSlice";
+import { fetchUserById, updateUser } from "../../app/slices/auth/authSlice";
 import { baseURL } from "../../utils/axios";
 import { registerUser } from "../../app/slices/auth/authSlice";
 import { useTranslation } from "react-i18next";
@@ -162,14 +162,16 @@ export default function Main() {
         className={`flex-1 game_card_main--con ${
           checkParams("finding-match") || checkParams("match")
             ? ""
-            : "px-4 md:px-[4.5rem] pt-7 md:pr-7.5"
+            : "px-4 pt-7 md:px-[4.5rem]"
         }`}
       >
         {(isRegisteration || profileVisible) && (
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
             <div className="fixed inset-0 flex justify-center items-center z-50">
-              <div className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
+            <div className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative
+              ${profileVisible ? 'max-h-[80vh] overflow-y-auto' : ''}`}
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">
                     {isRegisteration

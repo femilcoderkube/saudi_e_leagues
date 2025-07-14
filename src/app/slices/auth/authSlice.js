@@ -83,24 +83,24 @@ export const fetchUserById = createAsyncThunk(
   }
 );
 
-// // updateUser thunk from usersSlice
-// export const updateUser = createAsyncThunk(
-//   "users/updateUser",
-//   async ({ id, user }, { rejectWithValue }) => {
-//     try {
-//       const response = await axiosInstance.put(`/users?id=${id}`, user, {
-//         headers: {
-//           "Content-Type": "multipart/form-data",
-//         },
-//       });
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(
-//         error.response?.data?.message || "Error updating user"
-//       );
-//     }
-//   }
-// );
+// Add updateUser thunk from usersSlice
+export const updateUser = createAsyncThunk(
+  "users/updateUser",
+  async ({ id, user }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`/users?id=${id}`, user, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Error updating user"
+      );
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -109,6 +109,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.user = null;
+      state.userDetail = null;
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     },
@@ -119,6 +120,10 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = null;
       state.success = false;
+    },
+    // Add clearUserDetail reducer from usersSlice
+    clearUserDetail(state) {
+      state.userDetail = null;
     },
   },
   extraReducers: (builder) => {
@@ -191,21 +196,21 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       // updateUser logic from usersSlice
-      // .addCase(updateUser.pending, (state) => {
-      //   state.loading = true;
-      // })
-      // .addCase(updateUser.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //   state.userDetail = action.payload.data;
-      //   toast.success("Profile updated successfully!");
-      // })
-      // .addCase(updateUser.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action.payload;
-      //   toast.error(action.payload);
-      // });
+      .addCase(updateUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userDetail = action.payload.data;
+        toast.success("Profile updated successfully!");
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        toast.error(action.payload);
+      });
   },
 });
 
-export const { logout, resetRegisterState } = authSlice.actions;
+export const { logout, resetRegisterState, clearUserDetail } = authSlice.actions;
 export default authSlice.reducer;

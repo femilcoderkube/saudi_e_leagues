@@ -22,6 +22,7 @@
     /* background: linear-gradient(180deg,rgba(188, 82, 37, 0.92) 0%, rgba(244, 149, 40, 1) 100%);
     box-shadow: inset 0px 1px 4px #F38155; */
     background: url(../images/list-grid-active.png);
+    background-size: cover;
 }
 
 .game_status--tab button{
@@ -217,6 +218,11 @@ html[dir="rtl"] .card_participants_v2{
     background-image: url('../images/game_cardBG_v2.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    transition: 0.3s;
+}
+
+.game_card--wrapv2 .game_card_wrap--link:hover{
+    transform: scale(1.03);
 }
 
 html[dir="rtl"] .game_card--wrapv2 .game_card_wrap--link {
@@ -335,16 +341,42 @@ html[dir="rtl"] .game_card--wrapv2 .match_date{
 
 /* sm */
 @media (max-width: 640px) {
-
     .active-tab.polygon_border:before,
     .active-tab.polygon_border:after {
         width: 2.65rem;
         background: #447df1;
         height: 0.08rem;
     }
+
+    .game_card--wrapv2.game_card--wrapper > a {
+    max-width: 22rem;
+    flex: 0 0 22rem;
+}
+.game_card--wrapv2 .match_date {   
+    width: 3.5rem;
+}
+.card_participants_v2 {    
+    max-width: 9rem;
 }
 
+.game_intro-con{
+    gap: 0.7rem;
+}
 
+.game_card--wrapper{
+    flex-wrap: nowrap;
+    overflow-y: auto;
+}
+
+.game_card--wrapper.game_card--wrapv2{
+    flex-wrap: wrap;
+    overflow-y:hidden;
+}
+.game-card-wp {
+    overflow: hidden;
+    height: 23.5rem;
+}
+}
 
 /* lg */
 @media (min-width: 1024px) {}
