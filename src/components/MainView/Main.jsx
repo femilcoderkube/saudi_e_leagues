@@ -67,28 +67,28 @@ export default function Main() {
   // Pre-fill form values for editing
   const editInitialValues = user
     ? {
-        username: user.username || "",
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        email: user.email || "",
-        nationality:
-          countryOptions.find((option) => option.value === user.nationality) ||
-          defaultNationality,
-        dialCode:
-          dialCodeOptions.find(
-            (option) => option.value === (userDetail?.phone?.split("-")[0] || "+966")
-          ) || defaultDialCode,
-        phoneNumber: userDetail?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
-        dateOfBirth: user.dateOfBirth
-          ? new Date(user.dateOfBirth).toISOString().split("T")[0]
-          : "",
-        gender: user.gender || "Male",
-        role: user.role || "Player",
-        favoriteGame: userDetail?.favoriteGame
-          ? gameOptions?.find((option) => option.value === userDetail?.favoriteGame)
-          : null,
-        profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
-      }
+      username: user.username || "",
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      email: user.email || "",
+      nationality:
+        countryOptions.find((option) => option.value === user.nationality) ||
+        defaultNationality,
+      dialCode:
+        dialCodeOptions.find(
+          (option) => option.value === (userDetail?.phone?.split("-")[0] || "+966")
+        ) || defaultDialCode,
+      phoneNumber: userDetail?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
+      dateOfBirth: user.dateOfBirth
+        ? new Date(user.dateOfBirth).toISOString().split("T")[0]
+        : "",
+      gender: user.gender || "Male",
+      role: user.role || "Player",
+      favoriteGame: userDetail?.favoriteGame
+        ? gameOptions?.find((option) => option.value === userDetail?.favoriteGame)
+        : null,
+      profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
+    }
     : initialValues;
 
   const handleSubmit = async (values, isEdit = false) => {
@@ -126,7 +126,7 @@ export default function Main() {
         if (res.success) {
           toast.success(
             res?.message ||
-              "Registration successful! Please log in to continue."
+            "Registration successful! Please log in to continue."
           );
           dispatch(setRegisteration(false));
         }
@@ -141,7 +141,7 @@ export default function Main() {
       setLoadingSubmit(false);
     }
   };
-  useEffect(() => {}, [location]);
+  useEffect(() => { }, [location]);
   useEffect(() => {
     if (profileVisible && user?._id) {
       dispatch(fetchUserById(user?._id));
