@@ -56,7 +56,7 @@ const Sparkles = () => {
   }, []);
 
   return (
-    <div className="sparkles-overlay pointer-events-none">
+    <div className="sparkles-overlay pointer-events-none ">
       {sparkleProps.map((props, i) => {
         const style = {
           left: `${props.left}%`,
@@ -150,7 +150,7 @@ const Sparkles = () => {
         .sparkles-overlay {
           position: absolute;
           pointer-events: none;
-          z-index: 1;
+          z-index: -1;
           bottom: 0.5rem;
           right: -3.5rem;
           height: 8.5rem;

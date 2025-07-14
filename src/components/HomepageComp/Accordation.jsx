@@ -132,7 +132,7 @@ const Accordion = () => {
         }`}
       >
         <button
-          onClick={() => toggleAccordion(5)}
+          onClick={() => toggleAccordion(6)}
           className="w-full faq_head-con text-left  py-3 font-semibold text-lg purple_light flex justify-between items-center"
         >
           {t("homepage.faq.q7")}

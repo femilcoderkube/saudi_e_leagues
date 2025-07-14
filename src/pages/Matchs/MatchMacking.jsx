@@ -129,12 +129,23 @@ const MatchMaking = () => {
                 style={{ width: "11rem" }}
               />
               <div onClick={handleCancel}>
+              <div className="absolute bottom-[2.5rem] ltr:right-[2.5rem] rtl:left-[4.5rem]">
                 <img
-                  className="cancel-btn absolute bottom-[2.5rem] ltr:right-[2.5rem] rtl:left-[4.5rem] duration-400 cursor-pointer z-2"
+                  className="cancel-btn duration-400 cursor-pointer z-2"
                   src={cancel_btn}
                   alt={t('cancel')}
                   style={{ width: "25rem" }}
                 />
+                 <span
+                    className="absolute top-[2.0125rem] left-0 w-full text-center text-xl sm:text-2xl"
+                    style={{
+                      fontFamily: "Yapari",
+                      textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+                    }}
+                  >
+                    {t("images.cancel_button")}
+                  </span>
+              </div>
                 <Sparkles />
               </div>
               <div className="player-search text-center pt-14">
