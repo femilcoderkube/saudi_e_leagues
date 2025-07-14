@@ -81,7 +81,7 @@ const Lobby = () => {
                   : "inactive-tab"
               }`}
             >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {t(`lobby.tabs.${tab}`)}
             </button>
           ))}
         </div>

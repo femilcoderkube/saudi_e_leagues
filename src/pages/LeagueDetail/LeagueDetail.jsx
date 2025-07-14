@@ -34,7 +34,7 @@ const LeagueDetail = () => {
   const { leagueData, registrationModal } = useSelector(
     (state) => state.leagues
   );
-  const { t } = useTranslation();
+  const { t  ,i18n} = useTranslation();
 
   useEffect(() => {
     let res = startLeagueSocket({ lId, user, isSocketConnected });
@@ -75,7 +75,7 @@ const LeagueDetail = () => {
               </div>
               <div className="sd_league--info">
                 <h1 className="uppercase text-2xl md:text-5xl !font-black tracking-wide">
-                  {leagueData?.title || t("league.league_title")}
+                  { i18n.language === "ar" ? leagueData?.titleAr : leagueData?.title || t("league.league_title")}
                 </h1>
                 <h2 className="league_price text-2xl md:text-5xl !font-black font_oswald pt-5 sm:pt-3.5 md:pt-10 sm:pb-6 pb-3 yellow_grad-bg grad_text-clip">
                   <span className="icon-saudi_riyal !p-0"></span>
@@ -138,7 +138,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        Game
+                      {t("league.game")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {leagueData.game.name || ""}
@@ -159,7 +159,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        Platform
+                      {t("league.platform")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {leagueData?.platform?.name?.toUpperCase() || ""}
@@ -180,7 +180,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        Team Size
+                       {t("league.team_size")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {" "}
@@ -390,7 +390,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        Game
+                      {t("league.game")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {leagueData.game.name || ""}
@@ -411,7 +411,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        Platform
+                      {t("league.platform")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {leagueData?.platform?.name?.toUpperCase() || ""}
@@ -432,7 +432,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        Team Size
+                        {t("league.team_size")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {" "}

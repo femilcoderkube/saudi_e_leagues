@@ -6,10 +6,8 @@ import { useTranslation } from "react-i18next";
 
 const TimelineCard = () => {
   const { leagueData } = useSelector((state) => state.leagues);
-  const allStepsCompleted = leagueData?.timeLine?.every(
-    (step) => new Date(step.endDate) < new Date()
-  );
-  const { t } = useTranslation();
+
+  const { t ,i18n} = useTranslation();
 
   return (
     <div className="timeline-card rounded-xl overflow-hidden bg-[#0E123A] text-white">
@@ -25,20 +23,18 @@ const TimelineCard = () => {
       </div>
       <div className="timeline_container custom_scroll">
         <div
-          className={`timeline-card__steps p-4 ltr:pr-18 rtl:pl-18 flex flex-col gap-4 sd_before relative ${
-            allStepsCompleted ? "completed" : "disabled"
-          }`}
+          className={`timeline-card__steps p-4 ltr:pr-18 rtl:pl-18 flex flex-col gap-4 sd_before relative`}
         >
           {leagueData?.timeLine?.map((step, index) => {
-            let isActive = new Date(step.endDate) < new Date();
+            let isActive = new Date(step.startDate) < new Date();
             return (
               <div
                 key={index}
-                className="timeline_wrap relative sd_after sd_before"
+                className={`timeline_wrap relative sd_after sd_before ${isActive ? "completed" : "disabled"}`}
               >
                 <div className="timeline-step bg-no-repeat flex flex-col gap-2 py-[1rem] px-4">
                   <div className="timeline-step__title text-md sm:text-lg">
-                    {step.title}
+                    {i18n.language === "ar" ? step.titleAr : step.title}
                   </div>
                   <div className="timeline-step__date text-sm sm:text-base purple_light">
                     {formatDateToMonthDay(step.startDate) +

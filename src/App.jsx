@@ -53,7 +53,7 @@ function App() {
             <Route path="lobby/:lId/finding-match" element={<MatchMaking />} />
             {/* Add more routes as needed */}
           </Route>
-          <Route path="*" element={<Navigate to="/prime/lobby" />} />
+          <Route path="*" element={<Navigate to="/prime/" />} />
         </Routes>
       </div>
     </Router>

@@ -415,6 +415,11 @@ html[dir=rtl] .timeline-card__steps::before {
   top: 3.125rem;
 }
 
+html[dir=rtl] .timeline_wrap.completed:after{
+  right: auto;
+  left: -2.1rem;
+}
+
 .timeline_container {
   height: 17.5rem;
   overflow-y: auto;

@@ -122,12 +122,12 @@ export function formatDateToMonthDay(dateStr) {
   };
   return `${month} ${getOrdinal(day)}`;
 }
-export function canJoinQueue(leagueData) {
-  const text = getQueueText(leagueData);
-  return text === "QUEUE";
+export function canJoinQueue(leagueData, t) {
+  const text = getQueueText(leagueData, t);
+  return text === t("images.queue");
 }
 
-export function getQueueText(leagueData) {
+export function getQueueText(leagueData , t) {
   if (!leagueData || !leagueData.queueSettings) return "";
 
   const { alwaysOn, schedule } = leagueData.queueSettings;
@@ -137,9 +137,9 @@ export function getQueueText(leagueData) {
     const now = new Date();
     const start = new Date(leagueData.startDate);
     if (start > now) {
-      return "STARTS IN " + GetTimeString(leagueData.startDate);
+      return t("images.starts_in") + " " + GetTimeString(leagueData.startDate , t);
     } else {
-      return "QUEUE";
+      return t("images.queue");
     }
   }
 
@@ -171,7 +171,7 @@ export function getQueueText(leagueData) {
     if (todaySchedule) {
       // If alwaysOn for today, queue is always open
       if (todaySchedule.alwaysOn) {
-        return "QUEUE";
+        return t("images.queue");
       }
 
       // If there are time slots for today
@@ -210,9 +210,9 @@ export function getQueueText(leagueData) {
         }
 
         if (foundOpen) {
-          return "QUEUE";
+          return t("images.queue");
         } else if (nextOpenTime) {
-          return `OPENS IN ${GetTimeString(nextOpenTime.toDate())}`;
+          return t("images.opens_in") + " " + GetTimeString(nextOpenTime.toDate() , t);
         }
         // If no more slots today, look for next available day
       }
@@ -267,23 +267,23 @@ export function getQueueText(leagueData) {
 
     if (soonestDay !== null) {
       if (soonestTime) {
-        return `OPENS IN ${GetTimeString(soonestTime.toDate())}`;
+        return t("images.opens_in") + " " + GetTimeString(soonestTime.toDate() , t);
       } else {
         // Next day is alwaysOn, so opens at midnight
         const nextDate = new Date(today);
         nextDate.setDate(today.getDate() + soonestDay);
         nextDate.setHours(0, 0, 0, 0);
-        return `OPENS IN ${GetTimeString(nextDate)}`;
+        return t("images.opens_in") + " " + GetTimeString(nextDate , t);
       }
     }
 
-    return "QUEUE CLOSED";
+    return t("images.queue_closed");
   }
 
-  return "QUEUE CLOSED";
+  return t("images.queue_closed");
 }
 
-export function GetTimeString(date) {
+export function GetTimeString(date,t) {
   if (!date) return "";
   const now = new Date();
   const target = new Date(date);
@@ -296,15 +296,15 @@ export function GetTimeString(date) {
   const month = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
 
   let parts = [];
-  if (month > 0) parts.push(month === 1 ? "1 mon" : `${month} mon`);
-  if (day > 0 && month === 0) parts.push(day === 1 ? "1 day" : `${day} day`);
+  if (month > 0) parts.push(month === 1 ? t("images.1_mon") : `${month} ${t("images.mon")}`);
+  if (day > 0 && month === 0) parts.push(day === 1 ? t("images.1_day") : `${day} ${t("images.day")}`);
   if (hour > 0 && month === 0 && day === 0)
-    parts.push(hour === 1 ? "1 hr" : `${hour} hrs`);
+    parts.push(hour === 1 ? t("images.1_hr") : `${hour} ${t("images.hrs")}`);
   if (min > 0 && month === 0 && day === 0 && hour === 0)
-    parts.push(min === 1 ? "1 min" : `${min} min`);
+    parts.push(min === 1 ? t("images.1_min") : `${min} ${t("images.min")}`);
   if (sec > 0 && month === 0 && day === 0 && hour === 0 && min === 0)
-    parts.push(sec === 1 ? "1 sec" : `${sec} sec`);
-  if (parts.length === 0) parts.push("0 sec");
+    parts.push(sec === 1 ? t("images.1_sec") : `${sec} ${t("images.sec")}`);
+  if (parts.length === 0) parts.push(t("images.0_sec"));
   return parts.join(" ");
 }
 

@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import match_reg from "../../assets/images/match_reg.png";
+import match_reg_ar from "../../assets/images/match_reg_ar.png";
 import { Link, useParams } from "react-router-dom";
 import { Popup_btn } from "../../components/ui/svg/index.jsx";
 import { joinLeagueSocket, socket } from "../../app/socket/socket.js";
@@ -19,7 +20,7 @@ const RegistrationModel = () => {
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const user = useSelector((state) => state.auth.user);
-  const { t } = useTranslation();
+  const { t  , i18n} = useTranslation();
 
   // Get custom fields from leagueData, fallback to empty array
   const customFields = Array.isArray(leagueData?.customRegistrationFields)
@@ -111,9 +112,11 @@ const RegistrationModel = () => {
             <div className="match_reg--popup relative sd_before sd_after">
               <div className="popup_header px-8 pt-8 pb-5 flex items-start justify-between mt-3 text-center sm:mt-0 sm:text-left">
                 <img
-                  src={match_reg}
+                  src={i18n.language === "ar" ? match_reg_ar : match_reg}
                   alt={t("images.match_registration")}
-                  style={{ width: "10rem" }}
+                  style={{
+                    width: i18n.language === "ar" ? "7rem" : "10rem",
+                  }}
                 />
                 <button
                   type="button"
@@ -158,7 +161,7 @@ const RegistrationModel = () => {
                                 <img
                                   src={`${baseURL}/api/v1/${field?.image}`}
                                   alt={`${field.fieldName} image`}
-                                  className="w-8 h-8 mr-2 object-cover"
+                                  className="w-8 h-8 rtl:ml-2 rtl:mr-2 ltr:mr-2 object-cover"
                                 />
                               )}
                               <div className="flex-1">
@@ -166,7 +169,7 @@ const RegistrationModel = () => {
                                   type={field.fieldType}
                                   id={field.fieldName}
                                   name={field.fieldName}
-                                  className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
+                                  className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] rtl:mr-2"
                                   placeholder={field.fieldName}
                                 />
                                 <div className="text-start px-7">

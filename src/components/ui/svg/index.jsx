@@ -31,6 +31,18 @@ export const Instagram = () => (
   </svg>
 );
 
+export const SparkIcon = ({  gradientColor = "#D8DAFF", ...props }) => (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.84362 0.949265L8 0L8.15639 0.949265C8.73934 4.48771 11.5123 7.26067 15.0507 7.84361L16 8L15.0507 8.15639C11.5123 8.73933 8.73934 11.5123 8.15639 15.0507L8 16L7.84362 15.0507C7.26067 11.5123 4.48772 8.73933 0.949265 8.15639L0 8L0.949265 7.84361C4.48711 7.26067 7.26067 4.48771 7.84362 0.949265Z" fill="url(#paint0_linear_3183_415)"/>
+        <defs>
+            <linearGradient id="paint0_linear_3183_415" x1="8" y1="0" x2="8" y2="16" gradientUnits="userSpaceOnUse">
+                <stop offset="0.116576" stop-color="white"/>
+                <stop offset="0.801292" stop-color={gradientColor}/>
+            </linearGradient>
+        </defs>
+    </svg>
+);
+
 export const discord = () => (
   <svg
     width="2.5rem"

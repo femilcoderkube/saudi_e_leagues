@@ -2,17 +2,21 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 
 import GetStartedBtn from "../../assets/images/get_started_btn.png";
+import GetStartedBtnAr from "../../assets/images/get_started_btn_ar.png";
 import Playbtn from "../../assets/images/playbtn.png";
 import Primetxt from "../../assets/images/Prime.png";
 import "../../assets/css/homepage.css";
 import HeroCardSlider from "../../components/HomepageComp/HeroCardSlider.jsx";
 import HtpCardSlider from "../../components/HomepageComp/HtpCardSlider.jsx";
+import Accordation from "../../components/HomepageComp/Accordation.jsx";
+import TimelineCard from "../../components/HomepageComp/TimelineCard.jsx";
 import { useTranslation } from "react-i18next";
 
 export default function PrimeHome() {
   const { id } = useParams();
-  const { t } = useTranslation();
+  const { t , i18n } = useTranslation();
   // <Link to={`/${id}/lobby`}>Go to Lobby</Link>
+ 
 
   return (
     <main className="flex-1 pt-[0.5rem] home_page--wrapper">
@@ -24,7 +28,7 @@ export default function PrimeHome() {
 
       <div className="sd_home-wrapper ">
         {/* === Hero Section HTML block Start === */}
-        <section className="home_hero--sec flex pt-[21.125rem] justify-between items-end">
+        <section className="home_hero--sec relative flex pt-[21.125rem] justify-between items-end">
           {/* === Hero Left Block Conatain === */}
           <div className="home_hero_left-con h-full flex justify-end flex-col">
             <h3 className="text-[2.375rem] uppercase !font-black">
@@ -49,7 +53,7 @@ export default function PrimeHome() {
               className="ml-[-0.5rem] hover:opacity-70 duration-300"
             >
               <img
-                src={GetStartedBtn}
+                src={i18n.language === "ar" ? GetStartedBtnAr : GetStartedBtn}
                 alt={t("images.get_started_button")}
                 style={{ width: "21rem" }}
               />
@@ -72,7 +76,7 @@ export default function PrimeHome() {
         </section>
 
         {/* === About Section HTML block Start === */}
-        <section className="home_about--sec pt-[7.5rem] pb-[5rem]  flex overflow-hidden">
+        <section className="home_about--sec relative pt-[7.5rem] pb-[9rem] flex overflow-hidden">
           <div className="about_left--con max-w-[45%]">
             <h3 className="text-[2.375rem] uppercase !font-black mb-5">
               {t("homepage.about")}
@@ -120,9 +124,9 @@ export default function PrimeHome() {
           </div>
         </section>
 
-        {/* === How To Play Slider Block Conatain === */}
-        <section className="htp_slider-sec flex justify-between ">
-          {/* === How To Play Left Block Conatain === */}
+      
+        {/* <section className="htp_slider-sec flex justify-between ">
+       
           <div className="htp_left-con h-full flex justify-end flex-col max-w-[30%]">
             <h2 className="grad_head--txt max-w-full text-[5rem] tracking-wide !font-black leading-none uppercase">
               {t("homepage.how")}
@@ -132,8 +136,7 @@ export default function PrimeHome() {
             </h2>
             <p className="htp_content block purple_col sd_before relative before:w-full before:top-0 text-2xl font-semibold py-10 pr-3">
               {t("homepage.htp_description")}
-            </p>
-            {/* === Collapse Menu Button Start === */}
+            </p> 
             <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center my-8 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
               <Link
                 to={"#"}
@@ -177,9 +180,9 @@ export default function PrimeHome() {
             </svg>
           </div>
 
-          {/* === How To Play Right Slider Block Conatain === */}
+        
           <div className="htp_right-con  relative max-w-[70%]">
-            {/* <!-- Slider main container --> */}
+          
             <HtpCardSlider
               sliderId="one"
               HtpCardDetails={[
@@ -216,7 +219,29 @@ export default function PrimeHome() {
               ]}
             />
           </div>
-        </section>
+        </section> */}
+         {/* === Timelines Split Card Section HTML block Start === */}
+            {/* <section className="sd_timeline--sec pt-[5rem] pb-[5rem]  relative  ">
+                <h2 className="text-[4rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none uppercase items-center tracking-wider !font-black pb-10">
+                  Timelines                 
+                </h2>
+                <TimelineCard />
+               
+            </section> */}
+
+            {/* === FAQ Section HTML block Start === */}
+            <section className="home_faq--sec pt-[5rem] pb-[5rem] pl-[7.5rem] relative flex justify-end ">
+              <div className="faq_left--con w-full absolute ltr:left-0 rtl:right-0 h-full top-[-2rem]">
+              </div> 
+              <div className="faq_right--con max-w-[65%] flex-[0_0_65%] ltr:pr-[6.5rem] rtl:pr-[8.5rem] relative">
+                <h2 className="text-[4rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none items-center tracking-wider !font-black pb-10">
+                  FAQs                 
+                </h2>
+                <div className="sd_faq-con">
+                  <Accordation />
+                </div>
+              </div>                           
+            </section>  
       </div>
     </main>
   );

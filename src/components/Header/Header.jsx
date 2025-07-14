@@ -14,9 +14,11 @@ import {
   NextArrow,
   Notification,
   Champions,
+
   NextArrow2,
 } from "../ui/svg/index.jsx";
 import country_us from "../../assets/images/country_us.png";
+import country_ar from "../../assets/images/ar_lang.png";
 import lobyIcon from "../../assets/images/loby-icon.svg";
 // import homeIcon from "../../assets/images/country_us.png";
 // import profileIcon from "../../assets/images/country_us.png";
@@ -76,14 +78,21 @@ const Header = () => {
         >
           <div className="flex items-center ">
             <div
-              className="back_arrow absolute left-[5rem] scale-x-[-1] cursor-pointer"
+              className="back_arrow absolute ltr:left-[5rem] rtl:right-[5rem] cursor-pointer"
               onClick={() => {
                 navigator(`/${params.id}/lobby/${matchData?.league?._id}`);
               }}
             >
-              <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
+              <span
+                style={{
+                  display: "inline-block",
+                  transform: i18n.language === "ar" ? "scaleX(1)" : "scaleX(-1)",
+                }}
+              >
+                <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
+              </span>
             </div>
-            <h2 className="text-[2rem] !font-black uppercase block ml-12">
+            <h2 className="text-[2rem] !font-black uppercase block ltr:ml-12 rtl:mr-12">
               {i18n.language === "en"
                 ? matchData?.league?.title
                 : matchData?.league?.titleAr || t("match.finding_matchmaking")}
@@ -162,15 +171,24 @@ const Header = () => {
           }}
         >
           <div
-            className="back_arrow absolute left-[5rem] scale-x-[-1] cursor-pointer"
-            onClick={() => {
-              navigator(-1);
-            }}
-          >
-            <NextArrow2 width="0.8rem" height="1.5rem" fill="#7378C0" />
-          </div>
+              className="back_arrow absolute ltr:left-[5rem] rtl:right-[5rem] cursor-pointer"
+              onClick={() => {
+                navigator(-1);
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-block",
+                  transform: i18n.language === "ar" ? "scaleX(1)" : "scaleX(-1)",
+                }}
+              >
+                <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
+              </span>
+            </div>
           <h2 className="sm:text-[2rem] text-lg !font-black uppercase text-center block">
-            {leagueData?.title || t("match.finding_matchmaking")}
+            {i18n.language === "en"
+                ? leagueData?.title
+                : leagueData?.titleAr || t("match.finding_matchmaking")}
           </h2>
         </header>
       );
@@ -178,10 +196,10 @@ const Header = () => {
   } else {
     const breadcrumbItems = [];
     let path = new Set(window.location.pathname.split("/")).has("lobby");
-    if (path) {
+    if(params.id){
       let item = {
-        label: t("navigation.lobby"),
-        path: `/${params.id}/lobby`,
+        label: t("navigation.home"),
+        path: `/${params.id}`,
         icon: Lobby,
         active: true,
       };
@@ -193,21 +211,36 @@ const Header = () => {
         breadcrumbItems.push(item);
       }
     }
-    if (params.lId) {
-      if (breadcrumbItems.length === 2) {
-        breadcrumbItems.pop(); // Remove the last item if it exists
-      }
+    if (path) {
       let item = {
-        label: leagueData?.title,
-        path: `/${params.id}/lobby/${params.lId}`,
-        icon: Champions,
+        label: t("navigation.lobby"),
+        path: `/${params.id}/lobby`,
+        icon: Lobby,
         active: true,
       };
       if (
         breadcrumbItems.length === 1 ||
         breadcrumbItems[1].label !== item.label
       ) {
-        breadcrumbItems[0].active = false; // Set the previous item to inactive
+         breadcrumbItems[0].active = false; // Set the previous item to inactive
+        breadcrumbItems.push(item);
+      }
+    }
+    if (params.lId) {
+      if (breadcrumbItems.length === 3) {
+        breadcrumbItems.pop(); // Remove the last item if it exists
+      }
+      let item = {
+        label: i18n.language === "en" ? leagueData?.title : leagueData?.titleAr,
+        path: `/${params.id}/lobby/${params.lId}`,
+        icon: Champions,
+        active: true,
+      };
+      if (
+        breadcrumbItems.length === 2 ||
+        breadcrumbItems[2].label !== item.label
+      ) {
+        breadcrumbItems[1].active = false; // Set the previous item to inactive
         breadcrumbItems.push(item);
       }
     }
@@ -244,18 +277,24 @@ const Header = () => {
           </ul>
         </nav>
 
-        <div className="sd_notification-block flex gap-4 ltr:ml-[1rem] md:ltr:mr-[9rem] rtl:ml-[1rem] md:rtl:ml-[9rem]">
-          <button
+        <div className="sd_notification-block self-center flex gap-4 ltr:ml-[1rem] md:ltr:mr-[9rem] rtl:ml-[1rem] md:rtl:ml-[9rem]">
+          <div
             onClick={handleLangToggle}
             title={i18n.language === "en" ? "العربية" : "English"}
-            className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg"
+            className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
             style={{ border: "none", background: "none" }}
           >
-            <img src={country_us} alt="lang" style={{ width: "1.5rem" }} />
-            <span className="font-bold mt-0.5 block">
-              {i18n.language === "en" ? "EN" : "AR"}
-            </span>
-          </button>
+            <img 
+              src={i18n.language === "ar" ? country_ar : country_us} 
+              alt="lang" 
+              style={{ 
+                width: "1.5rem", 
+                height: "1.5rem", 
+                borderRadius: "50%", 
+                objectFit: "cover" 
+              }} 
+            />
+          </div>
           {/* <NavLink
             to="#"
             className="notification_btn inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
@@ -302,7 +341,7 @@ const Header = () => {
             <Dropdown user={userUpdate ? userUpdate : user} />
           </div>
         )}
-        <div className="navigation sm:hidden w-full h-[6.5rem] left-0 fixed bottom-0 z-100">
+        <div className="navigation hidden w-full h-[6.5rem] left-0 fixed bottom-0 z-100">
           <ul className="listWrap h-full flex justify-around items-center">
             <li className="list active">
               <a href="javascript:void(0);">

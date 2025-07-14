@@ -1,3 +1,20 @@
+.home_hero--sec::after{
+    content: '';
+    position: absolute;
+    top: -7rem;
+    left: -6.9rem;
+    width: 110%;
+    height: 100%;
+    background-image: url(/src/assets/images/prime_game_bg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+}
+html[dir=rtl] .home_hero--sec::after{
+    transform: rotateY(180deg);
+    left: -4.3rem;
+}
 .home_hero_left-con{
     max-width: calc(40%);
     flex: 0 0 calc(40%);
@@ -39,13 +56,13 @@
     padding: 30px 30px;
 }
 
-.game_card_wrap--link:before{
+/* .game_card_wrap--link:before{
     background: linear-gradient(132deg, rgba(50, 63, 121, 1) 4%, rgba(29, 20, 69, 0.8) 15%, rgba(20, 25, 69, 0.4) 100%);
     clip-path: url('#customHeaderClip');
     width: 100%;
     height: 100%;
     z-index: -1;
-}
+} */
 .game_card_wrap--link span {
     padding: 14px 20px;
 }
@@ -112,16 +129,18 @@
 ---------------------------------- ===  */
 
 .sd_play-link{
-    background-image: url(../images/thumbnailBG.png);
+    /* background-image: url(../images/thumbnailBG.png); */
+    background-image: url(../images/home_about_bg.png);
     background-size: cover;
     background-position: right;
+    background-repeat: no-repeat;
 }
 
 .sd_play-link:before{
-    background: linear-gradient(90deg, rgb(2 3 38) 0%, rgba(2, 3, 29, 0) 100%);
+    background: linear-gradient(90deg, rgb(2 3 38) 0%, rgba(2, 3, 29, 0) 8%);
 }
 
-.about_right--con:before,.about_right--con:after {
+/* .about_right--con:before,.about_right--con:after {
     background: #020326;
     width: 100%;
     height: 20%;
@@ -134,7 +153,7 @@
     top: auto;
     bottom: -3.75rem;
     right: -2rem;
-}
+} */
 
 .about_left--con {
     padding-block: 6.875rem;
@@ -206,4 +225,309 @@
     /* height: 20.5rem; */
     min-height: 20.5rem;
     height: 100%;
+}
+
+.purple_grad-col.grad_text-clip{
+    background: linear-gradient(180deg, rgb(244 247 255) 0%, rgba(186, 189, 255, 1) 36%, rgba(123, 126, 208, 1) 66%);
+}
+
+.game_card_wrap--link:not(:first-child) .htp_card--body{
+    background: url(../images/playgameBG.png);
+    /* clip-path: url('#customClipPath2'); */
+    background-size: 100%;
+    width: 17.5rem;
+    background-repeat: no-repeat;
+    height: 20rem;
+    opacity: 0.7;
+} 
+
+.game_card_wrap--link:first-child .htp_card--body{
+    background: url(../images/activeslideBG.png);
+    background-size: 100%;
+    width: 37.5rem;
+    background-repeat: no-repeat;
+    height: 23.75rem;
+} 
+
+html[dir=rtl] .game_card_wrap--link:first-child .htp_card--body{
+    background: url(../images/rtl_activeslideBG.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.sd_next-btn.sd_next-one:after {
+    transform: scaleX(-1);
+}
+.htp_card--body .match_date{
+    background-image: url(../images/sliderBG.png);
+    padding: 0;
+    height: 7.75rem;
+}
+
+.game_card_wrap--link:not(:first-child) .htp_card--body .match_date{
+    bottom: auto;
+    top: 1.5rem;
+    background-image: url(../images/sliderBG_opp.png);
+    background-repeat: no-repeat;
+}
+.game_card_wrap--link:not(:first-child) .htp_card--body p.game_info{
+    display: none;
+}
+
+html[dir=rtl] .game_card_wrap--link:not(:first-child) .htp_card--body{
+background-image: url(../images/rtl_playgameBG.png);
+}
+
+html[dir=rtl] .game_card_wrap--link:not(:first-child) .htp_card--body .match_date{
+background-image: url(../images/sliderBG.png);
+}
+
+/* --------------------------------
+    
+    Timeline Section CSS Start
+
+----------------------------------- */
+
+/* first card start*/
+.split_card-num .purple_grad-col.grad_text-clip{
+    background: linear-gradient(180deg, #ACC9FF 32%, #81ADFF 68%);
+}
+
+.split_card--body{
+    clip-path: url(#splitcardclip);
+    background: linear-gradient(180deg, #108BF0 0%, #0D106B 100%);
+    width: 41.27rem;
+    height: 20.1rem;
+}
+
+.spilit-grad{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    filter: blur(5rem);
+    bottom: -5rem;
+    width: 10rem;
+    height: 100%;
+    background: linear-gradient(180deg, #108BF0 0%, #0D106B 100%);
+    z-index: 10;
+}
+
+.split_card-num{
+    clip-path: url(#customClip);    
+    background: linear-gradient(to left,#6DB0FF -100% , #247CE3 100%);
+    height: 8rem;
+    width: 22.51rem;
+}
+.split_card-num::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background:url('../images/spilit-shape.svg');    
+}
+
+.split_card--wrap.polygon_border::before{
+    left: -1.85rem;
+    top: calc(50% + 2.501rem);
+    transform: translateY(-50%) rotate(-90deg);
+    background: #1345A4;
+    width: 4rem;
+}
+
+.split_card--wrap.polygon_border::after{
+    right: -1.18rem;
+    left: auto;
+    top: calc(50% + 3.3rem);
+    transform: translateY(-50%) rotate(-90deg);
+    background: #6B88C9;
+    width:2.51rem;
+}
+
+.spilit-card-polygon::after{
+    content: '';
+    position: absolute;
+    width: 13.25rem;
+    height: 0.25rem;
+    clip-path: polygon(2% 100%, 0% 0%, 98% 0%, 100% 100%, 5% 100%);
+    background: #108BF0;
+    left: 1rem;
+    bottom: 0;
+    z-index: 100;
+}
+/* Second card Start*/
+.split_card--wrap-purple .split_card--body{
+    background: linear-gradient(180deg, #4D28F4 0%, #290566 100%);
+}
+
+.split_card--wrap-purple .spilit-card-polygon::after{
+    background:#6148E9;
+}
+
+.split_card--wrap-purple .split_card-num {
+    background: linear-gradient(to bottom, #5735D8 0%, #5433BF 100%);
+}
+
+.split_card--wrap-purple .split_card-num .purple_grad-col.grad_text-clip{
+    background: linear-gradient(180deg, #D5CDFB 32%, #5C47D3 68%);
+}
+
+.split_card--wrap-purple .spilit-grad{
+    background: linear-gradient(180deg, #917DE4 0%, #39187E 100%);
+    filter: blur(3rem);
+}
+
+.split_card--wrap-purple.split_card--wrap.polygon_border::after{
+    background: #7665BA;
+}
+/* Second card End*/
+
+/* Third card Start*/
+.split_card--wrap-orange .split_card--body{
+    background: linear-gradient(180deg, #BC5225 0%, #F49528 100%);
+}
+
+.split_card--wrap-orange .split_card-num{
+    background: linear-gradient(to bottom, rgb(238 173 70 / 40%) 0%, rgb(253 131 39 / 40%) 100%);
+}
+
+.split_card--wrap-orange .split_card-num .purple_grad-col.grad_text-clip {
+    background: linear-gradient(180deg, #FFD3AC 32%, #FFCF81 68%);
+}
+
+.split_card--wrap-orange .spilit-grad{
+    background: linear-gradient(to bottom, rgb(238 173 70 / 1) 0%, rgb(253 131 39 / 1) 100%);
+    bottom: -3rem;
+}
+
+.split_card--wrap-orange.split_card--wrap.polygon_border::before {
+    background: #DE7727;
+}
+
+.split_card--wrap-orange.split_card--wrap.polygon_border::after{
+    background: #E0A781;
+}
+
+.split_card--wrap-orange .spilit-card-polygon::after{
+    background: #F49528;
+}
+/* Third card End*/
+
+/* Forth card Start*/
+.split_card--wrap-pink .split_card--body{
+    background: linear-gradient(180deg, #600040 0%, #FF5383 100%);
+}
+
+.split_card--wrap-pink .spilit-grad{
+    background: linear-gradient(180deg, #600040 0%, #FF5383 100%);
+    bottom: -3rem;
+}
+
+.split_card--wrap-pink .split_card-num{
+    background: linear-gradient(to bottom, rgb(255 109 155 / 40%) 0%, rgb(227 36 68 / 40%) 100%);
+}
+
+.split_card--wrap-pink .split_card-num .purple_grad-col.grad_text-clip {
+    background: linear-gradient(180deg, #FFACC6 32%, #FF819C 68%);
+}
+
+.split_card--wrap-pink.split_card--wrap.polygon_border::before {
+    background: #A82B5E;
+}
+
+.split_card--wrap-pink.split_card--wrap.polygon_border::after{
+    background: #D07DA8;
+}
+
+.split_card--wrap-pink .spilit-card-polygon::after{
+    background: #FF5383;
+}
+
+.split_card--wrap p svg{
+    background: linear-gradient(to bottom,#ffffff 12%,#D8DAFF 80%);
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+}
+
+.split_card--wrap-purple .split_card--wrap p svg{
+    background: linear-gradient(to bottom,#ffffff 12%,#8D7BD0 80%);
+}
+
+.split_card--wrap-orange .split_card--wrap p svg{
+    background: linear-gradient(to bottom,#ffffff 12%,#FFE8D8 80%);
+}
+
+.split_card--wrap-pink .split_card--wrap p svg{
+    background: linear-gradient(to bottom,#ffffff 12%,#FFD8DE 80%);
+}
+/* Forth card End*/
+/* --------------------------------
+    
+    FAQ Section CSS Start
+
+----------------------------------- */
+
+.home_faq--sec .faq_left--con{
+    background-image: url(../images/faqBG.png);
+    background-repeat: no-repeat;
+}
+
+html[dir=rtl] .home_faq--sec .faq_left--con{
+    background-position:center right;
+    background-repeat: no-repeat;
+}
+
+.home_faq--sec .faq_left--con::before{
+    position: absolute;    
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgb(2 3 38) 0%, rgba(2, 3, 29, 0) 8%);
+}
+
+.faq_accordion.active_accordion{
+    background-image: url(../images/active_faqBG.png);
+    background-size: 100% 100%;
+    height: 9.5rem;
+    transition: .4s ease;
+}
+
+.faq_accordion{
+    background-image: url(../images/faq_bg.png);
+    background-repeat: no-repeat;
+    height: 4.5rem;
+    transition: .4s ease;
+    background-size: 100%;
+}
+
+.faq_head-con{
+    position: relative;
+}
+
+.faq_head-con::before{
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1rem;
+    height: 0.8rem;
+    background-image: url(../images/down_arrow.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+html[dir=rtl] .faq_head-con::before{
+    left: 0;
+    right:  auto ;
+
+}
+
+.active_accordion .faq_head-con::before{
+    transform: rotate(180deg);
+    filter: brightness(0) invert(1);
+}
+
+html[dir="rtl"] .home_hero--sec,html[dir="rtl"] .home_about--sec,html[dir="rtl"] .htp_slider-sec,html[dir="rtl"] .home_faq--sec {
+    padding-right: 2.5rem;
 }

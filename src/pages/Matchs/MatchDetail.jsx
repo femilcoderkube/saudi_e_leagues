@@ -105,7 +105,7 @@ const MatchDetail = () => {
               />
             </div>
 
-            <div className="xl-hidden block">
+            <div className="xl-hidden block md:hidden">
                <div className="submit_score-btn btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">     
     </div>
             </div>

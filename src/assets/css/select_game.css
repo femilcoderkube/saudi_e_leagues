@@ -6,7 +6,7 @@
 
 /* --- Select Game dropdown css start --- */
 
-.sel_game-menu .dropdown-header:before{
+.sel_game-menu .dropdown-header:before {
     background-image: url(../images/sel_game-bg.png);
     width: 16rem;
     height: 4.5rem;
@@ -18,25 +18,27 @@
     
 ----------------------------------------- */
 
-.game_list--view button.active{
+.game_list--view button.active {
     /* background: linear-gradient(180deg,rgba(188, 82, 37, 0.92) 0%, rgba(244, 149, 40, 1) 100%);
     box-shadow: inset 0px 1px 4px #F38155; */
     background: url(../images/list-grid-active.png);
     background-size: cover;
 }
 
-.game_status--tab button{
+.game_status--tab button {
     background: url(../images/game_tab-bg.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-.game_status--tab button.active-tab{
+.game_status--tab button.active-tab {
     background: url(../images/active_game-tab.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
-.active-tab.polygon_border:before,.active-tab.polygon_border:after {
+
+.active-tab.polygon_border:before,
+.active-tab.polygon_border:after {
     width: 4.65rem;
     background: #447df1;
     height: 0.18rem;
@@ -47,15 +49,16 @@
     Game Card Design CSS Start
     
 ---------------------------------- */
-html[dir=rtl] .card_top_left-shap{
+html[dir=rtl] .card_top_left-shap {
     rotate: 180deg;
 }
-.game_card--body{
+
+.game_card--body {
     clip-path: url(#cardclip);
     margin: 1.375rem 0 0 1.25rem;
 }
 
-html[dir=rtl] .game_card--body{
+html[dir=rtl] .game_card--body {
     margin: 1.375rem 1.25rem 0 0;
 }
 
@@ -64,7 +67,7 @@ html[dir=rtl] .game_card--body{
     box-shadow: inset -0.625rem 1.25rem 3.125rem #010221;
 }
 
-.card_participants{
+.card_participants {
     background: url(../images/participant_num-bg.png);
     padding: 1.875rem;
     background-size: 100% 100%;
@@ -72,29 +75,31 @@ html[dir=rtl] .game_card--body{
     right: -0.9rem;
 }
 
-html[dir=rtl] .card_participants{
+html[dir=rtl] .card_participants {
     right: auto;
     left: -0.9rem;
     background: url(../images/rtl_participant_num-bg.png);
 }
 
-.match_date-con{
+.match_date-con {
     background: -webkit-linear-gradient(271deg, rgba(199, 233, 255, 1) 60%, #7394FF 92%);
 }
 
-.game_intro{
+.game_intro {
     background-image: url(../images/GameIntroBG.png);
     width: 15.5rem;
     padding-block: 2rem;
     background-size: 100%;
     padding-left: 1.3rem;
 }
-html[dir=rtl] .game_intro{
+
+html[dir=rtl] .game_intro {
     background-image: url(../images/rtl_GameIntroBG.png);
-    padding-left:0;
+    padding-left: 0;
     padding-right: 1.3rem;
 }
-.match_date{
+
+.match_date {
     background-image: url(../images/match_dateBG.png);
     padding-top: 1.5rem;
     padding-bottom: 2.5rem;
@@ -103,15 +108,15 @@ html[dir=rtl] .game_intro{
     background-size: 100%;
 }
 
-html[dir=rtl] .match_date{
- background-image: url(../images/rtl_match_dateBG.png);   
+html[dir=rtl] .match_date {
+    background-image: url(../images/match_dateBG_rtl.png);
 }
 
 .game_card--footer {
     margin-top: -3.5rem;
 }
 
-.game_label{
+.game_label {
     margin-bottom: 4rem;
 }
 
@@ -122,15 +127,15 @@ html[dir=rtl] .match_date{
     
 ---------------------------------------- */
 
-.game_menu-con{
-    background: linear-gradient(180deg,rgba(45, 46, 109, 1) 0%, rgba(34, 35, 86, 1) 100%);
+.game_menu-con {
+    background: linear-gradient(180deg, rgba(45, 46, 109, 1) 0%, rgba(34, 35, 86, 1) 100%);
     clip-path: url(#gamemenu_clip);
     height: 26.25rem;
 }
 
-.game_search input{
-    background: linear-gradient(180deg,rgba(45, 46, 109, 1) 0%, rgba(29, 30, 78, 0.8) 100%);
-    
+.game_search input {
+    background: linear-gradient(180deg, rgba(45, 46, 109, 1) 0%, rgba(29, 30, 78, 0.8) 100%);
+
 }
 
 .game_dropdown-body:after {
@@ -139,6 +144,7 @@ html[dir=rtl] .match_date{
     left: -10px;
     filter: blur(21px);
 }
+
 .sd_game--link {
     height: calc(26.25rem - 6.5rem);
     overflow-y: auto;
@@ -151,7 +157,7 @@ html[dir=rtl] .match_date{
 }
 
 #style-3::-webkit-scrollbar {
-  width: 0.3rem;
+    width: 0.3rem;
 }
 
 #style-3::-webkit-scrollbar-track {
@@ -163,11 +169,11 @@ html[dir=rtl] .match_date{
 }
 
 #style-3::-webkit-scrollbar-thumb {
-  background-color: transparent;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='60' viewBox='0 0 8 60'><path d='M8 0V56L0 60V4L8 0Z' fill='%2346ABF8'/></svg>");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
+    background-color: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='60' viewBox='0 0 8 60'><path d='M8 0V56L0 60V4L8 0Z' fill='%2346ABF8'/></svg>");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
 }
 
 
@@ -177,25 +183,25 @@ html[dir=rtl] .match_date{
     Game Card Wrapper V2 CSS Start
     
 ---------------------------------------- */
-.game_card--wrapv2 .game_image{
+.game_card--wrapv2 .game_image {
     clip-path: url(#cardclipv2);
     max-width: 13rem;
     flex: 0 0 13rem;
 }
 
-html[dir=rtl] .game_card--wrapv2 .game_image{    
+html[dir=rtl] .game_card--wrapv2 .game_image {
     transform: rotateY(180deg);
 }
 
-html[dir=rtl] .game_card--wrapv2 .game_image img{
+html[dir=rtl] .game_card--wrapv2 .game_image img {
     transform: rotateY(180deg);
 }
 
-.game_img--mask svg{
+.game_img--mask svg {
     rotate: 180deg;
 }
 
-.card_participants_v2{
+.card_participants_v2 {
     background: url(../images/participanBG_v2.png);
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
@@ -206,12 +212,12 @@ html[dir=rtl] .game_card--wrapv2 .game_image img{
     max-width: 10.5rem;
 }
 
-html[dir="rtl"] .card_participants_v2{
+html[dir="rtl"] .card_participants_v2 {
     background: url(../images/rtl_participanBG_v2.png);
     background-size: contain;
     background-repeat: no-repeat;
     margin-left: 0;
-    left:1.45rem;
+    left: 1.45rem;
 }
 
 .game_card--wrapv2 .game_card_wrap--link {
@@ -221,7 +227,7 @@ html[dir="rtl"] .card_participants_v2{
     transition: 0.3s;
 }
 
-.game_card--wrapv2 .game_card_wrap--link:hover{
+.game_card--wrapv2 .game_card_wrap--link:hover {
     transform: scale(1.03);
 }
 
@@ -229,23 +235,24 @@ html[dir="rtl"] .game_card--wrapv2 .game_card_wrap--link {
     background-image: url('../images/rtl-gamecard-bg.png');
 }
 
-.game_card--wrapv2.game_card--wrapper > a {
+.game_card--wrapv2.game_card--wrapper>a {
     max-width: 28.75rem;
     flex: 0 0 28.75rem;
 }
-.league_price_v2{
-    background: linear-gradient(90deg,rgba(255, 178, 55, 0.12) 0%, rgba(255, 178, 55, 0) 100%);
+
+.league_price_v2 {
+    background: linear-gradient(90deg, rgba(255, 178, 55, 0.12) 0%, rgba(255, 178, 55, 0) 100%);
 }
 
-.league_price_v2:before{
+.league_price_v2:before {
     background: linear-gradient(90deg, rgba(19, 22, 69, 0) 23%, rgba(255, 178, 55, 0.8) 54%, rgba(19, 22, 69, 0) 74%);
 }
 
-.league_price_v2:after{
+.league_price_v2:after {
     background: linear-gradient(90deg, rgba(19, 22, 69, 0) 14%, rgba(255, 178, 55, 0.8) 42%, rgba(19, 22, 69, 0) 57%);
 }
 
-.game_card--wrapv2 .match_date{
+.game_card--wrapv2 .match_date {
     background-image: url(../images/card_v2_dateBG.png);
     padding-top: 0.7rem;
     margin-top: -1.4rem;
@@ -255,18 +262,18 @@ html[dir="rtl"] .game_card--wrapv2 .game_card_wrap--link {
     padding-bottom: 0;
 }
 
-html[dir="rtl"] .game_card--wrapv2 .match_date{
- background-image: url(../images/rtl_card_v2_dateBG.png);   
+html[dir="rtl"] .game_card--wrapv2 .match_date {
+    background-image: url(../images/rtl_card_v2_dateBG.png);
 }
 
-@media (min-width: 768px) and (max-width: 991px){
-  .select_game-header{
-    margin-top: 5rem;
-  }
+@media (min-width: 768px) and (max-width: 991px) {
+    .select_game-header {
+        margin-top: 5rem;
+    }
 
-  .game_status--tab{
-    top: -5rem;
-  }
+    .game_status--tab {
+        top: -5rem;
+    }
 }
 
 /* md */
@@ -287,7 +294,7 @@ html[dir="rtl"] .game_card--wrapv2 .match_date{
         padding-block: 1.3rem;
     }
 
-        .btn_polygon-link {
+    .btn_polygon-link {
         width: 13.38rem;
         height: 3.5rem;
     }
@@ -297,50 +304,57 @@ html[dir="rtl"] .game_card--wrapv2 .match_date{
         flex: 0 0 10rem;
     }
 
-    .game_status--tab{
+    .game_status--tab {
         border-radius: 0;
     }
 
-    .game_status--tab::before{
+    html[dir=rtl] .game_status--tab {
+        left: auto;
+        right: 0;
+    }
+
+    .game_status--tab::before {
         position: absolute;
         content: '';
         height: 0.1rem;
         width: 100%;
         bottom: 0;
-        background:linear-gradient(to bottom, rgb(123 16 208 / 20%) 0%, rgb(121 126 255 / 20%) 100%);
+        background: linear-gradient(to bottom, rgb(123 16 208 / 20%) 0%, rgb(121 126 255 / 20%) 100%);
     }
 
-    .game_status--tab button{
+    .game_status--tab button {
         background: unset;
         height: auto;
         width: auto;
         color: var(--purple-col);
     }
 
-    .game_status--tab button.active-tab{
-        background:linear-gradient(to bottom, rgb(68 107 238 / 6%) 0%, rgb(68 107 238 / 6%) 100%);
+    .game_status--tab button.active-tab {
+        background: linear-gradient(to bottom, rgb(68 107 238 / 6%) 0%, rgb(68 107 238 / 6%) 100%);
         position: relative;
         color: var(--color-white);
     }
 
-    .game_status--tab button.active-tab::before{
+    .game_status--tab button.active-tab::before {
         position: absolute;
         content: '';
         height: 0.1rem;
         width: 100%;
-        background: linear-gradient(to left,);
+        background: linear-gradient(to left, );
         bottom: 0;
         top: auto;
         clip-path: unset;
     }
 
-    .active-tab.polygon_border:before, .active-tab.polygon_border:after{
+    .active-tab.polygon_border:before,
+    .active-tab.polygon_border:after {
         content: none;
     }
 }
 
 /* sm */
 @media (max-width: 640px) {
+
     .active-tab.polygon_border:before,
     .active-tab.polygon_border:after {
         width: 2.65rem;
@@ -348,34 +362,41 @@ html[dir="rtl"] .game_card--wrapv2 .match_date{
         height: 0.08rem;
     }
 
-    .game_card--wrapv2.game_card--wrapper > a {
-    max-width: 22rem;
-    flex: 0 0 22rem;
-}
-.game_card--wrapv2 .match_date {   
-    width: 3.5rem;
-}
-.card_participants_v2 {    
-    max-width: 9rem;
-}
+    .game_card--wrapv2.game_card--wrapper>a {
+        max-width: 22rem;
+        flex: 0 0 22rem;
+    }
 
-.game_intro-con{
-    gap: 0.7rem;
-}
+    .game_card--wrapv2 .match_date {
+        width: 3.5rem;
+    }
 
-.game_card--wrapper{
-    flex-wrap: nowrap;
-    overflow-y: auto;
-}
+    .card_participants_v2 {
+        max-width: 9rem;
+    }
 
-.game_card--wrapper.game_card--wrapv2{
-    flex-wrap: wrap;
-    overflow-y:hidden;
-}
-.game-card-wp {
-    overflow: hidden;
-    height: 23.5rem;
-}
+    .game_intro-con {
+        gap: 0.7rem;
+    }
+
+    .game_card--wrapper {
+        flex-wrap: nowrap;
+        overflow-y: auto;
+    }
+
+    .game_card--wrapper.game_card--wrapv2 {
+        flex-wrap: wrap;
+        overflow-y: hidden;
+    }
+
+    .game-card-wp {
+        overflow: hidden;
+        height: 23.5rem;
+    }
+
+    html[dir=rtl] .game_status--tab {
+        right: -7rem;
+    }
 }
 
 /* lg */

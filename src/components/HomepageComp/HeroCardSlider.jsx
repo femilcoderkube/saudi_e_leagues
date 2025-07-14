@@ -39,10 +39,10 @@ const HeroCardSlider = () => {
   return (
     <div className="game-slider-container relative">
       {/* Custom Navigation Wrapper */}
-      <div className="swiper-navigation-wrapper absolute right-18 top-[-5rem] z-10 flex gap-2">
+      <div className="swiper-navigation-wrapper absolute ltr:right-18 rtl:left-18 top-[-5rem] z-10 flex gap-2">
         <div
           ref={prevRef}
-          className="swiper-button-prev sd_prev-btn !relative !left-[auto] !right-[0.5rem] custom-nav-btn"
+          className="swiper-button-prev sd_prev-btn rtl:order-2 !relative !left-[auto] !right-[0.5rem]  custom-nav-btn"
         />
         <div
           ref={nextRef}

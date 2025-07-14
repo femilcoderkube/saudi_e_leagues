@@ -91,6 +91,7 @@
     "matchmaking": "matchmaking",
     "tagline": "Every Match Counts — Every Player Matters",
     "choose_your": "Choose your",
+    "division_5": "Division 5",
     "game": "Game",
     "about": "About",
     "prime_description_1": "Prime is where skill meets purpose.",
@@ -103,7 +104,23 @@
     "to_play": "to Play?",
     "htp_description": "Pellentesque dictum porta, lacinia molestie ante maximus at",
     "go_play_now": "Go Play Now",
-    "join_now": "Join Now"
+    "join_now": "Join Now",
+    "faq": {
+      "q1": "Is there a prize for competing in PRIME?",
+      "a1": "Yes! PRIME features a total prize pool of 800,000 SAR, making every match count.",
+      "q2": "How many matches can I play in a day?",
+      "a2": "There is no daily limit! You can play as many matches as you like during the allowed play times:\n\nOn weekdays: from 2:00 PM to 1:00 AM.\nOn weekends: from 2:00 PM to 4:00 AM.",
+      "q3": "Can I participate in multiple games at the same time?",
+      "a3": "Yes! You can compete across all 11 supported games. However, you can only search for one match at a time.",
+      "q4": "How do I contact my team after we’re matched?",
+      "a4": "Each match page includes an in-game team chat, plus you can connect on the official PRIME Discord server to coordinate faster.",
+      "q5": "How are match score disputes handled?",
+      "a5": "At the end of each match, team captains must submit the final score. If results don’t match, PRIME support team will review the evidence and confirm the correct score.",
+      "q6": "What happens if I have to suddenly leave during a match?",
+      "a6": "Once a match is found, you’re expected to play and finish it. If you leave, the match continues without you, and you may receive a warning or penalty according to league rules.",
+      "q7": "What should I do if a teammate is toxic or refuses to cooperate?",
+      "a7": "After each match, you can rate your teammates with a like or dislike on their player card. You can also report any serious misconduct directly through our Discord support system."
+    }
   },
 
   "lobby": {
@@ -123,7 +140,7 @@
       "completed": "Completed",
       "upcoming": "Upcoming",
       "ongoing": "Ongoing",
-      "finished": "Completed"
+      "finished": "Finished"
     }
   },
 
@@ -193,7 +210,8 @@
   },
 
   "navigation": {
-    "lobby": "Lobby"
+    "lobby": "Lobby",
+    "home": "Home"
   },
 
   "user_menu": {
@@ -305,13 +323,24 @@
     "play_button": "Play button",
     "match_registration": "Match registration",
     "large_prime": "Large Prime",
-    "need_login": "Need to login",
-    "join_button": "Join button",
+    "need_login": "YOU NEED TO LOG IN",
+    "join_button": "JOIN",
     "queue_button": "Queue button",
     "open_button": "Open button",
-    "cancel_button": "Cancel button",
+    "cancel_button": "CANCEL QUEUE",
+    "queue": "QUEUE",
     "wind_girl": "Wind girl",
     "fire_boy": "Fire boy",
+    "queue_closed": "QUEUE CLOSED",
+    "1_hr": "1 hr",
+    "hrs": "hrs",
+    "1_day": "1 day",
+    "day": "day",
+    "1_mon": "1 mon",
+    "mon": "mon",
+    "1_sec": "1 sec",
+    "opens_in": "OPENS IN",
+    "starts_in": "STARTS IN",
     "card_top_left_shape": "Card top left shape",
     "game_image": "Game image",
     "user_avatar": "User avatar",
