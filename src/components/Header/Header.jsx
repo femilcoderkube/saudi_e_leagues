@@ -282,7 +282,6 @@ const Header = () => {
             onClick={handleLangToggle}
             title={i18n.language === "en" ? "العربية" : "English"}
             className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
-            style={{ border: "none", background: "none" }}
           >
             <img 
               src={i18n.language === "ar" ? country_ar : country_us} 
