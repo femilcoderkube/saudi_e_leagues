@@ -107,8 +107,13 @@ const SliderCard = ({ item }) => {
           </svg>
         </div>
       </div>
-      <div className="game_card--footer absolute bottom-2 right-0 !m-0 flex justify-between items-center ">
-        {item.gameLogo}
+      <div className="game_card--footer absolute bottom-2 right-13 !m-0 flex justify-between items-center ">
+      <img
+              src={item.gameLogo}
+              alt={t("images.game_image")}
+              style={{ objectFit: "contain", width: "2.5rem", height: "2.5rem" }}
+              className="w-full h-full"
+            />
       </div>
     </div>
   );

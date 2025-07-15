@@ -2,7 +2,7 @@
     content: '';
     position: absolute;
     top: -7rem;
-    left: -6.9rem;
+    left: -5.4rem;
     width: 110%;
     height: 100%;
     background-image: url(/src/assets/images/prime_game_bg.png);
@@ -56,13 +56,13 @@ html[dir=rtl] .home_hero--sec::after{
     padding: 30px 30px;
 }
 
-/* .game_card_wrap--link:before{
+.game_card_wrap--link:before{
     background: linear-gradient(132deg, rgba(50, 63, 121, 1) 4%, rgba(29, 20, 69, 0.8) 15%, rgba(20, 25, 69, 0.4) 100%);
     clip-path: url('#customHeaderClip');
     width: 100%;
     height: 100%;
     z-index: -1;
-} */
+}
 .game_card_wrap--link span {
     padding: 14px 20px;
 }
@@ -225,6 +225,9 @@ html[dir=rtl] .home_hero--sec::after{
     /* height: 20.5rem; */
     min-height: 20.5rem;
     height: 100%;
+}
+.slider_card .game_card_wrap--link{
+    min-height:100%;
 }
 
 .purple_grad-col.grad_text-clip{
@@ -490,14 +493,16 @@ html[dir=rtl] .home_faq--sec .faq_left--con{
 .faq_accordion.active_accordion{
     background-image: url(../images/active_faqBG.png);
     background-size: 100% 100%;
-    height: 9.5rem;
+    min-height: 9.5rem;
+    height: 100%;
     transition: .4s ease;
 }
 
 .faq_accordion{
     background-image: url(../images/faq_bg.png);
     background-repeat: no-repeat;
-    height: 4.5rem;
+    min-height: 4.5rem;
+    height: 100%;
     transition: .4s ease;
     background-size: 100%;
 }
@@ -530,4 +535,55 @@ html[dir=rtl] .faq_head-con::before{
 
 html[dir="rtl"] .home_hero--sec,html[dir="rtl"] .home_about--sec,html[dir="rtl"] .htp_slider-sec,html[dir="rtl"] .home_faq--sec {
     padding-right: 2.5rem;
+}
+
+@media (max-width: 1279px) {
+    .home_hero--sec::after{
+    left:-4.8rem; 
+    top: -4.8rem;
+    background-size: contain;
+    }
+}
+
+@media (max-width: 991px) {
+.home_hero--sec{
+flex-direction: column;
+align-items: center;
+gap: 3rem;
+}
+.home_hero_left-con,.home_hero_right-con,.faq_right--con{
+    max-width: 100%;
+    flex: 1;
+}
+.home_hero--sec::after{
+    background-image: url(/src/assets/images/home_mob_logo.png);
+    height: 15.88rem;
+    width: 12rem;
+    top: 0;
+    right: 16rem;
+    left: auto;
+}
+.home_faq--sec .faq_left--con{
+    background-size: contain;
+    top: 0;
+}
+.htp_slider-sec{
+    flex-direction: column;
+}
+
+.htp_left-con,.htp_right-con{
+    max-width: 100%;
+}
+.game_card_wrap--link:first-child .htp_card--body {
+    width: 35.5rem;
+}
+.htp_card--body .match_date{
+    bottom:1.2rem;
+}
+}
+
+@media (max-width: 991px) {
+.home_hero--sec::after{
+    right:8rem;
+}
 }

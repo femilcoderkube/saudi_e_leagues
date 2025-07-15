@@ -58,7 +58,7 @@ const GameCardListView = ({ leagues }) => {
                         title={item.game.name}
                         className="sm:text-base text-sm !font-bold"
                       >
-                        {item.game.name}
+                        {item.game.shortName}
                       </h4>
                     </div>
                   </div>

@@ -106,6 +106,7 @@
     "go_play_now": "Go Play Now",
     "join_now": "Join Now",
     "faq": {
+      "faq": "FAQs",
       "q1": "Is there a prize for competing in PRIME?",
       "a1": "Yes! PRIME features a total prize pool of 800,000 SAR, making every match count.",
       "q2": "How many matches can I play in a day?",
@@ -339,6 +340,10 @@
     "1_mon": "1 mon",
     "mon": "mon",
     "1_sec": "1 sec",
+    "sec": "sec",
+    "1_min": "1 min",
+    "min": "min",
+    "0_sec": "sec",
     "opens_in": "OPENS IN",
     "starts_in": "STARTS IN",
     "card_top_left_shape": "Card top left shape",

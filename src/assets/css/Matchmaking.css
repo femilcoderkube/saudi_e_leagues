@@ -170,8 +170,8 @@
 } */
 
 * Cancel button hover enhancement */ .cancel-btn {
-  transition: all 0.3s ease;
-  animation: gentle-bounce 3s ease-in-out infinite;
+  /* transition: all 0.3s ease;
+  animation: gentle-bounce 3s ease-in-out infinite; */
 }
 
 @keyframes gentle-bounce {
@@ -187,8 +187,8 @@
 }
 
 .cancel-btn:hover {
-  transform: scale(1.05) translateY(-3px) !important;
-  filter: brightness(1.2);
+  /* transform: scale(1.05) translateY(-3px) !important;
+  filter: brightness(1.2); */
 }
 
 /* Enhanced gradient animation */
@@ -471,14 +471,5 @@ li.team_score--card:hover .review_score--con:before {
     .center-league {
         width: 9rem !important;
         top: 13rem;
-    }
-
-    .cancel-btn{
-      left: 50%;
-      transform: translate(-50%,0);
-      width: 22.5rem !important;
-    }
-    .cancel-btn:hover {
-    transform: scale(1.05) translate(-50%,0) !important;
-    }
+    }   
 }

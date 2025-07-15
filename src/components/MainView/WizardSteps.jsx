@@ -152,7 +152,10 @@ const WizardSteps = ({
           .matches(/[A-Z]/, t("validation_messages.password_uppercase"))
           .matches(/[a-z]/, t("validation_messages.password_lowercase"))
           .matches(/[0-9]/, t("validation_messages.password_number"))
-          .matches(/[!@#$%^&*]/, t("validation_messages.password_special")),
+          .matches(
+            /[!@#$%^&*()\-\_=+\{\}\[\]|\\:;\"'<,>\.\/\?~]/,
+            t("validation_messages.password_special")
+          ),
       nationality: isEdit ? Yup.string().notRequired() : Yup.object()
         .shape({
           value: Yup.string().required(),

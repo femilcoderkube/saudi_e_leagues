@@ -28,24 +28,24 @@ export default function PrimeHome() {
 
       <div className="sd_home-wrapper ">
         {/* === Hero Section HTML block Start === */}
-        <section className="home_hero--sec relative flex pt-[21.125rem] justify-between items-end">
+        <section className="home_hero--sec relative flex lg:pt-[21.125rem] md:pt-[13rem] pt-[10rem] justify-between items-end">
           {/* === Hero Left Block Conatain === */}
           <div className="home_hero_left-con h-full flex justify-end flex-col">
-            <h3 className="text-[2.375rem] uppercase !font-black">
+            <h3 className="xl:text-[2.375rem] text-[1.75rem] uppercase !font-black">
               {t("homepage.level_up")}
             </h3>
-            <h1 className="flex text-[4rem] gap-3 uppercase leading-none mb-2 items-center tracking-wide !font-black">
+            <h1 className="flex xl:text-[4rem] text-[2.88rem] gap-3 uppercase leading-none mb-2 items-center tracking-wide !font-black">
               {t("homepage.your_game")} -
-              <span className="text-[1.75rem] leading-none">
+              <span className="xl:text-[1.75rem] text-[1.25rem] leading-none">
                 {" "}
                 {t("homepage.join")} <br />
                 {t("homepage.epic")}
               </span>
             </h1>
-            <h2 className="text-[4rem] uppercase leading-none items-center tracking-wider !font-black">
+            <h2 className="xl:text-[4rem] text-[3rem] uppercase leading-none items-center tracking-wider !font-black">
               {t("homepage.matchmaking")}
             </h2>
-            <p className="purple_col text-2xl font-semibold py-10">
+            <p className="purple_col lg:text-2xl md:text-[1.07rem] font-semibold py-10 xl:pt-10 md:pt-8">
               {t("homepage.tagline")}{" "}
             </p>
             <Link
@@ -76,7 +76,7 @@ export default function PrimeHome() {
         </section>
 
         {/* === About Section HTML block Start === */}
-        <section className="home_about--sec relative pt-[7.5rem] pb-[9rem] flex overflow-hidden">
+        <section className="home_about--sec relative lg:pt-[7.5rem] pt-[2rem] lg:pb-[9rem] pb-[3rem] flex overflow-hidden">
           <div className="about_left--con max-w-[45%]">
             <h3 className="text-[2.375rem] uppercase !font-black mb-5">
               {t("homepage.about")}
@@ -128,10 +128,10 @@ export default function PrimeHome() {
         {/* <section className="htp_slider-sec flex justify-between ">
        
           <div className="htp_left-con h-full flex justify-end flex-col max-w-[30%]">
-            <h2 className="grad_head--txt max-w-full text-[5rem] tracking-wide !font-black leading-none uppercase">
+            <h2 className="grad_head--txt max-w-full lg:text-[5rem] text-[3rem] tracking-wide !font-black leading-none uppercase">
               {t("homepage.how")}
             </h2>
-            <h2 className="text-[4rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center tracking-wider !font-black pb-10">
+            <h2 className="lg:text-[4rem] text-[2.5rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center tracking-wider !font-black pb-10">
               {t("homepage.to_play")}
             </h2>
             <p className="htp_content block purple_col sd_before relative before:w-full before:top-0 text-2xl font-semibold py-10 pr-3">
@@ -235,7 +235,7 @@ export default function PrimeHome() {
               </div> 
               <div className="faq_right--con max-w-[65%] flex-[0_0_65%] ltr:pr-[6.5rem] rtl:pr-[8.5rem] relative">
                 <h2 className="text-[4rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none items-center tracking-wider !font-black pb-10">
-                  FAQs                 
+                  {t("homepage.faq.faq")}                 
                 </h2>
                 <div className="sd_faq-con">
                   <Accordation />

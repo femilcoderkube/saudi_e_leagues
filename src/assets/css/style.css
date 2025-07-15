@@ -272,6 +272,9 @@ html[dir="rtl"] .team_score--con {
   .player_one {
     display: none;
   }
+  .game_image{
+    width: 100% !important;
+  }
 }
 
 @media (max-width: 475px) {
@@ -280,6 +283,12 @@ html[dir="rtl"] .team_score--con {
   }
   .sd_content-right a img {
     height: 3.8rem;
+  }
+}
+
+@media (max-width: 410px) {
+  .mob-common-btn{
+    top: 1.5rem;
   }
 }
 

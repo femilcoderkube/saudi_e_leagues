@@ -26,13 +26,13 @@ const GetQueueButton = () => {
   if (user?._id == null || user?._id == undefined) {
     return (
       <div
-        className=" lobby_btn mb-8 relative cursor-pointer flex items-center justify-center md:justify-start"
+        className="lobby_btn mb-8 relative cursor-pointer flex items-center justify-center md:justify-start"
         onClick={() => {
           dispatch(setLogin(true));
         }}
       >
                   <span
-            className="absolute top-[2.3rem] left-0 w-full text-center text-lg sm:text-2xl opacity-50"
+            className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-lg sm:text-2xl opacity-50"
             style={{
               fontFamily: "Yapari",
               color: "#BABDFF",
@@ -53,7 +53,7 @@ const GetQueueButton = () => {
     return (
       <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
         <span
-          className="absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
+          className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
           style={{
             fontFamily: "Yapari",
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
@@ -76,7 +76,7 @@ const GetQueueButton = () => {
         className="join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
       >
         <span
-          className="absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
+          className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
           style={{
             fontFamily: "Yapari",
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
@@ -100,7 +100,7 @@ const GetQueueButton = () => {
         }}
       >
          <span
-          className="absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
+          className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
           style={{
             fontFamily: "Yapari",
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
@@ -128,7 +128,7 @@ const GetQueueButton = () => {
           to={`/${id}/match/${leagueData?.isMatchJoind}`}
         >
           <span
-            className="absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
+            className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
               fontFamily: "Yapari",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
@@ -151,7 +151,7 @@ const GetQueueButton = () => {
           to={`/${id}/lobby/${leagueData?._id}/finding-match`}
         >
           <span
-            className="absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
+            className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
               fontFamily: "Yapari",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
@@ -171,7 +171,7 @@ const GetQueueButton = () => {
       return (
         <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
           <span
-            className="absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
+            className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
               fontFamily: "Yapari",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",

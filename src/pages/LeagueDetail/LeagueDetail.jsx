@@ -125,9 +125,9 @@ const LeagueDetail = () => {
           <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-start">
             <div className="sd_content-left order-2 md:order-1">
               <div className="sd_game_info--wrap md:flex-row md:inline-flex hidden gap-3 md:gap-5 items-center justify-center md:justify-baseline w-full">
-              <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
-                  <Link
-                    to={"#"}
+              <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
+                  <div
+                   
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
                   >
                     <img
@@ -144,11 +144,11 @@ const LeagueDetail = () => {
                         {leagueData.game.name || ""}
                       </h4>
                     </div>
-                  </Link>
+                  </div>
                 </div>
-                <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
-                  <Link
-                    to={"#"}
+                <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
+                  <div
+                
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
                   >
                     <img
@@ -165,11 +165,11 @@ const LeagueDetail = () => {
                         {leagueData?.platform?.name?.toUpperCase() || ""}
                       </h4>
                     </div>
-                  </Link>
+                  </div>
                 </div>
-                <div className="sd_game-con sd_team_size--info relative sd_before sd_after polygon_border">
-                  <Link
-                    to={"#"}
+                <div className="sd_game-con sd_team_size--info relative sd_before sd_after polygon_border cursor-default">
+                  <div
+                   
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
                   >
                     <img
@@ -188,7 +188,7 @@ const LeagueDetail = () => {
                         {leagueData.playersPerTeam || 1}{" "}
                       </h4>
                     </div>
-                  </Link>
+                  </div>
                 </div>
                 {/* <svg
                   width="0"

@@ -137,7 +137,7 @@ const MatchMaking = () => {
                   style={{ width: "25rem" }}
                 />
                  <span
-                    className="absolute top-[2.0125rem] left-0 w-full text-center text-xl sm:text-2xl"
+                    className="mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-xl sm:text-2xl cursor-pointer"
                     style={{
                       fontFamily: "Yapari",
                       textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",

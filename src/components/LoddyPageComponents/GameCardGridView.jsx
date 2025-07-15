@@ -122,7 +122,7 @@ const GameCardGridView = ({ leagues }) => {
                     <p className="text-sm purple_light font-medium">
                       {t("games.game")}
                     </p>
-                    <h4 className="text-xl !font-bold">{item.game.name}</h4>
+                    <h4 className="text-xl !font-bold">{item.game.shortName}</h4>
                   </div>
                 </div>
               </div>

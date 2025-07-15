@@ -119,7 +119,7 @@ const MatchDetail = () => {
                   <div className="flex flex-col space-y-1">
                     {chatData?.map((chat, chatIdx) => {
                       if (chat.isSystemMsg) {
-                        console.log("chat", chat?.randomMessages);
+                        // console.log("chat", chat?.randomMessages);
                       }
                       if (
                         chat.isSystemMsg &&
@@ -127,7 +127,9 @@ const MatchDetail = () => {
                         chat.messages.length > 0
                       ) {
                         // Render each system message as a separate div
-                        return chat.messages.map((msg, msgIdx) => (
+                        return chat.messages.filter((msg) => msg).map((msg, msgIdx) =>
+                          
+                          (
                           <div className={`block send_msg-con`}>
                             <div className="px-2 py-1 rounded-lg">
                               <div className="flex items-center gap-2">
@@ -158,10 +160,10 @@ const MatchDetail = () => {
                         chat.randomMessages.length > 0
                       ) {
                         // console.log("chat----", chat);
-                        return chat.randomMessages.map((msg, msgIdx) => {
-                        
-                          return (
-                            <div className={`block send_msg-con`}>
+                        return chat.randomMessages
+                          .filter((msg) => msg.randomText)
+                          .map((msg, msgIdx) => (
+                            <div className={`block send_msg-con`} key={`system-randomMessages-${msgIdx}`}>
                               <div className="px-2 py-1 rounded-lg">
                                 <div className="flex items-center gap-2">
                                   <span
@@ -170,10 +172,9 @@ const MatchDetail = () => {
                                       color: "red", // Apply random color based on senderId
                                     }}
                                   >
-                                    {t("match.system")} : {""}
+                                    {t("match.system")} :{" "}
                                   </span>
                                   <span
-                                    key={`system-randomMessages-${msgIdx}`}
                                     className="txt_purple_light"
                                     dangerouslySetInnerHTML={{
                                       __html: msg.randomText,
@@ -185,8 +186,7 @@ const MatchDetail = () => {
                                 </div>
                               </div>
                             </div>
-                          );
-                        });
+                          ));
                       }
                       return (
                         <div

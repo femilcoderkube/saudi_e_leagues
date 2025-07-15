@@ -810,6 +810,10 @@ input[type="radio"]:checked+label .checkbox-inner:before {
 @media (max-width:991px) {
   .sd_content-left{
     width: 100%;
+    order: 2;
+  }  
+  .sd_content-right{
+    order: 1;
   }
 }
 @media (min-width: 768px) and (max-width: 991px){
