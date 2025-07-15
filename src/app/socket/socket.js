@@ -47,6 +47,7 @@ socket.on("connect", () => {
       if (window.location.pathname.includes("/match/")) return;
       let pId = getPartnerByDocId(data.partner).id;
       window.location.href = `/${pId}/match/${data.matchId}`;
+      sessionStorage.removeItem("canAccessFindingMatch");
     }
   });
 
