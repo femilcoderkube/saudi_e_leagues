@@ -107,9 +107,11 @@ export default function PrimeHome() {
           </div>
           <div className="about_right--con w-full sd_before sd_after relative">
             <div className="sd_play-link relative sd_before before:w-full before:h-full flex flex-col items-center h-full justify-center">
-              <Link
-                to={"#"}
-                className="dropdown-header relative hover:opacity-70 duration-400 flex flex-col items-center "
+              <a
+                href="https://drive.google.com/file/d/1pvJp0s79tWODiJHrODesEAPnPIKny2n7/view"
+                className="dropdown-header relative hover:opacity-70 duration-400 flex flex-col items-center cursor-pointer"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <img
                   src={Playbtn}
@@ -119,7 +121,7 @@ export default function PrimeHome() {
                 <span className="text-2xl font-semibold purple_col">
                   {t("homepage.watch_video")}
                 </span>
-              </Link>
+              </a>
             </div>
           </div>
         </section>

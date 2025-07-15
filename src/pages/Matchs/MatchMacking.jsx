@@ -21,7 +21,7 @@ const MatchMaking = () => {
   const [showTimeOver, setShowTimeOver] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-  const { lId } = useParams();
+  const { lId , id } = useParams();
   const [timerActive, setTimerActive] = useState(true);
   const { t } = useTranslation();
 
@@ -46,14 +46,23 @@ const MatchMaking = () => {
 
   // Handle JOINMATCH event and socket setup
   useEffect(() => {
+    const canAccess = sessionStorage.getItem("canAccessFindingMatch");
+    if (canAccess !== "true") {
+      navigate(`/${id}/lobby/${lId}`); // or wherever you want to redirect
+      return;
+    } 
+     
+    
     if (isSocketConnected && user?._id) {
       startReadyToPlaySocket({ lId, user, isSocketConnected });
     }
+  
   }, [isSocketConnected, lId, user?._id,]);
 
   const handleCancel = () => {
     if (isSocketConnected && user?._id) {
       stopReadyToPlaySocket({ lId, user, isSocketConnected });
+      sessionStorage.removeItem("canAccessFindingMatch");
       navigate(-1);
     }
   };
@@ -72,6 +81,7 @@ const MatchMaking = () => {
     if (isSocketConnected && user?._id) {
       stopReadyToPlaySocket({ lId, user, isSocketConnected });
       navigate(-1);
+       sessionStorage.removeItem("canAccessFindingMatch");
     }
   };
 

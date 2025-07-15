@@ -8,7 +8,7 @@ import Cancel_btn from "../../assets/images/cancelbtn.png";
 import { setRegistrationModal } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { getQueueText } from "../../utils/constant";
 import { stopReadyToPlaySocket } from "../../app/socket/socket";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const GetQueueButton = () => {
@@ -22,6 +22,7 @@ const GetQueueButton = () => {
   const now = new Date();
   const end = new Date(leagueData?.endDate);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   if (user?._id == null || user?._id == undefined) {
     return (
@@ -146,9 +147,12 @@ const GetQueueButton = () => {
       );
     } else if (text == t("images.queue")) {
       return (
-        <Link
-          className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before"
-          to={`/${id}/lobby/${leagueData?._id}/finding-match`}
+        <div
+          className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
+          onClick={() => {
+            sessionStorage.setItem("canAccessFindingMatch", "true");
+            navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+          }}
         >
           <span
             className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
@@ -165,7 +169,7 @@ const GetQueueButton = () => {
             alt=""
             style={{ width: "30.5rem" }}
           />{" "}
-        </Link>
+        </div>
       );
     } else {
       return (
