@@ -79,9 +79,9 @@ const MatchDetail = () => {
       style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
     >
       <section className="match_team--wrap flex pt-[6rem] justify-between items-end pl-[7.5rem] pr-[7.5rem] ">
-        <div className="team_score--con flex justify-between w-full gap-10">
+        <div className="team_score--con flex lg:flex-row flex-col justify-between w-full gap-10 items-center lg:items-start">
           {/* Team 1 */}
-          <div className="team_score--wrap">
+          <div className="team_score--wrap max-w-[24.625rem]">
             <h2 className="grad_head--txt max-w-full text-[4rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
               {t("match.team_one")}
             </h2>
@@ -263,7 +263,7 @@ const MatchDetail = () => {
           </div>
 
           {/* Team 2 */}
-          <div className="team_score--wrap">
+          <div className="team_score--wrap max-w-[24.625rem]">
             <h2 className="grad_head--txt max-w-full text-[4rem] pr-[2rem] grad_text-clip font_oswald tracking-wide !font-medium text-right leading-none uppercase">
               {t("match.team_two")}
             </h2>

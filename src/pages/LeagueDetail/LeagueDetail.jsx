@@ -62,7 +62,7 @@ const LeagueDetail = () => {
       {!leagueData ? (
         <GamingLoader />
       ) : (
-        <div className="sd_content-wrapper max-w-full md:pt-7 pt-0">
+        <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8">
             <div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1">
@@ -376,7 +376,7 @@ const LeagueDetail = () => {
             </div>
             <div className="sd_content-right w-full order-1 md:order-2">
               <GetQueueButton />
-        <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 md:pb-0 pb-6 items-center justify-center md:justify-baseline">
+        <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 w-full md:pb-0 pb-6 items-center justify-center md:justify-baseline">
               <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
                   <Link
                     to={"#"}

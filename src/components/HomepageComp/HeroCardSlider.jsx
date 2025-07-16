@@ -8,6 +8,7 @@ import SliderCard from "./SliderCard";
 import DotaBG from "../../assets/images/dotaBG.jpg";
 import Valorant_card_bg from "../../assets/images/valorant_card_bg.jpg";
 import { ValorantIcon } from "../ui/svg/index.jsx";
+import { Position } from "@react-pdf-viewer/core";
 
 // Card data here
 const SliderCardDetails = [
@@ -39,7 +40,7 @@ const HeroCardSlider = () => {
   return (
     <div className="game-slider-container relative">
       {/* Custom Navigation Wrapper */}
-      <div className="swiper-navigation-wrapper absolute ltr:right-18 rtl:left-18 top-[-5rem] z-10 flex gap-2">
+      <div className="swiper-navigation-wrapper absolute ltr:right-18 rtl:left-18 top-[-5rem] z-10 md:flex hidden gap-2">
         <div
           ref={prevRef}
           className="swiper-button-prev sd_prev-btn rtl:order-2 !relative !left-[auto] !right-[0.5rem]  custom-nav-btn"
@@ -56,6 +57,15 @@ const HeroCardSlider = () => {
         slidesPerView={2.5}
         centeredSlides={false}
         loop={true}
+         style={{ position: 'relative' }}
+        breakpoints={{
+    0: {
+      slidesPerView: 1.5, // 👈 mobile view
+    },
+    640: {
+      slidesPerView: 2.5, // 👈 tablets and up
+    },
+  }}
         speed={600}
         // style={{ overflow: 'visible' }}
         onSwiper={(swiper) => {

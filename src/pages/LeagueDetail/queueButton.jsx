@@ -21,7 +21,7 @@ const GetQueueButton = () => {
   const dispatch = useDispatch();
   const now = new Date();
   const end = new Date(leagueData?.endDate);
-  const { t } = useTranslation();
+  const { t  ,i18n} = useTranslation();
   const navigate = useNavigate();
 
   if (user?._id == null || user?._id == undefined) {
@@ -35,7 +35,8 @@ const GetQueueButton = () => {
                   <span
             className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-lg sm:text-2xl opacity-50"
             style={{
-              fontFamily: "Yapari",
+              fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
+              fontWeight : "bold",
               color: "#BABDFF",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
             }}
@@ -56,7 +57,8 @@ const GetQueueButton = () => {
         <span
           className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
           style={{
-            fontFamily: "Yapari",
+            fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
+            fontWeight : "bold",
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
           }}
         >
@@ -79,7 +81,8 @@ const GetQueueButton = () => {
         <span
           className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
           style={{
-            fontFamily: "Yapari",
+            fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
+            fontWeight : "bold",
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
           }}
         >
@@ -103,7 +106,8 @@ const GetQueueButton = () => {
          <span
           className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
           style={{
-            fontFamily: "Yapari",
+            fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
+              fontWeight : "bold",
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
           }}
         >
@@ -131,7 +135,8 @@ const GetQueueButton = () => {
           <span
             className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
-              fontFamily: "Yapari",
+              fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
+              fontWeight : "bold",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
             }}
           >
@@ -157,7 +162,8 @@ const GetQueueButton = () => {
           <span
             className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
-              fontFamily: "Yapari",
+              fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
+              fontWeight : "bold",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
             }}
           >
@@ -177,7 +183,8 @@ const GetQueueButton = () => {
           <span
             className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
-              fontFamily: "Yapari",
+              fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
+              fontWeight : "bold",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
             }}
           >

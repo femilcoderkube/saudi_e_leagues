@@ -578,5 +578,23 @@ export const NextArrow2 = () => (
     />
   </svg>
 );
+export const NextArrow3 = () => (
+  <svg
+    width="1rem"
+    height="1.5rem"
+    viewBox="0 0 8 12"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ transform: "scaleX(-1)" }}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M0.292893 11.7489C-0.0976311 11.4142 -0.0976311 10.8715 0.292893 10.5368L5.58579 6L0.292893 1.46323C-0.0976311 1.1285 -0.0976311 0.585786 0.292893 0.251051C0.683417 -0.083684 1.31658 -0.083684 1.70711 0.251051L7.70711 5.39391C8.09763 5.72864 8.09763 6.27136 7.70711 6.60609L1.70711 11.7489C1.31658 12.0837 0.683417 12.0837 0.292893 11.7489Z"
+      fill="#7378C0"
+      fillOpacity="0.48"
+    />
+  </svg>
+);
 
 // Add more icons here

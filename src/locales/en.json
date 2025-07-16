@@ -1,6 +1,6 @@
 {
   "player_search": "Player Search",
-  "time_over": "Time is Over",
+  "time_over": "We couldn’t find a match for you at the moment. Would you like to search again?",
   "yes": "Yes",
   "no": "No",
   "cancel": "Cancel",
@@ -212,7 +212,9 @@
 
   "navigation": {
     "lobby": "Lobby",
-    "home": "Home"
+    "home": "Home",
+    "profile": "Profile",
+    "prime": "Prime"
   },
 
   "user_menu": {

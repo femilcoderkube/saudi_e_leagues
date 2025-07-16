@@ -1,15 +1,22 @@
 // SliderCard.jsx
 import React from "react";
 import CardTopLeftShap from "../../assets/images/card_top_left-shap.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { setActiveTabIndex } from "../../app/slices/constState/constStateSlice";
+import { useDispatch } from "react-redux";
 
 const SliderCard = ({ item }) => {
   const { t } = useTranslation();
-
+  const params = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
-    <div className="game_card--con slider_card p-5">
-      <div className="card_top_left-shap absolute bottom-2 left-0">
+    <div className="game_card--con slider_card p-3" onClick={()=>{
+      navigate(`/${params.id}/lobby`);
+      dispatch(setActiveTabIndex(0));
+    }}>
+      <div className="card_top_left-shap absolute bottom-2 ltr:left-0 rtl:right-0">
         <img
           src={CardTopLeftShap}
           alt={t("images.card_top_left_shape")}
@@ -32,7 +39,7 @@ const SliderCard = ({ item }) => {
           <div className="game_mask--con pt-3 absolute bottom-3 z-40 w-full">
             <Link
               to={item.path}
-              className="game_card_wrap--link block ml-4 relative  uppercase text-xl  !font-bold sd_before"
+              className="game_card_wrap--link block ml-4 relative  uppercase md:text-xl text-lg !font-bold sd_before"
             >
               <span className="flex items-center gap-3">
                 {" "}
@@ -107,7 +114,7 @@ const SliderCard = ({ item }) => {
           </svg>
         </div>
       </div>
-      <div className="game_card--footer absolute bottom-2 right-13 !m-0 flex justify-between items-center ">
+      <div className="game_card--footer absolute bottom-2 ltr:right-0 rtl:left-0 !m-0 flex justify-between items-center ">
       <img
               src={item.gameLogo}
               alt={t("images.game_image")}

@@ -14,12 +14,15 @@ import {
   NextArrow,
   Notification,
   Champions,
-
   NextArrow2,
+  NextArrow3,
 } from "../ui/svg/index.jsx";
 import country_us from "../../assets/images/country_us.png";
 import country_ar from "../../assets/images/ar_lang.png";
 import lobyIcon from "../../assets/images/loby-icon.svg";
+import primeIcon from "../../assets/images/prime_hover.png";
+import menuActiveIcon from "../../assets/images/menu_active_shape.svg";
+import homeIcon from "../../assets/images/home_icon.svg";
 // import homeIcon from "../../assets/images/country_us.png";
 // import profileIcon from "../../assets/images/country_us.png";
 import Dropdown from "../LobbyPageComp/User_menu.jsx";
@@ -27,8 +30,11 @@ import { checkParams, items } from "../../utils/constant.js";
 import { useDispatch, useSelector } from "react-redux";
 import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
 import {
+  setActiveTabIndex,
   setLogin,
+  setProfileVisible,
   setRegisteration,
+  setshowNotification,
   setSubmitModal,
 } from "../../app/slices/constState/constStateSlice.js";
 import ViewScoreBtn from "../Matchmakingcomp/viewScoreButton.jsx";
@@ -40,6 +46,9 @@ import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { leagueData } = useSelector((state) => state.leagues);
+  const { isActiveTab, showNotification } = useSelector(
+    (state) => state.constState
+  );
   const navigator = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -64,6 +73,10 @@ const Header = () => {
     i18n.changeLanguage(newLang);
     localStorage.setItem("lang", newLang);
   };
+  // Language toggle handler
+  const handleLangToggle2 = () => {
+    dispatch(setshowNotification(!showNotification));
+  };
 
   if (checkParams("finding-match") || checkParams("match")) {
     if (params.mId) {
@@ -86,7 +99,8 @@ const Header = () => {
               <span
                 style={{
                   display: "inline-block",
-                  transform: i18n.language === "ar" ? "scaleX(1)" : "scaleX(-1)",
+                  transform:
+                    i18n.language === "ar" ? "scaleX(1)" : "scaleX(-1)",
                 }}
               >
                 <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
@@ -154,7 +168,7 @@ const Header = () => {
               </div>
             )}
             {user && (
-              <div className="sd_uaser-menu">
+              <div className="sd_uaser-menu hidden sm:block">
                 <Dropdown user={userUpdate ? userUpdate : user} />
               </div>
             )}
@@ -171,24 +185,24 @@ const Header = () => {
           }}
         >
           <div
-              className="back_arrow absolute ltr:left-[5rem] rtl:right-[5rem] cursor-pointer"
-              onClick={() => {
-                navigator(-1);
+            className="back_arrow absolute ltr:left-[5rem] rtl:right-[5rem] cursor-pointer"
+            onClick={() => {
+              navigator(-1);
+            }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                transform: i18n.language === "ar" ? "scaleX(1)" : "scaleX(-1)",
               }}
             >
-              <span
-                style={{
-                  display: "inline-block",
-                  transform: i18n.language === "ar" ? "scaleX(1)" : "scaleX(-1)",
-                }}
-              >
-                <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
-              </span>
-            </div>
+              <NextArrow2 width="0.5rem" height="0.75rem" fill="#7378C0" />
+            </span>
+          </div>
           <h2 className="sm:text-[2rem] text-lg !font-black uppercase text-center block">
             {i18n.language === "en"
-                ? leagueData?.title
-                : leagueData?.titleAr || t("match.finding_matchmaking")}
+              ? leagueData?.title
+              : leagueData?.titleAr || t("match.finding_matchmaking")}
           </h2>
         </header>
       );
@@ -196,7 +210,7 @@ const Header = () => {
   } else {
     const breadcrumbItems = [];
     let path = new Set(window.location.pathname.split("/")).has("lobby");
-    if(params.id){
+    if (params.id) {
       let item = {
         label: t("navigation.home"),
         path: `/${params.id}`,
@@ -222,7 +236,7 @@ const Header = () => {
         breadcrumbItems.length === 1 ||
         breadcrumbItems[1].label !== item.label
       ) {
-         breadcrumbItems[0].active = false; // Set the previous item to inactive
+        breadcrumbItems[0].active = false; // Set the previous item to inactive
         breadcrumbItems.push(item);
       }
     }
@@ -244,12 +258,13 @@ const Header = () => {
         breadcrumbItems.push(item);
       }
     }
+    let mainItem = breadcrumbItems[breadcrumbItems.length - 1];
 
     return (
       <header className="text-white pt-4 sm:pt-[1.4rem] px-4 md:px-[4.5rem] md:pr-7.5 flex items-center justify-between">
         {/* === BreadCrumb HTML Block start ==== */}
-        <nav className="breadcrumb flex-grow-1">
-          <ul className="breadcrumb-links flex items-center gap-2.5 md:gap-5">
+        <nav className="breadcrumb flex-grow-1 sm:flex hidden">
+          <ul className="breadcrumb-links flex  items-center gap-2.5 md:gap-5">
             {breadcrumbItems.map((item, index) => (
               <li
                 key={index}
@@ -276,24 +291,72 @@ const Header = () => {
             ))}
           </ul>
         </nav>
+        <nav className="breadcrumb flex-grow-1">
+          <ul className="breadcrumb-links sm:flex items-center gap-2.5 md:gap-5 sm:hidden">
+            <li
+              key={-1}
+              className="flex items-center gap-2 sm:gap-4 md:gap-7"
+              onClick={() => {
+                navigator(-1);
+              }}
+            >
+              {mainItem.label !== t("navigation.lobby") &&
+                mainItem.label !== t("navigation.home") &&
+                (i18n.language === "ar" ? <NextArrow2 /> : <NextArrow3 />)}
+              <div className="breadcrumb-box flex items-center gap-2">
+                <Link
+                  to={mainItem.path}
+                  className={`breadcrumb-text flex items-center gap-3 ltr:pl-2 rtl:pr-2 sm:gap-3 text-sm md:text-lg font-bold text-white text-[1.25rem]`}
+                >
+                  {mainItem.label &&
+                    (mainItem.label !== t("navigation.home") ? (
+                      <mainItem.icon className="text-white" />
+                    ) : (
+                      <img
+                        src={primeIcon}
+                        alt="prime"
+                        className="text-white w-8 h-8"
+                      />
+                    ))}
 
+                  {mainItem.label !== t("navigation.home")
+                    ? mainItem.label
+                    : t("navigation.prime")}
+
+                  {mainItem.label == t("navigation.home") && (
+                    <span className="text-[1.25rem] font-bold text-black ltr:ml-[12px] rtl:mr-[12px] bg-[#3ECCF3] px-3 rounded-[10px] min-h-[1.75rem] min-w-[4.063rem]">
+                      {t("common.beta")}
+                    </span>
+                  )}
+                </Link>
+              </div>
+            </li>
+          </ul>
+        </nav>
         <div className="sd_notification-block self-center flex gap-4 ltr:ml-[1rem] md:ltr:mr-[9rem] rtl:ml-[1rem] md:rtl:ml-[9rem]">
           <div
             onClick={handleLangToggle}
             title={i18n.language === "en" ? "العربية" : "English"}
             className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
           >
-            <img 
-              src={i18n.language === "ar" ? country_ar : country_us} 
-              alt="lang" 
-              style={{ 
-                width: "1.5rem", 
-                height: "1.5rem", 
-                borderRadius: "50%", 
-                objectFit: "cover" 
-              }} 
+            <img
+              src={i18n.language === "ar" ? country_ar : country_us}
+              alt="lang"
+              style={{
+                width: "1.5rem",
+                height: "1.5rem",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
             />
           </div>
+          {/* <div
+            onClick={handleLangToggle2}
+            title={"Notification"}
+            className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
+          >
+            <Notification />
+          </div> */}
           {/* <NavLink
             to="#"
             className="notification_btn inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
@@ -336,38 +399,80 @@ const Header = () => {
         )}
 
         {user && (
-          <div className="sd_uaser-menu pb-[1.4rem]">
+          <div className="sd_uaser-menu pb-[1.4rem] hidden sm:block">
             <Dropdown user={userUpdate ? userUpdate : user} />
           </div>
         )}
-        <div className="navigation hidden w-full h-[6.5rem] left-0 fixed bottom-0 z-100">
-          <ul className="listWrap h-full flex justify-around items-center">
-            <li className="list active">
-              <a href="javascript:void(0);">
-                <i className="icon">
-                  <img src={lobyIcon} alt="lang" />
-                </i>
-                <span className="text">Lobby</span>
-              </a>
-            </li>
-            <li className="list">
-              <a href="javascript:void(0);">
-                <i className="icon">
-                  <img src={lobyIcon} alt="lang" />
-                </i>
-                <span className="text">Home</span>
-              </a>
-            </li>
-            <li className="list">
-              <a href="javascript:void(0);">
-                <i className="icon">
-                  <img src={lobyIcon} alt="lang" />
-                </i>
-                <span class="text">Profile</span>
-              </a>
-            </li>
-            <li className="indicator"></li>
-          </ul>
+        <div
+          className={`navigation hidden w-full h-[6.5rem] left-0 fixed bottom-0 z-100 ${
+            breadcrumbItems.length == 3 ? "hidden" : ""
+          }`}
+        >
+          <div className="sq__main-wrap h-full">
+            <ul className="listWrap h-full flex justify-around items-center">
+              <li
+                className={`list flex-1 ${isActiveTab == 0 ? "active" : ""}`}
+                onClick={() => {
+                  navigator(`/${params.id}/lobby`);
+                  dispatch(setActiveTabIndex(0));
+                }}
+              >
+                <a
+                  href="javascript:void(0);"
+                  className="flex flex-wrap gap-2 justify-center items-center"
+                >
+                  <i className="icon inline text-center">
+                    <img src={lobyIcon} alt="lang" />
+                  </i>
+                  <span className="text w-full text-center">
+                    {t("navigation.lobby")}
+                  </span>
+                </a>
+              </li>
+              <li
+                className={`list flex-1 ${isActiveTab == 1 ? "active" : ""}`}
+                onClick={() => {
+                  navigator(`/${params.id}`);
+                  dispatch(setActiveTabIndex(1));
+                }}
+              >
+                <a
+                  href="javascript:void(0);"
+                  className="flex gap-2 flex-wrap justify-center items-center"
+                >
+                  <i className="icon inline text-center">
+                    <img src={homeIcon} alt="lang" />
+                  </i>
+                  <span className="text w-full text-center">
+                    {t("navigation.home")}
+                  </span>
+                </a>
+              </li>
+              <li
+                className={`list flex-1 ${isActiveTab == 2 ? "active" : ""}`}
+                onClick={() => {
+                  dispatch(setProfileVisible(true));
+                  dispatch(setActiveTabIndex(2));
+                }}
+              >
+                <a
+                  href="javascript:void(0);"
+                  className="flex gap-2 flex-wrap justify-center items-center"
+                >
+                  <i className="icon inline text-center">
+                    <img src={lobyIcon} alt="lang" />
+                  </i>
+                  <span class="text w-full text-center">
+                    {t("navigation.profile")}
+                  </span>
+                </a>
+              </li>
+              <li className="m_menu__indicator">
+                <img src={menuActiveIcon} alt="lang" style={{ width: "" }} />
+              </li>
+              <div className="sq__shape-wrap"></div>
+            </ul>
+          </div>
         </div>
       </header>
     );

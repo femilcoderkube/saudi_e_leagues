@@ -7,6 +7,8 @@ import LoginModal from "../Modal/LoginModal";
 import { toast } from "react-toastify";
 import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp";
 import {
+  setActiveTabIndex,
+  setPreviewImage,
   setProfileVisible,
   setRegisteration,
   setSubmitModal,
@@ -17,6 +19,7 @@ import { fetchUserById, updateUser } from "../../app/slices/auth/authSlice";
 import { baseURL } from "../../utils/axios";
 import { registerUser } from "../../app/slices/auth/authSlice";
 import { useTranslation } from "react-i18next";
+import Notification_sidebar from "../Notification/notificationsidebar";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -30,6 +33,7 @@ export default function Main() {
     dialCodeOptions,
     isLogin,
     isRegisteration,
+    showNotification,
   } = useSelector((state) => state.constState);
   const location = useLocation();
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -118,6 +122,11 @@ export default function Main() {
           localStorage.setItem("user", JSON.stringify(res?.data));
           dispatch(fetchUserById(user?._id));
           dispatch(setProfileVisible(false));
+          if (window.location.pathname.includes("/lobby")){
+            dispatch(setActiveTabIndex(0));
+          }else {
+            dispatch(setActiveTabIndex(1));
+          }
         }
         // Update user
       } else {
@@ -129,6 +138,11 @@ export default function Main() {
               "Registration successful! Please log in to continue."
           );
           dispatch(setRegisteration(false));
+          if (window.location.pathname.includes("/lobby")){
+            dispatch(setActiveTabIndex(0));
+          }else {
+            dispatch(setActiveTabIndex(1));
+          }
         }
       }
       setLoadingSubmit(false);
@@ -170,7 +184,7 @@ export default function Main() {
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
             <div className="fixed inset-0 flex justify-center items-center z-50">
             <div className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative
-              ${profileVisible ? 'max-h-[80vh] overflow-y-auto' : ''}`}
+              ${profileVisible ? 'max-h-[80vh] overflow-y-auto overflow-x-hidden' : ''}`}
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">
@@ -184,6 +198,11 @@ export default function Main() {
                         dispatch(setRegisteration(false));
                       } else {
                         dispatch(setProfileVisible(false));
+                      }
+                      if (window.location.pathname.includes("/lobby")){
+                        dispatch(setActiveTabIndex(0));
+                      }else {
+                        dispatch(setActiveTabIndex(1));
                       }
                       setPreviewImage(null);
                       setStep(1);
@@ -231,6 +250,8 @@ export default function Main() {
           <SubmitPopUp handleClose={() => dispatch(setSubmitModal(false))} />
         )}
         <Outlet />
+
+        {showNotification && <Notification_sidebar />}
       </main>
     </div>
   );

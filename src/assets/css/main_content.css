@@ -787,6 +787,10 @@ input[type="radio"]:checked+label .checkbox-inner:before {
   cursor: pointer;
 }
 
+.user_img {
+  width: 3rem;
+}
+
 /* xl */
 @media (min-width: 1280px) {}
 
@@ -826,10 +830,10 @@ input[type="radio"]:checked+label .checkbox-inner:before {
   padding-right: 0.9rem;
 }
 
-.user_img:before{
+/* .user_img:before{
       width: 3rem;
     height: 3rem;
-}
+} */
 
 .sd_bedge-lable  img{
   width: 3.5rem !important;
@@ -993,6 +997,8 @@ gap: 0.7rem;
   .sd_game-con.polygon_border:before,
   .sd_game-con.polygon_border:after {
     width: 1.75rem;
+    height: 0.325rem;
+
   }
 }
 

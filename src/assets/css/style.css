@@ -106,11 +106,10 @@ div {
     rgba(34, 35, 86, 1) 100%
   );
   box-shadow: inset 0px 1px 4px rgb(87 89 195 / 20%);
-  
 }
 
-.sd_radial-bg.game_list--view{
-  background:url(/src/assets/images/list-grid-shape.png);
+.sd_radial-bg.game_list--view {
+  background: url(/src/assets/images/list-grid-shape.png);
 }
 
 .yellow_grad-bg {
@@ -272,9 +271,21 @@ html[dir="rtl"] .team_score--con {
   .player_one {
     display: none;
   }
-  .game_image{
+  .game_image {
     width: 100% !important;
   }
+}
+
+@media (max-width: 639px) {
+  header {
+    background-color: #080a2b;
+    padding-bottom: 1rem;
+  }
+  header .sd_radial-bg {
+    box-shadow: none;
+    background: none;
+  }
+ 
 }
 
 @media (max-width: 475px) {
@@ -287,40 +298,118 @@ html[dir="rtl"] .team_score--con {
 }
 
 @media (max-width: 410px) {
-  .mob-common-btn{
+  .mob-common-btn {
     top: 1.5rem;
   }
 }
 
 /* mobilemenu */
-.navigation{
-  background: linear-gradient(180deg,#101237 0%,#070828 100%);
+.sq__shape-wrap {
+  width: 100%;
+  height: 105px;
+  position: fixed;
+  background: url(../images/shape_bg_bottom.jpg);
+  background-size: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  bottom: 0;
+  left: 0;
+  mask-image: url(../images/m_d_shape.svg), url(../images/shape_bg_bottom.jpg);
+  mask-repeat: no-repeat;
+  mask-composite: exclude;
+  mask-size: auto, 100%;
+  pointer-events: none;
+  mask-position: calc((100% / 3) * (1 - 1) + (100% / 6) - 34px) -2px, 0;
+  transition: 0.5s;
+
+  z-index: -1;
 }
 
-.navigation li.indicator {
-    position: absolute;
+.m_menu__indicator {
+  position: absolute;
+  left: calc((100% / 3) * (1 - 1) + (100% / 6) - 47px);
+  top: -16px;
+  z-index: -1;
+  transition: 0.5s;
+}
+.m_menu__indicator img {
+  filter: drop-shadow(-5px 6px 10px rgba(0, 0, 0, 1));
+}
+li.list {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+li.list.active {
+  background: radial-gradient(
+    25.07% 245.65% at 50.54% 0%,
+    rgba(68, 130, 241, 0.24) 0%,
+    rgba(68, 130, 241, 0) 100%
+  );
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+li.list i.icon {
+  position: relative;
+  transform: translate(0, 0);
+  transition: 0.5s;
+}
+li.list.active i.icon {
+  transform: translate(0, -26px);
+  transition: 0.5s;
+}
+.navigation .listWrap li:nth-child(2).active ~ .m_menu__indicator {
+  left: calc((100% / 3) * (2 - 1) + (100% / 6) - 48px);
+  transition: 0.5s;
 }
 
-.navigation ul.listWrap {
-    padding: 0 30px;
+.navigation .listWrap li:nth-child(3).active ~ .m_menu__indicator {
+  left: calc((100% / 3) * (3 - 1) + (100% / 6) - 49px);
+  transition: 0.5s;
 }
 
-.navigation .list {
-    flex: 1;
-    height: 100%;
-    display: flex;
+.navigation .listWrap li:nth-child(2).active ~ .sq__shape-wrap {
+  mask-position: calc((100% / 3) * (2 - 1) + (100% / 6) - 0px) -2px, 0;
+  transition: 0.5s;
 }
 
-.navigation .list a {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    position: relative;
+.navigation .listWrap li:nth-child(3).active ~ .sq__shape-wrap {
+  mask-position: calc((100% / 3) * (3 - 1) + (100% / 6) + 34px) -2px, 0;
+  transition: 0.5s;
 }
 
-.navigation .list a span {
-    margin-top: 12px;
-    font-weight: 700;
+html[dir="rtl"] .sq__shape-wrap {
+  mask-position: unset; /* reset ltr setting */
+  mask-position: calc((100% / 3) * (3 - 1) + (100% / 6) + 34px) -2px, 0;
+}
+
+html[dir="rtl"] .m_menu__indicator {
+  left: auto; /* reset ltr */
+  right: calc((100% / 3) * (1 - 1) + (100% / 6) - 47px);
+}
+
+html[dir="rtl"]
+  .navigation
+  .listWrap
+  li:nth-child(2).active
+  ~ .m_menu__indicator {
+  right: calc((100% / 3) * (2 - 1) + (100% / 6) - 48px);
+  left: auto;
+}
+
+html[dir="rtl"]
+  .navigation
+  .listWrap
+  li:nth-child(3).active
+  ~ .m_menu__indicator {
+  right: calc((100% / 3) * (3 - 1) + (100% / 6) - 49px);
+  left: auto;
+}
+
+html[dir="rtl"] .navigation .listWrap li:nth-child(3).active ~ .sq__shape-wrap {
+  mask-position: calc((100% / 3) * (1 - 1) + (100% / 6) - 34px) -2px, 0;
 }

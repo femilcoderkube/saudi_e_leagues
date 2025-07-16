@@ -1,4 +1,5 @@
-import match_reg from "../../assets/images/match_reg.png";
+import match_reg from "../../assets/images/match_making.png";
+import match_reg_ar from "../../assets/images/match_making_ar.png";
 import { Popup_btn } from "../ui/svg/index.jsx";
 import { useTranslation } from "react-i18next";
 
@@ -9,7 +10,7 @@ function TimeOverPopup({
   noText = "No, Cancel",
   message = "Time is Over",
 }) {
-  const { t } = useTranslation();
+  const { t ,i18n } = useTranslation();
   // Use default values from translation if not provided
   const defaultYesText =
     yesText === "Yes, Wait More" ? t("common.yes_wait_more") : yesText;
@@ -32,7 +33,7 @@ function TimeOverPopup({
           <div className="match_reg--popup relative sd_before sd_after">
             <div className="popup_header px-8 pt-8 pb-5 flex items-start justify-between mt-3 text-center sm:mt-0 sm:text-left">
               <img
-                src={match_reg}
+               src={i18n.language === "ar" ? match_reg_ar : match_reg}
                 alt={t("images.match_registration")}
                 style={{ width: "10rem" }}
               />

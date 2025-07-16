@@ -19,12 +19,12 @@ const Accordion = () => {
       >
         <button
           onClick={() => toggleAccordion(0)}
-          className="w-full faq_head-con text-left py-3 font-semibold text-lg purple_light flex justify-between items-center"
+          className="w-full faq_head-con text-left py-3 font-semibold md:text-lg text-base purple_light flex justify-between items-center"
         >
           {t("homepage.faq.q1")}
         </button>
         <div
-          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out pr-[5rem] ${
+          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out sm:pr-[5rem] pr-[1rem] ${
             openIndex == 0 ? "max-h-40 py-3" : "max-h-0"
           }`}
         >
@@ -38,12 +38,12 @@ const Accordion = () => {
       >
         <button
           onClick={() => toggleAccordion(1)}
-          className="w-full faq_head-con text-left py-3 font-semibold text-lg purple_light flex justify-between items-center"
+          className="w-full faq_head-con text-left py-3 font-semibold md:text-lg text-base purple_light flex justify-between items-center"
         >
           {t("homepage.faq.q2")}
         </button>
         <div
-          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out pr-[5rem] ${
+          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out sm:pr-[5rem] pr-[1rem] ${
             openIndex == 1 ? "max-h-40 py-3" : "max-h-0"
           }`}
         >
@@ -57,12 +57,12 @@ const Accordion = () => {
       >
         <button
           onClick={() => toggleAccordion(2)}
-          className="w-full faq_head-con text-left py-3 font-semibold text-lg purple_light flex justify-between items-center"
+          className="w-full faq_head-con text-left py-3 font-semibold md:text-lg text-base purple_light flex justify-between items-center"
         >
           {t("homepage.faq.q3")}
         </button>
         <div
-          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out pr-[5rem] ${
+          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out sm:pr-[5rem] pr-[1rem] ${
             openIndex == 2 ? "max-h-40 py-3" : "max-h-0"
           }`}
         >
@@ -76,12 +76,12 @@ const Accordion = () => {
       >
         <button
           onClick={() => toggleAccordion(3)}
-          className="w-full faq_head-con text-left py-3 font-semibold text-lg purple_light flex justify-between items-center"
+          className="w-full faq_head-con text-left py-3 font-semibold md:text-lg text-base purple_light flex justify-between items-center"
         >
           {t("homepage.faq.q4")}
         </button>
         <div
-          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out pr-[5rem] ${
+          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out sm:pr-[5rem] pr-[1rem] ${
             openIndex == 3 ? "max-h-40 py-3" : "max-h-0"
           }`}
         >
@@ -95,12 +95,12 @@ const Accordion = () => {
       >
         <button
           onClick={() => toggleAccordion(4)}
-          className="w-full faq_head-con text-left py-3 font-semibold text-lg purple_light flex justify-between items-center"
+          className="w-full faq_head-con text-left py-3 font-semibold md:text-lg text-base purple_light flex justify-between items-center"
         >
           {t("homepage.faq.q5")}
         </button>
         <div
-          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out pr-[5rem] ${
+          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out sm:pr-[5rem] pr-[1rem] ${
             openIndex == 4 ? "max-h-40 py-3" : "max-h-0"
           }`}
         >
@@ -114,12 +114,12 @@ const Accordion = () => {
       >
         <button
           onClick={() => toggleAccordion(5)}
-          className="w-full faq_head-con text-left py-3 font-semibold text-lg purple_light flex justify-between items-center"
+          className="w-full faq_head-con text-left py-3 font-semibold md:text-lg text-base purple_light flex justify-between items-center"
         >
           {t("homepage.faq.q6")}
         </button>
         <div
-          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out pr-[5rem] ${
+          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out sm:pr-[5rem] pr-[1rem] ${
             openIndex == 5 ? "max-h-40 py-3" : "max-h-0"
           }`}
         >
@@ -133,12 +133,12 @@ const Accordion = () => {
       >
         <button
           onClick={() => toggleAccordion(6)}
-          className="w-full faq_head-con text-left  py-3 font-semibold text-lg purple_light flex justify-between items-center"
+          className="w-full faq_head-con text-left  py-3 font-semibold md:text-lg text-base purple_light flex justify-between items-center"
         >
           {t("homepage.faq.q7")}
         </button>
         <div
-          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out pr-[5rem] ${
+          className={`pt-3 overflow-hidden transition-all text-base duration-300 ease-in-out sm:pr-[5rem] pr-[1rem] ${
             openIndex == 6 ? "max-h-40 py-3" : "max-h-0"
           }`}
         >

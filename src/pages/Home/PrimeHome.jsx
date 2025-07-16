@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 
 import GetStartedBtn from "../../assets/images/get_started_btn.png";
 import GetStartedBtnAr from "../../assets/images/get_started_btn_ar.png";
+import GetStartedBtnAr_1 from "../../assets/images/mobile_get_start_ar.png";
+import GetStartedBtn_1 from "../../assets/images/mob_start_btn.png";
 import Playbtn from "../../assets/images/playbtn.png";
 import Primetxt from "../../assets/images/Prime.png";
 import "../../assets/css/homepage.css";
@@ -45,28 +47,32 @@ export default function PrimeHome() {
             <h2 className="xl:text-[4rem] text-[3rem] uppercase leading-none items-center tracking-wider !font-black">
               {t("homepage.matchmaking")}
             </h2>
-            <p className="purple_col lg:text-2xl md:text-[1.07rem] font-semibold py-10 xl:pt-10 md:pt-8">
+            <p className="purple_col lg:text-2xl md:text-[1.07rem] font-semibold pt-7 pb-5 md:pt-10 md:pb-10">
               {t("homepage.tagline")}{" "}
             </p>
             <Link
               to={`/${id}/lobby`}
               className="ml-[-0.5rem] hover:opacity-70 duration-300"
             >
-              <img
+              <img className="hidden md:inline-block"
                 src={i18n.language === "ar" ? GetStartedBtnAr : GetStartedBtn}
                 alt={t("images.get_started_button")}
                 style={{ width: "21rem" }}
+              />
+              <img className="md:hidden inline-block"
+                src={i18n.language === "ar" ? GetStartedBtnAr_1 : GetStartedBtn_1}
+                alt={t("images.get_started_button")}
               />
             </Link>
           </div>
 
           {/* === Hero Right Game Slider Block Conatain === */}
           <div className="home_hero_right-con h-full relative">
-            <div className="slider_header--con  pb-[2.2rem] inline-block">
-              <h3 className="purple_col text-lg !font-black leading-none text-right uppercase">
+            <div className="slider_header--con  md:pb-[2.2rem] pb-3 md:inline-block flex gap-1">
+              <h3 className="purple_col md:text-lg text-2xl !font-black leading-none text-right uppercase">
                 {t("homepage.choose_your")}
               </h3>
-              <h2 className="text-[4rem] !font-black leading-none">
+              <h2 className="md:text-[4rem] text-2xl !font-black leading-none">
                 {t("homepage.game")}
               </h2>
             </div>
@@ -76,9 +82,9 @@ export default function PrimeHome() {
         </section>
 
         {/* === About Section HTML block Start === */}
-        <section className="home_about--sec relative lg:pt-[7.5rem] pt-[2rem] lg:pb-[9rem] pb-[3rem] flex overflow-hidden">
+        <section className="home_about--sec relative lg:pt-[7.5rem] pt-[2rem] lg:pb-[9rem] pb-[1rem] flex overflow-hidden">
           <div className="about_left--con max-w-[45%]">
-            <h3 className="text-[2.375rem] uppercase !font-black mb-5">
+            <h3 className="md:text-[2.375rem] text-2xl uppercase !font-black mb-5">
               {t("homepage.about")}
             </h3>
             <img
@@ -87,20 +93,20 @@ export default function PrimeHome() {
               style={{ width: "42.5rem" }}
             />
             <div className="about-con">
-              <h4 className="purple_light text-2xl pb-5 !font-semibold mt-[-1rem]">
+              <h4 className="purple_light md:text-2xl text-lg md:pb-5 pb-4 !font-semibold mt-[-1rem]">
                 <span className="uppercase !font-bold sky_col">Prime </span>{" "}
                 {t("homepage.prime_description_1")}
               </h4>
-              <p className="text-xl purple_col mb-12">
+              <p className="md:text-xl text-base purple_col md:mb-12 mb-8">
                 {t("homepage.prime_description_2")}
               </p>
-              <h4 className="purple_light text-2xl pb-5 !font-semibold">
+              <h4 className="purple_light md:text-2xl text-lg  md:pb-5 pb-4 !font-semibold">
                 {t("homepage.prime_description_3")}
               </h4>
-              <p className="text-xl purple_col">
+              <p className="md:text-xl text-base purple_col">
                 {t("homepage.prime_description_4")}
               </p>
-              <h4 className="purple_light text-2xl pb-5 !font-semibold mt-10">
+              <h4 className="purple_light md:text-2xl text-lg  md:pb-5 pb-4 !font-semibold md:mt-10 mt-8">
                 {t("homepage.prime_description_5")}
               </h4>
             </div>
@@ -118,7 +124,7 @@ export default function PrimeHome() {
                   alt={t("images.play_button")}
                   style={{ width: "9rem" }}
                 />
-                <span className="text-2xl font-semibold purple_col">
+                <span className="md:text-2xl text-lg font-semibold purple_col">
                   {t("homepage.watch_video")}
                 </span>
               </a>
@@ -236,7 +242,7 @@ export default function PrimeHome() {
               <div className="faq_left--con w-full absolute ltr:left-0 rtl:right-0 h-full top-[-2rem]">
               </div> 
               <div className="faq_right--con max-w-[65%] flex-[0_0_65%] ltr:pr-[6.5rem] rtl:pr-[8.5rem] relative">
-                <h2 className="text-[4rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none items-center tracking-wider !font-black pb-10">
+                <h2 className="md:text-[4rem] text-[2rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none items-center tracking-wider !font-black md:pb-10 pb-8">
                   {t("homepage.faq.faq")}                 
                 </h2>
                 <div className="sd_faq-con">

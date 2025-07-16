@@ -23,7 +23,7 @@ const MatchMaking = () => {
   const navigate = useNavigate();
   const { lId , id } = useParams();
   const [timerActive, setTimerActive] = useState(true);
-  const { t } = useTranslation();
+  const { t ,i18n } = useTranslation();
 
 
   // Timer effect
@@ -149,7 +149,8 @@ const MatchMaking = () => {
                  <span
                     className="mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-xl sm:text-2xl cursor-pointer"
                     style={{
-                      fontFamily: "Yapari",
+                      fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
+                      fontWeight : "bold",
                       textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
                     }}
                   >
