@@ -59,9 +59,9 @@ const LeagueDetail = () => {
       ></div>
       {/* <Outlet /> */}
       {registrationModal && <RegistrationModel />}
-      {!leagueData && isMatctCreated ? (
+      {!leagueData ? (
         <GamingLoader />
-      ) : (
+      ) : isMatctCreated ? (<GamingLoader />):(
         <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8">
@@ -141,7 +141,7 @@ const LeagueDetail = () => {
                       {t("league.game")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
-                        {leagueData.game.name || ""}
+                        {leagueData?.game?.name || ""}
                       </h4>
                     </div>
                   </div>
@@ -393,7 +393,7 @@ const LeagueDetail = () => {
                       {t("league.game")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
-                        {leagueData.game.name || ""}
+                        {leagueData?.game?.name || ""}
                       </h4>
                     </div>
                   </Link>
