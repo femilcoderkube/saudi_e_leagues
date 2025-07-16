@@ -124,13 +124,13 @@ const GetQueueButton = () => {
   } else {
     let text = getQueueText(leagueData, t);
     if (
-      isMatchJoind != null ||
-      isMatchJoind != undefined
+      isMatchJoind?.currentMatch != null ||
+      isMatchJoind?.currentMatch != undefined
     ) {
       return (
         <Link
           className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before"
-          to={`/${id}/match/${leagueData?.isMatchJoind}`}
+          to={`/${id}/match/${isMatchJoind?.currentMatch}`}
         >
           <span
             className="mob-common-btn absolute top-[2.5rem] left-0 w-full text-center text-xl sm:text-3xl"

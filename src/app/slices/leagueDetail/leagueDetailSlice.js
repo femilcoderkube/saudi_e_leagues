@@ -43,7 +43,9 @@ const leagueDetailSlice = createSlice({
         }
       }
       state.leagueData = action.payload;
- 
+      state.isMatchJoind = null;
+      state.isQueueUser = null;
+      state.isJoinedUser = null;
       if (
         action.payload &&
         action.payload.joinedUsers &&
@@ -53,16 +55,21 @@ const leagueDetailSlice = createSlice({
           (participant) => participant == action.payload.userId
         );
       }
+ 
       if (action.payload && action.payload.inQueue && action.payload.userId) {
+
         state.isQueueUser = action.payload.inQueue.some(
           (participant) => participant == action.payload.userId
         );
       }
+      console.log("action.userId", action.payload.userId);
+      console.log("action.payload.isMatchJoind", action.payload.isMatchJoind);
       if (action.payload && action.payload.isMatchJoind && action.payload.userId) {
-        state.isMatchJoind = action.payload.isMatchJoind.some(
-          (participant) => participant == action.payload.userId
+        state.isMatchJoind = action.payload.isMatchJoind.find(
+          (participant) => participant.userId?.toString() == action.payload.userId?.toString()
         );
       }
+      console.log("state.isMatchJoind", state.isMatchJoind);
     },
   },
 });
