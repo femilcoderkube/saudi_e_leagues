@@ -49,27 +49,26 @@ const leagueDetailSlice = createSlice({
       if (
         action.payload &&
         action.payload.joinedUsers &&
-        action.payload.userId
+        action.payload?.userId
       ) {
         state.isJoinedUser = action.payload.joinedUsers.some(
           (participant) => participant == action.payload.userId
         );
       }
  
-      if (action.payload && action.payload.inQueue && action.payload.userId) {
+      if (action.payload && action.payload.inQueue && action.payload?.userId) {
 
         state.isQueueUser = action.payload.inQueue.some(
           (participant) => participant == action.payload.userId
         );
       }
-      console.log("action.userId", action.payload.userId);
-      console.log("action.payload.isMatchJoind", action.payload.isMatchJoind);
-      if (action.payload && action.payload.isMatchJoind && action.payload.userId) {
+   
+      if (action.payload && action.payload.isMatchJoind && action.payload?.userId) {
         state.isMatchJoind = action.payload.isMatchJoind.find(
           (participant) => participant.userId?.toString() == action.payload.userId?.toString()
         );
       }
-      console.log("state.isMatchJoind", state.isMatchJoind);
+
     },
   },
 });
