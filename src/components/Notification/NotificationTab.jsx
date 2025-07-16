@@ -20,8 +20,6 @@ const NotificationTab = () => {
             </ul>
           </section>
         </TabPanel>
-
-
       </Tabs>
   
   );

@@ -27,7 +27,7 @@ const GetQueueButton = () => {
   if (user?._id == null || user?._id == undefined) {
     return (
       <div
-        className="lobby_btn mb-8 relative cursor-pointer flex items-center justify-center md:justify-start"
+        className="lobby_btn mb-8 relative cursor-pointer flex items-center justify-center md:justify-center"
         onClick={() => {
           dispatch(setLogin(true));
         }}

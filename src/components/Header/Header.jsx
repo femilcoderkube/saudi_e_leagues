@@ -83,7 +83,7 @@ const Header = () => {
       return (
         <header
           key={location.pathname}
-          className="header_teture--bg text-white  py-[1.35rem] px-[4.5rem] flex items-center justify-between sd_before before:w-full before:h-full relative "
+          className="header_teture--bg text-white  py-[1.35rem] px-[1rem] lg:px-[4.5rem] flex items-center justify-between sd_before before:w-full before:h-full relative "
           style={{
             background:
               "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
@@ -91,7 +91,7 @@ const Header = () => {
         >
           <div className="flex items-center ">
             <div
-              className="back_arrow absolute ltr:left-[5rem] rtl:right-[5rem] cursor-pointer"
+              className="back_arrow absolute ltr:left-[1rem] rtl:right-[1rem] lg:ltr:left-[5rem] lg:rtl:right-[5rem] cursor-pointer"
               onClick={() => {
                 navigator(`/${params.id}/lobby/${matchData?.league?._id}`);
               }}
@@ -261,9 +261,9 @@ const Header = () => {
     let mainItem = breadcrumbItems[breadcrumbItems.length - 1];
 
     return (
-      <header className="text-white pt-4 sm:pt-[1.4rem] px-4 md:px-[4.5rem] md:pr-7.5 flex items-center justify-between">
+      <header className="text-white pt-4 sm:pt-[1.4rem] px-4 md:px-[4.5rem] ltr:md:pr-7.5 rtl:md:pl-7.5 flex items-center justify-between">
         {/* === BreadCrumb HTML Block start ==== */}
-        <nav className="breadcrumb flex-grow-1 sm:flex hidden">
+        <nav className="breadcrumb flex-grow-1 lg:flex hidden">
           <ul className="breadcrumb-links flex  items-center gap-2.5 md:gap-5">
             {breadcrumbItems.map((item, index) => (
               <li
@@ -291,8 +291,8 @@ const Header = () => {
             ))}
           </ul>
         </nav>
-        <nav className="breadcrumb flex-grow-1">
-          <ul className="breadcrumb-links sm:flex items-center gap-2.5 md:gap-5 sm:hidden">
+<nav className="breadcrumb flex-grow-1">
+          <ul className="breadcrumb-links sm:flex items-center gap-2.5 md:gap-5 lg:hidden">
             <li
               key={-1}
               className="flex items-center gap-2 sm:gap-4 md:gap-7"
@@ -333,7 +333,7 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        <div className="sd_notification-block self-center flex gap-4 ltr:ml-[1rem] md:ltr:mr-[9rem] rtl:ml-[1rem] md:rtl:ml-[9rem]">
+        <div className="sd_notification-block self-center flex gap-4 ltr:ml-[1rem] xl:ltr:mr-[9rem] xl:rtl:ml-[9rem] md:ltr:mr-[2rem] rtl:ml-[1rem] md:rtl:ml-[2rem]">
           <div
             onClick={handleLangToggle}
             title={i18n.language === "en" ? "العربية" : "English"}
@@ -366,11 +366,11 @@ const Header = () => {
         </div>
 
         {!user && (
-          <div className="sd_uaser-menu flex pb-[1.4rem]">
+          <div className="sd_uaser-menu flex sm:pb-[1.4rem]">
             <div className="game_status_tab--wrap">
               <div>
                 <button
-                  className={`py-2 px-2.5 sm:px-4 text-sm sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300 w-[4rem] sm:w-[10rem] sm:h-[4rem]`}
+                  className={`py-2 px-2.5 sm:px-4 text-sm sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300 w-[4rem] md:w-[10rem] md:h-[4rem] sm:w-[7rem] sm:h-[4rem]`}
                   onClick={(e) => {
                     e.preventDefault();
                     dispatch(setLogin(true));
@@ -399,7 +399,7 @@ const Header = () => {
         )}
 
         {user && (
-          <div className="sd_uaser-menu pb-[1.4rem] hidden sm:block">
+          <div className="sd_uaser-menu pb-[0] hidden sm:block">
             <Dropdown user={userUpdate ? userUpdate : user} />
           </div>
         )}

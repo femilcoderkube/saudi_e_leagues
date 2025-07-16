@@ -109,7 +109,7 @@ aside{
 @media (max-width: 767px) {
 .polygon_border:before, .polygon_border:after {
     width: 5rem;
-    height: 0.125em;
+    /* height: 0.125em; */
 }
 }
 /* === Polygon button css End === */

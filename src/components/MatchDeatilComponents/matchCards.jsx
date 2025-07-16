@@ -34,6 +34,15 @@ export function getCards(position, isOpponent = false) {
       ]
     : [undefined, SecondPosCard, ThirdPosCard, ForthPosCard, FifthPosCard];
 
+  if (position > 5) {
+    // For more than 5, fill with the normal 5 cards, then repeat the last card as needed
+    const baseCards = [goldCards[0], cards[1], cards[2], cards[3], cards[4]];
+    const extraCount = position - 5;
+    // Add the last card for each extra position (e.g. for 7, add 2 more)
+    const extraCards = Array(extraCount).fill(cards[4]);
+    return [...baseCards, ...extraCards];
+  }
+
   switch (position) {
     case 5:
       return [goldCards[0], cards[1], cards[2], cards[3], cards[4]];

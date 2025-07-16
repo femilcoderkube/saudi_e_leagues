@@ -20,7 +20,7 @@ const GameCardGridView = ({ leagues }) => {
   return (
     <div className="game-card-wp">
     <motion.div
-      className="game_card--wrapper flex flex-wrap pt-14 gap-y-2 md:gap-y-[2.188rem] gap-[1.626rem] justify-center md:justify-start"
+      className="game_card--wrapper flex flex-wrap pt-14 gap-y-2 md:gap-y-[2.188rem] gap-[1.626rem] justify-start"
       variants={containerVariants}
       initial="hidden"
       animate="visible"

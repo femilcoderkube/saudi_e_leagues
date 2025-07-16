@@ -27,7 +27,7 @@ const SliderCard = ({ item }) => {
         <div className="game_img--mask relative sd_after sd_before mask-border">
           <div
             className="game_image mask_img-border flex sd_before before:w-full before:h-full  relative"
-            style={{ width: "18.75rem", height: "22.5rem" }}
+            style={{  width: "100%", height: "auto" }}
           >
             <img
               src={item.imgsrc}

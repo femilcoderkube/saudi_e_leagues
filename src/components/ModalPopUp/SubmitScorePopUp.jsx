@@ -134,7 +134,7 @@ function SubmitPopUp({ handleClose }) {
   return (
     <>
       <div
-        className="fixed inset-0 popup-overlay transition-opacity"
+        className="fixed inset-0 popup-overlay transition-opacity  submit__score--popup "
         aria-hidden="true"
       ></div>
 

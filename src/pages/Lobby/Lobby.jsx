@@ -69,7 +69,8 @@ const Lobby = () => {
         style={{ backgroundSize: "100%" }}
       ></div>
       <div className="sd_slect_game--wrapper relative md:mt-5 ">
-        <div className="game_status--tab rounded-xl overflow-hidden relative left-1/2 mt-0 md:left-auto md:-translate-x-0 -translate-x-[50%] rtl:translate-x-[0] md:absolute top-1 ltr:right-32 rtl:right-70 inline-flex mb-8 md:mb-4">
+        <div className="w-full flex justify-center ">
+        <div className="game_status--tab rounded-xl overflow-hidden relative mt-0 md:left-auto md:-translate-x-0 rtl:translate-x-[0] md:absolute top-1 md:ltr:right-32 rtl:right-70 inline-flex mb-8 md:mb-4">
           {tabs.map((tab, index) => (
             <button
               key={index}
@@ -84,6 +85,7 @@ const Lobby = () => {
               {t(`lobby.tabs.${tab}`)}
             </button>
           ))}
+        </div>
         </div>
         <div className="select_game-header flex items-center justify-between">
           <GameDropDown />

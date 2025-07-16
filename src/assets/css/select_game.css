@@ -277,10 +277,15 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
     }
 
     .game_status--tab {
-        top: -5rem;
+        top: 0;
     }
 }
-
+@media (max-width: 991px) {
+    html[dir=rtl] .game_status--tab {
+        left: auto;
+        right: 0;
+    }
+}
 /* md */
 @media (max-width: 767px) {
     .card_participants {
@@ -309,18 +314,11 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
         flex: 0 0 10rem;
     }
 
-    .game_status--tab {
+    .sd_slect_game--wrapper .game_status--tab {
         border-radius: 0;
     }
 
-    html[dir=rtl] .game_status--tab {
-        left: auto;
-        right: 0;
-        position:  static;
-        transform: none ;
-    }
-
-    .game_status--tab::before {
+    .sd_slect_game--wrapper .game_status--tab::before {
         position: absolute;
         content: '';
         height: 0.1rem;
@@ -329,20 +327,20 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
         background: linear-gradient(to bottom, rgb(123 16 208 / 20%) 0%, rgb(121 126 255 / 20%) 100%);
     }
 
-    .game_status--tab button {
+    .sd_slect_game--wrapper .game_status--tab button {
         background: unset;
         height: auto;
         width: auto;
         color: var(--purple-col);
     }
 
-    .game_status--tab button.active-tab {
+    .sd_slect_game--wrapper .game_status--tab button.active-tab {
         background: linear-gradient(to bottom, rgb(68 107 238 / 6%) 0%, rgb(68 107 238 / 6%) 100%);
         position: relative;
         color: var(--color-white);
     }
 
-    .game_status--tab button.active-tab::before {
+    .sd_slect_game--wrapper .game_status--tab button.active-tab::before {
         position: absolute;
         content: '';
         height: 0.1rem;
@@ -353,19 +351,26 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
         clip-path: unset;
     }
 
-    .active-tab.polygon_border:before,
-    .active-tab.polygon_border:after {
+    .sd_slect_game--wrapper .active-tab.polygon_border:before,
+    .sd_slect_game--wrapper .active-tab.polygon_border:after {
         content: none;
+    }
+        html[dir=rtl] .game_status--tab {
+        right: 0;
     }
 }
 
 /* sm */
-@media (max-width: 640px) {
+@media (max-width: 639px) {
 
     .active-tab.polygon_border:before,
     .active-tab.polygon_border:after {
-        width: 2.65rem;
         background: #447df1;
+    }
+
+     .sd_uaser-menu .active-tab.polygon_border:before,
+    .sd_uaser-menu .active-tab.polygon_border:after {
+        width: 2.65rem;
         height: 0.08rem;
     }
 
@@ -380,6 +385,10 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
 
     .card_participants_v2 {
         max-width: 9rem;
+    }
+
+    html[dir=rtl] .card_participants_v2 {
+        max-width: 8rem;
     }
 
     .game_intro-con {
@@ -401,7 +410,9 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
         height: 23.5rem;
     }
 
-  
+       html[dir=rtl] .game_status--tab {
+        right: 0;
+    }
 }
 
 /* lg */

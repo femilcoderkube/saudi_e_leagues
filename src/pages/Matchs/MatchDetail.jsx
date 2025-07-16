@@ -75,21 +75,21 @@ const MatchDetail = () => {
   }
   return (
     <main
-      className="flex-1 pt-[0.5rem] match_page--wrapper h-full"
+      className="flex-1 pt-[0.5rem] match_page--wrapper h-full "
       style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
     >
       <section className="match_team--wrap flex pt-[6rem] justify-between items-end pl-[7.5rem] pr-[7.5rem] ">
-        <div className="team_score--con flex lg:flex-row flex-col justify-between w-full gap-10 items-center lg:items-start">
+        <div className="team_score--con flex xl:flex-row flex-col justify-between w-full gap-10 items-center xl:items-start">
           {/* Team 1 */}
-          <div className="team_score--wrap max-w-[24.625rem]">
-            <h2 className="grad_head--txt max-w-full text-[4rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
+          <div className="team_score--wrap max-w-[24.625rem] order-2 xl:order-1">
+            <h2 className="grad_head--txt max-w-full md:text-[4rem] text-[2.5rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
               {t("match.team_one")}
             </h2>
             <TeamOneScoreList />
           </div>
 
           {/* Score */}
-          <div className="match_center-con flex-1">
+          <div className="match_center-con flex-1 order-1 xl:order-2">
             <h2 className="text-[4rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center text-center tracking-wider !font-black pb-[4rem]">
               <>
                 <span>{winnerScore.teamOne}</span>:
@@ -105,9 +105,42 @@ const MatchDetail = () => {
               />
             </div>
 
-            <div className="xl-hidden block md:hidden">
+            <div className="block hidden">
                <div className="submit_score-btn btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">     
-    </div>
+            </div>
+             <svg
+        width="0"
+        height="0"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ position: "absolute" }}
+      >
+        <defs>
+          <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
+            <path
+              d="
+              M1,0.1111
+              V0.8889
+              L0.9219,1
+              H0.7266
+              L0.6953,0.9028
+              H0.3047
+              L0.2734,1
+              H0.0781
+              L0,0.8889
+              V0.1111
+              L0.0781,0
+              H0.2734
+              L0.3047,0.0972
+              H0.6953
+              L0.7266,0
+              H0.9219
+              L1,0.1111
+              Z
+            "
+            />
+          </clipPath>
+        </defs>
+      </svg>
             </div>
 
             {isShowChat && (
@@ -263,8 +296,8 @@ const MatchDetail = () => {
           </div>
 
           {/* Team 2 */}
-          <div className="team_score--wrap max-w-[24.625rem]">
-            <h2 className="grad_head--txt max-w-full text-[4rem] pr-[2rem] grad_text-clip font_oswald tracking-wide !font-medium text-right leading-none uppercase">
+          <div className="team_score--wrap max-w-[24.625rem] order-3 xl:order-3">
+            <h2 className="grad_head--txt max-w-full md:text-[4rem] text-[2.5rem] sm:pr-[2rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium sm:text-right leading-none uppercase">
               {t("match.team_two")}
             </h2>
             <TeamTwoScoreList />

@@ -281,9 +281,10 @@ html[dir="rtl"] .team_score--con {
     background-color: #080a2b;
     padding-bottom: 1rem;
   }
-  header .sd_radial-bg {
-    box-shadow: none;
-    background: none;
+  header .sd_radial-bg{
+box-shadow: none;
+background:none;
+padding-inline: 0;
   }
  
 }

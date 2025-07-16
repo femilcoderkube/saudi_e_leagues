@@ -422,6 +422,16 @@ li.team_score--card:hover .review_score--con:before {
   }
 }
 
+@media (max-width: 1279px) {
+  /* .chat_block--con{
+    display: none;
+      position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+} */
+}
+
 @media (max-width: 991px) {
   .left-league {
     width: 16rem !important;
@@ -472,4 +482,9 @@ li.team_score--card:hover .review_score--con:before {
         width: 9rem !important;
         top: 13rem;
     }   
+}
+@media (max-width:639px) {
+  .team_score--card svg{
+    width: 21.38rem;
+  }
 }

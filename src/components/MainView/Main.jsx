@@ -176,7 +176,7 @@ export default function Main() {
         className={`flex-1 game_card_main--con ${
           checkParams("finding-match") || checkParams("match")
             ? ""
-            : "px-4 pt-7 md:px-[4.5rem]"
+            : "px-4 pt-3 md:px-[4.5rem]"
         }`}
       >
         {(isRegisteration || profileVisible) && (

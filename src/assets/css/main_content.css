@@ -6,7 +6,7 @@
 
 .sd_main-content {
   overflow-y: auto;
-  height: 100vh;
+  height: 100dvh;
 }
 
 /* ---------------------------------------
@@ -519,6 +519,21 @@ html[dir="rtl"] .sd_rules--btn button:after {
   right: 0;
   left: auto;
 }
+@media (max-width: 991px){
+  .submit__score--popup{
+    width: 100%;
+  }
+  .submit__score--popup + .modal_popup-con{
+  width: 100%;
+  right: auto;
+  left: auto;
+}
+.match_reg--popup{
+  max-width: 30rem;
+  width: 100%;
+}
+}
+
 
 
 html[dir="rtl"] .popup-overlay {
@@ -584,6 +599,11 @@ input[type="radio"]:checked+label .checkbox-inner:before {
 
 .wizard_step--btn .active-tab.polygon_border:before,
 .wizard_step--btn .active-tab.polygon_border:after {
+  width: 3.65rem;
+}
+
+.wizard_step--btn .next_btn .active-tab.polygon_border:before,
+.wizard_step--btn .next_btn .active-tab.polygon_border:after {
   width: 3.65rem;
 }
 
@@ -692,6 +712,7 @@ input[type="radio"]:checked+label .checkbox-inner:before {
       rgba(7, 9, 43, 1) 100%);
   box-shadow: inset 2px 2px 2px rgb(21, 23, 60, 0.6);
   overflow-y: auto;
+  z-index: 10;
 }
 
 .notification-sidebar::before {
@@ -721,6 +742,14 @@ input[type="radio"]:checked+label .checkbox-inner:before {
       rgba(34, 35, 86, 0.48) 100%);
   width: 100%;
   height: 20.76rem;
+}
+
+html[dir=rtl] .notification-box {
+    transform: rotateY(180deg);
+}
+
+html[dir=rtl] .notification-box-rotate {
+    transform: rotateY(180deg);
 }
 
 .notification-sidebar .game_status--tab {
@@ -758,6 +787,12 @@ input[type="radio"]:checked+label .checkbox-inner:before {
   transform: translateY(-50%) rotate(-90deg);
 }
 
+html[dir=rtl] .notification-box-wp.polygon_border:after{
+  right: auto;
+  left: -2.1rem;
+  transform:translateY(-50%) rotate(90deg);
+}
+
 .notification-box-btn button {
   background: url(../images/deny-btn.png);
   background-repeat: no-repeat;
@@ -791,6 +826,10 @@ input[type="radio"]:checked+label .checkbox-inner:before {
   width: 3rem;
 }
 
+.wizard_step--btn .login-btn .active-tab.polygon_border:before, .wizard_step--btn .login-btn .active-tab.polygon_border:after{
+width: 4.65rem;
+}
+
 /* xl */
 @media (min-width: 1280px) {}
 
@@ -818,6 +857,9 @@ input[type="radio"]:checked+label .checkbox-inner:before {
   }  
   .sd_content-right{
     order: 1;
+  }
+  .sd_top-wraper{
+    flex-direction: column;
   }
 }
 @media (min-width: 768px) and (max-width: 991px){
@@ -1000,6 +1042,15 @@ gap: 0.7rem;
     height: 0.325rem;
 
   }
+}
+
+@media (max-width: 475px) {
+    .notification-sidebar{
+    width: 100%;
+    }
+    .notification-sidebar .game_status--tab button {
+    width: 10rem !important;
+    }
 }
 
 @media (max-width: 389px) {

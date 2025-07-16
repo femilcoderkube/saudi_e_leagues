@@ -1,16 +1,17 @@
-// import { Link } from "react-router-dom";
-// import left_arrow from "../../assets/images/left-arrow.png";
-// import rick_moon from "../../assets/images/rickmooon.png";
-// import dota_game from "../../assets/images/dota-game.png";
+import { Link } from "react-router-dom";
+import left_arrow from "../../assets/images/left-arrow.png";
+import rick_moon from "../../assets/images/rickmooon.png";
+import dota_game from "../../assets/images/dota-game.png";
 import "../../assets/css/notification.css";
 
-const NotificationBox = () => {
+const Notification_box = () => {
   return (
       <div className="notification-box-wp relative polygon_border sd_before sd_after">
         <div className="notification-box">
+          <div className="notification-box-rotate">
           <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
             <div className="notification-box-head flex items-center gap-4">
-              <img src={"rick_moon"} alt="" style={{ width: "2.51rem" }} />
+              <img src={rick_moon} alt="" style={{ width: "2.51rem" }} />
               <h6 className="text-xl sleading-6">RickMoon</h6>
             </div>
             <div>
@@ -23,7 +24,7 @@ const NotificationBox = () => {
             </h6>
             <h5 className="text-xl">The Radiant Uprising</h5>
             <div className="notification-box-head flex items-center gap-4 pt-2">
-              <img src={"dota_game"} alt="" />
+              <img src={dota_game} alt="" />
               <div className="box-game">
                 <span className="purple_col text-sm font-semibold">Game</span>
                 <h6 className="text-xl">Dota 2</h6>
@@ -58,9 +59,10 @@ const NotificationBox = () => {
               <rect width="360" height="332" fill="url(#blob-grad)" />
             </g>
           </svg>
+          </div>
         </div>
       </div>
   );
 };
 
-export default NotificationBox;
+export default Notification_box;

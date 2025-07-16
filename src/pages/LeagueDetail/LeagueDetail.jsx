@@ -66,14 +66,14 @@ const LeagueDetail = () => {
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8">
             <div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1">
-              <div className="sd_com--logo cursor-hide">
+              <div className="sd_com--logo cursor-hide w-[8.75rem] md:w-[18.5rem]">
                 <img
                   src={getServerURL(leagueData?.internalPhoto || "")}
                   alt=""
-                  className="w-[8rem] md:w-[16.5rem]"
+                  className="w-full h-full object-contain"
                 />
               </div>
-              <div className="sd_league--info">
+              <div className="sd_league--info flex-1">
                 <h1 className="uppercase text-2xl md:text-5xl !font-black tracking-wide">
                   { i18n.language === "ar" ? leagueData?.titleAr : leagueData?.title || t("league.league_title")}
                 </h1>
@@ -111,7 +111,7 @@ const LeagueDetail = () => {
                     {leagueData?.activeUsers || 0}
                   </span>
                 </div>
-                <div className="participants md:p-4 px-5 py-1 ltr:text-right rtl:text-left w-full pt-0 relative md:top-[-1.45rem] ">
+                <div className="participants md:p-4 px-5 py-1 ltr:text-right rtl:text-left w-full pt-0 relative md:top-[-2.45rem] ">
                   <span className="sm:text-2xl text-lg font-bold">
                     {leagueData?.totalRegistrations || 0}
                   </span>
@@ -374,7 +374,7 @@ const LeagueDetail = () => {
               )}
               <LeaderBoard />
             </div>
-            <div className="sd_content-right w-full order-1 md:order-2">
+            <div className="sd_content-right w-full order-0 xl:order-1">
               <GetQueueButton />
         <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 w-full md:pb-0 pb-6 items-center justify-center md:justify-baseline">
               <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">

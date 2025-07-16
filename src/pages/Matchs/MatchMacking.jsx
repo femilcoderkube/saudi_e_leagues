@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { formatTime } from "../../utils/constant.js";
 import {useSelector } from "react-redux";
 import {
+  startLeagueSocket,
   startReadyToPlaySocket,
   stopReadyToPlaySocket,
 } from "../../app/socket/socket.js";
@@ -54,6 +55,7 @@ const MatchMaking = () => {
      
     
     if (isSocketConnected && user?._id) {
+      startLeagueSocket({ lId, user, isSocketConnected });
       startReadyToPlaySocket({ lId, user, isSocketConnected });
     }
   

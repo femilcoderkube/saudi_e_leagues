@@ -68,7 +68,7 @@ export default function PrimeHome() {
 
           {/* === Hero Right Game Slider Block Conatain === */}
           <div className="home_hero_right-con h-full relative">
-            <div className="slider_header--con  md:pb-[2.2rem] pb-3 md:inline-block flex gap-1">
+            <div className="slider_header--con  md:pb-[2.2rem] pb-8 md:inline-block flex gap-1">
               <h3 className="purple_col md:text-lg text-2xl !font-black leading-none text-right uppercase">
                 {t("homepage.choose_your")}
               </h3>

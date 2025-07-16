@@ -167,7 +167,7 @@ const LoginModal = () => {
                   </svg>
                 </div>
                 <div className="wizard_step--btn flex justify-end">
-                  <div className="game_status--tab wizard_btn mt-10 mb-8 mr-5">
+                  <div className="game_status--tab wizard_btn mt-10 mb-8 mr-5 login-btn">
                     <button
                       type="submit"
                       disabled={isSubmitting}
