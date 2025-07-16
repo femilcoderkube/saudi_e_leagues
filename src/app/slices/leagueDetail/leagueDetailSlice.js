@@ -9,6 +9,7 @@ const initialState = {
   isAgreedToJoin: {},
   isJoinedUser: null,
   isQueueUser: null,
+  isMatchJoind : null
 };
  
 const leagueDetailSlice = createSlice({
@@ -54,6 +55,11 @@ const leagueDetailSlice = createSlice({
       }
       if (action.payload && action.payload.inQueue && action.payload.userId) {
         state.isQueueUser = action.payload.inQueue.some(
+          (participant) => participant == action.payload.userId
+        );
+      }
+      if (action.payload && action.payload.isMatchJoind && action.payload.userId) {
+        state.isMatchJoind = action.payload.isMatchJoind.some(
           (participant) => participant == action.payload.userId
         );
       }

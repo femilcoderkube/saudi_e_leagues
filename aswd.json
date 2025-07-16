@@ -1,0 +1,1143 @@
+[
+    {
+    "_id": {
+      "$oid": "687548c6661123a25a2493aa"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "6875469d661123a25a2491c5"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "687548c6661123a25a2493ab"
+        }
+      },
+      {
+        "participant": {
+          "$oid": "68754898661123a25a249306"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "687548c6661123a25a2493ac"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68754884661123a25a2492b4"
+        },
+        "score": 16,
+        "allScores": 16,
+        "leaguesScore": 16,
+        "_id": {
+          "$oid": "687548c6661123a25a2493ad"
+        }
+      },
+      {
+        "participant": {
+          "$oid": "68754890661123a25a2492e6"
+        },
+        "score": 16,
+        "allScores": 16,
+        "leaguesScore": 16,
+        "_id": {
+          "$oid": "687548c6661123a25a2493ae"
+        }
+      }
+    ],
+    "winner": "team2",
+    "isScoreVerified": true,
+    "status": "completed",
+    "givedReputations": [],
+    "matchScores": [
+      {
+        "yourScore": 2,
+        "opponentScore": 0,
+        "description": "I win",
+        "attachment": "uploads/1752516933501-CaptuØ´Ø³re.PNG",
+        "submittedBy": "team2",
+        "submittedAt": {
+          "$date": "2025-07-14T18:15:33.581Z"
+        },
+        "winner": "team2",
+        "isActive": true,
+        "_id": {
+          "$oid": "68754945661123a25a2493fe"
+        }
+      },
+      {
+        "yourScore": 0,
+        "opponentScore": 2,
+        "description": "55",
+        "attachment": "uploads/1752517024967-ÙÙ.PNG",
+        "submittedBy": "team1",
+        "submittedAt": {
+          "$date": "2025-07-14T18:17:05.051Z"
+        },
+        "winner": "team2",
+        "isActive": false,
+        "_id": {
+          "$oid": "687549a1661123a25a249476"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-14T18:13:26.334Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-14T18:13:26.335Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-14T18:17:05.080Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "687549db661123a25a24953d"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68754884661123a25a2492b4"
+        },
+        "score": 16,
+        "allScores": 32,
+        "leaguesScore": 16,
+        "_id": {
+          "$oid": "687549db661123a25a24953e"
+        }
+      },
+      {
+        "participant": {
+          "$oid": "687548bc661123a25a24935d"
+        },
+        "score": 16,
+        "allScores": 16,
+        "leaguesScore": 16,
+        "_id": {
+          "$oid": "687549db661123a25a24953f"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "6875469d661123a25a2491c5"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "687549db661123a25a249540"
+        }
+      },
+      {
+        "participant": {
+          "$oid": "68754898661123a25a249306"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "687549db661123a25a249541"
+        }
+      }
+    ],
+    "winner": "team1",
+    "isScoreVerified": true,
+    "status": "completed",
+    "givedReputations": [
+      {
+        "receiver": {
+          "$oid": "686d99e6326cf477a908fc85"
+        },
+        "giver": {
+          "$oid": "68754867661123a25a24929c"
+        },
+        "reputation": -1,
+        "_id": {
+          "$oid": "687549f1661123a25a249580"
+        }
+      }
+    ],
+    "matchScores": [
+      {
+        "yourScore": 2,
+        "opponentScore": 0,
+        "description": "55",
+        "attachment": "uploads/1752517132950-5.jpg",
+        "submittedBy": "team1",
+        "submittedAt": {
+          "$date": "2025-07-14T18:18:53.035Z"
+        },
+        "winner": "team1",
+        "isActive": true,
+        "_id": {
+          "$oid": "68754a0b661123a25a24959e"
+        }
+      },
+      {
+        "yourScore": 5,
+        "opponentScore": 0,
+        "description": "44",
+        "attachment": "uploads/1752517157008-ÙÙ.PNG",
+        "submittedBy": "team2",
+        "submittedAt": {
+          "$date": "2025-07-14T18:19:17.094Z"
+        },
+        "winner": "team2",
+        "isActive": false,
+        "_id": {
+          "$oid": "68754a25661123a25a24961d"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-14T18:18:03.521Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-14T18:18:03.522Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-16T01:53:17.716Z"
+    },
+    "isDeleted": false
+  },
+  {
+    "_id": {
+      "$oid": "68756afa661123a25a249d45"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68756a8e661123a25a249bb9"
+        },
+        "score": 16,
+        "allScores": 16,
+        "leaguesScore": 16,
+        "_id": {
+          "$oid": "68756afa661123a25a249d46"
+        }
+      },
+      {
+        "participant": {
+          "$oid": "68756af9661123a25a249d1e"
+        },
+        "score": 16,
+        "allScores": 16,
+        "leaguesScore": 16,
+        "_id": {
+          "$oid": "68756afa661123a25a249d47"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68756aa5661123a25a249c2a"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "68756afa661123a25a249d48"
+        }
+      },
+      {
+        "participant": {
+          "$oid": "68756acb661123a25a249ca2"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "68756afa661123a25a249d49"
+        }
+      }
+    ],
+    "winner": "team1",
+    "isScoreVerified": true,
+    "status": "completed",
+    "givedReputations": [
+      {
+        "receiver": {
+          "$oid": "68756af3661123a25a249cfe"
+        },
+        "giver": {
+          "$oid": "686e5145903c613d208b3ef6"
+        },
+        "reputation": 1,
+        "_id": {
+          "$oid": "68762701661123a25a2546ad"
+        }
+      }
+    ],
+    "matchScores": [
+      {
+        "yourScore": 3,
+        "opponentScore": 0,
+        "description": "",
+        "attachment": "uploads/1752573689167-Call of Duty Black Ops 6.png",
+        "submittedBy": "team1",
+        "submittedAt": {
+          "$date": "2025-07-15T10:01:29.256Z"
+        },
+        "winner": "team1",
+        "isActive": true,
+        "_id": {
+          "$oid": "687626f9661123a25a254677"
+        }
+      },
+      {
+        "yourScore": 0,
+        "opponentScore": 3,
+        "description": "",
+        "attachment": "uploads/1752573718573-Call of Duty Black Ops 6.png",
+        "submittedBy": "team2",
+        "submittedAt": {
+          "$date": "2025-07-15T10:01:58.663Z"
+        },
+        "winner": "team1",
+        "isActive": false,
+        "_id": {
+          "$oid": "68762716661123a25a2546fc"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-14T20:39:22.805Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-14T20:39:22.805Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-15T10:01:58.697Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68762742661123a25a2547e6"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68754884661123a25a2492b4"
+        },
+        "score": -15,
+        "allScores": 1,
+        "leaguesScore": -15,
+        "_id": {
+          "$oid": "68762742661123a25a2547e7"
+        }
+      },
+      {
+        "participant": {
+          "$oid": "68762741661123a25a2547bd"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "68762742661123a25a2547e8"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68756a8e661123a25a249bb9"
+        },
+        "score": 15,
+        "allScores": 47,
+        "leaguesScore": 15,
+        "_id": {
+          "$oid": "68762742661123a25a2547e9"
+        }
+      },
+      {
+        "participant": {
+          "$oid": "68756aa5661123a25a249c2a"
+        },
+        "score": 15,
+        "allScores": 31,
+        "leaguesScore": 15,
+        "_id": {
+          "$oid": "68762742661123a25a2547ea"
+        }
+      }
+    ],
+    "winner": "team2",
+    "isScoreVerified": true,
+    "status": "completed",
+    "givedReputations": [],
+    "matchScores": [
+      {
+        "yourScore": 2,
+        "opponentScore": 0,
+        "description": "",
+        "attachment": "uploads/1752573817700-Call of Duty Black Ops 6.png",
+        "submittedBy": "team2",
+        "submittedAt": {
+          "$date": "2025-07-15T10:03:37.789Z"
+        },
+        "winner": "team2",
+        "isActive": true,
+        "_id": {
+          "$oid": "68762779661123a25a254822"
+        }
+      },
+      {
+        "yourScore": 0,
+        "opponentScore": 2,
+        "description": "",
+        "attachment": "",
+        "submittedBy": "team1",
+        "submittedAt": {
+          "$date": "2025-07-15T11:03:37.816Z"
+        },
+        "winner": null,
+        "isActive": false,
+        "_id": {
+          "$oid": "68763589661123a25a25586d"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-15T10:02:42.921Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-15T10:02:42.921Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-15T11:03:37.841Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68762b84661123a25a254e02"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68756a8e661123a25a249bb9"
+        },
+        "score": 0,
+        "allScores": 32,
+        "leaguesScore": 32,
+        "_id": {
+          "$oid": "68762b84661123a25a254e03"
+        }
+      },
+      {
+        "participant": {
+          "$oid": "687627cf661123a25a25487f"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "68762b84661123a25a254e04"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68756aa5661123a25a249c2a"
+        },
+        "score": 0,
+        "allScores": 16,
+        "leaguesScore": 16,
+        "_id": {
+          "$oid": "68762b84661123a25a254e05"
+        }
+      },
+      {
+        "participant": {
+          "$oid": "68762741661123a25a2547bd"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "68762b84661123a25a254e06"
+        }
+      }
+    ],
+    "winner": null,
+    "isScoreVerified": false,
+    "status": "in_progress",
+    "givedReputations": [],
+    "matchScores": [],
+    "startTime": {
+      "$date": "2025-07-15T10:20:52.542Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-15T10:20:52.543Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-15T10:20:52.543Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68765b76661123a25a2589d3"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68754884661123a25a2492b4"
+        },
+        "score": -16,
+        "allScores": 1,
+        "leaguesScore": -16,
+        "_id": {
+          "$oid": "68765b76661123a25a2589d4"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68754890661123a25a2492e6"
+        },
+        "score": 16,
+        "allScores": 32,
+        "leaguesScore": 16,
+        "_id": {
+          "$oid": "68765b76661123a25a2589d5"
+        }
+      }
+    ],
+    "winner": "team2",
+    "isScoreVerified": true,
+    "status": "completed",
+    "givedReputations": [],
+    "matchScores": [
+      {
+        "yourScore": 33,
+        "opponentScore": 33,
+        "description": "33",
+        "attachment": "uploads/1752587494866-we.png",
+        "submittedBy": "team2",
+        "submittedAt": {
+          "$date": "2025-07-15T13:51:35.208Z"
+        },
+        "winner": "team1",
+        "isActive": false,
+        "_id": {
+          "$oid": "68765ce7661123a25a258fa4"
+        }
+      },
+      {
+        "yourScore": 1,
+        "opponentScore": 2,
+        "description": "3",
+        "attachment": "uploads/1752595834108-PrimePhoto.jpg",
+        "submittedBy": "team1",
+        "submittedAt": {
+          "$date": "2025-07-15T16:10:34.185Z"
+        },
+        "winner": "team2",
+        "isActive": true,
+        "_id": {
+          "$oid": "68767d7a2104da8068f1f98c"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-15T13:45:26.825Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-15T13:45:26.825Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-16T01:53:03.651Z"
+    },
+    "isDeleted": false
+  },
+  {
+    "_id": {
+      "$oid": "6876773c2104da8068f11b5b"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "687548bc661123a25a24935d"
+        },
+        "score": -15,
+        "allScores": 1,
+        "leaguesScore": -15,
+        "_id": {
+          "$oid": "6876773c2104da8068f11b5c"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68754890661123a25a2492e6"
+        },
+        "score": 15,
+        "allScores": 47,
+        "leaguesScore": 15,
+        "_id": {
+          "$oid": "6876773c2104da8068f11b5d"
+        }
+      }
+    ],
+    "winner": "team2",
+    "isScoreVerified": true,
+    "status": "completed",
+    "isDeleted": false,
+    "givedReputations": [],
+    "matchScores": [
+      {
+        "yourScore": 2,
+        "opponentScore": 1,
+        "description": "5",
+        "attachment": "uploads/1752595667753-PrimePhotod.jpg",
+        "submittedBy": "team2",
+        "submittedAt": {
+          "$date": "2025-07-15T16:08:08.208Z"
+        },
+        "winner": "team2",
+        "isActive": true,
+        "_id": {
+          "$oid": "68767cd32104da8068f1e3e2"
+        }
+      },
+      {
+        "yourScore": 1,
+        "opponentScore": 2,
+        "description": "خخ",
+        "attachment": "uploads/1752595679804-PrimePhoto.jpg",
+        "submittedBy": "team1",
+        "submittedAt": {
+          "$date": "2025-07-15T16:08:04.045Z"
+        },
+        "winner": "team2",
+        "isActive": false,
+        "_id": {
+          "$oid": "68767cdf2104da8068f1e585"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-15T15:43:56.694Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-15T15:43:56.694Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-16T01:53:03.684Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68767dae2104da8068f201c4"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68754890661123a25a2492e6"
+        },
+        "score": 14,
+        "allScores": 61,
+        "leaguesScore": 14,
+        "_id": {
+          "$oid": "68767dae2104da8068f201c5"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68754898661123a25a249306"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "68767dae2104da8068f201c6"
+        }
+      }
+    ],
+    "winner": "team1",
+    "isScoreVerified": true,
+    "status": "completed",
+    "isDeleted": false,
+    "givedReputations": [],
+    "matchScores": [
+      {
+        "yourScore": 0,
+        "opponentScore": 1,
+        "description": "ل",
+        "attachment": "uploads/1752595990091-PrimePhotod.jpg",
+        "submittedBy": "team2",
+        "submittedAt": {
+          "$date": "2025-07-15T16:13:10.172Z"
+        },
+        "winner": "team1",
+        "isActive": false,
+        "_id": {
+          "$oid": "68767e162104da8068f2123b"
+        }
+      },
+      {
+        "yourScore": 1,
+        "opponentScore": 0,
+        "description": "55",
+        "attachment": "uploads/1752596009538-sdsd22.PNG",
+        "submittedBy": "team1",
+        "submittedAt": {
+          "$date": "2025-07-15T16:13:29.617Z"
+        },
+        "winner": "team1",
+        "isActive": true,
+        "_id": {
+          "$oid": "68767e292104da8068f214c1"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-15T16:11:26.734Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-15T16:11:26.734Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-16T01:53:03.723Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68767dc02104da8068f204d1"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68754884661123a25a2492b4"
+        },
+        "score": -1,
+        "allScores": 0,
+        "leaguesScore": -1,
+        "_id": {
+          "$oid": "68767dc02104da8068f204d2"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "687548bc661123a25a24935d"
+        },
+        "score": 16,
+        "allScores": 17,
+        "leaguesScore": 16,
+        "_id": {
+          "$oid": "68767dc02104da8068f204d3"
+        }
+      }
+    ],
+    "winner": "team2",
+    "isScoreVerified": true,
+    "status": "completed",
+    "isDeleted": false,
+    "givedReputations": [],
+    "matchScores": [
+      {
+        "yourScore": 0,
+        "opponentScore": 1,
+        "description": "ل",
+        "attachment": "uploads/1752595971753-PrimePhoto.jpg",
+        "submittedBy": "team1",
+        "submittedAt": {
+          "$date": "2025-07-15T16:14:24.212Z"
+        },
+        "winner": "team2",
+        "isActive": true,
+        "_id": {
+          "$oid": "68767e032104da8068f20f63"
+        }
+      },
+      {
+        "yourScore": 1,
+        "opponentScore": 0,
+        "description": "22",
+        "attachment": "uploads/1752596056604-sdsd22.PNG",
+        "submittedBy": "team2",
+        "submittedAt": {
+          "$date": "2025-07-15T16:14:29.484Z"
+        },
+        "winner": "team2",
+        "isActive": false,
+        "_id": {
+          "$oid": "68767e582104da8068f21bb0"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-15T16:11:44.751Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-15T16:11:44.752Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-16T01:53:11.099Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68767e892104da8068f2274e"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68754884661123a25a2492b4"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "68767e892104da8068f2274f"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68754898661123a25a249306"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "68767e892104da8068f22750"
+        }
+      }
+    ],
+    "winner": "draw",
+    "isScoreVerified": true,
+    "status": "completed",
+    "isDeleted": false,
+    "givedReputations": [],
+    "matchScores": [
+      {
+        "yourScore": 0,
+        "opponentScore": 0,
+        "description": "",
+        "attachment": "",
+        "submittedBy": "admin",
+        "submittedAt": {
+          "$date": "2025-07-16T01:41:45.706Z"
+        },
+        "winner": "team2",
+        "isActive": true,
+        "_id": {
+          "$oid": "687703592104da8068fef0ab"
+        }
+      },
+      {
+        "yourScore": 1,
+        "opponentScore": 1,
+        "description": "",
+        "attachment": "",
+        "submittedBy": "admin",
+        "submittedAt": {
+          "$date": "2025-07-16T01:42:08.491Z"
+        },
+        "winner": "team2",
+        "isActive": false,
+        "_id": {
+          "$oid": "687703702104da8068fef191"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-15T16:15:05.912Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-15T16:15:05.913Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-16T01:53:03.780Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68767f292104da8068f23ada"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68754890661123a25a2492e6"
+        },
+        "score": 14,
+        "allScores": 61,
+        "leaguesScore": 14,
+        "_id": {
+          "$oid": "68767f292104da8068f23adb"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68767f182104da8068f238df"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "68767f292104da8068f23adc"
+        }
+      }
+    ],
+    "winner": "team1",
+    "isScoreVerified": true,
+    "status": "completed",
+    "isDeleted": false,
+    "givedReputations": [],
+    "matchScores": [
+      {
+        "yourScore": 6,
+        "opponentScore": 5,
+        "description": "Hh",
+        "attachment": "uploads/1752596346369-IMG_2805.jpeg",
+        "submittedBy": "team1",
+        "submittedAt": {
+          "$date": "2025-07-15T16:19:06.466Z"
+        },
+        "winner": "team1",
+        "isActive": true,
+        "_id": {
+          "$oid": "68767f7a2104da8068f24025"
+        }
+      },
+      {
+        "yourScore": 5,
+        "opponentScore": 6,
+        "description": "",
+        "attachment": "",
+        "submittedBy": "team2",
+        "submittedAt": {
+          "$date": "2025-07-15T17:19:06.491Z"
+        },
+        "winner": null,
+        "isActive": false,
+        "_id": {
+          "$oid": "68768d8a2104da8068f3cf4a"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-15T16:17:45.899Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-15T16:17:45.899Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-15T17:19:06.519Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "687680512104da8068f257fd"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68754890661123a25a2492e6"
+        },
+        "score": 0,
+        "allScores": 47,
+        "leaguesScore": 47,
+        "_id": {
+          "$oid": "687680512104da8068f257fe"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68767fe92104da8068f24cfe"
+        },
+        "score": 0,
+        "allScores": 0,
+        "leaguesScore": 0,
+        "_id": {
+          "$oid": "687680512104da8068f257ff"
+        }
+      }
+    ],
+    "winner": "draw",
+    "isScoreVerified": true,
+    "status": "completed",
+    "isDeleted": false,
+    "givedReputations": [],
+    "matchScores": [
+      {
+        "yourScore": 1,
+        "opponentScore": 1,
+        "description": "",
+        "attachment": "",
+        "submittedBy": "admin",
+        "submittedAt": {
+          "$date": "2025-07-16T01:42:59.126Z"
+        },
+        "winner": "team2",
+        "isActive": true,
+        "_id": {
+          "$oid": "687703a32104da8068fef3e3"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-15T16:22:41.894Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-15T16:22:41.895Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-16T01:43:09.940Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "687680562104da8068f25837"
+    },
+    "league": {
+      "$oid": "687545f5661123a25a2490a7"
+    },
+    "team1": [
+      {
+        "participant": {
+          "$oid": "68754890661123a25a2492e6"
+        },
+        "score": -19,
+        "allScores": 42,
+        "leaguesScore": -19,
+        "_id": {
+          "$oid": "687680562104da8068f25838"
+        }
+      }
+    ],
+    "team2": [
+      {
+        "participant": {
+          "$oid": "68767eec2104da8068f234e7"
+        },
+        "score": 19,
+        "allScores": 19,
+        "leaguesScore": 19,
+        "_id": {
+          "$oid": "687680562104da8068f25839"
+        }
+      }
+    ],
+    "winner": "team2",
+    "isScoreVerified": true,
+    "status": "completed",
+    "isDeleted": false,
+    "givedReputations": [],
+    "matchScores": [
+      {
+        "yourScore": 545,
+        "opponentScore": 45,
+        "description": "55",
+        "attachment": "uploads/1752613121707-sdsd22.PNG",
+        "submittedBy": "team2",
+        "submittedAt": {
+          "$date": "2025-07-15T20:58:41.787Z"
+        },
+        "winner": "team2",
+        "isActive": true,
+        "_id": {
+          "$oid": "6876c1012104da8068fa6359"
+        }
+      },
+      {
+        "yourScore": 45,
+        "opponentScore": 545,
+        "description": "",
+        "attachment": "",
+        "submittedBy": "team1",
+        "submittedAt": {
+          "$date": "2025-07-15T21:58:41.815Z"
+        },
+        "winner": null,
+        "isActive": false,
+        "_id": {
+          "$oid": "6876cf112104da8068fc8e55"
+        }
+      },
+      {
+        "yourScore": 5,
+        "opponentScore": 0,
+        "description": "",
+        "attachment": "",
+        "submittedBy": "admin",
+        "submittedAt": {
+          "$date": "2025-07-15T22:41:32.223Z"
+        },
+        "winner": "team1",
+        "isActive": false,
+        "_id": {
+          "$oid": "6876d91c2104da8068fdddfa"
+        }
+      }
+    ],
+    "startTime": {
+      "$date": "2025-07-15T16:22:46.938Z"
+    },
+    "createdAt": {
+      "$date": "2025-07-15T16:22:46.938Z"
+    },
+    "updatedAt": {
+      "$date": "2025-07-15T22:41:32.223Z"
+    }
+  }
+]

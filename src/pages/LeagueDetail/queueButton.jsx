@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 
 const GetQueueButton = () => {
   const { id } = useParams();
-  const { leagueData, isJoinedUser, isQueueUser } = useSelector(
+  const { leagueData, isJoinedUser, isQueueUser ,isMatchJoind} = useSelector(
     (state) => state.leagues
   );
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -124,8 +124,8 @@ const GetQueueButton = () => {
   } else {
     let text = getQueueText(leagueData, t);
     if (
-      leagueData.isMatchJoind != null ||
-      leagueData.isMatchJoind != undefined
+      isMatchJoind != null ||
+      isMatchJoind != undefined
     ) {
       return (
         <Link

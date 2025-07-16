@@ -85,6 +85,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
       if (window.location.pathname.includes(data?.data?._id?.toString())) {
         data.data.userId = user?._id;
+        console.log(" user?._id",  user?._id);
         if (data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id) {
           store.dispatch(setLeagueData(data.data));
         } else {
