@@ -35,14 +35,14 @@ const LeagueDetail = () => {
     (state) => state.leagues
   );
   const { t  ,i18n} = useTranslation();
-
+  const isMatctCreated = useSelector((state) => state.constState.isMatctCreated);
   useEffect(() => {
     let res = startLeagueSocket({ lId, user, isSocketConnected });
     console.log("res", res);
     return () => {
       stopLeagueSocket();
     };
-  }, [isSocketConnected, lId, user, window.location.pathname]);
+  }, [isSocketConnected, lId, user, window.location.pathname,isMatctCreated]);
 
   useEffect(() => {
     if (leagueData?.title) {
@@ -59,7 +59,7 @@ const LeagueDetail = () => {
       ></div>
       {/* <Outlet /> */}
       {registrationModal && <RegistrationModel />}
-      {!leagueData ? (
+      {!leagueData && isMatctCreated ? (
         <GamingLoader />
       ) : (
         <div className="sd_content-wrapper max-w-full">

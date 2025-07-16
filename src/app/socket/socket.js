@@ -43,6 +43,7 @@ socket.on("connect", () => {
   socket.on(SOCKET.JOINMATCH, (data) => {
     // Use window.location for navigation since hooks can't be used here
     if (data?.matchId && data?.partner) {
+      store.dispatch(setIsMatctCreated(true));
       // If already on a /match/ page, do nothing
       if (window.location.pathname.includes("/match/")) return;
       let pId = getPartnerByDocId(data.partner).id;
@@ -92,6 +93,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
           delete data.data.leaderBoard.requestedUser;
           store.dispatch(setLeagueData(data.data));
         }
+        store.dispatch(setIsMatctCreated(false));
       }
     });
   }
