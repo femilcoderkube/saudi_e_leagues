@@ -12,6 +12,7 @@ const initialState = {
   showNotification :  false,
   isActiveTab : 1,
   isMatctCreated : false,
+  notificationData: null, // Store notification data
 
   countryOptions :countryData.map((country) => ({
     value: country.name,
@@ -32,6 +33,9 @@ const constStateSlice = createSlice({
     },
      setshowNotification:(state,action)=>{
       state.showNotification = action.payload;
+    },
+    setNotificationData:(state,action)=>{
+      state.notificationData = action.payload;
     },
      setActiveTabIndex:(state,action)=>{
       state.isActiveTab = action.payload;
@@ -67,6 +71,6 @@ const constStateSlice = createSlice({
   },
 });
 
-export const { setMatchPage ,setMatchLoader ,setLogin ,setRegisteration,setActiveTabIndex,setshowNotification,setProfileVisible ,setSubmitModal,setViewModal ,setPreviewImage,setIsMatctCreated } = constStateSlice.actions;
+export const { setMatchPage ,setMatchLoader ,setLogin ,setRegisteration,setActiveTabIndex,setshowNotification,setProfileVisible ,setSubmitModal,setViewModal ,setPreviewImage,setIsMatctCreated, setNotificationData } = constStateSlice.actions;
 
 export default constStateSlice.reducer;
