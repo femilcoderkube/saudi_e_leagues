@@ -53,15 +53,16 @@ socket.on("connect", () => {
     }
   });
 
-  // Listen for NOTIFICATION event and store in Redux
-  socket.off(SOCKET.NOTIFICATION);
-  socket.on(SOCKET.NOTIFICATION, (data) => {
-    // Store notification data in Redux (if no data, store timestamp)
-    store.dispatch(setNotificationData(
-      data !== undefined ? data : { receivedAt: Date.now() }
-    )
-    );
-  });
+  // // Listen for NOTIFICATION event and store in Redux
+  // socket.off(SOCKET.NOTIFICATION);
+  // socket.on(SOCKET.NOTIFICATION, (data) => {
+  //   console.log("data",data)
+  //   // Store notification data in Redux (if no data, store timestamp)
+  //   store.dispatch(setNotificationData(
+  //     data !== undefined ? data : { receivedAt: Date.now() }
+  //   )
+  //   );
+  // });
 
   store.dispatch(setSocketConnected(true));
   store.dispatch(setSocketId(socket.id));
@@ -82,6 +83,20 @@ socket.on("connect_error", (error) => {
   );
   store.dispatch(setSocketConnected(false));
 });
+
+// Inside your main socket.on("connect")
+socket.on(SOCKET.NOTIFICATION, (data) => {
+  if (data) {
+    store.dispatch(setNotificationData({ notification: data }));
+  }
+});
+
+socket.on(SOCKET.NOTIFICATION, (data) => {
+  console.log("Received notification via socket:", data);
+});
+
+
+
 export function startLeagueSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
     // Remove any previous listener to prevent duplicate handlers
@@ -158,7 +173,6 @@ export function sendMatchMsg(body) {
 export function giveReputation(body) {
   socket.emit(SOCKET.GIVEREPUTATION, body);
 }
-export function sendNotificationSocket({ isSocketConnected }) {
-  if (!isSocketConnected) return;
+export function sendNotificationSocket() {
   socket.emit(SOCKET.NOTIFICATION);
 }
