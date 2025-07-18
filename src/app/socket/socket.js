@@ -174,5 +174,5 @@ export function giveReputation(body) {
   socket.emit(SOCKET.GIVEREPUTATION, body);
 }
 export function sendNotificationSocket() {
-  socket.emit(SOCKET.NOTIFICATION);
+  socket.on(SOCKET.NOTIFICATION);
 }
