@@ -170,7 +170,7 @@ const Sidebar = ({ onItemClick }) => {
           </Link>
         </div> */}
       </div>
-      <svg
+      {/* <svg
         width="0"
         height="0"
         xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +202,7 @@ const Sidebar = ({ onItemClick }) => {
             />
           </clipPath>
         </defs>
-      </svg>
+      </svg> */}
     </aside>
   );
 };

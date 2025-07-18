@@ -20,7 +20,12 @@
     "view_score": "عرض نتيجة المباراة",
     "submit_score": "رفع نتيجة المباراة",
     "login_failed": "فشل تسجيل الدخول",
-    "login_success": "تم تسجيل الدخول بنجاح!"
+    "login_success": "تم تسجيل الدخول بنجاح!",
+    "donthaveaccount": "ليس لديك حساب ؟",
+    "create_account": "انشاء حساب",
+    "logout": "تسجيل الخروج",
+    "my_profile": "الملف الشخصي",
+    "edit_profile": "تعديل الملف الشخصي"
   },
 
   "form": {
@@ -170,7 +175,8 @@
     "team_two": "الفريق الثاني",
     "gold_crown": "التاج الذهبي",
     "like": "إعجاب",
-    "dislike": "عدم إعجاب"
+    "dislike": "عدم إعجاب",
+    "chat": "الدردشة"
   },
 
   "rules": {

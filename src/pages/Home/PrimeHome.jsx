@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import GetStartedBtn from "../../assets/images/get_started_btn.png";
 import GetStartedBtnAr from "../../assets/images/get_started_btn_ar.png";
@@ -13,10 +13,14 @@ import HtpCardSlider from "../../components/HomepageComp/HtpCardSlider.jsx";
 import Accordation from "../../components/HomepageComp/Accordation.jsx";
 import TimelineCard from "../../components/HomepageComp/TimelineCard.jsx";
 import { useTranslation } from "react-i18next";
+import { setActiveTabIndex } from "../../app/slices/constState/constStateSlice.js";
+import { useDispatch } from "react-redux";
 
 export default function PrimeHome() {
   const { id } = useParams();
   const { t , i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   // <Link to={`/${id}/lobby`}>Go to Lobby</Link>
  
 
@@ -50,8 +54,11 @@ export default function PrimeHome() {
             <p className="purple_col lg:text-2xl md:text-[1.07rem] font-semibold pt-7 pb-5 md:pt-10 md:pb-10">
               {t("homepage.tagline")}{" "}
             </p>
-            <Link
-              to={`/${id}/lobby`}
+            <div
+              onClick={() => {
+                dispatch(setActiveTabIndex(0));
+                navigate(`/${id}/lobby`);
+              }}
               className="ml-[-0.5rem] hover:opacity-70 duration-300"
             >
               <img className="hidden md:inline-block"
@@ -63,7 +70,7 @@ export default function PrimeHome() {
                 src={i18n.language === "ar" ? GetStartedBtnAr_1 : GetStartedBtn_1}
                 alt={t("images.get_started_button")}
               />
-            </Link>
+            </div>
           </div>
 
           {/* === Hero Right Game Slider Block Conatain === */}

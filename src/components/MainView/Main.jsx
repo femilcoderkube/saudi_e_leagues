@@ -20,16 +20,11 @@ import { baseURL } from "../../utils/axios";
 import { registerUser } from "../../app/slices/auth/authSlice";
 import { useTranslation } from "react-i18next";
 import Notification_sidebar from "../Notification/notificationsidebar";
-import { getNotificationSocket } from "../../app/socket/socket";
 
 export default function Main() {
   const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const { games } = useSelector((state) => state.games);
-  const { notificationData } = useSelector((state) => state.constState)
-
-  console.log("notificationData",notificationData)
-
   const {
     profileVisible,
     submitModal,
@@ -43,7 +38,6 @@ export default function Main() {
   const location = useLocation();
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const { user, userDetail } = useSelector((state) => state.auth);
-  const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { t } = useTranslation();
 
   const defaultNationality = countryOptions.find(
@@ -77,28 +71,28 @@ export default function Main() {
   // Pre-fill form values for editing
   const editInitialValues = user
     ? {
-      username: user.username || "",
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-      email: user.email || "",
-      nationality:
-        countryOptions.find((option) => option.value === user.nationality) ||
-        defaultNationality,
-      dialCode:
-        dialCodeOptions.find(
-          (option) => option.value === (userDetail?.phone?.split("-")[0] || "+966")
-        ) || defaultDialCode,
-      phoneNumber: userDetail?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
-      dateOfBirth: user.dateOfBirth
-        ? new Date(user.dateOfBirth).toISOString().split("T")[0]
-        : "",
-      gender: user.gender || "Male",
-      role: user.role || "Player",
-      favoriteGame: userDetail?.favoriteGame
-        ? gameOptions?.find((option) => option.value === userDetail?.favoriteGame)
-        : null,
-      profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
-    }
+        username: user.username || "",
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        email: user.email || "",
+        nationality:
+          countryOptions.find((option) => option.value === user.nationality) ||
+          defaultNationality,
+        dialCode:
+          dialCodeOptions.find(
+            (option) => option.value === (userDetail?.phone?.split("-")[0] || "+966")
+          ) || defaultDialCode,
+        phoneNumber: userDetail?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
+        dateOfBirth: user.dateOfBirth
+          ? new Date(user.dateOfBirth).toISOString().split("T")[0]
+          : "",
+        gender: user.gender || "Male",
+        role: user.role || "Player",
+        favoriteGame: userDetail?.favoriteGame
+          ? gameOptions?.find((option) => option.value === userDetail?.favoriteGame)
+          : null,
+        profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
+      }
     : initialValues;
 
   const handleSubmit = async (values, isEdit = false) => {
@@ -128,9 +122,9 @@ export default function Main() {
           localStorage.setItem("user", JSON.stringify(res?.data));
           dispatch(fetchUserById(user?._id));
           dispatch(setProfileVisible(false));
-          if (window.location.pathname.includes("/lobby")) {
+          if (window.location.pathname.includes("/lobby")){
             dispatch(setActiveTabIndex(0));
-          } else {
+          }else {
             dispatch(setActiveTabIndex(1));
           }
         }
@@ -138,18 +132,15 @@ export default function Main() {
       } else {
         // Register user
         const res = await dispatch(registerUser(formData)).unwrap();
-        console.log("res",res)
         if (res.success) {
           toast.success(
             res?.message ||
-            "Registration successful! Please log in to continue."
+              "Registration successful! Please log in to continue."
           );
-          // Emit notification socket event for new user registration
-          getNotificationSocket({ userId: res?.data?.user?._id });
           dispatch(setRegisteration(false));
-          if (window.location.pathname.includes("/lobby")) {
+          if (window.location.pathname.includes("/lobby")){
             dispatch(setActiveTabIndex(0));
-          } else {
+          }else {
             dispatch(setActiveTabIndex(1));
           }
         }
@@ -164,7 +155,7 @@ export default function Main() {
       setLoadingSubmit(false);
     }
   };
-  useEffect(() => { }, [location]);
+  useEffect(() => {}, [location]);
   useEffect(() => {
     if (profileVisible && user?._id) {
       dispatch(fetchUserById(user?._id));
@@ -182,16 +173,17 @@ export default function Main() {
     > */}
       <Header />
       <main
-        className={`flex-1 game_card_main--con ${checkParams("finding-match") || checkParams("match")
+        className={`flex-1 game_card_main--con ${
+          checkParams("finding-match") || checkParams("match")
             ? ""
             : "px-4 pt-3 md:px-[4.5rem]"
-          }`}
+        }`}
       >
         {(isRegisteration || profileVisible) && (
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
             <div className="fixed inset-0 flex justify-center items-center z-50">
-              <div className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative
+            <div className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative
               ${profileVisible ? 'max-h-[80vh] overflow-y-auto overflow-x-hidden' : ''}`}
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                 <div className="flex justify-between items-center mb-4">
@@ -207,9 +199,9 @@ export default function Main() {
                       } else {
                         dispatch(setProfileVisible(false));
                       }
-                      if (window.location.pathname.includes("/lobby")) {
+                      if (window.location.pathname.includes("/lobby")){
                         dispatch(setActiveTabIndex(0));
-                      } else {
+                      }else {
                         dispatch(setActiveTabIndex(1));
                       }
                       setPreviewImage(null);

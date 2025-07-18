@@ -44,7 +44,7 @@ const LeaderBoard = () => {
   }
   if (leagueData?.leaderBoard?.topUsers?.length === 0 && !requestedUser) {
     return (
-      <div className="leaderboard-wrapper pt-8">
+      <div className="leaderboard-wrapper sm:pt-8">
         <h2 className="text-center md:text-start text-2xl !font-bold">
           {t("lobby.leaderboard")}
         </h2>
@@ -55,7 +55,7 @@ const LeaderBoard = () => {
     );
   }
   return (
-    <div className="leaderboard-wrapper pt-8">
+    <div className="leaderboard-wrapper sm:pt-8">
       <h2 className="text-xl sm:text-2xl !font-bold">{t("lobby.leaderboard")}</h2>
       <table className="leaderboard-table" style={{ width: "100%" }}>
         <thead>

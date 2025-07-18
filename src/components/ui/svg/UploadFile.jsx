@@ -32,7 +32,7 @@ const CustomFileUpload = ({
   };
 
   return (
-    <div className="w-full h-32 max-w-md mx-auto text-center relative">
+    <div className="sm:w-full w-[20rem] h-32 max-w-md mx-auto text-center relative">
       <input
         type="file"
         ref={fileInputRef}

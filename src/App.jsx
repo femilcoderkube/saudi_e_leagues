@@ -20,6 +20,7 @@ import MatchMaking from "./pages/Matchs/MatchMacking.jsx";
 import MatchDetail from "./pages/Matchs/MatchDetail.jsx";
 import './i18n';
 import { useTranslation } from 'react-i18next';
+import UserProfilePage from "./pages/profile/UserProfilePage.jsx";
 
 function App() {
   const { i18n } = useTranslation();
@@ -51,6 +52,7 @@ function App() {
             <Route path="lobby" element={<Lobby />} />
             <Route path="lobby/:lId" element={<LeagueDetail />} />
             <Route path="lobby/:lId/finding-match" element={<MatchMaking />} />
+            <Route path="profile" element={<UserProfilePage />} />
             {/* Add more routes as needed */}
           </Route>
           <Route path="*" element={<Navigate to="/prime/" />} />

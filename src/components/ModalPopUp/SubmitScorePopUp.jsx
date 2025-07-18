@@ -139,7 +139,7 @@ function SubmitPopUp({ handleClose }) {
       ></div>
 
       <div className="fixed modal_popup-con inset-0 overflow-y-auto flex justify-center items-center z-50">
-        <div className="popup-wrap inline-flex items-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
+        <div className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
           <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-[42rem]">
             <div className="popup_header px-8 pt-4 flex items-start ltr:justify-end mt-3 text-center sm:mt-0 sm:text-left rtl:justify-start rtl:text-right">
               <div className="flex items-center gap-2 absolute left-12 top-5">
@@ -295,7 +295,7 @@ function SubmitPopUp({ handleClose }) {
                 </div>
               </div>
             </div>
-            <div className="popup_footer px-12 pt-6">
+            <div className="popup_footer sm:px-12 px-8 pt-6">
               <button
                 type="submit"
                 onClick={formik.handleSubmit}

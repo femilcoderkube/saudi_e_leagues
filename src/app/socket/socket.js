@@ -20,7 +20,7 @@ import {
   setIsTeamOne,
   setmatchData,
 } from "../slices/MatchSlice/matchDetailSlice";
-import { setIsMatctCreated, setNotificationData } from "../slices/constState/constStateSlice";
+import { setIsMatctCreated } from "../slices/constState/constStateSlice";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -53,17 +53,6 @@ socket.on("connect", () => {
     }
   });
 
-  // // Listen for NOTIFICATION event and store in Redux
-  // socket.off(SOCKET.NOTIFICATION);
-  // socket.on(SOCKET.NOTIFICATION, (data) => {
-  //   console.log("data",data)
-  //   // Store notification data in Redux (if no data, store timestamp)
-  //   store.dispatch(setNotificationData(
-  //     data !== undefined ? data : { receivedAt: Date.now() }
-  //   )
-  //   );
-  // });
-
   store.dispatch(setSocketConnected(true));
   store.dispatch(setSocketId(socket.id));
 });
@@ -83,17 +72,6 @@ socket.on("connect_error", (error) => {
   );
   store.dispatch(setSocketConnected(false));
 });
-
-// Inside your main socket.on("connect")
-socket.on(SOCKET.ONNOTIFICATION, (data) => {
-  console.log("Received notification via socket:", data);
-  if (data) {
-    store.dispatch(setNotificationData({ notification: data }));
-  }
-});
-
-
-
 export function startLeagueSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
     // Remove any previous listener to prevent duplicate handlers
@@ -109,7 +87,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
       if (window.location.pathname.includes(data?.data?._id?.toString())) {
         data.data.userId = user?._id;
-        console.log(" user?._id", user?._id);
+        console.log(" user?._id",  user?._id);
         if (data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id) {
           store.dispatch(setLeagueData(data.data));
         } else {
@@ -169,7 +147,4 @@ export function sendMatchMsg(body) {
 }
 export function giveReputation(body) {
   socket.emit(SOCKET.GIVEREPUTATION, body);
-}
-export function getNotificationSocket() {
-  socket.on(SOCKET.NOTIFICATION);
 }

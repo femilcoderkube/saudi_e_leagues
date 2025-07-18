@@ -4,8 +4,9 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../app/slices/auth/authSlice";
 import { toast } from "react-toastify";
-import { setLogin } from "../../app/slices/constState/constStateSlice";
+import { setLogin, setRegisteration } from "../../app/slices/constState/constStateSlice";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const LoginModal = () => {
   const dispatch = useDispatch();
@@ -34,8 +35,8 @@ const LoginModal = () => {
         return;
       } else {
         if (res.data.violation && res.data.banMessage) {
-          toast.error(res.data.violation);
-          toast.error(res.data.banMessage);
+          let message = `violation : ${res.data.violation}<br/>banMessage : ${res.data.banMessage}`;
+          toast.error(<span dangerouslySetInnerHTML={{ __html: message }} />);
         }else{
           toast.success(res.message);
         }
@@ -170,6 +171,19 @@ const LoginModal = () => {
                       </clipPath>
                     </defs>
                   </svg>
+                </div>
+                <div className="flex gap-2 sm:hidden">
+                  <span className="text-sm text-white">
+                    {t("auth.donthaveaccount")}
+                  </span>
+                  <div  className="text-sm text-blue-500 cursor-pointer"
+                  onClick={() => {
+                    dispatch(setLogin(false));
+                    dispatch(setRegisteration(true));
+                  }}
+                  >
+                    {t("auth.create_account")}
+                  </div>
                 </div>
                 <div className="wizard_step--btn flex justify-end">
                   <div className="game_status--tab wizard_btn mt-10 mb-8 mr-5 login-btn">

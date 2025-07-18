@@ -141,7 +141,7 @@ const MatchMaking = () => {
                 style={{ width: "11rem" }}
               />
               <div onClick={handleCancel}>
-              <div className="absolute bottom-[2.5rem] ltr:right-[2.5rem] rtl:left-[4.5rem]">
+              <div className="absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[3rem]">
                 <img
                   className="cancel-btn duration-400 cursor-pointer z-2"
                   src={cancel_btn}
@@ -149,7 +149,7 @@ const MatchMaking = () => {
                   style={{ width: "25rem" }}
                 />
                  <span
-                    className="mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-xl sm:text-2xl cursor-pointer"
+                    className="mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-lg sm:text-2xl cursor-pointer"
                     style={{
                       fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
                       fontWeight : "bold",

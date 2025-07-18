@@ -519,22 +519,6 @@ html[dir="rtl"] .sd_rules--btn button:after {
   right: 0;
   left: auto;
 }
-@media (max-width: 991px){
-  .submit__score--popup{
-    width: 100%;
-  }
-  .submit__score--popup + .modal_popup-con{
-  width: 100%;
-  right: auto;
-  left: auto;
-}
-.match_reg--popup{
-  max-width: 30rem;
-  width: 100%;
-}
-}
-
-
 
 html[dir="rtl"] .popup-overlay {
   width: calc(100% - 22.5rem);
@@ -836,8 +820,27 @@ width: 4.65rem;
 /* lg */
 @media (min-width: 1024px) {}
 
-@media (max-width: 991px) {
-  .game_polygon-link {
+@media (min-width: 768px) and (max-width: 991px){
+.sd_bedge_left-con{
+  padding-left: 0.9rem;
+  gap: 0.7rem;
+}
+
+.sd_bedge_right-con{
+  padding-right: 0.9rem;
+}
+
+.sd_bedge-lable  img{
+  width: 3.5rem !important;
+}
+
+.sd_bedge_left-con .sd_avtar-info{
+gap: 0.7rem;
+}
+}
+
+@media (max-width:991px) {
+    .game_polygon-link {
     width: 14rem;
   }
 
@@ -849,8 +852,6 @@ width: 4.65rem;
   .sd_game-con.polygon_border:after {
     width: 3.8rem;
   }
-}
-@media (max-width:991px) {
   .sd_content-left{
     width: 100%;
     order: 2;
@@ -861,30 +862,20 @@ width: 4.65rem;
   .sd_top-wraper{
     flex-direction: column;
   }
+    .submit__score--popup{
+    width: 100%;
+  }
+  .submit__score--popup + .modal_popup-con{
+  width: 100%;
+  right: auto;
+  left: auto;
 }
-@media (min-width: 768px) and (max-width: 991px){
-.sd_bedge_left-con{
-  padding-left: 0.9rem;
-  gap: 0.7rem;
+.match_reg--popup{
+  max-width: 30rem;
+  width: 100%;
+}
 }
 
-.sd_bedge_right-con{
-  padding-right: 0.9rem;
-}
-
-/* .user_img:before{
-      width: 3rem;
-    height: 3rem;
-} */
-
-.sd_bedge-lable  img{
-  width: 3.5rem !important;
-}
-
-.sd_bedge_left-con .sd_avtar-info{
-gap: 0.7rem;
-}
-}
 /* md */
 @media (max-width: 767px) {
   .sd_content-left{
@@ -931,6 +922,7 @@ gap: 0.7rem;
   .leaderboard-table tr td {
     max-width: calc(100% / 3);
     flex: 0 0 calc(100% / 3);
+    box-shadow: 0px 1px 0px rgb(87 89 195 / 20%);
   }
 
   .leaderboard-table tr td::before {
@@ -1027,7 +1019,7 @@ gap: 0.7rem;
 }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 639px) {
   .game_polygon-link {
     width: 6.63rem;
   }
@@ -1040,8 +1032,13 @@ gap: 0.7rem;
   .sd_game-con.polygon_border:after {
     width: 1.75rem;
     height: 0.325rem;
-
   }
+}
+
+@media (max-width: 525px){
+.match_reg--popup{
+  max-width:calc(100% - 2rem);
+}
 }
 
 @media (max-width: 475px) {
@@ -1051,6 +1048,10 @@ gap: 0.7rem;
     .notification-sidebar .game_status--tab button {
     width: 10rem !important;
     }
+    .sd_custom-input,.popup_submit-btn {    
+    width: 20rem;
+    height: 4rem;
+}
 }
 
 @media (max-width: 389px) {

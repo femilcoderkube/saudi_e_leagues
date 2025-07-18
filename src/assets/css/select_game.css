@@ -304,7 +304,7 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
         padding-block: 1.3rem;
     }
 
-    .btn_polygon-link {
+    .btn_polygon-link,.sel_game-menu .dropdown-header:before {
         width: 13.38rem;
         height: 3.5rem;
     }
@@ -335,7 +335,7 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
     }
 
     .sd_slect_game--wrapper .game_status--tab button.active-tab {
-        background: linear-gradient(to bottom, rgb(68 107 238 / 6%) 0%, rgb(68 107 238 / 6%) 100%);
+        background: linear-gradient(180deg, rgb(68 107 238 / 0%) 0%, rgb(68 107 238 / 6%) 100%);
         position: relative;
         color: var(--color-white);
     }
@@ -403,6 +403,7 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
     .game_card--wrapper.game_card--wrapv2 {
         flex-wrap: wrap;
         overflow-y: hidden;
+        margin-bottom: 4.5rem;
     }
 
     .game-card-wp {

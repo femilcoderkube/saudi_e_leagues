@@ -20,7 +20,12 @@
     "view_score": "View Score",
     "submit_score": "Submit Score",
     "login_failed": "Login failed",
-    "login_success": "Login successful!"
+    "login_success": "Login successful!",
+    "donthaveaccount": "Don't have an account ?",
+    "create_account": "Create Account",
+    "logout": "Logout",
+    "my_profile": "My Profile",
+    "edit_profile": "Edit Profile"
   },
 
   "form": {
@@ -99,7 +104,7 @@
     "prime_description_3": "In Prime you don't just play — you grind.",
     "prime_description_4": "Every match is a step forward. Every queue is a shot at growth. Every match builds your story. Whether you're playing solo or as part of a squad, PRIME creates the space for authentic connection and continuous competition.",
     "prime_description_5": "This is where grassroots players rise to their prime!",
-    "watch_video": "Whatch the Video",
+    "watch_video": "Watch the Video",
     "how": "How",
     "to_play": "to Play?",
     "htp_description": "Pellentesque dictum porta, lacinia molestie ante maximus at",
@@ -169,7 +174,8 @@
     "team_two": "Team 2",
     "gold_crown": "Gold Crown",
     "like": "Like",
-    "dislike": "Dislike"
+    "dislike": "Dislike",
+    "chat": "Chat"
   },
 
   "rules": {
