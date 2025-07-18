@@ -338,7 +338,7 @@ const MatchDetail = () => {
               )}
             </div>
             {showMobileChat && (
-              <div className="mob-chat-wp sm:hidden w-full max-w-[19rem] fixed top-0 ltr:right-0 rtl:left-0 z-11 bg-slate-900 text-white min-h-screen flex flex-col justify-between">
+              <div className="mob-chat-wp sm:hidden w-full max-w-[19rem] fixed top-0 ltr:right-0 rtl:left-0 z-11 bg-slate-900 text-white min-h-screen[calc(100vh-11rem)] flex flex-col justify-between">
                 {/* Header */}
                 <div className="block">
                   <div
