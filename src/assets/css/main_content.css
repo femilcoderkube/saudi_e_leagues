@@ -6,7 +6,7 @@
 
 .sd_main-content {
   overflow-y: auto;
-  height: 100vh;
+  height: 100dvh;
 }
 /* @media (max-width: 768px) {
   .sd_main-content {
