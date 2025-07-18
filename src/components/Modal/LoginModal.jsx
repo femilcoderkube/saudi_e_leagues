@@ -35,7 +35,7 @@ const LoginModal = () => {
         return;
       } else {
         if (res.data.violation && res.data.banMessage) {
-          let message = ` ${res.data.banMessage} <br/>violation : ${res.data.violation}`;
+          let message = `${ res.data.banMessage} <br/>violation : ${res.data.violation}`;
           toast.error(<span dangerouslySetInnerHTML={{ __html: message }} />);
         }else{
           toast.success(res.message);

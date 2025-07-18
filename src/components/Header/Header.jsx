@@ -96,6 +96,7 @@ const Header = () => {
     }
   }
   if (path) {
+    dispatch(setActiveTabIndex(0));
     let item = {
       label: t("navigation.lobby"),
       path: `/${params.id}/lobby`,
@@ -398,27 +399,27 @@ const Header = () => {
           <ul className="breadcrumb-links flex  items-center gap-2.5 md:gap-5">
             {breadcrumbItems.map((item, index) => (
               <li
-                key={index}
-                className="flex items-center gap-2 sm:gap-4 md:gap-7"
-              >
-                <div className="breadcrumb-box flex items-center gap-2">
-                  <Link
-                    to={item.path}
-                    className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
-                      item.active ? "sky_col font-semibold" : ""
-                    }`}
-                  >
-                    {item.label && <item.icon className="text-white" />}
+              key={index}
+              className="sm:flex hidden items-center gap-2 sm:gap-4 md:gap-7 "
+            >
+              <div className="breadcrumb-box flex items-center gap-2">
+                <Link
+                  to={item.path}
+                  className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
+                    item.active ? "sky_col font-semibold" : ""
+                  }`}
+                >
+                  {item.label && <item.icon className="text-white" />}
 
-                    {item.label}
-                  </Link>
-                </div>
+                  {item.label}
+                </Link>
+              </div>
 
-                {/* Add arrow only if it's NOT the last item */}
-                {index < breadcrumbItems.length - 1 && (
-                  <NextArrow className="text-white" />
-                )}
-              </li>
+              {/* Add arrow only if it's NOT the last item */}
+              {index < breadcrumbItems.length - 1 && (
+                <NextArrow className="text-white" />
+              )}
+            </li>
             ))}
           </ul>
         </nav>
@@ -428,7 +429,9 @@ const Header = () => {
               key={-1}
               className="flex items-center gap-2 sm:gap-4 md:gap-7"
               onClick={() => {
-                navigator(-1);
+                if(mainItem.label != t("navigation.lobby") && mainItem.label != t("navigation.home")){
+                  navigator(-1);
+                }
               }}
             >
               {mainItem.label !== t("navigation.lobby") &&
@@ -436,7 +439,7 @@ const Header = () => {
                 (i18n.language === "ar" ? <NextArrow2 /> : <NextArrow3 />)}
               <div className="breadcrumb-box flex items-center gap-2">
                 <Link
-                  to={mainItem.path}
+                   to={mainItem.path}
                   className={`breadcrumb-text flex items-center gap-3 ltr:pl-2 rtl:pr-2 sm:gap-3 text-sm md:text-lg font-bold text-white text-[1.25rem]`}
                 >
                   {mainItem.label &&
