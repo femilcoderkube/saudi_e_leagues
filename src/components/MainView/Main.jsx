@@ -173,7 +173,7 @@ export default function Main() {
     > */}
       <Header />
       <main
-        className={`flex-1 game_card_main--con ${
+        className={`flex-1 game_card_main--con  ${
           checkParams("finding-match") || checkParams("match")
             ? ""
             : "px-4 pt-3 md:px-[4.5rem]"

@@ -94,7 +94,7 @@ const MatchDetail = () => {
       className="flex-1 pt-[0.5rem] match_page--wrapper h-full "
       style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
     >
-      <section className="match_team--wrap flex pt-[6rem] justify-between items-end sm:pl-[7.5rem] sm:pr-[7.5rem] pl-[3rem] pr-[3rem] ">
+      <section className="match_team--wrap flex pt-[6rem] justify-between items-end sm:pl-[7.5rem] sm:pr-[7.5rem] pl-[3rem] pr-[3rem]  pb-[5.25rem] sm:pb-0">
         <div className="team_score--con flex xl:flex-row flex-col justify-between w-full gap-10 items-center xl:items-start">
           {/* Team 1 */}
           <div className="team_score--wrap max-w-[24.625rem] order-2 xl:order-1">
@@ -348,12 +348,12 @@ const MatchDetail = () => {
                     <div className="flex gap-4 items-center">
                       <img className="cursor-pointer" src={ChatArr} alt="" />
                       <h1 className="text-lg font-extrabold text-white tracking-wide">
-                        MATCH CHAT
+                        {t("match.match_chat")}
                       </h1>
                     </div>
                   </div>
                   {/* Chat Functionlity */}
-                  <div className="flex flex-col gap-6 p-6 overflow-y-auto custom_scroll h-[43.3rem]">
+                  <div className="flex flex-col gap-6 p-6 overflow-y-auto custom_scroll h-[43.3rem]" style={{ height: 'calc(100vh - 10rem)' }}>
                     {chatData?.map((chat, chatIdx) => {
                       console.log("chat", chat?.senderId);
                       if (chat.isSystemMsg) {

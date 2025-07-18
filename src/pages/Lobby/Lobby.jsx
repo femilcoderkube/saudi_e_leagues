@@ -109,7 +109,7 @@ const Lobby = () => {
           </div>
         </div>
        
-        <div className="sd_tab_cont--wrap pb-10">
+        <div className="sd_tab_cont--wrap pb-[5.25rem] sm:pb-10 ">
           {loading ? (
             <GamingLoader />
           ) : (

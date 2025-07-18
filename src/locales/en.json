@@ -175,7 +175,8 @@
     "gold_crown": "Gold Crown",
     "like": "Like",
     "dislike": "Dislike",
-    "chat": "Chat"
+    "chat": "Chat",
+    "match_chat": "MATCH CHAT"
   },
 
   "rules": {

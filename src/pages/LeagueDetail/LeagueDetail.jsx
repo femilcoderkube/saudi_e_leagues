@@ -51,7 +51,7 @@ const LeagueDetail = () => {
   }, [leagueData]);
 
   return (
-    <main className="flex-1 lobby_page--wrapper">
+    <main className="flex-1 lobby_page--wrapper  pb-[5.25rem] sm:pb-0">
       {/* --- dashboard main content back groud --- */}
       <div
         className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
