@@ -85,14 +85,11 @@ socket.on("connect_error", (error) => {
 });
 
 // Inside your main socket.on("connect")
-socket.on(SOCKET.NOTIFICATION, (data) => {
+socket.on(SOCKET.ONNOTIFICATION, (data) => {
+  console.log("Received notification via socket:", data);
   if (data) {
     store.dispatch(setNotificationData({ notification: data }));
   }
-});
-
-socket.on(SOCKET.NOTIFICATION, (data) => {
-  console.log("Received notification via socket:", data);
 });
 
 

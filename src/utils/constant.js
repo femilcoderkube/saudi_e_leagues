@@ -46,6 +46,7 @@ export const SOCKET = {
   JOINUSEROOM: "joinUserRoom",
   GIVEREPUTATION: "giveReputation",
   NOTIFICATION: "notification",
+  ONNOTIFICATION: "onNotification",
   // LEAVEMATCH: "leaveMatch",
 };
 export function generateTailwindGradient(hexColor) {

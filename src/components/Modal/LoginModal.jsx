@@ -33,7 +33,12 @@ const LoginModal = () => {
         toast.error(res.message || t("auth.login_failed"));
         return;
       } else {
-        toast.success(res.message);
+        if (res.data.violation && res.data.banMessage) {
+          toast.error(res.data.violation);
+          toast.error(res.data.banMessage);
+        }else{
+          toast.success(res.message);
+        }
       }
       dispatch(setLogin(false));
     } catch (error) {

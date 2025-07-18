@@ -138,13 +138,14 @@ export default function Main() {
       } else {
         // Register user
         const res = await dispatch(registerUser(formData)).unwrap();
+        console.log("res",res)
         if (res.success) {
           toast.success(
             res?.message ||
             "Registration successful! Please log in to continue."
           );
           // Emit notification socket event for new user registration
-          getNotificationSocket({ isSocketConnected });
+          getNotificationSocket({ userId: res?.data?.user?._id });
           dispatch(setRegisteration(false));
           if (window.location.pathname.includes("/lobby")) {
             dispatch(setActiveTabIndex(0));
