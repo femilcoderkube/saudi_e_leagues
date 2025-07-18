@@ -173,6 +173,6 @@ export function sendMatchMsg(body) {
 export function giveReputation(body) {
   socket.emit(SOCKET.GIVEREPUTATION, body);
 }
-export function sendNotificationSocket() {
+export function getNotificationSocket() {
   socket.on(SOCKET.NOTIFICATION);
 }
