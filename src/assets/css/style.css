@@ -470,6 +470,9 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
   .mob-btn_polygon-link.submit_score-btn.polygon_border:after {
     width: 4rem;
   }
+  .mob-chat-wp{
+    height: 100dvh;
+  }
 
 }
 
