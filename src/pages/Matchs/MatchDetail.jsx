@@ -353,7 +353,7 @@ const MatchDetail = () => {
                     </div>
                   </div>
                   {/* Chat Functionlity */}
-                  <div className="flex flex-col gap-6 p-6 overflow-y-auto custom_scroll h-[43.3rem]" style={{ height: 'calc(100vh - 11rem)' }}>
+                  <div className="flex flex-col gap-6 p-6 overflow-y-auto custom_scroll h-[43.3rem] pb-[6.25rem] sm:pb-0" style={{ height: 'calc(100vh - 11rem)' }}>
                     {chatData?.map((chat, chatIdx) => {
                       console.log("chat", chat?.senderId);
                       if (chat.isSystemMsg) {
