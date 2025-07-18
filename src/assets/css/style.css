@@ -473,6 +473,12 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
   .mob-chat-wp{
     height: 100dvh;
   }
+  .mob-chat-box{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+  }
 
 }
 
