@@ -20,7 +20,7 @@ import { baseURL } from "../../utils/axios";
 import { registerUser } from "../../app/slices/auth/authSlice";
 import { useTranslation } from "react-i18next";
 import Notification_sidebar from "../Notification/notificationsidebar";
-import { sendNotificationSocket } from "../../app/socket/socket";
+import { getNotificationSocket } from "../../app/socket/socket";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -144,7 +144,7 @@ export default function Main() {
             "Registration successful! Please log in to continue."
           );
           // Emit notification socket event for new user registration
-          sendNotificationSocket({ isSocketConnected });
+          getNotificationSocket({ isSocketConnected });
           dispatch(setRegisteration(false));
           if (window.location.pathname.includes("/lobby")) {
             dispatch(setActiveTabIndex(0));

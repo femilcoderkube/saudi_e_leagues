@@ -46,6 +46,7 @@ export const SOCKET = {
   JOINUSEROOM: "joinUserRoom",
   GIVEREPUTATION: "giveReputation",
   NOTIFICATION: "notification",
+  // LEAVEMATCH: "leaveMatch",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range

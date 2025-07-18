@@ -18,6 +18,14 @@ import MatchLoader from "../../components/Loader/MatchLoader";
 import { TeamOneScoreList } from "./teamOneSection";
 import { TeamTwoScoreList } from "./teamTwoSection";
 import { useTranslation } from "react-i18next";
+// import { socket } from "../../app/socket/socket";
+// import { SOCKET } from "../../utils/constant";
+// import { leaveMatchRoom } from "../../app/socket/socket";
+
+// export function leaveMatchRoom(mId, user) {
+//   socket.emit(SOCKET.LEAVEMATCH, { matchId: mId, userId: user._id });
+// }
+
 const MatchDetail = () => {
   const { id, mId } = useParams();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -42,6 +50,10 @@ const MatchDetail = () => {
       startMatchUpdate(mId, user);
     }
     return () => {
+      // // Emit leave event before stopping updates
+      // if (isSocketConnected && mId && user?._id) {
+      //   leaveMatchRoom(mId, user);
+      // }
       stopMatchUpdate();
     };
   }, [isSocketConnected, mId, user]);
