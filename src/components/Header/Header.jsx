@@ -80,8 +80,14 @@ const Header = () => {
   };
   const breadcrumbItems = [];
   let path = new Set(window.location.pathname.split("/")).has("lobby");
+  if(path){
+    dispatch(setActiveTabIndex(0));
+  }else{
+    dispatch(setActiveTabIndex(1));
+  }
   if (params.id) {
     let item = {
+      
       label: t("navigation.home"),
       path: `/${params.id}`,
       icon: Lobby,
@@ -96,7 +102,6 @@ const Header = () => {
     }
   }
   if (path) {
-    dispatch(setActiveTabIndex(0));
     let item = {
       label: t("navigation.lobby"),
       path: `/${params.id}/lobby`,

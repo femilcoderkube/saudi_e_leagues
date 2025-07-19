@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import GetStartedBtn from "../../assets/images/get_started_btn.png";
@@ -12,6 +12,7 @@ import HeroCardSlider from "../../components/HomepageComp/HeroCardSlider.jsx";
 import HtpCardSlider from "../../components/HomepageComp/HtpCardSlider.jsx";
 import Accordation from "../../components/HomepageComp/Accordation.jsx";
 import TimelineCard from "../../components/HomepageComp/TimelineCard.jsx";
+import VideoModal from "../../components/ModalPopUp/VideoModal.jsx";
 import { useTranslation } from "react-i18next";
 import { setActiveTabIndex } from "../../app/slices/constState/constStateSlice.js";
 import { useDispatch } from "react-redux";
@@ -21,6 +22,7 @@ export default function PrimeHome() {
   const { t , i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showVideoModal, setShowVideoModal] = useState(false);
   // <Link to={`/${id}/lobby`}>Go to Lobby</Link>
  
 
@@ -120,11 +122,9 @@ export default function PrimeHome() {
           </div>
           <div className="about_right--con w-full sd_before sd_after relative">
             <div className="sd_play-link relative sd_before before:w-full before:h-full flex flex-col items-center h-full justify-center">
-              <a
-                href="https://drive.google.com/file/d/1pvJp0s79tWODiJHrODesEAPnPIKny2n7/view"
-                className="dropdown-header relative hover:opacity-70 duration-400 flex flex-col items-center cursor-pointer"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => setShowVideoModal(true)}
+                className="dropdown-header relative hover:opacity-70 duration-400 flex flex-col items-center cursor-pointer bg-transparent border-none"
               >
                 <img
                   src={Playbtn}
@@ -134,7 +134,7 @@ export default function PrimeHome() {
                 <span className="md:text-2xl text-lg font-semibold purple_col">
                   {t("homepage.watch_video")}
                 </span>
-              </a>
+              </button>
             </div>
           </div>
         </section>
@@ -258,6 +258,14 @@ export default function PrimeHome() {
               </div>                           
             </section>  
       </div>
+
+      {/* Video Modal */}
+      {showVideoModal && (
+        <VideoModal
+          videoUrl="https://drive.google.com/file/d/1pvJp0s79tWODiJHrODesEAPnPIKny2n7/preview"
+          onClose={() => setShowVideoModal(false)}
+        />
+      )}
     </main>
   );
 }

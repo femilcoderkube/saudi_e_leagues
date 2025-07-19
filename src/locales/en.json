@@ -187,6 +187,7 @@
   "common": {
     "no_data": "No data available",
     "loading": "Loading...",
+    "loading_video": "Loading video...",
     "error": "Error",
     "success": "Success",
     "warning": "Warning",
