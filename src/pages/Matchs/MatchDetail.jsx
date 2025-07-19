@@ -37,6 +37,9 @@ const MatchDetail = () => {
     isShowChat,
     winnerScore,
     showMobileChat,
+    isCaptain,
+    IsSubmited,
+    isEditScore,
   } = useSelector((state) => state.matchs);
   const user = useSelector((state) => state.auth.user);
   const [messageInput, setMessageInput] = useState("");
@@ -120,8 +123,8 @@ const MatchDetail = () => {
                 style={{ width: "17.5rem" }}
               />
             </div>
-            <div className="flex items-center gap-6 mt-[4rem] mb-[1rem]">
-              <div className="mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
+            <div className="flex items-center justify-center gap-6 mt-[4rem] mb-[1rem]">
+              {user && isCaptain && (!IsSubmited || isEditScore != null) && <div className="mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                 <div
                   onClick={() => {
                     dispatch(setSubmitModal(true));
@@ -129,7 +132,7 @@ const MatchDetail = () => {
                   // onClick={}
                   className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center cursor-pointer"
                 >
-                  {t("auth.submit_score")}
+                 {IsSubmited ? t("auth.view_score") : t("auth.submit_score")}
                 </div>
                 <svg
                   width="0"
@@ -167,7 +170,7 @@ const MatchDetail = () => {
                     </clipPath>
                   </defs>
                 </svg>
-              </div>
+              </div>}
               <div className="sm:hidden chat-btn-wp">
                 <div
                   className="inline-flex gap-4 items-center justify-center chat-btn w-[9.95rem] h-[3.5rem] cursor-pointer"
