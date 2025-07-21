@@ -42,26 +42,28 @@ const CustomFileUpload = ({
       />
       <div
         onClick={handleUploadClick}
-        className={`cursor-${
-          hasImage ? "default" : "pointer"
-        } h-32 border-2 border-dashed border-[#7B7ED0] bg-gradient-to-br from-[#09092d] to-[#1a1a4a] p-4 rounded-xl shadow-lg hover:border-blue-500 transition-all duration-300 flex items-center justify-center relative overflow-hidden`}
+        className={`cursor-${hasImage ? "default" : "pointer"} w-[100px] h-[100px] border-2 border-dashed border-[#7B7ED0] bg-gradient-to-br from-[#09092d] to-[#1a1a4a] p-2 rounded-xl shadow-lg hover:border-blue-500 transition-all duration-300 flex items-center justify-center relative overflow-hidden`}
       >
         {hasImage ? (
-          <div className="relative w-full h-full flex items-center justify-center p-2">
-            <img
-              src={previewImage}
-              alt="Preview"
-              className="object-cover h-[90px] max-w-[calc(100%-16px)]  border border-[#09092d]  rounded-md"
-            />
+          <>
+            <div className="w-full h-full absolute top-0 left-0">
+              <img
+                src={previewImage}
+                alt="Preview"
+                className="w-full h-full object-cover border border-[#09092d] rounded-md"
+                style={{ display: "block" }}
+              />
+            </div>
             <button
               onClick={handleRemove}
-              className="absolute top-[-8px] right-20 bg-red-600  text-white rounded-full text-[18px] w-8 h-8 flex items-center justify-center opacity-0 hover:opacity-100 transition-all duration-300 transform hover:scale-110"
+              className="absolute top-1 left-1 bg-red-600 text-white rounded-full text-[18px] w-6 h-6 flex items-center justify-center opacity-80 hover:opacity-100 transition-all duration-300 transform hover:scale-110"
+              type="button"
             >
               <span className="mt-[-3px]">×</span>
             </button>
-          </div>
+          </>
         ) : (
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center w-full h-full">
             <p className="text-[#7B7ED0] text-lg font-medium">
               {isReg ? "Upload Profile Picture" : "Upload Photo"}
             </p>
