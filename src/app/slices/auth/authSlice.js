@@ -25,6 +25,29 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+export const checkBannedUser = createAsyncThunk(
+  "auth/checkBannedUser",
+  async (_,{ rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log("token", token);
+      // API call to login with /admin/login
+      if (!token) {
+        return rejectWithValue("Token not found");
+      }
+      console.log(token);
+      const response = await axiosInstance.get("/BannedUsers/check", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log("error", error);
+      return rejectWithValue(error.response?.data?.message || "Login failed");
+    }
+  }
+);
 
 export const checkUsersExists = createAsyncThunk(
   "users/checkUsersExists",
@@ -208,9 +231,23 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
         toast.error(action.payload);
-      });
+      })
+      // checkBannedUser logic
+      .addCase(checkBannedUser.fulfilled, (state, action) => {
+        if (action.payload.data.violation && action.payload.data.banMessage) {
+          let message = `${action.payload.data.banMessage}`;
+          toast.error(message);
+          state.token = null;
+          state.user = null;
+          state.userDetail = null;
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+        }
+      })
+      
   },
 });
 
-export const { logout, resetRegisterState, clearUserDetail } = authSlice.actions;
+export const { logout, resetRegisterState, clearUserDetail } =
+  authSlice.actions;
 export default authSlice.reducer;

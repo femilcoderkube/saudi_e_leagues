@@ -116,6 +116,107 @@ function VideoModal({ videoUrl, onClose }) {
         </div>
       </div>
     </div>
+    //  <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4">
+    //       <div className="relative bg-gray-900 rounded-2xl overflow-hidden shadow-2xl max-w-4xl w-full">
+    //         {/* Close Button */}
+    //         <button
+    //           onClick={closePopup}
+    //           className="absolute top-4 right-4 z-10 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all duration-200 hover:scale-110"
+    //         >
+    //           <X className="w-6 h-6" />
+    //         </button>
+
+    //         {/* Video Container */}
+    //         <div className="relative">
+    //           <video
+    //             ref={videoRef}
+    //             className="w-full h-auto max-h-[70vh] object-contain"
+    //             src={videoUrl}
+    //             muted={isMuted}
+    //             onClick={togglePlay}
+    //           />
+              
+    //           {/* Play/Pause Overlay */}
+    //           {!isPlaying && (
+    //             <div 
+    //               className="absolute inset-0 flex items-center justify-center cursor-pointer bg-black bg-opacity-20 transition-opacity hover:bg-opacity-30"
+    //               onClick={togglePlay}
+    //             >
+    //               <div className="bg-white bg-opacity-90 rounded-full p-4 hover:bg-opacity-100 transition-all duration-200 hover:scale-110">
+    //                 <Play className="w-12 h-12 text-gray-800" />
+    //               </div>
+    //             </div>
+    //           )}
+    //         </div>
+
+    //         {/* Video Controls */}
+    //         <div className="p-4 bg-gray-800">
+    //           {/* Progress Bar */}
+    //           <div className="mb-4">
+    //             <input
+    //               type="range"
+    //               min="0"
+    //               max="100"
+    //               value={duration ? (currentTime / duration) * 100 : 0}
+    //               onChange={handleProgressChange}
+    //               className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer"
+    //               style={{
+    //                 background: `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${duration ? (currentTime / duration) * 100 : 0}%, #4b5563 ${duration ? (currentTime / duration) * 100 : 0}%, #4b5563 100%)`
+    //               }}
+    //             />
+    //             <div className="flex justify-between text-sm text-gray-300 mt-1">
+    //               <span>{formatTime(currentTime)}</span>
+    //               <span>{formatTime(duration)}</span>
+    //             </div>
+    //           </div>
+
+    //           {/* Control Buttons */}
+    //           <div className="flex items-center justify-between">
+    //             <div className="flex items-center gap-3">
+    //               <button
+    //                 onClick={togglePlay}
+    //                 className="text-white hover:text-purple-400 transition-colors p-2 hover:bg-gray-700 rounded-full"
+    //               >
+    //                 {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+    //               </button>
+                  
+    //               <button
+    //                 onClick={restartVideo}
+    //                 className="text-white hover:text-purple-400 transition-colors p-2 hover:bg-gray-700 rounded-full"
+    //               >
+    //                 <RotateCcw className="w-5 h-5" />
+    //               </button>
+
+    //               <div className="flex items-center gap-2">
+    //                 <button
+    //                   onClick={toggleMute}
+    //                   className="text-white hover:text-purple-400 transition-colors p-2 hover:bg-gray-700 rounded-full"
+    //                 >
+    //                   {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+    //                 </button>
+                    
+    //                 <input
+    //                   type="range"
+    //                   min="0"
+    //                   max="1"
+    //                   step="0.1"
+    //                   value={isMuted ? 0 : volume}
+    //                   onChange={handleVolumeChange}
+    //                   className="w-20 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer"
+    //                 />
+    //               </div>
+    //             </div>
+
+    //             <button
+    //               onClick={toggleFullscreen}
+    //               className="text-white hover:text-purple-400 transition-colors p-2 hover:bg-gray-700 rounded-full"
+    //             >
+    //               <Maximize className="w-5 h-5" />
+    //             </button>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
   );
 }
 

@@ -97,7 +97,7 @@ const MatchDetail = () => {
       className="flex-1 pt-[0.5rem] match_page--wrapper h-full "
       style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
     >
-      <section className="match_team--wrap flex pt-[6rem] justify-between items-end sm:pl-[7.5rem] sm:pr-[7.5rem] pl-[3rem] pr-[3rem]  pb-[5.25rem] sm:pb-0">
+      <section className="match_team--wrap flex pt-[5rem] justify-between items-end sm:pl-[7.5rem] sm:pr-[7.5rem] pl-[3rem] pr-[3rem]  pb-[5.25rem] sm:pb-0">
         <div className="team_score--con flex xl:flex-row flex-col justify-between w-full gap-10 items-center xl:items-start">
           {/* Team 1 */}
           <div className="team_score--wrap max-w-[24.625rem] order-2 xl:order-1">
@@ -116,14 +116,14 @@ const MatchDetail = () => {
               </>
             </h2>
 
-            <div className="prime_logo--con flex justify-center sd_before gradiant_bg relative">
+            <div className="prime_logo--con sm:flex hidden justify-center sd_before gradiant_bg relative">
               <img
                 src={LargePrime}
                 alt={t("images.large_prime")}
                 style={{ width: "17.5rem" }}
               />
             </div>
-            <div className="flex items-center justify-center gap-6 mt-[4rem] mb-[1rem]">
+            <div className="flex items-center justify-center gap-6 mb-[1rem]">
               {user && isCaptain && (!IsSubmited || isEditScore != null) && <div className="mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                 <div
                   onClick={() => {
@@ -460,7 +460,7 @@ const MatchDetail = () => {
                                   chat?.senderId?.profilePicture
                                 )}
                                 alt=""
-                                className="rounded-full"
+                                className="w-10 h-10 rounded-full object-cover"
                               />)}
                             </span>
                           </div>

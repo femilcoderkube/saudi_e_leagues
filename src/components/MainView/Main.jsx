@@ -15,7 +15,7 @@ import {
 } from "../../app/slices/constState/constStateSlice";
 import { countryData } from "../../utils/CountryCodes";
 import { checkParams } from "../../utils/constant";
-import { fetchUserById, updateUser } from "../../app/slices/auth/authSlice";
+import { checkBannedUser, fetchUserById, updateUser } from "../../app/slices/auth/authSlice";
 import { baseURL } from "../../utils/axios";
 import { registerUser } from "../../app/slices/auth/authSlice";
 import { useTranslation } from "react-i18next";
@@ -39,6 +39,9 @@ export default function Main() {
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const { user, userDetail } = useSelector((state) => state.auth);
   const { t } = useTranslation();
+  
+    //  dispatch(checkBannedUser());
+  
 
   const defaultNationality = countryOptions.find(
     (option) => option.value === "Saudi Arabia"
@@ -155,7 +158,9 @@ export default function Main() {
       setLoadingSubmit(false);
     }
   };
-  useEffect(() => {}, [location]);
+  useEffect(() => {
+    dispatch(checkBannedUser());
+  }, [location]);
   useEffect(() => {
     if (profileVisible && user?._id) {
       dispatch(fetchUserById(user?._id));
@@ -173,7 +178,7 @@ export default function Main() {
     > */}
       <Header />
       <main
-        className={`flex-1 game_card_main--con  ${
+        className={`flex-1 game_card_main--con sm:mt-0 mt-19  ${
           checkParams("finding-match") || checkParams("match")
             ? ""
             : "px-4 pt-3 md:px-[4.5rem]"

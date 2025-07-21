@@ -34,15 +34,17 @@ const LeagueDetail = () => {
   const { leagueData, registrationModal } = useSelector(
     (state) => state.leagues
   );
-  const { t  ,i18n} = useTranslation();
-  const isMatctCreated = useSelector((state) => state.constState.isMatctCreated);
+  const { t, i18n } = useTranslation();
+  const isMatctCreated = useSelector(
+    (state) => state.constState.isMatctCreated
+  );
   useEffect(() => {
     let res = startLeagueSocket({ lId, user, isSocketConnected });
     console.log("res", res);
     return () => {
       stopLeagueSocket();
     };
-  }, [isSocketConnected, lId, user, window.location.pathname,isMatctCreated]);
+  }, [isSocketConnected, lId, user, window.location.pathname, isMatctCreated]);
 
   useEffect(() => {
     if (leagueData?.title) {
@@ -61,7 +63,9 @@ const LeagueDetail = () => {
       {registrationModal && <RegistrationModel />}
       {!leagueData ? (
         <GamingLoader />
-      ) : isMatctCreated ? (<GamingLoader />):(
+      ) : isMatctCreated ? (
+        <GamingLoader />
+      ) : (
         <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8">
@@ -75,7 +79,9 @@ const LeagueDetail = () => {
               </div>
               <div className="sd_league--info flex-1">
                 <h1 className="uppercase text-2xl md:text-5xl !font-black tracking-wide">
-                  { i18n.language === "ar" ? leagueData?.titleAr : leagueData?.title || t("league.league_title")}
+                  {i18n.language === "ar"
+                    ? leagueData?.titleAr
+                    : leagueData?.title || t("league.league_title")}
                 </h1>
                 <h2 className="league_price text-2xl md:text-5xl !font-black font_oswald pt-5 sm:pt-3.5 md:pt-10 sm:pb-6 pb-3 yellow_grad-bg grad_text-clip">
                   <span className="icon-saudi_riyal !p-0"></span>
@@ -88,8 +94,9 @@ const LeagueDetail = () => {
             </div>
             <div className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2">
               <div className="player_img flex flex-row items-center gap-2 sm:gap-5">
-              <div className="player_one sd_before relative gradiant_bg con_center w-[41.02rem] h-[27.33rem]">
-                  <img className="absolute top-0 left-0 w-full h-full object-contain"
+                <div className="player_one sd_before relative gradiant_bg con_center w-[41.02rem] h-[27.33rem]">
+                  <img
+                    className="absolute top-0 left-0 w-full h-full object-contain"
                     src={getServerURL(leagueData?.headerPhoto)}
                     alt=""
                     // style={{ width: "41rem" }}
@@ -125,11 +132,8 @@ const LeagueDetail = () => {
           <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-start">
             <div className="sd_content-left order-2 md:order-1">
               <div className="sd_game_info--wrap md:flex-row md:inline-flex hidden gap-3 md:gap-5 items-center justify-center md:justify-baseline w-full">
-              <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
-                  <div
-                   
-                    className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
-                  >
+                <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
+                  <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
                     <img
                       src={getServerURL(leagueData?.game?.logo || "")}
                       alt=""
@@ -138,7 +142,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                      {t("league.game")}
+                        {t("league.game")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {leagueData?.game?.name || ""}
@@ -147,10 +151,7 @@ const LeagueDetail = () => {
                   </div>
                 </div>
                 <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
-                  <div
-                
-                    className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
-                  >
+                  <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
                     <img
                       src={getServerURL(leagueData?.platform?.logo || "")}
                       alt=""
@@ -159,7 +160,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                      {t("league.platform")}
+                        {t("league.platform")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {leagueData?.platform?.name?.toUpperCase() || ""}
@@ -168,10 +169,7 @@ const LeagueDetail = () => {
                   </div>
                 </div>
                 <div className="sd_game-con sd_team_size--info relative sd_before sd_after polygon_border cursor-default">
-                  <div
-                   
-                    className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
-                  >
+                  <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
                     <img
                       src={teamSizeImage}
                       alt=""
@@ -180,7 +178,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                       {t("league.team_size")}
+                        {t("league.team_size")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {" "}
@@ -226,158 +224,13 @@ const LeagueDetail = () => {
                     </clipPath>
                   </defs>
                 </svg> */}
-              </div>
-              {leagueData?.leaderBoard.weekOfTheStartUsers && (
-                <div className="sd_star_bedge--wrap md:flex hidden items-center mt-8 bg-no-repeat justify-between relative py-[0.625rem]">
-                  <div className="sd_bedge_left-con flex items-center gap-4 pl-[2rem]">
-                    <div className="sd_bedge-lable border-r-1 border-[#7b7ed047] pr-6">
-                      <img
-                        src={star_of_week}
-                        alt=""
-                        style={{ width: "6rem" }}
-                      />
-                    </div>
-                    <div className="sd_avtar-info gap-6 p-3 inline-flex justify-between items-center cursor-pointer text-white rounded">
-                      <div className="user_img relative sd_before">
-                      {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                             ?.profilePic ? (
-                         <img
-                         src={getServerURL(
-                           leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                             ?.profilePic
-                         )}
-                         alt=""
-                         className="rounded-[3rem]"
-                         style={{ width: "3rem",height: "3rem" }}
-                       />
-                        ) : (
-                          <div
-                            style={{
-                              width: "3rem",
-                              height: "3rem",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              background: getRandomColor(leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                                ?.username),
-                              color: "#fff",
-                              fontWeight: "bold",
-                              fontSize: "1.5rem",
-                              borderRadius: "50%",
-                            }}
-                          >
-                            {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                              ?.username?.charAt(0)?.toUpperCase() || "?"}
-                          </div>
-                        )}
-                      </div>
-                      <div className="use_con text-left flex flex-col gap-1">
-                        <span className="text-lg">
-                          {
-                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                              ?.fullName
-                          }
-                        </span>
-                        <span className="user_id text-md block text-[#87C9F2]">
-                          @
-                          {
-                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                              ?.username
-                          }
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="sd_score--con horizontal_center absolute">
-                    <h2 className="text-[2rem] !font-extrabold grad_text-clip">
-                      {leagueData?.leaderBoard?.weekOfTheStartUsers?.weeklyScore?.toFixed(
-                        2
-                      )}
-                    </h2>
-                  </div>
-                  <ScoreTicker />
-                </div>
-              )}
-              {/* mobile version */}
-              {leagueData?.leaderBoard.weekOfTheStartUsers && (
-                <div className="bg-[url(./assets/images/mob-star-week-shape.png)] max-w-[21.38rem] w-full flex md:hidden flex-col md:mt-8 bg-no-repeat relative p-5 mx-auto">
-                  <div className="sd_bedge_left-con flex flex-row items-center pb-6 gap-4 w-full">
-                    <div className="sd_bedge-lable border-b-1 border-[#7b7ed047] pb-5 w-full">
-                      <img
-                        src={mob_star_of_week}
-                        alt=""
-                        style={{ width: "12.35rem" }}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between gap-3 pb-8">
-                    <div className="sd_avtar-info gap-6 inline-flex justify-between items-center cursor-pointer text-white rounded">
-                      <div className="user_img relative sd_before">
-                      {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                             ?.profilePic ? (
-                         <img
-                         src={getServerURL(
-                           leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                             ?.profilePic
-                         )}
-                         alt=""
-                         className="rounded-[3rem]"
-                         style={{ width: "3rem",height: "3rem" }}
-                       />
-                        ) : (
-                          <div
-                            style={{
-                              width: "3rem",
-                              height: "3rem",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              background: getRandomColor(leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                                ?.username),
-                              color: "#fff",
-                              fontWeight: "bold",
-                              fontSize: "1.5rem",
-                              borderRadius: "50%",
-                            }}
-                          >
-                            {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                              ?.username?.charAt(0)?.toUpperCase() || "?"}
-                          </div>
-                        )}
-                      </div>
-                      <div className="use_con text-left flex flex-col gap-1">
-                        <span className="text-lg">
-                          {
-                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                              ?.fullName
-                          }
-                        </span>
-                        <span className="user_id md:text-md text-sm block text-[#87C9F2]">
-                          @
-                          {
-                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
-                              ?.username
-                          }
-                        </span>
-                      </div>
-                    </div>
-                  <div className="sd_score--con">
-                    <h2 className="text-[1.5rem] !font-extrabold grad_text-clip">
-                      {leagueData?.leaderBoard?.weekOfTheStartUsers?.weeklyScore?.toFixed(
-                        2
-                      )}
-                    </h2>
-                  </div>
-                  </div>
-                  <ScoreTicker />
-                </div>
-              )}
+              </div>                          
               <LeaderBoard />
             </div>
             <div className="sd_content-right w-full order-0 xl:order-1">
               <GetQueueButton />
-        <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 w-full md:pb-0 pb-6 items-center justify-center md:justify-baseline">
-              <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
+              <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 w-full md:pb-0 pb-6 items-center justify-center md:justify-baseline">
+                <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
                   <Link
                     to={"#"}
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
@@ -390,7 +243,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                      {t("league.game")}
+                        {t("league.game")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {leagueData?.game?.name || ""}
@@ -411,7 +264,7 @@ const LeagueDetail = () => {
                     />
                     <div className="sd_game--con text-center">
                       <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                      {t("league.platform")}
+                        {t("league.platform")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
                         {leagueData?.platform?.name?.toUpperCase() || ""}
@@ -441,29 +294,107 @@ const LeagueDetail = () => {
                       </h4>
                     </div>
                   </Link>
-                </div>                
+                </div>
               </div>
               {/* --- Timeline-card HTML Block Start --- */}
-
+              <div className="flex flex-col gap-6 md:block">
+              <PopUp />   
+              {/* Desktop version */}
+              {leagueData?.leaderBoard.weekOfTheStartUsers && (
+                <div className="mob-star-week bg-[url(./assets/images/mob-star-week-shape.png)] sm:max-w-[30rem] sm:w-full flex flex-col md:mb-[2.4rem] bg-no-repeat bg-center bg-cover relative p-5 mx-auto md:order-2 order-2">
+                  <div className="sd_bedge_left-con border-b-1 border-[#7b7ed047] pb-5 mb-6 flex flex-row items-center justify-between gap-4 w-full">
+                    <div className="sd_bedge-lable">
+                      <img
+                        src={mob_star_of_week}
+                        alt=""
+                        style={{ width: "12.35rem" }}
+                      />
+                    </div>
+                    <div className="prize-pool">
+                      <span className="font-bold text-xl grad_text-clip sm:block hidden">$5.000.000</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between gap-3 pb-9">
+                    <div className="sd_avtar-info gap-6 inline-flex justify-between items-center cursor-pointer text-white rounded">
+                      <div className="user_img relative sd_before">
+                        {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                          ?.profilePic ? (
+                          <img
+                            src={getServerURL(
+                              leagueData?.leaderBoard?.weekOfTheStartUsers
+                                ?.userId?.profilePic
+                            )}
+                            alt=""
+                            className="rounded-[3rem]"
+                            style={{ width: "3rem", height: "3rem" }}
+                          />
+                        ) : (
+                          <div
+                            style={{
+                              width: "3rem",
+                              height: "3rem",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: getRandomColor(
+                                leagueData?.leaderBoard?.weekOfTheStartUsers
+                                  ?.userId?.username
+                              ),
+                              color: "#fff",
+                              fontWeight: "bold",
+                              fontSize: "1.5rem",
+                              borderRadius: "50%",
+                            }}
+                          >
+                            {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId?.username
+                              ?.charAt(0)
+                              ?.toUpperCase() || "?"}
+                          </div>
+                        )}
+                      </div>
+                      <div className="use_con text-left flex flex-col gap-1">
+                        <span className="text-lg">
+                          {
+                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                              ?.fullName
+                          }
+                        </span>
+                        <span className="user_id md:text-md text-sm block text-[#87C9F2]">
+                          @
+                          {
+                            leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
+                              ?.username
+                          }
+                        </span>
+                      </div>
+                    </div>
+                    <div className="sd_score--con">
+                      <h2 className="text-[1.5rem] !font-extrabold grad_text-clip">
+                        {leagueData?.leaderBoard?.weekOfTheStartUsers?.weeklyScore?.toFixed(
+                          2
+                        )}
+                      </h2>
+                    </div>
+                  </div>
+                  <ScoreTicker />
+                </div>
+              )}           
               <TimelineCard />
-              <PopUp />
+              </div>               
             </div>
           </div>
         </div>
       )}
       <svg
-                  width="0"
-                  height="0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ position: "absolute" }}
-                >
-                  <defs>
-                    <clipPath
-                      id="game_polygon_clip"
-                      clipPathUnits="objectBoundingBox"
-                    >
-                      <path
-                        d="
+        width="0"
+        height="0"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ position: "absolute" }}
+      >
+        <defs>
+          <clipPath id="game_polygon_clip" clipPathUnits="objectBoundingBox">
+            <path
+              d="
                         M0.3649,0.0833
                         H0.6351
                         L0.6622,0
@@ -483,10 +414,10 @@ const LeagueDetail = () => {
                         L0.3649,0.0833
                         Z
                       "
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
+            />
+          </clipPath>
+        </defs>
+      </svg>
     </main>
   );
 };

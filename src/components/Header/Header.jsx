@@ -22,6 +22,7 @@ import country_ar from "../../assets/images/ar_lang.png";
 import primeIcon from "../../assets/images/prime_hover.png";
 import menuActiveIcon from "../../assets/images/menu_active_shape.svg";
 import homeIcon from "../../assets/images/mobile_menu_icon_logo.svg";
+import logo_ltr from "../../assets/images/logo-lrt.svg";
 import lobyIcon from "../../assets/images/mobile_menu_icon_star.svg";
 import mobile_menu_icon_user from "../../assets/images/LoginPersone.png";
 // import homeIcon from "../../assets/images/country_us.png";
@@ -80,14 +81,10 @@ const Header = () => {
   };
   const breadcrumbItems = [];
   let path = new Set(window.location.pathname.split("/")).has("lobby");
-  if(path){
-    dispatch(setActiveTabIndex(0));
-  }else{
-    dispatch(setActiveTabIndex(1));
-  }
+  let profile = new Set(window.location.pathname.split("/")).has("profile");
+
   if (params.id) {
     let item = {
-      
       label: t("navigation.home"),
       path: `/${params.id}`,
       icon: Lobby,
@@ -134,6 +131,14 @@ const Header = () => {
       breadcrumbItems.push(item);
     }
   }
+
+  if (path) {
+    dispatch(setActiveTabIndex(0));
+  } else if (profile) {
+    dispatch(setActiveTabIndex(2));
+  }else{
+    dispatch(setActiveTabIndex(1));
+  }
   let mainItem = breadcrumbItems[breadcrumbItems.length - 1];
   if (checkParams("finding-match") || checkParams("match")) {
     if (params.mId) {
@@ -168,7 +173,7 @@ const Header = () => {
                 ? matchData?.league?.title
                 : matchData?.league?.titleAr || t("match.finding_matchmaking")}
             </h2>
-          </div>
+          </div>          
           <div className="flex items-center gap-15">
             {user && isCaptain && (!IsSubmited || isEditScore != null) && (
               <div
@@ -262,7 +267,11 @@ const Header = () => {
             )}
             {!user && (
               <div className="sm:hidden flex">
-                <img className="h-full" src={mobile_menu_icon_user} alt="user" />
+                <img
+                  className="h-full"
+                  src={mobile_menu_icon_user}
+                  alt="user"
+                />
               </div>
             )}
             {user && (
@@ -271,10 +280,13 @@ const Header = () => {
               </div>
             )}
           </div>
+          <div className="mob-logo sm:hidden block">
+            <img className="w-18 h-auto" src={logo_ltr} alt="" />
+          </div>
         </header>
       );
     } else {
-      console.log("breadcrumbItems",breadcrumbItems);
+      console.log("breadcrumbItems", breadcrumbItems);
       return (
         <header
           className="header_teture--bg text-white  sm:py-[2.35rem] py-[2rem] px-[4.5rem] flex items-center justify-center sd_before before:w-full before:h-full relative "
@@ -304,67 +316,42 @@ const Header = () => {
               : leagueData?.titleAr || t("match.finding_matchmaking")}
           </h2>
           <div
-          className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${
-            breadcrumbItems.length == 3 ? "hidden" : ""
-          }${user ? "" : "nav-condition"}`}
-        >
-          <div className="sq__main-wrap h-full">
-            <ul className="listWrap h-full flex justify-around items-center">
-              <li
-                className={`list flex-1 ${isActiveTab == 0 ? "active" : ""}`}
-                onClick={() => {
-                  navigator(`/${params.id}/lobby`);
-                  dispatch(setActiveTabIndex(0));
-                  dispatch(setProfileVisible(false))
-                }}
-              >
-                <a
-                  href="javascript:void(0);"
-                  className="flex flex-wrap gap-1 justify-center items-center"
-                >
-                  <i className="icon inline text-center">
-                    <img
-                      className="w-[2rem] h-[2rem"
-                      src={lobyIcon}
-                      alt="lang"
-                    />
-                  </i>
-                  <span className="text purple_col w-full text-center">
-                    {t("navigation.lobby")}
-                  </span>
-                </a>
-              </li>
-              <li
-                className={`list flex-1 ${isActiveTab == 1 ? "active" : ""}`}
-                onClick={() => {
-                  navigator(`/${params.id}`);
-                  dispatch(setActiveTabIndex(1));
-                  dispatch(setProfileVisible(false))
-                }}
-              >
-                <a
-                  href="javascript:void(0);"
-                  className="flex gap-1 flex-wrap justify-center items-center"
-                >
-                  <i className="icon inline text-center">
-                    <img
-                      className="w-[2rem] h-[2rem"
-                      src={homeIcon}
-                      alt="lang"
-                    />
-                  </i>
-                  <span className="text purple_col w-full text-center">
-                    {t("navigation.home")}
-                  </span>
-                </a>
-              </li>
-              {user && (
+            className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${
+              breadcrumbItems.length == 3 ? "hidden" : ""
+            }${user ? "" : "nav-condition"}`}
+          >
+            <div className="sq__main-wrap h-full">
+              <ul className="listWrap h-full flex justify-around items-center">
                 <li
-                  className={`list flex-1 ${isActiveTab == 2 ? "active" : ""}`}
+                  className={`list flex-1 ${isActiveTab == 0 ? "active" : ""}`}
                   onClick={() => {
-                    navigator(`/${params.id}/profile`);
-                    dispatch(setActiveTabIndex(2));
-                    dispatch(setProfileVisible(false))
+                    navigator(`/${params.id}/lobby`);
+                    dispatch(setActiveTabIndex(0));
+                    dispatch(setProfileVisible(false));
+                  }}
+                >
+                  <a
+                    href="javascript:void(0);"
+                    className="flex flex-wrap gap-1 justify-center items-center"
+                  >
+                    <i className="icon inline text-center">
+                      <img
+                        className="w-[2rem] h-[2rem"
+                        src={lobyIcon}
+                        alt="lang"
+                      />
+                    </i>
+                    <span className="text purple_col w-full text-center">
+                      {t("navigation.lobby")}
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className={`list flex-1 ${isActiveTab == 1 ? "active" : ""}`}
+                  onClick={() => {
+                    navigator(`/${params.id}`);
+                    dispatch(setActiveTabIndex(1));
+                    dispatch(setProfileVisible(false));
                   }}
                 >
                   <a
@@ -374,29 +361,54 @@ const Header = () => {
                     <i className="icon inline text-center">
                       <img
                         className="w-[2rem] h-[2rem"
-                        src={lobyIcon}
+                        src={homeIcon}
                         alt="lang"
                       />
                     </i>
-                    <span class="text purple_col w-full text-center">
-                      {t("navigation.profile")}
+                    <span className="text purple_col w-full text-center">
+                      {t("navigation.home")}
                     </span>
                   </a>
                 </li>
-              )}
-              <li className="m_menu__indicator">
-                <img src={menuActiveIcon} alt="lang" style={{ width: "" }} />
-              </li>
-              <div className="sq__shape-wrap"></div>
-            </ul>
+                {user && (
+                  <li
+                    className={`list flex-1 ${
+                      isActiveTab == 2 ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      navigator(`/${params.id}/profile`);
+                      dispatch(setActiveTabIndex(2));
+                      dispatch(setProfileVisible(false));
+                    }}
+                  >
+                    <a
+                      href="javascript:void(0);"
+                      className="flex gap-1 flex-wrap justify-center items-center"
+                    >
+                      <i className="icon inline text-center">
+                        <img
+                          className="w-[2rem] h-[2rem"
+                          src={lobyIcon}
+                          alt="lang"
+                        />
+                      </i>
+                      <span class="text purple_col w-full text-center">
+                        {t("navigation.profile")}
+                      </span>
+                    </a>
+                  </li>
+                )}
+                <li className="m_menu__indicator">
+                  <img src={menuActiveIcon} alt="lang" style={{ width: "" }} />
+                </li>
+                <div className="sq__shape-wrap"></div>
+              </ul>
+            </div>
           </div>
-        </div>
         </header>
       );
     }
   } else {
-    
-
     return (
       <header className="text-white pt-4 sm:pt-[1.4rem] sm:pb-0 pb-4 px-4 md:px-[4.5rem] ltr:md:pr-7.5 rtl:md:pl-7.5 flex items-center justify-between">
         {/* === BreadCrumb HTML Block start ==== */}
@@ -404,27 +416,27 @@ const Header = () => {
           <ul className="breadcrumb-links flex  items-center gap-2.5 md:gap-5">
             {breadcrumbItems.map((item, index) => (
               <li
-              key={index}
-              className="sm:flex hidden items-center gap-2 sm:gap-4 md:gap-7 "
-            >
-              <div className="breadcrumb-box flex items-center gap-2">
-                <Link
-                  to={item.path}
-                  className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
-                    item.active ? "sky_col font-semibold" : ""
-                  }`}
-                >
-                  {item.label && <item.icon className="text-white" />}
+                key={index}
+                className="sm:flex hidden items-center gap-2 sm:gap-4 md:gap-7 "
+              >
+                <div className="breadcrumb-box flex items-center gap-2">
+                  <Link
+                    to={item.path}
+                    className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
+                      item.active ? "sky_col font-semibold" : ""
+                    }`}
+                  >
+                    {item.label && <item.icon className="text-white" />}
 
-                  {item.label}
-                </Link>
-              </div>
+                    {item.label}
+                  </Link>
+                </div>
 
-              {/* Add arrow only if it's NOT the last item */}
-              {index < breadcrumbItems.length - 1 && (
-                <NextArrow className="text-white" />
-              )}
-            </li>
+                {/* Add arrow only if it's NOT the last item */}
+                {index < breadcrumbItems.length - 1 && (
+                  <NextArrow className="text-white" />
+                )}
+              </li>
             ))}
           </ul>
         </nav>
@@ -434,7 +446,10 @@ const Header = () => {
               key={-1}
               className="flex items-center gap-2 sm:gap-4 md:gap-7"
               onClick={() => {
-                if(mainItem.label != t("navigation.lobby") && mainItem.label != t("navigation.home")){
+                if (
+                  mainItem.label != t("navigation.lobby") &&
+                  mainItem.label != t("navigation.home")
+                ) {
                   navigator(-1);
                 }
               }}
@@ -444,7 +459,7 @@ const Header = () => {
                 (i18n.language === "ar" ? <NextArrow2 /> : <NextArrow3 />)}
               <div className="breadcrumb-box flex items-center gap-2">
                 <Link
-                   to={mainItem.path}
+                  to={mainItem.path}
                   className={`breadcrumb-text flex items-center gap-3 ltr:pl-2 rtl:pr-2 sm:gap-3 text-sm md:text-lg font-bold text-white text-[1.25rem]`}
                 >
                   {mainItem.label &&
@@ -537,11 +552,12 @@ const Header = () => {
           </div>
         )}
         {!user && (
-          <div className="sm:hidden flex ltr:ml-3 rtl:mr-3 "
-          onClick={(e) => {
-            e.preventDefault();
-            dispatch(setLogin(true));
-          }}
+          <div
+            className="sm:hidden flex ltr:ml-3 rtl:mr-3 "
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(setLogin(true));
+            }}
           >
             <img className="h-full" src={mobile_menu_icon_user} alt="user" />
           </div>
@@ -552,7 +568,9 @@ const Header = () => {
           </div>
         )}
         <div
-          className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${user ? "" : "nav-condition"}`}
+          className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${
+            user ? "" : "nav-condition"
+          }`}
         >
           <div className="sq__main-wrap h-full">
             <ul className="listWrap h-full flex justify-around items-center">
@@ -561,7 +579,7 @@ const Header = () => {
                 onClick={() => {
                   navigator(`/${params.id}/lobby`);
                   dispatch(setActiveTabIndex(0));
-                  dispatch(setProfileVisible(false))
+                  dispatch(setProfileVisible(false));
                 }}
               >
                 <a
@@ -585,7 +603,7 @@ const Header = () => {
                 onClick={() => {
                   navigator(`/${params.id}`);
                   dispatch(setActiveTabIndex(1));
-                  dispatch(setProfileVisible(false))
+                  dispatch(setProfileVisible(false));
                 }}
               >
                 <a
@@ -610,7 +628,7 @@ const Header = () => {
                   onClick={() => {
                     navigator(`/${params.id}/profile`);
                     dispatch(setActiveTabIndex(2));
-                    dispatch(setProfileVisible(false))
+                    dispatch(setProfileVisible(false));
                   }}
                 >
                   <a

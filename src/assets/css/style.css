@@ -423,8 +423,12 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
 
 @media (max-width: 639px) {
   header {
-    background-color: #080a2b;
-    /* padding-bottom: 1rem; */
+    background: #080a2b !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
   }
 
   header .sd_radial-bg {
@@ -471,6 +475,7 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
     width: 4rem;
   }
   .mob-chat-wp{
+    z-index: 101;
     height: 100dvh;
   }
   .mob-chat-box{
@@ -496,4 +501,8 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
   .mob-common-btn {
     top: 1.6rem;
   }
+}
+
+.react-pdf__Page {
+  background-color: transparent !important;
 }

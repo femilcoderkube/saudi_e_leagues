@@ -14,10 +14,10 @@ function PopUp() {
   return (
     <>
       {/* Trigger button */}
-      <div className="sd_rules--btn md:mb-10">
+      <div className="sd_rules--btn md:mb-10 md:order-1 order-2">
         <button
           onClick={handleOpen}
-          className="timeline-card__header w-full mt-5 flex items-center gap-3 rounded-xl cursor-pointer relative sd_before sd_after px-4 py-[1.4rem] bg-white hover:bg-gray-100 transition-colors"
+          className="timeline-card__header w-full md:mt-5 flex items-center gap-3 rounded-xl cursor-pointer relative sd_before sd_after px-4 py-[1.4rem] bg-white hover:bg-gray-100 transition-colors"
         >
           <img
             src={rules_icon}

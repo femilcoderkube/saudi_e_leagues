@@ -128,7 +128,8 @@ function PdfModal({ onClose }) {
                 renderTextLayer={true}
                 renderAnnotationLayer={true}
                 width={pageWidth || undefined}
-                className="shadow-md m-4 bg-white scroll-hide"
+                className="m-4 scroll-hide bg-transparent"
+                
               />
             ))}
           </Document>

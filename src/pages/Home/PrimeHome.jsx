@@ -27,7 +27,7 @@ export default function PrimeHome() {
  
 
   return (
-    <main className="flex-1 pt-[0.5rem] home_page--wrapper pb-[5.25rem] sm:pb-0">
+    <main className="flex-1 md:pt-[0.5rem] pt-[1.5rem] home_page--wrapper pb-[5.25rem] sm:pb-0">
       {/* --- dashboard main content back groud --- */}
       <div
         className="main_con--bg absolute top-0 left-0 h-full bg-no-repeat"

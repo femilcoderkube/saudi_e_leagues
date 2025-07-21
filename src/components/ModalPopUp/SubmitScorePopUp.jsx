@@ -14,21 +14,32 @@ import { useTranslation } from "react-i18next";
 
 function SubmitPopUp({ handleClose }) {
   const dispatch = useDispatch();
-  // Temporary variable for URL
-  const { fileUploadLoading } = useSelector((state) => state.matchs); // Get loading state from Redux
+  const { fileUploadLoading } = useSelector((state) => state.matchs);
   const { matchData, isEditScore } = useSelector((state) => state.matchs);
-  const [previewImage, setPreviewImage] = useState(
-    isEditScore?.attachment ? getServerURL(isEditScore?.attachment) : null
+  const initialAttachments = isEditScore?.attachment || [];
+  const [previewImages, setPreviewImages] = useState(
+    initialAttachments.length > 0
+      ? initialAttachments.map((attachment) =>
+          attachment ? getServerURL(attachment) : null
+        )
+      : [null]
   );
+  const [uploadCount, setUploadCount] = useState(
+    initialAttachments.filter((attachment) => attachment !== null).length
+  ); // Count only non-null attachments
   const [team, setTeam] = useState(null);
   const user = useSelector((state) => state.auth.user);
-  // setPreviewImage(isEditScore?.attachment || null);
+  const { t } = useTranslation();
+
   const formik = useFormik({
     initialValues: {
       yourScore: isEditScore?.yourScore || "",
       opponentScore: isEditScore?.opponentScore || "",
       description: isEditScore?.description || "",
-      file: isEditScore?.attachment || null,
+      scoreProofs:
+        initialAttachments.length > 0
+          ? [...initialAttachments] // Preserve nulls from the array
+          : [null],
     },
     validationSchema: Yup.object({
       yourScore: Yup.number()
@@ -39,53 +50,87 @@ function SubmitPopUp({ handleClose }) {
         .typeError("Please enter a valid number")
         .required("Opponent score is required")
         .min(0, "Score cannot be negative"),
-      description: Yup.string(), // Optional field
-      file: Yup.mixed().required("An image is required"),
+      description: Yup.string(),
+      scoreProofs: Yup.array()
+        .of(Yup.mixed().nullable())
+        .test(
+          "at-least-one-file",
+          "At least one score proof is required",
+          (value) => value.some((file) => file !== null)
+        ),
     }),
     onSubmit: async (values) => {
       try {
-        // Upload the file
-        const uploadResult =
-          values.file == isEditScore.attachment
-            ? { data: isEditScore.attachment }
-            : await dispatch(uploadFile(values.file)).unwrap();
+        const uploadPromises = values.scoreProofs.map((file, index) =>
+          file && file !== (isEditScore?.attachment?.[index] || null)
+            ? dispatch(uploadFile(file)).unwrap()
+            : Promise.resolve({ data: file })
+        );
+        const uploadResults = await Promise.all(uploadPromises);
+        const uploadedFiles = uploadResults.map((result) => result.data);
+
         let data = {
           team: team,
-          matchId: matchData?._id || "", // Use matchData from Redux state
+          matchId: matchData?._id || "",
           yourScore: values.yourScore,
           opponentScore: values.opponentScore,
           description: values.description,
-          attachment: uploadResult.data,
+          attachment: uploadedFiles,
           submittedBy: user?._id,
         };
-        console.log("Submit Data:", data);
         socket.emit(SOCKET.ONSUBMIT, data);
-        // Clear form and close modal after successful upload
         formik.resetForm();
+        setPreviewImages([null]);
+        setUploadCount(0);
         handleClose();
       } catch (error) {
         console.error("File upload failed:", error);
-        // Optionally show error message to user
       }
     },
   });
 
-  const handleFileChange = (file) => {
-    formik.setFieldValue("file", file); // Update Formik file field
+  const handleFileChange = (index, file) => {
+    const currentFiles = formik.values.scoreProofs.filter(
+      (f) => f !== null
+    ).length;
+    if (uploadCount >= 5 && file && formik.values.scoreProofs[index] === null) {
+      return; // Prevent new uploads beyond 5, but allow replacements
+    }
+
+    const newScoreProofs = [...formik.values.scoreProofs];
+    const newPreviewImages = [...previewImages];
+
     if (file) {
+      if (newScoreProofs[index] === null) {
+        setUploadCount((prev) => prev + 1); // Increment only for new uploads in null slots
+      }
+      newScoreProofs[index] = file;
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result); // Set preview image
+        newPreviewImages[index] = reader.result;
+        setPreviewImages(newPreviewImages);
       };
       reader.readAsDataURL(file);
     } else {
-      setPreviewImage(null);
+      newScoreProofs[index] = null;
+      newPreviewImages[index] = null;
+      setPreviewImages(newPreviewImages);
     }
+
+    formik.setFieldValue("scoreProofs", newScoreProofs);
   };
 
-  const handleRemove = () => {
-    formik.setFieldValue("file", null); // Clear file in Formik
-    setPreviewImage(null); // Clear preview
+  const handleRemove = (index) => {
+    const newScoreProofs = [...formik.values.scoreProofs];
+    newScoreProofs[index] = null;
+    formik.setFieldValue("scoreProofs", newScoreProofs);
+
+    const newPreviewImages = [...previewImages];
+    newPreviewImages[index] = null;
+    setPreviewImages(newPreviewImages);
+    if (formik.values.scoreProofs[index] !== null) {
+      setUploadCount((prev) => prev - 1); // Decrement uploadCount only if removing a non-null file
+    }
   };
 
   const handlePointInput = (e) => {
@@ -105,13 +150,11 @@ function SubmitPopUp({ handleClose }) {
       "Enter",
       "ArrowLeft",
       "ArrowRight",
-      ".", // Allow decimal point
+      ".",
     ];
     if (
       allowedKeys.includes(e.key) ||
-      // Allow Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
       (e.ctrlKey && ["a", "c", "v", "x"].includes(e.key.toLowerCase())) ||
-      // Allow only digits (0-9), block minus sign
       (/^\d$/.test(e.key) && e.key !== "-")
     ) {
       return;
@@ -125,22 +168,23 @@ function SubmitPopUp({ handleClose }) {
     );
     setTeam(isInTeam1 ? "team1" : "team2");
   }, []);
-  // Determine if the submit button should be disabled
+
   const isSubmitDisabled =
     !formik.isValid || !formik.dirty || fileUploadLoading;
 
-  const { t } = useTranslation();
+  // Render exactly 3 slots, handling null values
+  const renderSlots = [0, 1, 2];
 
   return (
     <>
       <div
-        className="fixed inset-0 popup-overlay transition-opacity  submit__score--popup "
+        className="fixed inset-0 popup-overlay transition-opacity submit__score--popup"
         aria-hidden="true"
       ></div>
 
       <div className="fixed modal_popup-con inset-0 overflow-y-auto flex justify-center items-center z-50">
         <div className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
-          <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-[42rem]">
+          <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-[48rem]">
             <div className="popup_header px-8 pt-4 flex items-start ltr:justify-end mt-3 text-center sm:mt-0 sm:text-left rtl:justify-start rtl:text-right">
               <div className="flex items-center gap-2 absolute left-12 top-5">
                 <span className="text-[#7B7ED0] font-bold text-lg">{team}</span>
@@ -275,25 +319,33 @@ function SubmitPopUp({ handleClose }) {
                 </svg>
               </div>
 
-              <div className="text-center w-[24rem]">
-                <div className="relative">
-                  <CustomFileUpload
-                    hasImage={!!previewImage}
-                    onFileChange={handleFileChange}
-                    previewImage={previewImage}
-                    onRemove={handleRemove}
-                  />
-                  <p className="text-[#7B7ED0] text-sm mt-1">
-                    {t("upload.score_proof")}{" "}
-                    <span className="text-red-500">*</span>
-                  </p>
-                  {formik.touched.file && formik.errors.file && (
-                    <p className="text-red-500 text-sm mt-1 text-left ml-8">
-                      {formik.errors.file}
+              <div className="text-center w-[24rem] flex flex-row gap-4 justify-between">
+                {renderSlots.map((index) => (
+                  <div key={index} className="relative flex-1">
+                    <CustomFileUpload
+                      hasImage={!!previewImages[index]}
+                      onFileChange={(file) => handleFileChange(index, file)}
+                      previewImage={previewImages[index]}
+                      onRemove={() => handleRemove(index)}
+                      disabled={uploadCount >= 5 && !previewImages[index]}
+                    />
+                    <p className="text-[#7B7ED0] text-sm mt-1">
+                      {t("upload.score_proof")}
+                      {index === 0 && <span className="text-red-500">*</span>}
                     </p>
-                  )}
-                </div>
+                  </div>
+                ))}
               </div>
+              {uploadCount >= 5 && (
+                <p className="text-red-500 text-sm mt-1 text-left ml-8">
+                  {t("upload.max_upload_limit", { limit: 5 })}
+                </p>
+              )}
+              {formik.touched.scoreProofs && formik.errors.scoreProofs && (
+                <p className="text-red-500 text-sm mt-1 text-left ml-8">
+                  {formik.errors.scoreProofs}
+                </p>
+              )}
             </div>
             <div className="popup_footer sm:px-12 px-8 pt-6">
               <button
@@ -336,7 +388,6 @@ function SubmitPopUp({ handleClose }) {
             </div>
           </div>
 
-          {/* === SVG Clip Path === */}
           <svg
             width="0"
             height="0"
@@ -348,7 +399,7 @@ function SubmitPopUp({ handleClose }) {
               <clipPath id="myClipPath" clipPathUnits="objectBoundingBox">
                 <path
                   transform="scale(0.00208333, 0.00240385)"
-                  d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L24 0H480V100Z"
+                  d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L16 0H480V100Z"
                 />
               </clipPath>
             </defs>

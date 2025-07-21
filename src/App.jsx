@@ -21,6 +21,7 @@ import MatchDetail from "./pages/Matchs/MatchDetail.jsx";
 import './i18n';
 import { useTranslation } from 'react-i18next';
 import UserProfilePage from "./pages/profile/UserProfilePage.jsx";
+import ResetPasswordPage from "./pages/profile/resetPassword.jsx";
 
 function App() {
   const { i18n } = useTranslation();
@@ -42,6 +43,7 @@ function App() {
       <div className="flex">
         <Sidebar onItemClick={handleItemClick} selectedItem={selectedItem} />
         <Routes>
+          <Route path="resetpassword" element={<ResetPasswordPage />} />
           {/* <Route index element={<MainView selectedItem={selectedItem} />} /> */}
           <Route path="/" element={<Navigate to="/prime" />} />
           {/* Redirect "/:id" to "/:id/lobby" */}

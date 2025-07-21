@@ -29,7 +29,7 @@ function TimeOverPopup({
         aria-hidden="true"
       ></div>
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
-        <div className="popup-wrap inline-flex items-center h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
+        <div className="timeout-popup popup-wrap inline-flex items-center justify-center h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
           <div className="match_reg--popup relative sd_before sd_after">
             <div className="popup_header px-8 pt-8 pb-5 flex items-start justify-between mt-3 text-center sm:mt-0 sm:text-left">
               <img

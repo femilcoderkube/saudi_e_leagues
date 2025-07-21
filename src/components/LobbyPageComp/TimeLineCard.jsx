@@ -10,7 +10,7 @@ const TimelineCard = () => {
   const { t ,i18n} = useTranslation();
 
   return (
-    <div className="timeline-card rounded-xl overflow-hidden bg-[#0E123A] text-white">
+    <div className="timeline-card rounded-xl overflow-hidden bg-[#0E123A] text-white md:order-3 order-1">
       <div className="timeline-card__header flex items-center gap-3 px-4 py-[1.4rem] border-b border-[#2A2F64]">
         <img
           className="sm:w-[1.75rem] w-[1.5rem]"

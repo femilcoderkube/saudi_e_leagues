@@ -46,9 +46,10 @@ const Sidebar = ({ onItemClick }) => {
   };
 
   const activeItem = getActiveItem();
-
+  let resetpassword = new Set(window.location.pathname.split("/")).has("resetpassword");
+  
   return (
-    <aside className="w-[22.5rem] text-white hidden md:block">
+    <aside className={`w-[22.5rem] text-white ${resetpassword ? "hidden" : "hidden md:block"}`}>
       <Link
         to={"/"}
         className="sd_logo flex items-center h-[7.438rem] ltr:justify-start rtl:justify-end rtl:pl-16 bg-[url(./assets/images/logo-background.svg)] bg-cover bg-no-repeat object-center"
