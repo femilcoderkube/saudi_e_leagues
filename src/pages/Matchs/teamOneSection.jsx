@@ -44,7 +44,7 @@ export const TeamOneScoreList = () => {
           profilePic: getServerURL(
             player?.participant?.userId?.profilePicture || ""
           ),
-          score: Math.round(player?.allScores || 0),
+          score: Math.round(player?.leaguesScore || 0),
         };
 
         let IsReputationGived = matchData?.givedReputations?.find(
