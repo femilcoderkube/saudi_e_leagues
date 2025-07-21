@@ -188,7 +188,7 @@ const MatchDetail = () => {
               {isShowChat && (
                 <div className="chat_block--con pt-[1rem] h-[25rem] sd_before relative flex flex-col max-w-lg mx-auto">
                   <div
-                    className="flex-1 chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4"
+                    className="flex-1 flex flex-col-reverse mx-h-[20rem] chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4"
                     // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
                   >
                     <div className="flex flex-col space-y-1">

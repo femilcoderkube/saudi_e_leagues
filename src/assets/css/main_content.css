@@ -167,7 +167,7 @@ html[dir=rtl] .player_score {
 }
 
 .sd_ticker-box {
-  width: 2.5rem;
+  width: 2.55rem;
   height: 3rem;
   background: linear-gradient(90deg,
       rgba(45, 46, 109, 0.92) 0%,
@@ -1059,6 +1059,7 @@ html[dir=rtl] .notification-box-wp.polygon_border:after {
   .mob-star-week{
     background: url(/src/assets/images/mob-star-week-shape-small.png);
     background-repeat: no-repeat;
+    background-size: contain;
     width:21.4rem;
   }
 }
@@ -1106,5 +1107,9 @@ html[dir=rtl] .notification-box-wp.polygon_border:after {
   .sd_game-con.polygon_border:before,
   .sd_game-con.polygon_border:after {
     width: 1.2rem;
+  }
+
+    .mob-star-week{
+    width:21rem;
   }
 }

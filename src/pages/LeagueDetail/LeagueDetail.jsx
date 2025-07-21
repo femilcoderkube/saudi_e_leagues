@@ -314,8 +314,8 @@ const LeagueDetail = () => {
                       <span className="font-bold text-xl grad_text-clip sm:block hidden">$5.000.000</span>
                     </div> */}
                   </div>
-                  <div className="flex items-center justify-between gap-3 pb-9">
-                    <div className="sd_avtar-info gap-6 inline-flex justify-between items-center cursor-pointer text-white rounded">
+                  <div className="flex items-center justify-between gap-3 pb-8">
+                    <div className="sd_avtar-info gap-6 inline-flex justify-between sm:pl-6 items-center cursor-pointer text-white rounded">
                       <div className="user_img relative sd_before">
                         {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId
                           ?.profilePic ? (
