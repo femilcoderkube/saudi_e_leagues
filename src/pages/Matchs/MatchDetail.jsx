@@ -171,7 +171,7 @@ const MatchDetail = () => {
                   </defs>
                 </svg>
               </div>}
-              <div className="sm:hidden chat-btn-wp">
+             { isShowChat && <div className="sm:hidden chat-btn-wp">
                 <div
                   className="inline-flex gap-4 items-center justify-center chat-btn w-[9.95rem] h-[3.5rem] cursor-pointer"
                   onClick={() => dispatch(setshowMobileChat(true))}
@@ -182,7 +182,7 @@ const MatchDetail = () => {
                   </span>
                   <img src={ChatArr} alt="" />
                 </div>
-              </div>
+              </div>}
             </div>
             <div className="sm:block hidden">
               {isShowChat && (
