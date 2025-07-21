@@ -73,7 +73,7 @@ export const Tiktok = () => (
     />
   </svg>
 );
-export const Prime = () => (
+export const Prime = ({IsActive = false}) => (
   <svg
     width="2.5rem"
     height="2.5rem"
@@ -83,11 +83,11 @@ export const Prime = () => (
   >
     <path
       d="M29.5 6V20.5L23.5 24V33.5L19 36L11 34V10.5L22 4L29.5 6ZM17.5 14.5V33L20 31.5V22L27 18V9L17.5 14.5Z"
-      fill="#7B7ED0"
+      fill={IsActive ? "#3eccf3" : "#7B7ED0"}
     />
   </svg>
 );
-export const Lobby = () => (
+export const Lobby = ({IsActive = false}) => (
   <svg
     className="w-[2rem] h-[2rem] sm:w-[2.5rem] sm:h-[2.5rem]"
     width="2.5rem"
@@ -98,7 +98,7 @@ export const Lobby = () => (
   >
     <path
       d="M33.5762 19.6533L19.9219 33.5752L6 19.9219L19.6533 6L33.5762 19.6533ZM16.9346 17.5771L10 20.1426L16.9346 22.708L19.5 29.6426L22.0654 22.708L29 20.1426L22.0654 17.5771L19.5 10.6426L16.9346 17.5771Z"
-      fill="#7B7ED0"
+      fill={IsActive ? "#3eccf3" : "#7B7ED0"}
     />
     <path
       d="M19.4992 17.3441L19.7486 17.5248L19.9985 17.3443L30.4634 9.74703L23.1513 20.2576L22.9817 20.5016L23.1526 20.7445L30.3414 30.9565L20.0042 23.1608L19.7556 22.9726L19.5015 23.1544L9.03405 30.6294L16.3473 20.2452L16.5218 19.9964L16.344 19.7507L9.15987 9.83986L19.4992 17.3441Z"

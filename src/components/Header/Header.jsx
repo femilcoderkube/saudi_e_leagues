@@ -87,7 +87,7 @@ const Header = () => {
     let item = {
       label: t("navigation.home"),
       path: `/${params.id}`,
-      icon: Lobby,
+      icon: Prime,
       active: true,
     };
     if (
@@ -416,17 +416,17 @@ const Header = () => {
           <ul className="breadcrumb-links flex  items-center gap-2.5 md:gap-5">
             {breadcrumbItems.map((item, index) => (
               <li
-                key={index}
-                className="sm:flex hidden items-center gap-2 sm:gap-4 md:gap-7 "
-              >
-                <div className="breadcrumb-box flex items-center gap-2">
-                  <Link
-                    to={item.path}
-                    className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
-                      item.active ? "sky_col font-semibold" : ""
-                    }`}
-                  >
-                    {item.label && <item.icon className="text-white" />}
+              key={index}
+              className="sm:flex hidden items-center gap-2 sm:gap-4 md:gap-7 "
+            >
+              <div className="breadcrumb-box flex items-center gap-2">
+                <Link
+                  to={item.path}
+                  className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
+                    item.active ? "sky_col font-semibold" : ""
+                  }`}
+                >
+                  {item.label && <item.icon IsActive={item.active} className="text-white" />}
 
                     {item.label}
                   </Link>
@@ -464,7 +464,7 @@ const Header = () => {
                 >
                   {mainItem.label &&
                     (mainItem.label !== t("navigation.home") ? (
-                      <mainItem.icon className="text-white" />
+                      <mainItem.icon IsActive={mainItem.active} className="text-white" />
                     ) : (
                       <img
                         src={primeIcon}

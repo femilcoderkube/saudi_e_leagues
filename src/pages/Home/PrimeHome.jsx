@@ -262,7 +262,6 @@ export default function PrimeHome() {
       {/* Video Modal */}
       {showVideoModal && (
         <VideoModal
-          videoUrl="https://drive.google.com/file/d/1pvJp0s79tWODiJHrODesEAPnPIKny2n7/preview"
           onClose={() => setShowVideoModal(false)}
         />
       )}

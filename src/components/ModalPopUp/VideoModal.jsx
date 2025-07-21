@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import center_league from "../../assets/images/center_league.png";
 
-function VideoModal({ videoUrl, onClose }) {
+function VideoModal({ onClose }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
+  const videoRef = useRef(null);
+
+  // Hardcoded video URL as per instruction
+  const videoUrl = "https://backend.primeeleague.com/api/v1/uploads/homepageVideo.mp4";
 
   // Trigger animation on mount
   useEffect(() => {
@@ -44,8 +48,6 @@ function VideoModal({ videoUrl, onClose }) {
         }`}
         onClick={(e) => e.stopPropagation()}
         style={{
-          
-         
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -85,7 +87,6 @@ function VideoModal({ videoUrl, onClose }) {
                   className="center-league-loader animate-pulse ml-8 w-10"
                   src={center_league}
                   alt="Loading..."
-                  
                 />
                 <p className="text-white text-lg mt-4 animate-pulse">
                   {t("common.loading_video") || "Loading video..."}
@@ -95,14 +96,13 @@ function VideoModal({ videoUrl, onClose }) {
           )}
 
           {/* Video Player */}
-          <iframe
-            src={`${videoUrl}`}
-            title="Video Player"
+          <video
+            ref={videoRef}
+            src={videoUrl}
+            controls
+            autoPlay={true}
             className="rounded-lg"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            onLoad={handleVideoLoad}
+            onCanPlay={handleVideoLoad}
             onError={handleVideoError}
             style={{
               display: isLoading ? "none" : "block",
@@ -112,7 +112,9 @@ function VideoModal({ videoUrl, onClose }) {
               objectFit: "contain",
               background: "#000",
             }}
-          />
+          >
+            {t("common.video_not_supported") || "Your browser does not support the video tag."}
+          </video>
         </div>
       </div>
     </div>
