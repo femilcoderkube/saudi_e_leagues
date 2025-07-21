@@ -52,6 +52,7 @@ export const fetchLeagues = createAsyncThunk(
       if (filter || filter != "All") {
         params.filter = filter;
       }
+      params.limit = 100;
       console.log("tabs----", params);
       const response = await axiosInstance.get("/leagues/user", {
         params: params,

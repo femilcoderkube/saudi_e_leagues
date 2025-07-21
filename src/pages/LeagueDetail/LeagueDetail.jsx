@@ -145,7 +145,7 @@ const LeagueDetail = () => {
                         {t("league.game")}
                       </p>
                       <h4 className="text-lg md:text-xl font-bold">
-                        {leagueData?.game?.name || ""}
+                        {leagueData?.game?.shortName || ""}
                       </h4>
                     </div>
                   </div>
@@ -300,7 +300,7 @@ const LeagueDetail = () => {
               <div className="flex flex-col gap-6 md:block">
               <PopUp />   
               {/* Desktop version */}
-              {leagueData?.leaderBoard.weekOfTheStartUsers && (
+              {leagueData?.leaderBoard.weekOfTheStartUsers && leagueData?.isWeekOfTheStar &&  (
                 <div className="mob-star-week bg-[url(./assets/images/mob-star-week-shape.png)] sm:max-w-[30rem] sm:w-full flex flex-col md:mb-[2.4rem] bg-no-repeat bg-center bg-cover relative p-5 mx-auto md:order-2 order-2">
                   <div className="sd_bedge_left-con border-b-1 border-[#7b7ed047] pb-5 mb-6 flex flex-row items-center justify-between gap-4 w-full">
                     <div className="sd_bedge-lable">
