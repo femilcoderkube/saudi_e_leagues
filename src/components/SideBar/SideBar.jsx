@@ -138,7 +138,7 @@ const Sidebar = ({ onItemClick }) => {
         </Link> */}
 
         {/* === Social Links Block Start === */}
-        <div className="sd_social--block flex flex-col mt-auto w-full pb-6">
+        <div className="sd_social--block flex flex-col mt-auto max-w-full pb-6">
           {/* <h2 className="text-[2rem] font_oswald max-w-full px-8 tracking-wide uppercase">
             Follow Us
           </h2> */}
