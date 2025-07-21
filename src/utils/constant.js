@@ -460,13 +460,13 @@ export function getServerURL(path) {
   return `${baseURL}/api/v1/${path}`;
 }
 export function getDigitList(num) {
-  if (num == null) return Array(6).fill(0);
+  if (num == null) return Array(8).fill(0);
   const digits = num.toString().split("").map(Number);
   // Take the first 6 digits if more than 6, otherwise pad at the start
   const firstSix =
-    digits.length >= 6
-      ? digits.slice(0, 6)
-      : Array(6 - digits.length)
+    digits.length >= 8
+      ? digits.slice(0, 8)
+      : Array(8 - digits.length)
           .fill(0)
           .concat(digits);
   return firstSix;

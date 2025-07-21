@@ -310,9 +310,9 @@ const LeagueDetail = () => {
                         style={{ width: "12.35rem" }}
                       />
                     </div>
-                    <div className="prize-pool">
+                    {/* <div className="prize-pool">
                       <span className="font-bold text-xl grad_text-clip sm:block hidden">$5.000.000</span>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="flex items-center justify-between gap-3 pb-9">
                     <div className="sd_avtar-info gap-6 inline-flex justify-between items-center cursor-pointer text-white rounded">
