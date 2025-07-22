@@ -12,7 +12,7 @@ import Main from "./components/MainView/Main";
 // import MainView from "./components/MainView/SelectGame.jsx";
 // import Main from "./components/MainView/WizardForm.jsx";
 
-import "./App.css";
+// import "./App.css";
 import Lobby from "./pages/Lobby/Lobby.jsx";
 import PrimeHome from "./pages/Home/PrimeHome.jsx";
 import LeagueDetail from "./pages/LeagueDetail/LeagueDetail.jsx";

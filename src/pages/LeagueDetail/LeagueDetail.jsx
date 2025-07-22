@@ -66,7 +66,7 @@ const LeagueDetail = () => {
       ) : isMatctCreated ? (
         <GamingLoader />
       ) : (
-        <div className="sd_content-wrapper max-w-full">
+        <div className="sd_content-wrapper">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8">
             <div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1">
