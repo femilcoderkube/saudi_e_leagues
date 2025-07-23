@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Sel_game from "../../assets/images/sel_game.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { baseURL } from "../../utils/axios";
+
 import {
   fetchGames,
   setGameDropDownOpen,

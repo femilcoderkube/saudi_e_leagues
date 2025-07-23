@@ -28,7 +28,8 @@
     }
 
     .modal_popup-con,.popup-overlay{
-        width: calc(100% - 20rem);
+        /* width: calc(100% - 20rem); */
+        width: 100%;
         right: 0;
         left: auto;
     }

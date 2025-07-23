@@ -15,7 +15,11 @@ import {
 } from "../../app/slices/constState/constStateSlice";
 import { countryData } from "../../utils/CountryCodes";
 import { checkParams } from "../../utils/constant";
-import { checkBannedUser, fetchUserById, updateUser } from "../../app/slices/auth/authSlice";
+import {
+  checkBannedUser,
+  fetchUserById,
+  updateUser,
+} from "../../app/slices/auth/authSlice";
 import { baseURL } from "../../utils/axios";
 import { registerUser } from "../../app/slices/auth/authSlice";
 import { useTranslation } from "react-i18next";
@@ -39,9 +43,8 @@ export default function Main() {
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const { user, userDetail } = useSelector((state) => state.auth);
   const { t } = useTranslation();
-  
-    //  dispatch(checkBannedUser());
-  
+
+  //  dispatch(checkBannedUser());
 
   const defaultNationality = countryOptions.find(
     (option) => option.value === "Saudi Arabia"
@@ -83,7 +86,8 @@ export default function Main() {
           defaultNationality,
         dialCode:
           dialCodeOptions.find(
-            (option) => option.value === (userDetail?.phone?.split("-")[0] || "+966")
+            (option) =>
+              option.value === (userDetail?.phone?.split("-")[0] || "+966")
           ) || defaultDialCode,
         phoneNumber: userDetail?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
         dateOfBirth: user.dateOfBirth
@@ -92,7 +96,9 @@ export default function Main() {
         gender: user.gender || "Male",
         role: user.role || "Player",
         favoriteGame: userDetail?.favoriteGame
-          ? gameOptions?.find((option) => option.value === userDetail?.favoriteGame)
+          ? gameOptions?.find(
+              (option) => option.value === userDetail?.favoriteGame
+            )
           : null,
         profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
       }
@@ -125,9 +131,9 @@ export default function Main() {
           localStorage.setItem("user", JSON.stringify(res?.data));
           dispatch(fetchUserById(user?._id));
           dispatch(setProfileVisible(false));
-          if (window.location.pathname.includes("/lobby")){
+          if (window.location.pathname.includes("/lobby")) {
             dispatch(setActiveTabIndex(0));
-          }else {
+          } else {
             dispatch(setActiveTabIndex(1));
           }
         }
@@ -141,9 +147,9 @@ export default function Main() {
               "Registration successful! Please log in to continue."
           );
           dispatch(setRegisteration(false));
-          if (window.location.pathname.includes("/lobby")){
+          if (window.location.pathname.includes("/lobby")) {
             dispatch(setActiveTabIndex(0));
-          }else {
+          } else {
             dispatch(setActiveTabIndex(1));
           }
         }
@@ -188,9 +194,15 @@ export default function Main() {
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
             <div className="fixed inset-0 flex justify-center items-center z-50">
-            <div className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative
-              ${profileVisible ? 'max-h-[80vh] overflow-y-auto overflow-x-hidden' : ''}`}
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              <div
+                className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative
+              ${
+                profileVisible
+                  ? "h-full sm:max-h-[80vh]  overflow-y-auto overflow-x-hidden match_reg--popup2"
+                  : ""
+              }`}
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">
                     {isRegisteration
@@ -204,9 +216,9 @@ export default function Main() {
                       } else {
                         dispatch(setProfileVisible(false));
                       }
-                      if (window.location.pathname.includes("/lobby")){
+                      if (window.location.pathname.includes("/lobby")) {
                         dispatch(setActiveTabIndex(0));
-                      }else {
+                      } else {
                         dispatch(setActiveTabIndex(1));
                       }
                       setPreviewImage(null);

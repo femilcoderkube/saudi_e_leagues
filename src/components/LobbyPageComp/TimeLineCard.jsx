@@ -1,17 +1,22 @@
 import React from "react";
 import timelineClock from "../../assets/images/timline_clock.png";
 import { formatDateToMonthDay } from "../../utils/constant";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { setTimeLineCard } from "../../app/slices/constState/constStateSlice";
 
 const TimelineCard = () => {
   const { leagueData } = useSelector((state) => state.leagues);
-
+  const { timeLineCard} = useSelector((state)=> state.constState )
+  const dispatch = useDispatch();
   const { t ,i18n} = useTranslation();
 
   return (
     <div className="timeline-card rounded-xl overflow-hidden bg-[#0E123A] text-white md:order-3 order-1">
-      <div className="timeline-card__header flex items-center gap-3 px-4 py-[1.4rem] border-b border-[#2A2F64]">
+      <div className={`timeline-card__header flex items-center gap-3 px-4 py-[1.4rem] border-b border-[#2A2F64] ${timeLineCard ? "ActiveArrow" : ""}`}
+      
+      onClick={()=> dispatch(setTimeLineCard(!timeLineCard))}
+      >
         <img
           className="sm:w-[1.75rem] w-[1.5rem]"
           src={timelineClock}
@@ -21,7 +26,7 @@ const TimelineCard = () => {
           {t("lobby.tournament_timeline")}
         </h3>
       </div>
-      <div className="timeline_container custom_scroll">
+    { <div className={`timeline_container custom_scroll ${timeLineCard ? "hidden md:block" :""}`}>
         <div
           className={`timeline-card__steps p-4 ltr:pr-18 rtl:pl-18 flex flex-col gap-4 sd_before relative`}
         >
@@ -46,7 +51,7 @@ const TimelineCard = () => {
             );
           })}
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

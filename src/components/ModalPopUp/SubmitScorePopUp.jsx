@@ -7,14 +7,16 @@ import { Popup_btn } from "../ui/svg/index.jsx";
 import CustomFileUpload from "../ui/svg/UploadFile.jsx";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadFile } from "../../app/slices/MatchSlice/matchDetailSlice.js";
+import { setSubmitScoreLoading, uploadFile } from "../../app/slices/MatchSlice/matchDetailSlice.js";
 import { socket } from "../../app/socket/socket.js";
 import { getServerURL, SOCKET } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
 
 function SubmitPopUp({ handleClose }) {
+  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
+ 
   const dispatch = useDispatch();
-  const { fileUploadLoading } = useSelector((state) => state.matchs);
+  const { fileUploadLoading, submitScoreLoading } = useSelector((state) => state.matchs);
   const { matchData, isEditScore } = useSelector((state) => state.matchs);
   const initialAttachments = isEditScore?.attachment || [];
   const [previewImages, setPreviewImages] = useState(
@@ -24,6 +26,8 @@ function SubmitPopUp({ handleClose }) {
         )
       : [null]
   );
+  const [fileError, setFileError] = useState(null);
+ 
   const [uploadCount, setUploadCount] = useState(
     initialAttachments.filter((attachment) => attachment !== null).length
   ); // Count only non-null attachments
@@ -61,6 +65,7 @@ function SubmitPopUp({ handleClose }) {
     }),
     onSubmit: async (values) => {
       try {
+        dispatch(setSubmitScoreLoading(true));
         const uploadPromises = values.scoreProofs.map((file, index) =>
           file && file !== (isEditScore?.attachment?.[index] || null)
             ? dispatch(uploadFile(file)).unwrap()
@@ -83,6 +88,7 @@ function SubmitPopUp({ handleClose }) {
         setPreviewImages([null]);
         setUploadCount(0);
         handleClose();
+        dispatch(setSubmitScoreLoading(false));
       } catch (error) {
         console.error("File upload failed:", error);
       }
@@ -93,6 +99,14 @@ function SubmitPopUp({ handleClose }) {
     const currentFiles = formik.values.scoreProofs.filter(
       (f) => f !== null
     ).length;
+
+      // Validate file size
+      if (file && file.size > MAX_FILE_SIZE) {
+        setFileError(t("upload.too_large", { limit: "10MB" }));
+        return;
+      }
+      // Clear file error if validation passes
+      setFileError(null);
     if (uploadCount >= 5 && file && formik.values.scoreProofs[index] === null) {
       return; // Prevent new uploads beyond 5, but allow replacements
     }
@@ -170,7 +184,7 @@ function SubmitPopUp({ handleClose }) {
   }, []);
 
   const isSubmitDisabled =
-    !formik.isValid || !formik.dirty || fileUploadLoading;
+    !formik.isValid || !formik.dirty || submitScoreLoading;
 
   // Render exactly 3 slots, handling null values
   const renderSlots = [0, 1, 2];
@@ -319,7 +333,7 @@ function SubmitPopUp({ handleClose }) {
                 </svg>
               </div>
 
-              <div className="text-center max-w-full w-[24rem] flex flex-row gap-4 justify-center">
+              <div className="text-center max-w-full w-[24rem] flex flex-row sm:gap-4 gap-3 justify-center">
                 {renderSlots.map((index) => (
                   <div key={index} className="relative flex-1">
                     <CustomFileUpload
@@ -329,14 +343,19 @@ function SubmitPopUp({ handleClose }) {
                       onRemove={() => handleRemove(index)}
                       disabled={uploadCount >= 5 && !previewImages[index]}
                     />
-                    <p className="text-[#7B7ED0] text-sm mt-1">
+                    <p className="text-[#7B7ED0] text-sm mt-8">
                       {t("upload.score_proof")}
                       {index === 0 && <span className="text-red-500">*</span>}
                     </p>
                   </div>
                 ))}
               </div>
-              {uploadCount >= 5 && (
+              {fileError && (
+                <p className="text-red-500 text-sm mt-1 text-left ml-8">
+                  {fileError}
+                </p>
+              )}
+              {uploadCount >= 5 && !fileError && (
                 <p className="text-red-500 text-sm mt-1 text-left ml-8">
                   {t("upload.max_upload_limit", { limit: 5 })}
                 </p>
@@ -356,7 +375,7 @@ function SubmitPopUp({ handleClose }) {
                   isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >
-                {fileUploadLoading ? (
+                {submitScoreLoading ? (
                   <svg
                     className="animate-spin h-5 w-5 mr-2 text-white"
                     xmlns="http://www.w3.org/2000/svg"
@@ -378,7 +397,7 @@ function SubmitPopUp({ handleClose }) {
                     ></path>
                   </svg>
                 ) : null}
-                {fileUploadLoading
+                {submitScoreLoading
                   ? t("common.uploading")
                   : isEditScore?.yourScore
                   ? t("auth.update")

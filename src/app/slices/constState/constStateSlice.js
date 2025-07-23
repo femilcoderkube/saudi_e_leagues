@@ -12,6 +12,8 @@ const initialState = {
   showNotification :  false,
   isActiveTab : 1,
   isMatctCreated : false,
+  timeLineCard : true,
+  NotificationTabIndex : 0,
 
   countryOptions :countryData.map((country) => ({
     value: country.name,
@@ -27,6 +29,12 @@ const constStateSlice = createSlice({
   name: "constState",
   initialState,
   reducers: {
+    setNotificationTabIndex:(state,action)=>{
+      state.NotificationTabIndex = action.payload;
+    },
+    setTimeLineCard:(state,action)=>{
+      state.timeLineCard = action.payload;
+    },
     setIsMatctCreated:(state,action)=>{
       state.isMatctCreated = action.payload;
     },
@@ -67,6 +75,6 @@ const constStateSlice = createSlice({
   },
 });
 
-export const { setMatchPage ,setMatchLoader ,setLogin ,setRegisteration,setActiveTabIndex,setshowNotification,setProfileVisible ,setSubmitModal,setViewModal ,setPreviewImage,setIsMatctCreated } = constStateSlice.actions;
+export const { setMatchPage,setTimeLineCard ,setMatchLoader ,setLogin ,setRegisteration,setActiveTabIndex,setshowNotification,setProfileVisible ,setSubmitModal,setViewModal ,setPreviewImage,setIsMatctCreated,setNotificationTabIndex  } = constStateSlice.actions;
 
 export default constStateSlice.reducer;

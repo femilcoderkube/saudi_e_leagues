@@ -45,6 +45,9 @@ export const SOCKET = {
   ONSUBMIT: "onSubmit",
   JOINUSEROOM: "joinUserRoom",
   GIVEREPUTATION: "giveReputation",
+  NOTIFICATION: "notification",
+    ONNOTIFICATION: "onNotification",
+    READNOTIFICATION: "readNotification",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range
@@ -507,3 +510,27 @@ export const getRandomColor = (senderId) => {
   const color = `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
   return color;
 };
+export const notificationType = {
+  ACCOUNT_CREATION: 1,
+  JOINING_PRIME_LEAGUE: 2,
+  MOTIVATIONS: 3,
+  MATCHMAKING_QUEUE: 4,
+  POST_MATCH: 5,
+  FIRST_LEAGUE_JOIN: 6
+}
+export const buttonType = {
+  NONE: 0,
+  MAIN_LOBBY: 1,
+  LEAGUE_LOBBY: 2,
+  VIEW_MATCH: 3
+}
+export function getTimeAgo(dateString) {
+  const now = new Date();
+  const date = new Date(dateString);
+  const diff = Math.floor((now - date) / 1000); // difference in seconds
+
+  if (diff < 60) return `${diff}s ago`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return `${Math.floor(diff / 86400)}d ago`;
+}

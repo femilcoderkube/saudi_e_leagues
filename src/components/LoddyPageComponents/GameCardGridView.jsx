@@ -45,7 +45,7 @@ const GameCardGridView = ({ leagues }) => {
                 className="w-[7rem] md:w-[11.25rem]"
               />
             </div>
-            <div className="card_participants absolute z-40">
+            <div className="card_participants absolute z-10">
               <h3 className="part_number text-[1.5rem] md:text-[2rem] !font-bold leading-tight">
                 {item.totalRegistrations}
               </h3>

@@ -12,14 +12,14 @@ import Main from "./components/MainView/Main";
 // import MainView from "./components/MainView/SelectGame.jsx";
 // import Main from "./components/MainView/WizardForm.jsx";
 
-// import "./App.css";
+import "./App.css";
 import Lobby from "./pages/Lobby/Lobby.jsx";
 import PrimeHome from "./pages/Home/PrimeHome.jsx";
 import LeagueDetail from "./pages/LeagueDetail/LeagueDetail.jsx";
 import MatchMaking from "./pages/Matchs/MatchMacking.jsx";
 import MatchDetail from "./pages/Matchs/MatchDetail.jsx";
-import './i18n';
-import { useTranslation } from 'react-i18next';
+import "./i18n";
+import { useTranslation } from "react-i18next";
 import UserProfilePage from "./pages/profile/UserProfilePage.jsx";
 import ResetPasswordPage from "./pages/profile/resetPassword.jsx";
 
@@ -27,9 +27,9 @@ function App() {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    const dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.setAttribute('dir', dir);
-    document.body.setAttribute('dir', dir); // for extra safety
+    const dir = i18n.language === "ar" ? "rtl" : "ltr";
+    document.documentElement.setAttribute("dir", dir);
+    document.body.setAttribute("dir", dir); // for extra safety
   }, [i18n.language]);
 
   const [selectedItem, setSelectedItem] = useState("PrimeHome");

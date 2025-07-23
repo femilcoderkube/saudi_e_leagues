@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import "../../assets/css/Matchmaking.css";
 
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
 import ChatIcon from "../../assets/images/chat_icon.png";
 import ChatArr from "../../assets/images/chat_arr.png";
-import ProfileMsg from "../../assets/images/profile-msg.png";
 import { Link, useParams } from "react-router-dom";
 import {
   getPartnerById,
@@ -82,7 +81,13 @@ const MatchDetail = () => {
       setMessageInput("");
     }
   };
-
+const scrollAnchorRef = useRef(null);
+ useEffect(() => {
+    // Scroll to the invisible anchor (which is at the top due to flex-col-reverse)
+    if (scrollAnchorRef.current ) {
+      scrollAnchorRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [chatData]);
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSendMessage();
@@ -191,6 +196,7 @@ const MatchDetail = () => {
                     className="flex-1 flex flex-col-reverse mx-h-[20rem] chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4"
                     // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
                   >
+                      <div ref={scrollAnchorRef}></div>
                     <div className="flex flex-col space-y-1">
                       {chatData?.map((chat, chatIdx) => {
                         if (chat.isSystemMsg) {
@@ -341,6 +347,7 @@ const MatchDetail = () => {
               )}
             </div>
             {showMobileChat && (
+              <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-100">
               <div className="mob-chat-wp sm:hidden w-full max-w-[19rem] fixed top-0 ltr:right-0 rtl:left-0 z-11 bg-slate-900 text-white  flex flex-col justify-between">
                 {/* Header */}
                 <div className="block">
@@ -356,7 +363,11 @@ const MatchDetail = () => {
                     </div>
                   </div>
                   {/* Chat Functionlity */}
-                  <div className="flex flex-col gap-6 p-6 overflow-y-auto custom_scroll h-[43.3rem] pb-[6.25rem] sm:pb-0" style={{ height: 'calc(100vh - 11rem)' }}>
+               <div className="flex flex-col-reverse gap-6 p-6 overflow-y-auto custom_scroll mx-h-[43.3rem] pb-[6.25rem] sm:pb-0" style={{ height: 'calc(100vh - 6rem)' }}>
+                   <div ref={scrollAnchorRef}></div>
+                  <div className="flex flex-col gap-6" >
+               
+                  
                     {chatData?.map((chat, chatIdx) => {
                       console.log("chat", chat?.senderId);
                       if (chat.isSystemMsg) {
@@ -518,6 +529,7 @@ const MatchDetail = () => {
                       );
                     })}
                   </div>
+                  </div>
                   {/* Messages Container */}
                   {/* <div className="flex flex-col gap-6 p-6 overflow-y-auto custom_scroll h-[43.3rem]">
                   <div className="flex items-center gap-4">
@@ -569,6 +581,7 @@ const MatchDetail = () => {
                     </svg>
                   </button>
                 </div>
+              </div>
               </div>
             )}
           </div>

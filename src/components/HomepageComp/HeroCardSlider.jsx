@@ -5,10 +5,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import SliderCard from "./SliderCard";
-import DotaBG from "../../assets/images/dotaBG.jpg";
-import Valorant_card_bg from "../../assets/images/valorant_card_bg.jpg";
-import { ValorantIcon } from "../ui/svg/index.jsx";
-import { Position } from "@react-pdf-viewer/core";
+
 
 // Card data here
 const SliderCardDetails = [

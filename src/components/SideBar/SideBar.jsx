@@ -3,18 +3,19 @@ import { useState } from "react";
 import "../../assets/css/aside.css";
 import asideLogo_rtl from "../../assets/images/logo-rtl.svg";
 import asideLogo_ltr from "../../assets/images/logo-lrt.svg";
+import SEF_ENG from "../../assets/images/SEF_ENG.svg";
+import SEF_AR from "../../assets/images/SEF_AR.svg";
 import follwers from "../../assets/images/Follow_Us.png";
-// import asideBackground from "../../assets/images/logo-background.svg";
-import aside_hover from "../../assets/images/aside_hover.png";
 import { Link } from "react-router-dom";
 import { Twitter, Instagram, discord, Tiktok } from "../ui/svg/index.jsx";
 import { items } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
 
+
 const Sidebar = ({ onItemClick }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const location = useLocation();
-  const { t } = useTranslation();
+  const { t , i18n} = useTranslation();
 
   const social_links = [
     {
@@ -153,12 +154,16 @@ const Sidebar = ({ onItemClick }) => {
                 <NavLink
                   to={path}
                   className="inline-block p-[0.375rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg"
+                  target="_blank"
                 >
                   <Icon />
                 </NavLink>
               </li>
             ))}
           </ul>
+          <div className="flex items-center justify-center mt-4">
+            <img className="h-16" src={ i18n.language == "en" ? SEF_ENG : SEF_AR} alt="" />            
+          </div>
         </div>
 
         {/* === Collapse Menu Button Start === */}

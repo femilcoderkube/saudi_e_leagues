@@ -169,10 +169,6 @@
     background: linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%);
 } */
 
-* Cancel button hover enhancement */ .cancel-btn {
-  /* transition: all 0.3s ease;
-  animation: gentle-bounce 3s ease-in-out infinite; */
-}
 
 @keyframes gentle-bounce {
 

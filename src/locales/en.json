@@ -257,7 +257,8 @@
     "profile_picture": "Upload Profile Picture",
     "photo": "Upload Photo",
     "click_to_select": "Click to select an image",
-    "score_proof": "Upload Score Proof"
+    "score_proof": "Upload Score Proof",
+    "too_large": "File too large. Maximum size is 10mb"
   },
 
   "social": {
@@ -368,5 +369,10 @@
 
   "actions": {
     "custom_action": "Custom action"
+  },
+
+  "notification": {
+    "all": "All",
+    "unread": "Unread"
   }
 }

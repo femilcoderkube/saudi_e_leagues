@@ -246,7 +246,7 @@ export default function PrimeHome() {
 
             {/* === FAQ Section HTML block Start === */}
             <section className="home_faq--sec pt-[5rem] pb-[5rem] pl-[7.5rem] relative flex justify-end ">
-              <div className="faq_left--con w-full absolute ltr:left-0 rtl:right-0 h-full top-[-2rem]">
+              <div className="faq_left--con w-full absolute ltr:left-0 rtl:right-0 h-full top-[2rem]">
               </div> 
               <div className="faq_right--con max-w-[65%] flex-[0_0_65%] ltr:pr-[6.5rem] rtl:pr-[8.5rem] relative">
                 <h2 className="md:text-[4rem] text-[2rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none items-center tracking-wider !font-black md:pb-10 pb-8">

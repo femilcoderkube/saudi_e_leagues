@@ -21,10 +21,11 @@ import {
   setmatchData,
 } from "../slices/MatchSlice/matchDetailSlice";
 import { setIsMatctCreated } from "../slices/constState/constStateSlice";
+import { setNotification } from "../slices/notificationSlice/notificationSlice";
 
 // const SOCKET_URL = "/";
-const SOCKET_URL =
-  import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
+ const SOCKET_URL =
+   import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
 // const SOCKET_URL =
 //   import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
 
@@ -52,7 +53,12 @@ socket.on("connect", () => {
       sessionStorage.removeItem("canAccessFindingMatch");
     }
   });
-
+  socket.on(SOCKET.ONNOTIFICATION, (data) => {
+    console.log("Notification Data:", data);
+    store.dispatch(setNotification(data));
+  });
+  startNotificationSocket(user?._id , false);
+  // socket.emit(SOCKET.NOTIFICATION, { userId: user?._id , isRead: false});
   store.dispatch(setSocketConnected(true));
   store.dispatch(setSocketId(socket.id));
 });
@@ -72,6 +78,13 @@ socket.on("connect_error", (error) => {
   );
   store.dispatch(setSocketConnected(false));
 });
+export function startNotificationSocket({ userId, isRead }) {
+  // console.log("startNotificationSocket", userId, isRead);
+  socket.emit(SOCKET.NOTIFICATION, { userId: userId, isRead: isRead });
+}
+export function readNotificationSocket( id ) {
+  socket.emit(SOCKET.READNOTIFICATION, { id: id });
+}
 export function startLeagueSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
     // Remove any previous listener to prevent duplicate handlers

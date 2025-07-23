@@ -1,9 +1,4 @@
-import wind_girl from "../../assets/images/wind_girl.png";
 import teamSizeImage from "../../assets/images/teamSize.png";
-import valorant_bg from "../../assets/images/valorant_bg.png";
-import fire_boy from "../../assets/images/fire_boy.png";
-
-import star_of_week from "../../assets/images/star_of_week.png";
 import mob_star_of_week from "../../assets/images/mob_star_week.png";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
 import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
@@ -66,7 +61,7 @@ const LeagueDetail = () => {
       ) : isMatctCreated ? (
         <GamingLoader />
       ) : (
-        <div className="sd_content-wrapper">
+        <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8">
             <div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1">
@@ -314,7 +309,7 @@ const LeagueDetail = () => {
                       <span className="font-bold text-xl grad_text-clip sm:block hidden">$5.000.000</span>
                     </div> */}
                   </div>
-                  <div className="flex items-center justify-between gap-3 pb-8">
+                  <div className="profile-wp flex items-center justify-between gap-3 pb-8">
                     <div className="sd_avtar-info gap-6 inline-flex justify-between sm:pl-6 items-center cursor-pointer text-white rounded">
                       <div className="user_img relative sd_before">
                         {leagueData?.leaderBoard?.weekOfTheStartUsers?.userId

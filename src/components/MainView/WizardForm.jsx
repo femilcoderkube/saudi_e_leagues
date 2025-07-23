@@ -47,8 +47,8 @@ const MainView = () => {
         {showModal && (
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
-            <div className="fixed modal_popup-con inset-0 flex justify-center items-center z-50">
-              <div className="bg-[#121331] match_reg--popup !h-[32rem] relative sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
+            <div className="fixed modal_popup-con  inset-0 flex justify-center items-center z-50">
+              <div className="bg-[#121331] match_reg--popup !h-[32rem] sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">

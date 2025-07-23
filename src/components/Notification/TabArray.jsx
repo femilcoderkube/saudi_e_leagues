@@ -1,8 +1,19 @@
-import React, { useState, Children } from 'react';
+import React, { useState, Children, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNotificationTabIndex } from '../../app/slices/constState/constStateSlice';
+import { startNotificationSocket } from '../../app/socket/socket';
 
 export const Tabs = ({ children }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
+  const dispatch = useDispatch();
+  const { NotificationTabIndex } = useSelector((state) => state.constState);
+  const { user } = useSelector((state) => state.auth);
+  const isSocketConnected = useSelector((state) => state.socket.isConnected);
+  useEffect(()=>{
+    console.log("isSocketConnected",isSocketConnected);
+    if(isSocketConnected){
+      startNotificationSocket({userId:user?._id , isRead: NotificationTabIndex == 0 ? false : true});
+    }
+  },[isSocketConnected,NotificationTabIndex])
   const tabs = Children.toArray(children);
 
   return (
@@ -12,20 +23,15 @@ export const Tabs = ({ children }) => {
         {tabs.map((tab, index) => (
           <button
             key={index}
-            onClick={() => setActiveIndex(index)}
+            onClick={() => dispatch(setNotificationTabIndex(index))}
             className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
-              ${activeIndex === index ? 'active-tab hover:opacity-100 polygon_border' : 'inactive-tab'}
+              ${NotificationTabIndex === index ? 'active-tab hover:opacity-100 polygon_border' : 'inactive-tab'}
             `}
             style={{ width: '10rem', height: '4rem' }}
           >
             {tab.props.label}
           </button>
         ))}
-      </div>
-
-      {/* Active Tab Content */}
-      <div className="active_game--tab">
-        {tabs[activeIndex]}
       </div>
     </div>
   );

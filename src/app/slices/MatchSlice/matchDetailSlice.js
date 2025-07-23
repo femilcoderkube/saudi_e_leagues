@@ -41,12 +41,16 @@ const initialState = {
     teamOne: "-",
     teamTwo: "-",
   },
+  submitScoreLoading : false,
 };
 
 const matchDetailSlice = createSlice({
   name: "matchDetail",
   initialState,
   reducers: {
+    setSubmitScoreLoading :(state,action)=>{
+      state.submitScoreLoading = action.payload;
+    },
     setshowMobileChat :(state,action)=>{
       state.showMobileChat = action.payload;
     },
@@ -169,7 +173,8 @@ export const {
   setChatData,
   setIsTeamOne,
   clearFileUploadState,
-  setshowMobileChat
+  setshowMobileChat,
+  setSubmitScoreLoading
 } = matchDetailSlice.actions;
 
 export default matchDetailSlice.reducer;

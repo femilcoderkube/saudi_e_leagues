@@ -1,33 +1,41 @@
-import { Link } from "react-router-dom";
-import dota_game from "../../assets/images/dota-game.png";
-import "../../assets/css/notification.css";
+import {  useNavigate, useParams } from "react-router-dom";
 
-const Notification_box = () => {
+import "../../assets/css/notification.css";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { getServerURL, getTimeAgo } from "../../utils/constant";
+
+const UserRegistrationNotification = ({data}) => {
+  const { i18n } = useTranslation();
+  const {id} = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  let notificationData = {
+    image: getServerURL(data.userId.profilePicture),
+    username: data.userId.username,
+    createdAt: getTimeAgo(data.createdAt),
+    subject: i18n.language == "en" ? data.notificationId.Subject.toString(): data.notificationId.SubjectAr.toString(),
+    body: i18n.language == "en" ? data.notificationId.Body.toString(): data.notificationId.BodyAr.toString(),
+    isRead: data.isRead,
+  }
   return (
       <div className="notification-box-wp relative polygon_border sd_before sd_after">
         <div className="notification-box">
           <div className="notification-box-rotate">
           <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
             <div className="notification-box-head flex items-center gap-4">
-              <img src={rick_moon} alt="" style={{ width: "2.51rem" }} />
-              <h6 className="text-xl sleading-6">RickMoon</h6>
+              <img src={notificationData.image} alt="" style={{ width: "2.51rem" , height: "2.51rem" , borderRadius: "50%", objectFit :"cover"}} />
+              <h6 className="text-xl sleading-6">{notificationData.username}</h6>
             </div>
             <div>
-              <span className="purple_col font-semibold">5m ago</span>
+              <span className="purple_col font-semibold">{notificationData.createdAt}</span>
             </div>
           </div>
           <div className="notification-box-content p-5notification-box-content p-5 flex flex-col h-full justify-between">
-            <h6 className="text-lg sleading-6 purple_col mb-1.5">
-              The player invites you to a joint tournament:
+            <h5 className="text-xl mb-1.5">{notificationData.subject}</h5>
+            <h6 className="text-lg sleading-6 purple_col line-clamp-3">
+              {notificationData.body}
             </h6>
-            <h5 className="text-xl">The Radiant Uprising</h5>
-            <div className="notification-box-head flex items-center gap-4 pt-2">
-              <img src={dota_game} alt="" />
-              <div className="box-game">
-                <span className="purple_col text-sm font-semibold">Game</span>
-                <h6 className="text-xl">Dota 2</h6>
-              </div>
-            </div>
             <div className="notification-box-btn flex gap-4 items-center mt-5">
               <button className="uppercase text-xl sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300">
                 Deny
@@ -63,4 +71,4 @@ const Notification_box = () => {
   );
 };
 
-export default Notification_box;
+export default UserRegistrationNotification;

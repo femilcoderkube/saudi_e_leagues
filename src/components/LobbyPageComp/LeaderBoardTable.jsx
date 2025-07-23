@@ -100,7 +100,7 @@ const LeaderBoard = () => {
                     style={{ width: "3rem" }}
                   />
                   <div
-                    className="badge text-lg text-center pl-1 font-bold"
+                    className="badge text-lg text-center pl-1 md:pt-0 pt-[0.3rem] font-bold"
                     style={{ width: "3rem" }}
                   >
                     {requestedUser.rank}
@@ -109,7 +109,7 @@ const LeaderBoard = () => {
 
                 <td className="py-4 px-4">
                   <div className="flex items-center justify-center md:justify-start gap-2">
-                    <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
+                    <div className="avtar_frame rounded-[2.5rem] flex-shrink-0 overflow-hidden">
                       {requestedUser.profilePic ? (
                         <img
                           src={getServerURL(requestedUser.profilePic)}
@@ -145,13 +145,13 @@ const LeaderBoard = () => {
                   </div>
                 </td>
 
-                <td className="py-4 px-4 md:text-center text-lg !font-bold">
+                <td className="py-4 px-4 md:text-center text-right text-lg !font-bold">
                   {requestedUser.points}
                 </td>
 
                 <td
                   data-title="Win/Loss"
-                  className="pb-11 md:pb-4 py-4 px-4 text-left md:text-center"
+                  className="pb-11 md:pb-4 py-4 px-4 md:text-center"
                 >
                   <span className="win text-lg sky_col">
                     {requestedUser.wins}
@@ -230,7 +230,7 @@ const LeaderBoard = () => {
                     style={{ width: "3rem" }}
                   />
                   <div
-                    className="badge text-lg text-center pl-1 font-bold"
+                    className="badge text-lg text-center pl-1 md:pt-0 pt-[0.3rem] font-bold"
                     style={{ width: "3rem" }}
                   >
                     {user.rank}
@@ -239,7 +239,7 @@ const LeaderBoard = () => {
 
                 <td className="py-4 px-2">
                   <div className="flex items-center justify-center md:justify-start gap-2">
-                    <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
+                    <div className="avtar_frame rounded-[2.5rem] flex-shrink-0 overflow-hidden">
                       {user.profilePic ? (
                         <img
                           src={getServerURL(user.profilePic)}
@@ -284,16 +284,18 @@ const LeaderBoard = () => {
                   data-title="Win/Loss"
                   className="pb-11 md:pb-4 py-4 px-4 text-left md:text-center"
                 >
+                  <div className="md:pl-0 pl-3">
                   <span className="win text-lg sky_col">{user.wins}</span>{" "}
                   <b className="font-bold text-xs">/</b>{" "}
                   <span className="loss text-lg text-[#FA4768]">
                     {user.losses}
                   </span>
+                  </div>
                 </td>
                 {leagueData.playersPerTeam != 1 && (
                   <td data-title="Rep" className="pb-11 md:pb-4 py-4 px-4">
                     <div className="flex items-center justify-center">
-                      <div className="avtar_frame rounded-[2.5rem] overflow-hidden">
+                      <div className="avtar_frame rounded-[2.5rem] flex-shrink-0 overflow-hidden">
                         <img
                           src={getSmile(user.rep)}
                           alt={user.rep}
@@ -306,7 +308,7 @@ const LeaderBoard = () => {
 
                 <td
                   data-title="Win rate"
-                  className="pb-11 md:pb-4 py-4 px-4 text-right md:text-center text-lg"
+                  className="pb-11 md:pb-4 py-4 px-4 text-center text-lg"
                 >
                   {user.winRate}
                 </td>

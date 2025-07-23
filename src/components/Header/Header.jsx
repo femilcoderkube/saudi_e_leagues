@@ -25,8 +25,6 @@ import homeIcon from "../../assets/images/mobile_menu_icon_logo.svg";
 import logo_ltr from "../../assets/images/logo-lrt.svg";
 import lobyIcon from "../../assets/images/mobile_menu_icon_star.svg";
 import mobile_menu_icon_user from "../../assets/images/LoginPersone.png";
-// import homeIcon from "../../assets/images/country_us.png";
-// import profileIcon from "../../assets/images/country_us.png";
 import Dropdown from "../LobbyPageComp/User_menu.jsx";
 import { checkParams, items } from "../../utils/constant.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -136,7 +134,7 @@ const Header = () => {
     dispatch(setActiveTabIndex(0));
   } else if (profile) {
     dispatch(setActiveTabIndex(2));
-  }else{
+  } else {
     dispatch(setActiveTabIndex(1));
   }
   let mainItem = breadcrumbItems[breadcrumbItems.length - 1];
@@ -173,7 +171,7 @@ const Header = () => {
                 ? matchData?.league?.title
                 : matchData?.league?.titleAr || t("match.finding_matchmaking")}
             </h2>
-          </div>          
+          </div>
           <div className="flex items-center gap-15">
             {user && isCaptain && (!IsSubmited || isEditScore != null) && (
               <div
@@ -416,17 +414,22 @@ const Header = () => {
           <ul className="breadcrumb-links flex  items-center gap-2.5 md:gap-5">
             {breadcrumbItems.map((item, index) => (
               <li
-              key={index}
-              className="sm:flex hidden items-center gap-2 sm:gap-4 md:gap-7 "
-            >
-              <div className="breadcrumb-box flex items-center gap-2">
-                <Link
-                  to={item.path}
-                  className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
-                    item.active ? "sky_col font-semibold" : ""
-                  }`}
-                >
-                  {item.label && <item.icon IsActive={item.active} className="text-white" />}
+                key={index}
+                className="sm:flex hidden items-center gap-2 sm:gap-4 md:gap-7 "
+              >
+                <div className="breadcrumb-box flex items-center gap-2">
+                  <Link
+                    to={item.path}
+                    className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
+                      item.active ? "sky_col font-semibold" : ""
+                    }`}
+                  >
+                    {item.label && (
+                      <item.icon
+                        IsActive={item.active}
+                        className="text-white"
+                      />
+                    )}
 
                     {item.label}
                   </Link>
@@ -464,7 +467,10 @@ const Header = () => {
                 >
                   {mainItem.label &&
                     (mainItem.label !== t("navigation.home") ? (
-                      <mainItem.icon IsActive={mainItem.active} className="text-white" />
+                      <mainItem.icon
+                        IsActive={mainItem.active}
+                        className="text-white"
+                      />
                     ) : (
                       <img
                         src={primeIcon}
@@ -504,13 +510,13 @@ const Header = () => {
               }}
             />
           </div>
-          {/* <div
+          {<div
             onClick={handleLangToggle2}
             title={"Notification"}
             className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
           >
             <Notification />
-          </div> */}
+          </div>}
           {/* <NavLink
             to="#"
             className="notification_btn inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"

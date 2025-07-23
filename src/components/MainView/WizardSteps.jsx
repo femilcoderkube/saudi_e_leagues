@@ -785,7 +785,7 @@ const WizardSteps = ({
       {({ values, setFieldValue, errors, touched }) => (
         <Form>
           {isEdit ? renderContent(values, setFieldValue) : renderStepContent(values, setFieldValue)}
-          <div className="wizard_step--btn gap-5 flex justify-end mt-14 mb-8 mr-5">
+          <div className="wizard_step--btn gap-5 flex justify-end sm:mt-14 mt-8 mb-8 mr-5">
             {step > 1 && (
               <div className="game_status--tab wizard_btn back_btn">
                 <button
