@@ -10,7 +10,7 @@ export const Tabs = ({ children }) => {
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   useEffect(()=>{
     console.log("isSocketConnected",isSocketConnected);
-    if(isSocketConnected){
+    if(isSocketConnected && user?._id){
       startNotificationSocket({userId:user?._id , isRead: NotificationTabIndex == 0 ? false : true});
     }
   },[isSocketConnected,NotificationTabIndex])

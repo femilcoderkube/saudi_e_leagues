@@ -57,7 +57,9 @@ socket.on("connect", () => {
     console.log("Notification Data:", data);
     store.dispatch(setNotification(data));
   });
-  startNotificationSocket(user?._id , false);
+  if(user?._id){
+    startNotificationSocket(user?._id , false);
+  }
   // socket.emit(SOCKET.NOTIFICATION, { userId: user?._id , isRead: false});
   store.dispatch(setSocketConnected(true));
   store.dispatch(setSocketId(socket.id));
@@ -80,7 +82,9 @@ socket.on("connect_error", (error) => {
 });
 export function startNotificationSocket({ userId, isRead }) {
   // console.log("startNotificationSocket", userId, isRead);
+  if(userId){
   socket.emit(SOCKET.NOTIFICATION, { userId: userId, isRead: isRead });
+  }
 }
 export function readNotificationSocket( id ) {
   socket.emit(SOCKET.READNOTIFICATION, { id: id });

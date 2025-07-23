@@ -363,9 +363,9 @@ const scrollAnchorRef = useRef(null);
                     </div>
                   </div>
                   {/* Chat Functionlity */}
-               <div className="flex flex-col-reverse gap-6 p-6 overflow-y-auto custom_scroll mx-h-[43.3rem] pb-[6.25rem] sm:pb-0" >
+               <div className="flex flex-col-reverse gap-6 p-6 overflow-y-auto custom_scroll mx-h-[43.3rem] pb-[6.25rem] sm:pb-0" style={{ height: 'calc(100vh - 10rem)' }}>
                    <div ref={scrollAnchorRef}></div>
-                  <div className="flex flex-col gap-6" style={{ height: 'calc(100vh - 10rem)' }}>
+                  <div className="flex flex-col gap-6" >
                
                   
                     {chatData?.map((chat, chatIdx) => {

@@ -46,7 +46,7 @@ import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { leagueData } = useSelector((state) => state.leagues);
-  const { isActiveTab, showNotification } = useSelector(
+  const { isActiveTab, showNotification, profileVisible } = useSelector(
     (state) => state.constState
   );
   const navigator = useNavigate();
@@ -129,6 +129,7 @@ const Header = () => {
       breadcrumbItems.push(item);
     }
   }
+  
 
   if (path) {
     dispatch(setActiveTabIndex(0));
@@ -445,7 +446,30 @@ const Header = () => {
         </nav>
         <nav className="breadcrumb flex-grow-1">
           <ul className="breadcrumb-links sm:flex items-center gap-2.5 md:gap-5 lg:hidden">
-            <li
+           { checkParams("profile") && profileVisible ? 
+           
+           <li
+              key={-3}
+              className="flex items-center gap-2 sm:gap-4 md:gap-7"
+              onClick={() => {
+                dispatch(setActiveTabIndex(2));
+                dispatch(setProfileVisible(false));
+              }}
+            >
+              {i18n.language === "ar" ? <NextArrow2 /> : <NextArrow3 />}
+              <div className="breadcrumb-box flex items-center gap-2">
+                <Link
+                  to={`/${params.id}/profile`}
+                  className={`breadcrumb-text flex items-center gap-3 ltr:pl-2 rtl:pr-2 sm:gap-3 text-sm md:text-lg font-bold text-white text-[1.25rem]`}
+                >
+                 {t("navigation.profile")}
+
+                 
+                </Link>
+              </div>
+            </li>
+           
+           :  <li
               key={-1}
               className="flex items-center gap-2 sm:gap-4 md:gap-7"
               onClick={() => {
@@ -490,7 +514,7 @@ const Header = () => {
                   )}
                 </Link>
               </div>
-            </li>
+            </li>}
           </ul>
         </nav>
         <div className="sd_notification-block self-center flex gap-4 ltr:ml-[1rem] xl:ltr:mr-[9rem] xl:rtl:ml-[9rem] sm:ltr:mr-[2rem]  sm:rtl:ml-[2rem] ">
