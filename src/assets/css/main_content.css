@@ -793,6 +793,8 @@ input[type="radio"]:checked + label .checkbox-inner:before {
 .notification-box svg{
   position: absolute;
   top: 0;
+  z-index: -1;
+  pointer-events: none;
 }
 
 html[dir="rtl"] .notification-box {

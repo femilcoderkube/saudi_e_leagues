@@ -370,7 +370,9 @@
     "game_card": "Game card",
     "game_logo": "Game logo",
     "game_background": "Game background",
-    "follow_us": "Follow us"
+    "follow_us": "Follow us",
+    "notifications": "Notifications",
+    "skip": "Skip"
   },
 
   "actions": {

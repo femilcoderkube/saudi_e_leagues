@@ -12,10 +12,12 @@ import { notificationType } from "../../utils/constant.js";
 import UserRegistrationNotification from "./UserRegistrationNotification.jsx";
 import LeagueEndedNotification from "./LeagueEndedNotification.jsx";
 import MatchFindNotification from "./MatchFindNotification.jsx";
+import { useTranslation } from "react-i18next";
 
 const Notification_Sidebar = () => {
   const { NotificationTabIndex } = useSelector((state) => state.constState);
   const { UnreadNotification, ReadNotification } = useSelector((state) => state.notification);
+  const {t} = useTranslation();
   const dispatch = useDispatch()
   return (
     <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"
@@ -31,14 +33,14 @@ const Notification_Sidebar = () => {
       >
         <img src={left_arrow} alt="" />
         <h5 className="uppercase text-2xl tracking-wide">
-          Notification <span className="purple_col">(267)</span>
+           {t("images.notifications")} <span className="purple_col"></span>
         </h5>
       </div>
       <div className="pt-8">
         <NotificationTab />
       </div>
       </div>
-      <div className="flex flex-col gap-5 h-[calc(100%+8rem)] custom_scroll overflow-y-auto px-5 mt-[12rem] xl:ltr:w-[calc(100%-0.18rem)] rtl:w-full">
+      <div className="flex flex-col gap-5 h-[calc(100%-13rem)] custom_scroll overflow-y-auto px-5 mt-[12rem] xl:ltr:w-[calc(100%-0.18rem)] rtl:w-full">
        
         {NotificationTabIndex == 0 ? UnreadNotification.map((item,index)=>{
           let type = item.notificationId?.notificationtype;
@@ -51,6 +53,10 @@ const Notification_Sidebar = () => {
           }else if(type == notificationType.MATCHMAKING_FOUND){
             return <MatchFindNotification key={index} data={item}/>
           }else if(type == notificationType.SCORESUBMITTED){
+            return <MatchFindNotification key={index} data={item}/>
+          }else if(type == notificationType.MATCH_IN_DISPUTE){
+            return <MatchFindNotification key={index} data={item}/>
+          }else if(type == notificationType.CONFLICT_RESOLVED){
             return <MatchFindNotification key={index} data={item}/>
           }
           return <></>
@@ -65,6 +71,10 @@ const Notification_Sidebar = () => {
           }else if(type == notificationType.MATCHMAKING_FOUND){
             return <MatchFindNotification key={index} data={item}/>
           }else if(type == notificationType.SCORESUBMITTED){
+            return <MatchFindNotification key={index} data={item}/>
+          }else if(type == notificationType.MATCH_IN_DISPUTE){
+            return <MatchFindNotification key={index} data={item}/>
+          } else if(type == notificationType.CONFLICT_RESOLVED){
             return <MatchFindNotification key={index} data={item}/>
           }
           return <></>

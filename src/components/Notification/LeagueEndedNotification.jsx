@@ -8,10 +8,11 @@ import { setshowNotification } from "../../app/slices/constState/constStateSlice
 import { readNotificationSocket } from "../../app/socket/socket";
 
 const LeagueEndedNotification = ({ data }) => {
-  const { i18n } = useTranslation();
+  const {t , i18n } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   let notificationData = {
     image: getServerURL(data.userId.profilePicture),
     username: data.userId.username,
@@ -73,7 +74,7 @@ const LeagueEndedNotification = ({ data }) => {
                     readNotificationSocket(data._id);
                   }}
                 >
-                  Skip
+                  {t("images.skip")}
                 </button>
               )}
               <button

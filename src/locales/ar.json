@@ -370,7 +370,9 @@
     "game_card": "بطاقة اللعبة",
     "game_logo": "شعار اللعبة",
     "game_background": "خلفية اللعبة",
-    "follow_us": "تابعنا"
+    "follow_us": "تابعنا",
+    "notifications": "الإشعارات",
+    "skip": "تخطي"
   },
 
   "actions": {

@@ -9,7 +9,7 @@ import { setshowNotification } from "../../app/slices/constState/constStateSlice
 import { useDispatch } from "react-redux";
 
 const LeaguesJoinNotification = ({ data }) => {
-  const { i18n } = useTranslation();
+  const { t ,i18n } = useTranslation();
   const {id} = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -60,7 +60,7 @@ const LeaguesJoinNotification = ({ data }) => {
               onClick={()=>{
                 readNotificationSocket(data._id);
               }}>
-                Skip
+                {t("images.skip")}
               </button>}
               <button className={`relative overflow-hidden pl-0 go-btn uppercase flex items-center justify-center gap-3 active-tab text-lg z-10 sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300 ${data.isRead ? "singleButton" : ""}`}
               onClick={()=>{
