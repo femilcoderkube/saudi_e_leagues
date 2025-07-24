@@ -534,13 +534,13 @@ const Header = () => {
               }}
             />
           </div>
-          <div
+          { user && <div
             onClick={handleLangToggle2}
             title={"Notification"}
             className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
           >
             <Notification />
-          </div>
+          </div>}
           {/* <NavLink
             to="#"
             className="notification_btn inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
