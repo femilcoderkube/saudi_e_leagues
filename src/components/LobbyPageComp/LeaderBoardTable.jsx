@@ -178,7 +178,7 @@ const LeaderBoard = () => {
 
                 <td
                   data-title="Win rate"
-                  className="pb-11 md:pb-4 py-4 px-4 text-center text-lg"
+                  className="pb-11 md:pb-4 py-4 px-4 md:text-center rtl:text-left text-lg"
                 >
                   {requestedUser.winRate}
                 </td>
@@ -276,15 +276,15 @@ const LeaderBoard = () => {
                   </div>
                 </td>
 
-                <td className="py-4 px-4 text-right md:text-center text-lg !font-bold">
+                <td className="py-4 px-4 ltr:text-right rtl:text-left ltr:md:text-center rtl:md:text-center text-lg !font-bold">
                   {user.points}
                 </td>
 
                 <td
                   data-title="Win/Loss"
-                  className="pb-11 md:pb-4 py-4 px-4 text-left md:text-center"
+                  className="pb-11 md:pb-4 py-4 px-4 ltr:text-left rtl:text-right md:text-center"
                 >
-                  <div className="md:pl-0 pl-3">
+                  <div className="ltr:md:pl-0 ltr:pl-3 rtl:md:pr-0 rtl:pr-3">
                   <span className="win text-lg sky_col">{user.wins}</span>{" "}
                   <b className="font-bold text-xs">/</b>{" "}
                   <span className="loss text-lg text-[#FA4768]">
@@ -308,10 +308,13 @@ const LeaderBoard = () => {
 
                 <td
                   data-title="Win rate"
-                  className="pb-11 md:pb-4 py-4 px-4 text-center text-lg"
+                  className="pb-11 md:pb-4 py-4 px-4 md:text-center rtl:text-left ltr:text-right text-lg"
                 >
+                  <div className="ltr:md:pr-0 ltr:pr-3 rtl:md:pl-0 rtl:pl-3">
                   {user.winRate}
+                  </div>
                 </td>
+                
               </tr>
             </>
             );

@@ -7,27 +7,33 @@ import { getServerURL, getTimeAgo } from "../../utils/constant";
 import { setshowNotification } from "../../app/slices/constState/constStateSlice";
 import { readNotificationSocket } from "../../app/socket/socket";
 
-const UserRegistrationNotification = ({data}) => {
+const MatchFindNotification = ({data}) => {
   const { i18n } = useTranslation();
   const {id} = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  let subject,body;
+  if(data.extras?.tempId){
+    subject = i18n.language == "en" ? data.notificationId.Subject.toString().replace("{#1}",data.extras.tempId): data.notificationId.SubjectAr.toString().replace("{#1}",data.extras.tempId);
+    body = i18n.language == "en" ? data.notificationId.Body.toString().replace("{#1}",data.extras.tempId) : data.notificationId.BodyAr.toString().replace("{#1}",data.extras.tempId);
+  } else {
+    subject = i18n.language == "en" ? data.notificationId.Subject.toString(): data.notificationId.SubjectAr.toString();
+    body = i18n.language == "en" ? data.notificationId.Body.toString(): data.notificationId.BodyAr.toString();
+  }
   let notificationData = {
     image: getServerURL(data.userId.profilePicture),
     username: data.userId.username,
     createdAt: getTimeAgo(data.createdAt),
-    subject: i18n.language == "en" ? data.notificationId.Subject.toString(): data.notificationId.SubjectAr.toString(),
-    body: i18n.language == "en" ? data.notificationId.Body.toString(): data.notificationId.BodyAr.toString(),
+    subject,
+    body,
     buttonText: i18n.language == "en" ? data.notificationId.ActionButton.toString(): data.notificationId.ActionButtonAr.toString(),
     isRead: data.isRead,
   }
   console.log("data",data._id);
   return (
       <div className="notification-box-wp relative polygon_border sd_before sd_after">
-        <div className={`notification-box ${
-    i18n.dir() === "rtl" ? "rtl" : ""
-  }`}>
-          <div className="notification-box-rotate h-[19rem] flex flex-col justify-between">
+        <div className="notification-box">
+          <div className="notification-box-rotate">
           <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
             <div className="notification-box-head flex items-center gap-4">
               <img src={notificationData.image} alt="" style={{ width: "2.51rem" , height: "2.51rem" , borderRadius: "50%", objectFit :"cover"}} />
@@ -37,7 +43,7 @@ const UserRegistrationNotification = ({data}) => {
               <span className="purple_col font-semibold">{notificationData.createdAt}</span>
             </div>
           </div>
-          <div className="notification-box-content px-5 py-6 flex flex-col justify-between">
+          <div className="notification-box-content p-5notification-box-content p-5 flex flex-col h-full justify-between">
             <h5 className="text-xl mb-1.5">{notificationData.subject}</h5>
             <h6 className="text-lg sleading-6 purple_col line-clamp-3">
               {notificationData.body}
@@ -52,7 +58,7 @@ const UserRegistrationNotification = ({data}) => {
               </button>}
               <button className={`relative overflow-hidden pl-0 go-btn uppercase flex items-center justify-center gap-3 active-tab text-lg z-10 sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300 ${data.isRead ? "singleButton" : ""}`}
               onClick={() => {
-                navigate(`/${id}/lobby`);
+                navigate(`/${id}/match/${data.extras.matchId}`);
                 readNotificationSocket(data._id);
                 dispatch(setshowNotification(false));
               }}>
@@ -86,4 +92,4 @@ const UserRegistrationNotification = ({data}) => {
   );
 };
 
-export default UserRegistrationNotification;
+export default MatchFindNotification;

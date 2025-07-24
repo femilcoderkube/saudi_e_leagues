@@ -11,6 +11,7 @@ import { setshowNotification } from "../../app/slices/constState/constStateSlice
 import { notificationType } from "../../utils/constant.js";
 import UserRegistrationNotification from "./UserRegistrationNotification.jsx";
 import LeagueEndedNotification from "./LeagueEndedNotification.jsx";
+import MatchFindNotification from "./MatchFindNotification.jsx";
 
 const Notification_Sidebar = () => {
   const { NotificationTabIndex } = useSelector((state) => state.constState);
@@ -40,23 +41,31 @@ const Notification_Sidebar = () => {
       <div className="flex flex-col gap-5 h-[calc(100%+8rem)] custom_scroll overflow-y-auto px-5 mt-[12rem] xl:ltr:w-[calc(100%-0.18rem)] rtl:w-full">
        
         {NotificationTabIndex == 0 ? UnreadNotification.map((item,index)=>{
-          console.log("item",item);
-          if(item.notificationId.notificationtype == notificationType.JOINING_PRIME_LEAGUE){
+          let type = item.notificationId?.notificationtype;
+          if(type == notificationType.JOINING_PRIME_LEAGUE){
             return <LeaguesJoinNotification key={index} data={item}/>
-          }else if(item.notificationId.notificationtype == notificationType.ACCOUNT_CREATION){
+          }else if(type == notificationType.ACCOUNT_CREATION){
             return <UserRegistrationNotification key={index} data={item}/>
-          }else if(item.notificationId.notificationtype == notificationType.LEAGUE_ENDED){
+          }else if(type == notificationType.LEAGUE_ENDED){
             return <LeagueEndedNotification key={index} data={item}/>
+          }else if(type == notificationType.MATCHMAKING_FOUND){
+            return <MatchFindNotification key={index} data={item}/>
+          }else if(type == notificationType.SCORESUBMITTED){
+            return <MatchFindNotification key={index} data={item}/>
           }
           return <></>
         }) : ReadNotification.map((item,index)=>{
-          console.log("item",item);
-          if(item.notificationId.notificationtype == notificationType.JOINING_PRIME_LEAGUE){
+          let type = item.notificationId?.notificationtype;
+          if(type == notificationType.JOINING_PRIME_LEAGUE){
             return <LeaguesJoinNotification key={index} data={item}/>
-          }else if(item.notificationId.notificationtype == notificationType.ACCOUNT_CREATION){
+          }else if(type == notificationType.ACCOUNT_CREATION){
             return <UserRegistrationNotification key={index} data={item}/>
-          }else if(item.notificationId.notificationtype == notificationType.LEAGUE_ENDED){
+          }else if(type == notificationType.LEAGUE_ENDED){
             return <LeagueEndedNotification key={index} data={item}/>
+          }else if(type == notificationType.MATCHMAKING_FOUND){
+            return <MatchFindNotification key={index} data={item}/>
+          }else if(type == notificationType.SCORESUBMITTED){
+            return <MatchFindNotification key={index} data={item}/>
           }
           return <></>
         })}

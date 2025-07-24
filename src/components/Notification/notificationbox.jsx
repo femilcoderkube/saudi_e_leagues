@@ -5,8 +5,10 @@ import "../../assets/css/notification.css";
 const Notification_box = () => {
   return (
       <div className="notification-box-wp relative polygon_border sd_before sd_after">
-        <div className="notification-box">
-          <div className="notification-box-rotate">
+        <div className={`notification-box ${
+    i18n.dir() === "rtl" ? "rtl" : ""
+  }`}>
+          <div className="notification-box-rotate h-[19rem] flex flex-col justify-between">
           <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
             <div className="notification-box-head flex items-center gap-4">
               <img src={rick_moon} alt="" style={{ width: "2.51rem" }} />
@@ -16,7 +18,7 @@ const Notification_box = () => {
               <span className="purple_col font-semibold">5m ago</span>
             </div>
           </div>
-          <div className="notification-box-content p-5notification-box-content p-5 flex flex-col h-full justify-between">
+          <div className="notification-box-content px-5 py-6 flex flex-col justify-between">
             <h6 className="text-lg sleading-6 purple_col mb-1.5">
               The player invites you to a joint tournament:
             </h6>

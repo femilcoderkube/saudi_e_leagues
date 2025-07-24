@@ -63,7 +63,7 @@ const Header = () => {
   let params = useParams();
   useEffect(() => {}, [matchData, user, location]);
   const userUpdate = useSelector((state) => state.auth.userDetail);
-  console.log("user", user);
+  // console.log("user", user);
 
   const { i18n, t } = useTranslation();
 

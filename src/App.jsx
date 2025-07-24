@@ -43,7 +43,7 @@ function App() {
       <div className="flex">
         <Sidebar onItemClick={handleItemClick} selectedItem={selectedItem} />
         <Routes>
-          <Route path="resetpassword" element={<ResetPasswordPage />} />
+          <Route path="reset-password" element={<ResetPasswordPage />} />
           {/* <Route index element={<MainView selectedItem={selectedItem} />} /> */}
           <Route path="/" element={<Navigate to="/prime" />} />
           {/* Redirect "/:id" to "/:id/lobby" */}

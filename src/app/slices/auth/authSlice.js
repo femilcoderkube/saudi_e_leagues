@@ -27,7 +27,7 @@ export const loginUser = createAsyncThunk(
 );
 export const checkBannedUser = createAsyncThunk(
   "auth/checkBannedUser",
-  async (_,{ rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
       console.log("token", token);
@@ -125,6 +125,40 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async (email, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/users/reset-password?email=${email}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to send reset password request"
+      );
+    }
+  }
+);
+
+// New updatePassword thunk
+export const updatePassword = createAsyncThunk(
+  "auth/updatePassword",
+  async ({ password, token }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put("/users/update-password", {
+        password,
+        token,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update password"
+      );
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -147,6 +181,15 @@ const authSlice = createSlice({
     // Add clearUserDetail reducer from usersSlice
     clearUserDetail(state) {
       state.userDetail = null;
+    },
+    clearResetPasswordState(state) {
+      state.resetPasswordSuccess = false;
+      state.resetPasswordError = null;
+    },
+    // New reducer to clear update password state
+    clearUpdatePasswordState(state) {
+      state.updatePasswordSuccess = false;
+      state.updatePasswordError = null;
     },
   },
   extraReducers: (builder) => {
@@ -244,10 +287,45 @@ const authSlice = createSlice({
           localStorage.removeItem("user");
         }
       })
-      
+      // resetPassword logic
+      .addCase(resetPassword.pending, (state) => {
+        state.loading = true;
+        state.resetPasswordError = null;
+        state.resetPasswordSuccess = false;
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.resetPasswordSuccess = true;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.resetPasswordError = action.payload;
+        toast.error(action.payload);
+      })
+      // updatePassword logic
+      .addCase(updatePassword.pending, (state) => {
+        state.loading = true;
+        state.updatePasswordError = null;
+        state.updatePasswordSuccess = false;
+      })
+      .addCase(updatePassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.updatePasswordSuccess = true;
+        toast.success("Password updated successfully!");
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.loading = false;
+        state.updatePasswordError = action.payload;
+        toast.error(action.payload);
+      });
   },
 });
 
-export const { logout, resetRegisterState, clearUserDetail } =
-  authSlice.actions;
+export const {
+  logout,
+  resetRegisterState,
+  clearUserDetail,
+  clearResetPasswordState,
+  clearUpdatePasswordState,
+} = authSlice.actions;
 export default authSlice.reducer;

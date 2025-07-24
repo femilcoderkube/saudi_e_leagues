@@ -6,8 +6,10 @@ import "../../assets/css/notification.css";
 const Notification_box_One = () => {
   return (
     <div className="notification-box-wp relative polygon_border sd_before sd_after">
-      <div className="notification-box">
-        <div className="notification-box-rotate">
+      <div className={`notification-box ${
+    i18n.dir() === "rtl" ? "rtl" : ""
+  }`}>
+        <div className="notification-box-rotate h-[19rem] flex flex-col justify-between">
           <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
             <div className="notification-box-head flex items-center gap-4 pt-2">
               <img src={dota_game} alt="" />
@@ -20,7 +22,7 @@ const Notification_box_One = () => {
               <span className="purple_col font-semibold">5m ago</span>
             </div>
           </div>
-          <div className="notification-box-content p-5 flex flex-col h-full justify-between">
+          <div className="notification-box-content px-5 py-6 flex flex-col justify-between">
             <h5 className="text-xl mb-3">The Radiant Uprising</h5>
             <h6 className="notification-text text-base sleading-6 purple_col mb-1.5">
               Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -31,7 +33,7 @@ const Notification_box_One = () => {
                 Skip
               </button>
               <button className="relative overflow-hidden pl-13 go-btn uppercase flex items-center justify-center gap-3 active-tab text-xl sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300">
-                <span>Go</span> <img src={right_arrow} alt="" />
+                <span>Go</span> 
               </button>
             </div>
           </div>

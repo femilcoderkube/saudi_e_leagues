@@ -46,8 +46,8 @@ export const SOCKET = {
   JOINUSEROOM: "joinUserRoom",
   GIVEREPUTATION: "giveReputation",
   NOTIFICATION: "notification",
-    ONNOTIFICATION: "onNotification",
-    READNOTIFICATION: "readNotification",
+  ONNOTIFICATION: "onNotification",
+  READNOTIFICATION: "readNotification",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range
@@ -295,22 +295,20 @@ export function getQueueText(leagueData, t) {
     const now = new Date();
     const start = new Date(leagueData.startDate);
     if (start > now) {
-      return t("images.starts_in") + " " + GetTimeString(leagueData.startDate, t);
+      return (
+        t("images.starts_in") + " " + GetTimeString(leagueData.startDate, t)
+      );
     } else {
       return t("images.queue");
     }
   }
 
   // New schedule.days structure
-  if (
-    schedule &&
-    Array.isArray(schedule.days) &&
-    schedule.days.length > 0
-  ) {
+  if (schedule && Array.isArray(schedule.days) && schedule.days.length > 0) {
     // Get current time in Saudi Riyadh timezone
     const saTz = "Asia/Riyadh";
     const nowRiyadh = moment.tz(new Date(), saTz);
-    
+
     // Get today's day name in Riyadh timezone
     const daysOfWeek = [
       "sunday",
@@ -339,14 +337,14 @@ export function getQueueText(leagueData, t) {
       if (Array.isArray(todaySchedule.time) && todaySchedule.time.length > 0) {
         // Get current time in HH:mm format (Riyadh time)
         const currentTimeStr = nowRiyadh.format("HH:mm");
-        
+
         // Find the current or next slot
         let foundOpen = false;
         let nextOpenTime = null;
 
         for (let slot of todaySchedule.time) {
           const startTime = slot.startTime; // "HH:mm" format
-          const endTime = slot.endTime;     // "HH:mm" format
+          const endTime = slot.endTime; // "HH:mm" format
 
           // Compare time strings directly
           if (currentTimeStr < startTime) {
@@ -370,7 +368,11 @@ export function getQueueText(leagueData, t) {
             "YYYY-MM-DD HH:mm",
             saTz
           );
-          return t("images.opens_in") + " " + GetTimeString(nextOpenDateTime.toDate(), t);
+          return (
+            t("images.opens_in") +
+            " " +
+            GetTimeString(nextOpenDateTime.toDate(), t)
+          );
         }
         // If no more slots today, look for next available day
       }
@@ -380,14 +382,14 @@ export function getQueueText(leagueData, t) {
     // Find the next available day with alwaysOn or a time slot
     let soonestDay = null;
     let soonestTime = null;
-    
+
     for (let i = 1; i <= 7; i++) {
-      const nextDayRiyadh = nowRiyadh.clone().add(i, 'days');
+      const nextDayRiyadh = nowRiyadh.clone().add(i, "days");
       const nextDayName = daysOfWeek[nextDayRiyadh.day()];
       const nextDayObj = schedule.days.find(
         (d) => d.day && d.day.toLowerCase() === nextDayName
       );
-      
+
       if (nextDayObj) {
         // If alwaysOn for that day, that's the soonest
         if (nextDayObj.alwaysOn) {
@@ -404,13 +406,13 @@ export function getQueueText(leagueData, t) {
               earliestSlot = slot;
             }
           }
-          
+
           const slotStart = moment.tz(
             `${nextDayRiyadh.format("YYYY-MM-DD")} ${earliestSlot.startTime}`,
             "YYYY-MM-DD HH:mm",
             saTz
           );
-          
+
           if (soonestTime === null || slotStart.isBefore(soonestTime)) {
             soonestDay = i;
             soonestTime = slotStart;
@@ -421,11 +423,18 @@ export function getQueueText(leagueData, t) {
 
     if (soonestDay !== null) {
       if (soonestTime) {
-        return t("images.opens_in") + " " + GetTimeString(soonestTime.toDate(), t);
+        return (
+          t("images.opens_in") + " " + GetTimeString(soonestTime.toDate(), t)
+        );
       } else {
         // Next day is alwaysOn, so opens at midnight (Riyadh time)
-        const nextOpenDate = nowRiyadh.clone().add(soonestDay, 'days').startOf('day');
-        return t("images.opens_in") + " " + GetTimeString(nextOpenDate.toDate(), t);
+        const nextOpenDate = nowRiyadh
+          .clone()
+          .add(soonestDay, "days")
+          .startOf("day");
+        return (
+          t("images.opens_in") + " " + GetTimeString(nextOpenDate.toDate(), t)
+        );
       }
     }
 
@@ -434,7 +443,7 @@ export function getQueueText(leagueData, t) {
 
   return t("images.queue_closed");
 }
-export function GetTimeString(date,t) {
+export function GetTimeString(date, t) {
   if (!date) return "";
   const now = new Date();
   const target = new Date(date);
@@ -447,8 +456,10 @@ export function GetTimeString(date,t) {
   const month = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
 
   let parts = [];
-  if (month > 0) parts.push(month === 1 ? t("images.1_mon") : `${month} ${t("images.mon")}`);
-  if (day > 0 && month === 0) parts.push(day === 1 ? t("images.1_day") : `${day} ${t("images.day")}`);
+  if (month > 0)
+    parts.push(month === 1 ? t("images.1_mon") : `${month} ${t("images.mon")}`);
+  if (day > 0 && month === 0)
+    parts.push(day === 1 ? t("images.1_day") : `${day} ${t("images.day")}`);
   if (hour > 0 && month === 0 && day === 0)
     parts.push(hour === 1 ? t("images.1_hr") : `${hour} ${t("images.hrs")}`);
   if (min > 0 && month === 0 && day === 0 && hour === 0)
@@ -500,30 +511,34 @@ export const getRandomColor = (senderId) => {
   for (let i = 0; i < senderId?.length; i++) {
     hash = senderId.charCodeAt(i) + ((hash << 5) - hash);
   }
-  
+
   // Generate RGB values ensuring they're not too dark (minimum brightness)
-  const r = Math.max(128, (hash >> 16) & 0xFF);
-  const g = Math.max(128, (hash >> 8) & 0xFF);
-  const b = Math.max(128, hash & 0xFF);
-  
+  const r = Math.max(128, (hash >> 16) & 0xff);
+  const g = Math.max(128, (hash >> 8) & 0xff);
+  const b = Math.max(128, hash & 0xff);
+
   // Convert to hex color
-  const color = `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+  const color = `#${r.toString(16).padStart(2, "0")}${g
+    .toString(16)
+    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
   return color;
 };
 export const notificationType = {
   ACCOUNT_CREATION: 1,
   JOINING_PRIME_LEAGUE: 2,
-  MOTIVATIONS: 3,
-  MATCHMAKING_QUEUE: 4,
+  SCORESUBMITTED: 3,
+  MATCHMAKING_FOUND: 4,
   POST_MATCH: 5,
- LEAGUE_ENDED: 6
-}
+  LEAGUE_ENDED: 6,
+  MATCH_IN_DISPUTE: 7,
+  CONFLICT_RESOLVED: 8,
+};
 export const buttonType = {
   NONE: 0,
   MAIN_LOBBY: 1,
   LEAGUE_LOBBY: 2,
-  VIEW_MATCH: 3
-}
+  VIEW_MATCH: 3,
+};
 export function getTimeAgo(dateString) {
   const now = new Date();
   const date = new Date(dateString);

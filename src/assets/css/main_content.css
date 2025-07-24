@@ -790,12 +790,40 @@ input[type="radio"]:checked + label .checkbox-inner:before {
   height: 19rem;
 }
 
+.notification-box svg{
+  position: absolute;
+  top: 0;
+}
+
 html[dir="rtl"] .notification-box {
   transform: rotateY(180deg);
 }
 
 html[dir="rtl"] .notification-box-rotate {
   transform: rotateY(180deg);
+}
+
+html[dir="rtl"] .notification-box-wp.polygon_border:after {
+  right: auto;
+  left: -1.9rem;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.notification-box.rtl {
+  direction: rtl;
+}
+
+.notification-box.rtl .notification-box-content {
+  direction: rtl;
+  text-align: right;
+}
+
+.notification-box-content {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  backface-visibility: hidden;
+  transform: translateZ(0); /* Optional for better rendering */
 }
 
 .notification-sidebar .game_status--tab {
@@ -835,12 +863,6 @@ html[dir="rtl"] .notification-box-rotate {
   transform: translateY(-50%) rotate(-90deg);
 }
 
-html[dir="rtl"] .notification-box-wp.polygon_border:after {
-  right: auto;
-  left: -1.9rem;
-  transform: translateY(-50%) rotate(90deg);
-}
-
 .notification-box-btn button {
   background: url(../images/deny-btn.png);
   background-repeat: no-repeat;
@@ -871,7 +893,7 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   background-size: contain;
   width: 3.76rem;
   height: 3.76rem;
-  z-index: 0;
+  z-index: -1;
 }
 
 .notification-sidebar button {
