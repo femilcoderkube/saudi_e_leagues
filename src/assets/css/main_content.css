@@ -787,7 +787,6 @@ input[type="radio"]:checked + label .checkbox-inner:before {
     rgba(34, 35, 86, 0.48) 100%
   );
   width: 100%;
-  height: 19rem;
 }
 
 .notification-box svg{
