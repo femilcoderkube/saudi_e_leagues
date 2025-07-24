@@ -516,7 +516,7 @@ export const notificationType = {
   MOTIVATIONS: 3,
   MATCHMAKING_QUEUE: 4,
   POST_MATCH: 5,
-  FIRST_LEAGUE_JOIN: 6
+ LEAGUE_ENDED: 6
 }
 export const buttonType = {
   NONE: 0,

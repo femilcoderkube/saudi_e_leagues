@@ -47,6 +47,28 @@ html[dir=rtl] .home_hero--sec::after {
     opacity: 1;
 }
 
+/* page reload animation start*/
+body.page-loading *,
+body.page-loading .swiper-slide,
+body.page-loading .swiper-slide.swiper-slide-active {
+    transition: none !important;
+    animation: none !important;
+}
+
+body.page-loading {
+    overflow: hidden;
+}
+
+body.page-loading .home_hero--sec,
+body.page-loading .swiper-slide,
+body.page-loading h1,
+body.page-loading h2,
+body.page-loading h3 {
+    opacity: 0 !important;
+}
+
+/* page reload animation end*/
+
 html[dir=rtl] .swiper-slide.swiper-slide-active {
     margin-left: 2rem;
     margin-right: auto;
@@ -583,8 +605,8 @@ html[dir="rtl"] .home_faq--sec {
     }
 
     html[dir=rtl] .home_hero--sec::after {
-    left: -4rem;
-}
+        left: -4rem;
+    }
 
     html[dir=rtl] .faq_head-con {
         padding-right: 0;
@@ -681,7 +703,7 @@ html[dir="rtl"] .home_faq--sec {
     }
 
     html[dir=rtl] .home_hero--sec::after {
-       transform: rotateY(0deg);
+        transform: rotateY(0deg);
         left: 15rem;
         top: 1rem;
         right: auto;
@@ -744,7 +766,10 @@ html[dir="rtl"] .home_faq--sec {
 @media (max-width: 420px) {
     .sd_play-link {
         padding: 5rem 0;
-    } html[dir=rtl] .home_hero_left-con h2,  html[dir=rtl] .home_hero_left-con h1 {
+    }
+
+    html[dir=rtl] .home_hero_left-con h2,
+    html[dir=rtl] .home_hero_left-con h1 {
         font-size: 2rem;
     }
 }

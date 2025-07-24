@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setshowNotification } from "../../app/slices/constState/constStateSlice.js";
 import { notificationType } from "../../utils/constant.js";
 import UserRegistrationNotification from "./UserRegistrationNotification.jsx";
+import LeagueEndedNotification from "./LeagueEndedNotification.jsx";
 
 const Notification_Sidebar = () => {
   const { NotificationTabIndex } = useSelector((state) => state.constState);
@@ -44,12 +45,18 @@ const Notification_Sidebar = () => {
             return <LeaguesJoinNotification key={index} data={item}/>
           }else if(item.notificationId.notificationtype == notificationType.ACCOUNT_CREATION){
             return <UserRegistrationNotification key={index} data={item}/>
+          }else if(item.notificationId.notificationtype == notificationType.LEAGUE_ENDED){
+            return <LeagueEndedNotification key={index} data={item}/>
           }
           return <></>
         }) : ReadNotification.map((item,index)=>{
           console.log("item",item);
           if(item.notificationId.notificationtype == notificationType.JOINING_PRIME_LEAGUE){
             return <LeaguesJoinNotification key={index} data={item}/>
+          }else if(item.notificationId.notificationtype == notificationType.ACCOUNT_CREATION){
+            return <UserRegistrationNotification key={index} data={item}/>
+          }else if(item.notificationId.notificationtype == notificationType.LEAGUE_ENDED){
+            return <LeagueEndedNotification key={index} data={item}/>
           }
           return <></>
         })}

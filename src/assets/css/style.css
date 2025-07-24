@@ -104,11 +104,9 @@ div {
 }
 
 .sd_radial-bg {
-  background: linear-gradient(
-    180deg,
-    rgba(45, 46, 109, 1) 0%,
-    rgba(34, 35, 86, 1) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(45, 46, 109, 1) 0%,
+      rgba(34, 35, 86, 1) 100%);
   box-shadow: inset 0px 1px 4px rgb(87 89 195 / 20%);
 }
 
@@ -117,13 +115,11 @@ div {
 }
 
 .yellow_grad-bg {
-  background: -webkit-linear-gradient(
-    270deg,
-    rgba(255, 200, 112, 1) 0%,
-    rgba(255, 178, 55, 1) 27%,
-    rgba(255, 169, 32, 1) 63%,
-    rgb(255 119 61) 100%
-  );
+  background: -webkit-linear-gradient(270deg,
+      rgba(255, 200, 112, 1) 0%,
+      rgba(255, 178, 55, 1) 27%,
+      rgba(255, 169, 32, 1) 63%,
+      rgb(255 119 61) 100%);
 }
 
 .grad_text-clip {
@@ -135,11 +131,9 @@ div {
 /* ==== Common CSS Start ==== */
 
 body {
-  background: linear-gradient(
-    0deg,
-    rgba(1, 2, 29, 1) 0%,
-    rgba(2, 3, 41, 1) 100%
-  );
+  background: linear-gradient(0deg,
+      rgba(1, 2, 29, 1) 0%,
+      rgba(2, 3, 41, 1) 100%);
   transition: 0.2s ease;
   color: #fff !important;
   font-family: "Cairo", sans-serif;
@@ -151,11 +145,9 @@ body {
 }
 
 .grad_head--txt {
-  background: -webkit-linear-gradient(
-    270deg,
-    rgba(123, 126, 208, 0.4) 0%,
-    rgba(123, 126, 208, 0) 80%
-  );
+  background: -webkit-linear-gradient(270deg,
+      rgba(123, 126, 208, 0.4) 0%,
+      rgba(123, 126, 208, 0) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1;
@@ -205,11 +197,9 @@ body {
 .submit_score-btn .btn_polygon-link,
 .submit_score-btn.polygon_border:before,
 .submit_score-btn.polygon_border:after {
-  background: linear-gradient(
-    3deg,
-    rgba(67, 75, 233, 1) 0%,
-    rgba(70, 181, 249, 1) 110%
-  );
+  background: linear-gradient(3deg,
+      rgba(67, 75, 233, 1) 0%,
+      rgba(70, 181, 249, 1) 110%);
 }
 
 .submit_score-btn.polygon_border:before,
@@ -321,11 +311,9 @@ li.list {
 }
 
 li.list.active {
-  background: radial-gradient(
-    25.07% 245.65% at 50.54% 0%,
-    rgba(68, 130, 241, 0.24) 0%,
-    rgba(68, 130, 241, 0) 100%
-  );
+  background: radial-gradient(25.07% 245.65% at 50.54% 0%,
+      rgba(68, 130, 241, 0.24) 0%,
+      rgba(68, 130, 241, 0) 100%);
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -348,33 +336,30 @@ li.list.active span {
   color: var(--color-white);
 }
 
-.navigation .listWrap li:nth-child(2).active ~ .m_menu__indicator {
+.navigation .listWrap li:nth-child(2).active~.m_menu__indicator {
   left: calc((100% / 3) * (2 - 1) + (100% / 6) - 48px);
   transition: 0.5s;
 }
 
-.navigation.nav-condition
-  .listWrap
-  li:nth-child(2).active
-  ~ .m_menu__indicator {
+.navigation.nav-condition .listWrap li:nth-child(2).active~.m_menu__indicator {
   left: calc((100% / 2) * (2 - 1) + (100% / 4) - 48px);
 }
 
-.navigation .listWrap li:nth-child(3).active ~ .m_menu__indicator {
+.navigation .listWrap li:nth-child(3).active~.m_menu__indicator {
   left: calc((100% / 3) * (3 - 1) + (100% / 6) - 49px);
   transition: 0.5s;
 }
 
-.navigation .listWrap li:nth-child(2).active ~ .sq__shape-wrap {
+.navigation .listWrap li:nth-child(2).active~.sq__shape-wrap {
   mask-position: calc((100% / 3) * (2 - 1) + (100% / 6) - 0px) -2px, 0;
   transition: 0.5s;
 }
 
-.navigation.nav-condition .listWrap li:nth-child(2).active ~ .sq__shape-wrap {
+.navigation.nav-condition .listWrap li:nth-child(2).active~.sq__shape-wrap {
   mask-position: calc((100% / 2) * (2 - 1) + (100% / 4) - -25px) -2px, 0;
 }
 
-.navigation .listWrap li:nth-child(3).active ~ .sq__shape-wrap {
+.navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
   mask-position: calc((100% / 3) * (3 - 1) + (100% / 6) + 34px) -2px, 0;
   transition: 0.5s;
 }
@@ -389,11 +374,7 @@ html[dir="rtl"] .navigation.nav-condition .sq__shape-wrap {
   mask-position: calc((100% / 2) * (2 - 1) + (100% / 4) + 25px) -2px, 0;
 }
 
-html[dir="rtl"]
-  .navigation.nav-condition
-  .listWrap
-  li:nth-child(2).active
-  ~ .sq__shape-wrap {
+html[dir="rtl"] .navigation.nav-condition .listWrap li:nth-child(2).active~.sq__shape-wrap {
   mask-position: calc((100% / 2) * (1 - 1) + (100% / 4) - 25px) -2px, 0;
 }
 
@@ -407,34 +388,31 @@ html[dir="rtl"] .navigation.nav-condition .m_menu__indicator {
   right: calc((100% / 2) * (1 - 1) + (100% / 4) - 47px);
 }
 
-html[dir="rtl"]
-  .navigation
-  .listWrap
-  li:nth-child(2).active
-  ~ .m_menu__indicator {
+html[dir="rtl"] .navigation .listWrap li:nth-child(2).active~.m_menu__indicator {
   right: calc((100% / 3) * (2 - 1) + (100% / 6) - 48px);
   left: auto;
 }
 
-html[dir="rtl"]
-  .navigation.nav-condition
-  .listWrap
-  li:nth-child(2).active
-  ~ .m_menu__indicator {
+html[dir="rtl"] .navigation.nav-condition .listWrap li:nth-child(2).active~.m_menu__indicator {
   right: calc((100% / 2) * (2 - 1) + (100% / 4) - 48px);
 }
 
-html[dir="rtl"]
-  .navigation
-  .listWrap
-  li:nth-child(3).active
-  ~ .m_menu__indicator {
+html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.m_menu__indicator {
   right: calc((100% / 3) * (3 - 1) + (100% / 6) - 49px);
   left: auto;
 }
 
-html[dir="rtl"] .navigation .listWrap li:nth-child(3).active ~ .sq__shape-wrap {
+html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
   mask-position: calc((100% / 3) * (1 - 1) + (100% / 6) - 34px) -2px, 0;
+}
+
+.mob-common-btn {
+  top: 50%;
+  transform: translate(0, calc(-50% + 5px));
+}
+
+.react-pdf__Page {
+  background-color: transparent !important;
 }
 
 @media (max-width: 1279px) {
@@ -487,6 +465,10 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active ~ .sq__shape-wrap {
   .mob-chat-head {
     background: linear-gradient(90deg, #181b45 0%, #131540 100%);
     border-bottom: 1px solid rgb(123, 126, 208, 0.12);
+    position: absolute;
+    width: 100%;
+    TOP: 0;
+    right: 0;
   }
 
   .mob-chat-head h1 {
@@ -505,10 +487,12 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active ~ .sq__shape-wrap {
   .mob-btn_polygon-link.submit_score-btn.polygon_border:after {
     width: 4rem;
   }
+
   .mob-chat-wp {
     z-index: 101;
     height: 100dvh;
   }
+
   .mob-chat-box {
     position: absolute;
     width: 100%;
@@ -518,21 +502,11 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active ~ .sq__shape-wrap {
 }
 
 @media (max-width: 475px) {
-  .sd_content-right a span {
-    top: 1.2rem;
-  }
-
   .sd_content-right a img {
     height: 3.8rem;
   }
-}
 
-@media (max-width: 410px) {
   .mob-common-btn {
-    top: 1.6rem;
+    transform: translate(0, calc(-50% + 3px));
   }
-}
-
-.react-pdf__Page {
-  background-color: transparent !important;
 }

@@ -59,7 +59,7 @@ const LeaguesJoinNotification = ({ data }) => {
               }}>
                 Skip
               </button>}
-              <button className="relative overflow-hidden pl-13 go-btn uppercase flex items-center justify-center gap-3 active-tab text-xl sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300"
+              <button className={`relative overflow-hidden pl-13 go-btn uppercase flex items-center justify-center gap-3 active-tab text-xl sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300 ${data.isRead ? "singleButton" : ""}`}
               onClick={()=>{
                 navigate(`/${id}/lobby/${data.extras.leagueId}`);
                 dispatch(setshowNotification(false));

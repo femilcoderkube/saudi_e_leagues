@@ -853,6 +853,13 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   background-size: cover;
   
 }
+.notification-box-btn button.active-tab.singleButton{
+  background: url(../images/notificationSingleButton.svg);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-left: 0;
+}
 
 .go-btn::after {
   content: "";
@@ -1156,6 +1163,7 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     .match_reg--popup2 {
   clip-path: unset;
   max-width: 100% !important;
+  padding-block: 6rem ;
 }
 }
 
@@ -1188,6 +1196,14 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   }
 }
 
+@media (max-width: 410px) {
+  .sd_custom-input,
+  .popup_submit-btn {
+    width: 16rem;
+    height: 3.7rem;
+  }
+}
+
 @media (max-width: 389px) {
   .player_score {
     background-size: 19rem;
@@ -1208,12 +1224,6 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   }
 
   .mob-star-week {
-    width: 21rem;
-  }
-}
-
-@media (max-width: 389px) {
-  .mob-star-week {
     width: 18.5rem;
   }
   .profile-wp {
@@ -1223,4 +1233,7 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     padding-bottom: 1.2rem;
     margin-bottom: 1.2rem;
   }
+
 }
+
+

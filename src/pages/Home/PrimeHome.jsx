@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import GetStartedBtn from "../../assets/images/get_started_btn.png";
@@ -24,6 +24,19 @@ export default function PrimeHome() {
   const navigate = useNavigate();
   const [showVideoModal, setShowVideoModal] = useState(false);
   // <Link to={`/${id}/lobby`}>Go to Lobby</Link>
+  useEffect(() => {
+    // Set page loading class
+    document.body.classList.add("page-loading");
+  
+    // Wait for fonts and Swiper to stabilize before removing loading class
+    const timer = setTimeout(() => {
+      document.body.classList.remove("page-loading");
+    }, 500); // Slightly longer delay to avoid visual flashes
+  
+    return () => clearTimeout(timer);
+  }, []);
+  
+
  
 
   return (

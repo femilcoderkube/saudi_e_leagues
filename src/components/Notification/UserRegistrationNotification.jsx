@@ -4,6 +4,8 @@ import "../../assets/css/notification.css";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getServerURL, getTimeAgo } from "../../utils/constant";
+import { setshowNotification } from "../../app/slices/constState/constStateSlice";
+import { readNotificationSocket } from "../../app/socket/socket";
 
 const UserRegistrationNotification = ({data}) => {
   const { i18n } = useTranslation();
@@ -18,6 +20,7 @@ const UserRegistrationNotification = ({data}) => {
     body: i18n.language == "en" ? data.notificationId.Body.toString(): data.notificationId.BodyAr.toString(),
     isRead: data.isRead,
   }
+  console.log("data",data._id);
   return (
       <div className="notification-box-wp relative polygon_border sd_before sd_after">
         <div className="notification-box">
@@ -37,11 +40,19 @@ const UserRegistrationNotification = ({data}) => {
               {notificationData.body}
             </h6>
             <div className="notification-box-btn flex gap-4 items-center mt-5">
-              <button className="uppercase text-xl sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300">
-                Deny
-              </button>
-              <button className="uppercase active-tab text-xl sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300">
-                Accept
+            {!data.isRead && <button className="uppercase text-xl sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300"
+              
+              onClick={()=>{
+                readNotificationSocket(data._id);
+              }}>
+                Skip
+              </button>}
+              <button className={`relative overflow-hidden pl-13 go-btn uppercase flex items-center justify-center gap-3 active-tab text-xl sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300 ${data.isRead ? "singleButton" : ""}`}
+              onClick={() => {
+                navigate(`/${id}/lobby`);
+                dispatch(setshowNotification(false));
+              }}>
+                Go
               </button>              
             </div>
           </div>
