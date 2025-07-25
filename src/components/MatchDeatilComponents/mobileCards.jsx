@@ -324,7 +324,7 @@ export const mobileViewCard_one = ({ player }) => (
       <path
         d="M46 22C59.2548 22 70 32.7452 70 46C70 59.2548 59.2548 70 46 70C32.7452 70 22 59.2548 22 46C22 42.43 22.7797 39.0421 24.1777 35.9971C30.664 35.9029 35.9029 30.664 35.9971 24.1777C39.0421 22.7797 42.43 22 46 22Z"
         fill="url(#pattern0_3264_14073)"
-        shapeRendering="crispEdges"
+        shapeRendering="auto"
       />
     </g>
     <mask
@@ -1351,7 +1351,7 @@ export const mobileViewCard_two = ({ player }) => (
       <path
         d="M46 26C59.2548 26 70 36.7452 70 50C70 63.2548 59.2548 74 46 74C32.7452 74 22 63.2548 22 50C22 46.43 22.7797 43.0421 24.1777 39.9971C30.664 39.9029 35.9029 34.664 35.9971 28.1777C39.0421 26.7797 42.43 26 46 26Z"
         fill="url(#pattern0_3264_14144)"
-        shapeRendering="crispEdges"
+        shapeRendering="auto"
       />
     </g>
     <mask
@@ -2381,7 +2381,7 @@ export const mobileViewCard_three = ({ player }) => (
       <path
         d="M46 22C59.2548 22 70 32.7452 70 46C70 59.2548 59.2548 70 46 70C32.7452 70 22 59.2548 22 46C22 42.43 22.7797 39.0421 24.1777 35.9971C30.664 35.9029 35.9029 30.664 35.9971 24.1777C39.0421 22.7797 42.43 22 46 22Z"
         fill="url(#pattern0_3264_14223)"
-        shapeRendering="crispEdges"
+        shapeRendering="auto"
       />
     </g>
     <mask
@@ -3414,7 +3414,7 @@ export const mobileViewCard_four = ({ player }) => (
       <path
         d="M46 26C59.2548 26 70 36.7452 70 50C70 63.2548 59.2548 74 46 74C32.7452 74 22 63.2548 22 50C22 46.43 22.7797 43.0421 24.1777 39.9971C30.664 39.9029 35.9029 34.664 35.9971 28.1777C39.0421 26.7797 42.43 26 46 26Z"
         fill="url(#pattern0_3264_14298)"
-        shapeRendering="crispEdges"
+        shapeRendering="auto"
       />
     </g>
     <mask
@@ -4444,7 +4444,7 @@ export const mobileViewCard_Last_odd = ({ player }) => (
       <path
         d="M46 22C59.2548 22 70 32.7452 70 46C70 59.2548 59.2548 70 46 70C32.7452 70 22 59.2548 22 46C22 42.43 22.7797 39.0421 24.1777 35.9971C30.664 35.9029 35.9029 30.664 35.9971 24.1777C39.0421 22.7797 42.43 22 46 22Z"
         fill="url(#pattern0_3264_14377)"
-        shapeRendering="crispEdges"
+        shapeRendering="auto"
       />
     </g>
     <mask
@@ -5440,7 +5440,7 @@ export const mobileViewCard_Last_even = ({ player }) => (
       <path
         d="M46.0665 26.2891C59.3213 26.2891 70.0665 37.0342 70.0665 50.2891C70.0665 63.5439 59.3213 74.2891 46.0665 74.2891C32.8116 74.2891 22.0665 63.5439 22.0665 50.2891C22.0665 46.719 22.8461 43.3311 24.2442 40.2861C30.7305 40.1919 35.9694 34.9531 36.0635 28.4668C39.1085 27.0687 42.4964 26.2891 46.0665 26.2891Z"
         fill="url(#pattern0_5060_2401)"
-        shapeRendering="crispEdges"
+        shapeRendering="auto"
       />
     </g>
     <mask
