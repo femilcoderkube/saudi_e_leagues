@@ -1,6 +1,7 @@
 import GreenSmile from "../../assets/images/green_smile.png";
 import RedSmile from "../../assets/images/red_smile.png";
 import YellowSmile from "../../assets/images/yellow_smile.png";
+import {  mobileViewCard_four, mobileViewCard_Last_even, mobileViewCard_Last_odd, mobileViewCard_one, mobileViewCard_three, mobileViewCard_two } from "./mobileCards";
 import {
   FifthPosCard,
   FirstPosCard_gold,
@@ -57,6 +58,34 @@ export function getCards(position, isOpponent = false) {
     default:
       return [];
   }
+}
+
+
+export function getMobileCards(position) {
+  // Determine first and last card types
+  let firstCard = position === 1 ? mobileViewCard_three : mobileViewCard_one;
+  let lastCard = position % 2 === 0 ? mobileViewCard_Last_even : mobileViewCard_Last_odd;
+  let cards = [mobileViewCard_two, mobileViewCard_three];
+
+  if (position <= 0) return [];
+
+  // For position 1, just return the first card
+  if (position === 1) return [firstCard];
+
+  // For position 2, return first and last
+  if (position === 2) return [firstCard, lastCard];
+
+  // For position >= 3, build dynamically
+  let result = [firstCard];
+  // Fill the middle cards
+  for (let i = 0; i < position - 2; i++) {
+    // Alternate between cards[0] and cards[1]
+    result.push(cards[i % cards.length]);
+  }
+  // Add the last card
+  result.push(lastCard);
+
+  return result;
 }
 /**
  * Returns the appropriate smile image based on the reputation percentage.

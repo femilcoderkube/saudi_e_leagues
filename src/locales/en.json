@@ -182,7 +182,8 @@
     "like": "Like",
     "dislike": "Dislike",
     "chat": "Chat",
-    "match_chat": "MATCH CHAT"
+    "match_chat": "MATCH CHAT",
+    "match": "Match"
   },
 
   "rules": {
