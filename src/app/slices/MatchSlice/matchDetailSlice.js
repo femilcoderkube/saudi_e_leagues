@@ -58,6 +58,8 @@ const matchDetailSlice = createSlice({
       const { match, user } = action.payload || {};
       console.log("match", match);
       if (match) {
+        state.winnerScore.teamOne= "-";
+        state.winnerScore.teamTwo= "-";
         const userId = user?._id;
         const team1 = match.team1 || [];
         const team2 = match.team2 || [];
