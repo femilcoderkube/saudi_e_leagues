@@ -6,16 +6,19 @@ import asideLogo_ltr from "../../assets/images/logo-lrt.svg";
 import SEF_ENG from "../../assets/images/SEF_ENG.svg";
 import SEF_AR from "../../assets/images/SEF_AR.svg";
 import follwers from "../../assets/images/Follow_Us.png";
+import call_duty from "../../assets/images/call-duty.png";
+import call_duty_bg from "../../assets/images/call-duty-bg.png";
+import call_vs from "../../assets/images/call-vs.png";
 import { Link } from "react-router-dom";
 import { Twitter, Instagram, discord, Tiktok } from "../ui/svg/index.jsx";
 import { items } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
-
+import LastMatchCardList from "./LastMatchCardList.jsx";
 
 const Sidebar = ({ onItemClick }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const location = useLocation();
-  const { t , i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const social_links = [
     {
@@ -47,10 +50,16 @@ const Sidebar = ({ onItemClick }) => {
   };
 
   const activeItem = getActiveItem();
-  let resetpassword = new Set(window.location.pathname.split("/")).has("resetpassword");
-  
+  let resetpassword = new Set(window.location.pathname.split("/")).has(
+    "resetpassword"
+  );
+
   return (
-    <aside className={`w-[22.5rem] text-white ${resetpassword ? "hidden" : "hidden md:block"}`}>
+    <aside
+      className={`w-[22.5rem] text-white ${
+        resetpassword ? "hidden" : "hidden md:block"
+      }`}
+    >
       <Link
         to={"/"}
         className="sd_logo flex items-center h-[7.438rem] ltr:justify-start rtl:justify-end rtl:pl-16 bg-[url(./assets/images/logo-background.svg)] bg-cover bg-no-repeat object-center"
@@ -139,10 +148,11 @@ const Sidebar = ({ onItemClick }) => {
         </Link> */}
 
         {/* === Social Links Block Start === */}
-        <div className="sd_social--block flex flex-col mt-auto w-full pb-6">
-          {/* <h2 className="text-[2rem] font_oswald max-w-full px-8 tracking-wide uppercase">
-            Follow Us
-          </h2> */}
+        <div className="sd_social--block flex flex-col w-full pb-6">
+          {/* call of duty sec start*/}
+         <LastMatchCardList/>
+          {/* <span className="view-all w-[4.5rem] cursor-pointer relative mx-7.5 mb-5 text-[#BCC6E0] font-semibold">View All</span> */}
+        <div className="mt-auto">
           <img
             src={follwers}
             alt={t("images.follow_us")}
@@ -162,7 +172,13 @@ const Sidebar = ({ onItemClick }) => {
             ))}
           </ul>
           <div className="flex items-center justify-center mt-4">
-            <img className="h-16" src={ i18n.language == "en" ? SEF_ENG : SEF_AR} alt="" />            
+            <img
+              className="h-16"
+              src={i18n.language == "en" ? SEF_ENG : SEF_AR}
+              alt=""
+            />
+          </div>
+          </div>
           </div>
         </div>
 
@@ -175,7 +191,6 @@ const Sidebar = ({ onItemClick }) => {
             Collapse Menu
           </Link>
         </div> */}
-      </div>
       {/* <svg
         width="0"
         height="0"

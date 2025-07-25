@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import dota_game from "../../assets/images/dota-game.png";
 import right_arrow from "../../assets/images/right-arrow.png";
-import "../../assets/css/notification.css";
+
 
 const Notification_box_One = () => {
   return (

@@ -4,6 +4,9 @@ const initialState = {
   UnreadNotification: [],
   ReadNotification: [],
   isRead: false,
+  unReadNotificationCount: 0,
+  notificationCount: 0,
+  lastMatchs : []
 };
 
 const notificationSlice = createSlice({
@@ -14,15 +17,22 @@ const notificationSlice = createSlice({
       if (action.payload.status) {
         if(action.payload.isRead){
           state.ReadNotification = action.payload.data;
+          state.notificationCount = action.payload.data.length;
         }else{
           state.UnreadNotification = action.payload.data;
+          state.unReadNotificationCount = action.payload.data.length;
         }
         state.isRead = action.payload.isRead;
       }
     },
+    setLastMatch: (state, action) => {
+      if(action.payload.status){
+        state.lastMatchs = action.payload.data;
+      }
+    }
   },
-});
+}); 
 
-export const { setNotification } = notificationSlice.actions;
+export const { setNotification, setLastMatch   } = notificationSlice.actions;
 
 export default notificationSlice.reducer;

@@ -362,7 +362,6 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
 
 /* sm */
 @media (max-width: 639px) {
-
     .active-tab.polygon_border:before,
     .active-tab.polygon_border:after {
         background: #447df1;
@@ -414,6 +413,33 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
        html[dir=rtl] .game_status--tab {
         right: 0;
     }
+}
+@media (max-width: 475px) {    
+    .game_card--wrapv2.game_card--wrapper>a {
+        max-width: 20rem;
+        flex: 0 0 20rem;
+    }
+
+    .game_card--wrapv2 .match_date {
+        width: 3rem;
+    }
+}
+@media (max-width: 389px) {
+    .btn_polygon-link,.sel_game-menu .dropdown-header:before {
+        width: 12.5rem;
+    }
+    .game_card--wrapv2.game_card--wrapper>a {
+        max-width: 18.5rem;
+        flex: 0 0 18.5rem;
+    }
+    .game_card--wrapv2 .game_image {
+        max-width: 9rem;
+        flex: 0 0 9rem;
+    }
+
+    /* .game_image img{
+        width: 9rem;
+    } */
 }
 
 /* lg */

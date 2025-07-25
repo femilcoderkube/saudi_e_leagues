@@ -1,6 +1,6 @@
 import {  useNavigate, useParams } from "react-router-dom";
 
-import "../../assets/css/notification.css";
+
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getServerURL, getTimeAgo } from "../../utils/constant";

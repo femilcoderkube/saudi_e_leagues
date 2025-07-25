@@ -87,7 +87,7 @@ const Lobby = () => {
           ))}
         </div>
         </div>
-        <div className="select_game-header flex items-center justify-between">
+        <div className="select_game-header flex items-center gap-1 justify-between">
           <GameDropDown />
           <div className="game_list--view flex sd_radial-bg items-center rounded-xl p-2">
             <button

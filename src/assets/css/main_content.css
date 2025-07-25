@@ -744,6 +744,29 @@ input[type="radio"]:checked + label .checkbox-inner:before {
   filter: invert(41%) sepia(10%) saturate(2890%) hue-rotate(206deg)
     brightness(95%) contrast(85%);
 }
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+ 
+ 
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
 .notification-sidebar {
   background: linear-gradient(
@@ -753,8 +776,17 @@ input[type="radio"]:checked + label .checkbox-inner:before {
   );
   box-shadow: inset 2px 2px 2px rgb(21, 23, 60, 0.6);
   z-index: 100;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+
 }
 
+.notification-sidebar.slide-in-right {
+  animation-name: slideInRight;
+}
+.notification-sidebar.slide-in-left {
+  animation-name: slideInLeft;
+}
 .notification-sidebar::before {
   position: absolute;
   content: "";
@@ -873,8 +905,7 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
 .notification-box-btn button.active-tab {
   background: url(../images/accept-btn.png);
   background-repeat: no-repeat;
-  background-size: cover;
-  
+  background-size: cover;  
 }
 .notification-box-btn button.active-tab.singleButton{
   background: url(../images/notificationSingleButton.svg);
@@ -1217,6 +1248,17 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     width: 19rem;
     height: 4rem;
   }
+  .notification-box-btn{
+    flex-direction: column;
+  }
+  .notification-box-btn button.active-tab.singleButton{
+    background-size: contain;
+    height: 2.5rem;
+  }
+  .go-btn::after{
+    height: 3rem;
+    width: 3rem;
+  }
 }
 
 @media (max-width: 410px) {
@@ -1257,6 +1299,33 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     margin-bottom: 1.2rem;
   }
 
+    .notification-sidebar {
+      width: calc(100% - 0.5rem);
+    }
+    .notification-sidebar .game_status--tab button {
+      width: 9rem !important;
+  }
+  .notification-sidebar .active-tab.polygon_border:before, .notification-sidebar .active-tab.polygon_border:after {
+    width: 4rem;
+}
+.notification-box-wp.polygon_border:before {
+  width: 5rem;
+}
+}
+
+@media (max-width: 354px) {
+  .notification-box-btn button.active-tab.singleButton{
+    height: 2.4rem;
+    font-size: 1rem;
+  }
+  .go-btn::after {
+    height: 2.2rem;
+    width: 2.2rem;
+    top: 0rem;
+}
+.upload-pic{
+  width: 21.5rem;
+}
 }
 
 

@@ -22,6 +22,7 @@ import "./i18n";
 import { useTranslation } from "react-i18next";
 import UserProfilePage from "./pages/profile/UserProfilePage.jsx";
 import ResetPasswordPage from "./pages/profile/resetPassword.jsx";
+import { items } from "./utils/constant.js";
 
 function App() {
   const { i18n } = useTranslation();
@@ -37,6 +38,7 @@ function App() {
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
+  const firstItem = items[0];
 
   return (
     <Router>
@@ -45,7 +47,7 @@ function App() {
         <Routes>
           <Route path="reset-password" element={<ResetPasswordPage />} />
           {/* <Route index element={<MainView selectedItem={selectedItem} />} /> */}
-          <Route path="/" element={<Navigate to="/prime" />} />
+          <Route path="/" element={<Navigate to={`/${firstItem.id}`} />} />
           {/* Redirect "/:id" to "/:id/lobby" */}
           {/* <Route path="/:id" element={<Navigate to={`/${window.location.pathname.split('/')[1]}/lobby`} replace />} /> */}
           <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
@@ -57,7 +59,7 @@ function App() {
             <Route path="profile" element={<UserProfilePage />} />
             {/* Add more routes as needed */}
           </Route>
-          <Route path="*" element={<Navigate to="/prime/" />} />
+          <Route path="*" element={<Navigate to={`/${firstItem.id}`} />} />
         </Routes>
       </div>
     </Router>

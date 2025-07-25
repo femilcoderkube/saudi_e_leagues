@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import dota_game from "../../assets/images/dota-game.png";
-import "../../assets/css/notification.css";
+
 
 const Notification_box = () => {
   return (

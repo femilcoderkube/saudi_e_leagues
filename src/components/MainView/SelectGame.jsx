@@ -15,7 +15,7 @@ const MainView = ({ selectedItem }) => {
         {/* <Outlet /> */}
 
        <div className="sd_slect_game--wrapper relative">
-          <div className="select_game-header flex items-center justify-between">
+          <div className="select_game-header flex gap-1 items-center justify-between">
 
             {/* --- Select Game Dropdown HTML Start --- */}
             <SelectGame />

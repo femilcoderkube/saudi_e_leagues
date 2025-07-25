@@ -122,9 +122,15 @@ aside {
     }
 }
 
-@media (max-width: 639px) {
+@media (max-width: 639px) {  
     .btn_polygon-link {
         font-size: 1.125rem;
+    }
+}
+
+@media (max-width: 389px) {
+    .polygon_border:before, .polygon_border:after {
+        width: 5rem;
     }
 }
 

@@ -134,7 +134,7 @@ const MatchDetail = () => {
                 style={{ width: "17.5rem" }}
               />
             </div>
-            <div className="flex items-center justify-center gap-6 mb-[1rem]">
+            <div className="mob-sub-btn flex items-center justify-center gap-6 mb-[1rem]">
               {user && isCaptain && (!IsSubmited || isEditScore != null) && (
                 <div className="mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                   <div

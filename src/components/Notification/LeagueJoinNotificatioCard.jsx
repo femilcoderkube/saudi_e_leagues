@@ -1,7 +1,7 @@
 import {  useNavigate, useParams } from "react-router-dom";
 
 import right_arrow from "../../assets/images/right-arrow.png";
-import "../../assets/css/notification.css";
+
 import { getServerURL, getTimeAgo } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
 import { readNotificationSocket } from "../../app/socket/socket";
@@ -17,8 +17,8 @@ const LeaguesJoinNotification = ({ data }) => {
     image: getServerURL(data.extras.gameLogo),
     gameName: data.extras.gameName,
     createdAt: getTimeAgo(data.createdAt),
-    subject: i18n.language == "en" ? data.notificationId.Subject.toString().replace(data.extras.key, data.extras.valEN || data.extras.val) : data.notificationId.SubjectAr.toString().replace(data.extras.key, data.extras.valAr || data.extras.val),
-    body: i18n.language == "en" ? data.notificationId.Body.toString().replace(data.extras.key, data.extras.valEN || data.extras.val) : data.notificationId.BodyAr.toString().replace(data.extras.key, data.extras.valAr || data.extras.val),
+    subject: i18n.language == "en" ? data.notificationId.Subject.toString().replace(data.extras.key, data.extras.valEN || data.extras.val) : data.notificationId.SubjectAr.toString().replace(data.extras.key, data.extras.valAR || data.extras.val),
+    body: i18n.language == "en" ? data.notificationId.Body.toString().replace(data.extras.key, data.extras.valEN || data.extras.val) : data.notificationId.BodyAr.toString().replace(data.extras.key, data.extras.valAR || data.extras.val),
     buttonText: i18n.language == "en" ? data.notificationId.ActionButton.toString(): data.notificationId.ActionButtonAr.toString(),
     isRead: data.isRead,
   }

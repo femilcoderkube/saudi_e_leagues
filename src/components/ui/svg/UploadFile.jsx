@@ -64,7 +64,7 @@ const CustomFileUpload = ({
           </>
         ) : (
           <div className="flex flex-col items-center justify-center w-full h-full">
-            <p className="text-[#7B7ED0] text-lg font-medium">
+            <p className="text-[#7B7ED0] sm:text-lg text-base font-medium">
               {isReg ? "Upload Profile Picture" : "Upload Photo"}
             </p>
             <p className="text-[#7B7ED0]/70 text-sm mt-1">
