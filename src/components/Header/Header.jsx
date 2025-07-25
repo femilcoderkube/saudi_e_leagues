@@ -170,7 +170,7 @@ const Header = () => {
             </div>
             <h2 className="md:text-[2rem] text-[1.25rem] !font-black uppercase block ltr:ml-12 rtl:mr-12">
             {i18n.language === "en"
-                ? matchData?.league?.title
+                ? matchData?.league?.title || t("match.finding_matchmaking")
                 : matchData?.league?.titleAr || t("match.finding_matchmaking")} - { t("match.match") + " " + (matchData && matchData?.matchTempId ? matchData?.matchTempId : "#")}
             </h2>
           </div>
