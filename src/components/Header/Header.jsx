@@ -169,7 +169,9 @@ const Header = () => {
               </span>
             </div>
             <h2 className="md:text-[2rem] text-[1.25rem] !font-black uppercase block ltr:ml-12 rtl:mr-12">
-              { t("match.match") + " " + (matchData && matchData?.matchTempId ? matchData?.matchTempId : "#")}
+            {i18n.language === "en"
+                ? matchData?.league?.title
+                : matchData?.league?.titleAr || t("match.finding_matchmaking")} - { t("match.match") + " " + (matchData && matchData?.matchTempId ? matchData?.matchTempId : "#")}
             </h2>
           </div>
           <div className="flex items-center gap-15">
