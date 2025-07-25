@@ -13,7 +13,7 @@ export const mobileViewCard_one = ({ player }) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(24px)",
+          // //backdropFilter: "blur(24px)",
           clipPath: "url(#bgblur_0_3264_14073_clip_path)",
           height: "100%",
           width: "100%",
@@ -1039,7 +1039,7 @@ export const mobileViewCard_two = ({ player }) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(24px)",
+         // //backdropFilter: "blur(24px)",
           clipPath: "url(#bgblur_0_3264_14144_clip_path)",
           height: "100%",
           width: "100%",
@@ -2069,7 +2069,7 @@ export const mobileViewCard_three = ({ player }) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(24px)",
+          //backdropFilter: "blur(24px)",
           clipPath: "url(#bgblur_0_3264_14223_clip_path)",
           height: "100%",
           width: "100%",
@@ -3102,7 +3102,7 @@ export const mobileViewCard_four = ({ player }) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(24px)",
+          //backdropFilter: "blur(24px)",
           clipPath: "url(#bgblur_0_3264_14298_clip_path)",
           height: "100%",
           width: "100%",
@@ -4132,7 +4132,7 @@ export const mobileViewCard_Last_odd = ({ player }) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(24px)",
+          //backdropFilter: "blur(24px)",
           clipPath: "url(#bgblur_0_3264_14377_clip_path)",
           height: "100%",
           width: "100%",
@@ -5163,7 +5163,7 @@ export const mobileViewCard_Last_even = ({ player }) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-          backdropFilter: "blur(24px)",
+          //backdropFilter: "blur(24px)",
           clipPath: "url(#bgblur_0_5060_2401_clip_path)",
           height: "100%",
           width: "100%",
