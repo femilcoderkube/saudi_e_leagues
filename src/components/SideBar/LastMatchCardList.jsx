@@ -1,14 +1,13 @@
 import { useSelector } from "react-redux";
-import call_vs from "../../assets/images/call-vs.png";import { getServerURL } from "../../utils/constant";
+import call_vs from "../../assets/images/call-vs.png";import { getServerURL, items } from "../../utils/constant";
 import call_duty_bg from "../../assets/images/call-duty-bg.png";
 import { useNavigate, useParams } from "react-router-dom";
 
 const LastMatchCardList = () => {
-    let {id} = useParams();
-    console.log("params---------------",id);
+
     const navigate = useNavigate();
     const { lastMatchs } = useSelector((state) => state.notification);
-
+let id = items[0].id
 
 
 
