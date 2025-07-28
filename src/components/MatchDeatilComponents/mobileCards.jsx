@@ -349,26 +349,26 @@ export const mobileViewCard_one = ({ player }) => (
     <g mask="url(#mask1_3264_14073)">
       <rect x={16} y={16} width={16} height={16} fill="#09D75F" />
     </g>
-   
-      <text
-        fill="#ffffff"
-        xmlSpace="preserve"
-        style={{
-          whiteSpace: "pre",
-          position: "relative",
-          zIndex: 2,
-        }}
-        fontFamily="Cairo"
-        textAnchor="end"
-        fontSize={22}
-        fontWeight="bold"
-        letterSpacing="0em"
-      >
-        <tspan x={320} y={52.052}>
-          {player.score}
-        </tspan>
-      </text>
-    
+
+    <text
+      fill="#ffffff"
+      xmlSpace="preserve"
+      style={{
+        whiteSpace: "pre",
+        position: "relative",
+        zIndex: 2,
+      }}
+      fontFamily="Cairo"
+      textAnchor="end"
+      fontSize={22}
+      fontWeight="bold"
+      letterSpacing="0em"
+    >
+      <tspan x={320} y={52.052}>
+        {player.score}
+      </tspan>
+    </text>
+
     <defs>
       <clipPath id="bgblur_0_3264_14073_clip_path" transform="translate(48 48)">
         <path d="M342 8V84L330 92H222L218 88H124L120 92H12L0 84V8L12 0H330L342 8Z" />
@@ -1042,7 +1042,7 @@ export const mobileViewCard_two = ({ player }) => (
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{
-         // //backdropFilter: "blur(24px)",
+          // //backdropFilter: "blur(24px)",
           clipPath: "url(#bgblur_0_3264_14144_clip_path)",
           height: "100%",
           width: "100%",
@@ -1379,26 +1379,26 @@ export const mobileViewCard_two = ({ player }) => (
     <g mask="url(#mask1_3264_14144)">
       <rect x={16} y={20} width={16} height={16} fill="#09D75F" />
     </g>
-    <g filter="url(#filter3_d_3264_14144)">
-      <text
-        fill="url(#paint46_linear_3264_14144)"
-        xmlSpace="preserve"
-        textAnchor="end"
-        style={{
-          whiteSpace: "pre",
-          position: "relative",
-          zIndex: 2,
-        }}
-        fontFamily="Cairo"
-        fontSize={22}
-        fontWeight="bold"
-        letterSpacing="0em"
-      >
-        <tspan x={320} y={56.052}>
-          {player.score}
-        </tspan>
-      </text>
-    </g>
+
+    <text
+      fill="#ffffff"
+      xmlSpace="preserve"
+      textAnchor="end"
+      style={{
+        whiteSpace: "pre",
+        position: "relative",
+        zIndex: 2,
+      }}
+      fontFamily="Cairo"
+      fontSize={22}
+      fontWeight="bold"
+      letterSpacing="0em"
+    >
+      <tspan x={320} y={56.052}>
+        {player.score}
+      </tspan>
+    </text>
+
     <defs>
       <clipPath id="bgblur_0_3264_14144_clip_path" transform="translate(48 48)">
         <path d="M214 100H128L124 96H12L0 88V12L12 4H124L128 0H214L218 4H330L342 12V88L330 96H218L214 100Z" />
@@ -2412,26 +2412,26 @@ export const mobileViewCard_three = ({ player }) => (
     <g mask="url(#mask1_3264_14223)">
       <rect x={16} y={16} width={16} height={16} fill="#FA4768" />
     </g>
-    <g filter="url(#filter3_d_3264_14223)">
-      <text
-        fill="url(#paint46_linear_3264_14223)"
-        xmlSpace="preserve"
-        style={{
-          whiteSpace: "pre",
-          position: "relative",
-          zIndex: 2,
-        }}
-        fontFamily="Cairo"
-        textAnchor="end"
-        fontSize={22}
-        fontWeight="bold"
-        letterSpacing="0em"
-      >
-        <tspan x={320} y={52.052}>
-          {player.score}
-        </tspan>
-      </text>
-    </g>
+
+    <text
+      fill="#ffffff"
+      xmlSpace="preserve"
+      style={{
+        whiteSpace: "pre",
+        position: "relative",
+        zIndex: 2,
+      }}
+      fontFamily="Cairo"
+      textAnchor="end"
+      fontSize={22}
+      fontWeight="bold"
+      letterSpacing="0em"
+    >
+      <tspan x={320} y={52.052}>
+        {player.score}
+      </tspan>
+    </text>
+
     <defs>
       <clipPath id="bgblur_0_3264_14223_clip_path" transform="translate(48 48)">
         <path d="M124 4H218L222 0H330L342 8V84L330 92H222L218 88H124L120 92H12L0 84V8L12 0H120L124 4Z" />
@@ -3448,26 +3448,26 @@ export const mobileViewCard_four = ({ player }) => (
     <g mask="url(#mask1_3264_14298)">
       <rect x={16} y={20} width={16} height={16} fill="#D7BF09" />
     </g>
-    <g filter="url(#filter3_d_3264_14298)">
-      <text
-        fill="url(#paint46_linear_3264_14298)"
-        xmlSpace="preserve"
-        style={{
-          whiteSpace: "pre",
-          position: "relative",
-          zIndex: 2,
-        }}
-        fontFamily="Cairo"
-        textAnchor="end"
-        fontSize={22}
-        fontWeight="bold"
-        letterSpacing="0em"
-      >
-        <tspan x={320} y={56.052}>
-          {player.score}
-        </tspan>
-      </text>
-    </g>
+
+    <text
+      fill="#ffffff"
+      xmlSpace="preserve"
+      style={{
+        whiteSpace: "pre",
+        position: "relative",
+        zIndex: 2,
+      }}
+      fontFamily="Cairo"
+      textAnchor="end"
+      fontSize={22}
+      fontWeight="bold"
+      letterSpacing="0em"
+    >
+      <tspan x={320} y={56.052}>
+        {player.score}
+      </tspan>
+    </text>
+
     <defs>
       <clipPath id="bgblur_0_3264_14298_clip_path" transform="translate(48 48)">
         <path d="M214 100H128L124 96H12L0 88V12L12 4H124L128 0H214L218 4H330L342 12V88L330 96H218L214 100Z" />
@@ -4481,26 +4481,26 @@ export const mobileViewCard_Last_odd = ({ player }) => (
     <g mask="url(#mask1_3264_14377)">
       <rect x={16} y={16} width={16} height={16} fill="#09D75F" />
     </g>
-    <g filter="url(#filter3_d_3264_14377)">
-      <text
-        fill="url(#paint46_linear_3264_14377)"
-        xmlSpace="preserve"
-        style={{
-          whiteSpace: "pre",
-          position: "relative",
-          zIndex: 2,
-        }}
-        fontFamily="Cairo"
-        textAnchor="end"
-        fontSize={22}
-        fontWeight="bold"
-        letterSpacing="0em"
-      >
-        <tspan x={320} y={52.052}>
-          {player.score}
-        </tspan>
-      </text>
-    </g>
+
+    <text
+      fill="#ffffff"
+      xmlSpace="preserve"
+      style={{
+        whiteSpace: "pre",
+        position: "relative",
+        zIndex: 2,
+      }}
+      fontFamily="Cairo"
+      textAnchor="end"
+      fontSize={22}
+      fontWeight="bold"
+      letterSpacing="0em"
+    >
+      <tspan x={320} y={52.052}>
+        {player.score}
+      </tspan>
+    </text>
+
     <defs>
       <clipPath id="bgblur_0_3264_14377_clip_path" transform="translate(48 48)">
         <path d="M342 8V84L330 92H12L0 84V8L12 0H120L124 4H218L222 0H330L342 8Z" />
@@ -5165,14 +5165,13 @@ export const mobileViewCard_Last_odd = ({ player }) => (
   </svg>
 );
 export const mobileViewCard_Last_even = ({ player }) => (
-
   <svg
     width={344}
     height={97}
     viewBox="0 0 344 97"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink"         
+    xmlnsXlink="http://www.w3.org/1999/xlink"
   >
     <foreignObject x={-47.9335} y={-47.7109} width={438} height={192}>
       <div
@@ -5515,26 +5514,26 @@ export const mobileViewCard_Last_even = ({ player }) => (
         {`@${player.username}`}
       </tspan>
     </text>
-    <g filter="url(#filter3_d_5060_2401)">
-      <text
-        fill="url(#paint46_linear_5060_2401)"
-        xmlSpace="preserve"
-        style={{
-          whiteSpace: "pre",
-          position: "relative",
-          zIndex: 2,
-        }}
-        fontFamily="Cairo"
-        textAnchor="end"
-        fontSize={22}
-        fontWeight="bold"
-        letterSpacing="0em"
-      >
-        <tspan x={320} y={56.3411}>
-          {player.score}
-        </tspan>
-      </text>
-    </g>
+
+    <text
+      fill="#ffffff"
+      xmlSpace="preserve"
+      style={{
+        whiteSpace: "pre",
+        position: "relative",
+        zIndex: 2,
+      }}
+      fontFamily="Cairo"
+      textAnchor="end"
+      fontSize={22}
+      fontWeight="bold"
+      letterSpacing="0em"
+    >
+      <tspan x={320} y={56.3411}>
+        {player.score}
+      </tspan>
+    </text>
+
     <defs>
       <clipPath
         id="bgblur_0_5060_2401_clip_path"
@@ -6201,5 +6200,3 @@ export const mobileViewCard_Last_even = ({ player }) => (
     </defs>
   </svg>
 );
-
-
