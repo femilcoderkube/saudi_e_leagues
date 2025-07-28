@@ -5518,7 +5518,7 @@ export const mobileViewCard_Last_even = ({ player }) => (
         fontWeight="bold"
         letterSpacing="0em"
       >
-        <tspan x={243.391} y={56.3411}>
+        <tspan x={320} y={56.3411}>
           {player.score}
         </tspan>
       </text>
