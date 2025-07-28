@@ -362,7 +362,7 @@ export const mobileViewCard_one = ({ player }) => (
         fontWeight="bold"
         letterSpacing="0em"
       >
-        <tspan x={243.324} y={52.052}>
+        <tspan x={320} y={52.052}>
           {player.score}
         </tspan>
       </text>
@@ -1390,7 +1390,7 @@ export const mobileViewCard_two = ({ player }) => (
         fontWeight="bold"
         letterSpacing="0em"
       >
-        <tspan x={243.324} y={56.052}>
+        <tspan x={320} y={56.052}>
           {player.score}
         </tspan>
       </text>
@@ -2421,7 +2421,7 @@ export const mobileViewCard_three = ({ player }) => (
         fontWeight="bold"
         letterSpacing="0em"
       >
-        <tspan x={243.324} y={52.052}>
+        <tspan x={320} y={52.052}>
           {player.score}
         </tspan>
       </text>
@@ -3455,7 +3455,7 @@ export const mobileViewCard_four = ({ player }) => (
         fontWeight="bold"
         letterSpacing="0em"
       >
-        <tspan x={243.324} y={56.052}>
+        <tspan x={320} y={56.052}>
           {player.score}
         </tspan>
       </text>
@@ -4486,7 +4486,7 @@ export const mobileViewCard_Last_odd = ({ player }) => (
         fontWeight="bold"
         letterSpacing="0em"
       >
-        <tspan x={243.324} y={52.052}>
+        <tspan x={320} y={52.052}>
           {player.score}
         </tspan>
       </text>
