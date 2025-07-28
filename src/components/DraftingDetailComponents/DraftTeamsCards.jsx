@@ -1462,7 +1462,7 @@ export const EvenPosCard = ({ props }) => (
           
         </g>
       </g>
-     
+     <g className="evenbox-pick_number">
         <text
           fill="#ffffff"
           xmlSpace="preserve"
@@ -1478,7 +1478,7 @@ export const EvenPosCard = ({ props }) => (
             {"Pick #8"}
           </tspan>
         </text>
-      
+        </g>
     </g>
     <defs>
       <clipPath
@@ -2633,7 +2633,7 @@ export const OddPosCard = ({ props }) => (
           
         </g>
       </g>
-      
+      <g className="evenbox-pick_number">
         <text
           fill="#ffffff"
           xmlSpace="preserve"
@@ -2649,7 +2649,7 @@ export const OddPosCard = ({ props }) => (
             {"Pick #6"}
           </tspan>
         </text>
-      
+        </g>
     </g>
     <defs>
       <clipPath
@@ -3368,4 +3368,3 @@ export const OddPosCard = ({ props }) => (
     </defs>
   </svg>
 );
-
