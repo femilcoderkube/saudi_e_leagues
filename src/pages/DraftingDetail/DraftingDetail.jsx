@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 
 import { useTranslation } from "react-i18next";
 import { TeamOneScoreList } from "../Matchs/teamOneSection";
-import { FirstPosCard_gold, EvenPosCard, OddPosCard, EndPosCard } from "../../components/DraftingDetailComponents/DraftTeamsCards";
+import { FirstPosCard_gold, EvenPosCard, OddPosCard } from "../../components/DraftingDetailComponents/DraftTeamsCards";
 
 
 const DraftingDetail = () => {
