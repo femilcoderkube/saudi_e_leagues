@@ -355,6 +355,8 @@ export const mobileViewCard_one = ({ player }) => (
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
+          position: "relative",
+          zIndex: 2,
         }}
         fontFamily="Cairo"
         textAnchor="end"
@@ -1384,6 +1386,8 @@ export const mobileViewCard_two = ({ player }) => (
         textAnchor="end"
         style={{
           whiteSpace: "pre",
+          position: "relative",
+          zIndex: 2,
         }}
         fontFamily="Cairo"
         fontSize={22}
@@ -2414,6 +2418,8 @@ export const mobileViewCard_three = ({ player }) => (
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
+          position: "relative",
+          zIndex: 2,
         }}
         fontFamily="Cairo"
         textAnchor="end"
@@ -3448,6 +3454,8 @@ export const mobileViewCard_four = ({ player }) => (
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
+          position: "relative",
+          zIndex: 2,
         }}
         fontFamily="Cairo"
         textAnchor="end"
@@ -4479,6 +4487,8 @@ export const mobileViewCard_Last_odd = ({ player }) => (
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
+          position: "relative",
+          zIndex: 2,
         }}
         fontFamily="Cairo"
         textAnchor="end"
@@ -5511,6 +5521,8 @@ export const mobileViewCard_Last_even = ({ player }) => (
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
+          position: "relative",
+          zIndex: 2,
         }}
         fontFamily="Cairo"
         textAnchor="end"
