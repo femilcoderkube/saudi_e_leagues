@@ -349,9 +349,9 @@ export const mobileViewCard_one = ({ player }) => (
     <g mask="url(#mask1_3264_14073)">
       <rect x={16} y={16} width={16} height={16} fill="#09D75F" />
     </g>
-    <g filter="url(#filter3_d_3264_14073)">
+   
       <text
-        fill="url(#paint46_linear_3264_14073)"
+        fill="#ffffff"
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
@@ -368,7 +368,7 @@ export const mobileViewCard_one = ({ player }) => (
           {player.score}
         </tspan>
       </text>
-    </g>
+    
     <defs>
       <clipPath id="bgblur_0_3264_14073_clip_path" transform="translate(48 48)">
         <path d="M342 8V84L330 92H222L218 88H124L120 92H12L0 84V8L12 0H330L342 8Z" />
@@ -1002,7 +1002,7 @@ export const mobileViewCard_one = ({ player }) => (
         <stop offset={1} stopColor="#0D0D28" />
       </radialGradient>
       <linearGradient
-        id="paint46_linear_3264_14073"
+        id="paint46_linear_3264_14073g1"
         x1={282.536}
         y1={32}
         x2={282.345}
