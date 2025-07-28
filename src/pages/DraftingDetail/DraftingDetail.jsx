@@ -9,32 +9,7 @@ import { FirstPosCard_gold, EvenPosCard, OddPosCard, EndPosCard } from "../../co
 
 const DraftingDetail = () => {
   const { t, i18n } = useTranslation();
-  const staticData = {
-    title: "Drafting",
-    prizepool: "1000",
-    game: {
-      logo: "https://via.placeholder.com/150",
-      shortName: "Game",
-    },
-    platform: {
-      logo: "https://via.placeholder.com/150",
-      name: "Platform",
-    },
-    playersPerTeam: 5,
-  };
-
-  useEffect(() => {
-    if (window.bracketsViewer && document.getElementById("first")) {
-      window.bracketsViewer.render({
-        stages: TournamentData.stage,
-        matches: TournamentData.match,
-        matchGames: TournamentData.match_game,
-        participants: TournamentData.participant,
-      }, {
-        selector: "#Major-final",
-      });
-    }
-  }, []);
+ 
 
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
