@@ -13,6 +13,7 @@ import {
 import {
   formatAmountWithCommas,
   generateTailwindGradient,
+  getRandomColor,
   getServerURL,
 } from "../../utils/constant.js";
 import { useSelector } from "react-redux";
