@@ -25,10 +25,10 @@ import { setIsMatctCreated } from "../slices/constState/constStateSlice";
 import { setLastMatch, setNotification } from "../slices/notificationSlice/notificationSlice";
 
 // const SOCKET_URL = "/";
-// const SOCKET_URL =
-//   import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
 const SOCKET_URL =
-  import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
+  import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
+// const SOCKET_URL =
+//   import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
 
 export const socket = io(SOCKET_URL, {
   transports: ["websocket"],
