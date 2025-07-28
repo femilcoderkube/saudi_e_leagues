@@ -1248,13 +1248,11 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     width: 19rem;
     height: 4rem;
   }
-  .notification-box-btn{
-    flex-direction: column;
-  }
-  .notification-box-btn button.active-tab.singleButton{
+  .notification-box-btn button,.notification-box-btn button.active-tab,.notification-box-btn button.active-tab.singleButton{
     background-size: contain;
     height: 2.5rem;
   }
+
   .go-btn::after{
     height: 3rem;
     width: 3rem;
@@ -1318,9 +1316,13 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     height: 2.4rem;
     font-size: 1rem;
   }
-  .go-btn::after {
+  .notification-box-btn button,.notification-box-btn button.active-tab{
     height: 2.2rem;
-    width: 2.2rem;
+    font-size: 1rem;
+  }
+  .go-btn::after {
+    height: 2rem;
+    width: 2rem;
     top: 0rem;
 }
 .upload-pic{
@@ -1329,3 +1331,7 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
 }
 
 
+
+.tournament_page--wrapper .game_polygon-link {
+  width: 15.2rem;
+}

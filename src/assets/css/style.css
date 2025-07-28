@@ -11,6 +11,8 @@
   --text-size-20: 1.25rem;
   --text-size-24: 24px;
   --text-size-48px: 48px;
+  --match-width: 200px;
+  
 }
 
 @font-face {
@@ -591,4 +593,235 @@ html[dir="rtl"] .view-all::after {
   .mob-common-btn {
     transform: translate(0, calc(-50% + 3px));
   }
+}
+
+.react-pdf__Page {
+  background-color: transparent !important;
+}
+
+/* Tournament block css */
+
+/* Tournament tabs css */
+.sd_tournament-wrapper {
+  padding-top: 3.125rem;
+}
+
+.sa__tournament-tabs li a{
+  color: #9D9D9D;
+  padding: 0 0.625rem 1.063rem 0.625rem;
+}
+
+.sa__tournament-tabs li.active a{
+  border-bottom: 1px solid #4468ED;
+  color: #fff;
+}
+.sa__tournament-tabs li{
+  padding: 0 1.875rem 0 0;
+}
+
+
+/* Tournament brackets css */
+
+.brackets-viewer .opponents, .brackets-viewer .opponents:hover{
+  background-color: transparent;
+  border: none;
+}
+.brackets-viewer h3{
+  background: linear-gradient(180deg, rgba(54, 73, 87, 0.12) 0%, rgba(40, 55, 66, 0.12) 100%);
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.9rem 1rem;
+  font-weight: 400;
+}
+.brackets-viewer .match, .brackets-viewer h3 {
+  width: 12.5rem;
+}
+.brackets-viewer .participant:nth-of-type(1),
+.brackets-viewer .participant:nth-of-type(2){
+  padding: 0 ;
+}
+
+.brackets-viewer .participant:nth-of-type(2){
+    border-bottom-left-radius: 8px;
+    overflow: hidden;
+    border-bottom-right-radius: 8px;
+}
+.brackets-viewer .participant:nth-of-type(1){
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  overflow: hidden;
+
+}
+.brackets-viewer .participant {
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: transparent;
+ 
+}
+.brackets-viewer .participant .name,
+.brackets-viewer .participant .result{
+  padding: 5px;
+  min-height: 48px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background: linear-gradient(180deg, rgba(54, 73, 87, 0.32) 0%, rgba(40, 55, 66, 0.32) 100%);
+  font-weight: 600; 
+
+}
+.brackets-viewer .participant .name{
+  padding-left: 12px;
+}
+
+.brackets-viewer .participant .result{
+  justify-content: center;
+  width: 48px;
+  background: linear-gradient(180deg, rgba(54, 73, 87, 0.12) 0%, rgba(40, 55, 66, 0.12) 100%);
+
+
+}
+.brackets-viewer .participant.win .result{
+  background: linear-gradient(55.02deg, #434BE9 -10.01%, #46B5F9 107.56%);
+  color: #fff;
+}
+.brackets-viewer .match.connect-next::after,
+.brackets-viewer .match.connect-next:nth-of-type(even)::after,
+.brackets-viewer .match.connect-next::after,
+.brackets-viewer .match.connect-next:nth-of-type(even)::after,
+.brackets-viewer .opponents.connect-previous::before{
+  border-color: #434BE9 !important;
+}
+.brackets-viewer .participant.loss .result{
+  color: #fff;
+}
+.brackets-viewer h1, .brackets-viewer .bracket h2{
+ background: linear-gradient(180deg, #F4F7FF 53.92%, #4467EE 112.5%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 700;
+}
+.brackets-viewer .participant.win .name{
+    font-weight: 600;
+}
+.brackets-viewer .participant.hover {
+  background: #0b0e85 !important;
+}
+.tournament-schedule-card-wrapper{
+  background: linear-gradient(180deg, rgba(54, 73, 87, 0.12) 0%, rgba(40, 55, 66, 0.12) 100%);
+  box-shadow: 0px 4px 4px 0px #5472880A inset;
+
+backdrop-filter: blur(24px)
+
+}
+.tournament-schedule-card-footer{
+  background: linear-gradient(180deg, rgba(54, 73, 87, 0.24) 0%, rgba(40, 55, 66, 0.24) 100%);  
+}
+.tournament-schedule-card-footer h2{
+  background: linear-gradient(180deg, #F4F7FF 53.92%, #55B384 112.5%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.tournament-schedule-card-header-time h2{
+  background: rgba(54, 73, 87, 0.4);
+  position: relative;
+  color: #9EC2CC;
+}
+.tournament-schedule-card-header-background{
+  background-image: linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(217, 217, 217, 0.6) 39.51%, rgba(217, 217, 217, 0.08) 100%);
+  z-index: -1;
+}
+.tournament-schedule-card-header-time h2::before{
+  content: url("data:image/svg+xml,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' x='0' y='0' viewBox='0 0 100 100' xml:space='preserve'><path d='M51.9 0v1.9c-27.6 0-50 22.4-50 50H0V0h51.9z' fill='%23364957'></path></svg>");
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 30px;
+  height: 30px;
+  opacity: 0.4;
+}
+.tournament-schedule-card-header-time h2::after{
+  content: url("data:image/svg+xml,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' x='0' y='0' viewBox='0 0 100 100' xml:space='preserve'><path d='M98.1 0h1.9v51.9h-1.9c0-27.6-22.4-50-50-50V0h50z' fill='%23364957'></path></svg>");
+  position: absolute;
+  top: 0;
+  right: 100%;
+  width: 30px;
+  height: 30px;
+  opacity: 0.4;
+}
+@media (max-width: 767px) {
+  .sd_tournament-content .polygon_border:before, .sd_tournament-content .polygon_border:after {
+      width: 4.5rem;
+  }
+}
+
+/* drafting page css */
+
+.drafting__title-bg {
+  background: linear-gradient(180deg, rgba(123, 126, 208, 0.95) 0%, rgba(123, 126, 208, 0) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.drafting__teams-item{
+  margin-bottom: 0.5rem;
+}
+.draft-picks-wrapper-title:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #131645;
+  display: block;
+  z-index: -1;
+}
+.draft-picks-wrapper-title h2:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -5%;
+  width: 110%;
+  height: 100%;
+  background: #020326;
+  display: block;
+  z-index: -1;
+}
+.draft-picks-wrapper-title {
+  position: relative;
+}
+.drafting__teams-list-block, .draft-picks-wrapper-list{
+  direction: ltr;  
+}
+.drafting__teams-list-wrapper .evenbox-draft_svg_contant--wrap,
+.drafting__teams-list-wrapper .oddbox-draft_svg_contant--wrap {
+  display: none;
+}
+.drafting__teams-list-wrapper .assign .evenbox-draft_svg_contant--wrap,
+.drafting__teams-list-wrapper .assign .oddbox-draft_svg_contant--wrap {
+  display: block;
+}
+.drafting__teams-list-wrapper .assign .evenbox-pick_number, 
+.drafting__teams-list-wrapper .assign .oddbox-pick_number{
+  display: none;
+}
+.evenbox-pick_number, .oddbox-pick_number{
+  display: none;
+}
+.drafting__teams-list-wrapper  .evenbox-pick_number, .drafting__teams-list-wrapper  .oddbox-pick_number{
+  display: block;
+}
+.drafting__teams-item, .draft-picks-wrapper-item{
+  transition: all 0.3s ease;
+  }
+.drafting__teams-item:hover, .draft-picks-wrapper-item:hover{
+cursor: pointer;
+transform: scale(1.03);
+transition: all 0.3s ease;
 }

@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.7",
     "axios": "^1.9.0",
+    "brackets-viewer": "^1.6.2",
     "formik": "^2.4.6",
     "framer-motion": "^12.23.0",
     "i18next": "^25.3.1",

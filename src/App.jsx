@@ -23,6 +23,8 @@ import { useTranslation } from "react-i18next";
 import UserProfilePage from "./pages/profile/UserProfilePage.jsx";
 import ResetPasswordPage from "./pages/profile/resetPassword.jsx";
 import { items } from "./utils/constant.js";
+import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";   
+import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
 
 function App() {
   const { i18n } = useTranslation();
@@ -54,6 +56,8 @@ function App() {
             <Route index element={<PrimeHome />} />
             <Route path="match/:mId" element={<MatchDetail />} />
             <Route path="lobby" element={<Lobby />} />
+            <Route path="lobby/drafting" element={<DraftingDetail/>} />
+            <Route path="lobby/tournament" element={<TournamentDetail />} />
             <Route path="lobby/:lId" element={<LeagueDetail />} />
             <Route path="lobby/:lId/finding-match" element={<MatchMaking />} />
             <Route path="profile" element={<UserProfilePage />} />
