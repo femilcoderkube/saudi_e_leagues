@@ -75,7 +75,7 @@ const Lobby = () => {
             <button
               key={index}
               onClick={() => dispatch(setActiveIndex(index))}
-              className={`w-[6rem] sm:w-[10rem] sm:h-[4rem] md:py-2 md:px-2.5 px-7 py-6 pt-0 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+              className={`w-[6rem] sm:w-[10rem] sm:h-[4rem] md:py-2 md:px-2.5 px-7 py-6 pt-0 sm:text-lg font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
               ${
                 activeIndex === index
                   ? "active-tab hover:opacity-100 polygon_border"

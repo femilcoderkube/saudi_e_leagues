@@ -37,7 +37,7 @@ const LeaguesJoinNotification = ({ data }) => {
               />
               <div className="box-game">
                 <span className="purple_col text-sm font-semibold">Game</span>
-                <h6 className="text-xl">{notificationData.gameName}</h6>
+                <h6 className="sm:text-xl text-lg">{notificationData.gameName}</h6>
               </div>
             </div>
             <div>
@@ -47,7 +47,7 @@ const LeaguesJoinNotification = ({ data }) => {
 
           <div className="notification-box-content px-5 py-6 flex flex-col justify-between">
             <div>
-              <h5 className="text-xl mb-3 line-clamp-1">
+              <h5 className="sm:text-xl text-lg mb-3 line-clamp-1">
                 {notificationData.subject }
               </h5>
               <h6 className="notification-text text-base sleading-6 purple_col mb-1.5 line-clamp-2">

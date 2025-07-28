@@ -39,7 +39,7 @@ const SliderCard = ({ item }) => {
           <div className="game_mask--con pt-3 absolute bottom-3 z-40 w-full">
             <Link
               to={item.path}
-              className="game_card_wrap--link block ml-4 relative  uppercase md:text-xl text-lg !font-bold sd_before"
+              className="game_card_wrap--link block ml-4 relative  uppercase md:text-xl text-base sm:text-lg !font-bold sd_before"
             >
               <span className="flex items-center gap-3">
                 {" "}

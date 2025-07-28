@@ -31,7 +31,9 @@
     "send_email": "Send Email",
     "back_to_login": "Back to Login",
     "forgot_email_sent": "Password reset email sent successfully",
-    "forgot_failed": "Failed to send password reset email"
+    "forgot_failed": "Failed to send password reset email",
+    "cancel": "Cancel",
+    "verify": "Verify"
   },
 
   "form": {
@@ -56,7 +58,9 @@
     "edit_profile": "Edit Profile",
     "field_placeholder": "Enter {{field}}",
     "select_nationality": "Select Nationality",
-    "select_favorite_game": "Select your Favorite Game"
+    "select_favorite_game": "Select your Favorite Game",
+    "verify_otp": "Verify OTP",
+    "otp_invalid": "Please enter a valid 6-digit OTP"
   },
 
   "countries": {
@@ -385,3 +389,4 @@
     "unread": "Unread"
   }
 }
+

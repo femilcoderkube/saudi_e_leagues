@@ -118,6 +118,33 @@ div {
   background: url(/src/assets/images/list-grid-shape.png);
 }
 
+.sd_radial-bg.notification-icon-wp{
+  background:linear-gradient(180deg,#414298 0%,#2D2F7C 100%);
+}
+
+.notification-icon{
+  width: 1.5rem;
+  height:1.5rem;
+  background: linear-gradient(
+    0deg,
+    rgba(1, 2, 29, 1) 0%,
+    rgba(2, 3, 41, 1) 100%
+  );
+  z-index: 1;
+  top: -0.8rem;
+  right: -0.5rem;
+}
+
+.notification-icon::before{
+  position: absolute;
+  content: '';
+  background:linear-gradient(180deg,#35FAFA 0%,#118F7A 100%);
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  z-index: -1;
+}
+
 .yellow_grad-bg {
   background: -webkit-linear-gradient(
     270deg,
@@ -524,10 +551,14 @@ html[dir="rtl"] .view-all::after {
     z-index: 100;
   }
 
-  header .sd_radial-bg {
+  header .sd_radial-bg,.sd_radial-bg.notification-icon-wp {
     box-shadow: none;
     background: none;
     padding-inline: 0;
+  }
+  .notification-icon{
+    top: 0rem;
+    right: -0.8rem;
   }
 
   .game_card_main--con {

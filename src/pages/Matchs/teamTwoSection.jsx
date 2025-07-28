@@ -15,7 +15,7 @@ export const TeamTwoScoreList = () => {
     (state) => state.matchs
   );
   let cards = getCards(matchData?.league?.playersPerTeam, true);
-  // let mobileCards = getMobileCards(matchData?.league?.playersPerTeam);
+  let mobileCards = getMobileCards(matchData?.league?.playersPerTeam);
   const submitUpVote = (player) => {
     giveReputation({
       matchId: matchData?._id,
@@ -35,7 +35,7 @@ export const TeamTwoScoreList = () => {
   const { t } = useTranslation();
   return (
     <>
-    <ul className="team_two--list flex-col gap-5 mt-[-1rem] flex">
+    <ul className="team_two--list flex-col gap-5 mt-[-1rem] hidden xl:flex">
       {cards.map((Card, index) => {
         let player = matchData?.team2[index];
         let data = {
@@ -121,7 +121,7 @@ export const TeamTwoScoreList = () => {
         );
       })}
     </ul>
-     {/* <ul className="team_two--list flex flex-col gap-1 mt-[-1rem] xl:hidden">
+     <ul className="team_two--list flex flex-col gap-1 mt-[-1rem] xl:hidden">
      {mobileCards.map((Card, index) => {
        let player = matchData?.team2[index];
        let data = {
@@ -206,7 +206,7 @@ export const TeamTwoScoreList = () => {
          </li>
        );
      })}
-   </ul> */}
+   </ul>
    </>
   );
 };

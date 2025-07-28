@@ -11,6 +11,7 @@ import {
   removeFromQueue,
   setLeagueData,
   setRegistrationModal,
+  setWeekOfStarUsers,
 } from "../slices/leagueDetail/leagueDetailSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -24,10 +25,10 @@ import { setIsMatctCreated } from "../slices/constState/constStateSlice";
 import { setLastMatch, setNotification } from "../slices/notificationSlice/notificationSlice";
 
 // const SOCKET_URL = "/";
-const SOCKET_URL =
-  import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
 // const SOCKET_URL =
-//   import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
+//   import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
+const SOCKET_URL =
+  import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
 
 export const socket = io(SOCKET_URL, {
   transports: ["websocket"],
@@ -103,7 +104,6 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
     // Remove any previous listener to prevent duplicate handlers
     stopLeagueSocket();
     // Emit join league event
-    socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
     // Listen for league updates and update state
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
       console.log("League Update Data:", data);
@@ -123,11 +123,25 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         store.dispatch(setIsMatctCreated(false));
       }
     });
+    socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
+    startStarOfTheWeekSocket({ lId: lId, user: user, isSocketConnected: isSocketConnected });
   }
 }
 export function stopLeagueSocket() {
   // Remove the league update listener
   socket.off(SOCKET.LEAGUEUPDATE);
+}
+export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
+  if (isSocketConnected) {
+    socket.off(SOCKET.ONWEEKOFSTARUSERS);
+    socket.on(SOCKET.ONWEEKOFSTARUSERS, (data) => {
+      if(data?.status){
+        console.log("Week of Star Users Data:", data?.data);
+        store.dispatch(setWeekOfStarUsers(data?.data));
+      }
+    });
+    socket.emit(SOCKET.GETWEEKOFSTAR, { Lid: lId, userId: user?._id });
+  }
 }
 
 export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {

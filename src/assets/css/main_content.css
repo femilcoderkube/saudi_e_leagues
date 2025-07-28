@@ -22,11 +22,9 @@
 --------------------------------------- */
 
 .notification_btn:before {
-  background: linear-gradient(
-    180deg,
-    rgba(53, 250, 250, 1) 0%,
-    rgba(17, 143, 122, 1) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(53, 250, 250, 1) 0%,
+      rgba(17, 143, 122, 1) 100%);
   width: 1.25rem;
   height: 1.25rem;
   top: -0.5rem;
@@ -45,11 +43,9 @@
 }
 
 .notification_btn {
-  background: linear-gradient(
-    180deg,
-    rgba(65, 66, 152, 1) 0%,
-    rgba(45, 47, 124, 1) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(65, 66, 152, 1) 0%,
+      rgba(45, 47, 124, 1) 100%);
 }
 
 .main_con--bg {
@@ -89,11 +85,9 @@ html[dir="rtl"] .player_score {
 }
 
 .game_polygon-link {
-  background: linear-gradient(
-    0deg,
-    rgba(34, 35, 86, 20%) 0%,
-    rgba(94, 95, 184, 20%) 100%
-  );
+  background: linear-gradient(0deg,
+      rgba(34, 35, 86, 20%) 0%,
+      rgba(94, 95, 184, 20%) 100%);
   clip-path: url(#game_polygon_clip);
   width: 18.5rem;
   height: 6rem;
@@ -103,11 +97,9 @@ html[dir="rtl"] .player_score {
 .sd_game-con.polygon_border:before,
 .sd_game-con.polygon_border:after {
   width: 5.25rem;
-  background: linear-gradient(
-    0deg,
-    rgba(34, 35, 86, 30%) 0%,
-    rgba(94, 95, 184, 30%) 100%
-  );
+  background: linear-gradient(0deg,
+      rgba(34, 35, 86, 30%) 0%,
+      rgba(94, 95, 184, 30%) 100%);
 }
 
 .game_polygon-link:before {
@@ -131,20 +123,16 @@ html[dir="rtl"] .player_score {
 }
 
 .valorant_game .game_polygon-link {
-  background: linear-gradient(
-    141deg,
-    rgba(55, 16, 31, 1) 0%,
-    rgba(157, 45, 58, 1) 100%
-  );
+  background: linear-gradient(141deg,
+      rgba(55, 16, 31, 1) 0%,
+      rgba(157, 45, 58, 1) 100%);
 }
 
 .valorant_game.polygon_border:before,
 .valorant_game.polygon_border:after {
-  background: linear-gradient(
-    141deg,
-    rgba(55, 16, 31, 1) -70%,
-    rgba(157, 45, 58, 1) 100%
-  );
+  background: linear-gradient(141deg,
+      rgba(55, 16, 31, 1) -70%,
+      rgba(157, 45, 58, 1) 100%);
 }
 
 .valorant_game .game_polygon-link:before {
@@ -180,39 +168,31 @@ html[dir="rtl"] .player_score {
 .sd_ticker-box {
   width: 2.55rem;
   height: 3rem;
-  background: linear-gradient(
-    90deg,
-    rgba(45, 46, 109, 0.92) 0%,
-    rgba(34, 35, 86, 0.8) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(45, 46, 109, 0.92) 0%,
+      rgba(34, 35, 86, 0.8) 100%);
 }
 
 .sd_ticker-box span {
-  background: -webkit-linear-gradient(
-    256deg,
-    rgba(244, 247, 255, 0.92) 40%,
-    rgba(123, 126, 208, 0.8) 92%
-  );
+  background: -webkit-linear-gradient(256deg,
+      rgba(244, 247, 255, 0.92) 40%,
+      rgba(123, 126, 208, 0.8) 92%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .sd_score--con h2 {
-  background: -webkit-linear-gradient(
-    271deg,
-    rgba(199, 233, 255, 1) 60%,
-    rgba(115, 218, 255, 1) 92%
-  );
+  background: -webkit-linear-gradient(271deg,
+      rgba(199, 233, 255, 1) 60%,
+      rgba(115, 218, 255, 1) 92%);
 }
 
 .prize-pool .grad_text-clip {
-  background: -webkit-linear-gradient(
-    271deg,
-    #ffc870 12%,
-    #ffb237 48%,
-    #ffa920 72%,
-    #ff6320 100%
-  );
+  background: -webkit-linear-gradient(271deg,
+      #ffc870 12%,
+      #ffb237 48%,
+      #ffa920 72%,
+      #ff6320 100%);
 }
 
 .sd_ticker-box:after,
@@ -243,41 +223,33 @@ html[dir="rtl"] .player_score {
 --------------------------------------- */
 
 .blue {
-  background: linear-gradient(
-    180deg,
-    rgba(94, 95, 184, 0.2) 0%,
-    rgba(34, 35, 86, 0.2) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(94, 95, 184, 0.2) 0%,
+      rgba(34, 35, 86, 0.2) 100%);
 }
 
 .gold {
-  background: linear-gradient(
-    90deg,
-    rgba(243, 182, 69, 0.5) 0%,
-    rgba(243, 182, 69, 0.2) 20%,
-    rgba(94, 95, 184, 0.2) 80%,
-    rgba(34, 35, 86, 0.6) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(243, 182, 69, 0.5) 0%,
+      rgba(243, 182, 69, 0.2) 20%,
+      rgba(94, 95, 184, 0.2) 80%,
+      rgba(34, 35, 86, 0.6) 100%);
 }
 
 .silver {
-  background: linear-gradient(
-    90deg,
-    rgba(121, 69, 243, 0.62) 0%,
-    rgba(121, 69, 243, 0.2) 20%,
-    rgba(94, 95, 184, 0.2) 72%,
-    rgba(34, 35, 86, 0.8) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(121, 69, 243, 0.62) 0%,
+      rgba(121, 69, 243, 0.2) 20%,
+      rgba(94, 95, 184, 0.2) 72%,
+      rgba(34, 35, 86, 0.8) 100%);
 }
 
 .bronze {
-  background: linear-gradient(
-    90deg,
-    rgba(243, 104, 69, 0.52) 0%,
-    rgba(243, 104, 69, 0.2) 20%,
-    rgba(94, 95, 184, 0.2) 72%,
-    rgba(34, 35, 86, 0.8) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(243, 104, 69, 0.52) 0%,
+      rgba(243, 104, 69, 0.2) 20%,
+      rgba(94, 95, 184, 0.2) 72%,
+      rgba(34, 35, 86, 0.8) 100%);
 }
 
 .leaderboard-table tr td:first-child {
@@ -320,7 +292,7 @@ html[dir="rtl"] .leaderboard-table tr td:last-child {
   transform: translateY(-50%);
 }
 
-.two_digit > div {
+.two_digit>div {
   font-size: 1rem;
 }
 
@@ -352,11 +324,9 @@ html[dir="rtl"] .leaderboard-table tr td:last-child {
 }
 
 .timeline-card__header {
-  background: linear-gradient(
-    180deg,
-    rgba(94, 95, 184, 0.3) 0%,
-    rgba(34, 35, 86, 0.4) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(94, 95, 184, 0.3) 0%,
+      rgba(34, 35, 86, 0.4) 100%);
   box-shadow: inset 0 2px 2px rgba(94, 95, 184, 0.2);
 }
 
@@ -451,11 +421,9 @@ html[dir="rtl"] .timeline-card__steps::before {
 }
 
 .timeline_wrap.completed:after {
-  background: linear-gradient(
-    180deg,
-    rgba(68, 112, 238, 0.92) 0%,
-    rgba(70, 147, 245, 0.8) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(68, 112, 238, 0.92) 0%,
+      rgba(70, 147, 245, 0.8) 100%);
   right: -2.1rem;
   width: 0.25rem;
   height: 100%;
@@ -471,10 +439,11 @@ html[dir="rtl"] .timeline_wrap.completed:after {
   left: -2.1rem;
 }
 
+/* 
 .timeline_container {
   height: 17.5rem;
   overflow-y: auto;
-}
+} */
 
 /* ---------------------------------------
 
@@ -515,11 +484,9 @@ html[dir="rtl"] .sd_rules--btn button:after {
 --------------------------------------- */
 
 .match_reg--popup {
-  background: linear-gradient(
-    180deg,
-    rgba(31, 34, 90, 1) 0%,
-    rgba(16, 19, 63, 1) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(31, 34, 90, 1) 0%,
+      rgba(16, 19, 63, 1) 100%);
   clip-path: url(#myClipPath);
   width: 30rem;
   padding-bottom: 2rem;
@@ -537,11 +504,9 @@ html[dir="rtl"] .sd_rules--btn button:after {
 }
 
 .match_reg2--popup {
-  background: linear-gradient(
-    180deg,
-    rgba(31, 34, 90, 1) 0%,
-    rgba(16, 19, 63, 1) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(31, 34, 90, 1) 0%,
+      rgba(16, 19, 63, 1) 100%);
   clip-path: url(#myClipPath);
 }
 
@@ -556,11 +521,9 @@ html[dir="rtl"] .sd_rules--btn button:after {
 }
 
 .popup-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(2, 3, 41, 60%) 0%,
-    rgba(1, 2, 29, 60%) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(2, 3, 41, 60%) 0%,
+      rgba(1, 2, 29, 60%) 100%);
   backdrop-filter: blur(1px);
   border-radius: 30px 0 0 0;
 }
@@ -585,17 +548,22 @@ html[dir="rtl"] .popup-overlay {
   height: 4.5rem;
 }
 
-input[type="checkbox"]:checked + label .checkbox-inner,
-input[type="radio"]:checked + label .checkbox-inner {
-  background: linear-gradient(
-    180deg,
-    rgba(70, 181, 249, 0.92) 0%,
-    rgba(67, 75, 233, 1) 100%
-  );
+.sd_custom-input.otp-input {
+  clip-path: url(#inputclip1);
+  width: 4rem;
+  height: 4rem;
+  background: #20215b;
 }
 
-input[type="checkbox"]:checked + label .checkbox-inner:before,
-input[type="radio"]:checked + label .checkbox-inner:before {
+input[type="checkbox"]:checked+label .checkbox-inner,
+input[type="radio"]:checked+label .checkbox-inner {
+  background: linear-gradient(180deg,
+      rgba(70, 181, 249, 0.92) 0%,
+      rgba(67, 75, 233, 1) 100%);
+}
+
+input[type="checkbox"]:checked+label .checkbox-inner:before,
+input[type="radio"]:checked+label .checkbox-inner:before {
   content: "";
   background: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='14px' height='10px' viewBox='0 0 14 10' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 59.1 (86144) - https://sketch.com --%3E%3Ctitle%3Echeck%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='ios_modification' transform='translate(-27.000000, -191.000000)' fill='%23FFFFFF' fill-rule='nonzero'%3E%3Cg id='Group-Copy' transform='translate(0.000000, 164.000000)'%3E%3Cg id='ic-check-18px' transform='translate(25.000000, 23.000000)'%3E%3Cpolygon id='check' points='6.61 11.89 3.5 8.78 2.44 9.84 6.61 14 15.56 5.05 14.5 4'%3E%3C/polygon%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   color: #fff;
@@ -741,9 +709,9 @@ input[type="radio"]:checked + label .checkbox-inner:before {
 }
 
 .custom-date-icon::-webkit-calendar-picker-indicator {
-  filter: invert(41%) sepia(10%) saturate(2890%) hue-rotate(206deg)
-    brightness(95%) contrast(85%);
+  filter: invert(41%) sepia(10%) saturate(2890%) hue-rotate(206deg) brightness(95%) contrast(85%);
 }
+
 @keyframes slideInRight {
   0% {
     opacity: 0;
@@ -755,13 +723,13 @@ input[type="radio"]:checked + label .checkbox-inner:before {
     transform: translateX(0);
   }
 }
+
 @keyframes slideInLeft {
   0% {
     opacity: 0;
     transform: translateX(-100%);
   }
- 
- 
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -769,24 +737,23 @@ input[type="radio"]:checked + label .checkbox-inner:before {
 }
 
 .notification-sidebar {
-  background: linear-gradient(
-    to bottom,
-    rgba(14, 16, 60, 1) 0%,
-    rgba(7, 9, 43, 1) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(14, 16, 60, 1) 0%,
+      rgba(7, 9, 43, 1) 100%);
   box-shadow: inset 2px 2px 2px rgb(21, 23, 60, 0.6);
-  z-index: 100;
+  z-index: 5;
   animation-duration: 0.5s;
   animation-fill-mode: both;
-
 }
 
 .notification-sidebar.slide-in-right {
   animation-name: slideInRight;
 }
+
 .notification-sidebar.slide-in-left {
   animation-name: slideInLeft;
 }
+
 .notification-sidebar::before {
   position: absolute;
   content: "";
@@ -795,33 +762,32 @@ input[type="radio"]:checked + label .checkbox-inner:before {
   top: 0;
   right: 0;
   background-image: url("../images/notification-shape.png");
-  z-index: -1;
+  z-index: 102;
   background-repeat: no-repeat;
+  pointer-events: none;
 }
 
 .notification-sidebar h6 {
   font-weight: 700;
 }
 
-.notification-text{
-      display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    max-height:3rem;
-    overflow: hidden;
+.notification-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-height: 3rem;
+  overflow: hidden;
 }
 
 .notification-box {
   clip-path: url(#blob-clip);
-  background: radial-gradient(
-    circle,
-    rgba(45, 46, 109, 0.48) 0%,
-    rgba(34, 35, 86, 0.48) 100%
-  );
+  background: radial-gradient(circle,
+      rgba(45, 46, 109, 0.48) 0%,
+      rgba(34, 35, 86, 0.48) 100%);
   width: 100%;
 }
 
-.notification-box svg{
+.notification-box svg {
   position: absolute;
   top: 0;
   z-index: -1;
@@ -856,7 +822,8 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   backface-visibility: hidden;
-  transform: translateZ(0); /* Optional for better rendering */
+  transform: translateZ(0);
+  /* Optional for better rendering */
 }
 
 .notification-sidebar .game_status--tab {
@@ -881,11 +848,9 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
 .notification-box-wp.polygon_border:after {
   width: 6.76rem;
   height: 0.5rem;
-  background: radial-gradient(
-    circle,
-    rgba(45, 46, 109, 0.48) 0%,
-    rgba(34, 35, 86, 0.48) 100%
-  );
+  background: radial-gradient(circle,
+      rgba(45, 46, 109, 0.48) 0%,
+      rgba(34, 35, 86, 0.48) 100%);
 }
 
 .notification-box-wp.polygon_border:after {
@@ -905,9 +870,10 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
 .notification-box-btn button.active-tab {
   background: url(../images/accept-btn.png);
   background-repeat: no-repeat;
-  background-size: cover;  
+  background-size: cover;
 }
-.notification-box-btn button.active-tab.singleButton{
+
+.notification-box-btn button.active-tab.singleButton {
   background: url(../images/notificationSingleButton.svg);
   width: 100%;
   background-repeat: no-repeat;
@@ -942,12 +908,10 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
 }
 
 /* xl */
-@media (min-width: 1280px) {
-}
+@media (min-width: 1280px) {}
 
 /* lg */
-@media (min-width: 1024px) {
-}
+@media (min-width: 1024px) {}
 
 @media (min-width: 768px) and (max-width: 991px) {
   .sd_bedge_left-con {
@@ -965,10 +929,6 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
 }
 
 @media (max-width: 991px) {
-  .game_polygon-link {
-    width: 14rem;
-  }
-
   .game_polygon-link img {
     display: none;
   }
@@ -995,7 +955,7 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     width: 100%;
   }
 
-  .submit__score--popup + .modal_popup-con {
+  .submit__score--popup+.modal_popup-con {
     width: 100%;
     right: auto;
     left: auto;
@@ -1005,6 +965,15 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     max-width: 30rem;
     width: 100%;
   }
+
+  .sd_game_info--wrap .sd_game-con {
+    width: 100%;
+  }
+
+  .game_polygon-link {
+    width: 100%;
+  }
+
 }
 
 /* md */
@@ -1017,6 +986,7 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     background-image: url(/src/assets/images/mob_score_bg.png);
     background-size: 21rem;
     width: 21.38rem;
+    height: 3.75rem;
   }
 
   html[dir="rtl"] .player_score {
@@ -1024,7 +994,6 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   }
 
   .game_polygon-link {
-    width: 9rem;
     padding: 0 0.8rem;
   }
 
@@ -1034,7 +1003,7 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
 
   .sd_game-con.polygon_border:before,
   .sd_game-con.polygon_border:after {
-    width: 2.5rem;
+    width: 3.4rem;
   }
 
   .leaderboard-table thead {
@@ -1087,6 +1056,24 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     border-bottom-right-radius: 0px;
   }
 
+  .leaderboard-right {
+    text-align: right;
+  }
+
+  .leaderboard-center {
+    padding-right: 0.75rem;
+  }
+
+  html[dir=rtl] .leaderboard-right {
+    text-align: auto;
+    text-align: left;
+  }
+
+  html[dir=rtl] .leaderboard-center {
+    padding-right: auto;
+    padding-left: 0.75rem;
+  }
+
   .sd_rules--btn button:before,
   .timeline-card__header::before {
     background: linear-gradient(180deg, #5e5fb8 0%, #222356 100%);
@@ -1117,8 +1104,9 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     content: "";
     position: absolute;
   }
+
   .ActiveArrow.timeline-card__header::after {
-    transform: rotate(180deg);
+    transform: rotate(360deg);
   }
 
   .timeline-card__header::before {
@@ -1142,67 +1130,71 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   }
 
   .gold {
-    background: linear-gradient(
-        145deg,
+    background: linear-gradient(90deg,
         rgba(243, 182, 69, 0.5) 0%,
         rgba(243, 182, 69, 0.2) 20%,
         rgba(94, 95, 184, 0.2) 80%,
-        rgba(34, 35, 86, 0.6) 100%
-      ),
+        rgba(34, 35, 86, 0.6) 100%),
       linear-gradient(to bottom, #050523 0%, #060725 100%);
   }
 
   .silver {
-    background: linear-gradient(
-        145deg,
+    background: linear-gradient(90deg,
         rgba(121, 69, 243, 0.62) 0%,
         rgba(121, 69, 243, 0.2) 20%,
         rgba(94, 95, 184, 0.2) 72%,
-        rgba(34, 35, 86, 0.8) 100%
-      ),
+        rgba(34, 35, 86, 0.8) 100%),
       linear-gradient(to bottom, #050523 0%, #060725 100%);
   }
 
   .bronze {
-    background: linear-gradient(
-        145deg,
+    background: linear-gradient(90deg,
         rgba(243, 104, 69, 0.52) 0%,
         rgba(243, 104, 69, 0.2) 20%,
         rgba(94, 95, 184, 0.2) 72%,
-        rgba(34, 35, 86, 0.8) 100%
-      ),
+        rgba(34, 35, 86, 0.8) 100%),
       linear-gradient(to bottom, #050523 0%, #060725 100%);
+  }
+
+  .leaderboard-table tr.mob-leader-board{
+    position: relative;
+  }
+
+  .leaderboard-table tr.mob-leader-board td:nth-child(4),
+  .leaderboard-table tr.mob-leader-board td:nth-child(5),
+  .leaderboard-table tr.mob-leader-board td:last-child{
+    background: linear-gradient(to top, #07082b 0%, #0a0c33 100%);
+    box-shadow: 0px -1px 0px rgb(87 89 195 / 20%);
   }
 
   .sd_main-content {
     border-radius: 0;
   }
+
   .main_con--bg {
     display: none;
   }
 }
 
 @media (max-width: 639px) {
-  .game_polygon-link {
-    width: 6.63rem;
-  }
-
   .game_polygon-link:before {
     width: 6.63rem;
   }
 
   .sd_game-con.polygon_border:before,
   .sd_game-con.polygon_border:after {
-    width: 1.75rem;
+    width: 2.5rem;
     height: 0.325rem;
   }
+
   .mob-star-week {
     background: url(/src/assets/images/mob-star-week-shape-small.png);
     background-repeat: no-repeat;
     background-size: contain;
     width: 21.4rem;
   }
-    /* .leaderboard-table tr{
+
+  /* .leaderboard-table tr{
     position: relative;
   }
     .leaderboard-table .gold::before {
@@ -1214,17 +1206,18 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
         width: 20%;
         height: 55%;
     } */
-    .match_reg--popup2 {
-  clip-path: unset;
-  max-width: 100% !important;
-  padding-block: 6rem ;
-}
+  .match_reg--popup2 {
+    clip-path: unset;
+    max-width: 100% !important;
+    padding-block: 6rem;
+  }
 }
 
 @media (max-width: 525px) {
   .match_reg--popup {
     max-width: calc(100% - 2rem);
   }
+
   .timeout-popup .match_reg--popup {
     max-width: 22rem;
   }
@@ -1248,18 +1241,29 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     width: 19rem;
     height: 4rem;
   }
-  .notification-box-btn button,.notification-box-btn button.active-tab,.notification-box-btn button.active-tab.singleButton{
+
+  .notification-box-btn {
+    flex-direction: column;
+  }
+
+  .notification-box-btn button.active-tab.singleButton {
     background-size: contain;
     height: 2.5rem;
   }
 
-  .go-btn::after{
+  .go-btn::after {
     height: 3rem;
     width: 3rem;
+  }
+
+  .sd_game-con.polygon_border:before,
+  .sd_game-con.polygon_border:after {
+    width: 1.8rem;
   }
 }
 
 @media (max-width: 410px) {
+
   .sd_custom-input,
   .popup_submit-btn {
     width: 16rem;
@@ -1271,10 +1275,23 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   .player_score {
     background-size: 19rem;
     width: 19rem;
+    height: auto;
+  }
+
+  .sd_game_info--wrap {
+    gap: 8px;
+  }
+
+  .sd_game_info--wrap .sd_game-con {
+    width: auto;
   }
 
   .game_polygon-link {
-    width: 5.5rem;
+    width: 6.3rem;
+  }
+
+  .game_polygon-link h4 {
+    font-size: 1rem;
   }
 
   .game_polygon-link:before {
@@ -1283,55 +1300,59 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
 
   .sd_game-con.polygon_border:before,
   .sd_game-con.polygon_border:after {
-    width: 1.2rem;
+    width: 1.6rem;
   }
 
   .mob-star-week {
     width: 18.5rem;
   }
+
   .profile-wp {
     padding-bottom: 1.2rem;
   }
+
   .sd_bedge_left-con {
     padding-bottom: 1.2rem;
     margin-bottom: 1.2rem;
   }
 
-    .notification-sidebar {
-      width: calc(100% - 0.5rem);
-    }
-    .notification-sidebar .game_status--tab button {
-      width: 9rem !important;
+  .notification-sidebar {
+    width: calc(100% - 0.5rem);
   }
-  .notification-sidebar .active-tab.polygon_border:before, .notification-sidebar .active-tab.polygon_border:after {
+
+  .notification-sidebar .game_status--tab button {
+    width: 9rem !important;
+  }
+
+  .notification-sidebar .active-tab.polygon_border:before,
+  .notification-sidebar .active-tab.polygon_border:after {
     width: 4rem;
-}
-.notification-box-wp.polygon_border:before {
-  width: 5rem;
-}
+  }
+
+  .notification-box-wp.polygon_border:before {
+    width: 5rem;
+  }
 }
 
 @media (max-width: 354px) {
-  .notification-box-btn button.active-tab.singleButton{
+  .notification-box-btn button.active-tab.singleButton {
     height: 2.4rem;
     font-size: 1rem;
   }
-  .notification-box-btn button,.notification-box-btn button.active-tab{
+
+  .notification-box-btn button,
+  .notification-box-btn button.active-tab {
     height: 2.2rem;
     font-size: 1rem;
   }
+
   .go-btn::after {
     height: 2rem;
     width: 2rem;
     top: 0rem;
-}
-.upload-pic{
-  width: 21.5rem;
-}
-}
+  }
 
-
-
-.tournament_page--wrapper .game_polygon-link {
-  width: 15.2rem;
+  .upload-pic {
+    width: 21.5rem;
+  }
 }

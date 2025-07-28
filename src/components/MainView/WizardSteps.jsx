@@ -9,12 +9,17 @@ import {
   fetchGames,
   resetGamesState,
 } from "../../app/slices/game/gamesSlice.js";
-import { checkUsersExists } from "../../app/slices/auth/authSlice.js";
+import {
+  checkUsersExists,
+  sendOtp,
+  verifyOtp,
+} from "../../app/slices/auth/authSlice.js";
 import { debounce } from "lodash";
 import { countryData } from "../../utils/CountryCodes.js";
 import { baseURL } from "../../utils/axios.js";
 import { getServerURL } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
+import { Tooltip } from "react-tooltip";
 
 const WizardSteps = ({
   step,
@@ -24,11 +29,18 @@ const WizardSteps = ({
   initialValues,
   loadingSubmit = false,
   isEdit = false,
+  isVerified,
 }) => {
+  console.log("isVerified", isVerified);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [showOtpPopup, setShowOtpPopup] = useState(false);
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [otpError, setOtpError] = useState("");
+
   const [previewImage, setPreviewImage] = useState(() => {
     const pic = initialValues?.profilePicture || null;
     if (typeof pic === "string" && pic.startsWith("uploads/")) {
@@ -90,6 +102,35 @@ const WizardSteps = ({
     };
   }, [dispatch, debouncedCheckUsername, debouncedCheckEmail]);
 
+  const handleOtpChange = (index, value) => {
+    if (/^[0-9]?$/.test(value)) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+      setOtpError("");
+      if (value && index < 5) {
+        document.getElementById(`otp-${index + 1}`).focus();
+      }
+    }
+  };
+
+  const handleOtpSubmit = () => {
+    const otpValue = otp.join("");
+    if (otpValue.length === 6 && /^[0-9]{6}$/.test(otpValue)) {
+      dispatch(verifyOtp({ otp: otpValue })).then((action) => {
+        if (action.meta.requestStatus === "fulfilled") {
+          setShowOtpPopup(false);
+          setOtp(["", "", "", "", "", ""]);
+          setOtpError("");
+        } else {
+          setOtpError(action.payload || t("validation_messages.otp_invalid"));
+        }
+      });
+    } else {
+      setOtpError(t("validation_messages.otp_invalid"));
+    }
+  };
+
   const countryOptions = countryData.map((country) => ({
     value: country.name,
     label: country.name,
@@ -107,21 +148,26 @@ const WizardSteps = ({
 
   const validationSchemas = [
     Yup.object({
-      username: isEdit ? Yup.string().notRequired() : Yup.string()
-        .required(t("validation_messages.username_required"))
-        .min(3, t("validation_messages.username_min_length"))
-        .matches(/^[a-zA-Z0-9_]+$/, t("validation_messages.username_format"))
-        .test(
-          "check-username-exists",
-          t("validation_messages.username_taken"),
-          async (value, context) => {
-            if (!value || (isEdit && value === initialValues.username))
-              return true; // Skip for unchanged username in edit mode
-            return new Promise((resolve) =>
-              debouncedCheckUsername(value, resolve)
-            );
-          }
-        ),
+      username: isEdit
+        ? Yup.string().notRequired()
+        : Yup.string()
+          .required(t("validation_messages.username_required"))
+          .min(3, t("validation_messages.username_min_length"))
+          .matches(
+            /^[a-zA-Z0-9_]+$/,
+            t("validation_messages.username_format")
+          )
+          .test(
+            "check-username-exists",
+            t("validation_messages.username_taken"),
+            async (value, context) => {
+              if (!value || (isEdit && value === initialValues.username))
+                return true; // Skip for unchanged username in edit mode
+              return new Promise((resolve) =>
+                debouncedCheckUsername(value, resolve)
+              );
+            }
+          ),
       firstName: Yup.string()
         .required(t("validation_messages.first_name_required"))
         .matches(/^[a-zA-Z]+$/, t("validation_messages.first_name_format")),
@@ -156,12 +202,14 @@ const WizardSteps = ({
             /[!@#$%^&*()\-\_=+\{\}\[\]|\\:;\"'<,>\.\/\?~]/,
             t("validation_messages.password_special")
           ),
-      nationality: isEdit ? Yup.string().notRequired() : Yup.object()
-        .shape({
-          value: Yup.string().required(),
-          label: Yup.string().required(),
-        })
-        .required(t("validation_messages.nationality_required")),
+      nationality: isEdit
+        ? Yup.string().notRequired()
+        : Yup.object()
+          .shape({
+            value: Yup.string().required(),
+            label: Yup.string().required(),
+          })
+          .required(t("validation_messages.nationality_required")),
       dialCode: Yup.object()
         .shape({
           value: Yup.string().required(),
@@ -182,13 +230,17 @@ const WizardSteps = ({
         .matches(/^[0-9\s\-\(\)]*$/, t("validation_messages.phone_format")),
     }),
     Yup.object({
-      dateOfBirth: isEdit ? Yup.string().notRequired() : Yup.date()
-        .required(t("validation_messages.dob_required"))
-        .max(new Date(), t("validation_messages.dob_future"))
-        .typeError(t("validation_messages.dob_invalid")),
-      gender: isEdit ? Yup.string().notRequired() : Yup.string()
-        .oneOf(["Male", "Female"], t("validation_messages.gender_required"))
-        .required(t("validation_messages.gender_required")),
+      dateOfBirth: isEdit
+        ? Yup.string().notRequired()
+        : Yup.date()
+          .required(t("validation_messages.dob_required"))
+          .max(new Date(), t("validation_messages.dob_future"))
+          .typeError(t("validation_messages.dob_invalid")),
+      gender: isEdit
+        ? Yup.string().notRequired()
+        : Yup.string()
+          .oneOf(["Male", "Female"], t("validation_messages.gender_required"))
+          .required(t("validation_messages.gender_required")),
     }),
     Yup.object({
       favoriteGame: Yup.object()
@@ -537,6 +589,69 @@ const WizardSteps = ({
     }
   };
 
+  const renderOtpPopup = () => (
+    <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-[#09092d] p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-xl font-medium text-white mb-4 font_oswald">
+          {t("form.verify_otp")}
+        </h2>
+        <div className="flex justify-between mb-4">
+          {otp.map((digit, index) => (
+            <>
+              <input
+                key={index}
+                id={`otp-${index}`}
+                type="text"
+                maxLength="1"
+                value={digit}
+                onChange={(e) => handleOtpChange(index, e.target.value)}
+                className="sd_custom-input otp-input w-12 h-12 text-center text-lg text-[#7B7ED0] bg-[#1a1a3d] border-none focus:outline-0 focus:shadow-none"
+              />
+              <svg
+                width="0"
+                height="0"
+                viewBox="0 0 400 72"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ position: "absolute" }}
+              >
+                <defs>
+                  <clipPath id="inputclip1" clipPathUnits="objectBoundingBox">
+                    <path
+                      transform="scale(0.0025, 0.0138889)"
+                      d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+            </>
+          ))}
+        </div>
+        {otpError && (
+          <div className="text-red-500 text-sm mb-4">{otpError}</div>
+        )}
+        <div className="flex justify-end gap-4 game_status--tab otp-input">
+          <button
+            type="button"
+            onClick={() => {
+              setShowOtpPopup(false);
+              setOtp(["", "", "", "", "", ""]);
+              setOtpError("");
+            }}
+            className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+          >
+            {t("auth.cancel")}
+          </button>
+          <button
+            type="button"
+            onClick={handleOtpSubmit}
+            className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+          >
+            {t("auth.verify")}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
   const renderContent = (values, setFieldValue) => {
     return (
       <>
@@ -594,7 +709,9 @@ const WizardSteps = ({
                 {field === "password" && (
                   <button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)}
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
                     className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
                   >
                     <svg
@@ -624,6 +741,35 @@ const WizardSteps = ({
                       )}
                     </svg>
                   </button>
+                )}
+                {field === "email" && isVerified && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        dispatch(sendOtp(values.email));
+                        setShowOtpPopup(true);
+                      }}
+                      data-tooltip-id="otp-tooltip"
+                      data-tooltip-content="Verify"
+                      className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 text-yellow-500 hover:opacity-80"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
+         10-4.48 10-10S17.52 2 12 2zm0 15a1.25 1.25 0 1 1 0-2.5
+         1.25 1.25 0 0 1 0 2.5zm1-4h-2V7h2v6z"
+                        />
+                      </svg>
+                    </button>
+                    <Tooltip id="otp-tooltip" />
+                  </>
                 )}
               </div>
               <ErrorMessage
@@ -784,7 +930,10 @@ const WizardSteps = ({
     >
       {({ values, setFieldValue, errors, touched }) => (
         <Form>
-          {isEdit ? renderContent(values, setFieldValue) : renderStepContent(values, setFieldValue)}
+          {showOtpPopup && renderOtpPopup()}
+          {isEdit
+            ? renderContent(values, setFieldValue)
+            : renderStepContent(values, setFieldValue)}
           <div className="wizard_step--btn gap-5 flex justify-end sm:mt-14 mt-8 mb-8 mr-5">
             {step > 1 && (
               <div className="game_status--tab wizard_btn back_btn">

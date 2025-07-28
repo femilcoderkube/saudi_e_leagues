@@ -538,18 +538,12 @@ const Header = () => {
           { user && <div
             onClick={handleLangToggle2}
             title={"Notification"}
-            className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
+            className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before notification-icon-wp"
           >
-            <sup class="notification-icon flex justify-center items-center w-5 h-5 rounded-full bg-[#3eccf3] absolute sm:-top-[0.2rem] sm:right-[-0.2rem] -top-[0.3rem] right-[-0.1rem] text-black font-bold">{unReadNotificationCount}</sup>
+            <sup class="notification-icon flex justify-center items-center rounded-full absolute sm:-top-[0.2rem] sm:right-[-0.2rem] -top-[0.3rem] right-[-0.1rem] text-black font-bold">{unReadNotificationCount}</sup>
  
             <Notification />
-          </div>}
-          {/* <NavLink
-            to="#"
-            className="notification_btn inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
-          >
-            <Notification />
-          </NavLink> */}
+          </div>}         
         </div>
 
         {!user && (

@@ -31,7 +31,9 @@
     "send_email": "إرسال البريد الإلكتروني",
     "back_to_login": "العودة إلى تسجيل الدخول",
     "forgot_email_sent": "تم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور بنجاح",
-    "forgot_failed": "فشل في إرسال بريد إلكتروني لإعادة تعيين كلمة المرور"
+    "forgot_failed": "فشل في إرسال بريد إلكتروني لإعادة تعيين كلمة المرور",
+    "cancel": "إلغاء",
+    "verify": "تحقق"
   },
 
   "form": {
@@ -56,7 +58,9 @@
     "edit_profile": "تعديل الملف الشخصي",
     "field_placeholder": "أدخل {{field}}",
     "select_nationality": "اختر الجنسية",
-    "select_favorite_game": "اختر لعبتك المفضلة"
+    "select_favorite_game": "اختر لعبتك المفضلة",
+    "verify_otp": "التحقق من رمز OTP",
+    "otp_invalid": "يرجى إدخال رمز OTP مكون من 6 أرقام صالح"
   },
 
   "countries": {
@@ -93,7 +97,6 @@
     "favorite_game_required": "اللعبة المفضلة مطلوبة",
     "field_required": "{{field}} مطلوب"
   },
-
   "homepage": {
     "level_up": "ارفع مستواك",
     "your_game": "وانضــــــــم الى",
@@ -116,7 +119,6 @@
     "htp_description": "placeholder1",
     "go_play_now": "placeholder2",
     "join_now": "انطلق الآن",
-
     "faq": {
       "faq": "الأسئلة الشائعة",
       "q1": "هل توجد جوائز للمشاركة في برايم؟",
@@ -135,7 +137,6 @@
       "a7": "بعد كل مباراة، يمكنك تقييم زملائك من خلال وضع إعجاب أو عدم إعجاب في بطاقة اللاعب. ويمكنك أيضًا تقديم بلاغ رسمي ضد أي سلوك مسيء عبر نظام الدعم في الديسكورد."
     }
   },
-
   "lobby": {
     "leaderboard": "لوحة المتصدرين",
     "no_data_available": "لا توجد مباريات",
@@ -156,7 +157,6 @@
       "finished": "بطولات منتهية"
     }
   },
-
   "league": {
     "league_title": "عنوان البطولة",
     "prize_pool": "مجموع الجوائز",
@@ -171,7 +171,6 @@
     "open": "مفتوح",
     "ends": "ينتهي في:"
   },
-
   "match": {
     "finding_matchmaking": "البحث عن لاعبين",
     "chat_message": "رسالة الدردشة",
@@ -186,12 +185,10 @@
     "match_chat": "دردشة المباراة",
     "match": "مباراة"
   },
-
   "rules": {
     "rules_and_regulations": "القوانين والأنظمة",
     "wizard_form": "نموذج"
   },
-
   "common": {
     "no_data": "لا توجد بيانات متاحة",
     "loading": "جاري التحميل...",
@@ -210,7 +207,6 @@
     "uploading": "جاري الرفع...",
     "loading_pdf": "جاري تحميل الملف..."
   },
-
   "games": {
     "game": "اللعبة",
     "game_2": "اللعبة 2",
@@ -225,25 +221,21 @@
     "select_game": "اختر اللعبة",
     "search_game": "البحث عن لعبة"
   },
-
   "navigation": {
     "lobby": "البطولات",
     "home": "الرئيسية",
     "profile": "الملف الشخصي",
     "prime": "برايم"
   },
-
   "user_menu": {
     "my_profile": "تعديل الملف الشخصي",
     "logout": "تسجيل الخروج"
   },
-
   "language": {
     "english": "English",
     "arabic": "العربية",
     "language": "اللغة"
   },
-
   "roles": {
     "referee": "حكم",
     "couch": "مدرب",
@@ -260,7 +252,6 @@
     "tournament_organizer": "منظم البطولات",
     "club_owner": "مالك النادي"
   },
-
   "upload": {
     "profile_picture": "رفع صورة الملف الشخصي",
     "photo": "رفع صورة",
@@ -268,14 +259,12 @@
     "score_proof": "رفع دليل النتيجة",
     "too_large": "الملف كبير جدا. الحد الأقصى هو 10 ميجا"
   },
-
   "social": {
     "twitter": "تويتر (X)",
     "instagram": "انستقرام",
     "discord": "ديسكورد",
     "tiktok": "تيك توك"
   },
-
   "footer": {
     "contact_us": "تواصل معنا",
     "privacy_policy": "سياسة الخصوصية",
@@ -292,13 +281,11 @@
     "bronze": "برونزي",
     "blue": "أزرق"
   },
-
   "score": {
     "your_score": "نتيجتك",
     "opponent_score": "نتيجة الخصم",
     "notes": "ملاحظات"
   },
-
   "validation_messages": {
     "username_required": "اسم المستخدم مطلوب",
     "username_min_length": "يجب أن يكون اسم المستخدم 3 أحرف على الأقل",
@@ -329,12 +316,10 @@
     "favorite_game_required": "اللعبة المفضلة مطلوبة",
     "field_required": "حقل {{field}} مطلوب"
   },
-
   "wizard": {
     "rules_and_regulations": "القواعد والأنظمة",
     "wizard_form": "نموذج المعالج"
   },
-
   "images": {
     "rules_icon": "أيقونة القواعد",
     "get_started_button": "زر البدء",

@@ -136,7 +136,7 @@ const LeaderBoard = () => {
                         </div>
                       )}
                     </div>
-                    <span className="text-lg !font-bold">
+                    <span className="text-base sm:text-lg !font-bold">
                       {requestedUser.username}
                     </span>
                     <span className="text-base purple_col font-medium">
@@ -145,7 +145,7 @@ const LeaderBoard = () => {
                   </div>
                 </td>
 
-                <td className="py-4 px-4 md:text-center text-right text-lg !font-bold">
+                <td className="py-4 px-4 ltr:md:text-center rtl:md:text-center rtl:text-left ltr:text-right text-lg !font-bold">
                   {requestedUser.points}
                 </td>
 
@@ -153,13 +153,15 @@ const LeaderBoard = () => {
                   data-title="Win/Loss"
                   className="pb-11 md:pb-4 py-4 px-4 md:text-center"
                 >
-                  <span className="win text-lg sky_col">
+                  <div class="ltr:md:pl-0 ltr:pl-3 rtl:md:pr-0 rtl:pr-3">
+                  <span className="win text-lg sky_col ">
                     {requestedUser.wins}
                   </span>{" "}
                   <b className="font-bold text-xs">/</b>{" "}
                   <span className="loss text-lg text-[#FA4768]">
                     {requestedUser.losses}
                   </span>
+                  </div>
                 </td>
 
                 {leagueData.playersPerTeam != 1 && (
@@ -178,9 +180,11 @@ const LeaderBoard = () => {
 
                 <td
                   data-title="Win rate"
-                  className="pb-11 md:pb-4 py-4 px-4 md:text-center rtl:text-left text-lg"
+                  className={`pb-11 md:pb-4 py-4 px-4 text-center text-lg ${leagueData.playersPerTeam == 1 ? "" : "leaderboard-right"}`}
                 >
+                  <div className="leaderboard-center">
                   {requestedUser.winRate}
+                  </div>
                 </td>
               </tr>
             </>
@@ -203,13 +207,13 @@ const LeaderBoard = () => {
             };
 
             if (index == 0) {
-              user.badgeColor = "gold";
+              user.badgeColor = "gold mob-leader-board";
               user.bedgesrc = gold_bedge;
             } else if (index == 1) {
-              user.badgeColor = "silver";
+              user.badgeColor = "silver mob-leader-board";
               user.bedgesrc = silver_bedge;
             } else if (index == 2) {
-              user.badgeColor = "bronze";
+              user.badgeColor = "bronze mob-leader-board";
               user.bedgesrc = bronze_bedge;
             } else {
               user.badgeColor = "blue";
@@ -265,7 +269,7 @@ const LeaderBoard = () => {
                         </div>
                       )}
                     </div>
-                    <span className="text-lg !font-bold">
+                    <span className="text-base sm:text-lg !font-bold">
                       {user.username}
                     </span>
                     {user.itsYou && (
@@ -276,13 +280,13 @@ const LeaderBoard = () => {
                   </div>
                 </td>
 
-                <td className="py-4 px-4 ltr:text-right rtl:text-left ltr:md:text-center rtl:md:text-center text-lg !font-bold">
+                <td className="py-4 px-4 ltr:text-right rtl:text-left ltr:md:text-center rtl:md:text-center text-base sm:text-lg !font-bold">
                   {user.points}
                 </td>
 
                 <td
                   data-title="Win/Loss"
-                  className="pb-11 md:pb-4 py-4 px-4 ltr:text-left rtl:text-right md:text-center"
+                  className="pb-11 md:pb-4 py-4 px-4 ltr:text-left rtl:text-right ltr:md:text-center"
                 >
                   <div className="ltr:md:pl-0 ltr:pl-3 rtl:md:pr-0 rtl:pr-3">
                   <span className="win text-lg sky_col">{user.wins}</span>{" "}
@@ -308,12 +312,25 @@ const LeaderBoard = () => {
 
                 <td
                   data-title="Win rate"
-                  className="pb-11 md:pb-4 py-4 px-4 md:text-center rtl:text-left ltr:text-right text-lg"
+                  className={`pb-11 md:pb-4 py-4 px-4 text-center text-lg`}
                 >
-                  <div className="ltr:md:pr-0 ltr:pr-3 rtl:md:pl-0 rtl:pl-3">
+                  <div className="leaderboard-center">
                   {user.winRate}
                   </div>
                 </td>
+                {leagueData.playersPerTeam == 1 && (
+                  <td data-title="" className="pb-11 md:pb-4 py-4 px-4">
+                    <div className="flex items-center justify-center">
+                      <div className="avtar_frame rounded-[2.5rem] flex-shrink-0 overflow-hidden">
+                        <img
+                          src={getSmile(user.rep)}
+                          alt={user.rep}
+                          style={{ width: "1.5rem" , visibility : "hidden"}}
+                        />
+                      </div>
+                    </div>
+                  </td>
+                )}
                 
               </tr>
             </>

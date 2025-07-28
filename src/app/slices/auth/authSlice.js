@@ -10,6 +10,10 @@ const initialState = {
   error: null,
   success: false, // from registerSlice
   userDetail: null,
+  sendOtpSuccess: false,
+  sendOtpError: null,
+  verifyOtpSuccess: false,
+  verifyOtpError: null,
 };
 
 export const loginUser = createAsyncThunk(
@@ -141,6 +145,36 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
+export const sendOtp = createAsyncThunk(
+  "auth/sendOtp",
+  async (email, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/users/send-otp", { email });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to send OTP"
+      );
+    }
+  }
+);
+
+export const verifyOtp = createAsyncThunk(
+  "auth/verifyOtp",
+  async ({ otp }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/users/verify-otp", {
+        otp,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to verify OTP"
+      );
+    }
+  }
+);
+
 // New updatePassword thunk
 export const updatePassword = createAsyncThunk(
   "auth/updatePassword",
@@ -190,6 +224,15 @@ const authSlice = createSlice({
     clearUpdatePasswordState(state) {
       state.updatePasswordSuccess = false;
       state.updatePasswordError = null;
+    },
+    clearSendOtpState(state) {
+      state.sendOtpSuccess = false;
+      state.sendOtpError = null;
+    },
+    clearVerifyOtpState(state) {
+      state.verifyOtpSuccess = false;
+      state.verifyOtpError = null;
+      state.isVerified = false;
     },
   },
   extraReducers: (builder) => {
@@ -317,6 +360,37 @@ const authSlice = createSlice({
         state.loading = false;
         state.updatePasswordError = action.payload;
         toast.error(action.payload);
+      })
+      .addCase(sendOtp.pending, (state) => {
+        state.loading = true;
+        state.sendOtpError = null;
+        state.sendOtpSuccess = false;
+      })
+      .addCase(sendOtp.fulfilled, (state, action) => {
+        state.loading = false;
+        state.sendOtpSuccess = true;
+        toast.success("OTP sent successfully!");
+      })
+      .addCase(sendOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.sendOtpError = action.payload;
+        toast.error(action.payload);
+      })
+      .addCase(verifyOtp.pending, (state) => {
+        state.loading = true;
+        state.verifyOtpError = null;
+        state.verifyOtpSuccess = false;
+      })
+      .addCase(verifyOtp.fulfilled, (state, action) => {
+        state.loading = false;
+        state.verifyOtpSuccess = true;
+        state.isVerified = true;
+        toast.success("OTP verified successfully!");
+      })
+      .addCase(verifyOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.verifyOtpError = action.payload;
+        toast.error(action.payload);
       });
   },
 });
@@ -327,5 +401,7 @@ export const {
   clearUserDetail,
   clearResetPasswordState,
   clearUpdatePasswordState,
+  clearSendOtpState,
+  clearVerifyOtpState,
 } = authSlice.actions;
 export default authSlice.reducer;

@@ -473,6 +473,21 @@ li.team_score--card:hover .review_score--con:before {
   .team_score--card svg{
     width: 21.38rem;
   }
+  .review_score--con{
+    flex-direction: row;
+    left: auto;
+    right: 1.24rem;
+    top: 50%;
+    transform: translate(0px, -50%);
+  }
+  .review_score--con:before{    
+    left: auto;
+    right: 0;
+  }
+  .review_score--con .like_icon:first-child {
+    border-radius: 0.8rem;
+    background:linear-gradient(#0CA35C 100%,#0F6454 48%);
+  }
 }
 
 @media (max-width:350px) {
@@ -481,5 +496,8 @@ li.team_score--card:hover .review_score--con:before {
   }
   .mob-sub-btn{
     flex-wrap: wrap;
+  }
+  .review_score--con {
+    right: 0.8rem;
   }
 }

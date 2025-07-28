@@ -9,13 +9,17 @@ const initialState = {
   isAgreedToJoin: {},
   isJoinedUser: null,
   isQueueUser: null,
-  isMatchJoind : null
+  isMatchJoind : null,
+  starOfTheWeek : []
 };
  
 const leagueDetailSlice = createSlice({
   name: "leagueDetail",
   initialState,
   reducers: {
+    setWeekOfStarUsers: (state, action) => {
+      state.starOfTheWeek = action.payload;
+    },
     setIsAgreedToJoin: (state, action) => {
       const { id, value } = action.payload;
       state.isAgreedToJoin[id] = value;
@@ -78,6 +82,7 @@ export const {
   setRegistrationModal,
   setIsAgreedToJoin,
   removeFromQueue,
+  setWeekOfStarUsers
 } = leagueDetailSlice.actions;
  
 export default leagueDetailSlice.reducer;

@@ -7,9 +7,9 @@
 /* --- Select Game dropdown css start --- */
 
 .sel_game-menu .dropdown-header:before {
-    background-image: url(../images/sel_game-bg.png);
-    width: 16rem;
-    height: 4.5rem;
+  background-image: url(../images/sel_game-bg.png);
+  width: 16rem;
+  height: 4.5rem;
 }
 
 /* ---------------------------------------
@@ -19,29 +19,39 @@
 ----------------------------------------- */
 
 .game_list--view button.active {
-    /* background: linear-gradient(180deg,rgba(188, 82, 37, 0.92) 0%, rgba(244, 149, 40, 1) 100%);
+  /* background: linear-gradient(180deg,rgba(188, 82, 37, 0.92) 0%, rgba(244, 149, 40, 1) 100%);
     box-shadow: inset 0px 1px 4px #F38155; */
-    background: url(../images/list-grid-active.png);
-    background-size: cover;
+  background: url(../images/list-grid-active.png);
+  background-size: cover;
 }
 
 .game_status--tab button {
-    background: url(../images/game_tab-bg.png);
-    background-repeat: no-repeat;
-    background-size: cover;
+  background: url(../images/game_tab-bg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .game_status--tab button.active-tab {
-    background: url(../images/active_game-tab.png);
-    background-repeat: no-repeat;
-    background-size: cover;
+  background: url(../images/active_game-tab.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .active-tab.polygon_border:before,
 .active-tab.polygon_border:after {
-    width: 4.65rem;
-    background: #447df1;
-    height: 0.18rem;
+  width: 4.65rem;
+  background: #447df1;
+  height: 0.18rem;
+}
+
+.otp-input.game_status--tab button.active-tab {
+  width: 28%;
+}
+
+.otp-input .active-tab.polygon_border:before,
+.otp-input .active-tab.polygon_border:after {
+  width: 3rem;
+  height: 0.15rem;
 }
 
 /* -------------------------------
@@ -49,82 +59,90 @@
     Game Card Design CSS Start
     
 ---------------------------------- */
-html[dir=rtl] .card_top_left-shap {
-    rotate: 180deg;
+html[dir="rtl"] .card_top_left-shap {
+  rotate: 180deg;
 }
 
 .game_card--body {
-    clip-path: url(#cardclip);
-    margin: 1.375rem 0 0 1.25rem;
+  clip-path: url(#cardclip);
+  margin: 1.375rem 0 0 1.25rem;
 }
 
-html[dir=rtl] .slider_card .game_card--body {
-    margin: 1.375rem 1.25rem 0 0;
-    transform: rotateY(180deg);
+html[dir="rtl"] .slider_card .game_card--body {
+  margin: 1.375rem 1.25rem 0 0;
+  transform: rotateY(180deg);
 }
 
-html[dir=rtl] .slider_card .game_mask--con{
-transform: rotateY(180deg);
+html[dir="rtl"] .slider_card .game_mask--con {
+  transform: rotateY(180deg);
 }
 
 .game_img--mask:before {
-    background: linear-gradient(180deg, rgba(1, 2, 33, 0.2) 0%, rgb(1 2 33 / 26%) 50%, rgba(1, 2, 33, 0.8) 80%);
-    box-shadow: inset -0.625rem 1.25rem 3.125rem #010221;
+  background: linear-gradient(
+    180deg,
+    rgba(1, 2, 33, 0.2) 0%,
+    rgb(1 2 33 / 26%) 50%,
+    rgba(1, 2, 33, 0.8) 80%
+  );
+  box-shadow: inset -0.625rem 1.25rem 3.125rem #010221;
 }
 
 .card_participants {
-    background: url(../images/participant_num-bg.png);
-    padding: 1.875rem;
-    background-size: 100% 100%;
-    top: -0.625rem;
-    right: -0.9rem;
+  background: url(../images/participant_num-bg.png);
+  padding: 1.875rem;
+  background-size: 100% 100%;
+  top: -0.625rem;
+  right: -0.9rem;
 }
 
-html[dir=rtl] .card_participants {
-    right: auto;
-    left: -0.9rem;
-    background: url(../images/rtl_participant_num-bg.png);
+html[dir="rtl"] .card_participants {
+  right: auto;
+  left: -0.9rem;
+  background: url(../images/rtl_participant_num-bg.png);
 }
 
 .match_date-con {
-    background: -webkit-linear-gradient(271deg, rgba(199, 233, 255, 1) 60%, #7394FF 92%);
+  background: -webkit-linear-gradient(
+    271deg,
+    rgba(199, 233, 255, 1) 60%,
+    #7394ff 92%
+  );
 }
 
 .game_intro {
-    background-image: url(../images/GameIntroBG.png);
-    width: 15.5rem;
-    padding-block: 2rem;
-    background-size: 100%;
-    padding-left: 1.3rem;
+  background-image: url(../images/GameIntroBG.png);
+  width: 15.5rem;
+  padding-block: 2rem;
+  background-size: 100%;
+  padding-left: 1.3rem;
 }
 
-html[dir=rtl] .game_intro {
-    background-image: url(../images/rtl_GameIntroBG.png);
-    padding-left: 0;
-    padding-right: 1.3rem;
+html[dir="rtl"] .game_intro {
+  background-image: url(../images/rtl_GameIntroBG.png);
+  padding-left: 0;
+  padding-right: 1.3rem;
 }
 
 .match_date {
-    background-image: url(../images/match_dateBG.png);
-    padding-top: 1.5rem;
-    padding-bottom: 2.5rem;
-    margin-top: -1.4rem;
-    width: 6rem;
-    background-size: 100%;
+  background-image: url(../images/match_dateBG.png);
+  padding-top: 1.5rem;
+  padding-bottom: 2.5rem;
+  margin-top: -1.4rem;
+  width: 6rem;
+  background-size: 100%;
 }
 
-html[dir=rtl] .match_date {
-    background-image: url(../images/match_dateBG_rtl.png);
+html[dir="rtl"] .match_date {
+  background-image: url(../images/match_dateBG_rtl.png);
 }
 
 .game_card--footer {
-    margin-top: -3.5rem;
+  margin-top: -3.5rem;
 }
 
 .game_label {
-    margin-bottom: 4rem;
+  margin-bottom: 4rem;
 }
-
 
 /* -------------------------------------
     
@@ -133,55 +151,59 @@ html[dir=rtl] .match_date {
 ---------------------------------------- */
 
 .game_menu-con {
-    background: linear-gradient(180deg, rgba(45, 46, 109, 1) 0%, rgba(34, 35, 86, 1) 100%);
-    clip-path: url(#gamemenu_clip);
-    height: 26.25rem;
+  background: linear-gradient(
+    180deg,
+    rgba(45, 46, 109, 1) 0%,
+    rgba(34, 35, 86, 1) 100%
+  );
+  clip-path: url(#gamemenu_clip);
+  height: 26.25rem;
 }
 
 .game_search input {
-    background: linear-gradient(180deg, rgba(45, 46, 109, 1) 0%, rgba(29, 30, 78, 0.8) 100%);
-
+  background: linear-gradient(
+    180deg,
+    rgba(45, 46, 109, 1) 0%,
+    rgba(29, 30, 78, 0.8) 100%
+  );
 }
 
 .game_dropdown-body:after {
-    background: #010221;
-    z-index: -1;
-    left: -10px;
-    filter: blur(21px);
+  background: #010221;
+  z-index: -1;
+  left: -10px;
+  filter: blur(21px);
 }
 
 .sd_game--link {
-    height: calc(26.25rem - 6.5rem);
-    overflow-y: auto;
-    width: 100%;
-    margin-top: 1rem;
+  height: calc(26.25rem - 6.5rem);
+  overflow-y: auto;
+  width: 100%;
+  margin-top: 1rem;
 }
 
 .sd_game--wrap {
-    margin-right: 0.7rem;
+  margin-right: 0.7rem;
 }
 
 #style-3::-webkit-scrollbar {
-    width: 0.3rem;
+  width: 0.3rem;
 }
 
 #style-3::-webkit-scrollbar-track {
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='312' viewBox='0 0 4 312'><path d='M4 0V308L0 312V4L4 0Z' fill='%234A4B98' fill-opacity='0.4'/></svg>");
-
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='312' viewBox='0 0 4 312'><path d='M4 0V308L0 312V4L4 0Z' fill='%234A4B98' fill-opacity='0.4'/></svg>");
 }
 
 #style-3::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='60' viewBox='0 0 8 60'><path d='M8 0V56L0 60V4L8 0Z' fill='%2346ABF8'/></svg>");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='60' viewBox='0 0 8 60'><path d='M8 0V56L0 60V4L8 0Z' fill='%2346ABF8'/></svg>");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
 }
-
-
 
 /* -------------------------------------
     
@@ -189,172 +211,191 @@ html[dir=rtl] .match_date {
     
 ---------------------------------------- */
 .game_card--wrapv2 .game_image {
-    clip-path: url(#cardclipv2);
-    max-width: 13rem;
-    flex: 0 0 13rem;
+  clip-path: url(#cardclipv2);
+  max-width: 13rem;
+  flex: 0 0 13rem;
 }
 
-html[dir=rtl] .game_card--wrapv2 .game_image {
-    transform: rotateY(180deg);
+html[dir="rtl"] .game_card--wrapv2 .game_image {
+  transform: rotateY(180deg);
 }
 
-html[dir=rtl] .game_card--wrapv2 .game_image img {
-    transform: rotateY(180deg);
+html[dir="rtl"] .game_card--wrapv2 .game_image img {
+  transform: rotateY(180deg);
 }
 
-html[dir=rtl] .game_img--mask svg {
-    rotate: 180deg;
+html[dir="rtl"] .game_img--mask svg {
+  rotate: 180deg;
 }
 
 .card_participants_v2 {
-    background: url(../images/participanBG_v2.png);
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-left: -2.25rem;
-    z-index: -1;
-    max-width: 10.5rem;
+  background: url(../images/participanBG_v2.png);
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: -2.25rem;
+  z-index: -1;
+  max-width: 10.5rem;
 }
 
 html[dir="rtl"] .card_participants_v2 {
-    background: url(../images/rtl_participanBG_v2.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-left: 0;
-    left: 2.2rem;
+  background: url(../images/rtl_participanBG_v2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 0;
+  left: 2.2rem;
 }
 
 .game_card--wrapv2 .game_card_wrap--link {
-    background-image: url('../images/game_cardBG_v2.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    transition: 0.3s;
+  background-image: url("../images/game_cardBG_v2.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  transition: 0.3s;
 }
 
 .game_card--wrapv2 .game_card_wrap--link:hover {
-    transform: scale(1.03);
+  transform: scale(1.03);
 }
 
 html[dir="rtl"] .game_card--wrapv2 .game_card_wrap--link {
-    background-image: url('../images/rtl-gamecard-bg.png');
+  background-image: url("../images/rtl-gamecard-bg.png");
 }
 
-.game_card--wrapv2.game_card--wrapper>a {
-    max-width: 28.75rem;
-    flex: 0 0 28.75rem;
+.game_card--wrapv2.game_card--wrapper > a {
+  max-width: 28.75rem;
+  flex: 0 0 28.75rem;
 }
 
 .league_price_v2 {
-    background: linear-gradient(90deg, rgba(255, 178, 55, 0.12) 0%, rgba(255, 178, 55, 0) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 178, 55, 0.12) 0%,
+    rgba(255, 178, 55, 0) 100%
+  );
 }
 
 .league_price_v2:before {
-    background: linear-gradient(90deg, rgba(19, 22, 69, 0) 23%, rgba(255, 178, 55, 0.8) 54%, rgba(19, 22, 69, 0) 74%);
+  background: linear-gradient(
+    90deg,
+    rgba(19, 22, 69, 0) 23%,
+    rgba(255, 178, 55, 0.8) 54%,
+    rgba(19, 22, 69, 0) 74%
+  );
 }
 
 .league_price_v2:after {
-    background: linear-gradient(90deg, rgba(19, 22, 69, 0) 14%, rgba(255, 178, 55, 0.8) 42%, rgba(19, 22, 69, 0) 57%);
+  background: linear-gradient(
+    90deg,
+    rgba(19, 22, 69, 0) 14%,
+    rgba(255, 178, 55, 0.8) 42%,
+    rgba(19, 22, 69, 0) 57%
+  );
 }
 
 .game_card--wrapv2 .match_date {
-    background-image: url(../images/card_v2_dateBG.png);
-    padding-top: 0.7rem;
-    margin-top: -1.4rem;
-    width: 4rem;
-    background-size: 100% 100%;
-    height: 6rem;
-    padding-bottom: 0;
+  background-image: url(../images/card_v2_dateBG.png);
+  padding-top: 0.7rem;
+  margin-top: -1.4rem;
+  width: 4rem;
+  background-size: 100% 100%;
+  height: 6rem;
+  padding-bottom: 0;
 }
 
 html[dir="rtl"] .game_card--wrapv2 .match_date {
-    background-image: url(../images/rtl_card_v2_dateBG.png);
+  background-image: url(../images/rtl_card_v2_dateBG.png);
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-    .select_game-header {
-        margin-top: 5rem;
-    }
+  .select_game-header {
+    margin-top: 5rem;
+  }
 
-    .game_status--tab {
-        top: 0;
-    }
+  .game_status--tab {
+    top: 0;
+  }
 }
 @media (max-width: 991px) {
-    html[dir=rtl] .game_status--tab {
-        left: auto;
-        right: 0;
-    }
+  html[dir="rtl"] .game_status--tab {
+    left: auto;
+    right: 0;
+  }
 }
 /* md */
 @media (max-width: 767px) {
-    .card_participants {
-        padding: 1.5rem;
-        right: -0.8rem;
-    }
+  .card_participants {
+    padding: 1.5rem;
+    right: -0.8rem;
+  }
 
-    .match_date {
-        padding-top: 1.1rem;
-        padding-bottom: 1.5rem;
-        width: 4.5rem;
-    }
+  .match_date {
+    padding-top: 1.1rem;
+    padding-bottom: 1.5rem;
+    width: 4.5rem;
+  }
 
-    .game_intro {
-        width: 12rem;
-        padding-block: 1.3rem;
-    }
+  .game_intro {
+    width: 12rem;
+    padding-block: 1.3rem;
+  }
 
-    .btn_polygon-link,.sel_game-menu .dropdown-header:before {
-        width: 13.38rem;
-        height: 3.5rem;
-    }
+  .btn_polygon-link,
+  .sel_game-menu .dropdown-header:before {
+    width: 13.38rem;
+    height: 3.5rem;
+  }
 
-    .game_card--wrapv2 .game_image {
-        max-width: 10rem;
-        flex: 0 0 10rem;
-    }
+  .game_card--wrapv2 .game_image {
+    max-width: 10rem;
+    flex: 0 0 10rem;
+  }
 
-    .sd_slect_game--wrapper .game_status--tab {
-        border-radius: 0;
-    }
+  .sd_slect_game--wrapper .game_status--tab {
+    border-radius: 0;
+  }
 
     .sd_slect_game--wrapper .game_status--tab::before {
         position: absolute;
         content: '';
-        height: 0.1rem;
+        height: 0.0625rem;
         width: 100%;
         bottom: 0;
         background: linear-gradient(to bottom, rgb(123 16 208 / 20%) 0%, rgb(121 126 255 / 20%) 100%);
     }
 
-    .sd_slect_game--wrapper .game_status--tab button {
-        background: unset;
-        height: auto;
-        width: auto;
-        color: var(--purple-col);
-    }
+  .sd_slect_game--wrapper .game_status--tab button {
+    background: unset;
+    height: auto;
+    width: auto;
+    color: var(--purple-col);
+  }
 
-    .sd_slect_game--wrapper .game_status--tab button.active-tab {
-        background: linear-gradient(180deg, rgb(68 107 238 / 0%) 0%, rgb(68 107 238 / 6%) 100%);
-        position: relative;
-        color: var(--color-white);
-    }
+  .sd_slect_game--wrapper .game_status--tab button.active-tab {
+    background: linear-gradient(
+      180deg,
+      rgb(68 107 238 / 0%) 0%,
+      rgb(68 107 238 / 6%) 100%
+    );
+    position: relative;
+    color: var(--color-white);
+  }
 
     .sd_slect_game--wrapper .game_status--tab button.active-tab::before {
         position: absolute;
         content: '';
-        height: 0.1rem;
+        height: 0.125rem;
         width: 100%;
-        background: linear-gradient(to left, );
         bottom: 0;
         top: auto;
         clip-path: unset;
     }
 
     .sd_slect_game--wrapper .active-tab.polygon_border:before,
-    .sd_slect_game--wrapper .active-tab.polygon_border:after {
+    .sd_slect_game--wrapper .active-tab.polygon_border:after,.sd_slect_game--wrapper .game_status--tab button::before,.sd_slect_game--wrapper .game_status--tab button::after {
         content: none;
     }
+
         html[dir=rtl] .game_status--tab {
         right: 0;
     }
@@ -362,88 +403,87 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
 
 /* sm */
 @media (max-width: 639px) {
-    .active-tab.polygon_border:before,
-    .active-tab.polygon_border:after {
-        background: #447df1;
-    }
+  .active-tab.polygon_border:before,
+  .active-tab.polygon_border:after {
+    background: #447df1;
+  }
 
-     .sd_uaser-menu .active-tab.polygon_border:before,
-    .sd_uaser-menu .active-tab.polygon_border:after {
-        width: 2.65rem;
-        height: 0.08rem;
-    }
+  .sd_uaser-menu .active-tab.polygon_border:before,
+  .sd_uaser-menu .active-tab.polygon_border:after {
+    width: 2.65rem;
+    height: 0.08rem;
+  }
 
-    .game_card--wrapv2.game_card--wrapper>a {
-        max-width: 22rem;
-        flex: 0 0 22rem;
-    }
+  .game_card--wrapv2.game_card--wrapper > a {
+    max-width: 22rem;
+    flex: 0 0 22rem;
+  }
 
-    .game_card--wrapv2 .match_date {
-        width: 3.5rem;
-    }
+  .game_card--wrapv2 .match_date {
+    width: 3.5rem;
+  }
 
-    .card_participants_v2 {
-        max-width: 9rem;
-    }
+  .card_participants_v2 {
+    max-width: 9rem;
+  }
 
-    html[dir=rtl] .card_participants_v2 {
-        max-width: 8rem;
-    }
+  html[dir="rtl"] .card_participants_v2 {
+    max-width: 8rem;
+  }
 
-    .game_intro-con {
-        gap: 0.7rem;
-    }
+  .game_intro-con {
+    gap: 0.7rem;
+  }
 
-    .game_card--wrapper {
-        flex-wrap: nowrap;
-        overflow-y: auto;
-    }
+  .game_card--wrapper {
+    flex-wrap: nowrap;
+    overflow-y: auto;
+  }
 
-    .game_card--wrapper.game_card--wrapv2 {
-        flex-wrap: wrap;
-        overflow-y: hidden;
-        margin-bottom: 4.5rem;
-    }
+  .game_card--wrapper.game_card--wrapv2 {
+    flex-wrap: wrap;
+    overflow-y: hidden;
+    margin-bottom: 4.5rem;
+  }
 
-    .game-card-wp {
-        overflow: hidden;
-        height: 23.5rem;
-    }
+  .game-card-wp {
+    overflow: hidden;
+    height: 23.5rem;
+  }
 
-       html[dir=rtl] .game_status--tab {
-        right: 0;
-    }
+  html[dir="rtl"] .game_status--tab {
+    right: 0;
+  }
 }
-@media (max-width: 475px) {    
-    .game_card--wrapv2.game_card--wrapper>a {
-        max-width: 20rem;
-        flex: 0 0 20rem;
-    }
+@media (max-width: 475px) {
+  .game_card--wrapv2.game_card--wrapper > a {
+    max-width: 20rem;
+    flex: 0 0 20rem;
+  }
 
-    .game_card--wrapv2 .match_date {
-        width: 3rem;
-    }
+  .game_card--wrapv2 .match_date {
+    width: 3rem;
+  }
 }
 @media (max-width: 389px) {
-    .btn_polygon-link,.sel_game-menu .dropdown-header:before {
-        width: 12.5rem;
-    }
-    .game_card--wrapv2.game_card--wrapper>a {
-        max-width: 18.5rem;
-        flex: 0 0 18.5rem;
-    }
-    .game_card--wrapv2 .game_image {
-        max-width: 9rem;
-        flex: 0 0 9rem;
-    }
-
-    /* .game_image img{
-        width: 9rem;
-    } */
+  .btn_polygon-link,
+  .sel_game-menu .dropdown-header:before {
+    width: 12.5rem;
+  }
+  .game_card--wrapv2.game_card--wrapper > a {
+    max-width: 18.5rem;
+    flex: 0 0 18.5rem;
+  }
+  .game_card--wrapv2 .game_image {
+    max-width: 9rem;
+    flex: 0 0 9rem;
+  }
 }
 
 /* lg */
-@media (min-width: 1024px) {}
+@media (min-width: 1024px) {
+}
 
 /* xl */
-@media (min-width: 1280px) {}
+@media (min-width: 1280px) {
+}

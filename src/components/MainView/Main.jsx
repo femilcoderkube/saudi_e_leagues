@@ -194,66 +194,75 @@ export default function Main() {
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
             <div className="fixed inset-0 flex justify-center items-center z-50">
-            <div
-  className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative
+              <div
+                className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative
     ${
       profileVisible
         ? "h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden match_reg--popup2 sm:overflow-y-auto"
         : "p-6 overflow-y-auto "
     }`} // Ensured vertical scrolling on smaller devices
-  style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
->
-  <style jsx>{`
-    /* Custom scrollbar styling for smaller devices */
-    @media (max-width: 767px) {
-      .match_reg--popup::-webkit-scrollbar {
-        width: 6px;
-      }
-      .match_reg--popup::-webkit-scrollbar-thumb {
-        background-color: #7b7ed0;
-        border-radius: 4px;
-      }
-      .match_reg--popup::-webkit-scrollbar-track {
-        background: transparent;
-      }
-    }
-  `}</style>
-  <div className={` justify-between items-center mb-4 ${isRegisteration ? "flex": "hidden sm:flex "}`}>
-    <h2 className="text-xl font-bold">
-      {isRegisteration ? t("auth.registration") : t("form.edit_profile")}
-    </h2>
-    <button
-      onClick={() => {
-        if (isRegisteration) {
-          dispatch(setRegisteration(false));
-        } else {
-          dispatch(setProfileVisible(false));
-        }
-        if (window.location.pathname.includes("/lobby")) {
-          dispatch(setActiveTabIndex(0));
-        } else {
-          dispatch(setActiveTabIndex(1));
-        }
-        setPreviewImage(null);
-        setStep(1);
-      }}
-      className="cursor-pointer hover:opacity-70 duration-300"
-    >
-      <svg width="18" height="18" fill="none" stroke="#7B7ED0">
-        <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />
-      </svg>
-    </button>
-  </div>
-  <WizardSteps
-    step={step}
-    initialValues={profileVisible ? editInitialValues : initialValues}
-    onSubmit={(values) => handleSubmit(values, profileVisible)}
-    onNext={() => setStep((prev) => prev + 1)}
-    onBack={() => setStep((prev) => prev - 1)}
-    loadingSubmit={loadingSubmit}
-    isEdit={profileVisible}
-  />
-</div>
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                <style jsx>{`
+                  /* Custom scrollbar styling for smaller devices */
+                  @media (max-width: 767px) {
+                    .match_reg--popup::-webkit-scrollbar {
+                      width: 6px;
+                    }
+                    .match_reg--popup::-webkit-scrollbar-thumb {
+                      background-color: #7b7ed0;
+                      border-radius: 4px;
+                    }
+                    .match_reg--popup::-webkit-scrollbar-track {
+                      background: transparent;
+                    }
+                  }
+                `}</style>
+                <div
+                  className={` justify-between items-center mb-4 ${
+                    isRegisteration ? "flex" : "hidden sm:flex "
+                  }`}
+                >
+                  <h2 className="text-xl font-bold">
+                    {isRegisteration
+                      ? t("auth.registration")
+                      : t("form.edit_profile")}
+                  </h2>
+                  <button
+                    onClick={() => {
+                      if (isRegisteration) {
+                        dispatch(setRegisteration(false));
+                      } else {
+                        dispatch(setProfileVisible(false));
+                      }
+                      if (window.location.pathname.includes("/lobby")) {
+                        dispatch(setActiveTabIndex(0));
+                      } else {
+                        dispatch(setActiveTabIndex(1));
+                      }
+                      setPreviewImage(null);
+                      setStep(1);
+                    }}
+                    className="cursor-pointer hover:opacity-70 duration-300"
+                  >
+                    <svg width="18" height="18" fill="none" stroke="#7B7ED0">
+                      <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />
+                    </svg>
+                  </button>
+                </div>
+                <WizardSteps
+                  step={step}
+                  initialValues={
+                    profileVisible ? editInitialValues : initialValues
+                  }
+                  onSubmit={(values) => handleSubmit(values, profileVisible)}
+                  onNext={() => setStep((prev) => prev + 1)}
+                  onBack={() => setStep((prev) => prev - 1)}
+                  loadingSubmit={loadingSubmit}
+                  isEdit={profileVisible}
+                  isVerified={userDetail?.isVerified}
+                />
+              </div>
             </div>
             <svg
               width="0"
