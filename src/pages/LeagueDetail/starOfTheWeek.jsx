@@ -31,13 +31,13 @@ const StarOfTheWeek = () => {
           spaceBetween={0}
           slidesPerView={1}
           centeredSlides={true}
-          
           dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}
           pagination={{
             clickable: true,
             el: ".star-week-pagination"
           }}
           modules={[Pagination]}
+          initialSlide={starOfTheWeekData.length - 1}
         >
           {starOfTheWeekData.map((star, index) => {
             let isYourPoints = star?.weeklyUsersData?.userId?._id.toString() != star?.requestedUsersScore?.userId.toString()
