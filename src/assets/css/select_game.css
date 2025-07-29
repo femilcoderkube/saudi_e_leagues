@@ -73,6 +73,10 @@ html[dir="rtl"] .slider_card .game_card--body {
   transform: rotateY(180deg);
 }
 
+html[dir="rtl"] .game_card--body {
+  margin: 1.375rem 1.25rem 0 0;
+}
+
 html[dir="rtl"] .slider_card .game_mask--con {
   transform: rotateY(180deg);
 }
