@@ -24,8 +24,8 @@ const StarOfTheWeek = () => {
 
 
   return (
-    <div className="w-full flex justify-center items-center">
-      <div className="w-[30rem] ">
+    <div className="w-full flex justify-center items-center ">
+      <div className="w-[30rem] md:mb-[2.4rem]">
         <Swiper
           navigation={false}
           spaceBetween={0}
@@ -123,7 +123,7 @@ const StarOfTheWeek = () => {
           })}
         </Swiper>
         {/* Swiper pagination bullets */}
-        <div className="star-week-pagination flex g-3 mt-4 md:mb-[2.4rem]"></div>
+        <div className="star-week-pagination flex g-3 mt-4 "></div>
       </div>
     </div>
   );
