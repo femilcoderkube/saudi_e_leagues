@@ -47,6 +47,15 @@ html[dir=rtl] .home_hero--sec::after {
     opacity: 1;
 }
 
+.swiper-pagination-bullet{
+    background:#58586A;
+    width: 0.75rem;
+    height: 0.75rem;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active{
+    background:#2C2D6D;
+}
+
 /* page reload animation start*/
 body.page-loading *,
 body.page-loading .swiper-slide,

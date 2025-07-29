@@ -7,7 +7,7 @@ import mob_star_of_week from "../../assets/images/mob_star_week.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import { Navigation,Pagination } from "swiper/modules";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker";
 
 const StarOfTheWeek = () => {
@@ -23,10 +23,15 @@ const StarOfTheWeek = () => {
           spaceBetween={0}
           slidesPerView={1}
           centeredSlides={true}
+          pagination={{
+            clickable: true,
+            el: ".star-week-pagination"
+          }}
+          modules={[Navigation ,Pagination]}
         >
           {starOfTheWeekData.map((star, index) => (
             <SwiperSlide className="w-full" key={index}>
-              <div className="mob-star-week bg-[url(./assets/images/mob-star-week-shape.png)] sm:max-w-[30rem] sm:w-full flex flex-col md:mb-[2.4rem] bg-no-repeat bg-center bg-cover relative p-5 mx-auto md:order-2 order-2">
+              <div className="mob-star-week bg-[url(./assets/images/mob-star-week-shape.png)] sm:max-w-[30rem] sm:w-full flex flex-col bg-no-repeat bg-center bg-cover relative p-5 mx-auto md:order-2 order-2">
                 <div className="sd_bedge_left-con border-b-1 border-[#7b7ed047] pb-5 mb-6 flex flex-row items-center justify-between gap-4 w-full">
                   <div className="sd_bedge-lable flex gap-2">
                     <img
@@ -34,16 +39,16 @@ const StarOfTheWeek = () => {
                       alt=""
                       style={{ width: "12.35rem" }}
                     />
-                    <span>(WEEK {index +1})</span>
+                    <span>(WEEK {index + 1})</span>
                   </div>
                   <div className="prize-pool">
-                      <span className="font-bold text-xl grad_text-clip sm:block hidden">
-                        <span className="icon-saudi_riyal !p-0"></span>
-                        {formatAmountWithCommas(price)}
-                      </span>
-                    </div>
+                    <span className="font-bold text-xl grad_text-clip sm:block hidden">
+                      <span className="icon-saudi_riyal !p-0"></span>
+                      {formatAmountWithCommas(price)}
+                    </span>
+                  </div>
                 </div>
-                <div className="profile-wp flex items-center justify-between gap-3 pb-8">
+                <div className="profile-wp flex items-center justify-between gap-3">
                   <div className="sd_avtar-info gap-6 inline-flex justify-between sm:pl-6 items-center cursor-pointer text-white rounded">
                     <div className="user_img relative sd_before">
                       {star?.weeklyUsersData?.userId?.profilePic ? (
@@ -80,17 +85,25 @@ const StarOfTheWeek = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="sd_score--con">
-                    <h2 className="text-[1.5rem] !font-extrabold grad_text-clip">
-                      {star?.weeklyUsersData?.weeklyScore?.toFixed(2)}
+                  <div className="sd_score--con pr-2">
+                    <h2 className="text-[1.2rem] !font-extrabold grad_text-clip pb-2 text-right">
+                      {star?.weeklyUsersData?.weeklyScore?.toString()}
+                    </h2>
+                    <h2 className="text-[0.75rem] !font-extrabold grad_text-clip">
+                      Points
                     </h2>
                   </div>
+                </div>
+                <div className="text-right pb-4 pr-2">
+                  <span className="text-sm purple_col">Your Points: 159</span>
                 </div>
                 <ScoreTicker date={star.week} />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
+        {/* Swiper pagination bullets */}
+        <div className="star-week-pagination flex g-3 mt-4 md:mb-[2.4rem]"></div>
       </div>
     </div>
   );

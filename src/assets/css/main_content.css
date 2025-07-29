@@ -907,6 +907,10 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   width: 4.65rem;
 }
 
+.mob-star-week{
+  height:15.25rem;
+}
+
 /* xl */
 @media (min-width: 1280px) {}
 
@@ -1181,31 +1185,16 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     width: 6.63rem;
   }
 
+  .sd_bedge-lable img{
+    object-fit: contain;
+    width: 10rem !important;
+  }
+
   .sd_game-con.polygon_border:before,
   .sd_game-con.polygon_border:after {
     width: 2.5rem;
     height: 0.325rem;
   }
-
-  .mob-star-week {
-    background: url(/src/assets/images/mob-star-week-shape-small.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 21.4rem;
-  }
-
-  /* .leaderboard-table tr{
-    position: relative;
-  }
-    .leaderboard-table .gold::before {
-        content: '';
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        background:#0b0b3b;
-        width: 20%;
-        height: 55%;
-    } */
   .match_reg--popup2 {
     clip-path: unset;
     max-width: 100% !important;
@@ -1220,6 +1209,22 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
 
   .timeout-popup .match_reg--popup {
     max-width: 22rem;
+  }
+ 
+}
+
+@media (max-width: 500px) {
+  .mob-star-week {
+    background: url(/src/assets/images/mob-star-week-shape-small.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 21.5rem;
+    height: auto;
+  }
+
+  .star-week-pagination{
+    max-width: 21.5rem;
+    margin-inline: auto;
   }
 }
 
@@ -1242,18 +1247,14 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     height: 4rem;
   }
 
-  .notification-box-btn {
-    flex-direction: column;
-  }
-
-  .notification-box-btn button.active-tab.singleButton {
-    background-size: contain;
+  .notification-box-btn button.active-tab.singleButton,.notification-box-btn button {
+    background-size: contain !important;
     height: 2.5rem;
   }
 
   .go-btn::after {
-    height: 3rem;
-    width: 3rem;
+    height: 2.5rem;
+    width:2.5rem;
   }
 
   .sd_game-con.polygon_border:before,
@@ -1307,13 +1308,45 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
     width: 18.5rem;
   }
 
-  .profile-wp {
-    padding-bottom: 1.2rem;
+  .star-week-pagination{
+    max-width: 18.5rem;
+    margin-top: 0;
   }
 
+  .sd_bedge-lable img{
+    object-fit: contain;
+    width: 9rem !important;
+  }
+
+  .use_con .text-lg{
+    font-size: 1rem;
+  }
+  .sd_avtar-info{
+    gap: 1rem;
+  }
+  .user_img:before{
+    width: 2.7rem;
+    height: 2.7rem;
+  }
+  .user_img img,.user_img div{
+    width: 2.2rem !important;
+    height: 2.2rem !important;
+  }
   .sd_bedge_left-con {
-    padding-bottom: 1.2rem;
-    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  .sd_score--con h2{
+    font-size: 1.2rem;
+  }
+
+  .sd_ticker-box{
+    height: 2.2rem !important;
+    width: 2.2rem !important;
+  }
+
+  .sd_ticker-box span{
+    font-size: 1.25rem;
   }
 
   .notification-sidebar {

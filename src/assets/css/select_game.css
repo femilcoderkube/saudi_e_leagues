@@ -352,6 +352,7 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
   }
 
   .sd_slect_game--wrapper .game_status--tab {
+    width: 100%;
     border-radius: 0;
   }
 
@@ -367,7 +368,7 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
   .sd_slect_game--wrapper .game_status--tab button {
     background: unset;
     height: auto;
-    width: auto;
+    width: 100%;
     color: var(--purple-col);
   }
 
