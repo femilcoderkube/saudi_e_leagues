@@ -115,7 +115,7 @@ const StarOfTheWeek = () => {
                   </div>
                 </div>
               <div className={`ltr:text-right rtl:text-left pr-2 ${isYourPoints ? "" : "mb-4"}`}>
-                  { isYourPoints && <span className="text-sm purple_col">{t("star_of_the_week.your_points")}: {star?.requestedUsersScore?.weeklyScore}</span>}
+                  { isYourPoints && <span className="text-sm purple_col">{t("star_of_the_week.your_points")}: {star?.requestedUsersScore?.weeklyScore < 0 ? 0 : star?.requestedUsersScore?.weeklyScore}</span>}
                 </div>
                 <ScoreTicker date={star.week} />
               </div>
