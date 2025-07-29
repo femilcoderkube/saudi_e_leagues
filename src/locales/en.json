@@ -29,7 +29,7 @@
     "forgot_password": "Forgot Password",
     "send_email": "Send Email",
     "back_to_login": "Back to Login",
-    "forgot_email_sent": "Password reset email sent successfully",
+    "forgot_email_sent": "A password reset link has been sent to your email.",
     "forgot_failed": "Failed to send password reset email",
     "cancel": "Cancel",
     "verify": "Verify"
