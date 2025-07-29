@@ -308,7 +308,8 @@
     "dob_invalid": "يرجى إدخال تاريخ صحيح",
     "gender_required": "الجنس مطلوب",
     "favorite_game_required": "اللعبة المفضلة مطلوبة",
-    "field_required": "حقل {{field}} مطلوب"
+    "field_required": "حقل {{field}} مطلوب",
+    "otp_invalid": "يرجى إدخال رمز 6 أرقام صالح"
   },
   "wizard": {
     "rules_and_regulations": "القواعد والأنظمة",

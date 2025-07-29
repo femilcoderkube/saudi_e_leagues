@@ -309,7 +309,8 @@
     "dob_invalid": "Please enter a valid date",
     "gender_required": "Gender is required",
     "favorite_game_required": "Favorite game is required",
-    "field_required": "{{field}} is required"
+    "field_required": "{{field}} is required",
+    "otp_invalid": "Please enter a valid 6-digit OTP"
   },
   "wizard": {
     "rules_and_regulations": "Rules and Regulations",
