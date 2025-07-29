@@ -529,6 +529,10 @@ html[dir="rtl"] .view-all::after {
   right: auto;
   left: 0;
 }
+
+.react-pdf__Page__canvas{
+  width: 100% !important;
+}
 /* call-duty-card End*/
 @media (max-width: 1279px) {
   .game_polygon-link {

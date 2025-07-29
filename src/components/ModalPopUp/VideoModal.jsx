@@ -43,7 +43,7 @@ function VideoModal({ onClose }) {
       style={{ minHeight: "100vh" }}
     >
       <div
-        className={`bg-[#121331] rounded-2xl p-2 md:p-6 w-[90dvh] md:w-[70dvh] sm:h-[50%] relative overflow-hidden shadow-2xl flex flex-col items-center justify-center transform transition-all duration-300 ${
+        className={`bg-[#121331] rounded-2xl p-2 md:p-6 w-[90dvh] md:w-[70dvh] h-[30%] sm:h-[50%] relative overflow-hidden shadow-2xl flex flex-col items-center justify-center transform transition-all duration-300 ${
           isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
         }`}
         onClick={(e) => e.stopPropagation()}

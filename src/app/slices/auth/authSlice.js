@@ -347,7 +347,7 @@ const authSlice = createSlice({
       .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;
         state.resetPasswordError = action.payload;
-        toast.error(action.payload);
+        // toast.error(action.payload);
       })
       // updatePassword logic
       .addCase(updatePassword.pending, (state) => {
