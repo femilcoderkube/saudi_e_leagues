@@ -31,6 +31,7 @@ const StarOfTheWeek = () => {
           spaceBetween={0}
           slidesPerView={1}
           centeredSlides={true}
+          
           dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}
           pagination={{
             clickable: true,

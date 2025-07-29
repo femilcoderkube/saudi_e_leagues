@@ -42,7 +42,7 @@ const CustomFileUpload = ({
       />
       <div
         onClick={handleUploadClick}
-        className={`cursor-${hasImage ? "default" : "pointer"} w-[100px] h-[100px] border-2 border-dashed border-[#7B7ED0] bg-gradient-to-br from-[#09092d] to-[#1a1a4a] p-2 rounded-xl shadow-lg hover:border-blue-500 transition-all duration-300 flex items-center justify-center relative overflow-hidden m-auto`}
+        className={`cursor-${hasImage ? "default" : "pointer"} ${isReg ? "w-full" : "w-[100px]"} h-[100px] border-2 border-dashed border-[#7B7ED0] bg-gradient-to-br from-[#09092d] to-[#1a1a4a] p-2 rounded-xl shadow-lg hover:border-blue-500 transition-all duration-300 flex items-center justify-center relative overflow-hidden m-auto`}
       >
         {hasImage ? (
           <>
