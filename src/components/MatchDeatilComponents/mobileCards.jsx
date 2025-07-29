@@ -349,9 +349,9 @@ export const mobileViewCard_one = ({ player }) => (
     <g mask="url(#mask1_3264_14073)">
       <rect x={16} y={16} width={16} height={16} fill="#09D75F" />
     </g>
-    <g filter="url(#filter3_d_3264_14073)">
+    
       <text
-        fill="url(#paint46_linear_3264_14073)"
+         fill="#fff"
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
@@ -366,7 +366,7 @@ export const mobileViewCard_one = ({ player }) => (
           {player.score}
         </tspan>
       </text>
-    </g>
+    
     <defs>
       <clipPath id="bgblur_0_3264_14073_clip_path" transform="translate(48 48)">
         <path d="M342 8V84L330 92H222L218 88H124L120 92H12L0 84V8L12 0H330L342 8Z" />
@@ -1377,9 +1377,9 @@ export const mobileViewCard_two = ({ player }) => (
     <g mask="url(#mask1_3264_14144)">
       <rect x={16} y={20} width={16} height={16} fill="#09D75F" />
     </g>
-    <g filter="url(#filter3_d_3264_14144)">
+    
       <text
-        fill="url(#paint46_linear_3264_14144)"
+        fill="#fff"
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
@@ -1394,7 +1394,7 @@ export const mobileViewCard_two = ({ player }) => (
           {player.score}
         </tspan>
       </text>
-    </g>
+    
     <defs>
       <clipPath id="bgblur_0_3264_14144_clip_path" transform="translate(48 48)">
         <path d="M214 100H128L124 96H12L0 88V12L12 4H124L128 0H214L218 4H330L342 12V88L330 96H218L214 100Z" />
@@ -2408,9 +2408,9 @@ export const mobileViewCard_three = ({ player }) => (
     <g mask="url(#mask1_3264_14223)">
       <rect x={16} y={16} width={16} height={16} fill="#FA4768" />
     </g>
-    <g filter="url(#filter3_d_3264_14223)">
+    
       <text
-        fill="url(#paint46_linear_3264_14223)"
+        fill="#fff"
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
@@ -2425,7 +2425,7 @@ export const mobileViewCard_three = ({ player }) => (
           {player.score}
         </tspan>
       </text>
-    </g>
+ 
     <defs>
       <clipPath id="bgblur_0_3264_14223_clip_path" transform="translate(48 48)">
         <path d="M124 4H218L222 0H330L342 8V84L330 92H222L218 88H124L120 92H12L0 84V8L12 0H120L124 4Z" />
@@ -3442,9 +3442,9 @@ export const mobileViewCard_four = ({ player }) => (
     <g mask="url(#mask1_3264_14298)">
       <rect x={16} y={20} width={16} height={16} fill="#D7BF09" />
     </g>
-    <g filter="url(#filter3_d_3264_14298)">
+    
       <text
-        fill="url(#paint46_linear_3264_14298)"
+         fill="#fff"
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
@@ -3459,7 +3459,7 @@ export const mobileViewCard_four = ({ player }) => (
           {player.score}
         </tspan>
       </text>
-    </g>
+    
     <defs>
       <clipPath id="bgblur_0_3264_14298_clip_path" transform="translate(48 48)">
         <path d="M214 100H128L124 96H12L0 88V12L12 4H124L128 0H214L218 4H330L342 12V88L330 96H218L214 100Z" />
@@ -4473,9 +4473,9 @@ export const mobileViewCard_Last_odd = ({ player }) => (
     <g mask="url(#mask1_3264_14377)">
       <rect x={16} y={16} width={16} height={16} fill="#09D75F" />
     </g>
-    <g filter="url(#filter3_d_3264_14377)">
+    
       <text
-        fill="url(#paint46_linear_3264_14377)"
+        fill="#fff"
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
@@ -4490,7 +4490,7 @@ export const mobileViewCard_Last_odd = ({ player }) => (
           {player.score}
         </tspan>
       </text>
-    </g>
+    
     <defs>
       <clipPath id="bgblur_0_3264_14377_clip_path" transform="translate(48 48)">
         <path d="M342 8V84L330 92H12L0 84V8L12 0H120L124 4H218L222 0H330L342 8Z" />
@@ -5505,9 +5505,9 @@ export const mobileViewCard_Last_even = ({ player }) => (
         {`@${player.username}`}
       </tspan>
     </text>
-    <g filter="url(#filter3_d_5060_2401)">
+    
       <text
-        fill="url(#paint46_linear_5060_2401)"
+        fill="#fff"
         xmlSpace="preserve"
         style={{
           whiteSpace: "pre",
@@ -5522,7 +5522,7 @@ export const mobileViewCard_Last_even = ({ player }) => (
           {player.score}
         </tspan>
       </text>
-    </g>
+    
     <defs>
       <clipPath
         id="bgblur_0_5060_2401_clip_path"
