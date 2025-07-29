@@ -187,7 +187,12 @@ export const updatePassword = createAsyncThunk(
       const response = await axiosInstance.put("/users/update-password", {
         password,
         token,
-      });
+      },{
+        headers: {
+          "accept-language": "en",
+        },
+      }
+    );
       return response.data;
     } catch (error) {
       return rejectWithValue(
