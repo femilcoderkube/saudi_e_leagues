@@ -1309,13 +1309,6 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
   .sd_game-con.polygon_border:before,
   .sd_game-con.polygon_border:after {
     width: 1.8rem;
-    height: 3rem;
-    width: 3rem;
-  }
-
-  .sd_game-con.polygon_border:before,
-  .sd_game-con.polygon_border:after {
-    width: 1.8rem;
   }
 }
 
