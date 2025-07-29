@@ -11,6 +11,7 @@ import {
 } from "../../app/slices/game/gamesSlice.js";
 import {
   checkUsersExists,
+  fetchUserById,
   sendOtp,
   verifyOtp,
 } from "../../app/slices/auth/authSlice.js";
@@ -20,6 +21,7 @@ import { baseURL } from "../../utils/axios.js";
 import { getServerURL } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "react-tooltip";
+import { setProfileVisible, setRegisteration } from "../../app/slices/constState/constStateSlice.js";
 
 const WizardSteps = ({
   step,
@@ -31,15 +33,16 @@ const WizardSteps = ({
   isEdit = false,
   isVerified,
 }) => {
-  console.log("isVerified", isVerified);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
   const [showPassword, setShowPassword] = useState(false);
-
   const [showOtpPopup, setShowOtpPopup] = useState(false);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [otpError, setOtpError] = useState("");
+  const { isRegisteration } = useSelector((state) => state.constState);
+  const { user } = useSelector((state) => state.auth);
+
 
   const [previewImage, setPreviewImage] = useState(() => {
     const pic = initialValues?.profilePicture || null;
@@ -122,6 +125,12 @@ const WizardSteps = ({
           setShowOtpPopup(false);
           setOtp(["", "", "", "", "", ""]);
           setOtpError("");
+          dispatch(fetchUserById(user?._id));
+          if (isRegisteration) {
+            dispatch(setRegisteration(false));
+          } else {
+            dispatch(setProfileVisible(false));
+          }
         } else {
           setOtpError(action.payload || t("validation_messages.otp_invalid"));
         }
@@ -742,7 +751,7 @@ const WizardSteps = ({
                     </svg>
                   </button>
                 )}
-                {field === "email" && isVerified && (
+                {field === "email" && !isVerified && (
                   <>
                     <button
                       type="button"

@@ -7,7 +7,6 @@
   "matchmaking": "آلية تشكيل المباريات",
   "welcome": "مرحبا",
   "language": "اللغة",
-
   "auth": {
     "log_in": "تسجيل الدخول",
     "registration": "انشاء حساب",
@@ -35,7 +34,6 @@
     "cancel": "إلغاء",
     "verify": "تحقق"
   },
-
   "form": {
     "username": "اسم المستخدم",
     "firstName": "الاسم الأول",
@@ -62,11 +60,9 @@
     "verify_otp": "التحقق من رمز OTP",
     "otp_invalid": "يرجى إدخال رمز OTP مكون من 6 أرقام صالح"
   },
-
   "countries": {
     "saudi_arabia": "المملكة العربية السعودية"
   },
-
   "validation": {
     "username_required": "اسم المستخدم مطلوب",
     "username_min_length": "يجب أن يكون اسم المستخدم 3 أحرف على الأقل",
@@ -270,11 +266,9 @@
     "privacy_policy": "سياسة الخصوصية",
     "follow_us": "تابعنا"
   },
-
   "sidebar": {
     "collapse_menu": "تصغير القائمة"
   },
-
   "badges": {
     "gold": "ذهبي",
     "silver": "فضي",
@@ -360,11 +354,9 @@
     "notifications": "الإشعارات",
     "skip": "تخطي"
   },
-
   "actions": {
     "custom_action": "إجراء مخصص"
   },
-
   "notification": {
     "all": "جميع الإشعارات",
     "unread": "غير مقروء"

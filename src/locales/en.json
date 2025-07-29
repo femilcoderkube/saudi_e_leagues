@@ -7,7 +7,6 @@
   "matchmaking": "Matchmaking",
   "welcome": "Welcome",
   "language": "Language",
-
   "auth": {
     "log_in": "Log In",
     "registration": "Registration",
@@ -35,7 +34,6 @@
     "cancel": "Cancel",
     "verify": "Verify"
   },
-
   "form": {
     "username": "Username",
     "firstName": "First Name",
@@ -62,11 +60,9 @@
     "verify_otp": "Verify OTP",
     "otp_invalid": "Please enter a valid 6-digit OTP"
   },
-
   "countries": {
     "saudi_arabia": "Saudi Arabia"
   },
-
   "validation": {
     "username_required": "Username is required",
     "username_min_length": "Username must be at least 3 characters",
@@ -97,7 +93,6 @@
     "favorite_game_required": "Favorite game is required",
     "field_required": "{{field}} is required"
   },
-
   "homepage": {
     "level_up": "Level Up",
     "your_game": "Your Game",
@@ -138,7 +133,6 @@
       "a7": "After each match, you can rate your teammates with a like or dislike on their player card. You can also report any serious misconduct directly through our Discord support system."
     }
   },
-
   "lobby": {
     "leaderboard": "Leaderboard",
     "no_data_available": "No data available",
@@ -159,7 +153,6 @@
       "finished": "Finished"
     }
   },
-
   "league": {
     "league_title": "League Title",
     "prize_pool": "Prize Pool",
@@ -174,7 +167,6 @@
     "open": "OPEN",
     "ends": "Ends:"
   },
-
   "match": {
     "finding_matchmaking": "Finding Matchmaking",
     "chat_message": "Chat Message",
@@ -189,12 +181,10 @@
     "match_chat": "MATCH CHAT",
     "match": "Match"
   },
-
   "rules": {
     "rules_and_regulations": "Rules and Regulations",
     "wizard_form": "Wizard Form"
   },
-
   "common": {
     "no_data": "No data available",
     "loading": "Loading...",
@@ -213,7 +203,6 @@
     "uploading": "Uploading...",
     "loading_pdf": "Loading PDF..."
   },
-
   "games": {
     "game": "Game",
     "game_2": "Game 2",
@@ -228,25 +217,21 @@
     "select_game": "Select Game",
     "search_game": "Search Game"
   },
-
   "navigation": {
     "lobby": "Lobby",
     "home": "Home",
     "profile": "Profile",
     "prime": "Prime"
   },
-
   "user_menu": {
     "my_profile": "My Profile",
     "logout": "Logout"
   },
-
   "language": {
     "english": "English",
     "arabic": "العربية",
     "language": "Language"
   },
-
   "roles": {
     "referee": "Referee",
     "couch": "Coach",
@@ -263,7 +248,6 @@
     "tournament_organizer": "Tournament Organizer",
     "club_owner": "Club Owner"
   },
-
   "upload": {
     "profile_picture": "Upload Profile Picture",
     "photo": "Upload Photo",
@@ -271,7 +255,6 @@
     "score_proof": "Upload Score Proof",
     "too_large": "File too large. Maximum size is 10mb"
   },
-
   "social": {
     "twitter": "Twitter",
     "instagram": "Instagram",
@@ -279,30 +262,25 @@
     "tiktok": "TikTok",
     "discord": "Discord"
   },
-
   "footer": {
     "contact_us": "Contact Us",
     "privacy_policy": "Privacy Policy",
     "follow_us": "Follow Us"
   },
-
   "sidebar": {
     "collapse_menu": "Collapse Menu"
   },
-
   "badges": {
     "gold": "gold",
     "silver": "silver",
     "bronze": "bronze",
     "blue": "blue"
   },
-
   "score": {
     "your_score": "Your Score",
     "opponent_score": "Opponent Score",
     "notes": "Notes"
   },
-
   "validation_messages": {
     "username_required": "Username is required",
     "username_min_length": "Username must be at least 3 characters",
@@ -333,12 +311,10 @@
     "favorite_game_required": "Favorite game is required",
     "field_required": "{{field}} is required"
   },
-
   "wizard": {
     "rules_and_regulations": "Rules and Regulations",
     "wizard_form": "Wizard Form"
   },
-
   "images": {
     "rules_icon": "Rules icon",
     "get_started_button": "Get Started button",
@@ -379,14 +355,11 @@
     "notifications": "Notifications",
     "skip": "Skip"
   },
-
   "actions": {
     "custom_action": "Custom action"
   },
-
   "notification": {
     "all": "All",
     "unread": "Unread"
   }
 }
-
