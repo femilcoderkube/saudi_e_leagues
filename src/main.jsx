@@ -15,17 +15,17 @@ import "@emran-alhaddad/saudi-riyal-font/index.css";
 setAxiosStore(store);
 
 // Register Firebase Messaging service worker for FCM push notifications
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/firebase-messaging-sw.js')
-      .then(function(registration) {
-        console.log('Firebase Messaging Service Worker registered:', registration);
-      })
-      .catch(function(err) {
-        console.log('Service Worker registration failed:', err);
-      });
-  });
-}
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', function() {
+//     navigator.serviceWorker.register('/firebase-messaging-sw.js')
+//       .then(function(registration) {
+//         console.log('Firebase Messaging Service Worker registered:', registration);
+//       })
+//       .catch(function(err) {
+//         console.log('Service Worker registration failed:', err);
+//       });
+//   });
+// }
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode> // StrictMode is often helpful for development, consider re-enabling

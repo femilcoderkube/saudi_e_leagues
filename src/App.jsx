@@ -25,8 +25,8 @@ import ResetPasswordPage from "./pages/profile/resetPassword.jsx";
 import { items } from "./utils/constant.js";
 import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";   
 import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
-import { getMessaging, getToken } from "firebase/messaging";
-import { messaging } from "./firebase.js";
+// import { getMessaging, getToken } from "firebase/messaging";
+// import { messaging } from "./firebase.js";
 
 function App() {
   const { i18n } = useTranslation();

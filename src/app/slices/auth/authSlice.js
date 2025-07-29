@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axiosInstance from "../../../utils/axios";
 import { toast } from "react-toastify";
-import { getToken } from "firebase/messaging";
-import { messaging } from "../../../firebase";
+// import { getToken } from "firebase/messaging";
+// import { messaging } from "../../../firebase";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk(
   async (loginRequest, { rejectWithValue }) => {
     try {
       // Get FCM token if available
-      loginRequest.fcmToken =  await getToken(messaging);
+      // loginRequest.fcmToken =  await getToken(messaging);
       // API call to login with /admin/login
       const response = await axiosInstance.post("/users/login", loginRequest);
 

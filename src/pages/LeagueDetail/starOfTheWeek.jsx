@@ -15,7 +15,14 @@ import { useEffect } from "react";
 
 const StarOfTheWeek = () => {
   const { starOfTheWeek, leagueData } = useSelector((state) => state.leagues);
-  let starOfTheWeekData = starOfTheWeek?.filter((star) => star?.weeklyUsersData);
+  const data = starOfTheWeek.map((star,index) => {
+    return {
+      ...star,
+      weekNumber: index + 1
+    }
+  })
+  let starOfTheWeekData = data?.filter((star) => star?.weeklyUsersData);
+  const user = useSelector((state) => state.auth.user);
   let price = leagueData?.weekOfTheStarPrice;
   const { t, i18n } = useTranslation();
   useEffect(() => {
@@ -40,7 +47,7 @@ const StarOfTheWeek = () => {
           initialSlide={starOfTheWeekData.length - 1}
         >
           {starOfTheWeekData.map((star, index) => {
-            let isYourPoints = star?.weeklyUsersData?.userId?._id.toString() != star?.requestedUsersScore?.userId.toString()
+            let isYourPoints = star?.weeklyUsersData?.userId?._id.toString() != star?.requestedUsersScore?.userId.toString() && user?._id
             return(
             <SwiperSlide className="w-full" key={index}>
               <div className="mob-star-week bg-[url(./assets/images/mob-star-week-shape.png)] sm:max-w-[30rem] sm:w-full flex flex-col bg-no-repeat bg-center bg-cover relative p-5 mx-auto md:order-2 order-2">
@@ -59,7 +66,7 @@ const StarOfTheWeek = () => {
                         style={{ width: "12.35rem" }}
                       />
                     )}
-                    <span className="text-sm opacity-70">({t("star_of_the_week.week")} {index + 1})</span>
+                    <span className="text-sm opacity-70">({t("star_of_the_week.week")} {star.weekNumber})</span>
                   </div>
                   <div className="prize-pool">
                     <span className="font-bold text-xl grad_text-clip sm:block hidden">
