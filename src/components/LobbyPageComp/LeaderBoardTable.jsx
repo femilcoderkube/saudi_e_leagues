@@ -286,7 +286,7 @@ const LeaderBoard = () => {
 
                 <td
                   data-title="Win/Loss"
-                  className="pb-11 md:pb-4 py-4 px-4 ltr:text-left rtl:text-right ltr:md:text-center"
+                  className="pb-11 md:pb-4 py-4 px-4 ltr:text-left rtl:text-right ltr:md:text-center rtl:md:text-center"
                 >
                   <div className="ltr:md:pl-0 ltr:pl-3 rtl:md:pr-0 rtl:pr-3">
                   <span className="win text-lg sky_col">{user.wins}</span>{" "}

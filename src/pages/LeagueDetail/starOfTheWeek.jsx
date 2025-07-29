@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { formatAmountWithCommas, getRandomColor } from "../../utils/constant";
 import { getServerURL } from "../../utils/constant";
 import mob_star_of_week from "../../assets/images/mob_star_week.png";
+import mob_star_of_week_arabic from "../../assets/images/mob_star_week_arabic.png";
 
 // import mob_star_of_week from "../../assets/images/mob-star-week-shape.png";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -33,11 +34,16 @@ const StarOfTheWeek = () => {
             <SwiperSlide className="w-full" key={index}>
               <div className="mob-star-week bg-[url(./assets/images/mob-star-week-shape.png)] sm:max-w-[30rem] sm:w-full flex flex-col bg-no-repeat bg-center bg-cover relative p-5 mx-auto md:order-2 order-2">
                 <div className="sd_bedge_left-con border-b-1 border-[#7b7ed047] pb-5 mb-6 flex flex-row items-center justify-between gap-4 w-full">
-                  <div className="sd_bedge-lable flex gap-2">
-                    <img
+                  <div className="sd_bedge-lable flex gap-2 items-end">
+                    <img className="shining-star"
                       src={mob_star_of_week}
                       alt=""
                       style={{ width: "12.35rem" }}
+                    />
+                    <img className="shining-star-arabic"
+                      src={mob_star_of_week_arabic}
+                      alt=""
+                      style={{ width: "10rem" }}
                     />
                     <span>(WEEK {index + 1})</span>
                   </div>
@@ -78,7 +84,7 @@ const StarOfTheWeek = () => {
                         </div>
                       )}
                     </div>
-                    <div className="use_con text-left flex flex-col gap-1">
+                    <div className="use_con ltr:text-left rtl:text-right flex flex-col gap-1">
                       <span className="text-lg">{star?.weeklyUsersData?.userId?.fullName}</span>
                       <span className="user_id md:text-md text-sm block text-[#87C9F2]">
                         @{star?.weeklyUsersData?.userId?.username}
@@ -86,7 +92,7 @@ const StarOfTheWeek = () => {
                     </div>
                   </div>
                   <div className="sd_score--con pr-2">
-                    <h2 className="text-[1.2rem] !font-extrabold grad_text-clip pb-2 text-right">
+                    <h2 className="text-[1.2rem] !font-extrabold grad_text-clip pb-2 ltr:text-right rtl:text-left">
                       {star?.weeklyUsersData?.weeklyScore?.toString()}
                     </h2>
                     <h2 className="text-[0.75rem] !font-extrabold grad_text-clip">
@@ -94,7 +100,7 @@ const StarOfTheWeek = () => {
                     </h2>
                   </div>
                 </div>
-                <div className="text-right pb-4 pr-2">
+                <div className="ltr:text-right rtl:text-left pb-4 pr-2">
                   <span className="text-sm purple_col">Your Points: 159</span>
                 </div>
                 <ScoreTicker date={star.week} />
