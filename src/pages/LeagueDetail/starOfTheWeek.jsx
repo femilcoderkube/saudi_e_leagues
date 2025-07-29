@@ -58,7 +58,7 @@ const StarOfTheWeek = () => {
                         style={{ width: "12.35rem" }}
                       />
                     )}
-                    <span>{t("star_of_the_week.week")} {index + 1}</span>
+                    <span className="text-sm opacity-70">({t("star_of_the_week.week")} {index + 1})</span>
                   </div>
                   <div className="prize-pool">
                     <span className="font-bold text-xl grad_text-clip sm:block hidden">
