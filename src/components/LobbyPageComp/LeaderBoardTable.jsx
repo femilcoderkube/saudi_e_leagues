@@ -186,6 +186,19 @@ const LeaderBoard = () => {
                   {requestedUser.winRate}
                   </div>
                 </td>
+                {leagueData.playersPerTeam == 1 && (
+                  <td data-title="" className="pb-11 md:pb-4 py-4 px-4">
+                    <div className="flex items-center justify-center">
+                      <div className="avtar_frame rounded-[2.5rem] flex-shrink-0 overflow-hidden">
+                        <img
+                          src={getSmile(requestedUser.rep)}
+                          alt={requestedUser.rep}
+                          style={{ width: "1.5rem" , visibility : "hidden"}}
+                        />
+                      </div>
+                    </div>
+                  </td>
+                )}
               </tr>
             </>
           )}

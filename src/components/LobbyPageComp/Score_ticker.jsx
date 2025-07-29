@@ -34,7 +34,7 @@ const ScoreTicker = ({date}) => {
   }, [date?.futureEndDate]);
 
   return (
-    <div className="sd_bedge_right-con">
+    <div className="sd_bedge_right-con mt-4">
       <div className="sd_score--ticker justify-between flex gap-2">
         {digits.map((digit, index) => (
           <div

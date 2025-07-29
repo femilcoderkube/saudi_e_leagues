@@ -361,5 +361,10 @@
   "notification": {
     "all": "All",
     "unread": "Unread"
+  },
+  "star_of_the_week": {
+    "week": "Week",
+    "points": "Points",
+    "your_points": "Your Points"
   }
 }

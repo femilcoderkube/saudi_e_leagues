@@ -360,5 +360,10 @@
   "notification": {
     "all": "جميع الإشعارات",
     "unread": "غير مقروء"
+  },
+  "star_of_the_week": {
+    "week": "الأسبوع",
+    "points": "النقاط",
+    "your_points": "نقاطك"
   }
 }

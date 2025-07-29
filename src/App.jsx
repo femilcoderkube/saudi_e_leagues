@@ -25,6 +25,8 @@ import ResetPasswordPage from "./pages/profile/resetPassword.jsx";
 import { items } from "./utils/constant.js";
 import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";   
 import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
+import { getMessaging, getToken } from "firebase/messaging";
+import { messaging } from "./firebase.js";
 
 function App() {
   const { i18n } = useTranslation();
@@ -32,7 +34,9 @@ function App() {
   useEffect(() => {
     const dir = i18n.language === "ar" ? "rtl" : "ltr";
     document.documentElement.setAttribute("dir", dir);
-    document.body.setAttribute("dir", dir); // for extra safety
+    document.body.setAttribute("dir", dir);
+  
+  
   }, [i18n.language]);
 
   const [selectedItem, setSelectedItem] = useState("PrimeHome");
@@ -41,7 +45,10 @@ function App() {
     setSelectedItem(item);
   };
   const firstItem = items[0];
-
+  const getTokenA = async () => {
+   
+  }
+  getTokenA();
   return (
     <Router>
       <div className="flex">

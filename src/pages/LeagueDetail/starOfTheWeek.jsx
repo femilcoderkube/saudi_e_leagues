@@ -8,13 +8,20 @@ import mob_star_of_week_arabic from "../../assets/images/mob_star_week_arabic.pn
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation,Pagination } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import ScoreTicker from "../../components/LobbyPageComp/Score_ticker";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const StarOfTheWeek = () => {
-  const { starOfTheWeek ,leagueData } = useSelector((state) => state.leagues);
+  const { starOfTheWeek, leagueData } = useSelector((state) => state.leagues);
   let starOfTheWeekData = starOfTheWeek?.filter((star) => star?.weeklyUsersData);
-  let price = leagueData?.weekOfTheStarPrice
+  let price = leagueData?.weekOfTheStarPrice;
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    console.log("i18n.language", i18n.language);
+  }, [i18n]);
+
 
   return (
     <div className="w-full flex justify-center items-center">
@@ -24,28 +31,34 @@ const StarOfTheWeek = () => {
           spaceBetween={0}
           slidesPerView={1}
           centeredSlides={true}
+          dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}
           pagination={{
             clickable: true,
             el: ".star-week-pagination"
           }}
-          modules={[Navigation ,Pagination]}
+          modules={[Pagination]}
         >
-          {starOfTheWeekData.map((star, index) => (
+          {starOfTheWeekData.map((star, index) => {
+            let isYourPoints = star?.weeklyUsersData?.userId?._id.toString() != star?.requestedUsersScore?.userId.toString()
+            return(
             <SwiperSlide className="w-full" key={index}>
               <div className="mob-star-week bg-[url(./assets/images/mob-star-week-shape.png)] sm:max-w-[30rem] sm:w-full flex flex-col bg-no-repeat bg-center bg-cover relative p-5 mx-auto md:order-2 order-2">
                 <div className="sd_bedge_left-con border-b-1 border-[#7b7ed047] pb-5 mb-6 flex flex-row items-center justify-between gap-4 w-full">
                   <div className="sd_bedge-lable flex gap-2 items-end">
-                    <img className="shining-star"
-                      src={mob_star_of_week}
-                      alt=""
-                      style={{ width: "12.35rem" }}
-                    />
-                    <img className="shining-star-arabic"
-                      src={mob_star_of_week_arabic}
-                      alt=""
-                      style={{ width: "10rem" }}
-                    />
-                    <span>(WEEK {index + 1})</span>
+                    {i18n.language === 'ar' ? (
+                      <img className="shining-star-arabic"
+                        src={mob_star_of_week_arabic}
+                        alt=""
+                        style={{ width: "10rem" }}
+                      />
+                    ) : (
+                      <img className="shining-star"
+                        src={mob_star_of_week}
+                        alt=""
+                        style={{ width: "12.35rem" }}
+                      />
+                    )}
+                    <span>{t("star_of_the_week.week")} {index + 1}</span>
                   </div>
                   <div className="prize-pool">
                     <span className="font-bold text-xl grad_text-clip sm:block hidden">
@@ -96,17 +109,18 @@ const StarOfTheWeek = () => {
                       {star?.weeklyUsersData?.weeklyScore?.toString()}
                     </h2>
                     <h2 className="text-[0.75rem] !font-extrabold grad_text-clip">
-                      Points
+                      {t("star_of_the_week.points")}
                     </h2>
                   </div>
                 </div>
-                <div className="ltr:text-right rtl:text-left pb-4 pr-2">
-                  <span className="text-sm purple_col">Your Points: 159</span>
+              <div className={`ltr:text-right rtl:text-left pr-2 ${isYourPoints ? "" : "mb-4"}`}>
+                  { isYourPoints && <span className="text-sm purple_col">{t("star_of_the_week.your_points")}: {star?.requestedUsersScore?.weeklyScore}</span>}
                 </div>
                 <ScoreTicker date={star.week} />
               </div>
             </SwiperSlide>
-          ))}
+            )
+          })}
         </Swiper>
         {/* Swiper pagination bullets */}
         <div className="star-week-pagination flex g-3 mt-4 md:mb-[2.4rem]"></div>
