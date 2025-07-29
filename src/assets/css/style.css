@@ -87,8 +87,8 @@ div {
   transform: translate(-50%, -50%);
 }
 
-.font_oswald {
-  font-family: "Oswald", sans-serif;
+ .font_oswald {
+  font-family: "Oswald", Cairo,sans-serif;
 }
 
 /* === Color Common Class CSS Start === */
@@ -177,6 +177,10 @@ body {
   font-style: normal;
   line-height: 1.4;
   overflow: hidden;
+}
+
+html[lang="ar"] body {
+  font-family: "Cairo", sans-serif !important;
 }
 
 .grad_head--txt {
