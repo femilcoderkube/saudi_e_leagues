@@ -112,7 +112,7 @@ const MatchDetail = () => {
         <div className="team_score--con flex xl:flex-row flex-col justify-between w-full gap-10 items-center xl:items-start">
           {/* Team 1 */}
           <div className="team_score--wrap max-w-[24.625rem] order-2 xl:order-1">
-            <h2 className="grad_head--txt max-w-full md:text-[4rem] text-[2.5rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
+            <h2 className="grad_head--txt max-w-full ltr:md:text-[4rem] rtl:md:text-[3.75rem] text-[2.5rem] sm:pr-[2rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
               {t("match.team_one")}
             </h2>
             <TeamOneScoreList />
