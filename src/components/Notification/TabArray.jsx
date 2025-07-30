@@ -24,7 +24,7 @@ export const Tabs = ({ children }) => {
           <button
             key={index}
             onClick={() => dispatch(setNotificationTabIndex(index))}
-            className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+            className={`py-2 px-4 sm:text-xl text-base font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
               ${NotificationTabIndex === index ? 'active-tab hover:opacity-100 polygon_border' : 'inactive-tab'}
             `}
             style={{ width: '10rem', height: '4rem' }}

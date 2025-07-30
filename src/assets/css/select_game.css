@@ -44,14 +44,21 @@
   height: 0.18rem;
 }
 
-.otp-input.game_status--tab button.active-tab {
-  width: 28%;
+.otp-input.game_status--tab button {
+  width: 7rem;
 }
 
 .otp-input .active-tab.polygon_border:before,
 .otp-input .active-tab.polygon_border:after {
   width: 3rem;
   height: 0.15rem;
+}
+
+.otp-input .polygon_border:after{
+  bottom: -1px;
+}
+.otp-input .polygon_border::before{
+  top: -1px;
 }
 
 /* -------------------------------
@@ -325,6 +332,9 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
     left: auto;
     right: 0;
   }
+  .otp-input .polygon_border::before{
+    top: 0;
+  }
 }
 /* md */
 @media (max-width: 767px) {
@@ -469,6 +479,10 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
   .game_card--wrapv2 .match_date {
     width: 3rem;
   }
+  .sd_custom-input.otp-input{
+    width: 3.2rem;
+    height:3.2rem;
+  }
 }
 @media (max-width: 389px) {
   .btn_polygon-link,
@@ -482,6 +496,10 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
   .game_card--wrapv2 .game_image {
     max-width: 9rem;
     flex: 0 0 9rem;
+  }
+  .sd_custom-input.otp-input{
+    width: 2.9rem;
+    height:2.9rem;
   }
 }
 

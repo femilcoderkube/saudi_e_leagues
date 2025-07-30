@@ -239,7 +239,7 @@ function SubmitPopUp({ handleClose }) {
                   className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
                   placeholder={t("score.your_score")}
                 />
-                <span className="text-red-500 text-xl absolute right-10 top-3">
+                <span className="text-red-500 text-xl absolute ltr:right-10 rtl:left-10 top-3">
                   *
                 </span>
                 {formik.touched.yourScore && formik.errors.yourScore && (
@@ -277,7 +277,7 @@ function SubmitPopUp({ handleClose }) {
                   className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0]"
                   placeholder={t("score.opponent_score")}
                 />
-                <span className="text-red-500 text-xl absolute right-10 top-3">
+                <span className="text-red-500 text-xl absolute ltr:right-10 rtl:left-10 top-3">
                   *
                 </span>
                 {formik.touched.opponentScore &&

@@ -600,11 +600,11 @@ const WizardSteps = ({
 
   const renderOtpPopup = () => (
     <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-[#09092d] p-6 rounded-lg shadow-lg w-full max-w-md">
+      <div className="bg-[#09092d] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-xl font-medium text-white mb-4 font_oswald">
           {t("form.verify_otp")}
         </h2>
-        <div className="flex justify-between mb-4">
+        <div className="flex justify-between mb-4 gap-1">
           {otp.map((digit, index) => (
             <>
               <input
