@@ -325,7 +325,7 @@ const LeaderBoard = () => {
 
                 <td
                   data-title="Win rate"
-                  className={`pb-11 md:pb-4 py-4 px-4 text-center text-lg`}
+                  className={`pb-11 md:pb-4 py-4 px-4 ltr:md:text-center ltr:text-right rtl:md:text-center rtl:text-left text-lg`}
                 >
                   <div className="leaderboard-center">
                   {user.winRate}
