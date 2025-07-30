@@ -188,7 +188,7 @@ useEffect(() => {
           <div className="flex items-center lg:gap-15 gap-3">
             {user && isCaptain && (!IsSubmited || isEditScore != null) && (
               <div className="flex items-center gap-3">
-                <div
+                {/* <div
                   className="cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"                 
                 >
                   <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
@@ -230,7 +230,7 @@ useEffect(() => {
                       </clipPath>
                     </defs>
                   </svg>
-                </div>
+                </div> */}
                 <div
                   className="submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
                   onClick={() => {
