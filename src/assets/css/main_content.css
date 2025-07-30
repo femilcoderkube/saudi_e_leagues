@@ -1121,7 +1121,7 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
   }
 
   html[dir=rtl] .leaderboard-center {
-    padding-right: auto;
+    padding-right: 0;
     padding-left: 0.75rem;
   }
 
