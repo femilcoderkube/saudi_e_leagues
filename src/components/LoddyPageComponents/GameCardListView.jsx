@@ -18,10 +18,8 @@ const GameCardListView = ({ leagues }) => {
         <Link
           key={index}
           to={item?._id ? `/${id}/lobby/${item._id}` : "#"}
-          state={{ league: item }}
           className="game_card_wrap--link relative inline-block"
-          variants={cardVariants}
-          layout // Enable layout animations for repositioning
+          
         >
           <div className="game_card--body inline-block relative !m-0 p-5">
             <div className="game_img--mask relative flex">

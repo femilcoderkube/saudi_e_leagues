@@ -16,7 +16,7 @@ const UserProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userdata = useSelector((state) => state.auth.user);
-  const userUpdate = useSelector((state) => state.auth.userDetail);
+  const userUpdate = useSelector((state) => state.auth.user);
   let user = userUpdate ? userUpdate : userdata;
   const { t } = useTranslation();
   useEffect(() => {

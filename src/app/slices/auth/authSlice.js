@@ -307,7 +307,8 @@ const authSlice = createSlice({
       })
       .addCase(fetchUserById.fulfilled, (state, action) => {
         state.loading = false;
-        state.userDetail = action.payload.data;
+        state.user = action.payload.data;
+        localStorage.setItem("user", JSON.stringify(action.payload.data));
       })
       .addCase(fetchUserById.rejected, (state, action) => {
         state.loading = false;
@@ -319,7 +320,7 @@ const authSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.userDetail = action.payload.data;
+        state.user = action.payload.data;
         toast.success("Profile updated successfully!");
       })
       .addCase(updateUser.rejected, (state, action) => {

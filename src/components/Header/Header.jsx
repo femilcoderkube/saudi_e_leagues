@@ -63,7 +63,7 @@ const Header = () => {
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
   useEffect(() => {}, [matchData, user, location]);
-  const userUpdate = useSelector((state) => state.auth.userDetail);
+  const userUpdate = useSelector((state) => state.auth.user);
   // console.log("user", user);
 
   const { i18n, t } = useTranslation();
@@ -131,14 +131,16 @@ const Header = () => {
     }
   }
   
-
+useEffect(() => {
   if (path) {
     dispatch(setActiveTabIndex(0));
   } else if (profile) {
     dispatch(setActiveTabIndex(2));
-  } else {
+  } else if(checkParams(params.id)) {
     dispatch(setActiveTabIndex(1));
   }
+}, [path, profile, checkParams(params.id)]);
+
   let mainItem = breadcrumbItems[breadcrumbItems.length - 1];
   if (checkParams("finding-match") || checkParams("match")) {
     if (params.mId) {
@@ -540,7 +542,7 @@ const Header = () => {
             title={"Notification"}
             className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before notification-icon-wp"
           >
-            <sup class="notification-icon flex justify-center items-center rounded-full absolute sm:-top-[0.2rem] sm:right-[-0.2rem] -top-[0.3rem] right-[-0.1rem] text-black font-bold">{unReadNotificationCount}</sup>
+            <sup className="notification-icon flex justify-center items-center rounded-full absolute sm:-top-[0.2rem] sm:right-[-0.2rem] -top-[0.3rem] right-[-0.1rem] text-black font-bold">{unReadNotificationCount}</sup>
  
             <Notification />
           </div>}         
@@ -669,7 +671,7 @@ const Header = () => {
                         alt="lang"
                       />
                     </i>
-                    <span class="text purple_col w-full text-center">
+                    <span className="text purple_col w-full text-center">
                       {t("navigation.profile")}
                     </span>
                   </a>

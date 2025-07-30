@@ -11,10 +11,18 @@ const ScoreTicker = ({date}) => {
     }
 
     const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const futureDate = new Date(date.futureEndDate).getTime();
+      // Get current time in Asia/Riyadh timezone
+      const now = new Date(
+        new Date().toLocaleString("en-US", { timeZone: "Asia/Riyadh" })
+      ).getTime();
+
+      // Parse futureEndDate as Riyadh time
+      const futureDate = new Date(
+      date.futureEndDate
+      ).getTime();
+
       const distance = futureDate - now;
-      
+
       if (distance < 0) {
         clearInterval(timer);
         setDigits(['0','0','0','0','0','0','0','0']);

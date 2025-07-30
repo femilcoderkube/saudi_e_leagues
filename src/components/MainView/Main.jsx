@@ -42,7 +42,7 @@ export default function Main() {
   const location = useLocation();
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [profileLoading, setProfileLoading] = useState(false);
-  const { user, userDetail } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const { t } = useTranslation();
 
   //  dispatch(checkBannedUser());
@@ -76,32 +76,24 @@ export default function Main() {
   };
 
   // Pre-fill form values for editing
-  const editInitialValues = userDetail
+  const editInitialValues = user
     ? {
-      username: userDetail.username || "",
-      firstName: userDetail.firstName || "",
-      lastName: userDetail.lastName || "",
-      email: userDetail.email || "",
-      nationality:
-        countryOptions.find((option) => option.value === userDetail.nationality) ||
-        defaultNationality,
+      username: user.username || "",
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      email: user.email || "",
       dialCode:
         dialCodeOptions.find(
           (option) =>
-            option.value === (userDetail?.phone?.split("-")[0] || "+966")
+            option.value === (user?.phone?.split("-")[0] || "+966")
         ) || defaultDialCode,
-      phoneNumber: userDetail?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
-      dateOfBirth: userDetail.dateOfBirth
-        ? new Date(userDetail.dateOfBirth).toISOString().split("T")[0]
-        : "",
-      gender: userDetail.gender || "Male",
-      role: userDetail.role || "Player",
-      favoriteGame: userDetail?.favoriteGame
+      phoneNumber: user?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
+      favoriteGame: user?.favoriteGame
         ? gameOptions?.find(
-          (option) => option.value === userDetail?.favoriteGame
+          (option) => option.value === user?.favoriteGame
         )
         : null,
-      profilePicture: userDetail?.profilePicture ? userDetail?.profilePicture : null, // Existing profile picture is handled separately
+      profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
     }
     : initialValues;
 
@@ -169,12 +161,12 @@ export default function Main() {
     dispatch(checkBannedUser());
   }, [location]);
 
-  useEffect(() => {
-    if (profileVisible && user?._id) {
-      setProfileLoading(true);
-      dispatch(fetchUserById(user?._id)).finally(() => setProfileLoading(false));
-    }
-  }, [profileVisible, dispatch]);
+  // useEffect(() => {
+  //   if (profileVisible && user?._id) {
+  //     setProfileLoading(true);
+  //     dispatch(fetchUserById(user?._id)).finally(() => setProfileLoading(false));
+  //   }
+  // }, [profileVisible, dispatch]);
 
   return (
     <div
@@ -265,7 +257,7 @@ export default function Main() {
                       onBack={() => setStep((prev) => prev - 1)}
                       loadingSubmit={loadingSubmit}
                       isEdit={profileVisible}
-                      isVerified={userDetail?.isVerified}
+                      isVerified={user?.isVerified}
                     />
                   </>
                 )}
