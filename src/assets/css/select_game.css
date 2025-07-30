@@ -60,7 +60,7 @@
     
 ---------------------------------- */
 html[dir="rtl"] .card_top_left-shap {
-  rotate: 180deg;
+  transform: rotateY(180deg);
 }
 
 .game_card--body {

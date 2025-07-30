@@ -605,7 +605,7 @@ const MatchDetail = () => {
 
           {/* Team 2 */}
           <div className="team_score--wrap max-w-[24.625rem] order-3 xl:order-3">
-            <h2 className="grad_head--txt max-w-full md:text-[4rem] text-[2.5rem] sm:pr-[2rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium sm:text-right leading-none uppercase">
+            <h2 className="grad_head--txt max-w-full ltr:md:text-[4rem] rtl:md:text-[3.75rem] text-[2.5rem] sm:pr-[2rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium sm:text-right leading-none uppercase">
               {t("match.team_two")}
             </h2>
             <TeamTwoScoreList />

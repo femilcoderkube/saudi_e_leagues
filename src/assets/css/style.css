@@ -88,7 +88,11 @@ div {
 }
 
  .font_oswald {
-  font-family: "Oswald", Cairo,sans-serif;
+  font-family: "Oswald",sans-serif;
+}
+
+html[lang="en"][dir="rtl"] .font_oswald {
+  font-family: "Cairo", sans-serif;
 }
 
 /* === Color Common Class CSS Start === */
