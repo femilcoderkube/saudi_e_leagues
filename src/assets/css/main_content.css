@@ -928,10 +928,6 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   cursor: pointer;
 }
 
-.user_img {
-  width: 3rem;
-}
-
 .wizard_step--btn .login-btn .active-tab.polygon_border:before,
 .wizard_step--btn .login-btn .active-tab.polygon_border:after {
   width: 4.65rem;
