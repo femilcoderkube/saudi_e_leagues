@@ -494,9 +494,6 @@ li.team_score--card:hover .review_score--con:before {
   .team_score--card svg{
     width: 19rem;
   }
-  .mob-sub-btn{
-    flex-wrap: wrap;
-  }
   .review_score--con {
     right: 0.8rem;
   }

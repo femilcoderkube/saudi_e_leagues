@@ -49,7 +49,9 @@ const Header = () => {
   const { isActiveTab, showNotification, profileVisible } = useSelector(
     (state) => state.constState
   );
-  const { unReadNotificationCount } = useSelector((state) => state.notification);
+  const { unReadNotificationCount } = useSelector(
+    (state) => state.notification
+  );
   const navigator = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -171,35 +173,40 @@ useEffect(() => {
               </span>
             </div>
             <h2 className="lg:text-[2rem] text-[1.25rem] !font-black uppercase block ltr:ml-12 rtl:mr-12">
-            {i18n.language === "en"
+              {i18n.language === "en"
                 ? matchData?.league?.title || t("match.finding_matchmaking")
-                : matchData?.league?.titleAr || t("match.finding_matchmaking")} - { t("match.match") + " " + (matchData && matchData?.matchTempId ? matchData?.matchTempId : "#")}
+                : matchData?.league?.titleAr ||
+                  t("match.finding_matchmaking")}{" "}
+              -{" "}
+              {t("match.match") +
+                " " +
+                (matchData && matchData?.matchTempId
+                  ? matchData?.matchTempId
+                  : "#")}
             </h2>
           </div>
-          <div className="flex items-center gap-15">
+          <div className="flex items-center lg:gap-15 gap-3">
             {user && isCaptain && (!IsSubmited || isEditScore != null) && (
-              <div
-                className="submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
-                onClick={() => {
-                  dispatch(setSubmitModal(true));
-                }}
-              >
-                <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
-                  {IsSubmited ? t("auth.view_score") : t("auth.submit_score")}
-                </Link>
-                <svg
-                  width="0"
-                  height="0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ position: "absolute" }}
+              <div className="flex items-center gap-3">
+                <div
+                  className="cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"                 
                 >
-                  <defs>
-                    <clipPath
-                      id="polygonClip"
-                      clipPathUnits="objectBoundingBox"
-                    >
-                      <path
-                        d="
+                  <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
+                    Cancel Match
+                  </Link>
+                  <svg
+                    width="0"
+                    height="0"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ position: "absolute" }}
+                  >
+                    <defs>
+                      <clipPath
+                        id="polygonClip"
+                        clipPathUnits="objectBoundingBox"
+                      >
+                        <path
+                          d="
               M1,0.1111
               V0.8889
               L0.9219,1
@@ -219,10 +226,57 @@ useEffect(() => {
               L1,0.1111
               Z
             "
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+                <div
+                  className="submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
+                  onClick={() => {
+                    dispatch(setSubmitModal(true));
+                  }}
+                >
+                  <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
+                    {IsSubmited ? t("auth.view_score") : t("auth.submit_score")}
+                  </Link>
+                  <svg
+                    width="0"
+                    height="0"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ position: "absolute" }}
+                  >
+                    <defs>
+                      <clipPath
+                        id="polygonClip"
+                        clipPathUnits="objectBoundingBox"
+                      >
+                        <path
+                          d="
+              M1,0.1111
+              V0.8889
+              L0.9219,1
+              H0.7266
+              L0.6953,0.9028
+              H0.3047
+              L0.2734,1
+              H0.0781
+              L0,0.8889
+              V0.1111
+              L0.0781,0
+              H0.2734
+              L0.3047,0.0972
+              H0.6953
+              L0.7266,0
+              H0.9219
+              L1,0.1111
+              Z
+            "
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>                
               </div>
             )}
             {/* {user && isCaptain && IsSubmited && !matchData?.winner && (
@@ -449,75 +503,73 @@ useEffect(() => {
         </nav>
         <nav className="breadcrumb flex-grow-1">
           <ul className="breadcrumb-links sm:flex items-center gap-2.5 md:gap-5 lg:hidden">
-           { checkParams("profile") && profileVisible ? 
-           
-           <li
-              key={-3}
-              className="flex items-center gap-2 sm:gap-4 md:gap-7"
-              onClick={() => {
-                dispatch(setActiveTabIndex(2));
-                dispatch(setProfileVisible(false));
-              }}
-            >
-              {i18n.language === "ar" ? <NextArrow2 /> : <NextArrow3 />}
-              <div className="breadcrumb-box flex items-center gap-2">
-                <Link
-                  to={`/${params.id}/profile`}
-                  className={`breadcrumb-text flex items-center gap-3 ltr:pl-2 rtl:pr-2 sm:gap-3 text-sm md:text-lg font-bold text-white text-[1.25rem]`}
-                >
-                 {t("navigation.profile")}
+            {checkParams("profile") && profileVisible ? (
+              <li
+                key={-3}
+                className="flex items-center gap-2 sm:gap-4 md:gap-7"
+                onClick={() => {
+                  dispatch(setActiveTabIndex(2));
+                  dispatch(setProfileVisible(false));
+                }}
+              >
+                {i18n.language === "ar" ? <NextArrow2 /> : <NextArrow3 />}
+                <div className="breadcrumb-box flex items-center gap-2">
+                  <Link
+                    to={`/${params.id}/profile`}
+                    className={`breadcrumb-text flex items-center gap-3 ltr:pl-2 rtl:pr-2 sm:gap-3 text-sm md:text-lg font-bold text-white text-[1.25rem]`}
+                  >
+                    {t("navigation.profile")}
+                  </Link>
+                </div>
+              </li>
+            ) : (
+              <li
+                key={-1}
+                className="flex items-center gap-2 sm:gap-4 md:gap-7"
+                onClick={() => {
+                  if (
+                    mainItem.label != t("navigation.lobby") &&
+                    mainItem.label != t("navigation.home")
+                  ) {
+                    navigator(-1);
+                  }
+                }}
+              >
+                {mainItem.label !== t("navigation.lobby") &&
+                  mainItem.label !== t("navigation.home") &&
+                  (i18n.language === "ar" ? <NextArrow2 /> : <NextArrow3 />)}
+                <div className="breadcrumb-box flex items-center gap-2">
+                  <Link
+                    to={mainItem.path}
+                    className={`breadcrumb-text flex items-center gap-3 ltr:pl-2 rtl:pr-2 sm:gap-3 text-sm md:text-lg font-bold text-white text-[1.25rem]`}
+                  >
+                    {mainItem.label &&
+                      (mainItem.label !== t("navigation.home") ? (
+                        <mainItem.icon
+                          IsActive={mainItem.active}
+                          className="text-white"
+                        />
+                      ) : (
+                        <img
+                          src={primeIcon}
+                          alt="prime"
+                          className="text-white w-8 h-8"
+                        />
+                      ))}
 
-                 
-                </Link>
-              </div>
-            </li>
-           
-           :  <li
-              key={-1}
-              className="flex items-center gap-2 sm:gap-4 md:gap-7"
-              onClick={() => {
-                if (
-                  mainItem.label != t("navigation.lobby") &&
-                  mainItem.label != t("navigation.home")
-                ) {
-                  navigator(-1);
-                }
-              }}
-            >
-              {mainItem.label !== t("navigation.lobby") &&
-                mainItem.label !== t("navigation.home") &&
-                (i18n.language === "ar" ? <NextArrow2 /> : <NextArrow3 />)}
-              <div className="breadcrumb-box flex items-center gap-2">
-                <Link
-                  to={mainItem.path}
-                  className={`breadcrumb-text flex items-center gap-3 ltr:pl-2 rtl:pr-2 sm:gap-3 text-sm md:text-lg font-bold text-white text-[1.25rem]`}
-                >
-                  {mainItem.label &&
-                    (mainItem.label !== t("navigation.home") ? (
-                      <mainItem.icon
-                        IsActive={mainItem.active}
-                        className="text-white"
-                      />
-                    ) : (
-                      <img
-                        src={primeIcon}
-                        alt="prime"
-                        className="text-white w-8 h-8"
-                      />
-                    ))}
+                    {mainItem.label !== t("navigation.home")
+                      ? mainItem.label
+                      : t("navigation.prime")}
 
-                  {mainItem.label !== t("navigation.home")
-                    ? mainItem.label
-                    : t("navigation.prime")}
-
-                  {mainItem.label == t("navigation.home") && (
-                    <span className="text-[1.25rem] font-bold text-black ltr:ml-[12px] rtl:mr-[12px] bg-[#3ECCF3] px-3 rounded-[10px] min-h-[1.75rem] min-w-[4.063rem]">
-                      {t("common.beta")}
-                    </span>
-                  )}
-                </Link>
-              </div>
-            </li>}
+                    {mainItem.label == t("navigation.home") && (
+                      <span className="text-[1.25rem] font-bold text-black ltr:ml-[12px] rtl:mr-[12px] bg-[#3ECCF3] px-3 rounded-[10px] min-h-[1.75rem] min-w-[4.063rem]">
+                        {t("common.beta")}
+                      </span>
+                    )}
+                  </Link>
+                </div>
+              </li>
+            )}
           </ul>
         </nav>
         <div className="sd_notification-block self-center flex gap-4 ltr:ml-[1rem] xl:ltr:mr-[9rem] xl:rtl:ml-[9rem] sm:ltr:mr-[2rem]  sm:rtl:ml-[2rem] ">
@@ -537,15 +589,19 @@ useEffect(() => {
               }}
             />
           </div>
-          { user && <div
-            onClick={handleLangToggle2}
-            title={"Notification"}
-            className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before notification-icon-wp"
-          >
-            <sup className="notification-icon flex justify-center items-center rounded-full absolute sm:-top-[0.2rem] sm:right-[-0.2rem] -top-[0.3rem] right-[-0.1rem] text-black font-bold">{unReadNotificationCount}</sup>
- 
-            <Notification />
-          </div>}         
+          {user && (
+            <div
+              onClick={handleLangToggle2}
+              title={"Notification"}
+              className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before notification-icon-wp"
+            >
+              <sup class="notification-icon flex justify-center items-center rounded-full absolute sm:-top-[0.2rem] sm:right-[-0.2rem] -top-[0.3rem] right-[-0.1rem] text-black font-bold">
+                {unReadNotificationCount}
+              </sup>
+
+              <Notification />
+            </div>
+          )}
         </div>
 
         {!user && (
