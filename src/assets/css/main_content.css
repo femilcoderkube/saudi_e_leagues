@@ -33,6 +33,14 @@
   border-radius: 0.938rem;
 }
 
+.dropdown .user_img{
+  width: 3rem;
+}
+
+.dropdown.prof-drop .user_img{
+  width: auto;
+}
+
 .user_img:before {
   border: 1px solid var(--sky-col);
   width: 3.5rem;
