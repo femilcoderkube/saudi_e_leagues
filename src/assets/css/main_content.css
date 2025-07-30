@@ -796,6 +796,9 @@ input[type="radio"]:checked+label .checkbox-inner:before {
   background-repeat: no-repeat;
   pointer-events: none;
 }
+.notification-sidebar::before{
+  transform: rotateY(180deg);
+}
 
 .notification-sidebar h6 {
   font-weight: 700;
