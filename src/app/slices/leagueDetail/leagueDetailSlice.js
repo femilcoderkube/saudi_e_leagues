@@ -6,6 +6,7 @@ import { act } from "react";
 const initialState = {
   leagueData: null,
   registrationModal: false,
+  verificationModal: false,
   isAgreedToJoin: {},
   isJoinedUser: null,
   isQueueUser: null,
@@ -26,6 +27,9 @@ const leagueDetailSlice = createSlice({
     },
     setRegistrationModal: (state, action) => {
       state.registrationModal = action.payload;
+    },
+    setVerificationModal: (state, action) => {
+      state.verificationModal = action.payload;
     },
     removeFromQueue: (state, action) => {
       if (state.leagueData && state.leagueData.inQueue) {
@@ -80,6 +84,7 @@ const leagueDetailSlice = createSlice({
 export const {
   setLeagueData,
   setRegistrationModal,
+  setVerificationModal,
   setIsAgreedToJoin,
   removeFromQueue,
   setWeekOfStarUsers

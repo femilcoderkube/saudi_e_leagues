@@ -5,15 +5,15 @@ import need_btn from "../../assets/images/needToLogin.png";
 import Que_btn from "../../assets/images/quebtn.png";
 import Open_btn from "../../assets/images/open.png";
 import Cancel_btn from "../../assets/images/cancelbtn.png";
-import { setRegistrationModal } from "../../app/slices/leagueDetail/leagueDetailSlice";
+import { setRegistrationModal, setVerificationModal } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { getQueueText } from "../../utils/constant";
 import { stopReadyToPlaySocket } from "../../app/socket/socket";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const GetQueueButton = () => {
+const GetQueueButton = ({ isVerified }) => {
   const { id } = useParams();
-  const { leagueData, isJoinedUser, isQueueUser ,isMatchJoind} = useSelector(
+  const { leagueData, isJoinedUser, isQueueUser, isMatchJoind } = useSelector(
     (state) => state.leagues
   );
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -21,7 +21,7 @@ const GetQueueButton = () => {
   const dispatch = useDispatch();
   const now = new Date();
   const end = new Date(leagueData?.endDate);
-  const { t  ,i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   if (user?._id == null || user?._id == undefined) {
@@ -32,18 +32,18 @@ const GetQueueButton = () => {
           dispatch(setLogin(true));
         }}
       >
-                  <span
-            className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-lg sm:text-2xl opacity-50"
-            style={{
-              fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
-              fontWeight : "bold",
-              color: "#BABDFF",
-              textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-            {t("images.need_login")}
-          </span>
-     
+        <span
+          className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-lg sm:text-2xl opacity-50"
+          style={{
+            fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
+            fontWeight: "bold",
+            color: "#BABDFF",
+            textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          {t("images.need_login")}
+        </span>
+
         <img
           src={need_btn}
           alt={t("images.need_login")}
@@ -57,8 +57,8 @@ const GetQueueButton = () => {
         <span
           className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
           style={{
-            fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
-            fontWeight : "bold",
+            fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
+            fontWeight: "bold",
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
           }}
         >
@@ -81,8 +81,8 @@ const GetQueueButton = () => {
         <span
           className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
           style={{
-            fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
-            fontWeight : "bold",
+            fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
+            fontWeight: "bold",
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
           }}
         >
@@ -103,11 +103,11 @@ const GetQueueButton = () => {
           });
         }}
       >
-         <span
+        <span
           className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
           style={{
-            fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
-              fontWeight : "bold",
+            fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
+            fontWeight: "bold",
             textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
           }}
         >
@@ -135,8 +135,8 @@ const GetQueueButton = () => {
           <span
             className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
-              fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
-              fontWeight : "bold",
+              fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
+              fontWeight: "bold",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
             }}
           >
@@ -155,15 +155,20 @@ const GetQueueButton = () => {
         <div
           className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
-            sessionStorage.setItem("canAccessFindingMatch", "true");
-            navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+            if (isVerified) {
+              sessionStorage.setItem("canAccessFindingMatch", "true");
+              navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+            } else {
+              console.log("User is not verified");
+              dispatch(setVerificationModal(true));
+            }
           }}
         >
           <span
             className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
-              fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
-              fontWeight : "bold",
+              fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
+              fontWeight: "bold",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
             }}
           >
@@ -183,8 +188,8 @@ const GetQueueButton = () => {
           <span
             className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
-              fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
-              fontWeight : "bold",
+              fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
+              fontWeight: "bold",
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
             }}
           >

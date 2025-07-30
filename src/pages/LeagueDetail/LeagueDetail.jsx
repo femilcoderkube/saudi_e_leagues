@@ -23,14 +23,17 @@ import GamingLoader from "../../components/Loader/loader.jsx";
 import RegistrationModel from "./RegustrationModel.jsx";
 import GetQueueButton from "./queueButton.jsx";
 import StarOfTheWeek from "./starOfTheWeek.jsx";
+import VerificationModel from "./VerificationModal.jsx";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
-  const user = useSelector((state) => state.auth.user);
+  const { user, userDetail } = useSelector((state) => state.auth);
+
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { leagueData, registrationModal } = useSelector(
+  const { leagueData, registrationModal, verificationModal } = useSelector(
     (state) => state.leagues
   );
+  console.log("verificationModal",verificationModal)
   const { t, i18n } = useTranslation();
   const isMatctCreated = useSelector(
     (state) => state.constState.isMatctCreated
@@ -58,6 +61,7 @@ const LeagueDetail = () => {
       ></div>
       {/* <Outlet /> */}
       {registrationModal && <RegistrationModel />}
+      {verificationModal && <VerificationModel />}
       {!leagueData ? (
         <GamingLoader />
       ) : isMatctCreated ? (
@@ -96,7 +100,7 @@ const LeagueDetail = () => {
                     className="absolute top-0 left-0 w-full h-full object-contain"
                     src={getServerURL(leagueData?.headerPhoto)}
                     alt=""
-                    // style={{ width: "41rem" }}
+                  // style={{ width: "41rem" }}
                   />
                 </div>
                 {/* <div className="player_one sd_before relative gradiant_bg con_center -left-7 sm:left-0">
@@ -221,11 +225,11 @@ const LeagueDetail = () => {
                     </clipPath>
                   </defs>
                 </svg> */}
-              </div>                          
+              </div>
               <LeaderBoard />
             </div>
             <div className="sd_content-right w-full order-0 xl:order-1">
-              <GetQueueButton />
+              <GetQueueButton isVerified={userDetail?.isVerified} />
               <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 w-full md:pb-0 pb-6 items-center justify-center md:justify-baseline">
                 <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
                   <Link
@@ -295,11 +299,11 @@ const LeagueDetail = () => {
               </div>
               {/* --- Timeline-card HTML Block Start --- */}
               <div className="flex flex-col gap-6 md:block">
-              <PopUp />   
-              {/* Desktop version */}
-              {leagueData?.isWeekOfTheStar && <StarOfTheWeek />}          
-              <TimelineCard />
-              </div>               
+                <PopUp />
+                {/* Desktop version */}
+                {leagueData?.isWeekOfTheStar && <StarOfTheWeek />}
+                <TimelineCard />
+              </div>
             </div>
           </div>
         </div>
