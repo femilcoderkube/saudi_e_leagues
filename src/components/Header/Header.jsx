@@ -215,10 +215,9 @@ const Header = () => {
             </h2>
           </div>
           <div className="flex items-center lg:gap-15 gap-3">
-            {user && isCaptain && (!IsSubmited || isEditScore != null) && (
+            {user && isCaptain && (!IsSubmited || isEditScore != null)  && !matchData?.isCanceled && (
               <div className="flex items-center gap-3">
                 {showCancelBtn && (
-                  <>
                     <div
                       className="cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
                       onClick={() => cancelMatch({ matchId: matchData?._id, participantId: myPId })}
@@ -263,8 +262,8 @@ const Header = () => {
                         </defs>
                       </svg>
                     </div>
-
-                    <div
+                )}
+                <div
                       className="submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
                       onClick={() => {
                         dispatch(setSubmitModal(true));
@@ -310,8 +309,6 @@ const Header = () => {
                         </defs>
                       </svg>
                     </div>
-                  </>
-                )}
               </div>
             )}
 
