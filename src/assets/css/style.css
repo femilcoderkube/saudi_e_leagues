@@ -567,7 +567,7 @@ html[dir="rtl"] .view-all::after {
 .verify-otp-shape {
   clip-path: url(#myClipPath);
   width: auto;
-  height: 21rem;
+  height: auto;
 }
 
 .verify-otp-shape.otp-verify {

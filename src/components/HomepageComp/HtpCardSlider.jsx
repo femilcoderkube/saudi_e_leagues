@@ -56,7 +56,7 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
   return (
     <div className="relative htp_slider h-full">
       {/* Custom Nav */}
-      <div className="swiper-navigation-wrapper absolute ltr:right-0 rtl:left-0 top-[-5rem] z-10 flex gap-2 pr-[7.5rem]">
+      <div className="swiper-navigation-wrapper absolute ltr:right-0 rtl:left-0 top-[-5rem] z-10 flex gap-2 md:pr-[7.5rem] pr-[1rem]">
         <div
           ref={prevRef}
           className={`swiper-button-prev sd_prev-${sliderId} rtl:order-2 sd_prev-btn !relative ltr:!left-[auto] ltr:!right-[0.5rem] rtl:!left-[0.5rem] rtl:!right-[auto] custom-nav-btn`}
@@ -66,15 +66,15 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
           className={`swiper-button-prev sd_next-${sliderId} sd_next-btn !relative !right-[auto] custom-nav-btn`}
         />
       </div>
-      <div className="game_card-wrap flex gap-10">
+      {/* <div className="game_card-wrap flex gap-10">
       <HtpCard item={HtpCardDetails[0]} />
        <HtpCard item={HtpCardDetails[0]} />
-      </div>
-{/* 
+      </div> */}
+
       <Swiper
         modules={[Navigation]}
-        spaceBetween={10}
-        slidesPerView={2.5}
+        spaceBetween={0}
+        slidesPerView={2}
         loop={true}
         speed={600}
         // slidesOffsetAfter={-200} 
@@ -87,7 +87,7 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
             <HtpCard item={item} />
           </SwiperSlide>
         ))}
-      </Swiper> */}
+      </Swiper>
     </div>
   );
 };

@@ -153,16 +153,16 @@ export default function PrimeHome() {
         </section>
 
       
-        {/* <section className="htp_slider-sec flex justify-between ">
+       <section className="htp_slider-sec flex justify-between ">
        
-          <div className="htp_left-con h-full flex justify-end flex-col max-w-[30%]">
+          <div className="htp_left-con h-full flex justify-end flex-col max-w-[27.5%]">
             <h2 className="grad_head--txt max-w-full lg:text-[5rem] text-[3rem] tracking-wide !font-black leading-none uppercase">
               {t("homepage.how")}
             </h2>
-            <h2 className="lg:text-[4rem] text-[2.5rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center tracking-wider !font-black pb-10">
+            <h2 className="lg:text-[4rem] text-[2.5rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center tracking-wider !font-black md:pb-10 pb-8">
               {t("homepage.to_play")}
             </h2>
-            <p className="htp_content block purple_col sd_before relative before:w-full before:top-0 text-2xl font-semibold py-10 pr-3">
+            <p className="htp_content block purple_col sd_before relative before:w-full before:top-0 md:text-2xl text-base font-semibold md:py-10 py-6 pr-3">
               {t("homepage.htp_description")}
             </p> 
             <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center my-8 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
@@ -209,7 +209,7 @@ export default function PrimeHome() {
           </div>
 
         
-          <div className="htp_right-con  relative max-w-[70%]">
+          <div className="htp_right-con  relative max-w-[72.5%]">
           
             <HtpCardSlider
               sliderId="one"
@@ -247,7 +247,7 @@ export default function PrimeHome() {
               ]}
             />
           </div>
-        </section> */}
+        </section> 
          {/* === Timelines Split Card Section HTML block Start === */}
             {/* <section className="sd_timeline--sec pt-[5rem] pb-[5rem]  relative  ">
                 <h2 className="text-[4rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none uppercase items-center tracking-wider !font-black pb-10">

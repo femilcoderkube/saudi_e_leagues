@@ -263,15 +263,6 @@ html[dir=rtl] .swiper-slide.swiper-slide-active {
     background: rgb(68, 28, 28);
 }
 
-/* .htp_slider .swiper-slide {
-  width: 300px !important;
-  transition: width 0.4s ease;
-}
-
-.htp_slider .swiper-slide.swiper-slide-active {
-  width: 600px !important;
-} */
-
 .sd_next-btn.sd_next-one:after {
     transform: scaleX(-1);
 }
@@ -279,7 +270,6 @@ html[dir=rtl] .swiper-slide.swiper-slide-active {
 .game_card_wrap--link,
 .htp_card--body,
 .htp_right-con .swiper {
-    /* height: 20.5rem; */
     min-height: 20.5rem;
     height: 100%;
 }
@@ -292,9 +282,8 @@ html[dir=rtl] .swiper-slide.swiper-slide-active {
     background: linear-gradient(180deg, rgb(244 247 255) 0%, rgba(186, 189, 255, 1) 36%, rgba(123, 126, 208, 1) 66%);
 }
 
-.game_card_wrap--link:not(:first-child) .htp_card--body {
+/* .game_card_wrap--link:not(:first-child) .htp_card--body {
     background: url(../images/playgameBG.png);
-    /* clip-path: url('#customClipPath2'); */
     background-size: 100%;
     width: 17.5rem;
     background-repeat: no-repeat;
@@ -343,8 +332,75 @@ html[dir=rtl] .game_card_wrap--link:not(:first-child) .htp_card--body {
 
 html[dir=rtl] .game_card_wrap--link:not(:first-child) .htp_card--body .match_date {
     background-image: url(../images/sliderBG.png);
+} */
+
+/* http slider start*/
+.htp_slider .swiper-slide {
+    width: 280px !important;
+    transition: width 0.4s ease;
+  }
+
+.htp_slider .swiper-slide .game_card_wrap--link .htp_card--body,.htp_slider .swiper-slide {
+    background: url(../images/playgameBG.png);
+    background-size: 100%;
+    width: 20.6rem !important;
+    background-repeat: no-repeat;
+    height: 23.54rem;
+    opacity: 0.7;
 }
 
+.htp_slider .swiper-slide.swiper-slide-active .game_card_wrap--link .htp_card--body,.htp_slider .swiper-slide.swiper-slide-active {
+    background: url(../images/activeslideBG.png);
+    background-size: 100%;
+    width: 37.5rem !important;
+    background-repeat: no-repeat;
+    height: 23.75rem;
+}
+
+.htp_slider .swiper-slide .game_card_wrap--link .htp_card--body .match_date {
+    bottom: auto;
+    top: 1.5rem;
+    background-image: url(../images/sliderBG_opp.png);
+    background-repeat: no-repeat;
+    padding: 0;
+    height: 8.75rem;
+    width: 7rem;
+}
+
+.sd_next-btn.sd_next-one:after {
+    transform: scaleX(-1);
+}
+
+.htp_slider .swiper-slide.swiper-slide-active .htp_card--body .match_date {
+    top: auto;
+    bottom: 0;
+    background-image: url(../images/sliderBG.png);
+    height: 7.75rem;
+    width: 6rem;
+}
+
+.htp_slider .swiper-slide .game_card_wrap--link .htp_card--body p.game_info {
+    display: none;
+}
+
+.htp_slider .swiper-slide.swiper-slide-active .game_card_wrap--link .htp_card--body p.game_info{
+    display: block;
+}
+
+html[dir=rtl] .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body {
+    background: url(../images/rtl_activeslideBG.png);
+    background-size: 100%;
+    background-repeat: no-repeat;   
+}
+
+html[dir=rtl] .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body {
+    background-image: url(../images/rtl_playgameBG.png);
+}
+
+html[dir=rtl] .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body .match_date {
+    background-image: url(../images/sliderBG.png);
+}
+/* http slider end*/
 /* --------------------------------
     
     Timeline Section CSS Start
@@ -745,6 +801,24 @@ html[dir="rtl"] .home_faq--sec {
 
     html[dir=rtl] .home_hero--sec::after {
         left: 9rem;
+    }
+
+    /* .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body, .htp_slider .swiper-slide{
+        height: 20rem;
+    } */
+
+    .htp_slider .swiper-slide.swiper-slide-active .game_card_wrap--link .htp_card--body, .htp_slider .swiper-slide.swiper-slide-active {
+        width: 31rem !important;
+        height: 20rem;
+    }
+
+    .htp_slider .swiper-slide.swiper-slide-active .htp_card--body .match_date {
+        height: 6.9rem;
+        width: 5.5rem;
+        bottom: 0.4rem;
+    }
+    .htp_slider .swiper-slide .game_card_wrap--link,.htp_slider-sec .htp_right-con .swiper {
+        min-height: 19.5rem;
     }
 }
 
