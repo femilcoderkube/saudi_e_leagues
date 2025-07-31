@@ -70,7 +70,7 @@ const VerifiyOTPModel = ({ module }) => {
 
   return (
     <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-      <div className={`verify-otp-shape bg-[#09092d] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md ${module === "queue" ? "" : "otp-verify"}`}>
+      <div className={`verify-otp-shape bg-[#151743] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md ${module === "queue" ? "" : "otp-verify"}`}>
         <h2 className="text-xl font-medium text-white mb-3 font_oswald">
           {t("form.verify_otp")}
         </h2>
@@ -78,7 +78,7 @@ const VerifiyOTPModel = ({ module }) => {
 
           <div className="px-8 pb-4 text-center">
             <h2 className="text-2xl font-bold mb-2">{t("form.verify_email_title")}</h2>
-            <p className="text-base text-gray-600">
+            <p className="text-base text-gray-300">
               {t("form.verify_email_message")}
             </p>
           </div>
