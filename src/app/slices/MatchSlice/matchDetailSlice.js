@@ -37,6 +37,7 @@ const initialState = {
   isShowChat: false,
   isEditScore: null,
   showMobileChat : false,
+  myPId: null,
   winnerScore: {
     teamOne: "-",
     teamTwo: "-",
@@ -60,6 +61,7 @@ const matchDetailSlice = createSlice({
       if (match) {
         state.winnerScore.teamOne= "-";
         state.winnerScore.teamTwo= "-";
+        state.myPId = null;
         const userId = user?._id;
         const team1 = match.team1 || [];
         const team2 = match.team2 || [];
@@ -74,11 +76,14 @@ const matchDetailSlice = createSlice({
         // Flatten userIds for quick lookup
         const team1UserIds = team1.map((p) => p?.participant?.userId?._id);
         const team2UserIds = team2.map((p) => p?.participant?.userId?._id);
+        
 
         state.matchData = match;
         state.isTeamOne = team1UserIds.includes(userId);
         state.isMyMatch = state.isTeamOne || team2UserIds.includes(userId);
-
+        state.myPId = state.isTeamOne
+          ? team1.find((p) => p.participant.userId._id  === userId)?.participant?._id
+          : team2.find((p) => p.participant.userId._id)?.participant?._id;
         // Captain is first user in either team
         state.isCaptain =
           team1[0]?.participant?.userId?._id === userId ||

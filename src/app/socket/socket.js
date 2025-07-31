@@ -25,8 +25,8 @@ import { setIsMatctCreated } from "../slices/constState/constStateSlice";
 import { setLastMatch, setNotification } from "../slices/notificationSlice/notificationSlice";
 
 // const SOCKET_URL = "/";
- const SOCKET_URL =
-   import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
+const SOCKET_URL =
+  import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
 // const SOCKET_URL =
 //   import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
 
@@ -62,9 +62,9 @@ socket.on("connect", () => {
     console.log("Last Match Update Data:", data);
     store.dispatch(setLastMatch(data));
   });
-  if(user?._id){
-    startNotificationSocket({userId: user?._id , isRead: true});
-    startNotificationSocket({userId: user?._id , isRead: false});
+  if (user?._id) {
+    startNotificationSocket({ userId: user?._id, isRead: true });
+    startNotificationSocket({ userId: user?._id, isRead: false });
     getLastMatchesSocket(user?._id);
   }
   // socket.emit(SOCKET.NOTIFICATION, { userId: user?._id , isRead: false});
@@ -89,14 +89,14 @@ socket.on("connect_error", (error) => {
 });
 export function startNotificationSocket({ userId, isRead }) {
   // console.log("startNotificationSocket", userId, isRead);
-  if(userId){
-  socket.emit(SOCKET.NOTIFICATION, { userId: userId, isRead: isRead });
+  if (userId) {
+    socket.emit(SOCKET.NOTIFICATION, { userId: userId, isRead: isRead });
   }
 }
-export function readNotificationSocket( id ) {
+export function readNotificationSocket(id) {
   socket.emit(SOCKET.READNOTIFICATION, { id: id });
 }
-export function getLastMatchesSocket(userId){
+export function getLastMatchesSocket(userId) {
   socket.emit(SOCKET.GETLASTMATCHS, { userId: userId });
 }
 export function startLeagueSocket({ lId, user, isSocketConnected }) {
@@ -113,7 +113,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
       if (window.location.pathname.includes(data?.data?._id?.toString())) {
         data.data.userId = user?._id;
-        console.log(" user?._id",  user?._id);
+        console.log(" user?._id", user?._id);
         if (data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id) {
           store.dispatch(setLeagueData(data.data));
         } else {
@@ -135,7 +135,7 @@ export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
     socket.off(SOCKET.ONWEEKOFSTARUSERS);
     socket.on(SOCKET.ONWEEKOFSTARUSERS, (data) => {
-      if(data?.status){
+      if (data?.status) {
         console.log("Week of Star Users Data:", data?.data);
         store.dispatch(setWeekOfStarUsers(data?.data));
       }
@@ -187,4 +187,7 @@ export function sendMatchMsg(body) {
 }
 export function giveReputation(body) {
   socket.emit(SOCKET.GIVEREPUTATION, body);
+}
+export function cancelMatch(data) {
+  socket.emit(SOCKET.CANCELMATCH, data)
 }

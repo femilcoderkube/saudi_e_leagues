@@ -39,6 +39,8 @@ import {
 } from "../../app/slices/constState/constStateSlice.js";
 import ViewScoreBtn from "../Matchmakingcomp/viewScoreButton.jsx";
 import { useTranslation } from "react-i18next";
+import { cancelMatch, socket } from "../../app/socket/socket"; // <-- Make sure this path is correct
+import { SOCKET } from "../../utils/constant";    // <-- Make sure this path is correct
 
 {
   /* === BreadCrumb items array ==== */
@@ -56,7 +58,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { matchData, isCaptain, IsSubmited, isEditScore } = useSelector(
+  const { matchData, isCaptain, IsSubmited, isEditScore, myPId } = useSelector(
     (state) => state.matchs
   );
 
@@ -64,11 +66,38 @@ const Header = () => {
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
-  useEffect(() => {}, [matchData, user, location]);
+  useEffect(() => { }, [matchData, user, location]);
   const userUpdate = useSelector((state) => state.auth.user);
   // console.log("user", user);
 
   const { i18n, t } = useTranslation();
+
+  const [showCancelBtn, setShowCancelBtn] = useState(false);
+
+  // Calculate if cancel button should show
+  useEffect(() => {
+    if (
+      matchData &&
+      !matchData.isCanceled &&
+      isCaptain &&
+      (!IsSubmited || isEditScore != null) &&
+      matchData.createdAt
+    ) {
+      const createdAtTime = new Date(matchData.createdAt).getTime();
+      const now = Date.now();
+      const timeout = createdAtTime + 70000 - now;
+
+      if (timeout > 0) {
+        setShowCancelBtn(true);
+        const timer = setTimeout(() => setShowCancelBtn(false), timeout);
+        return () => clearTimeout(timer);
+      } else {
+        setShowCancelBtn(false);
+      }
+    } else {
+      setShowCancelBtn(false);
+    }
+  }, [matchData, isCaptain, IsSubmited, isEditScore]);
 
   // Language toggle handler
   const handleLangToggle = () => {
@@ -132,16 +161,16 @@ const Header = () => {
       breadcrumbItems.push(item);
     }
   }
-  
-useEffect(() => {
-  if (path) {
-    dispatch(setActiveTabIndex(0));
-  } else if (profile) {
-    dispatch(setActiveTabIndex(2));
-  } else if(checkParams(params.id)) {
-    dispatch(setActiveTabIndex(1));
-  }
-}, [path, profile, checkParams(params.id)]);
+
+  useEffect(() => {
+    if (path) {
+      dispatch(setActiveTabIndex(0));
+    } else if (profile) {
+      dispatch(setActiveTabIndex(2));
+    } else if (checkParams(params.id)) {
+      dispatch(setActiveTabIndex(1));
+    }
+  }, [path, profile, checkParams(params.id)]);
 
   let mainItem = breadcrumbItems[breadcrumbItems.length - 1];
   if (checkParams("finding-match") || checkParams("match")) {
@@ -176,7 +205,7 @@ useEffect(() => {
               {i18n.language === "en"
                 ? matchData?.league?.title || t("match.finding_matchmaking")
                 : matchData?.league?.titleAr ||
-                  t("match.finding_matchmaking")}{" "}
+                t("match.finding_matchmaking")}{" "}
               -{" "}
               {t("match.match") +
                 " " +
@@ -188,25 +217,27 @@ useEffect(() => {
           <div className="flex items-center lg:gap-15 gap-3">
             {user && isCaptain && (!IsSubmited || isEditScore != null) && (
               <div className="flex items-center gap-3">
-                {/* <div
-                  className="cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"                 
-                >
-                  <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
-                    Cancel Match
-                  </Link>
-                  <svg
-                    width="0"
-                    height="0"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ position: "absolute" }}
+                {showCancelBtn && (
+                  <div
+                    className="cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
+                    onClick={() => cancelMatch({ matchId: matchData?._id, participantId: myPId })}
                   >
-                    <defs>
-                      <clipPath
-                        id="polygonClip"
-                        clipPathUnits="objectBoundingBox"
-                      >
-                        <path
-                          d="
+                    <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
+                      Cancel Match
+                    </Link>
+                    <svg
+                      width="0"
+                      height="0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ position: "absolute" }}
+                    >
+                      <defs>
+                        <clipPath
+                          id="polygonClip"
+                          clipPathUnits="objectBoundingBox"
+                        >
+                          <path
+                            d="
               M1,0.1111
               V0.8889
               L0.9219,1
@@ -226,11 +257,12 @@ useEffect(() => {
               L1,0.1111
               Z
             "
-                        />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </div> */}
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                )}
                 <div
                   className="submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
                   onClick={() => {
@@ -276,17 +308,10 @@ useEffect(() => {
                       </clipPath>
                     </defs>
                   </svg>
-                </div>                
+                </div>
               </div>
             )}
-            {/* {user && isCaptain && IsSubmited && !matchData?.winner && (
-              <ViewScoreBtn
-                onClick={(e) => {
-                  e.preventDefault();
-                  setViewModal(true);
-                }}
-              />
-            )} */}
+
             {!user && (
               <div className="sm:flex hidden sd_uaser-menu ">
                 <div className="game_status_tab--wrap">
@@ -372,9 +397,8 @@ useEffect(() => {
               : leagueData?.titleAr || t("match.finding_matchmaking")}
           </h2>
           <div
-            className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${
-              breadcrumbItems.length == 3 ? "hidden" : ""
-            }${user ? "" : "nav-condition"}`}
+            className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${breadcrumbItems.length == 3 ? "hidden" : ""
+              }${user ? "" : "nav-condition"}`}
           >
             <div className="sq__main-wrap h-full">
               <ul className="listWrap h-full flex justify-around items-center">
@@ -428,9 +452,8 @@ useEffect(() => {
                 </li>
                 {user && (
                   <li
-                    className={`list flex-1 ${
-                      isActiveTab == 2 ? "active" : ""
-                    }`}
+                    className={`list flex-1 ${isActiveTab == 2 ? "active" : ""
+                      }`}
                     onClick={() => {
                       navigator(`/${params.id}/profile`);
                       dispatch(setActiveTabIndex(2));
@@ -478,9 +501,8 @@ useEffect(() => {
                 <div className="breadcrumb-box flex items-center gap-2">
                   <Link
                     to={item.path}
-                    className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
-                      item.active ? "sky_col font-semibold" : ""
-                    }`}
+                    className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${item.active ? "sky_col font-semibold" : ""
+                      }`}
                   >
                     {item.label && (
                       <item.icon
@@ -653,9 +675,8 @@ useEffect(() => {
           </div>
         )}
         <div
-          className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${
-            user ? "" : "nav-condition"
-          }`}
+          className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${user ? "" : "nav-condition"
+            }`}
         >
           <div className="sq__main-wrap h-full">
             <ul className="listWrap h-full flex justify-around items-center">
