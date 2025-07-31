@@ -20,6 +20,7 @@ const VerifiyOTPModel = ({ module }) => {
 
   useEffect(() => {
     if (module === "queue") {
+      localStorage.setItem("OTPCreated", new Date().toISOString());
       dispatch(sendOtp(user?.email)).then((action) => {
         if (action.meta.requestStatus === "fulfilled") {
           toast.success(t("form.otp_sent"));

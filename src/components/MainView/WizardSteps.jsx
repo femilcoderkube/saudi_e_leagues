@@ -41,6 +41,7 @@ const WizardSteps = ({
   const { games } = useSelector((state) => state.games);
   const { verificationModal, verificationModule } = useSelector((state) => state.leagues);
   const [showPassword, setShowPassword] = useState(false);
+  const createdAt = localStorage.getItem("OTPCreated");
   // const [showOtpPopup, setShowOtpPopup] = useState(false);
   // const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   // const [otpError, setOtpError] = useState("");
@@ -602,7 +603,7 @@ const WizardSteps = ({
     }
   };
 
- const renderContent = (values, setFieldValue) => {
+  const renderContent = (values, setFieldValue) => {
     return (
       <>
         <div className="space-y-4 mt-7">
@@ -697,16 +698,20 @@ const WizardSteps = ({
                     <button
                       type="button"
                       onClick={() => {
-                        dispatch(setVerificationModal({ open: true, module: "profile" }));
-                        dispatch(sendOtp(values.email)).then((action) => {
-                          if (action.meta.requestStatus === "fulfilled") {
-                            toast.success(t("form.otp_sent"));
-                          } else {
-                            toast.error(
-                              action.payload || t("validation_messages.email_invalid")
-                            );
-                          }
-                        });
+                        if (new Date(createdAt).getTime() + 5 * 60 * 1000 < new Date().getTime()) {
+                          localStorage.removeItem("OTPCreated");
+                          dispatch(setVerificationModal({ open: true, module: "profile" }));
+                          localStorage.setItem("OTPCreated", new Date().toISOString());
+                          dispatch(sendOtp(values.email)).then((action) => {
+                            if (action.meta.requestStatus === "fulfilled") {
+                              toast.success(t("form.otp_sent"));
+                            } else {
+                              toast.error(
+                                action.payload || t("validation_messages.email_invalid")
+                              );
+                            }
+                          });
+                        }
                       }}
                       data-tooltip-id="otp-tooltip"
                       data-tooltip-content="Verify"

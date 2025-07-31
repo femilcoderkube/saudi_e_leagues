@@ -23,6 +23,7 @@ const GetQueueButton = () => {
   const end = new Date(leagueData?.endDate);
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const createdAt = localStorage.getItem("OTPCreated");
 
   if (user?._id == null || user?._id == undefined) {
     return (
@@ -160,7 +161,10 @@ const GetQueueButton = () => {
               navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
             } else {
               console.log("User is not verified");
-              dispatch(setVerificationModal({ open: true, module: "queue" }));
+              if (new Date(createdAt).getTime() + 1 * 60 * 1000 < new Date().getTime()) {
+                localStorage.removeItem("OTPCreated");
+                dispatch(setVerificationModal({ open: true, module: "queue" }));
+              }
             }
           }}
         >
