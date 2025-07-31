@@ -532,7 +532,7 @@ html[dir="rtl"] .view-all::after {
 }
 
 .Toastify__close-button {
-  top: 49% !important;
+  top: 50% !important;
   transform: translate(0, -50%) !important;
 }
 

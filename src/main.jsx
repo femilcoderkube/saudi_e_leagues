@@ -32,7 +32,7 @@ createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <ToastContainer
       position="top-right" // Common position
-      autoClose={false} // Set toast duration to 2000 milliseconds (2 seconds)
+      autoClose={2000} // Set toast duration to 2000 milliseconds (2 seconds)
       hideProgressBar={false} // Show a progress bar
       newestOnTop={false} // Newer toasts appear at the bottom
       closeOnClick // Close toast on click
