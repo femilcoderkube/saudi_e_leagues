@@ -150,7 +150,7 @@ const Sidebar = ({ onItemClick }) => {
         {/* === Social Links Block Start === */}
         <div className="sd_social--block flex flex-col w-full pb-6">
           {/* call of duty sec start*/}
-         {/* <LastMatchCardList/> */}
+         <LastMatchCardList/>
           {/* <span className="view-all w-[4.5rem] cursor-pointer relative mx-7.5 mb-5 text-[#BCC6E0] font-semibold">View All</span> */}
         <div className="mt-auto">
           <img

@@ -72,7 +72,7 @@ function SubmitPopUp({ handleClose }) {
             : Promise.resolve({ data: file })
         );
         const uploadResults = await Promise.all(uploadPromises);
-        const uploadedFiles = uploadResults.map((result) => result.data);
+        const uploadedFiles = uploadResults.map((result) => result?.data);
 
         let data = {
           team: team,

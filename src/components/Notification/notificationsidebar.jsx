@@ -62,7 +62,10 @@ const Notification_Sidebar = () => {
               case notificationType.SCORESUBMITTED:
               case notificationType.MATCH_IN_DISPUTE:
               case notificationType.CONFLICT_RESOLVED:
+              case notificationType.FIRST_MATCH_WIN:
+              case notificationType.FIRST_MATCH_LOSS:
                 return <MatchFindNotification key={index} data={item} />;
+              
               default:
                 return null;
             }

@@ -537,7 +537,9 @@ export const notificationType = {
   LEAGUE_ENDED: 6,
   MATCH_IN_DISPUTE: 7,
   CONFLICT_RESOLVED: 8,
-  QUEUE_OPENED: 9
+  QUEUE_OPENED: 9,
+  FIRST_MATCH_WIN: 10,
+  FIRST_MATCH_LOSS: 11,
 };
 export const buttonType = {
   NONE: 0,

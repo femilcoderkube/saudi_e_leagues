@@ -55,7 +55,7 @@ socket.on("connect", () => {
     }
   });
   socket.on(SOCKET.ONNOTIFICATION, (data) => {
-    // console.log("Notification Data:", data);
+     console.log("Notification Data:", data);
     store.dispatch(setNotification(data));
   });
   socket.on(SOCKET.LASTMATCHUPDATE, (data) => {
