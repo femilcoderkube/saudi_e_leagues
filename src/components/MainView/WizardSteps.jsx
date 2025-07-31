@@ -602,70 +602,7 @@ const WizardSteps = ({
     }
   };
 
-  // const renderOtpPopup = () => (
-  //   <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-  //     <div className="bg-[#09092d] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md">
-  //       <h2 className="text-xl font-medium text-white mb-4 font_oswald">
-  //         {t("form.verify_otp")}
-  //       </h2>
-  //       <div className="flex justify-between mb-4 gap-1">
-  //         {otp.map((digit, index) => (
-  //           <>
-  //             <input
-  //               key={index}
-  //               id={`otp-${index}`}
-  //               type="text"
-  //               maxLength="1"
-  //               value={digit}
-  //               onChange={(e) => handleOtpChange(index, e.target.value)}
-  //               className="sd_custom-input otp-input w-12 h-12 text-center text-lg text-[#7B7ED0] bg-[#1a1a3d] border-none focus:outline-0 focus:shadow-none"
-  //             />
-  //             <svg
-  //               width="0"
-  //               height="0"
-  //               viewBox="0 0 400 72"
-  //               xmlns="http://www.w3.org/2000/svg"
-  //               style={{ position: "absolute" }}
-  //             >
-  //               <defs>
-  //                 <clipPath id="inputclip1" clipPathUnits="objectBoundingBox">
-  //                   <path
-  //                     transform="scale(0.0025, 0.0138889)"
-  //                     d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
-  //                   />
-  //                 </clipPath>
-  //               </defs>
-  //             </svg>
-  //           </>
-  //         ))}
-  //       </div>
-  //       {otpError && (
-  //         <div className="text-red-500 text-sm mb-4">{otpError}</div>
-  //       )}
-  //       <div className="flex justify-end gap-4 game_status--tab otp-input">
-  //         <button
-  //           type="button"
-  //           onClick={() => {
-  //             setShowOtpPopup(false);
-  //             setOtp(["", "", "", "", "", ""]);
-  //             setOtpError("");
-  //           }}
-  //           className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-  //         >
-  //           {t("auth.cancel")}
-  //         </button>
-  //         <button
-  //           type="button"
-  //           onClick={handleOtpSubmit}
-  //           className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-  //         >
-  //           {t("auth.verify")}
-  //         </button>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-  const renderContent = (values, setFieldValue) => {
+ const renderContent = (values, setFieldValue) => {
     return (
       <>
         <div className="space-y-4 mt-7">

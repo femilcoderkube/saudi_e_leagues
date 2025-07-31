@@ -32,7 +32,7 @@ createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <ToastContainer
       position="top-right" // Common position
-      autoClose={2000} // Set toast duration to 2000 milliseconds (2 seconds)
+      autoClose={false} // Set toast duration to 2000 milliseconds (2 seconds)
       hideProgressBar={false} // Show a progress bar
       newestOnTop={false} // Newer toasts appear at the bottom
       closeOnClick // Close toast on click
@@ -41,7 +41,24 @@ createRoot(document.getElementById("root")).render(
       draggable // Allow dragging to dismiss
       pauseOnHover // Pause autoClose on hover
       theme="light" // Light theme for toasts
+  
     />
+        <svg
+      width="0"
+      height="0"
+      viewBox="0 0 400 72"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ position: "absolute" }}
+    >
+      <defs>
+        <clipPath id="inputclip" clipPathUnits="objectBoundingBox">
+          <path
+            transform="scale(0.0025, 0.0138889)"
+            d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
+          />
+        </clipPath>
+      </defs>
+    </svg>
     <App />
   </Provider>
   // </StrictMode>

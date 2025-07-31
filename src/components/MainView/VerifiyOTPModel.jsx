@@ -70,14 +70,14 @@ const VerifiyOTPModel = ({ module }) => {
 
   return (
     <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-[#09092d] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-xl font-medium text-white mb-4 font_oswald">
+      <div className={`verify-otp-shape bg-[#09092d] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md ${module === "queue" ? "" : "otp-verify"}`}>
+        <h2 className="text-xl font-medium text-white mb-3 font_oswald">
           {t("form.verify_otp")}
         </h2>
         {module === "queue" ? (
 
-          <div className="px-8 pb-6 text-center">
-            <h2 className="text-2xl font-bold mb-3">{t("form.verify_email_title")}</h2>
+          <div className="px-8 pb-4 text-center">
+            <h2 className="text-2xl font-bold mb-2">{t("form.verify_email_title")}</h2>
             <p className="text-base text-gray-600">
               {t("form.verify_email_message")}
             </p>
@@ -85,7 +85,7 @@ const VerifiyOTPModel = ({ module }) => {
 
         ) : null}
 
-        <div className="flex justify-between mb-4 gap-1">
+        <div className="flex justify-between mb-6 gap-1">
           {otp.map((digit, index) => (
             <React.Fragment key={index}>
               <input
@@ -130,7 +130,7 @@ const VerifiyOTPModel = ({ module }) => {
               setOtp(["", "", "", "", "", ""]);
               setOtpError("");
             }}
-            className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+            className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 cancel-btn duration-300 polygon_border"
           >
             {t("auth.cancel")}
           </button>
@@ -142,6 +142,23 @@ const VerifiyOTPModel = ({ module }) => {
             {t("auth.verify")}
           </button>
         </div>
+          {/* === SVG Clip Path === */}
+          <svg
+              width="0"
+              height="0"
+              viewBox="0 0 480 416"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ position: "absolute" }}
+            >
+              <defs>
+                <clipPath id="myClipPath" clipPathUnits="objectBoundingBox">
+                  <path
+                    transform="scale(0.00208333, 0.00240385)"
+                    d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L24 0H480V100Z"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
       </div>
     </div>
   );

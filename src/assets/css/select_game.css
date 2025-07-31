@@ -48,6 +48,14 @@
   width: 7rem;
 }
 
+.otp-input.game_status--tab button.cancel-btn{
+background: unset;
+}
+
+.otp-input.game_status--tab button.cancel-btn::before,.otp-input.game_status--tab button.cancel-btn::after{
+  content: none;
+}
+
 .otp-input .active-tab.polygon_border:before,
 .otp-input .active-tab.polygon_border:after {
   width: 3rem;

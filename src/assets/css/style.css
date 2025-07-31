@@ -512,6 +512,80 @@ html[dir="rtl"] .view-all::after {
   width: 100% !important;
 }
 
+.Toastify__toast-theme--light {
+  clip-path: url(#inputclip);
+  height: 3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 1rem 1.5rem 1rem 1rem !important;
+  border-radius: 0.5rem !important;
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  box-shadow: 0 4px 15px -3px rgba(255, 255, 255, 0.1), 0 -2px 6px -2px rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(0.4rem);
+  overflow: hidden;
+  border-left-width: 0.4rem;
+  border-left-color: #d7d8ff;
+  background: linear-gradient(90deg, rgba(121, 69, 243) 0%, rgba(121, 69, 243) 20%, rgba(94, 95, 184) 72%, rgb(105, 107, 255) 100%)!important;
+  color: #d7d8ff !important;
+}
+
+.Toastify__close-button {
+  top: 49% !important;
+  transform: translate(0, -50%) !important;
+}
+
+.Toastify__close-button--light {
+  opacity: 1 !important;
+}
+
+.Toastify__toast-icon {
+  width: 1.18rem !important;
+}
+
+.Toastify__toast-theme--light svg path {
+  fill: #d7d8ff;
+}
+
+.Toastify__progress-bar--bg {
+  background: #d7d8ff !important;
+  opacity: 0.3 !important;
+  border-radius: 0 !important;
+}
+
+.Toastify__progress-bar--wrp[data-hidden=true] {
+  border-radius: 0 !important;
+  height: 0.4rem !important;
+}
+
+.Toastify__progress-bar {
+  background: #d7d8ff !important;
+  border-radius: 0 !important;
+}
+
+.verify-otp-shape {
+  clip-path: url(#myClipPath);
+  width: auto;
+  height: 21rem;
+}
+
+.verify-otp-shape.otp-verify {
+  height: auto;
+}
+
+.verify-otp-shape .sd_custom-input.otp-input {
+  height: 2.9rem;
+}
+
+.verify-otp-shape.otp-verify h2 {
+  margin-bottom: 1.25rem;
+}
+
+.verify-otp-shape.otp-verify .game_status--tab.otp-input {
+  margin-top: 1.5rem;
+}
+
 /* call-duty-card End*/
 @media (max-width: 1279px) {
   .game_polygon-link {
@@ -542,10 +616,12 @@ html[dir="rtl"] .view-all::after {
 @media (max-width: 767px) {
   .submit_score-btn .btn_polygon-link {
     width: 8rem;
-}
-.submit_score-btn.polygon_border:before, .submit_score-btn.polygon_border:after {
-  width: 3.25rem;
-}
+  }
+
+  .submit_score-btn.polygon_border:before,
+  .submit_score-btn.polygon_border:after {
+    width: 3.25rem;
+  }
 }
 
 @media (max-width: 639px) {
@@ -623,10 +699,11 @@ html[dir="rtl"] .view-all::after {
     bottom: 0;
     right: 0;
   }
+
   .submit_score-btn .btn_polygon-link {
     width: 12.5rem;
     height: 3.5rem;
-}
+  }
 }
 
 @media (max-width: 475px) {
