@@ -184,7 +184,8 @@
     "dislike": "عدم إعجاب",
     "chat": "الدردشة",
     "match_chat": "دردشة المباراة",
-    "match": "مباراة"
+    "match": "مباراة",
+    "cancel_match": "إلغاء المباراة"
   },
   "rules": {
     "rules_and_regulations": "القوانين والأنظمة",

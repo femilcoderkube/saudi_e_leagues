@@ -58,7 +58,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { matchData, isCaptain, IsSubmited, isEditScore, myPId } = useSelector(
+  const { matchData, isCaptain, IsSubmited, isEditScore, myPId ,showCancelBtn} = useSelector(
     (state) => state.matchs
   );
 
@@ -72,32 +72,6 @@ const Header = () => {
 
   const { i18n, t } = useTranslation();
 
-  const [showCancelBtn, setShowCancelBtn] = useState(false);
-
-  // Calculate if cancel button should show
-  useEffect(() => {
-    if (
-      matchData &&
-      !matchData.isCanceled &&
-      isCaptain &&
-      (!IsSubmited || isEditScore != null) &&
-      matchData.createdAt
-    ) {
-      const createdAtTime = new Date(matchData.createdAt).getTime();
-      const now = Date.now();
-      const timeout = createdAtTime + 70000 - now;
-
-      if (timeout > 0) {
-        setShowCancelBtn(true);
-        const timer = setTimeout(() => setShowCancelBtn(false), timeout);
-        return () => clearTimeout(timer);
-      } else {
-        setShowCancelBtn(false);
-      }
-    } else {
-      setShowCancelBtn(false);
-    }
-  }, [matchData, isCaptain, IsSubmited, isEditScore]);
 
   // Language toggle handler
   const handleLangToggle = () => {
@@ -223,7 +197,7 @@ const Header = () => {
                       onClick={() => cancelMatch({ matchId: matchData?._id, participantId: myPId })}
                     >
                       <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
-                        Cancel Match
+                        {t("match.cancel_match")}
                       </Link>
                       <svg
                         width="0"

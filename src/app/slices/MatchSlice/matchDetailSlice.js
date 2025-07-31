@@ -37,6 +37,8 @@ const initialState = {
   isShowChat: false,
   isEditScore: null,
   showMobileChat : false,
+  showCancelBtn : false,
+  timeout : null,
   myPId: null,
   winnerScore: {
     teamOne: "-",
@@ -49,6 +51,9 @@ const matchDetailSlice = createSlice({
   name: "matchDetail",
   initialState,
   reducers: {
+    setShowCancelBtn :(state,action)=>{
+      state.showCancelBtn = action.payload;
+    },
     setSubmitScoreLoading :(state,action)=>{
       state.submitScoreLoading = action.payload;
     },
@@ -62,6 +67,8 @@ const matchDetailSlice = createSlice({
         state.winnerScore.teamOne= "-";
         state.winnerScore.teamTwo= "-";
         state.myPId = null;
+        state.showCancelBtn = false;
+        state.timeout = null;
         const userId = user?._id;
         const team1 = match.team1 || [];
         const team2 = match.team2 || [];
@@ -76,8 +83,6 @@ const matchDetailSlice = createSlice({
         // Flatten userIds for quick lookup
         const team1UserIds = team1.map((p) => p?.participant?.userId?._id);
         const team2UserIds = team2.map((p) => p?.participant?.userId?._id);
-        
-
         state.matchData = match;
         state.isTeamOne = team1UserIds.includes(userId);
         state.isMyMatch = state.isTeamOne || team2UserIds.includes(userId);
@@ -128,6 +133,19 @@ const matchDetailSlice = createSlice({
           state.winnerScore.teamOne = winnerScore.opponentScore;
           state.winnerScore.teamTwo = winnerScore.yourScore;
           state.IsSubmited = true;
+        }
+        if(match.isCanceled){
+          state.showCancelBtn = true;
+        }else{
+          const createdAtTime = new Date(match.createdAt).getTime();
+          const now = Date.now();
+          const timeout = createdAtTime + 70000 - now;
+          if(timeout > 0 && (!match.IsSubmited || match.isEditScore != null)){
+            state.showCancelBtn = true;
+          state.timeout = timeout;
+          }else{
+            state.showCancelBtn = false;
+          }
         }
       }
       state.error = null;
@@ -181,7 +199,8 @@ export const {
   setIsTeamOne,
   clearFileUploadState,
   setshowMobileChat,
-  setSubmitScoreLoading
+  setSubmitScoreLoading,
+  setShowCancelBtn
 } = matchDetailSlice.actions;
 
 export default matchDetailSlice.reducer;

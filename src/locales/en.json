@@ -183,7 +183,8 @@
     "dislike": "Dislike",
     "chat": "Chat",
     "match_chat": "MATCH CHAT",
-    "match": "Match"
+    "match": "Match",
+    "cancel_match": "Cancel Match"
   },
   "rules": {
     "rules_and_regulations": "Rules and Regulations",

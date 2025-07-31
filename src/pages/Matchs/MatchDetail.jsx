@@ -24,7 +24,7 @@ import MatchLoader from "../../components/Loader/MatchLoader";
 import { TeamOneScoreList } from "./teamOneSection";
 import { TeamTwoScoreList } from "./teamTwoSection";
 import { useTranslation } from "react-i18next";
-import { setshowMobileChat } from "../../app/slices/MatchSlice/matchDetailSlice";
+import { setShowCancelBtn, setshowMobileChat } from "../../app/slices/MatchSlice/matchDetailSlice";
 import { setSubmitModal } from "../../app/slices/constState/constStateSlice";
 const MatchDetail = () => {
   const { id, mId } = useParams();
@@ -39,12 +39,22 @@ const MatchDetail = () => {
     isCaptain,
     IsSubmited,
     isEditScore,
+    showCancelBtn,
+    timeout,
   } = useSelector((state) => state.matchs);
   const user = useSelector((state) => state.auth.user);
   const [messageInput, setMessageInput] = useState("");
   const [showLoader, setShowLoader] = useState(true);
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
+useEffect(()=>{
+  if(timeout){
+    const timer = setTimeout(() => {
+      dispatch(setShowCancelBtn(false));
+    }, timeout);
+  }
+},[timeout])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -135,7 +145,7 @@ const MatchDetail = () => {
               />
             </div>
             <div className="mob-sub-btn flex items-center justify-center flex-wrap gap-6 mb-[1rem]">
-            <div className="cancel-score-btn mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
+            {showCancelBtn && <div className="cancel-score-btn mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                   <div                    
                     className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center cursor-pointer"
                   >
@@ -177,7 +187,7 @@ const MatchDetail = () => {
                       </clipPath>
                     </defs>
                   </svg>
-                </div>
+                </div>}
               {user && isCaptain && (!IsSubmited || isEditScore != null) && (                
                 <div className="mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                   <div
