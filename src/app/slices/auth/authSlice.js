@@ -379,7 +379,7 @@ const authSlice = createSlice({
       .addCase(sendOtp.fulfilled, (state, action) => {
         state.loading = false;
         state.sendOtpSuccess = true;
-        toast.success("OTP sent successfully!");
+        // toast.success(t("form.otp_sent"));
       })
       .addCase(sendOtp.rejected, (state, action) => {
         state.loading = false;
@@ -395,7 +395,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.verifyOtpSuccess = true;
         state.isVerified = true;
-        toast.success("OTP verified successfully!");
+        // toast.success(t("form.otp_verified"));
       })
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading = false;

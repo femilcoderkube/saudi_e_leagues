@@ -23,17 +23,15 @@ import GamingLoader from "../../components/Loader/loader.jsx";
 import RegistrationModel from "./RegustrationModel.jsx";
 import GetQueueButton from "./queueButton.jsx";
 import StarOfTheWeek from "./starOfTheWeek.jsx";
-import VerificationModel from "./VerificationModal.jsx";
+import VerifiyOTPModel from "../../components/MainView/VerifiyOTPModel.jsx";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
   const { user, userDetail } = useSelector((state) => state.auth);
-
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { leagueData, registrationModal, verificationModal } = useSelector(
+  const { leagueData, registrationModal, verificationModal, verificationModule } = useSelector(
     (state) => state.leagues
   );
-  console.log("verificationModal",verificationModal)
   const { t, i18n } = useTranslation();
   const isMatctCreated = useSelector(
     (state) => state.constState.isMatctCreated
@@ -61,7 +59,8 @@ const LeagueDetail = () => {
       ></div>
       {/* <Outlet /> */}
       {registrationModal && <RegistrationModel />}
-      {verificationModal && <VerificationModel />}
+      {verificationModal && <VerifiyOTPModel module={verificationModule}
+      />}
       {!leagueData ? (
         <GamingLoader />
       ) : isMatctCreated ? (

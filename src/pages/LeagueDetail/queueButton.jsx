@@ -160,7 +160,7 @@ const GetQueueButton = ({ isVerified }) => {
               navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
             } else {
               console.log("User is not verified");
-              dispatch(setVerificationModal(true));
+              dispatch(setVerificationModal({ open: true, module: "queue" }));
             }
           }}
         >

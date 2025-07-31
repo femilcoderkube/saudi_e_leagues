@@ -2,18 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 import { socket } from "../../socket/socket";
 import { SOCKET } from "../../../utils/constant";
 import { act } from "react";
- 
+
 const initialState = {
   leagueData: null,
   registrationModal: false,
   verificationModal: false,
+  verificationModule: null, // <-- Add this line
   isAgreedToJoin: {},
   isJoinedUser: null,
   isQueueUser: null,
-  isMatchJoind : null,
-  starOfTheWeek : []
+  isMatchJoind: null,
+  starOfTheWeek: [],
 };
- 
+
 const leagueDetailSlice = createSlice({
   name: "leagueDetail",
   initialState,
@@ -29,7 +30,14 @@ const leagueDetailSlice = createSlice({
       state.registrationModal = action.payload;
     },
     setVerificationModal: (state, action) => {
-      state.verificationModal = action.payload;
+      // Accepts { open: boolean, module: string }
+      if (typeof action.payload === "object" && action.payload !== null) {
+        state.verificationModal = action.payload.open;
+        state.verificationModule = action.payload.module;
+      } else {
+        state.verificationModal = action.payload;
+        if (!action.payload) state.verificationModule = null;
+      }
     },
     removeFromQueue: (state, action) => {
       if (state.leagueData && state.leagueData.inQueue) {
@@ -63,31 +71,29 @@ const leagueDetailSlice = createSlice({
           (participant) => participant == action.payload.userId
         );
       }
- 
-      if (action.payload && action.payload.inQueue && action.payload?.userId) {
 
+      if (action.payload && action.payload.inQueue && action.payload?.userId) {
         state.isQueueUser = action.payload.inQueue.some(
           (participant) => participant == action.payload.userId
         );
       }
-   
+
       if (action.payload && action.payload.isMatchJoind && action.payload?.userId) {
         state.isMatchJoind = action.payload.isMatchJoind.find(
           (participant) => participant.userId?.toString() == action.payload.userId?.toString()
         );
       }
-
     },
   },
 });
- 
+
 export const {
   setLeagueData,
   setRegistrationModal,
   setVerificationModal,
   setIsAgreedToJoin,
   removeFromQueue,
-  setWeekOfStarUsers
+  setWeekOfStarUsers,
 } = leagueDetailSlice.actions;
- 
+
 export default leagueDetailSlice.reducer;

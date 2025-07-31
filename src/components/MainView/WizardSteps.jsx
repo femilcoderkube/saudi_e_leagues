@@ -11,9 +11,9 @@ import {
 } from "../../app/slices/game/gamesSlice.js";
 import {
   checkUsersExists,
-  fetchUserById,
+  // fetchUserById,
   sendOtp,
-  verifyOtp,
+  // verifyOtp,
 } from "../../app/slices/auth/authSlice.js";
 import { debounce } from "lodash";
 import { countryData } from "../../utils/CountryCodes.js";
@@ -22,6 +22,9 @@ import { getServerURL } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "react-tooltip";
 import { setProfileVisible, setRegisteration } from "../../app/slices/constState/constStateSlice.js";
+import VerifiyOTPModel from "./VerifiyOTPModel.jsx";
+import { setVerificationModal } from "../../app/slices/leagueDetail/leagueDetailSlice.js";
+import { toast } from "react-toastify";
 
 const WizardSteps = ({
   step,
@@ -36,12 +39,13 @@ const WizardSteps = ({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
+  const { verificationModal, verificationModule } = useSelector((state) => state.leagues);
   const [showPassword, setShowPassword] = useState(false);
-  const [showOtpPopup, setShowOtpPopup] = useState(false);
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [otpError, setOtpError] = useState("");
-  const { isRegisteration } = useSelector((state) => state.constState);
-  const { user } = useSelector((state) => state.auth);
+  // const [showOtpPopup, setShowOtpPopup] = useState(false);
+  // const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  // const [otpError, setOtpError] = useState("");
+  // const { isRegisteration } = useSelector((state) => state.constState);
+  // const { user } = useSelector((state) => state.auth);
 
 
   const [previewImage, setPreviewImage] = useState(() => {
@@ -105,40 +109,40 @@ const WizardSteps = ({
     };
   }, [dispatch, debouncedCheckUsername, debouncedCheckEmail]);
 
-  const handleOtpChange = (index, value) => {
-    if (/^[0-9]?$/.test(value)) {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
-      setOtpError("");
-      if (value && index < 5) {
-        document.getElementById(`otp-${index + 1}`).focus();
-      }
-    }
-  };
+  // const handleOtpChange = (index, value) => {
+  //   if (/^[0-9]?$/.test(value)) {
+  //     const newOtp = [...otp];
+  //     newOtp[index] = value;
+  //     setOtp(newOtp);
+  //     setOtpError("");
+  //     if (value && index < 5) {
+  //       document.getElementById(`otp-${index + 1}`).focus();
+  //     }
+  //   }
+  // };
 
-  const handleOtpSubmit = () => {
-    const otpValue = otp.join("");
-    if (otpValue.length === 6 && /^[0-9]{6}$/.test(otpValue)) {
-      dispatch(verifyOtp({ otp: otpValue })).then((action) => {
-        if (action.meta.requestStatus === "fulfilled") {
-          setShowOtpPopup(false);
-          setOtp(["", "", "", "", "", ""]);
-          setOtpError("");
-          dispatch(fetchUserById(user?._id));
-          if (isRegisteration) {
-            dispatch(setRegisteration(false));
-          } else {
-            dispatch(setProfileVisible(false));
-          }
-        } else {
-          setOtpError(action.payload || t("validation_messages.otp_invalid"));
-        }
-      });
-    } else {
-      setOtpError(t("validation_messages.otp_invalid"));
-    }
-  };
+  // const handleOtpSubmit = () => {
+  //   const otpValue = otp.join("");
+  //   if (otpValue.length === 6 && /^[0-9]{6}$/.test(otpValue)) {
+  //     dispatch(verifyOtp({ otp: otpValue })).then((action) => {
+  //       if (action.meta.requestStatus === "fulfilled") {
+  //         setShowOtpPopup(false);
+  //         setOtp(["", "", "", "", "", ""]);
+  //         setOtpError("");
+  //         dispatch(fetchUserById(user?._id));
+  //         if (isRegisteration) {
+  //           dispatch(setRegisteration(false));
+  //         } else {
+  //           dispatch(setProfileVisible(false));
+  //         }
+  //       } else {
+  //         setOtpError(action.payload || t("validation_messages.otp_invalid"));
+  //       }
+  //     });
+  //   } else {
+  //     setOtpError(t("validation_messages.otp_invalid"));
+  //   }
+  // };
 
   const countryOptions = countryData.map((country) => ({
     value: country.name,
@@ -598,69 +602,69 @@ const WizardSteps = ({
     }
   };
 
-  const renderOtpPopup = () => (
-    <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-[#09092d] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-xl font-medium text-white mb-4 font_oswald">
-          {t("form.verify_otp")}
-        </h2>
-        <div className="flex justify-between mb-4 gap-1">
-          {otp.map((digit, index) => (
-            <>
-              <input
-                key={index}
-                id={`otp-${index}`}
-                type="text"
-                maxLength="1"
-                value={digit}
-                onChange={(e) => handleOtpChange(index, e.target.value)}
-                className="sd_custom-input otp-input w-12 h-12 text-center text-lg text-[#7B7ED0] bg-[#1a1a3d] border-none focus:outline-0 focus:shadow-none"
-              />
-              <svg
-                width="0"
-                height="0"
-                viewBox="0 0 400 72"
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ position: "absolute" }}
-              >
-                <defs>
-                  <clipPath id="inputclip1" clipPathUnits="objectBoundingBox">
-                    <path
-                      transform="scale(0.0025, 0.0138889)"
-                      d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
-                    />
-                  </clipPath>
-                </defs>
-              </svg>
-            </>
-          ))}
-        </div>
-        {otpError && (
-          <div className="text-red-500 text-sm mb-4">{otpError}</div>
-        )}
-        <div className="flex justify-end gap-4 game_status--tab otp-input">
-          <button
-            type="button"
-            onClick={() => {
-              setShowOtpPopup(false);
-              setOtp(["", "", "", "", "", ""]);
-              setOtpError("");
-            }}
-            className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-          >
-            {t("auth.cancel")}
-          </button>
-          <button
-            type="button"
-            onClick={handleOtpSubmit}
-            className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-          >
-            {t("auth.verify")}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+  // const renderOtpPopup = () => (
+  //   <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
+  //     <div className="bg-[#09092d] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md">
+  //       <h2 className="text-xl font-medium text-white mb-4 font_oswald">
+  //         {t("form.verify_otp")}
+  //       </h2>
+  //       <div className="flex justify-between mb-4 gap-1">
+  //         {otp.map((digit, index) => (
+  //           <>
+  //             <input
+  //               key={index}
+  //               id={`otp-${index}`}
+  //               type="text"
+  //               maxLength="1"
+  //               value={digit}
+  //               onChange={(e) => handleOtpChange(index, e.target.value)}
+  //               className="sd_custom-input otp-input w-12 h-12 text-center text-lg text-[#7B7ED0] bg-[#1a1a3d] border-none focus:outline-0 focus:shadow-none"
+  //             />
+  //             <svg
+  //               width="0"
+  //               height="0"
+  //               viewBox="0 0 400 72"
+  //               xmlns="http://www.w3.org/2000/svg"
+  //               style={{ position: "absolute" }}
+  //             >
+  //               <defs>
+  //                 <clipPath id="inputclip1" clipPathUnits="objectBoundingBox">
+  //                   <path
+  //                     transform="scale(0.0025, 0.0138889)"
+  //                     d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
+  //                   />
+  //                 </clipPath>
+  //               </defs>
+  //             </svg>
+  //           </>
+  //         ))}
+  //       </div>
+  //       {otpError && (
+  //         <div className="text-red-500 text-sm mb-4">{otpError}</div>
+  //       )}
+  //       <div className="flex justify-end gap-4 game_status--tab otp-input">
+  //         <button
+  //           type="button"
+  //           onClick={() => {
+  //             setShowOtpPopup(false);
+  //             setOtp(["", "", "", "", "", ""]);
+  //             setOtpError("");
+  //           }}
+  //           className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+  //         >
+  //           {t("auth.cancel")}
+  //         </button>
+  //         <button
+  //           type="button"
+  //           onClick={handleOtpSubmit}
+  //           className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+  //         >
+  //           {t("auth.verify")}
+  //         </button>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
   const renderContent = (values, setFieldValue) => {
     return (
       <>
@@ -756,8 +760,16 @@ const WizardSteps = ({
                     <button
                       type="button"
                       onClick={() => {
-                        dispatch(sendOtp(values.email));
-                        setShowOtpPopup(true);
+                        dispatch(setVerificationModal({ open: true, module: "profile" }));
+                        dispatch(sendOtp(values.email)).then((action) => {
+                          if (action.meta.requestStatus === "fulfilled") {
+                            toast.success(t("form.otp_sent"));
+                          } else {
+                            toast.error(
+                              action.payload || t("validation_messages.email_invalid")
+                            );
+                          }
+                        });
                       }}
                       data-tooltip-id="otp-tooltip"
                       data-tooltip-content="Verify"
@@ -939,7 +951,8 @@ const WizardSteps = ({
     >
       {({ values, setFieldValue, errors, touched }) => (
         <Form>
-          {showOtpPopup && renderOtpPopup()}
+          {/* {showOtpPopup && renderOtpPopup()} */}
+          {verificationModal && <VerifiyOTPModel module={verificationModule} />}
           {isEdit
             ? renderContent(values, setFieldValue)
             : renderStepContent(values, setFieldValue)}

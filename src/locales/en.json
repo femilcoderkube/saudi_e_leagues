@@ -58,7 +58,11 @@
     "select_nationality": "Select Nationality",
     "select_favorite_game": "Select your Favorite Game",
     "verify_otp": "Verify OTP",
-    "otp_invalid": "Please enter a valid 6-digit OTP"
+    "otp_invalid": "Please enter a valid 6-digit OTP",
+    "verify_email_title": "Verify Your Email",
+    "verify_email_message": "Please verify your email address to continue.Verification OTP has been sent to your email.",
+    "otp_sent": "OTP sent successfully!",
+    "otp_verified": "OTP verified successfully!"
   },
   "countries": {
     "saudi_arabia": "Saudi Arabia"
