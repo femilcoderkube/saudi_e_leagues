@@ -11,7 +11,7 @@ import { stopReadyToPlaySocket } from "../../app/socket/socket";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const GetQueueButton = ({ isVerified }) => {
+const GetQueueButton = () => {
   const { id } = useParams();
   const { leagueData, isJoinedUser, isQueueUser, isMatchJoind } = useSelector(
     (state) => state.leagues
@@ -155,7 +155,7 @@ const GetQueueButton = ({ isVerified }) => {
         <div
           className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
-            if (isVerified) {
+            if (user?.isVerified) {
               sessionStorage.setItem("canAccessFindingMatch", "true");
               navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
             } else {

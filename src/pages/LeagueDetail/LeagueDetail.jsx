@@ -228,7 +228,7 @@ const LeagueDetail = () => {
               <LeaderBoard />
             </div>
             <div className="sd_content-right w-full order-0 xl:order-1">
-              <GetQueueButton isVerified={user?.isVerified} />
+              <GetQueueButton />
               <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 w-full md:pb-0 pb-6 items-center justify-center md:justify-baseline">
                 <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
                   <Link
