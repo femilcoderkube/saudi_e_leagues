@@ -152,7 +152,7 @@ const matchDetailSlice = createSlice({
         }else{
           const createdAtTime = new Date(match.createdAt).getTime();
           const now = Date.now();
-          const timeout = createdAtTime + 70000 - now;
+          const timeout = createdAtTime + 300000 - now;
           if(timeout > 0 && (!match.IsSubmited || match.isEditScore != null)){
             state.showCancelBtn = true;
           state.timeout = timeout;
