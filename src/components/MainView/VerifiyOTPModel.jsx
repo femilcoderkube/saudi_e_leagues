@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserById, sendOtp, verifyOtp } from "../../app/slices/auth/authSlice";
-import { setProfileVisible, setRegisteration } from "../../app/slices/constState/constStateSlice";
+import {
+  fetchUserById,
+  sendOtp,
+  verifyOtp,
+} from "../../app/slices/auth/authSlice";
+import {
+  setProfileVisible,
+  setRegisteration,
+} from "../../app/slices/constState/constStateSlice";
 import { setVerificationModal } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { toast } from "react-toastify";
 
 const VerifiyOTPModel = ({ module }) => {
-
   // State
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [otpError, setOtpError] = useState("");
@@ -20,18 +26,25 @@ const VerifiyOTPModel = ({ module }) => {
 
   useEffect(() => {
     if (module === "queue") {
-      localStorage.setItem("OTPCreated", new Date().toISOString());
-      dispatch(sendOtp(user?.email)).then((action) => {
-        if (action.meta.requestStatus === "fulfilled") {
-          toast.success(t("form.otp_sent"));
-        } else {
-          toast.error(
-            action.payload || t("validation_messages.email_invalid")
-          );
-        }
-      });
+      if (
+        new Date(localStorage.getItem("OTPCreated")).getTime() + 1 * 60 * 1000 <
+        new Date().getTime()
+      ) {
+        localStorage.removeItem("OTPCreated");
+        localStorage.setItem("OTPCreated", new Date().toISOString());
+
+        dispatch(sendOtp(user?.email)).then((action) => {
+          if (action.meta.requestStatus === "fulfilled") {
+            toast.success(t("form.otp_sent"));
+          } else {
+            toast.error(
+              action.payload || t("validation_messages.email_invalid")
+            );
+          }
+        });
+      }
     }
-  }, [module, dispatch])
+  }, [module, dispatch]);
 
   const handleOtpChange = (index, value) => {
     if (/^[0-9]?$/.test(value)) {
@@ -71,19 +84,23 @@ const VerifiyOTPModel = ({ module }) => {
 
   return (
     <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-      <div className={`verify-otp-shape bg-[#151743] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md ${module === "queue" ? "" : "otp-verify"}`}>
+      <div
+        className={`verify-otp-shape bg-[#151743] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md ${
+          module === "queue" ? "" : "otp-verify"
+        }`}
+      >
         <h2 className="text-xl font-medium text-white mb-3 font_oswald">
           {t("form.verify_otp")}
         </h2>
         {module === "queue" ? (
-
           <div className="px-8 pb-4 text-center">
-            <h2 className="text-2xl font-bold mb-2">{t("form.verify_email_title")}</h2>
+            <h2 className="text-2xl font-bold mb-2">
+              {t("form.verify_email_title")}
+            </h2>
             <p className="text-base text-gray-300">
               {t("form.verify_email_message")}
             </p>
           </div>
-
         ) : null}
 
         <div className="flex justify-between mb-6 gap-1">
@@ -143,23 +160,23 @@ const VerifiyOTPModel = ({ module }) => {
             {t("auth.verify")}
           </button>
         </div>
-          {/* === SVG Clip Path === */}
-          <svg
-              width="0"
-              height="0"
-              viewBox="0 0 480 416"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ position: "absolute" }}
-            >
-              <defs>
-                <clipPath id="myClipPath" clipPathUnits="objectBoundingBox">
-                  <path
-                    transform="scale(0.00208333, 0.00240385)"
-                    d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L24 0H480V100Z"
-                  />
-                </clipPath>
-              </defs>
-            </svg>
+        {/* === SVG Clip Path === */}
+        <svg
+          width="0"
+          height="0"
+          viewBox="0 0 480 416"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ position: "absolute" }}
+        >
+          <defs>
+            <clipPath id="myClipPath" clipPathUnits="objectBoundingBox">
+              <path
+                transform="scale(0.00208333, 0.00240385)"
+                d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L24 0H480V100Z"
+              />
+            </clipPath>
+          </defs>
+        </svg>
       </div>
     </div>
   );

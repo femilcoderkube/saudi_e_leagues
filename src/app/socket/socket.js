@@ -23,6 +23,7 @@ import {
 } from "../slices/MatchSlice/matchDetailSlice";
 import { setIsMatctCreated } from "../slices/constState/constStateSlice";
 import { setLastMatch, setNotification } from "../slices/notificationSlice/notificationSlice";
+import { setTournamentData } from "../slices/tournamentSlice/tournamentSlice";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -190,4 +191,14 @@ export function giveReputation(body) {
 }
 export function cancelMatch(data) {
   socket.emit(SOCKET.CANCELMATCH, data)
+}
+export function startTournamentSocket({ tId, user, isSocketConnected }) {
+  // console.log("startTournamentSocket", tId, user, isSocketConnected);
+  if (isSocketConnected) {
+    socket.on(SOCKET.ONTOURNAMENTUPDATE, (data) => {
+      console.log("Tournament Update Data:", data);
+      store.dispatch(setTournamentData(data.data));
+    });
+    socket.emit(SOCKET.GETTOURNAMENT, { tId: tId, userId: user?._id });
+  }
 }

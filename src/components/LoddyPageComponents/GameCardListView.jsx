@@ -17,7 +17,7 @@ const GameCardListView = ({ leagues }) => {
       {leagues.map((item, index) => (
         <Link
           key={index}
-          to={item?._id ? `/${id}/lobby/${item._id}` : "#"}
+          to={item?._id ? item.isLeague ? `/${id}/lobby/${item._id}`: `/${id}/lobby/tournament/${item._id}` : "#"}
           className="game_card_wrap--link relative inline-block"
           
         >
