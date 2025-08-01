@@ -48,7 +48,6 @@ const WizardSteps = ({
   // const { isRegisteration } = useSelector((state) => state.constState);
   // const { user } = useSelector((state) => state.auth);
 
-
   const [previewImage, setPreviewImage] = useState(() => {
     const pic = initialValues?.profilePicture || null;
     if (typeof pic === "string" && pic.startsWith("uploads/")) {
@@ -323,6 +322,7 @@ const WizardSteps = ({
                     name={field}
                     className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                     placeholder={t("form." + field)}
+                    onChange={(e) => setCurrenrEmail(e.target.value)}
                   // placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                   />
                   {field === "password" && (
@@ -868,6 +868,14 @@ const WizardSteps = ({
     );
   };
 
+  const [formValues, setFormValues] = useState(initialValues);
+
+  useEffect(() => {
+    if (initialValues?.email && formValues?.email && initialValues.email !== formValues.email) {
+      localStorage.removeItem("OTPCreated");
+    }
+  }, [formValues.email, initialValues?.email]);
+
   return (
     <Formik
       initialValues={initialValues}
@@ -891,70 +899,75 @@ const WizardSteps = ({
       }}
       enableReinitialize // Allow reinitialization when initialValues change
     >
-      {({ values, setFieldValue, errors, touched }) => (
-        <Form>
-          {/* {showOtpPopup && renderOtpPopup()} */}
-          {verificationModal && <VerifiyOTPModel module={verificationModule} />}
-          {isEdit
-            ? renderContent(values, setFieldValue)
-            : renderStepContent(values, setFieldValue)}
-          <div className="wizard_step--btn gap-5 flex justify-end sm:mt-14 mt-8 mb-8 mr-5">
-            {step > 1 && (
-              <div className="game_status--tab wizard_btn back_btn">
-                <button
-                  type="button"
-                  onClick={onBack}
-                  className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-                  style={{ width: "8rem", height: "4rem" }}
-                  disabled={loadingSubmit}
-                >
-                  {t("auth.back")}
-                </button>
-              </div>
-            )}
-            <div className="game_status--tab wizard_btn next_btn">
+      {({ values, setFieldValue, errors, touched }) => {
+        useEffect(() => {
+          setFormValues(values);
+        }, [values]);
+        return (
+          <Form>
+            {/* {showOtpPopup && renderOtpPopup()} */ }
+            {verificationModal && <VerifiyOTPModel module={verificationModule} />}
+        {isEdit
+          ? renderContent(values, setFieldValue)
+          : renderStepContent(values, setFieldValue)}
+        <div className="wizard_step--btn gap-5 flex justify-end sm:mt-14 mt-8 mb-8 mr-5">
+          {step > 1 && (
+            <div className="game_status--tab wizard_btn back_btn">
               <button
-                type="submit"
-                className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                type="button"
+                onClick={onBack}
+                className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                 style={{ width: "8rem", height: "4rem" }}
                 disabled={loadingSubmit}
               >
-                {step < TOTAL_STEPS ? (
-                  t("auth.next")
-                ) : loadingSubmit ? (
-                  <>
-                    <svg
-                      className="animate-spin h-5 w-5 mr-2 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    {t("auth.loading")}
-                  </>
-                ) : isEdit ? (
-                  t("auth.update")
-                ) : (
-                  t("auth.submit")
-                )}
+                {t("auth.back")}
               </button>
             </div>
+          )}
+          <div className="game_status--tab wizard_btn next_btn">
+            <button
+              type="submit"
+              className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+              style={{ width: "8rem", height: "4rem" }}
+              disabled={loadingSubmit}
+            >
+              {step < TOTAL_STEPS ? (
+                t("auth.next")
+              ) : loadingSubmit ? (
+                <>
+                  <svg
+                    className="animate-spin h-5 w-5 mr-2 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  {t("auth.loading")}
+                </>
+              ) : isEdit ? (
+                t("auth.update")
+              ) : (
+                t("auth.submit")
+              )}
+            </button>
           </div>
-        </Form>
-      )}
+        </div>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
