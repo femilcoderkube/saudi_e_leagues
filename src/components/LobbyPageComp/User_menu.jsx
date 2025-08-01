@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { getServerURL } from "../../utils/constant";
 import { setProfileVisible } from "../../app/slices/constState/constStateSlice";
 import { useTranslation } from "react-i18next";
+import { setConfirmationPopUp } from "../../app/slices/constState/constStateSlice";
 const data = [
   { id: 0, label: "My Profile" }, // Will be localized in the component
   { id: 1, label: "Logout" }, // Will be localized in the component
@@ -20,8 +21,8 @@ const Dropdown = ({ user }) => {
 
   const handleItemClick = (id) => {
     if (id == 1) {
-      dispatch(logout());
-      localStorage.clear();
+      dispatch(setConfirmationPopUp(1));
+      
     } else if (id == 0) {
       dispatch(setProfileVisible(true));
     }

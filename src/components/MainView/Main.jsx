@@ -24,6 +24,7 @@ import { baseURL } from "../../utils/axios";
 import { registerUser } from "../../app/slices/auth/authSlice";
 import { useTranslation } from "react-i18next";
 import Notification_sidebar from "../Notification/notificationsidebar";
+import ConfirmationPopUp from "../ModalPopUp/confirmationPopUp";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ export default function Main() {
     isLogin,
     isRegisteration,
     showNotification,
+    confirmationPopUp,
   } = useSelector((state) => state.constState);
   const location = useLocation();
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -285,6 +287,7 @@ export default function Main() {
         {submitModal && (
           <SubmitPopUp handleClose={() => dispatch(setSubmitModal(false))} />
         )}
+        {confirmationPopUp != 0 && <ConfirmationPopUp />}
         <Outlet />
 
         {showNotification && <Notification_sidebar />}

@@ -372,5 +372,11 @@
     "week": "WEEK",
     "points": "Points",
     "your_points": "Your Points"
+  },
+  "confirmation": {
+    "logoutTitle": "Are you sure you want to logout?",
+    "logoutMessage": "You will be logged out of your account. Any unsaved changes will be lost.",
+    "logoutConfirm": "Logout",
+    "cancel": "Cancel"
   }
 }

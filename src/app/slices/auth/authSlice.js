@@ -394,7 +394,8 @@ const authSlice = createSlice({
       .addCase(verifyOtp.fulfilled, (state, action) => {
         state.loading = false;
         state.verifyOtpSuccess = true;
-        state.isVerified = true;
+        state.user = action.payload.data;
+        localStorage.setItem("user", JSON.stringify(action.payload.data));
         // toast.success(t("form.otp_verified"));
       })
       .addCase(verifyOtp.rejected, (state, action) => {

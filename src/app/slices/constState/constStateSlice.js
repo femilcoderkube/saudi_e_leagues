@@ -15,6 +15,7 @@ const initialState = {
   timeLineCard : true,
   NotificationTabIndex : 0,
   activeTournamentTab : 2,
+  confirmationPopUp : 0,
 
   countryOptions :countryData.map((country) => ({
     value: country.name,
@@ -30,6 +31,9 @@ const constStateSlice = createSlice({
   name: "constState",
   initialState,
   reducers: {
+    setConfirmationPopUp:(state,action)=>{
+      state.confirmationPopUp = action.payload;
+    },
     setActiveTournamentTab:(state,action)=>{
       state.activeTournamentTab = action.payload;
     },
@@ -79,6 +83,6 @@ const constStateSlice = createSlice({
   },
 });
 
-export const { setMatchPage,setTimeLineCard ,setMatchLoader ,setLogin ,setRegisteration,setActiveTabIndex,setshowNotification,setProfileVisible ,setSubmitModal,setViewModal ,setPreviewImage,setIsMatctCreated,setNotificationTabIndex,setActiveTournamentTab      } = constStateSlice.actions;
+export const { setMatchPage,setTimeLineCard ,setMatchLoader ,setLogin ,setRegisteration,setActiveTabIndex,setshowNotification,setProfileVisible ,setSubmitModal,setViewModal ,setPreviewImage,setIsMatctCreated,setNotificationTabIndex,setActiveTournamentTab,setConfirmationPopUp       } = constStateSlice.actions;
 
 export default constStateSlice.reducer;
