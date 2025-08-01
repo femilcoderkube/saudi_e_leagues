@@ -92,7 +92,7 @@ const matchDetailSlice = createSlice({
         state.isMyMatch = state.isTeamOne || team2UserIds.includes(userId);
         state.myPId = state.isTeamOne
           ? team1.find((p) => p.participant.userId._id  === userId)?.participant?._id
-          : team2.find((p) => p.participant.userId._id)?.participant?._id;
+          : team2.find((p) => p.participant.userId._id === userId)?.participant?._id;
         // Captain is first user in either team
         state.isCaptain =
           team1[0]?.participant?.userId?._id === userId ||
