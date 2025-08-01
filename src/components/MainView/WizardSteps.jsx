@@ -698,9 +698,9 @@ const WizardSteps = ({
                     <button
                       type="button"
                       onClick={() => {
-                        if (new Date(createdAt).getTime() + 5 * 60 * 1000 < new Date().getTime()) {
+                        dispatch(setVerificationModal({ open: true, module: "profile" }));
+                        if (new Date(createdAt).getTime() + 1 * 60 * 1000 < new Date().getTime()) {
                           localStorage.removeItem("OTPCreated");
-                          dispatch(setVerificationModal({ open: true, module: "profile" }));
                           localStorage.setItem("OTPCreated", new Date().toISOString());
                           dispatch(sendOtp(values.email)).then((action) => {
                             if (action.meta.requestStatus === "fulfilled") {
