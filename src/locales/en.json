@@ -377,6 +377,9 @@
     "logoutTitle": "Are you sure you want to logout?",
     "logoutMessage": "You will be logged out of your account. Any unsaved changes will be lost.",
     "logoutConfirm": "Logout",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "cancelMatchTitle": "Are you sure you want to cancel the match?",
+    "yes": "Yes",
+    "no": "No"
   }
 }

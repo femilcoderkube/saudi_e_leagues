@@ -40,6 +40,8 @@ const initialState = {
   showCancelBtn : false,
   timeout : null,
   myPId: null,
+  cancelMatchCount: "",
+  isMatchCanceled: false,
   winnerScore: {
     teamOne: "-",
     teamTwo: "-",
@@ -66,8 +68,10 @@ const matchDetailSlice = createSlice({
       if (match) {
         state.winnerScore.teamOne= "-";
         state.winnerScore.teamTwo= "-";
+        state.cancelMatchCount = "";
         state.myPId = null;
         state.showCancelBtn = false;
+        state.isMatchCanceled = false;
         state.timeout = null;
         const userId = user?._id;
         const team1 = match.team1 || [];
@@ -133,6 +137,15 @@ const matchDetailSlice = createSlice({
           state.winnerScore.teamOne = winnerScore.opponentScore;
           state.winnerScore.teamTwo = winnerScore.yourScore;
           state.IsSubmited = true;
+        }
+
+        if(match.cancelMatchIds){
+          if(match.league.playersPerTeam ==1){
+            state.cancelMatchCount = "";
+          }else{
+          state.cancelMatchCount = `${match.cancelMatchIds.length}/${match.league.playersPerTeam - 1}`;
+          }
+          state.isMatchCanceled = match.cancelMatchIds.some(id => id.toString() == state.myPId.toString());
         }
         if(match.isCanceled){
           state.showCancelBtn = true;

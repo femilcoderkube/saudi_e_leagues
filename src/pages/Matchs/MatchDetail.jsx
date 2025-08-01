@@ -41,6 +41,9 @@ const MatchDetail = () => {
     isEditScore,
     showCancelBtn,
     timeout,
+    isMyMatch,
+    isMatchCanceled,
+    cancelMatchCount,
   } = useSelector((state) => state.matchs);
   const user = useSelector((state) => state.auth.user);
   const [messageInput, setMessageInput] = useState("");
@@ -145,11 +148,11 @@ useEffect(()=>{
               />
             </div>
             <div className="mob-sub-btn flex items-center justify-center flex-wrap gap-6 mb-[1rem]">
-            {showCancelBtn && <div className="cancel-score-btn mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
+            {user && isMyMatch &&(!IsSubmited || isEditScore != null)  && !matchData?.isCanceled && showCancelBtn  && <div className="cancel-score-btn mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                   <div                    
                     className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center cursor-pointer"
                   >
-                    Cancel Match
+                   {t("match.cancel_match")}{" "}{cancelMatchCount}
                   </div>
                   <svg
                     width="0"
@@ -188,7 +191,7 @@ useEffect(()=>{
                     </defs>
                   </svg>
                 </div>}
-              {user && isCaptain && (!IsSubmited || isEditScore != null) && (                
+              {user && isCaptain && (!IsSubmited || isEditScore != null)  && !matchData?.isCanceled && (                
                 <div className="mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                   <div
                     onClick={() => {

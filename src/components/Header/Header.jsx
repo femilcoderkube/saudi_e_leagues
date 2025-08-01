@@ -31,6 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
 import {
   setActiveTabIndex,
+  setConfirmationPopUp,
   setLogin,
   setProfileVisible,
   setRegisteration,
@@ -58,7 +59,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { matchData, isCaptain, IsSubmited, isEditScore, myPId ,showCancelBtn} = useSelector(
+  const { matchData, isCaptain, IsSubmited, isEditScore, myPId ,showCancelBtn,cancelMatchCount,isMyMatch ,isMatchCanceled} = useSelector(
     (state) => state.matchs
   );
 
@@ -189,16 +190,16 @@ const Header = () => {
             </h2>
           </div>
           <div className="flex items-center lg:gap-15 gap-3">
-            {user && isCaptain && (!IsSubmited || isEditScore != null)  && !matchData?.isCanceled && (
+            
               <div className="flex items-center gap-3">
-                {showCancelBtn && (
+                {user && isMyMatch &&(!IsSubmited || isEditScore != null)  && !matchData?.isCanceled && showCancelBtn && (
                     <div
-                      className="cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
-                      onClick={() => cancelMatch({ matchId: matchData?._id, participantId: myPId })}
+                      className={`cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ${isMatchCanceled ? "!cursor-not-allowed" : "cursor-pointer"}`}
+                      onClick={() => dispatch(setConfirmationPopUp(2))}
                     >
-                      <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
-                        {t("match.cancel_match")}
-                      </Link>
+                      <div className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
+                        {t("match.cancel_match")}{" "}{cancelMatchCount}
+                      </div>
                       <svg
                         width="0"
                         height="0"
@@ -237,7 +238,7 @@ const Header = () => {
                       </svg>
                     </div>
                 )}
-                <div
+               {user && isCaptain && (!IsSubmited || isEditScore != null)  && !matchData?.isCanceled && ( <div
                       className="submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
                       onClick={() => {
                         dispatch(setSubmitModal(true));
@@ -282,9 +283,9 @@ const Header = () => {
                           </clipPath>
                         </defs>
                       </svg>
-                    </div>
+                    </div> )}
               </div>
-            )}
+           
 
             {!user && (
               <div className="sm:flex hidden sd_uaser-menu ">

@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setConfirmationPopUp } from "../../app/slices/constState/constStateSlice";
 import { logout } from "../../app/slices/auth/authSlice";
+import { cancelMatch } from "../../app/socket/socket";
 
 function ConfirmationPopUp() {
   const { confirmationPopUp } = useSelector((state) => state.constState);
+  const { matchData , myPId } = useSelector((state) => state.matchs);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const handleOnClick = () => {
@@ -16,6 +18,10 @@ function ConfirmationPopUp() {
       dispatch(setConfirmationPopUp(0));
       dispatch(logout());
       localStorage.clear();
+    }
+    if(confirmationPopUp == 2){
+      dispatch(setConfirmationPopUp(0));
+      cancelMatch({ matchId: matchData?._id, participantId: myPId });
     }
   };
 
@@ -33,7 +39,7 @@ function ConfirmationPopUp() {
               <div className="flex items-center gap-2 h-8 absolute left-1/2 translate-x-[-50%] top-10">
                 <img src={asideLogo_ltr} alt="rules_icon" className=" h-10" />
               </div>
-              <button type="button" className="pt-2 cursor-pointer">
+              <button type="button" className="pt-2 cursor-pointer" onClick={() => dispatch(setConfirmationPopUp(0))}>
                 <svg
                   width="1.125rem"
                   height="1.125rem"
@@ -53,7 +59,7 @@ function ConfirmationPopUp() {
             </div>
             <div className="popup_body px-8   flex flex-col items-center gap-4 pt-15 justify-center">
               <h2 className="text-2xl font-bold mb-4 purple_col">
-                {t("confirmation.logoutTitle")}
+                {confirmationPopUp == 1 ? t("confirmation.logoutTitle") : t("confirmation.cancelMatchTitle")}
               </h2>
 
               <div className="flex gap-4 justify-center">
@@ -68,7 +74,7 @@ function ConfirmationPopUp() {
                           dispatch(setConfirmationPopUp(0));
                         }}
                       >
-                        {t("confirmation.cancel")}
+                        {confirmationPopUp == 1 ? t("confirmation.cancel") : t("confirmation.no")}
                       </button>
                     </div>
                   </div>
@@ -85,7 +91,7 @@ function ConfirmationPopUp() {
                           handleOnClick();
                         }}
                       >
-                        {t("confirmation.logoutConfirm")}
+                        {confirmationPopUp == 1 ? t("confirmation.logoutConfirm") : t("confirmation.yes")}
                       </button>
                     </div>
                   </div>
