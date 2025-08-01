@@ -32,7 +32,6 @@ const VerifiyOTPModel = ({ module }) => {
       ) {
         localStorage.removeItem("OTPCreated");
         localStorage.setItem("OTPCreated", new Date().toISOString());
-
         dispatch(sendOtp(user?.email)).then((action) => {
           if (action.meta.requestStatus === "fulfilled") {
             toast.success(t("form.otp_sent"));
@@ -64,6 +63,7 @@ const VerifiyOTPModel = ({ module }) => {
       dispatch(verifyOtp({ otp: otpValue })).then((action) => {
         if (action.meta.requestStatus === "fulfilled") {
           dispatch(setVerificationModal({ open: false, module: null }));
+          toast.success(t("form.otp_verified"));
           // setShowOtpPopup(false);
           setOtp(["", "", "", "", "", ""]);
           setOtpError("");

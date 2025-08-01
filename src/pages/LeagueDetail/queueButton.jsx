@@ -23,7 +23,7 @@ const GetQueueButton = () => {
   const end = new Date(leagueData?.endDate);
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  
+
 
   if (user?._id == null || user?._id == undefined) {
     return (
@@ -161,9 +161,7 @@ const GetQueueButton = () => {
               navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
             } else {
               console.log("User is not verified");
-             
-                dispatch(setVerificationModal({ open: true, module: "queue" }));
-              
+              dispatch(setVerificationModal({ open: true, module: "queue" }));
             }
           }}
         >
