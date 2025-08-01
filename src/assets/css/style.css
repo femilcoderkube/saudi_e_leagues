@@ -727,12 +727,12 @@ html[dir="rtl"] .view-all::after {
   padding-top: 3.125rem;
 }
 
-.sa__tournament-tabs li a {
+.sa__tournament-tabs li div {
   color: #9D9D9D;
   padding: 0 0.625rem 1.063rem 0.625rem;
 }
 
-.sa__tournament-tabs li.active a {
+.sa__tournament-tabs li.active div {
   border-bottom: 1px solid #4468ED;
   color: #fff;
 }

@@ -55,6 +55,8 @@ export const SOCKET = {
   CANCELMATCH: "cancelMatch",
   GETTOURNAMENT: "getTournament",
   ONTOURNAMENTUPDATE: "onTournamentUpdate",
+  GETTOURNAMENTSTAGES: "getTournamentStages",
+  ONTOURNAMENTSTAGESUPDATE: "onTournamentStagesUpdate",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range

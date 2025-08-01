@@ -184,15 +184,18 @@ export const updatePassword = createAsyncThunk(
   "auth/updatePassword",
   async ({ password, token }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.put("/users/update-password", {
-        password,
-        token,
-      },{
-        headers: {
-          "accept-language": "en",
+      const response = await axiosInstance.put(
+        "/users/update-password",
+        {
+          password,
+          token,
         },
-      }
-    );
+        {
+          headers: {
+            "accept-language": "en",
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -338,6 +341,9 @@ const authSlice = createSlice({
           state.userDetail = null;
           localStorage.removeItem("token");
           localStorage.removeItem("user");
+        } else {
+          state.user = action.payload.data;
+          localStorage.setItem("user", JSON.stringify(action.payload.data));
         }
       })
       // resetPassword logic

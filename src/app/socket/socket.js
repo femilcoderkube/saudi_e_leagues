@@ -23,7 +23,7 @@ import {
 } from "../slices/MatchSlice/matchDetailSlice";
 import { setIsMatctCreated } from "../slices/constState/constStateSlice";
 import { setLastMatch, setNotification } from "../slices/notificationSlice/notificationSlice";
-import { setTournamentData } from "../slices/tournamentSlice/tournamentSlice";
+import { setTournamentData, setTournamentStages } from "../slices/tournamentSlice/tournamentSlice";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -195,10 +195,28 @@ export function cancelMatch(data) {
 export function startTournamentSocket({ tId, user, isSocketConnected }) {
   // console.log("startTournamentSocket", tId, user, isSocketConnected);
   if (isSocketConnected) {
+    stopTournamentSocket();
     socket.on(SOCKET.ONTOURNAMENTUPDATE, (data) => {
       console.log("Tournament Update Data:", data);
       store.dispatch(setTournamentData(data.data));
     });
     socket.emit(SOCKET.GETTOURNAMENT, { tId: tId, userId: user?._id });
   }
+}
+export function stopTournamentSocket() {
+  socket.off(SOCKET.ONTOURNAMENTUPDATE);
+}
+export function getTournamentStages({ stageId, isSocketConnected,user }) {
+  console.log("getTournamentStages", stageId, isSocketConnected,user);
+  if (isSocketConnected) {
+    stopTournamentStagesSocket();
+    socket.on(SOCKET.ONTOURNAMENTSTAGESUPDATE, (data) => {
+      console.log("Tournament Stages Update Data:", data);
+      store.dispatch(setTournamentStages(data.data));
+    });
+    socket.emit(SOCKET.GETTOURNAMENTSTAGES, { stageId: stageId, userId: user?._id });
+  }
+}
+export function stopTournamentStagesSocket() {
+  socket.off(SOCKET.ONTOURNAMENTSTAGESUPDATE);
 }

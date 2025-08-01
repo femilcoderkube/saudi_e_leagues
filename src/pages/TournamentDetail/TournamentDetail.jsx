@@ -17,12 +17,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { setActiveTournamentTab } from "../../app/slices/constState/constStateSlice.js";
 import TournamentScheduleCard from "./TournamentScheduleCard.jsx";
 import GamingLoader from "../../components/Loader/loader.jsx";
-import { startTournamentSocket } from "../../app/socket/socket.js";
-import { setActiveStage } from "../../app/slices/tournamentSlice/tournamentSlice.js";
+import center_league from "../../assets/images/center_league.png";
+import {
+  getTournamentStages,
+  startTournamentSocket,
+} from "../../app/socket/socket.js";
+import {
+  setActiveStage,
+  setTournamentStages,
+} from "../../app/slices/tournamentSlice/tournamentSlice.js";
 
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
-  const { tournamentData,activeStage } = useSelector((state) => state.tournament);
+  const { tournamentData, activeStage, tournamentStages } = useSelector(
+    (state) => state.tournament
+  );
   const { activeTournamentTab } = useSelector((state) => state.constState);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { user } = useSelector((state) => state.auth);
@@ -31,41 +40,9 @@ const TournamentDetail = () => {
   const handleActiveTournamentTab = (tab) => {
     dispatch(setActiveTournamentTab(tab));
   };
-  // Static data
-
-  // const tournamentData = {
-  //   internalPhoto: "../../assets/images/league-logo.png",
-  //   title: "League Title",
-  //   titleAr: "عنوان الدوري",
-  //   prizepool: 1000000,
-  //   headerPhoto: "/images/header-photo.png",
-  //   activeUsers: 1234,
-  //   totalRegistrations: 5678,
-  //   game: {
-  //     logo: "/images/game-logo.png",
-  //     shortName: "Game Name",
-  //     name: "Full Game Name"
-  //   },
-  //   platform: {
-  //     logo: "/images/platform-logo.png",
-  //     name: "Platform"
-  //   },
-  //   playersPerTeam: 2,
-  //   leaderBoard: {
-  //     weekOfTheStartUsers: {
-  //       userId: {
-  //         profilePic: "/images/profile.png",
-  //         username: "player123",
-  //         fullName: "Player Name"
-  //       },
-  //       weeklyScore: 9876.54
-  //     }
-  //   },
-  //   isWeekOfTheStar: true
-  // };
 
   useEffect(() => {
-    if (isSocketConnected) {
+    if (isSocketConnected && user) {
       startTournamentSocket({
         tId: tId,
         user: user,
@@ -82,7 +59,50 @@ const TournamentDetail = () => {
     //     selector: "#Major-final",
     //   });
     // }
-  }, [isSocketConnected,tId,user]);
+  }, [isSocketConnected, tId, user]);
+
+  useEffect(() => {
+    if (tournamentStages) {
+      let container = document.getElementById("Major-final");
+      if (window.bracketsViewer && container) {
+        if (container.innerHTML) {
+          container.innerHTML = "";
+        }
+        let config = tournamentStages.config;
+        if (
+          config?.stage &&
+          config?.match &&
+          config?.round &&
+          config?.group &&
+          config?.participant
+        ) {
+          window.bracketsViewer.render(
+            {
+              stages: config?.stage,
+              matches: config?.match,
+              rounds: config?.round,
+              groups: config?.group,
+              matchGames: [],
+              participants: config?.participant,
+            },
+            {
+              selector: `#Major-final`,
+            }
+          );
+        }
+      }
+    }
+  }, [tournamentStages, activeStage, activeTournamentTab]);
+
+  useEffect(() => {
+    if (tournamentData?.stages?.length > 0 && isSocketConnected && user) {
+      getTournamentStages({
+        stageId: tournamentData?.stages[activeStage]?._id,
+        isSocketConnected: isSocketConnected,
+        user: user,
+      });
+    }
+  }, [tournamentData?.stages, activeStage, isSocketConnected, user]);
 
   // Empty dependency array means this runs once after mount
   return (
@@ -224,12 +244,15 @@ const TournamentDetail = () => {
                   class="sa__tournament-tabs inline-flex pt-2 w-full border-b border-gray-200/20 overflow-x-auto"
                 >
                   {tournamentData?.stages?.map((item, index) => {
-                    console.log("activeStage", activeStage , index);
                     return (
-                      <li class={`font-semibold  cursor-pointer ${index == activeStage ? "active" : ""}`}>
+                      <li
+                        className={`font-semibold  cursor-pointer ${
+                          index == activeStage ? "active" : ""
+                        }`}
+                      >
                         <div
-                          id="default-tab"
-                          onClick={()=>dispatch(setActiveStage(index))}
+                          id={`stage-${index}`}
+                          onClick={() => dispatch(setActiveStage(index))}
                           className="px-4 py-2 pl-0 flex items-center justify-center text-xl whitespace-nowrap"
                         >
                           {item?.stageName}
@@ -240,64 +263,76 @@ const TournamentDetail = () => {
                 </ul>
 
                 {/* <!-- Tab Contents --> */}
-                <div id="tournament-tab-contents" className="mt-7">
+                {tournamentStages != null && tournamentStages?.config?.match ? <div id="tournament-tab-contents" className="mt-7">
                   <div id="first" className="py-4 active">
                     <div className="game_status--tab-wrapper text-center md:text-left rtl:text-right">
-                      <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
-                        <button
-                          onClick={() => handleActiveTournamentTab(1)}
-                          class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+                      { 
+                        <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
+                          <button
+                            onClick={() => handleActiveTournamentTab(1)}
+                            class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
                 ${
                   activeTournamentTab === 1
                     ? "active-tab hover:opacity-100 polygon_border"
                     : ""
                 }`}
-                        >
-                          Brackets
-                        </button>
+                          >
+                            Brackets
+                          </button>
 
-                        <button
-                          onClick={() => handleActiveTournamentTab(2)}
-                          class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+                          <button
+                            onClick={() => handleActiveTournamentTab(2)}
+                            class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
                 ${
                   activeTournamentTab === 2
                     ? "active-tab hover:opacity-100 polygon_border"
                     : ""
                 }`}
-                        >
-                          Schedule
-                        </button>
-                      </div>
-                    </div>
-                    {activeTournamentTab === 1 && (
-                      <div className="tournament-bracket-wrapper">
-                        <div
-                          id="Major-final"
-                          className="!p-0 brackets-viewer !bg-transparent "
-                        ></div>
-                      </div>
-                    )}
-                    {activeTournamentTab === 2 && (
-                      <div className="tournament-bracket-wrapper mt-20">
-                        <div className="tournament-schedule-card-list grid gap-x-8 gap-y-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-                          <TournamentScheduleCard />
-                          <TournamentScheduleCard />
-                          <TournamentScheduleCard />
-                          <TournamentScheduleCard />
+                          >
+                            Schedule
+                          </button>
                         </div>
+                      }
+                    </div>
+                  
+                      <>
+                        {activeTournamentTab === 1 &&
+                          (
+                            <div className="tournament-bracket-wrapper">
+                              <div
+                                id={`Major-final`}
+                                className="!p-0 brackets-viewer !bg-transparent "
+                              ></div>
+                            </div>
+                          )}
+                        {activeTournamentTab === 2 && (
+                          <div className="tournament-bracket-wrapper mt-20">
+                            <div className="tournament-schedule-card-list grid gap-x-8 gap-y-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                              {tournamentStages?.matcheData?.map((item, index) => {
+                                return (
+                                  <TournamentScheduleCard key={index} item={item} />
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    
+                  </div>
+                </div> : tournamentStages == null ?  (
+                      <div className="flex gamingLoader justify-center items-center">
+                        <img
+                          className="center-league-loader my-50"
+                          src={center_league}
+                          alt=""
+                          style={{ width: "11rem" }}
+                        />
                       </div>
-                    )}
-                  </div>
-                  <div id="second" class="hidden p-4">
-                    Second tab
-                  </div>
-                  <div id="third" class="hidden p-4">
-                    Third tab
-                  </div>
-                  <div id="fourth" class="hidden p-4">
-                    Fourth tab
-                  </div>
-                </div>
+                    ) :  (
+                            <div className="flex justify-center items-center py-50 text-xl text-gray-400">
+                              No data found
+                            </div>
+                          )}
               </div>
             </div>
           </div>
@@ -341,4 +376,3 @@ const TournamentDetail = () => {
 };
 
 export default TournamentDetail;
-
