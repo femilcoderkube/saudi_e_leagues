@@ -713,9 +713,10 @@ const WizardSteps = ({
                           });
                         }
                       }}
+                      disabled={initialValues.email !== formValues.email}
                       data-tooltip-id="otp-tooltip"
-                      data-tooltip-content="Verify"
-                      className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 text-yellow-500 hover:opacity-80"
+                      data-tooltip-content={initialValues.email !== formValues.email ? "Update your email" : "Verify"}
+                      className={`absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 ${initialValues.email !== formValues.email ? 'text-gray-300' : 'text-yellow-500'} hover:opacity-80`}
                     >
                       <svg
                         width="20"
