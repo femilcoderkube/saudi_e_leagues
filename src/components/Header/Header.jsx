@@ -180,7 +180,11 @@ const Header = () => {
               {i18n.language === "en"
                 ? matchData?.league?.title || t("match.finding_matchmaking")
                 : matchData?.league?.titleAr ||
+<<<<<<< Updated upstream
                 t("match.finding_matchmaking")}{" "}
+=======
+                  t("match.finding_matchmaking")}{" "}
+>>>>>>> Stashed changes
               -{" "}
               {t("match.match") +
                 " " +
@@ -190,6 +194,7 @@ const Header = () => {
             </h2>
           </div>
           <div className="flex items-center lg:gap-15 gap-3">
+<<<<<<< Updated upstream
             
               <div className="flex items-center gap-3">
                 {user && isMyMatch &&(!IsSubmited || isEditScore != null)  && !matchData?.isCanceled && showCancelBtn && (
@@ -213,6 +218,29 @@ const Header = () => {
                           >
                             <path
                               d="
+=======
+            {user && isCaptain && (!IsSubmited || isEditScore != null) && (
+              <div className="flex items-center gap-3">
+                <div
+                  className="cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"                 
+                >
+                  <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
+                    Cancel Match
+                  </Link>
+                  <svg
+                    width="0"
+                    height="0"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ position: "absolute" }}
+                  >
+                    <defs>
+                      <clipPath
+                        id="polygonClip"
+                        clipPathUnits="objectBoundingBox"
+                      >
+                        <path
+                          d="
+>>>>>>> Stashed changes
               M1,0.1111
               V0.8889
               L0.9219,1
@@ -232,6 +260,7 @@ const Header = () => {
               L1,0.1111
               Z
             "
+<<<<<<< Updated upstream
                             />
                           </clipPath>
                         </defs>
@@ -260,6 +289,35 @@ const Header = () => {
                           >
                             <path
                               d="
+=======
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+                <div
+                  className="submit_score-btn hidden sm:inline-flex btn_polygon--mask  max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
+                  onClick={() => {
+                    dispatch(setSubmitModal(true));
+                  }}
+                >
+                  <Link className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center">
+                    {IsSubmited ? t("auth.view_score") : t("auth.submit_score")}
+                  </Link>
+                  <svg
+                    width="0"
+                    height="0"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ position: "absolute" }}
+                  >
+                    <defs>
+                      <clipPath
+                        id="polygonClip"
+                        clipPathUnits="objectBoundingBox"
+                      >
+                        <path
+                          d="
+>>>>>>> Stashed changes
               M1,0.1111
               V0.8889
               L0.9219,1
@@ -279,11 +337,19 @@ const Header = () => {
               L1,0.1111
               Z
             "
+<<<<<<< Updated upstream
                             />
                           </clipPath>
                         </defs>
                       </svg>
                     </div> )}
+=======
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>                
+>>>>>>> Stashed changes
               </div>
            
 
