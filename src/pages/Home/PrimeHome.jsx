@@ -104,7 +104,7 @@ export default function PrimeHome() {
         </section>
 
         {/* === About Section HTML block Start === */}
-        <section className="home_about--sec relative lg:pt-[7.5rem] pt-[2rem] lg:pb-[9rem] pb-[1rem] flex overflow-hidden">
+        <section className="home_about--sec relative lg:pt-[7.5rem] pt-[2rem] lg:pb-[6rem] pb-[1rem] flex overflow-hidden">
           <div className="about_left--con max-w-[45%]">
             <h3 className="md:text-[2.375rem] text-2xl uppercase !font-black mb-5">
               {t("homepage.about")}

@@ -277,6 +277,16 @@ html[dir=rtl] .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body .m
 .big-card.swiper{
     width: 170rem !important;
 }
+
+.htp_slider-sec .htp_left-con{
+    max-width: calc(28%);
+    flex: 0 0 calc(28%);
+}
+
+.htp_slider-sec .htp_right-con{
+    max-width: calc(77%);
+    flex: 0 0 calc(72%);
+}
 /* --------------------------------
     
     Timeline Section CSS Start

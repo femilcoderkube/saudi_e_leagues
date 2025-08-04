@@ -512,7 +512,6 @@ html[dir="rtl"] .view-all::after {
   width: 100% !important;
 }
 
-<<<<<<< Updated upstream
 .Toastify__toast-theme--light {
   clip-path: url(#inputclip);
   height: 3rem;
@@ -587,8 +586,6 @@ html[dir="rtl"] .view-all::after {
   margin-top: 1.5rem;
 }
 
-=======
->>>>>>> Stashed changes
 /* call-duty-card End*/
 @media (max-width: 1279px) {
   .game_polygon-link {
@@ -619,19 +616,12 @@ html[dir="rtl"] .view-all::after {
 @media (max-width: 767px) {
   .submit_score-btn .btn_polygon-link {
     width: 8rem;
-<<<<<<< Updated upstream
   }
 
   .submit_score-btn.polygon_border:before,
   .submit_score-btn.polygon_border:after {
     width: 3.25rem;
   }
-=======
-}
-.submit_score-btn.polygon_border:before, .submit_score-btn.polygon_border:after {
-  width: 3.25rem;
-}
->>>>>>> Stashed changes
 }
 
 @media (max-width: 639px) {
@@ -709,18 +699,11 @@ html[dir="rtl"] .view-all::after {
     bottom: 0;
     right: 0;
   }
-<<<<<<< Updated upstream
 
   .submit_score-btn .btn_polygon-link {
     width: 12.5rem;
     height: 3.5rem;
   }
-=======
-  .submit_score-btn .btn_polygon-link {
-    width: 12.5rem;
-    height: 3.5rem;
-}
->>>>>>> Stashed changes
 }
 
 @media (max-width: 475px) {
@@ -744,20 +727,12 @@ html[dir="rtl"] .view-all::after {
   padding-top: 3.125rem;
 }
 
-<<<<<<< Updated upstream
 .sa__tournament-tabs li div {
-=======
-.sa__tournament-tabs li a {
->>>>>>> Stashed changes
   color: #9D9D9D;
   padding: 0 0.625rem 1.063rem 0.625rem;
 }
 
-<<<<<<< Updated upstream
 .sa__tournament-tabs li.active div {
-=======
-.sa__tournament-tabs li.active a {
->>>>>>> Stashed changes
   border-bottom: 1px solid #4468ED;
   color: #fff;
 }
