@@ -104,7 +104,7 @@ export default function PrimeHome() {
         </section>
 
         {/* === About Section HTML block Start === */}
-        <section className="home_about--sec relative lg:pt-[7.5rem] pt-[2rem] lg:pb-[9rem] pb-[1rem] flex overflow-hidden">
+        <section className="home_about--sec relative lg:pt-[7.5rem] pt-[2rem] lg:pb-[6rem] pb-[1rem] flex overflow-hidden">
           <div className="about_left--con max-w-[45%]">
             <h3 className="md:text-[2.375rem] text-2xl uppercase !font-black mb-5">
               {t("homepage.about")}
@@ -155,7 +155,7 @@ export default function PrimeHome() {
       
        <section className="htp_slider-sec flex justify-between ">
        
-          <div className="htp_left-con h-full flex justify-end flex-col max-w-[27.5%]">
+          <div className="htp_left-con h-full flex justify-end flex-col max-w-[27.5%] basis-[27.5%]">
             <h2 className="grad_head--txt max-w-full lg:text-[5rem] text-[3rem] tracking-wide !font-black leading-none uppercase">
               {t("homepage.how")}
             </h2>
@@ -209,7 +209,7 @@ export default function PrimeHome() {
           </div>
 
         
-          <div className="htp_right-con  relative max-w-[72.5%]">
+          <div className="htp_right-con  relative max-w-[75%] basis-[72.5%]">
           
             <HtpCardSlider
               sliderId="one"
