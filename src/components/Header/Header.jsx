@@ -49,6 +49,7 @@ import { SOCKET } from "../../utils/constant";    // <-- Make sure this path is 
 
 const Header = () => {
   const { leagueData } = useSelector((state) => state.leagues);
+  const {tournamentData } = useSelector((state)=> state.tournament);
   const { isActiveTab, showNotification, profileVisible } = useSelector(
     (state) => state.constState
   );
@@ -93,7 +94,13 @@ const Header = () => {
       label: t("navigation.home"),
       path: `/${params.id}`,
       icon: Prime,
-      active: true,
+      active: path ?false: true,
+    };
+    let item2 = {
+      label: t("navigation.lobby"),
+      path: `/${params.id}/lobby`,
+      icon: Lobby,
+      active:path ? true : false,
     };
     if (
       breadcrumbItems.length === 0 ||
@@ -101,23 +108,25 @@ const Header = () => {
     ) {
       // breadcrumbItems[0].active = false; // Set the previous item to inactive
       breadcrumbItems.push(item);
+      breadcrumbItems.push(item2);
     }
+    
   }
-  if (path) {
-    let item = {
-      label: t("navigation.lobby"),
-      path: `/${params.id}/lobby`,
-      icon: Lobby,
-      active: true,
-    };
-    if (
-      breadcrumbItems.length === 1 ||
-      breadcrumbItems[1].label !== item.label
-    ) {
-      breadcrumbItems[0].active = false; // Set the previous item to inactive
-      breadcrumbItems.push(item);
-    }
-  }
+  // if (path) {
+  //   let item = {
+  //     label: t("navigation.lobby"),
+  //     path: `/${params.id}/lobby`,
+  //     icon: Lobby,
+  //     active: true,
+  //   };
+  //   if (
+  //     breadcrumbItems.length === 1 ||
+  //     breadcrumbItems[1].label !== item.label
+  //   ) {
+  //     breadcrumbItems[0].active = false; // Set the previous item to inactive
+  //     breadcrumbItems.push(item);
+  //   }
+  // }
   if (params.lId) {
     if (breadcrumbItems.length === 3) {
       breadcrumbItems.pop(); // Remove the last item if it exists
@@ -125,6 +134,23 @@ const Header = () => {
     let item = {
       label: i18n.language === "en" ? leagueData?.title : leagueData?.titleAr,
       path: `/${params.id}/lobby/${params.lId}`,
+      icon: Champions,
+      active: true,
+    };
+    if (
+      breadcrumbItems.length === 2 ||
+      breadcrumbItems[2].label !== item.label
+    ) {
+      breadcrumbItems[1].active = false; // Set the previous item to inactive
+      breadcrumbItems.push(item);
+    }
+  }else if(params.tId){
+    if (breadcrumbItems.length === 3) {
+      breadcrumbItems.pop(); // Remove the last item if it exists
+    }
+    let item = {
+      label: i18n.language === "en" ? tournamentData?.title : tournamentData?.titleAr,
+      path: `/${params.id}/lobby/tournament/${params.tId}`,
       icon: Champions,
       active: true,
     };

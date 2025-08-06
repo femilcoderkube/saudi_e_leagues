@@ -15,6 +15,7 @@ import { getPartnerById } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
 import { setLeagueData } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { useTranslation } from "react-i18next";
+import { setTournamentData } from "../../app/slices/tournamentSlice/tournamentSlice";
 
 // Animation variants for the card wrapper
 const containerVariants = {
@@ -60,6 +61,7 @@ const Lobby = () => {
       })
     );
     dispatch(setLeagueData(null));
+    dispatch(setTournamentData(null))
   }, [dispatch, activeIndex, selectedGame]);
 
   return (

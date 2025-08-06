@@ -52,6 +52,12 @@ const TournamentDetail = () => {
   }, [isSocketConnected, tId]);
 
   useEffect(() => {
+    if (tournamentData?.title) {
+      document.title = `Prime eLeague - ${tournamentData?.title}`;
+    }
+  }, [tournamentData]);
+
+  useEffect(() => {
     if (tournamentStages) {
       let container = document.getElementById("Major-final");
       if (window.bracketsViewer && container) {
@@ -74,7 +80,7 @@ const TournamentDetail = () => {
           );
           window.bracketsViewer.render(
             {
-              stages: config?.stage,
+              stages: config?.stage.map(stage => ({ ...stage, name: " " })),
               matches: config?.match,
               rounds: config?.round,
               groups: config?.group,
@@ -88,9 +94,7 @@ const TournamentDetail = () => {
               showLowerBracketSlotsOrigin: true,
             }
           );
-          setTimeout(() => {
-            
-          }, 1000);
+         
         }
       }
     }
@@ -104,6 +108,7 @@ const TournamentDetail = () => {
         user: user,
       });
     }
+    
   }, [tournamentData?.stages, activeStage, isSocketConnected]);
 
   // Empty dependency array means this runs once after mount
