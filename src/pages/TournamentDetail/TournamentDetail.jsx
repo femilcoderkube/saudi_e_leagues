@@ -89,9 +89,7 @@ const TournamentDetail = () => {
             },
             {
               selector: `#Major-final`,
-              showSlotsOrigin: true,
-              participantOriginPlacement: "after",
-              showLowerBracketSlotsOrigin: true,
+              participantOriginPlacement: "none",
             }
           );
          
