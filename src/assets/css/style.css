@@ -849,6 +849,18 @@ html[dir="rtl"] .view-all::after {
 .brackets-viewer .participant.hover {
   background: #0b0e85 !important;
 }
+.brackets-viewer .name span:last-child {
+  display: none;
+}
+
+.brackets-viewer .name  img {
+  width: 2rem !important;
+  height: 2rem !important;
+  border-radius: 50% !important;
+  margin-right: 1rem !important;
+}
+
+
 
 .tournament-schedule-card-wrapper {
   background: linear-gradient(180deg, rgba(54, 73, 87, 0.12) 0%, rgba(40, 55, 66, 0.12) 100%);
