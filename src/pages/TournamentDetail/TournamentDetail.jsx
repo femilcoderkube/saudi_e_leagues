@@ -308,7 +308,8 @@ const TournamentDetail = () => {
                           <div className="tournament-bracket-wrapper">
                             <div
                               id={`Major-final`}
-                              className="!p-0 brackets-viewer !bg-transparent "
+                              className="!p-0 brackets-viewer !bg-transparent"
+                              dir="ltr"
                             ></div>
                           </div>
                         )}
