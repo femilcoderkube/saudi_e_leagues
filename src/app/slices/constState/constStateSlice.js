@@ -14,7 +14,7 @@ const initialState = {
   isMatctCreated : false,
   timeLineCard : true,
   NotificationTabIndex : 0,
-  activeTournamentTab : 2,
+  activeTournamentTab : 1,
   confirmationPopUp : 0,
 
   countryOptions :countryData.map((country) => ({

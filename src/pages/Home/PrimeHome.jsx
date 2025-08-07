@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import GetStartedBtn from "../../assets/images/get_started_btn.png";
@@ -16,28 +16,34 @@ import VideoModal from "../../components/ModalPopUp/VideoModal.jsx";
 import { useTranslation } from "react-i18next";
 import { setActiveTabIndex } from "../../app/slices/constState/constStateSlice.js";
 import { useDispatch } from "react-redux";
+import team_falcons from "../../assets/images/team-falcons.png";
+import date_icon from "../../assets/images/date_icon.png";
+import pubg_icon from "../../assets/images/pubg_icon.png";
+import schdule_down from "../../assets/images/schdule_down.png";
+import battale_sahpe_img from "../../assets/images/battale-sahpe-img.png";
+import { useStateManager } from "react-select";
+import BattleRoyalStanding from "../TournamentDetail/BattleroyalGroupStandings.jsx";
+import BattleRoyalSchedule from "../TournamentDetail/BattleroyalGroupSchedule.jsx";
 
 export default function PrimeHome() {
   const { id } = useParams();
-  const { t , i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [activeState, setActiveState] = useState(false);
   // <Link to={`/${id}/lobby`}>Go to Lobby</Link>
   useEffect(() => {
     // Set page loading class
     document.body.classList.add("page-loading");
-  
+
     // Wait for fonts and Swiper to stabilize before removing loading class
     const timer = setTimeout(() => {
       document.body.classList.remove("page-loading");
     }, 500); // Slightly longer delay to avoid visual flashes
-  
+
     return () => clearTimeout(timer);
   }, []);
-  
-
- 
 
   return (
     <main className="flex-1 md:pt-[0.5rem] pt-[1.5rem] home_page--wrapper pb-[5.25rem] sm:pb-0">
@@ -76,13 +82,17 @@ export default function PrimeHome() {
               }}
               className="ml-[-0.5rem] hover:opacity-70 duration-300"
             >
-              <img className="hidden md:inline-block"
+              <img
+                className="hidden md:inline-block"
                 src={i18n.language === "ar" ? GetStartedBtnAr : GetStartedBtn}
                 alt={t("images.get_started_button")}
                 style={{ width: "21rem" }}
               />
-              <img className="md:hidden inline-block"
-                src={i18n.language === "ar" ? GetStartedBtnAr_1 : GetStartedBtn_1}
+              <img
+                className="md:hidden inline-block"
+                src={
+                  i18n.language === "ar" ? GetStartedBtnAr_1 : GetStartedBtn_1
+                }
                 alt={t("images.get_started_button")}
               />
             </div>
@@ -152,20 +162,18 @@ export default function PrimeHome() {
           </div>
         </section>
 
-      
-       <section className="htp_slider-sec flex justify-between ">
-       
+        <section className="htp_slider-sec flex xl:gap-0 sm:gap-10 gap-8 justify-between ">
           <div className="htp_left-con h-full flex justify-end flex-col max-w-[27.5%] basis-[27.5%]">
-            <h2 className="grad_head--txt max-w-full lg:text-[5rem] text-[3rem] tracking-wide !font-black leading-none uppercase">
+            <h2 className="grad_head--txt max-w-full xl:text-[5rem] text-[3rem] tracking-wide !font-black leading-none uppercase">
               {t("homepage.how")}
             </h2>
-            <h2 className="lg:text-[4rem] text-[2.5rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center tracking-wider !font-black md:pb-10 pb-8">
+            <h2 className="xl:text-[4rem] lg:text-[3.5rem] text-[2.5rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center tracking-wider !font-black md:pb-10 pb-8">
               {t("homepage.to_play")}
             </h2>
-            <p className="htp_content block purple_col sd_before relative before:w-full before:top-0 md:text-2xl text-base font-semibold md:py-10 py-6 pr-3">
+            <p className="htp_content block purple_col sd_before relative before:w-full before:top-0 md:text-2xl text-base font-semibold md:py-10 sm:py-6 pt-6 pb-0 pr-3">
               {t("homepage.htp_description")}
-            </p> 
-            <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center my-8 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
+            </p>
+            <div className="btn_polygon--mask sm:inline-flex hidden max-w-[fit-content] justify-center my-8 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
               <Link
                 to={"#"}
                 className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center"
@@ -208,9 +216,7 @@ export default function PrimeHome() {
             </svg>
           </div>
 
-        
           <div className="htp_right-con  relative max-w-[75%] basis-[72.5%]">
-          
             <HtpCardSlider
               sliderId="one"
               HtpCardDetails={[
@@ -247,9 +253,9 @@ export default function PrimeHome() {
               ]}
             />
           </div>
-        </section> 
-         {/* === Timelines Split Card Section HTML block Start === */}
-            {/* <section className="sd_timeline--sec pt-[5rem] pb-[5rem]  relative  ">
+        </section>
+        {/* === Timelines Split Card Section HTML block Start === */}
+        {/* <section className="sd_timeline--sec pt-[5rem] pb-[5rem]  relative  ">
                 <h2 className="text-[4rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none uppercase items-center tracking-wider !font-black pb-10">
                   Timelines                 
                 </h2>
@@ -257,26 +263,30 @@ export default function PrimeHome() {
                
             </section> */}
 
-            {/* === FAQ Section HTML block Start === */}
-            <section className="home_faq--sec pt-[5rem] pb-[5rem] pl-[7.5rem] relative flex justify-end ">
-              <div className="faq_left--con w-full absolute ltr:left-0 rtl:right-0 h-full top-[2rem]">
-              </div> 
-              <div className="faq_right--con max-w-[65%] flex-[0_0_65%] ltr:pr-[6.5rem] rtl:pr-[8.5rem] relative">
-                <h2 className="md:text-[4rem] text-[2rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none items-center tracking-wider !font-black md:pb-10 pb-8">
-                  {t("homepage.faq.faq")}                 
-                </h2>
-                <div className="sd_faq-con">
-                  <Accordation />
-                </div>
-              </div>                           
-            </section>  
+        {/* === FAQ Section HTML block Start === */}
+        <section className="home_faq--sec pt-[5rem] pb-[5rem] pl-[7.5rem] relative flex justify-end ">
+          <div className="faq_left--con w-full absolute ltr:left-0 rtl:right-0 h-full top-[2rem]"></div>
+          <div className="faq_right--con max-w-[65%] flex-[0_0_65%] ltr:pr-[6.5rem] rtl:pr-[8.5rem] relative">
+            <h2 className="md:text-[4rem] text-[2rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none items-center tracking-wider !font-black md:pb-10 pb-8">
+              {t("homepage.faq.faq")}
+            </h2>
+            <div className="sd_faq-con">
+              <Accordation />
+            </div>
+          </div>
+        </section>
+        {/* === Battle Royal Start === */}
+        <BattleRoyalStanding />
+        {/* === Battle Royal End === */}
+
+        {/* === Schedule Start === */}
+        <BattleRoyalSchedule />
+        {/* === Schedule End === */}
       </div>
 
       {/* Video Modal */}
       {showVideoModal && (
-        <VideoModal
-          onClose={() => setShowVideoModal(false)}
-        />
+        <VideoModal onClose={() => setShowVideoModal(false)} />
       )}
     </main>
   );

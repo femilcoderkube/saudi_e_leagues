@@ -42,24 +42,20 @@ const TournamentDetail = () => {
   };
 
   useEffect(() => {
-    if (isSocketConnected && user) {
+    if (isSocketConnected) {
       startTournamentSocket({
         tId: tId,
         user: user,
         isSocketConnected: isSocketConnected,
       });
     }
-    // if (window.bracketsViewer && document.getElementById("first")) {
-    //   window.bracketsViewer.render({
-    //     stages: TournamentData.stage,
-    //     matches: TournamentData.match,
-    //     matchGames: TournamentData.match_game,
-    //     participants: TournamentData.participant,
-    //   }, {
-    //     selector: "#Major-final",
-    //   });
-    // }
-  }, [isSocketConnected, tId, user]);
+  }, [isSocketConnected, tId]);
+
+  useEffect(() => {
+    if (tournamentData?.title) {
+      document.title = `Prime eLeague - ${tournamentData?.title}`;
+    }
+  }, [tournamentData]);
 
   useEffect(() => {
     if (tournamentStages) {
@@ -76,9 +72,15 @@ const TournamentDetail = () => {
           config?.group &&
           config?.participant
         ) {
+          window.bracketsViewer.setParticipantImages(
+            config?.participant.map((participant) => ({
+              participantId: participant.id,
+              imageUrl: getServerURL(participant.imageUrl),
+            }))
+          );
           window.bracketsViewer.render(
             {
-              stages: config?.stage,
+              stages: config?.stage.map(stage => ({ ...stage, name: " " })),
               matches: config?.match,
               rounds: config?.round,
               groups: config?.group,
@@ -87,22 +89,25 @@ const TournamentDetail = () => {
             },
             {
               selector: `#Major-final`,
+              participantOriginPlacement: "none",
             }
           );
+         
         }
       }
     }
   }, [tournamentStages, activeStage, activeTournamentTab]);
 
   useEffect(() => {
-    if (tournamentData?.stages?.length > 0 && isSocketConnected && user) {
+    if (tournamentData?.stages?.length > 0 && isSocketConnected) {
       getTournamentStages({
         stageId: tournamentData?.stages[activeStage]?._id,
         isSocketConnected: isSocketConnected,
         user: user,
       });
     }
-  }, [tournamentData?.stages, activeStage, isSocketConnected, user]);
+    
+  }, [tournamentData?.stages, activeStage, isSocketConnected]);
 
   // Empty dependency array means this runs once after mount
   return (
@@ -263,76 +268,82 @@ const TournamentDetail = () => {
                 </ul>
 
                 {/* <!-- Tab Contents --> */}
-                {tournamentStages != null && tournamentStages?.config?.match ? <div id="tournament-tab-contents" className="mt-7">
-                  <div id="first" className="py-4 active">
-                    <div className="game_status--tab-wrapper text-center md:text-left rtl:text-right">
-                      { 
-                        <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
-                          <button
-                            onClick={() => handleActiveTournamentTab(1)}
-                            class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+                {tournamentStages != null && tournamentStages?.config?.match ? (
+                  <div id="tournament-tab-contents" className="mt-7">
+                    <div id="first" className="py-4 active">
+                      <div className="game_status--tab-wrapper text-center md:text-left rtl:text-right">
+                        {
+                          <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
+                            <button
+                              onClick={() => handleActiveTournamentTab(1)}
+                              class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
                 ${
                   activeTournamentTab === 1
                     ? "active-tab hover:opacity-100 polygon_border"
                     : ""
                 }`}
-                          >
-                            Brackets
-                          </button>
+                            >
+                              Brackets
+                            </button>
 
-                          <button
-                            onClick={() => handleActiveTournamentTab(2)}
-                            class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+                            <button
+                              onClick={() => handleActiveTournamentTab(2)}
+                              class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
                 ${
                   activeTournamentTab === 2
                     ? "active-tab hover:opacity-100 polygon_border"
                     : ""
                 }`}
-                          >
-                            Schedule
-                          </button>
-                        </div>
-                      }
-                    </div>
-                  
+                            >
+                              Schedule
+                            </button>
+                          </div>
+                        }
+                      </div>
+
                       <>
-                        {activeTournamentTab === 1 &&
-                          (
-                            <div className="tournament-bracket-wrapper">
-                              <div
-                                id={`Major-final`}
-                                className="!p-0 brackets-viewer !bg-transparent "
-                              ></div>
-                            </div>
-                          )}
+                        {activeTournamentTab === 1 && (
+                          <div className="tournament-bracket-wrapper">
+                            <div
+                              id={`Major-final`}
+                              className="!p-0 brackets-viewer !bg-transparent"
+                              dir="ltr"
+                            ></div>
+                          </div>
+                        )}
                         {activeTournamentTab === 2 && (
                           <div className="tournament-bracket-wrapper mt-20">
                             <div className="tournament-schedule-card-list grid gap-x-8 gap-y-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-                              {tournamentStages?.matcheData?.map((item, index) => {
-                                return (
-                                  <TournamentScheduleCard key={index} item={item} />
-                                );
-                              })}
+                              {tournamentStages?.matcheData?.map(
+                                (item, index) => {
+                                  return (
+                                    <TournamentScheduleCard
+                                      key={index}
+                                      item={item}
+                                    />
+                                  );
+                                }
+                              )}
                             </div>
                           </div>
                         )}
                       </>
-                    
+                    </div>
                   </div>
-                </div> : tournamentStages == null ?  (
-                      <div className="flex gamingLoader justify-center items-center">
-                        <img
-                          className="center-league-loader my-50"
-                          src={center_league}
-                          alt=""
-                          style={{ width: "11rem" }}
-                        />
-                      </div>
-                    ) :  (
-                            <div className="flex justify-center items-center py-50 text-xl text-gray-400">
-                              No data found
-                            </div>
-                          )}
+                ) : tournamentStages == null ? (
+                  <div className="flex gamingLoader justify-center items-center">
+                    <img
+                      className="center-league-loader my-50"
+                      src={center_league}
+                      alt=""
+                      style={{ width: "11rem" }}
+                    />
+                  </div>
+                ) : (
+                  <div className="flex justify-center items-center py-50 text-xl text-gray-400">
+                    No data found
+                  </div>
+                )}
               </div>
             </div>
           </div>

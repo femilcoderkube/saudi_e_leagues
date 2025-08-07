@@ -106,6 +106,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
     // Remove any previous listener to prevent duplicate handlers
     stopLeagueSocket();
+    
     // Emit join league event
     // Listen for league updates and update state
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
