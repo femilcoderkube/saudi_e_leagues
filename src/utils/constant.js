@@ -564,3 +564,19 @@ export function getTimeAgo(dateString) {
   if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
   return `${Math.floor(diff / 86400)}d ago`;
 }
+export function getIntervalCountdown(currentIntervalStartTime, intervalTimeMinutes) {
+  const now = new Date();
+  const intervalTimeMs = intervalTimeMinutes * 1000; // Convert to milliseconds
+  
+  // Calculate when current interval should end
+  const currentIntervalEndTime = new Date(new Date(currentIntervalStartTime).getTime() + intervalTimeMs);
+  
+  // Calculate remaining time in milliseconds
+  const remainingMs = currentIntervalEndTime.getTime() - now.getTime();
+  
+  // Convert to seconds (round up to avoid showing 0 when there's still time)
+  const remainingSeconds = Math.ceil(remainingMs / 1000);
+  
+  // Return 0 if interval has already ended
+  return Math.max(0, remainingSeconds);
+}

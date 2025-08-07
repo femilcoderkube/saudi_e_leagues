@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getServerURL } from "../../../utils/constant";
+import { captureOwnerStack } from "react";
 
 const initialState = {
   draftData: null,
-  captains: [],
-  players: [],
+  teams:[],
   loading: false,
   error: null,
-  selectedPlayers: [],
+  otherPlayers: [],
   draftStatus: null,
   currentPick: null,
-  pickOrder: [],
+  picks: [],
 };
 
 const draftSlice = createSlice({
@@ -17,8 +18,24 @@ const draftSlice = createSlice({
   initialState,
   reducers: {
     setDraftData: (state, action) => {
-      state.draftData = action.payload;
-      state.captains = action.payload.data.captains || [];
+      if (action.payload.status) {
+        state.draftData = action.payload.data;
+        state.teams = action.payload.data.teams || [];
+     
+
+        state.otherPlayers = action.payload.data?.otherPlayers || []
+        
+        state.picks = action.payload.data.otherPlayers?.map((pick, idx) => ({
+          index: idx,
+          username: pick?.userId?.username || "",
+          fullName: pick?.userId?.fullName || "",
+          id: pick?.userId?._id || "",
+          rep: pick?.wilsonScore || 0,
+          profilePic: getServerURL(pick?.userId?.profilePicture || ""),
+          rank: pick?.rank || "",
+          score: Math.round(pick?.totalLeaguesScore || 0),
+        })) || [];
+      }
     },
     setDraftCaptain: (state, action) => {
       state.captains = action.payload;
@@ -59,9 +76,9 @@ const draftSlice = createSlice({
     },
     updateTeam: (state, action) => {
       const { teamType, players } = action.payload;
-      if (teamType === 'teamOne') {
+      if (teamType === "teamOne") {
         state.teams.teamOne = players;
-      } else if (teamType === 'teamTwo') {
+      } else if (teamType === "teamTwo") {
         state.teams.teamTwo = players;
       }
     },
@@ -75,11 +92,11 @@ const draftSlice = createSlice({
       state.pickOrder = [];
       state.teams = {
         teamOne: [],
-        teamTwo: []
+        teamTwo: [],
       };
       state.error = null;
-    }
-  }
+    },
+  },
 });
 
 export const {
@@ -96,7 +113,7 @@ export const {
   setPickOrder,
   setTeams,
   updateTeam,
-  clearDraftData
+  clearDraftData,
 } = draftSlice.actions;
 
 export default draftSlice.reducer;

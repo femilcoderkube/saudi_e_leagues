@@ -362,7 +362,7 @@ export const FirstPosCard_gold = ({ props }) => {
           fontFamily="Cairo"
           fontSize={22}
           fontWeight="bold"
-          text-anchor="end"
+          textAnchor="end"
           letterSpacing="0em"
         >
           <tspan x={320} y={52.052}>
@@ -1033,8 +1033,6 @@ export const FirstPosCard_gold = ({ props }) => {
 }
 
 export const EvenPosCard = ({ props }) => {
-
-  console.log(props.rep);
   
   return (
     <svg
@@ -1453,7 +1451,7 @@ export const EvenPosCard = ({ props }) => {
                 fontSize={22}
                 fontWeight="bold"
                 letterSpacing="0em"
-                text-anchor="end"
+                textAnchor="end"
               >
                 <tspan x={320} y={56.6062}>
                   {props.score}
@@ -1475,7 +1473,7 @@ export const EvenPosCard = ({ props }) => {
             letterSpacing="0em"
           >
             <tspan x={136.593} y={58.3833}>
-              {`Pick #${props?.pickIdx}`}
+              {`Pick #${props?.index}`}
             </tspan>
           </text>
         </g>
@@ -2610,7 +2608,7 @@ export const OddPosCard = ({ props }) => {
                 fontSize={22}
                 fontWeight="bold"
                 letterSpacing="0em"
-                text-anchor="end"
+                textAnchor="end"
               >
                 <tspan x={320} y={52.468}>
                   {props.score}
@@ -2632,7 +2630,7 @@ export const OddPosCard = ({ props }) => {
             letterSpacing="0em"
           >
             <tspan x={136.659} y={54.468}>
-              {`Pick #${props.pickIdx}`}
+              {`Pick #${props.index}`}
             </tspan>
           </text>
         </g>
