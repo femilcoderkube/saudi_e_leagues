@@ -8,6 +8,7 @@ import constStateSlice from "./constState/constStateSlice";
 import Matchslice from "./MatchSlice/matchDetailSlice";
 import notificationSlice from "./notificationSlice/notificationSlice";
 import tournamentSlice from "./tournamentSlice/tournamentSlice";
+import draftSlice from "./draft/draftSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     matchs: Matchslice,
     notification: notificationSlice,
     tournament: tournamentSlice,
+    draft: draftSlice,
   },
 });
 

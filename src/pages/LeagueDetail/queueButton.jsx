@@ -4,6 +4,7 @@ import join_btn from "../../assets/images/join_btn.png";
 import need_btn from "../../assets/images/needToLogin.png";
 import Que_btn from "../../assets/images/quebtn.png";
 import Open_btn from "../../assets/images/open.png";
+import Drafting_btn from "../../assets/images/drafting.png";
 import Cancel_btn from "../../assets/images/cancelbtn.png";
 import { setRegistrationModal, setVerificationModal } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { getQueueText } from "../../utils/constant";
@@ -23,7 +24,6 @@ const GetQueueButton = () => {
   const end = new Date(leagueData?.endDate);
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-
 
   if (user?._id == null || user?._id == undefined) {
     return (
@@ -52,27 +52,54 @@ const GetQueueButton = () => {
         />{" "}
       </div>
     );
-  } else if (end < now) {
-    return (
-      <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
-        <span
-          className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
-          style={{
-            fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
-            fontWeight: "bold",
-            textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+  } else if (end < now) {    
+    if (leagueData?.draft?.isPublished && leagueData?.draft?.startTime && new Date(leagueData?.draft?.startTime) > now) {
+      return (
+        <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before "
+          onClick={() => {
+            navigate(`/${id}/lobby/drafting/${leagueData?.draft?._id}`);
           }}
         >
-          {t("league.league_ended")}
-        </span>
-        <img
-          className="mx-auto"
-          src={Que_btn}
-          alt=""
-          style={{ width: "30.5rem" }}
-        />{" "}
-      </div>
-    );
+          <span
+            className="mob-common-btn absolute top-[2rem] left-0 w-full mb-3 text-center text-xl sm:text-3xl"
+            style={{
+              fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
+              fontWeight: "bold",
+              textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            {t("league.drafting_phase")}
+          </span>
+          <img
+            className="mx-auto"
+            src={Drafting_btn}
+            alt=""
+            style={{ width: "30.5rem" }}
+          />{" "}
+        </div>
+      );
+    } else {
+      return (
+        <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
+          <span
+            className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
+            style={{
+              fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
+              fontWeight: "bold",
+              textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            {t("league.league_ended")}
+          </span>
+          <img
+            className="mx-auto"
+            src={Que_btn}
+            alt=""
+            style={{ width: "30.5rem" }}
+          />{" "}
+        </div>
+      );
+    }
   } else if (!isJoinedUser) {
     return (
       <div

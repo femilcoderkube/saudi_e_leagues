@@ -63,7 +63,7 @@ function App() {
             <Route index element={<PrimeHome />} />
             <Route path="match/:mId" element={<MatchDetail />} />
             <Route path="lobby" element={<Lobby />} />
-            <Route path="lobby/drafting" element={<DraftingDetail/>} />
+            <Route path="lobby/drafting/:draftId" element={<DraftingDetail/>} />
             <Route path="lobby/tournament/:tId" element={<TournamentDetail />} />
             <Route path="lobby/:lId" element={<LeagueDetail />} />
             <Route path="lobby/:lId/finding-match" element={<MatchMaking />} />

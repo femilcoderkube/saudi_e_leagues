@@ -1,4 +1,4 @@
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { store } from "../slices/store";
 import { setSocketConnected, setSocketId } from "../slices/socket/socketSlice";
 import {
@@ -24,6 +24,8 @@ import {
 import { setIsMatctCreated } from "../slices/constState/constStateSlice";
 import { setLastMatch, setNotification } from "../slices/notificationSlice/notificationSlice";
 import { setTournamentData, setTournamentStages } from "../slices/tournamentSlice/tournamentSlice";
+import { setDraftData, setDraftCaptain, setDraftPlayers, setDraftStatus } from "../slices/draft/draftSlice";
+import { useEffect, useRef } from "react";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -56,11 +58,11 @@ socket.on("connect", () => {
     }
   });
   socket.on(SOCKET.ONNOTIFICATION, (data) => {
-     console.log("Notification Data:", data);
+    // console.log("Notification Data:", data);
     store.dispatch(setNotification(data));
   });
   socket.on(SOCKET.LASTMATCHUPDATE, (data) => {
-    console.log("Last Match Update Data:", data);
+    // console.log("Last Match Update Data:", data);
     store.dispatch(setLastMatch(data));
   });
   if (user?._id) {
@@ -107,7 +109,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
     // Emit join league event
     // Listen for league updates and update state
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
-      console.log("League Update Data:", data);
+      // console.log("League Update Data:", data);
       if (!data?.status) {
         window.location.href = "/";
         return;
@@ -137,7 +139,7 @@ export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
     socket.off(SOCKET.ONWEEKOFSTARUSERS);
     socket.on(SOCKET.ONWEEKOFSTARUSERS, (data) => {
       if (data?.status) {
-        console.log("Week of Star Users Data:", data?.data);
+        // console.log("Week of Star Users Data:", data?.data);
         store.dispatch(setWeekOfStarUsers(data?.data));
       }
     });
@@ -206,8 +208,8 @@ export function startTournamentSocket({ tId, user, isSocketConnected }) {
 export function stopTournamentSocket() {
   socket.off(SOCKET.ONTOURNAMENTUPDATE);
 }
-export function getTournamentStages({ stageId, isSocketConnected,user }) {
-  console.log("getTournamentStages", stageId, isSocketConnected,user);
+export function getTournamentStages({ stageId, isSocketConnected, user }) {
+  console.log("getTournamentStages", stageId, isSocketConnected, user);
   if (isSocketConnected) {
     stopTournamentStagesSocket();
     socket.on(SOCKET.ONTOURNAMENTSTAGESUPDATE, (data) => {
@@ -219,4 +221,19 @@ export function getTournamentStages({ stageId, isSocketConnected,user }) {
 }
 export function stopTournamentStagesSocket() {
   socket.off(SOCKET.ONTOURNAMENTSTAGESUPDATE);
+}
+export function stopDraftSocket() {
+  socket.off(SOCKET.ONDRAFTDATAUPDATE);
+}
+export function getDraftById({ draftId, isSocketConnected }) {
+  if (isSocketConnected) {
+    stopDraftSocket();
+    socket.on(SOCKET.ONDRAFTDATAUPDATE, (data) => {
+      console.log("Draft Update Data:", data);
+
+      // Saving entire data
+      store.dispatch(setDraftData(data))
+    });
+    socket.emit(SOCKET.GETDRAFTDATA, { draftId })
+  }
 }
