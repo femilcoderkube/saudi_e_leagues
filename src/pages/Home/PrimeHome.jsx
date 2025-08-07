@@ -162,7 +162,7 @@ export default function PrimeHome() {
           </div>
         </section>
 
-        <section className="htp_slider-sec flex xl:gap-0 sm:gap-10 gap-8 justify-between ">
+        {/* <section className="htp_slider-sec flex xl:gap-0 sm:gap-10 gap-8 justify-between ">
           <div className="htp_left-con h-full flex justify-end flex-col max-w-[27.5%] basis-[27.5%]">
             <h2 className="grad_head--txt max-w-full xl:text-[5rem] text-[3rem] tracking-wide !font-black leading-none uppercase">
               {t("homepage.how")}
@@ -253,7 +253,7 @@ export default function PrimeHome() {
               ]}
             />
           </div>
-        </section>
+        </section> */}
         {/* === Timelines Split Card Section HTML block Start === */}
         {/* <section className="sd_timeline--sec pt-[5rem] pb-[5rem]  relative  ">
                 <h2 className="text-[4rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none uppercase items-center tracking-wider !font-black pb-10">
@@ -275,13 +275,7 @@ export default function PrimeHome() {
             </div>
           </div>
         </section>
-        {/* === Battle Royal Start === */}
-        <BattleRoyalStanding />
-        {/* === Battle Royal End === */}
-
-        {/* === Schedule Start === */}
-        <BattleRoyalSchedule />
-        {/* === Schedule End === */}
+    
       </div>
 
       {/* Video Modal */}

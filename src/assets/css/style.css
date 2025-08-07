@@ -1163,18 +1163,17 @@ html[dir=rtl] .battle-shape {
 .brackets-viewer .participant.hover {
   background: #0b0e85 !important;
 }
+
 .brackets-viewer .name span:last-child {
   display: none;
 }
 
-.brackets-viewer .name  img {
+.brackets-viewer .name img {
   width: 2rem !important;
   height: 2rem !important;
   border-radius: 50% !important;
   margin-right: 1rem !important;
 }
-
-
 
 .tournament-schedule-card-wrapper {
   background: linear-gradient(183.7deg, rgba(94, 95, 184, 0.2) 3.03%, rgba(34, 35, 86, 0.2) 97.05%);
@@ -1197,25 +1196,32 @@ html[dir=rtl] .battle-shape {
   background: linear-gradient(180deg, #F4F7FF 53.92%, #BABDFF 112.5%);
 }
 
-.tournament-schedule-card-footer-hover.tournament-schedule-card-footer h2{
+.tournament-schedule-card-footer-hover.tournament-schedule-card-footer h2 {
   background: unset;
 }
-.tournament-schedule-card-header-time h2{
+
+.tournament-schedule-card-header-time h2 {
   background: linear-gradient(180deg, rgba(94, 95, 184, 0.2) 0%, rgba(34, 35, 86, 0.2) 111.11%);
   box-shadow: 0px 2px 2px 0px #5E5FB81F inset;
   clip-path: url(#scalable-clip);
   position: relative;
+  width: 47%;
+  padding: 0;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.tournament-schedule-card-header-time h2 span::before{
+.tournament-schedule-card-header-time h2 span::before {
   position: absolute;
   content: '';
   left: 0;
   top: 50%;
-  transform: translate(0,-50%);
+  transform: translate(0, -50%);
   width: 0.065rem;
   height: 1rem;
-  background-color:#5E5FB899; 
+  background-color: #5E5FB899;
 }
 
 .tournament-schedule-card-footer-center {
@@ -1224,16 +1230,48 @@ html[dir=rtl] .battle-shape {
   transform: translate(-50%, 0px);
 }
 
-.tournament-schedule-card-footer-hover.tournament-schedule-card-footer{
+.tournament-schedule-card-footer-hover.tournament-schedule-card-footer {
   display: none;
+}
+
+.tournament_page--wrapper .sd_game-con.polygon_border:before,.tournament_page--wrapper .sd_game-con.polygon_border:after{
+  width: 30%;
+  height: 0.38rem;
 }
 
 
 @media (max-width: 767px) {
-
   .sd_tournament-content .polygon_border:before,
   .sd_tournament-content .polygon_border:after {
     width: 4.5rem;
+  }
+  .tournament-schedule-card-header-time h2 {
+    height: 1.65rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .tournament-schedule-card-header-time h2 {
+    height: 1.55rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .tournament-schedule-card-header-time h2 {
+    height: 1.45rem;
+  }
+}
+
+@media (max-width: 389px) {
+  .tournament-schedule-card-header-time h2 {
+    font-size: 0.75rem;
+  }
+  .sd_tournament-content .game_status--tab button{
+    width: 9rem;
+    height: 3.8rem;
+  }
+  .sd_tournament-content .polygon_border:before, .sd_tournament-content .polygon_border:after{
+    left: 53%;
   }
 }
 

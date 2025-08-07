@@ -56,7 +56,7 @@ const TournamentScheduleCard = ({ item }) => {
             className="w-full h-full object-cover absolute top-0 left-0 z-0 opacity-4 "
           />
           <div className="tournament-schedule-card-header-left flex items-center gap-4 md:gap-8 relative z-10">
-            <div className="w-[5rem] h-[5rem] rounded-lg overflow-hidden">
+            <div className="sm:w-[5rem] sm:h-[5rem] w-[4rem] h-[4rem] rounded-lg overflow-hidden">
               <img
                 src={getServerURL(data?.team1.profilePicture)}
                 alt="tournament-schedule"
@@ -74,7 +74,7 @@ const TournamentScheduleCard = ({ item }) => {
             <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
               {data?.acticeScore?.opponent2Score || "-"}
             </h2>
-            <div className="w-[5rem] h-[5rem] rounded-lg overflow-hidden">
+            <div className="sm:w-[5rem] sm:h-[5rem] w-[4rem] h-[4rem] rounded-lg overflow-hidden">
               <img
                 src={tournament_thumbnail}
                 alt="tournament-schedule"
@@ -108,25 +108,7 @@ const TournamentScheduleCard = ({ item }) => {
             <img src={footer_card_icon} alt="" />
           </div>
         </div> */}
-        {/* card main shape */}
-        <svg
-          width={0}
-          height={0}
-          viewBox="0 0 448 200"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{
-            position: "absolute",
-          }}
-        >
-          <defs>
-            <clipPath id="scalableClipPath" clipPathUnits="objectBoundingBox">
-              <path
-                transform="scale(0.00223214, 0.005)"
-                d="M144 36H304L336 0H432L448 16V184L432 200H272L264 192H184L176 200H16L0 184V16L16 0H112L144 36Z"
-              />
-            </clipPath>
-          </defs>
-        </svg>
+
         {/* card bottom shape */}
         <svg
           width={0}
@@ -142,6 +124,25 @@ const TournamentScheduleCard = ({ item }) => {
               <path
                 transform="scale(0.00223214, 0.015625)"
                 d="M448 8V48L432 64H272L264 56H184L176 64H16L0 48V8L8 0H440L448 8Z"
+              />
+            </clipPath>
+          </defs>
+        </svg>
+        {/* card main shape */}
+        <svg
+          width={0}
+          height={0}
+          viewBox="0 0 448 200"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            position: "absolute",
+          }}
+        >
+          <defs>
+            <clipPath id="scalableClipPath" clipPathUnits="objectBoundingBox">
+              <path
+                transform="scale(0.00223214, 0.005)"
+                d="M144 36H304L336 0H432L448 16V184L432 200H272L264 192H184L176 200H16L0 184V16L16 0H112L144 36Z"
               />
             </clipPath>
           </defs>
