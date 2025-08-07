@@ -275,10 +275,10 @@ html[dir=rtl] .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body .m
     background-image: url(../images/sliderBG.png) !important;
 }
 .big-card.swiper{
-    width: 170rem !important;
+    width: 255rem !important;
 }
 
-.htp_slider-sec .htp_left-con{
+/* .htp_slider-sec .htp_left-con{
     max-width: calc(28%);
     flex: 0 0 calc(28%);
 }
@@ -286,7 +286,7 @@ html[dir=rtl] .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body .m
 .htp_slider-sec .htp_right-con{
     max-width: calc(77%);
     flex: 0 0 calc(72%);
-}
+} */
 /* --------------------------------
     
     Timeline Section CSS Start
@@ -565,6 +565,9 @@ html[dir="rtl"] .home_faq--sec {
         padding-right: 0;
         padding-left: 1.5rem;
     }
+    .htp_slider-sec .mySwiper{
+        display: none;
+    }
 }
 
 @media (max-width: 991px) {
@@ -628,14 +631,6 @@ html[dir="rtl"] .home_faq--sec {
         max-width: 100%;
     }
 
-    .game_card_wrap--link:first-child .htp_card--body {
-        width: 35.5rem;
-    }
-
-    .htp_card--body .match_date {
-        bottom: 1.2rem;
-    }
-
     .faq_right--con {
         padding-right: 0;
     }
@@ -660,6 +655,10 @@ html[dir="rtl"] .home_faq--sec {
         left: 15rem;
         top: 1rem;
         right: auto;
+    }
+    .htp_slider-sec .htp_left-con,.htp_slider-sec .htp_right-con{
+        max-width: 100%;
+        flex:1;
     }
 }
 
@@ -691,35 +690,9 @@ html[dir="rtl"] .home_faq--sec {
         left: 9rem;
     }
 
-    /* .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body, .htp_slider .swiper-slide{
-        height: 20rem;
-    } */
-
-    .htp_slider .swiper-slide.swiper-slide-active .game_card_wrap--link .htp_card--body,
-    .htp_slider .swiper-slide.swiper-slide-active {
-        width: 31rem !important;
-        height: 20rem;
-    }
-
-    .htp_slider .swiper-slide .game_card_wrap--link,
-    .htp_slider-sec .htp_right-con .swiper {
-        min-height: 19.5rem;
-    }
-
-    .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body {
-        width: 18.6rem;
-        height: 21.5rem;
-    }
-
     .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body .match_date {
-        height: 8.3rem;
+        height: 8rem;
         width: 6.5rem;
-    }
-
-    .htp_slider .swiper-slide.swiper-slide-active .htp_card--body .match_date {
-        height: 6.9rem;
-        width: 5.5rem;
-        bottom: 0.79rem;
     }
 
     .htp_slider .sd_prev-btn,
@@ -741,6 +714,20 @@ html[dir="rtl"] .home_faq--sec {
     html[dir=rtl] .home_hero--sec::after {
         left: 6rem;
     }
+
+    .htp_slider-sec .htp_card--body,.htp_slider-sec .game_card_wrap--link,.big-card.swiper {
+        width: 34rem !important;
+        height: 21.5rem !important;
+        min-height: unset;
+    }
+    .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body .match_date {
+        height: 7rem;
+        width: 5.5rem;
+    }    
+
+    .htp_slider .swiper-slide.swiper-slide-active .game_card_wrap--link .htp_card--body p.game_info{
+        padding-bottom: 0;
+    }
 }
 
 @media (max-width: 575px) {
@@ -750,6 +737,31 @@ html[dir="rtl"] .home_faq--sec {
 
     html[dir=rtl] .home_hero--sec::after {
         left: 0;
+    }
+    .htp_slider-sec .htp_card--body, .htp_slider-sec .game_card_wrap--link, .big-card.swiper {
+        width: 27.5rem !important;
+        height:17.5rem !important;
+    }
+    .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body .match_date {
+        height: 5.6rem;
+        width: 4.5rem;
+    }  
+    .htp_slider-sec .game_mask--con{
+        padding-bottom: 0.85rem;
+    }
+}
+@media (max-width: 475px) {
+    .htp_slider-sec .htp_card--body, .htp_slider-sec .game_card_wrap--link, .big-card.swiper {
+        width: 22rem !important;
+        height: 14rem !important;
+    }
+    .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body .match_date {
+        height: 4.5rem;
+        width: 3.5rem;
+    }
+
+    .htp_slider .swiper-slide.swiper-slide-active .game_card_wrap--link .htp_card--body p.game_info {
+        max-width: 14.5rem;
     }
 }
 
@@ -783,5 +795,17 @@ html[dir="rtl"] .home_faq--sec {
 
     .swiper-slide.swiper-slide-active {
         margin-right: 1rem;
+    }
+
+    .htp_slider-sec .htp_card--body, .htp_slider-sec .game_card_wrap--link, .big-card.swiper {
+        width: 18rem !important;
+        height: 11.5rem !important;
+    }
+    .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body .match_date {
+        height: 3.6rem;
+        width: 2.8rem;
+    }
+    .htp_slider .swiper-slide.swiper-slide-active .game_card_wrap--link .htp_card--body p.game_info {
+        max-width: 13rem;
     }
 }

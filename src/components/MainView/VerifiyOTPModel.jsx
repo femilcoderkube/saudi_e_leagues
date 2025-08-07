@@ -103,7 +103,7 @@ const VerifiyOTPModel = ({ module }) => {
           </div>
         ) : null}
 
-        <div className="flex justify-between mb-6 gap-1">
+        <div className="flex justify-between mb-6 gap-1" dir="ltr">
           {otp.map((digit, index) => (
             <React.Fragment key={index}>
               <input

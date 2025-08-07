@@ -527,7 +527,7 @@ html[dir="rtl"] .view-all::after {
   overflow: hidden;
   border-left-width: 0.4rem;
   border-left-color: #d7d8ff;
-  background: linear-gradient(90deg, rgba(121, 69, 243) 0%, rgba(121, 69, 243) 20%, rgba(94, 95, 184) 72%, rgb(105, 107, 255) 100%)!important;
+  background: linear-gradient(90deg, rgba(121, 69, 243) 0%, rgba(121, 69, 243) 20%, rgba(94, 95, 184) 72%, rgb(105, 107, 255) 100%) !important;
   color: #d7d8ff !important;
 }
 
@@ -586,6 +586,197 @@ html[dir="rtl"] .view-all::after {
   margin-top: 1.5rem;
 }
 
+/* battle royal start */
+.battle-body-wp {
+  background: linear-gradient(180deg, rgba(54, 73, 87, 0.12) 0%, rgba(40, 55, 66, 0.12) 100%);
+  box-shadow: 0px 4px 4px 0px #5472880A inset;
+  backdrop-filter: blur(24px);
+  border-radius: 0.5rem;
+}
+
+.battle-body-wp div:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+html[dir=rtl] .battle-body-wp div:first-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.battle-body-wp div:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.battle-common {
+  background: linear-gradient(180deg, rgba(245, 190, 1, 0.24) 0%, rgba(132, 103, 0, 0.24) 100%);
+  background: linear-gradient(180deg, rgba(54, 73, 87, 0.24) 0%, rgba(40, 55, 66, 0.24) 100%);
+}
+
+.battle-common p {
+  background: linear-gradient(180deg, #9EC2CC 0%, #688992 100%);
+}
+
+.battle-body-wp:first-child .battle-common {
+  background: linear-gradient(180deg, rgba(245, 190, 1, 0.24) 0%, rgba(132, 103, 0, 0.24) 100%);
+}
+
+.battle-body-wp:first-child .battle-common p {
+  background: linear-gradient(180deg, #E6B201 0%, #C59800 100%);
+}
+
+.battle-body-wp:nth-child(2) .battle-common {
+  background: linear-gradient(180deg, rgba(186, 214, 224, 0.24) 0%, rgba(99, 116, 121, 0.24) 100%);
+}
+
+.battle-body-wp:nth-child(2) .battle-common p {
+  background: linear-gradient(180deg, #BAD6E0 0%, #8299A1 100%);
+}
+
+.battle-body-wp:nth-child(3) .battle-common {
+  background: linear-gradient(180deg, rgba(226, 136, 79, 0.24) 0%, rgba(114, 70, 42, 0.24) 100%);
+}
+
+.battle-body-wp:nth-child(3) .battle-common p {
+  background: linear-gradient(180deg, #E2884F 0%, #B96D3D 100%);
+}
+
+.schdule-date span {
+  background: linear-gradient(180deg, #F4F7FF 36.06%, #4584F2 150%);
+}
+
+.schdule-date span:last-child {
+  background: rgba(158, 167, 204, 1);
+}
+
+.schdule-accordion-body {
+  border: 1px solid rgb(40, 55, 66, 0.4);
+  border-top: 0;
+  transition: 0.3s;
+}
+
+.schdule-accordion-body:first-child {
+  background: linear-gradient(90deg, rgba(230, 178, 1, 0.15) 0%, rgba(197, 152, 0, 0) 12%);
+}
+
+html[dir=rtl] .schdule-accordion-body:first-child {
+  background: linear-gradient(270deg, rgba(230, 178, 1, 0.15) 0%, rgba(197, 152, 0, 0) 12%);
+}
+
+.schdule-accordion-body:nth-child(2) {
+  background: linear-gradient(90deg, rgba(186, 214, 224, 0.15) 0%, rgba(130, 153, 161, 0) 12%);
+}
+
+html[dir=rtl] .schdule-accordion-body:nth-child(2) {
+  background: linear-gradient(270deg, rgba(186, 214, 224, 0.15) 0%, rgba(130, 153, 161, 0) 12%);
+}
+
+.schdule-accordion-body:nth-child(3) {
+  background: linear-gradient(90deg, rgba(215, 129, 74, 0.15) 0%, rgba(191, 113, 64, 0) 12%);
+}
+
+html[dir=rtl] .schdule-accordion-body:nth-child(3) {
+  background: linear-gradient(270deg, rgba(215, 129, 74, 0.15) 0%, rgba(191, 113, 64, 0) 12%);
+}
+
+.schdule-accordion-body:nth-child(2) .schdule-common p {
+  background: linear-gradient(180deg, #EAEAEA 0%, #AFAFAF 100%);
+}
+
+.schdule-accordion-body:nth-child(3) .schdule-common p {
+  background: linear-gradient(180deg, #E2884F 0%, #B96D3D 100%);
+}
+
+.schdule-accordion-body .schdule-common p {
+  background: linear-gradient(180deg, #9EC2CC 0%, #688992 100%);
+}
+
+.schdule-accordion-card {
+  border-radius: 0.75rem;
+}
+
+.schdule-accordion-header {
+  background: linear-gradient(180deg, rgba(54, 73, 87, 0.12) 0%, rgba(40, 55, 66, 0.12) 100%);
+  box-shadow: 0px 4px 4px 0px rgba(84, 114, 136, 0.04) inset;
+  backdrop-filter: blur(1.5rem);
+  border-radius: 0.75rem;
+  border: 0.6px solid rgba(84, 114, 136, 0.04);
+}
+
+.round-gold {
+  background: linear-gradient(180deg, rgba(216, 167, 1, 0.6) 0%, rgba(40, 55, 66, 0.6) 100%);
+  box-shadow: 0px 4px 4px 0px rgba(84, 114, 136, 0.04) inset;
+  backdrop-filter: blur(1.5rem);
+}
+
+.round-gray {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(40, 55, 66, 0.5) 100%);
+}
+
+.round-red {
+  background: linear-gradient(180deg, rgba(201, 120, 68, 0.6) 0%, rgba(40, 55, 66, 0.6) 100%);
+}
+
+.round-common {
+  background: linear-gradient(180deg, rgba(54, 73, 87, 0.4) 0%, rgba(40, 55, 66, 0.4) 100%);
+}
+
+.schdule-icon {
+  border-left: 1px solid #28374266;
+  background: #080c2b;
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+html[dir=rtl] .schdule-icon {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+}
+
+.schdule-accordion-body:first-child .schdule-common p {
+  background: linear-gradient(180deg, #E6B201 0%, #C59800 100%);
+}
+
+.schdule-common-1 p {
+  background: linear-gradient(180deg, #BAD6E0 0%, #8299A1 100%);
+}
+
+.schdule-accordion-card.active-accordation .schdule-icon {
+  background: linear-gradient(180deg, rgba(54, 73, 87, 0.4) 0%, rgba(40, 55, 66, 0.4) 100%);
+  border-bottom-right-radius: 0;
+}
+
+html[dir=rtl] .schdule-accordion-card.active-accordation .schdule-icon {
+  border-bottom-left-radius: 0;
+}
+
+.schdule-accordion-card.active-accordation .schdule-accordion-header {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.battle-shape {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  opacity: 0.48;
+  clip-path: url(#customClipPath);
+}
+
+html[dir=rtl] .battle-shape {
+  transform: rotateY(180deg);
+}
+
+.schdule-accordion-card.active-accordation .battle-shape {
+  border-bottom-left-radius: 0;
+}
+
+/* battle royal end */
+
 /* call-duty-card End*/
 @media (max-width: 1279px) {
   .game_polygon-link {
@@ -611,6 +802,14 @@ html[dir="rtl"] .view-all::after {
   .submit_score-btn.polygon_border:after {
     width: 4.25rem;
   }
+
+  .battle-shape {
+    width: 16rem;
+  }
+
+  .battle-shape-text {
+    width: 14.5rem;
+  }
 }
 
 @media (max-width: 767px) {
@@ -621,6 +820,32 @@ html[dir="rtl"] .view-all::after {
   .submit_score-btn.polygon_border:before,
   .submit_score-btn.polygon_border:after {
     width: 3.25rem;
+  }
+
+  .schdule-accordion-body {
+    flex-direction: column;
+  }
+
+  .schdule-accordion-body .mob-body-full {
+    width: 100%;
+    border-right: 0;
+    padding-inline: 0.6rem;
+  }
+
+  html[dir=rtl] .schdule-accordion-body .mob-body-full {
+    border-left: 0;
+  }
+
+  .schdule-accordion-body .mob-body-full:last-child {
+    border-top: 1px solid rgb(40, 55, 66, 0.4);
+  }
+
+  .battle-shape {
+    width: 13rem;
+  }
+
+  .battle-shape-text {
+    width: 11.5rem;
   }
 }
 
@@ -704,6 +929,60 @@ html[dir="rtl"] .view-all::after {
     width: 12.5rem;
     height: 3.5rem;
   }
+
+  .battle-head {
+    display: none;
+  }
+
+  .battle-head P:first-child {
+    max-width: 8%;
+  }
+
+  .battle-common+p,
+  .battle-common+div {
+    max-width: 38%;
+  }
+
+  .battle-body-wp div:last-child {
+    padding-right: 1.3rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .battle-head P:first-child {
+    max-width: 11%;
+  }
+
+  .battle-common+p,
+  .battle-common+div {
+    max-width: 36%;
+    gap: 0.6rem;
+  }
+
+  .battle-shape {
+    width: 7rem;
+  }
+
+  .battle-shape-text {
+    width: 5.5rem;
+  }
+
+  .battle-shape-text {
+    flex-direction: column;
+    align-items: start;
+    gap: 0.2rem;
+  }
+
+  .schdule-accordion-header {
+    padding-inline: 0.6rem;
+    flex-direction: column;
+    align-items: self-start;
+  }
+
+  .mob-match-gp {
+    padding-right: 0;
+    padding-left: 7rem;
+  }
 }
 
 @media (max-width: 475px) {
@@ -713,6 +992,43 @@ html[dir="rtl"] .view-all::after {
 
   .mob-common-btn {
     transform: translate(0, calc(-50% + 3px));
+  }
+
+  .battle-body-wp div {
+    max-width: unset;
+    padding: 0.8rem;
+  }
+
+  .battle-body-wp div:last-child {
+    padding-right: 0.8rem;
+  }
+}
+
+
+@media (max-width: 389px) {
+  .battle-shape {
+    width: 6rem;
+  }
+
+  .battle-shape-text {
+    width: 4.5rem;
+  }
+
+  .mob-match-gp {
+    padding-left: 6rem;
+  }
+
+  .schdule-icon {
+    width: 2rem;
+  }
+
+  .round-gold {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .mob-body-full p span {
+    padding: 0;
   }
 }
 
@@ -810,8 +1126,6 @@ html[dir="rtl"] .view-all::after {
   justify-content: center;
   width: 48px;
   background: linear-gradient(180deg, rgba(54, 73, 87, 0.12) 0%, rgba(40, 55, 66, 0.12) 100%);
-
-
 }
 
 .brackets-viewer .participant.win .result {
@@ -863,53 +1177,57 @@ html[dir="rtl"] .view-all::after {
 
 
 .tournament-schedule-card-wrapper {
-  background: linear-gradient(180deg, rgba(54, 73, 87, 0.12) 0%, rgba(40, 55, 66, 0.12) 100%);
-  box-shadow: 0px 4px 4px 0px #5472880A inset;
-
-  backdrop-filter: blur(24px)
+  background: linear-gradient(183.7deg, rgba(94, 95, 184, 0.2) 3.03%, rgba(34, 35, 86, 0.2) 97.05%);
+  box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
+  backdrop-filter: blur(0.75rem);
+  clip-path: url(#scalableClipPath);
 }
 
 .tournament-schedule-card-footer {
-  background: linear-gradient(180deg, rgba(54, 73, 87, 0.24) 0%, rgba(40, 55, 66, 0.24) 100%);
+  background: radial-gradient(100% 100% at 50% 0%, rgba(45, 46, 109, 0.4416) 0%, rgba(34, 35, 86, 0.384) 100%);
+  box-shadow: 0px 2px 4px 0px rgba(87, 89, 195, 0.08) inset;
+  clip-path: url(#clipPathBanner);
+}
+
+.tournament-schedule-card-header h2 {
+  background: linear-gradient(180deg, #FFFFFF 0%, #BCC6E0 100%);
 }
 
 .tournament-schedule-card-footer h2 {
-  background: linear-gradient(180deg, #F4F7FF 53.92%, #55B384 112.5%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: linear-gradient(180deg, #F4F7FF 53.92%, #BABDFF 112.5%);
 }
 
-.tournament-schedule-card-header-time h2 {
-  background: rgba(54, 73, 87, 0.4);
+.tournament-schedule-card-footer-hover.tournament-schedule-card-footer h2{
+  background: unset;
+}
+.tournament-schedule-card-header-time h2{
+  background: linear-gradient(180deg, rgba(94, 95, 184, 0.2) 0%, rgba(34, 35, 86, 0.2) 111.11%);
+  box-shadow: 0px 2px 2px 0px #5E5FB81F inset;
+  clip-path: url(#scalable-clip);
   position: relative;
-  color: #9EC2CC;
 }
 
-.tournament-schedule-card-header-background {
-  background-image: linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(217, 217, 217, 0.6) 39.51%, rgba(217, 217, 217, 0.08) 100%);
-  z-index: -1;
-}
-
-.tournament-schedule-card-header-time h2::before {
-  content: url("data:image/svg+xml,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' x='0' y='0' viewBox='0 0 100 100' xml:space='preserve'><path d='M51.9 0v1.9c-27.6 0-50 22.4-50 50H0V0h51.9z' fill='%23364957'></path></svg>");
+.tournament-schedule-card-header-time h2 span::before{
   position: absolute;
-  top: 0;
-  left: 100%;
-  width: 30px;
-  height: 30px;
-  opacity: 0.4;
+  content: '';
+  left: 0;
+  top: 50%;
+  transform: translate(0,-50%);
+  width: 0.065rem;
+  height: 1rem;
+  background-color:#5E5FB899; 
 }
 
-.tournament-schedule-card-header-time h2::after {
-  content: url("data:image/svg+xml,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' x='0' y='0' viewBox='0 0 100 100' xml:space='preserve'><path d='M98.1 0h1.9v51.9h-1.9c0-27.6-22.4-50-50-50V0h50z' fill='%23364957'></path></svg>");
+.tournament-schedule-card-footer-center {
   position: absolute;
-  top: 0;
-  right: 100%;
-  width: 30px;
-  height: 30px;
-  opacity: 0.4;
+  left: 50%;
+  transform: translate(-50%, 0px);
 }
+
+.tournament-schedule-card-footer-hover.tournament-schedule-card-footer{
+  display: none;
+}
+
 
 @media (max-width: 767px) {
 
