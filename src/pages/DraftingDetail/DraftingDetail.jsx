@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import { TeamOneScoreList } from "../Matchs/teamOneSection";
-import { FirstPosCard_gold, EvenPosCard, OddPosCard, EndPosCard } from "../../components/DraftingDetailComponents/DraftTeamsCards";
+import { FirstPosCard_gold, EvenPosCard, OddPosCard } from "../../components/DraftingDetailComponents/DraftTeamsCards";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getDraftById, socket, stopDraftSocket } from "../../app/socket/socket";
@@ -159,7 +159,7 @@ const DraftingDetail = () => {
                               username: pick?.userId?.username || "",
                               fullName: pick?.userId?.fullName || "",
                               id: pick?.userId?._id || "",
-                              rep: pick?.participant?.raputations?.wilsonScore || 0,
+                              rep: pick?.raputations?.wilsonScore || 0,
                               profilePic: getServerURL(
                                 pick?.userId?.profilePicture || ""
                               ),
@@ -207,6 +207,7 @@ const DraftingDetail = () => {
                 // ))
                 draftDataList.data.otherPlayers.map((pick, idx) => {
                   const data = {
+                    index : idx,
                     username: pick?.userId?.username || "",
                     fullName: pick?.userId?.fullName || "",
                     id: pick?.userId?._id || "",

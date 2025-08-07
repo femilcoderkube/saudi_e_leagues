@@ -3,9 +3,15 @@ import tournament_vs_icon from "../../assets/images/tournament_vs_icon.png";
 import tournament_bg_img from "../../assets/images/tournament_bg_img.jpg";
 import leage_shape from "../../assets/images/leage_shape.png";
 import footer_card_icon from "../../assets/images/footer-card-icon.png";
+import { useSelector } from "react-redux";
+import { getServerURL } from "../../utils/constant";
 
 const TournamentScheduleCard = ({ item }) => {
-  if (!item?.startTime) {
+  const { tournamentData } = useSelector(
+    (state) => state.tournament
+  );
+
+   if (!item?.startTime) {
     return <div></div>;
   }
   let data = {
@@ -18,20 +24,27 @@ const TournamentScheduleCard = ({ item }) => {
           })
           .toLowerCase()
       : "",
+      date: item?.startTime
+        ? new Date(item.startTime).toLocaleDateString("en-US", {
+            month: "short",
+            day: "2-digit",
+          })
+        : "",
     team1: item?.opponent1.team || item?.opponent1.user,
     team2: item?.opponent2.team || item?.opponent2.user,
     acticeScore:
       item?.matchScores?.find((score) => score.isActive === true) || {},
   };
+  console.log("dateeeee---", data);
 
   return (
     <div className="relative main-tournament-schedule-card-wrapper cursor-pointer">
       {" "}
       <div className="tournament-schedule-card-header-time absolute top-0 left-0 z-10 w-full flex items-center justify-center ">
         <h2 className="text-base font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative">
-          {data?.time}{" "}
+          {data?.date}{" "}
           <span className="inline-block text-[#7B7ED0] pl-2 ml-1 relative">
-            08:30 PM
+          {data?.time}
           </span>
         </h2>
       </div>
@@ -45,7 +58,7 @@ const TournamentScheduleCard = ({ item }) => {
           <div className="tournament-schedule-card-header-left flex items-center gap-4 md:gap-8 relative z-10">
             <div className="w-[5rem] h-[5rem] rounded-lg overflow-hidden">
               <img
-                src={tournament_thumbnail}
+                src={getServerURL(data?.team1.profilePicture)}
                 alt="tournament-schedule"
                 className="w-full h-full object-cover"
               />
@@ -55,7 +68,7 @@ const TournamentScheduleCard = ({ item }) => {
             </h2>
           </div>
           <div className="tournament-schedule-card-header-center">
-            <img className="w-11.5 h-11.5" src={leage_shape} alt="" />
+            <img className="w-11.5 h-11.5" src={getServerURL(tournamentData.game.logo)} alt="" />
           </div>
           <div className="tournament-schedule-card-header-right flex items-center gap-4 md:gap-8 relative z-10">
             <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
