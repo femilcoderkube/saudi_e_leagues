@@ -10,14 +10,16 @@ import GetQueueButton from "../LeagueDetail/queueButton.jsx";
 import Que_btn from "../../assets/images/quebtn.png";
 import leagueLogo from "../../assets/images/large_prime.png";
 import headerPhoto from "../../assets/images/game_detail_img.png";
+import cal_arrow from "../../assets/images/cal_arrow.png";
 import { useTranslation } from "react-i18next";
 import { fromPairs, transform } from "lodash";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTournamentTab } from "../../app/slices/constState/constStateSlice.js";
 import TournamentScheduleCard from "./TournamentScheduleCard.jsx";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import center_league from "../../assets/images/center_league.png";
+import TournamentDatepiker from "./DatePiker.jsx";
 import {
   getTournamentStages,
   startTournamentSocket,
@@ -40,6 +42,8 @@ const TournamentDetail = () => {
   const handleActiveTournamentTab = (tab) => {
     dispatch(setActiveTournamentTab(tab));
   };
+
+  const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
     if (isSocketConnected) {
@@ -80,7 +84,7 @@ const TournamentDetail = () => {
           );
           window.bracketsViewer.render(
             {
-              stages: config?.stage.map(stage => ({ ...stage, name: " " })),
+              stages: config?.stage.map((stage) => ({ ...stage, name: " " })),
               matches: config?.match,
               rounds: config?.round,
               groups: config?.group,
@@ -92,7 +96,6 @@ const TournamentDetail = () => {
               participantOriginPlacement: "none",
             }
           );
-         
         }
       }
     }
@@ -106,7 +109,6 @@ const TournamentDetail = () => {
         user: user,
       });
     }
-    
   }, [tournamentData?.stages, activeStage, isSocketConnected]);
 
   // Empty dependency array means this runs once after mount
@@ -271,34 +273,59 @@ const TournamentDetail = () => {
                 {tournamentStages != null && tournamentStages?.config?.match ? (
                   <div id="tournament-tab-contents" className="mt-7">
                     <div id="first" className="py-4 active">
-                      <div className="game_status--tab-wrapper text-center md:text-left rtl:text-right">
-                        {
-                          <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
-                            <button
-                              onClick={() => handleActiveTournamentTab(1)}
-                              class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+                      <div className="tab-btn-wp flex sm:justify-between justify-center items-center gap-5">
+                        <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
+                          {
+                            <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
+                              <button
+                                onClick={() => handleActiveTournamentTab(1)}
+                                class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
                 ${
                   activeTournamentTab === 1
                     ? "active-tab hover:opacity-100 polygon_border"
                     : ""
                 }`}
-                            >
-                              Brackets
-                            </button>
+                              >
+                                Brackets
+                              </button>
 
-                            <button
-                              onClick={() => handleActiveTournamentTab(2)}
-                              class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+                              <button
+                                onClick={() => handleActiveTournamentTab(2)}
+                                class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
                 ${
                   activeTournamentTab === 2
                     ? "active-tab hover:opacity-100 polygon_border"
                     : ""
                 }`}
-                            >
-                              Schedule
-                            </button>
-                          </div>
-                        }
+                              >
+                                Schedule
+                              </button>
+                            </div>
+                          }
+                        </div>
+                        <div className="relative inline-block">
+                          {/* Displayed Range */}
+                          <button
+                            className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
+                            onClick={() => setShowCalendar((prev) => !prev)} // ✅ Toggle on click
+                          >
+                            <span className="sm:text-lg text-base font-bold">
+                              12 - 17 <span className="font-normal">Jul</span>
+                            </span>
+                            <img
+                              className="w-3.5 h-2 object-cover object-center"
+                              src={cal_arrow}
+                              alt=""
+                            />
+                          </button>
+
+                          {/* Calendar Dropdown */}
+                          {showCalendar && (
+                            <div className="open-cal absolute ltr:right-0 rtl:left-0 top-[100%] z-50">
+                              <TournamentDatepiker />
+                            </div>
+                          )}
+                        </div>
                       </div>
 
                       <>

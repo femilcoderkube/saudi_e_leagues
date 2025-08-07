@@ -41,10 +41,10 @@ const TournamentScheduleCard = ({ item }) => {
     <div className="relative main-tournament-schedule-card-wrapper cursor-pointer">
       {" "}
       <div className="tournament-schedule-card-header-time absolute top-0 left-0 z-10 w-full flex items-center justify-center ">
-        <h2 className="text-base font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative">
-          {data?.date}{" "}
-          <span className="inline-block text-[#7B7ED0] pl-2 ml-1 relative">
-          {data?.time}
+        <h2 className="sm:text-base text-sm font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative">
+          {data?.time}{" "}
+          <span className="inline-block text-[#7B7ED0] ltr:pl-2 rtl:pr-2 ltr:ml-1 rtl:mr-2 relative">
+            08:30 PM
           </span>
         </h2>
       </div>
