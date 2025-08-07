@@ -1,8 +1,7 @@
-import { getServerURL } from "../../utils/constant";
-import userimg from "../../assets/images/valorant_bg.png"
 import { getColor, getSmile } from "../MatchDeatilComponents/matchCards";
 
 export const FirstPosCard_gold = ({ props }) => {
+
   return (
     <svg
       width={"100%"}
@@ -328,7 +327,7 @@ export const FirstPosCard_gold = ({ props }) => {
         <path
           d="M46 22C59.2548 22 70 32.7452 70 46C70 59.2548 59.2548 70 46 70C32.7452 70 22 59.2548 22 46C22 42.43 22.7797 39.0421 24.1777 35.9971C30.664 35.9029 35.9029 30.664 35.9971 24.1777C39.0421 22.7797 42.43 22 46 22Z"
           fill={`url(#pattern0_5056_2586${props.index})`}
-          shapeRendering="crispEdges"
+          shapeRendering="auto"
         />
       </g>
       <mask
@@ -363,9 +362,10 @@ export const FirstPosCard_gold = ({ props }) => {
           fontFamily="Cairo"
           fontSize={22}
           fontWeight="bold"
+          text-anchor="end"
           letterSpacing="0em"
         >
-          <tspan x={243.324} y={52.052}>
+          <tspan x={320} y={52.052}>
             {props.score}
           </tspan>
         </text>
@@ -1032,8 +1032,10 @@ export const FirstPosCard_gold = ({ props }) => {
   )
 }
 
-
 export const EvenPosCard = ({ props }) => {
+
+  console.log(props.rep);
+  
   return (
     <svg
       width={"100%"}
@@ -1374,21 +1376,11 @@ export const EvenPosCard = ({ props }) => {
               <path
                 d="M46 26.5542C59.2548 26.5542 70 37.2994 70 50.5542C70 63.809 59.2548 74.5542 46 74.5542C32.7452 74.5542 22 63.809 22 50.5542C22 46.9842 22.7797 43.5963 24.1777 40.5513C30.664 40.4571 35.9029 35.2182 35.9971 28.7319C39.0421 27.3339 42.43 26.5542 46 26.5542Z"
                 fill={`url(#pattern0_5056_2586${props.index}even)`}
-                shapeRendering="crispEdges"
+                shapeRendering="auto"
               />
             </g>
             <g id={`evenbox-mask-group-status${props.index}even`}>
-              <mask
-                id={`mask1_5056_2586${props.index}even`}
-                style={{
-                  maskType: "alpha",
-                }}
-                maskUnits="userSpaceOnUse"
-                x={16}
-                y={20}
-                width={16}
-                height={17}
-              >
+             
                 <rect
                   id={`image 197${props.index}even`}
                   x={16}
@@ -1397,17 +1389,18 @@ export const EvenPosCard = ({ props }) => {
                   height={16}
                   fill={`url(#pattern1_5056_2586${props.index}even)`}
                 />
-              </mask>
-              <g mask={`url(#mask1_5056_2586${props.index}even)`}>
+              
+              {/* <g mask={`url(#mask1_5056_2586${props.index}even)`}>
                 <rect
                   id={`image 198${props.index}even`}
                   x={16}
                   y={20.5542}
                   width={16}
                   height={16}
-                  fill="#09D75F"
+                  // fill="#09D75F"
+                  fill={getColor(props.rep)}
                 />
-              </g>
+              </g> */}
             </g>
           </g>
           <g id={`evenbox-draft_svg_contant${props.index}even`}>
@@ -1460,8 +1453,9 @@ export const EvenPosCard = ({ props }) => {
                 fontSize={22}
                 fontWeight="bold"
                 letterSpacing="0em"
+                text-anchor="end"
               >
-                <tspan x={243.324} y={56.6062}>
+                <tspan x={320} y={56.6062}>
                   {props.score}
                 </tspan>
               </text>
@@ -2188,7 +2182,7 @@ export const EvenPosCard = ({ props }) => {
           height={809}
           preserveAspectRatio="none"
           xlinkHref={props.profilePic}
-          style={{"zIndex": 99}}
+          // style={{"zIndex": 99}}
         />
         <image
           id={`image1_5056_2586${props.index}even`}
@@ -2203,8 +2197,7 @@ export const EvenPosCard = ({ props }) => {
   );
 }
 
-
-export const OddPosCard = ({ props }) => {
+export const OddPosCard = ({ props }) => {  
   return (
     <svg
       width={"100%"}
@@ -2549,21 +2542,11 @@ export const OddPosCard = ({ props }) => {
             <path
               d="M46.0665 22.416C59.3213 22.416 70.0665 33.1612 70.0665 46.416C70.0665 59.6708 59.3213 70.416 46.0665 70.416C32.8116 70.416 22.0665 59.6708 22.0665 46.416C22.0665 42.846 22.8461 39.4581 24.2442 36.4131C30.7305 36.3189 35.9694 31.0801 36.0635 24.5938C39.1085 23.1957 42.4964 22.416 46.0665 22.416Z"
               fill={`url(#pattern0_5060_2319${props.index}odd)`}
-              shapeRendering="crispEdges"
+              shapeRendering="auto"
             />
           </g>
           <g id={`oddbox-mask-group-status${props.index}odd`}>
-            <mask
-              id={`mask1_5060_2319${props.index}odd`}
-              style={{
-                maskType: "alpha",
-              }}
-              maskUnits="userSpaceOnUse"
-              x={16}
-              y={16}
-              width={17}
-              height={17}
-            >
+          
               <rect
                 id={`oddbox-image197${props.index}odd`}
                 x={16.0665}
@@ -2572,16 +2555,9 @@ export const OddPosCard = ({ props }) => {
                 height={16}
                 fill={`url(#pattern1_5060_2319${props.index}odd)`}
               />
-            </mask>
+          
             <g mask={`url(#mask1_5060_2319${props.index}odd)`}>
-              <rect
-                id={`oddbox-image198${props.index}odd`}
-                x={16.0665}
-                y={16.416}
-                width={16}
-                height={16}
-                fill="#FA4768"
-              />
+            
             </g>
           </g>
           <g id={`oddbox-draft_svg_contant${props.index}odd`}>
@@ -2634,8 +2610,9 @@ export const OddPosCard = ({ props }) => {
                 fontSize={22}
                 fontWeight="bold"
                 letterSpacing="0em"
+                text-anchor="end"
               >
-                <tspan x={243.391} y={52.468}>
+                <tspan x={320} y={52.468}>
                   {props.score}
                 </tspan>
               </text>
@@ -2655,7 +2632,7 @@ export const OddPosCard = ({ props }) => {
             letterSpacing="0em"
           >
             <tspan x={136.659} y={54.468}>
-              {`Pick #${props?.pickIdx}`}
+              {`Pick #${props.pickIdx}`}
             </tspan>
           </text>
         </g>
