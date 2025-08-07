@@ -44,6 +44,8 @@ const TournamentDetail = () => {
   };
 
   const [showCalendar, setShowCalendar] = useState(false);
+  // Add state for selected date range
+  const [selectedDateRange, setSelectedDateRange] = useState({ start: null, end: null });
 
   useEffect(() => {
     if (isSocketConnected) {
@@ -307,10 +309,17 @@ const TournamentDetail = () => {
                           {/* Displayed Range */}
                           <button
                             className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
-                            onClick={() => setShowCalendar((prev) => !prev)} // ✅ Toggle on click
+                            onClick={() => setShowCalendar((prev) => !prev)}
                           >
                             <span className="sm:text-lg text-base font-bold">
-                              12 - 17 <span className="font-normal">Jul</span>
+                              {selectedDateRange.start && selectedDateRange.end
+                                ? `${selectedDateRange.start.getDate()} - ${selectedDateRange.end.getDate()}`
+                                : "12 - 17"}
+                              <span className="font-normal">
+                                {selectedDateRange.start
+                                  ? selectedDateRange.start.toLocaleString('default', { month: 'short' })
+                                  : "Jul"}
+                              </span>
                             </span>
                             <img
                               className="w-3.5 h-2 object-cover object-center"
@@ -322,7 +331,14 @@ const TournamentDetail = () => {
                           {/* Calendar Dropdown */}
                           {showCalendar && (
                             <div className="open-cal absolute ltr:right-0 rtl:left-0 top-[100%] z-50">
-                              <TournamentDatepiker />
+                              <TournamentDatepiker
+                                startDate={selectedDateRange.start}
+                                endDate={selectedDateRange.end}
+                                onUpdate={(start, end) => {
+                                  setSelectedDateRange({ start, end });
+                                  setShowCalendar(false);
+                                }}
+                              />
                             </div>
                           )}
                         </div>

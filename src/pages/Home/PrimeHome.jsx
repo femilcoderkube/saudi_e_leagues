@@ -162,7 +162,7 @@ export default function PrimeHome() {
           </div>
         </section>
 
-        {/* <section className="htp_slider-sec flex xl:gap-0 sm:gap-10 gap-8 justify-between ">
+        <section className="htp_slider-sec flex xl:gap-0 sm:gap-10 gap-8 justify-between ">
           <div className="htp_left-con h-full flex justify-end flex-col max-w-[27.5%] basis-[27.5%]">
             <h2 className="grad_head--txt max-w-full xl:text-[5rem] text-[3rem] tracking-wide !font-black leading-none uppercase">
               {t("homepage.how")}
@@ -170,9 +170,9 @@ export default function PrimeHome() {
             <h2 className="xl:text-[4rem] lg:text-[3.5rem] text-[2.5rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center tracking-wider !font-black md:pb-10 pb-8">
               {t("homepage.to_play")}
             </h2>
-            <p className="htp_content block purple_col sd_before relative before:w-full before:top-0 md:text-2xl text-base font-semibold md:py-10 sm:py-6 pt-6 pb-0 pr-3">
+            {/* <p className="htp_content block purple_col sd_before relative before:w-full before:top-0 md:text-2xl text-base font-semibold md:py-10 sm:py-6 pt-6 pb-0 pr-3">
               {t("homepage.htp_description")}
-            </p>
+            </p> */}
             <div className="btn_polygon--mask sm:inline-flex hidden max-w-[fit-content] justify-center my-8 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
               <Link
                 to={"#"}
@@ -253,7 +253,7 @@ export default function PrimeHome() {
               ]}
             />
           </div>
-        </section> */}
+        </section>
         {/* === Timelines Split Card Section HTML block Start === */}
         {/* <section className="sd_timeline--sec pt-[5rem] pb-[5rem]  relative  ">
                 <h2 className="text-[4rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none uppercase items-center tracking-wider !font-black pb-10">
