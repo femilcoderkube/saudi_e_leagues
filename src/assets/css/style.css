@@ -1224,6 +1224,11 @@ html[dir=rtl] .battle-shape {
   background-color: #5E5FB899;
 }
 
+html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
+  left: auto;
+  right: 0;
+}
+
 .tournament-schedule-card-footer-center {
   position: absolute;
   left: 50%;
@@ -1234,17 +1239,51 @@ html[dir=rtl] .battle-shape {
   display: none;
 }
 
-.tournament_page--wrapper .sd_game-con.polygon_border:before,.tournament_page--wrapper .sd_game-con.polygon_border:after{
+.tournament_page--wrapper .sd_game-con.polygon_border:before,
+.tournament_page--wrapper .sd_game-con.polygon_border:after {
   width: 30%;
   height: 0.38rem;
 }
 
+.calender-btn {
+  background-image: url(/src/assets/images/cal-btn-shape.png);
+}
+
+.datepiker-wp {
+  background: linear-gradient(180deg, rgba(38, 39, 98, 0.32) 0%, rgba(27, 27, 75, 0.32) 100%);
+  box-shadow: 0px 4px 4px 0px #5472880A inset;
+  backdrop-filter: blur(1.5rem)
+}
+
+
+.update-btn{
+  background: linear-gradient(180deg, #458CF3 0%, #4354EA 107.14%);
+  box-shadow: 0px 4px 4px 0px #FFFFFF3D inset;
+  box-shadow: 0px 4px 24px 0px #00F5A41F;
+  transition: 0.3s;
+}
+
+.update-btn:hover{
+  opacity: 0.75;
+}
+
+.datepiker-head::before{
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 0.065rem;
+  background:linear-gradient(90deg, rgba(27, 28, 76, 0.8) 0%, rgba(19, 21, 59, 0.8) 100%);
+  left: 0;
+  bottom: 0;
+}
 
 @media (max-width: 767px) {
+
   .sd_tournament-content .polygon_border:before,
   .sd_tournament-content .polygon_border:after {
     width: 4.5rem;
   }
+
   .tournament-schedule-card-header-time h2 {
     height: 1.65rem;
   }
@@ -1260,17 +1299,34 @@ html[dir=rtl] .battle-shape {
   .tournament-schedule-card-header-time h2 {
     height: 1.45rem;
   }
+  .tab-btn-wp{
+    flex-direction: column;
+  }
+  .open-cal{
+    right: auto;
+    left: 50%;
+    transform: translate(-50%,0);
+  }
+}
+
+@media (max-width: 425px) {
+  .datepiker-wp{
+    width:calc(100vw - 30px);
+  }
 }
 
 @media (max-width: 389px) {
   .tournament-schedule-card-header-time h2 {
     font-size: 0.75rem;
   }
-  .sd_tournament-content .game_status--tab button{
+
+  .sd_tournament-content .game_status--tab button {
     width: 9rem;
     height: 3.8rem;
   }
-  .sd_tournament-content .polygon_border:before, .sd_tournament-content .polygon_border:after{
+
+  .sd_tournament-content .polygon_border:before,
+  .sd_tournament-content .polygon_border:after {
     left: 53%;
   }
 }
