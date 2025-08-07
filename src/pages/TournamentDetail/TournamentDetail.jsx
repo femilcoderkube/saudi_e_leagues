@@ -312,7 +312,7 @@ const TournamentDetail = () => {
                           </div>
                         )}
                         {activeTournamentTab === 2 && (
-                          <div className="tournament-bracket-wrapper mt-20">
+                          <div className="tournament-bracket-wrapper md:mt-20 mt-15">
                             <div className="tournament-schedule-card-list grid gap-x-8 gap-y-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                               {tournamentStages?.matcheData?.map(
                                 (item, index) => {

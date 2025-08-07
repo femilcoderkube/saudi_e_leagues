@@ -98,7 +98,7 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
   }, [prevRef, nextRef, mainSwiperRef, thumbsSwiper]);
 
   return (
-    <div className="relative htp_slider h-full flex gap-[2.5rem]">
+    <div className="relative htp_slider h-full flex ">
       {/* Custom Nav */}
       <div className="swiper-navigation-wrapper absolute ltr:right-0 rtl:left-0 lg:top-[0rem] sm:top-[-5rem] top-[-2.5rem] z-10 flex gap-2 md:pr-[7.5rem] pr-[1rem]">
         <div
@@ -127,7 +127,7 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
         }}
       >
         {HtpCardDetails.map((item, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index}> 
             <HtpCardBig item={item} />
           </SwiperSlide>
         ))}
