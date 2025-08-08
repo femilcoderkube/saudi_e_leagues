@@ -162,7 +162,7 @@ export default function PrimeHome() {
           </div>
         </section>
 
-        <section className="htp_slider-sec flex xl:gap-0 sm:gap-10 gap-8 justify-between ">
+        <section className="htp_slider-sec flex xl:gap-0 sm:gap-10 gap-0 ">
           <div className="htp_left-con h-full flex justify-end flex-col max-w-[27.5%] basis-[27.5%]">
             <h2 className="grad_head--txt max-w-full xl:text-[5rem] text-[3rem] tracking-wide !font-black leading-none uppercase">
               {t("homepage.how")}
@@ -173,7 +173,7 @@ export default function PrimeHome() {
             {/* <p className="htp_content block purple_col sd_before relative before:w-full before:top-0 md:text-2xl text-base font-semibold md:py-10 sm:py-6 pt-6 pb-0 pr-3">
               {t("homepage.htp_description")}
             </p> */}
-            <div className="btn_polygon--mask sm:inline-flex hidden max-w-[fit-content] justify-center my-8 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
+            <div className="btn_polygon--mask sm:inline-flex hidden max-w-[fit-content] justify-center my-6 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
               <Link
                 to={"#"}
                 className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center"
@@ -253,6 +253,27 @@ export default function PrimeHome() {
               ]}
             />
           </div>
+          <div className="btn_polygon--mask how-to-play-mb-btn inline-flex sm:hidden  max-w-[fit-content] justify-center relative hover:opacity-70 duration-400">
+            <Link
+              to={"#"}
+              className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center"
+            >
+              {t("homepage.go_play_now")}
+            </Link>
+          </div>
+          <svg
+          width="0"
+          height="0"
+          style={{ position: "absolute" }}
+            viewBox="0 0 182 52"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <clipPath id="customClipPathmob" clipPathUnits="objectBoundingBox">
+                <path d="         M1,0.1538         V1         H0.04396         L0,0.8462         V0.07692         L0.02198,0         H0.95604         L1,0.1538         Z       " />
+              </clipPath>
+            </defs>
+          </svg>
         </section>
         {/* === Timelines Split Card Section HTML block Start === */}
         {/* <section className="sd_timeline--sec pt-[5rem] pb-[5rem]  relative  ">
@@ -275,7 +296,6 @@ export default function PrimeHome() {
             </div>
           </div>
         </section>
-    
       </div>
 
       {/* Video Modal */}
