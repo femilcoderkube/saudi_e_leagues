@@ -731,6 +731,10 @@ html[dir=rtl] .schdule-accordion-body:nth-child(3) {
   border-bottom-right-radius: 0.75rem;
 }
 
+.active-accordation .schdule-icon img {
+ transform: rotate(180deg);
+}
+
 html[dir=rtl] .schdule-icon {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -773,6 +777,9 @@ html[dir=rtl] .battle-shape {
 
 .schdule-accordion-card.active-accordation .battle-shape {
   border-bottom-left-radius: 0;
+}
+.schdule-accordion-body .mob-body-full {
+  width: 50%;
 }
 
 /* battle royal end */

@@ -1,4 +1,4 @@
-import tournament_thumbnail from "../../assets/images/tournament_thumbnail.png";
+import tournament_thumbnail from "../../assets/images/large_prime.png";
 import tournament_vs_icon from "../../assets/images/tournament_vs_icon.png";
 import tournament_bg_img from "../../assets/images/tournament_bg_img.jpg";
 import leage_shape from "../../assets/images/leage_shape.png";
@@ -11,9 +11,6 @@ const TournamentScheduleCard = ({ item }) => {
     (state) => state.tournament
   );
 
-   if (!item?.startTime) {
-    return <div></div>;
-  }
   let data = {
     time: item?.startTime
       ? new Date(item.startTime)
@@ -41,10 +38,10 @@ const TournamentScheduleCard = ({ item }) => {
     <div className="relative main-tournament-schedule-card-wrapper cursor-pointer">
       {" "}
       <div className="tournament-schedule-card-header-time absolute top-0 left-0 z-10 w-full flex items-center justify-center ">
-        <h2 className="sm:text-base text-sm font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative">
-          {data?.time}{" "}
-          <span className="inline-block text-[#7B7ED0] ltr:pl-2 rtl:pr-2 ltr:ml-1 rtl:mr-2 relative">
-            08:30 PM
+        <h2 className="text-base font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative">
+          {data?.date}{" "}
+          <span className="inline-block text-[#7B7ED0] pl-2 ml-1 relative">
+          {data?.time}
           </span>
         </h2>
       </div>
@@ -58,7 +55,7 @@ const TournamentScheduleCard = ({ item }) => {
           <div className="tournament-schedule-card-header-left flex items-center gap-4 md:gap-8 relative z-10">
             <div className="sm:w-[5rem] sm:h-[5rem] w-[4rem] h-[4rem] rounded-lg overflow-hidden">
               <img
-                src={getServerURL(data?.team1.profilePicture)}
+                src={tournament_thumbnail}
                 alt="tournament-schedule"
                 className="w-full h-full object-cover"
               />

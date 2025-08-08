@@ -209,15 +209,15 @@ export function startTournamentSocket({ tId, user, isSocketConnected }) {
 export function stopTournamentSocket() {
   socket.off(SOCKET.ONTOURNAMENTUPDATE);
 }
-export function getTournamentStages({ stageId, isSocketConnected, user }) {
+export function getTournamentStages({ stageId, stageType, isSocketConnected, user }) {
   console.log("getTournamentStages", stageId, isSocketConnected, user);
   if (isSocketConnected) {
     stopTournamentStagesSocket();
     socket.on(SOCKET.ONTOURNAMENTSTAGESUPDATE, (data) => {
       console.log("Tournament Stages Update Data:", data);
-      store.dispatch(setTournamentStages(data.data));
+      store.dispatch(setTournamentStages(data));
     });
-    socket.emit(SOCKET.GETTOURNAMENTSTAGES, { stageId: stageId, userId: user?._id });
+    socket.emit(SOCKET.GETTOURNAMENTSTAGES, { stageId: stageId, stageType:stageType,userId: user?._id });
   }
 }
 export function stopTournamentStagesSocket() {

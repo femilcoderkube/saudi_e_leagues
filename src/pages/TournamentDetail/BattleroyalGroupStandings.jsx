@@ -2,44 +2,14 @@ import React, { useState } from "react";
 import "../../assets/css/homepage.css";
 import team_falcons from "../../assets/images/team-falcons.png";
 import pubg_icon from "../../assets/images/pubg_icon.png";
+import { useSelector } from "react-redux";
+import { getRandomColor, getServerURL } from "../../utils/constant";
 
 export default function BattleRoyalStanding() {
   // ✅ Move this data OUTSIDE return
-  const matchesData = [
-    {
-      map: "Miramar",
-      icon: pubg_icon,
-      group: "Group 1",
-      match: "Match 1",
-      teams: [
-        {
-          position: "1st",
-          positionClass: "schdule-common",
-          name: "Team Falcons",
-          logo: team_falcons,
-          points: 4,
-          pp: 5,
-          kp: 6,
-        },
-        {
-          position: "7th",
-          positionClass: "schdule-common-1",
-          name: "Team Falcons",
-          logo: team_falcons,
-          points: 4,
-          pp: 5,
-          kp: 6,
-        },
-      ],
-      roundIcons: [
-        { className: "round-gold", img: team_falcons },
-        { className: "round-gold round-gray", img: team_falcons },
-        { className: "round-gold round-red", img: team_falcons },
-        { className: "round-gold round-common", text: "+9" },
-      ],
-    },
-    // Add more match objects if needed
-  ];
+  const { battleRoyalGroup } = useSelector(
+    (state) => state.tournament
+  );
 
   return (
     <>
@@ -71,7 +41,7 @@ export default function BattleRoyalStanding() {
 
         {/* Battle Table Rows */}
         <div className="battle-body flex flex-col gap-4">
-          {Array.from({ length: 10 }).map((_, index) => (
+          {battleRoyalGroup?.map((player, index) => (
             <div className="battle-body-wp flex w-full" key={index}>
               <div className="battle-common px-6 py-4 max-w-[5.5%] w-full flex items-center justify-center">
                 <p className="text-base font-black grad_text-clip uppercase">
@@ -85,29 +55,57 @@ export default function BattleRoyalStanding() {
                 </p>
               </div>
               <div className="lg:px-15 sm:px-7 px-3 py-4 flex items-center gap-4 md:max-w-[44.5%] max-w-[40.5%] w-full">
-                <img className="md:w-8 md:h-8 h-6 w-6" src={team_falcons} alt="" />
+              {player?.participant?.team?.logoImage ? (
+                                      <img
+                                        src={getServerURL(
+                                          player?.participant?.team?.logoImage
+                                        )}
+                                        alt={player?.participant?.team?.teamName}
+                                        className="md:w-8 md:h-8 h-6 w-6"
+                                      />
+                                    ) : (
+                                      <div
+                                        className="md:w-8 md:h-8 h-6 w-6"
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          justifyContent: "center",
+                                          background: getRandomColor(
+                                            player?.participant?._id
+                                          ),
+                                          color: "#fff",
+                                          fontWeight: "bold",
+                                          fontSize: "1.5rem",
+                                          borderRadius: "50%",
+                                        }}
+                                      >
+                                        {player?.participant?.team?.teamName
+                                          ?.charAt(0)
+                                          ?.toUpperCase() || "?"}
+                                      </div>
+                                    )}
                 <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                  Team Falcons
+                  {player?.participant?.team?.teamName}
                 </span>
               </div>
               <div className="px-6 py-4 text-center max-w-[13%] w-full">
                 <span className="inline-block text-lg font-bold text-[#1DED85]">
-                  {4 - index >= 1 ? 4 - index : 1}
+                  {player.totalPoints || 0}
                 </span>
               </div>
               <div className="px-6 py-4 text-center max-w-[13%] w-full">
                 <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                  {3 - index >= 1 ? 3 - index : 1}
+                {player.totalPlacePoints || 0}
                 </span>
               </div>
               <div className="px-6 py-4 text-center max-w-[13%] w-full">
                 <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                  {2 - index >= 1 ? 2 - index : 1}
+                {player.totalKillPoints || 0}
                 </span>
               </div>
               <div className="px-6 ltr:lg:pr-16 rtl:lg:pl-16 ltr:pr-7 rtl:pl-7 py-4 ltr:text-right rtl:text-left max-w-[13%] w-full">
                 <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                  {10 - index}
+                {0}
                 </span>
               </div>
             </div>
