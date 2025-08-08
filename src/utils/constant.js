@@ -60,6 +60,7 @@ export const SOCKET = {
   // DRAFTING PHASE
   GETDRAFTDATA: "getDraftData",
   ONDRAFTDATAUPDATE: "onDraftDataUpdate",
+  SETPICKEDDRAFTPLAYER: "setPickedDraftPlayer"
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range

@@ -106,7 +106,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
     // Remove any previous listener to prevent duplicate handlers
     stopLeagueSocket();
-    
+
     // Emit join league event
     // Listen for league updates and update state
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
@@ -233,8 +233,24 @@ export function getDraftById({ draftId, isSocketConnected }) {
       console.log("Draft Update Data:", data);
 
       // Saving entire data
-      store.dispatch(setDraftData(data))
+        store.dispatch(setDraftData(data))
+      
     });
     socket.emit(SOCKET.GETDRAFTDATA, { draftId })
+  }
+}
+export function setPickedPlayer({ draftId, Playerdata, isSocketConnected }) {
+  if (isSocketConnected) {
+    stopDraftSocket();
+    socket.on(SOCKET.ONDRAFTDATAUPDATE, (data) => {
+      console.log("Draft Update Data:", data);
+
+      // Saving entire data
+      // store.dispatch(setDraftData(data))
+       
+        store.dispatch(setDraftData(data))
+   
+    });
+    socket.emit(SOCKET.SETPICKEDDRAFTPLAYER, { draftId, Playerdata })
   }
 }
