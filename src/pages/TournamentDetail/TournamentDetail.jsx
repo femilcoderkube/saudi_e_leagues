@@ -30,7 +30,7 @@ import BattleRoyalStage from "./BattleRoyalStage.jsx";
 
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
-  const { tournamentData, activeStage, tournamentStages ,battleRoyalStage } = useSelector(
+  const { tournamentData, activeStage, battleRoyalSchedule ,battleRoyalGroup } = useSelector(
     (state) => state.tournament
   );
   
@@ -202,7 +202,7 @@ const TournamentDetail = () => {
 
           <div className="sd_tournament-wrapper">
             <div className="sd_tournament-content">
-              <div class="mx-auto mt-4">
+              <div className="mx-auto mt-4">
                 {/* <!-- Tabs --> */}
                 <ul
                   id="tournament-tabs"

@@ -9,7 +9,7 @@ import GamingLoader from '../../components/Loader/loader.jsx';
 
 export default function BattleRoyalStage() {
 
-    const { battleRoyalSchedule ,battleRoyalGroup} = useSelector(
+    const { battleRoyalSchedule ,battleRoyalGroup ,loader} = useSelector(
         (state) => state.tournament
       );
       const { activeTournamentTab, showCalendar } = useSelector(
@@ -21,9 +21,9 @@ export default function BattleRoyalStage() {
         dispatch(setActiveTournamentTab(tab));
       };
 
-      if(!battleRoyalSchedule && !battleRoyalGroup){
+      if(loader){
         return (
-            <GamingLoader />
+            <GamingLoader/>
         )
       }
     

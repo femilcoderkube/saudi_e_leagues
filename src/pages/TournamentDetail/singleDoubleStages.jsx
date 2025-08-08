@@ -9,12 +9,13 @@ import TournamentDatepiker from "./DatePiker.jsx";
 import cal_arrow from "../../assets/images/cal_arrow.png";
 import center_league from "../../assets/images/center_league.png";
 import { getServerURL } from "../../utils/constant.js";
+import GamingLoader from "../../components/Loader/loader.jsx";
 
 const SingleDoubleStages = () => {
   const { activeTournamentTab, showCalendar } = useSelector(
     (state) => state.constState
   );
-  const { activeStage, tournamentStages } = useSelector(
+  const { activeStage, tournamentStages ,loader} = useSelector(
     (state) => state.tournament
   );
   const dispatch = useDispatch();
@@ -62,7 +63,11 @@ const SingleDoubleStages = () => {
   const handleActiveTournamentTab = (tab) => {
     dispatch(setActiveTournamentTab(tab));
   };
-
+  if(loader){
+    return (
+        <GamingLoader/>
+    )
+  }
   if (tournamentStages && tournamentStages?.config?.match) {
     return (
       <div id="tournament-tab-contents" className="mt-7">
@@ -101,7 +106,7 @@ const SingleDoubleStages = () => {
               {/* Displayed Range */}
               <button
                 className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
-                onClick={() => dispatch(setShowCalendar((prev) => !prev))}
+                onClick={() => dispatch(setShowCalendar(!showCalendar))}
               >
                 <span className="sm:text-lg text-base font-bold">
                   12 - 17 <span className="font-normal">Jul</span>
@@ -151,7 +156,7 @@ const SingleDoubleStages = () => {
         </div>
       </div>
     );
-  } else {
+  } else  {
     return (
       <div className="flex justify-center items-center py-50 text-xl text-gray-400">
         No data found

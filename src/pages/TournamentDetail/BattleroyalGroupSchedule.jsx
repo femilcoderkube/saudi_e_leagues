@@ -113,10 +113,10 @@ export default function BattleRoyalSChedule() {
 
               return (
                 <div
-                  key={idx}
-                  onClick={() => toggleAccordion(idx)}
+                  key={`S${idx}a${index}`}
+                  onClick={() => toggleAccordion(`S${idx}a${index}`)}
                   className={`${
-                    activeIndex === idx ? "active-accordation" : ""
+                    activeIndex === `S${idx}a${index}` ? "active-accordation" : ""
                   } schdule-accordion-card w-full mb-6`}
                 >
                   <div className="schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative">
@@ -227,7 +227,7 @@ export default function BattleRoyalSChedule() {
                   </div>
 
                   {/* Conditionally visible body with smooth animation */}
-                  <SmoothCollapse isOpen={activeIndex === idx}>
+                  <SmoothCollapse isOpen={activeIndex === `S${idx}a${index}`}>
                     <div className="schdule-collapse">
                       {(() => {
                         return scores.slice(0, half).map((team1, tIdx) => {

@@ -6,6 +6,7 @@ const initialState = {
   tournamentStages: null,
   battleRoyalGroup: null,
   battleRoyalSchedule: null,
+  loader :false,
   activeStage: 0,
 };
 
@@ -17,6 +18,7 @@ const tournamentSlice = createSlice({
       state.tournamentStages = null;
       state.battleRoyalGroup = null;
       state.battleRoyalSchedule = null;
+      state.loader =true
       state.activeStage = action.payload;
     },
     setTournamentData: (state, action) => {
@@ -29,6 +31,7 @@ const tournamentSlice = createSlice({
       } else {
         state.tournamentStages = action.payload.data || {};
       }
+      state.loader =false
     },
   },
   extraReducers: (builder) => {},

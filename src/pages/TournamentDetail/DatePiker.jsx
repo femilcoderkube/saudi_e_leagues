@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import { setShowCalendar } from '../../app/slices/constState/constStateSlice';
 
 const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate }) => {
   const [currentDate, setCurrentDate] = useState(new Date(2025, 6, 17));
   const [startDate, setStartDate] = useState(propStartDate || null);
   const [endDate, setEndDate] = useState(propEndDate || null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setStartDate(propStartDate || null);
@@ -97,6 +100,7 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
   };
 
   const handleUpdate = () => {
+    dispatch(setShowCalendar(false))
     if (onUpdate) {
       onUpdate(startDate, endDate);
     }
@@ -149,7 +153,7 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
         return (
           <div
             key={rowIdx}
-            className={`grid grid-cols-7 mb-1 ${rowHasRange ? 'gap-0' : 'gap-1'}`}
+            className={`grid grid-cols-7 mb-1 `}
           >
             {row.map(({ date, isCurrentMonth }, colIdx) => {
               const isSelectedStart = isSameDate(date, startDate);
@@ -171,7 +175,7 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
                 <button
                   key={colIdx}
                   onClick={() => handleDateClick(date)}
-                  className={`w-10 h-10 md:text-lg text-sm transition-all duration-200
+                  className={`w-13 h-13 mb-1 md:text-lg text-sm transition-all duration-200
                     ${rangeClass}
                     ${!inRange && isSelectedStart || !inRange && isSelectedEnd
                       ? 'bg-gradient-to-b from-[#458CF3] to-[#4354EA] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D] !text-[#141721] rounded-lg'
