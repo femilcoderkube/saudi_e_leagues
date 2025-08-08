@@ -1032,10 +1032,12 @@ export const FirstPosCard_gold = ({ props }) => {
   )
 }
 
-export const EvenPosCard = ({ props }) => {
+export const EvenPosCard = ({ props, onClick  }) => {
+  console.log("props", props);
   
   return (
-    <svg
+   
+    <svg onClick={onClick}
       width={"100%"}
       height={"100%"}
       viewBox="0 0 343 101"
@@ -2192,12 +2194,13 @@ export const EvenPosCard = ({ props }) => {
         />
       </defs>
     </svg>
+    
   );
 }
 
-export const OddPosCard = ({ props }) => {  
+export const OddPosCard = ({ props,onClick  }) => {  
   return (
-    <svg
+    <svg onClick={onClick}
       width={"100%"}
       height={"100%"}
       viewBox="0 0 344 93"

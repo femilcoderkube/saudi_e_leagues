@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 
-const DatePicker = () => {
+const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate }) => {
   const [currentDate, setCurrentDate] = useState(new Date(2025, 6, 17));
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(propStartDate || null);
+  const [endDate, setEndDate] = useState(propEndDate || null);
+
+  useEffect(() => {
+    setStartDate(propStartDate || null);
+  }, [propStartDate]);
+  useEffect(() => {
+    setEndDate(propEndDate || null);
+  }, [propEndDate]);
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -78,10 +85,9 @@ const DatePicker = () => {
 
   const isInRange = (date) => {
     return (
-      startDate &&
-      endDate &&
-      date > startDate &&
-      date < endDate
+      startDate && endDate &&
+      date >= startDate &&
+      date <= endDate
     );
   };
 
@@ -91,11 +97,18 @@ const DatePicker = () => {
   };
 
   const handleUpdate = () => {
-    console.log('Start:', startDate?.toDateString());
-    console.log('End:', endDate?.toDateString());
+    if (onUpdate) {
+      onUpdate(startDate, endDate);
+    }
   };
 
   const days = getDaysInMonth(currentDate);
+
+  // Find which rows have in-range dates
+  const rows = [];
+  for (let i = 0; i < 35; i += 7) {
+    rows.push(days.slice(i, i + 7));
+  }
 
   return (
     <div className="datepiker-wp w-100 rounded-xl sm:px-6 py-6 px-4 text-white">
@@ -130,33 +143,54 @@ const DatePicker = () => {
       </div>
 
       {/* Calendar Days */}
-      <div className="grid grid-cols-7 gap-1 mb-6">
-        {days.slice(0, 35).map(({ date, isCurrentMonth }, index) => {
-          const isSelectedStart = isSameDate(date, startDate);
-          const isSelectedEnd = isSameDate(date, endDate);
-          const inRange = isInRange(date);
-
-          return (
-            <button
-              key={index}
-              onClick={() => handleDateClick(date)}
-              className={`w-10 h-10 rounded-lg md:text-lg text-sm transition-all duration-200 text-[#687092]
-                ${isSelectedStart || isSelectedEnd
-                  ? 'bg-gradient-to-b from-[#458CF3] to-[#4354EA] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D] !text-[#141721]'
-                  : inRange
-                  ? 'bg-gradient-to-t from-[#548ee6] to-[#4c5beb] shadow-[inset_0px_2px_2px_0px_#FFFFFF3D] text-white'
-                  : isCurrentMonth
-                  ? 'text-white hover:bg-blue-500'
-                  : 'text-[#141721] hover:bg-blue-600'
+      {rows.map((row, rowIdx) => {
+        // Check if this row contains any in-range date
+        const rowHasRange = row.some(({ date }) => isInRange(date));
+        return (
+          <div
+            key={rowIdx}
+            className={`grid grid-cols-7 mb-1 ${rowHasRange ? 'gap-0' : 'gap-1'}`}
+          >
+            {row.map(({ date, isCurrentMonth }, colIdx) => {
+              const isSelectedStart = isSameDate(date, startDate);
+              const isSelectedEnd = isSameDate(date, endDate);
+              const inRange = isInRange(date);
+              let rangeClass = '';
+              if (inRange) {
+                if (isSelectedStart && isSelectedEnd) {
+                  rangeClass = 'bg-blue-500 text-white rounded-lg';
+                } else if (isSelectedStart) {
+                  rangeClass = 'bg-blue-500 text-white rounded-l-lg';
+                } else if (isSelectedEnd) {
+                  rangeClass = 'bg-blue-500 text-white rounded-r-lg';
+                } else {
+                  rangeClass = 'bg-blue-500 text-white';
                 }
-              `}
-            >
-              {date.getDate()}
-            </button>
-          );
-        })}
-      </div>
-
+              }
+              return (
+                <button
+                  key={colIdx}
+                  onClick={() => handleDateClick(date)}
+                  className={`w-10 h-10 md:text-lg text-sm transition-all duration-200
+                    ${rangeClass}
+                    ${!inRange && isSelectedStart || !inRange && isSelectedEnd
+                      ? 'bg-gradient-to-b from-[#458CF3] to-[#4354EA] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D] !text-[#141721] rounded-lg'
+                      : ''}
+                    ${!inRange && !isSelectedStart && !isSelectedEnd && isCurrentMonth
+                      ? 'text-white hover:bg-blue-500 rounded-lg'
+                      : ''}
+                    ${!inRange && !isSelectedStart && !isSelectedEnd && !isCurrentMonth
+                      ? 'text-[#141721] hover:bg-blue-600 rounded-lg'
+                      : ''}
+                  `}
+                >
+                  {date.getDate()}
+                </button>
+              );
+            })}
+          </div>
+        );
+      })}
       {/* Actions */}
       <div className="flex justify-end">
         <button 
@@ -176,4 +210,4 @@ const DatePicker = () => {
   );
 };
 
-export default DatePicker;
+export default TournamentDatepiker;
