@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
-import { useDispatch } from 'react-redux';
-import { setShowCalendar } from '../../app/slices/constState/constStateSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setShowCalendar, setDateRange } from '../../app/slices/constState/constStateSlice';
 
 const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate }) => {
   const [currentDate, setCurrentDate] = useState(new Date(2025, 6, 17));
   const [startDate, setStartDate] = useState(propStartDate || null);
   const [endDate, setEndDate] = useState(propEndDate || null);
   const dispatch = useDispatch();
+  
+  // Get date range from Redux state
+  const { selectedStartDate, selectedEndDate } = useSelector((state) => state.constState);
 
   useEffect(() => {
-    setStartDate(propStartDate || null);
-  }, [propStartDate]);
-  useEffect(() => {
-    setEndDate(propEndDate || null);
-  }, [propEndDate]);
+    // Initialize with Redux state if available, otherwise use props
+    if (selectedStartDate && selectedEndDate) {
+      setStartDate(new Date(selectedStartDate));
+      setEndDate(new Date(selectedEndDate));
+    } else {
+      setStartDate(propStartDate || null);
+      setEndDate(propEndDate || null);
+    }
+  }, [propStartDate, propEndDate, selectedStartDate, selectedEndDate]);
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -100,7 +107,14 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
   };
 
   const handleUpdate = () => {
-    dispatch(setShowCalendar(false))
+    dispatch(setShowCalendar(false));
+    
+    // Update Redux state with selected date range
+    dispatch(setDateRange({
+      startDate: startDate,
+      endDate: endDate
+    }));
+    
     if (onUpdate) {
       onUpdate(startDate, endDate);
     }
