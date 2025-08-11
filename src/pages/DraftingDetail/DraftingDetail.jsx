@@ -54,7 +54,6 @@ const DraftingDetail = () => {
       }
     }, 100);
 
-
     return () => clearInterval(timer);
   }, [countdown]);
 
@@ -153,13 +152,39 @@ const DraftingDetail = () => {
               {teams?.map(
                 (team, teamIdx) => {
                   // console.log("team======", team);
+
+                  const isCurrentCaptainTurn = (() => {
+                    if (!draftData?.currentInterval || draftData.currentInterval === -1) {
+                      return false; // Draft not started or finished
+                    }
+
+                    // Calculate snake order for current interval
+                    const totalTeams = draftData?.totalTeams || teams.length;
+                    const currentInterval = draftData.currentInterval - 1; // Convert to 0-based index
+
+                    // Determine if we're in forward or backward direction
+                    const roundNumber = Math.floor(currentInterval / totalTeams);
+                    const positionInRound = currentInterval % totalTeams;
+                    const isForwardRound = roundNumber % 2 === 0;
+
+                    // Calculate which team should pick
+                    const currentTeamIndex = isForwardRound
+                      ? positionInRound
+                      : totalTeams - 1 - positionInRound;
+
+                    return currentTeamIndex === teamIdx;
+                  })();
+
+
                   return (
                     <div className="drafting__teams-list" key={teamIdx}>
                       <h2 className="grad_head--txt max-w-full md:text-[2.5rem] text-[1.8rem] pl-[1rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
                         Team {teamIdx + 1}
+                                {/* {isCurrentCaptainTurn && <span className="ml-2 text-yellow-400">(Current Turn)</span>} */}
+
                       </h2>
                       <div className="drafting__teams-list-block">
-                        <div className="drafting__teams-item relative">
+                        <div className={`drafting__teams-item relative ${isCurrentCaptainTurn ? 'captain_turn' : ''}`}>
                           <span className="gold_crown absolute top-[-2.5rem] ltr:right-6 rtl:left-6 z-10">
                             <img
                               alt="Gold Crown"
@@ -293,7 +318,7 @@ const DraftingDetail = () => {
                               );
                             })
                           })()} */}
-                          
+
                         {/* {(() => {
   const totalTeams = draftData?.totalTeams || 0;
   const totalOtherPlayers = draftData?.totalPlayers - totalTeams;
@@ -565,37 +590,84 @@ const DraftingDetail = () => {
                 {otherPlayers.length > 0 ? "Draft Pick" : "No Draft Picks Available"}
               </h2>
             </div>
-            <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8">
-              {otherPlayers.length > 0 ? (
-                // draftDataList?.data?.otherPlayers.map((pick, idx) => (
-                //   <div className="draft-picks-wrapper-item" key={idx}>
-                //     {idx % 2 === 0 ? <OddPosCard props={pick} /> : <EvenPosCard props={pick} />}
-                //   </div>
-                // ))
-                rows.map((row, rowIdx) => (
-                  <div className="draft-row" key={rowIdx}>
-                    {row.map((data, idx) => (
 
-                      <div
-                        className="draft-picks-wrapper-item"
-                        key={data.index}
-                      >
-                        {idx % 2 === 0 ? (
-                          <OddPosCard props={data} onClick={() => handlePlayerClick(data)} />
-                        ) : (
-                          <EvenPosCard props={data} onClick={() => handlePlayerClick(data)} />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                ))
-              ) : (
-                <div className="w-full text-center py-8 text-xl text-gray-500">
-                  {/* You can customize this message or add a graphic */}
-                  No players available for drafting.
+            {/* Check if draft hasn't started yet */}
+            {new Date() < new Date(draftData?.startTime) ? (
+              <div className="text-center py-8">
+                <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+                  <p className="text-xl font-semibold">Draft hasn't started yet!</p>
+                  <p>Draft will begin at: {new Date(draftData.startTime).toLocaleString()}</p>
                 </div>
-              )}
-            </div>
+
+                {/* Show grayed out players */}
+                <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8 opacity-50 pointer-events-none">
+                  {otherPlayers.length > 0 && rows.map((row, rowIdx) => (
+                    <div className="draft-row" key={rowIdx}>
+                      {row.map((data, idx) => (
+                        <div className="draft-picks-wrapper-item" key={data.index}>
+                          {idx % 2 === 0 ? (
+                            <OddPosCard props={data} />
+                          ) : (
+                            <EvenPosCard props={data} />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              // Normal draft interface when time has reached
+              <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8">
+                {otherPlayers.length > 0 ? (
+                  rows.map((row, rowIdx) => (
+                    <div className="draft-row" key={rowIdx}>
+                      {row.map((data, idx) => (
+                        <div className="draft-picks-wrapper-item" key={data.index}>
+                          {idx % 2 === 0 ? (
+                            <OddPosCard props={data} onClick={() => handlePlayerClick(data)} />
+                          ) : (
+                            <EvenPosCard props={data} onClick={() => handlePlayerClick(data)} />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ))
+                ) : (
+                  <div className="w-full text-center py-8 text-xl text-gray-500">
+                    No players available for drafting.
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8">
+                  {otherPlayers.length > 0 ? (
+                    rows.map((row, rowIdx) => (
+                      <div className="draft-row" key={rowIdx}>
+                        {row.map((data, idx) => (
+
+                          <div
+                            className="draft-picks-wrapper-item"
+                            key={data.index}
+                          >
+                            {idx % 2 === 0 ? (
+                              <OddPosCard props={data} onClick={() => handlePlayerClick(data)} />
+                            ) : (
+                              <EvenPosCard props={data} onClick={() => handlePlayerClick(data)} />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="w-full text-center py-8 text-xl text-gray-500">
+                      No players available for drafting.
+                    </div>
+                  )}
+                </div> */}
+
+
           </div>
         </div>
       }

@@ -4,7 +4,7 @@ import { captureOwnerStack } from "react";
 
 const initialState = {
   draftData: null,
-  teams:[],
+  teams: [],
   loading: false,
   error: null,
   otherPlayers: [],
@@ -19,22 +19,23 @@ const draftSlice = createSlice({
   reducers: {
     setDraftData: (state, action) => {
       if (action.payload.status) {
-        state.draftData = action.payload.data;
-        state.teams = action.payload.data.teams || [];
-     
+        if (state.draftData?.updatedAt !== action.payload.data?.updatedAt) {
+          state.draftData = action.payload.data;
+          state.teams = action.payload.data.teams || [];
 
-        state.otherPlayers = action.payload.data?.otherPlayers || []
-        
-        state.picks = action.payload.data.otherPlayers?.map((pick, idx) => ({
-          index: idx,
-          username: pick?.userId?.username || "",
-          fullName: pick?.userId?.fullName || "",
-          id: pick?.userId?._id || "",
-          rep: pick?.wilsonScore || 0,
-          profilePic: getServerURL(pick?.userId?.profilePicture || ""),
-          rank: pick?.rank || "",
-          score: Math.round(pick?.totalLeaguesScore || 0),
-        })) || [];
+          state.otherPlayers = action.payload.data?.otherPlayers || []
+
+          state.picks = action.payload.data.otherPlayers?.map((pick, idx) => ({
+            index: idx,
+            username: pick?.userId?.username || "",
+            fullName: pick?.userId?.fullName || "",
+            id: pick?.userId?._id || "",
+            rep: pick?.wilsonScore || 0,
+            profilePic: getServerURL(pick?.userId?.profilePicture || ""),
+            rank: pick?.rank || "",
+            score: Math.round(pick?.totalLeaguesScore || 0),
+          })) || [];
+        }
       }
     },
     setDraftCaptain: (state, action) => {

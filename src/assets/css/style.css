@@ -1505,3 +1505,16 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   transform: scale(1.03);
   transition: all 0.3s ease;
 }
+
+/* Card Animation */
+.drafting__teams-item.captain_turn .gold_crown{
+  animation: jump 1s infinite;
+  transform-origin: bottom center;
+  transition: all 0.5s;
+}
+
+@keyframes jump {
+  0%   {transform: translate3d(0,0,0) scale(1);}
+  50% {transform: translate3d(0,-40%,0) scale(1);}
+  100% {transform: translate3d(0,0,0) scale(1);}
+}
