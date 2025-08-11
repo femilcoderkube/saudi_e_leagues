@@ -37,10 +37,10 @@ const SingleDoubleStages = () => {
   // Get display dates
   const startDateDisplay = formatDateForDisplay(selectedStartDate);
   const endDateDisplay = formatDateForDisplay(selectedEndDate);
-
+  let container ;
   useEffect(() => {
     if (tournamentStages) {
-      let container = document.getElementById("Major-final");
+     container = document.getElementById("Major-final");
       if (window.bracketsViewer && container) {
         if (container.innerHTML) {
           container.innerHTML = "";
@@ -81,6 +81,36 @@ const SingleDoubleStages = () => {
   const handleActiveTournamentTab = (tab) => {
     dispatch(setActiveTournamentTab(tab));
   };
+  function openFullscreen() {
+    if (container) {
+      // Add padding before entering fullscreen
+      // container.style.padding = "20rem";
+      if (container.requestFullscreen) {
+        container.requestFullscreen();
+      } else if (container.mozRequestFullScreen) {
+        // Firefox
+        container.mozRequestFullScreen();
+      } else if (container.webkitRequestFullscreen) {
+        // Chrome, Safari, Opera
+        container.webkitRequestFullscreen();
+      } else if (container.msRequestFullscreen) {
+        // IE/Edge
+        container.msRequestFullscreen();
+      }
+    }
+  }
+ 
+  function closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  }
   if (loader) {
     return <GamingLoader />;
   }
@@ -120,7 +150,10 @@ const SingleDoubleStages = () => {
             </div>
             <div className="relative inline-block">
              {activeTournamentTab === 1 &&  <div className="full-screen-wp p-2 w-16 h-16 text-center cursor-pointer">
-                <div className="full-screen p-3 w-12 h-12 flex items-center justify-center">
+                <div className="full-screen p-3 w-12 h-12 flex items-center justify-center"
+                onClick={()=>openFullscreen()}
+                
+                >
                   <img className="w-6 h-6" src={full_screen} alt="" />
                 </div>
               </div>}

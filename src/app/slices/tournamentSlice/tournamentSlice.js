@@ -6,6 +6,7 @@ const initialState = {
   tournamentStages: null,
   battleRoyalGroup: null,
   battleRoyalSchedule: null,
+  stageSettings : null,
   loader :false,
   activeStage: 0,
 };
@@ -18,12 +19,14 @@ const tournamentSlice = createSlice({
       state.tournamentStages = null;
       state.battleRoyalGroup = null;
       state.battleRoyalSchedule = null;
+      state.stageSettings =null;
       state.tournamentData = null;
     },
     setActiveStage: (state, action) => {
       state.tournamentStages = null;
       state.battleRoyalGroup = null;
       state.battleRoyalSchedule = null;
+      state.stageSettings= null;
       state.loader =true
       state.activeStage = action.payload;
     },
@@ -34,6 +37,8 @@ const tournamentSlice = createSlice({
       if (action.payload.stageType == stageTypes.BattleRoyal) {
         state.battleRoyalGroup = action.payload.data?.matcheData?.participantList || [];
         state.battleRoyalSchedule = action.payload.data?.matcheData?.groupedByDate || {};
+        state.stageSettings = action.payload.data?.settings || {}
+
       } else {
         state.tournamentStages = action.payload.data || {};
       }

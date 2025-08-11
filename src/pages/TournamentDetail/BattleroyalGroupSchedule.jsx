@@ -63,7 +63,7 @@ function SmoothCollapse({ isOpen, children }) {
 }
 
 export default function BattleRoyalSChedule() {
-  const { battleRoyalSchedule, tournamentData } = useSelector(
+  const { battleRoyalSchedule, tournamentData ,stageSettings} = useSelector(
     (state) => state.tournament
   );
 
@@ -122,7 +122,7 @@ export default function BattleRoyalSChedule() {
                   <div className="schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative">
                     <img
                       className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
-                      src={battale_sahpe_img}
+                      src={getServerURL(stageSettings?.maps[item?.matchNumber - 1]?.photo || "")}
                       alt=""
                     />
 
@@ -156,11 +156,11 @@ export default function BattleRoyalSChedule() {
                           alt=""
                         />
                         <span className="uppercase inline-block md:text-2xl sm:text-lg text-base font-bold">
-                          {tournamentData?.game?.shortName}
+                          {stageSettings?.maps[item?.matchNumber - 1]?.name || ""}
                         </span>
                       </div>
                       <div className="flex items-center lg:gap-6 sm:gap-4 gap-2">
-                        {iconTeams.map((team, i) => {
+                        {/* {iconTeams.map((team, i) => {
                           const classs =
                             i === 0
                               ? ""
@@ -200,7 +200,7 @@ export default function BattleRoyalSChedule() {
                                 +{ExtraTeams}
                               </span>
                             </div>
-                          )}
+                          )} */}
                       </div>
                     </div>
 
