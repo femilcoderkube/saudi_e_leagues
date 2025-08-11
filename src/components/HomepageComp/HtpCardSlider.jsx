@@ -13,15 +13,15 @@ import sliderBG from "../../assets/images/sliderBG.png";
 const HtpCardBig = ({ item }) => (
   <div className="game_card_wrap--link relative inline-flex flex-col justify-end self-end">
     <div
-      className="htp_card--body inline-block relative !m-0 p-5 w-[37.5rem] !h-[23.75rem] !bg-[unset] !bg-[length:100%] !bg-no-repeat"
+      className="htp_card--body inline-block relative !m-0 p-5 w-[37.5rem] !h-[12.01rem] !bg-[unset] !bg-[length:100%] !bg-no-repeat"
       style={{ backgroundImage: `url(${activeslideBG})` }}
     >
       <div className="game_mask--con pt-3 sm:pb-0 pb-5 relative h-full flex flex-col justify-end w-full">
-        <h3 className="game_label !mb-0 sm:text-2xl text-lg !font-semibold  purple_light leading-tight pb-4 sm:pl-3 pl-1">
+        <h3 className="game_label !mb-0 md:text-[1.75rem] text-lg !font-bold  purple_light leading-tight sm:pb-6 pb-3 sm:pl-3 pl-1">
           {" "}
           {item.gameLabel}{" "}
         </h3>
-        <p className="game_info !mb-0 sm:text-xl text-sm !font-semibold w-[24rem] purple_col pb-5 sm:pl-3 pl-1">
+        <p className="game_info !mb-0 md:text-2xl text-sm !font-semibold w-[24rem] purple_col pb-5 sm:pl-3 pl-1">
           Sign up and step into the world of real competition
         </p>
       </div>
@@ -30,10 +30,10 @@ const HtpCardBig = ({ item }) => (
           className="match_date flex flex-col justify-center absolute ltr:right-[0] rtl:left-0 rtl:right-auto bottom-[0.3rem] h-[7.75rem] bg-[length:100%] !bg-no-repeat"
           style={{ backgroundImage: `url(${sliderBG})` }}
         >
-          <h2 className="sm:text-[3.25rem] text-[1.75rem] match_date-con pt-1 pb-1  text-center !font-extrabold grad_text-clip">
+          <h2 className="sm:text-[3.25rem] text-[1.75rem] match_date-con pt-1 pb-1  text-center !font-bold grad_text-clip">
             {item.Step}
           </h2>
-          <p className="sm:text-sm text-[0.75rem] purple_light font-medium  text-center uppercase">
+          <p className="sm:text-sm text-[0.75rem] purple_light font-semibold text-center uppercase">
             Step
           </p>
         </div>
@@ -44,11 +44,11 @@ const HtpCardBig = ({ item }) => (
 const HtpCard = ({ item }) => (
   <div className="game_card_wrap--link relative inline-flex flex-col justify-end self-end">
     <div
-      className="htp_card--body inline-block relative !m-0 p-5 w-[17.5rem] !h-[20.5rem] !bg-[unset] opacity-70 !bg-[length:100%] !bg-no-repeat"
+      className="htp_card--body inline-block relative !m-0 p-5 w-[17.5rem] !h-[12.01rem] !bg-[unset] opacity-70 !bg-[length:100%] !bg-no-repeat"
       style={{ backgroundImage: `url(${playgameBG})` }}
     >
       <div className="game_mask--con pt-3 relative h-full flex flex-col justify-end w-full">
-        <h3 className="game_label !mb-0 sm:text-2xl text-lg !font-semibold  purple_light leading-tight pb-4 sm:pl-3 pl-1">
+        <h3 className="game_label !mb-0 md:text-[1.75rem] text-lg !font-bold  purple_light leading-tight pb-0 sm:pl-3 pl-1">
           {" "}
           {item.gameLabel}{" "}
         </h3>
@@ -58,10 +58,10 @@ const HtpCard = ({ item }) => (
           className="match_date flex flex-col justify-center absolute ltr:right-[0] rtl:left-0 rtl:right-auto top-[1.5rem] !bg-no-repeat"
           style={{ backgroundImage: `url(${sliderBG_opp})` }}
         >
-          <h2 className="sm:text-[3.25rem] text-[1.75rem] match_date-con pt-1 pb-1  text-center !font-extrabold grad_text-clip">
+          <h2 className="sm:text-[3.25rem] text-[1.75rem] match_date-con pt-1 pb-1  text-center !font-bold grad_text-clip">
             {item.Step}
           </h2>
-          <p className="sm:text-sm text-[0.85rem] purple_light font-medium  text-center uppercase">
+          <p className="sm:text-sm text-[0.85rem] purple_light font-semibold  text-center uppercase">
             Step
           </p>
         </div>
@@ -94,13 +94,13 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
       mainSwiperRef.current.swiper.navigation.init();
       mainSwiperRef.current.swiper.navigation.update();
     }
-    // For thumbsSwiper, navigation is not needed, it will be synced via thumbs prop
+    // For thumbsSwiper, navigation is not needed, it will be synced via thumbs prop  
   }, [prevRef, nextRef, mainSwiperRef, thumbsSwiper]);
 
   return (
-    <div className="relative htp_slider h-full flex ">
+    <div className="relative htp_slider h-full flex gap-10">
       {/* Custom Nav */}
-      <div className="swiper-navigation-wrapper absolute ltr:right-0 rtl:left-0 lg:top-[0rem] sm:top-[-5rem] top-[-2.5rem] z-10 flex gap-2 md:pr-[7.5rem] pr-[1rem]">
+      <div className="swiper-navigation-wrapper absolute ltr:right-0 rtl:left-0 lg:top-[0rem] sm:top-[-5rem] top-[-2.5rem] z-10 flex gap-2 ltr:md:pr-[7.5rem] rtl:md:pr-[7.5rem] pr-[1rem]">
         <div
           ref={prevRef}
           className={`swiper-button-prev sd_prev-${sliderId} rtl:order-2 sd_prev-btn !relative ltr:!left-[auto] ltr:!right-[0.5rem] rtl:!left-[0.5rem] rtl:!right-[auto] custom-nav-btn`}
@@ -135,8 +135,7 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
 
       {/* Thumbs Swiper (Small Card) */}
       <Swiper
-        spaceBetween={40}
-        slidesPerView={1}
+        slidesPerView={1.5}
         speed={600}
         onSwiper={setThumbsSwiper}
         loop={false}

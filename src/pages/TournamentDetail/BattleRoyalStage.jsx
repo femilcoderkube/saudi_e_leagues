@@ -12,7 +12,7 @@ export default function BattleRoyalStage() {
     const { battleRoyalSchedule ,battleRoyalGroup ,loader} = useSelector(
         (state) => state.tournament
       );
-      const { activeTournamentTab, showCalendar } = useSelector(
+      const { activeTournamentTab, showCalendar, selectedStartDate, selectedEndDate } = useSelector(
         (state) => state.constState
       );
       
@@ -21,7 +21,25 @@ export default function BattleRoyalStage() {
         dispatch(setActiveTournamentTab(tab));
       };
 
-      
+      // Format date for display
+      const formatDateForDisplay = (date) => {
+        if (!date) return null;
+        const dateObj = new Date(date);
+        return {
+          day: dateObj.getDate(),
+          month: dateObj.toLocaleString('en', { month: 'short' })
+        };
+      };
+
+      // Get display dates
+      const startDateDisplay = formatDateForDisplay(selectedStartDate);
+      const endDateDisplay = formatDateForDisplay(selectedEndDate);
+
+      if(loader){
+        return (
+            <GamingLoader/>
+        )
+      }
     
     if (
       battleRoyalSchedule &&
@@ -68,7 +86,15 @@ export default function BattleRoyalStage() {
                     onClick={() => dispatch(setShowCalendar( !showCalendar))}
                   >
                     <span className="sm:text-lg text-base font-bold">
-                      12 - 17 <span className="font-normal">Jul</span>
+                      {startDateDisplay && endDateDisplay ? (
+                        <>
+                          {startDateDisplay.day} - {endDateDisplay.day} <span className="font-normal">{endDateDisplay.month}</span>
+                        </>
+                      ) : (
+                        <>
+                          12 - 17 <span className="font-normal">Jul</span>
+                        </>
+                      )}
                     </span>
                     <img
                       className="w-3.5 h-2 object-cover object-center"

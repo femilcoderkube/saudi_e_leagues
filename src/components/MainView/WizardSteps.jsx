@@ -887,6 +887,7 @@ const WizardSteps = ({
             ? `${values.dialCode.value}-${values.phoneNumber}`
             : values.phoneNumber;
           onSubmit({ ...values, phone });
+          localStorage.removeItem("OTPCreated");
         } else {
           if (step < TOTAL_STEPS) {
             onNext();

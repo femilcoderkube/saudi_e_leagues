@@ -67,7 +67,7 @@ aside {
 .btn_polygon-link {
     background: linear-gradient(180deg, rgba(45, 46, 109, 0.92) 0%, rgba(34, 35, 86, 0.8) 100%);
     clip-path: url(#polygonClip);
-    width: 16rem;
+    width: 17.51rem;
     height: 4.5rem;
     display: inline-flex;
     justify-content: center;
@@ -99,7 +99,7 @@ aside {
 .polygon_border:before,
 .polygon_border:after {
     left: 50%;
-    width: 6.25rem;
+    width: 7.25rem;
     height: 0.25rem;
     top: 0px;
     transform: translateX(-50%);

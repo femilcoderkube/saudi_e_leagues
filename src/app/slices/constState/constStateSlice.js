@@ -17,6 +17,8 @@ const initialState = {
   activeTournamentTab : 1,
   confirmationPopUp : 0,
   showCalendar : false,
+  selectedStartDate: null,
+  selectedEndDate: null,
 
   countryOptions :countryData.map((country) => ({
     value: country.name,
@@ -34,6 +36,16 @@ const constStateSlice = createSlice({
   reducers: {
     setShowCalendar:(state,action)=>{
       state.showCalendar = action.payload;
+    },
+    setSelectedStartDate:(state,action)=>{
+      state.selectedStartDate = action.payload ? action.payload.toISOString() : null;
+    },
+    setSelectedEndDate:(state,action)=>{
+      state.selectedEndDate = action.payload ? action.payload.toISOString() : null;
+    },
+    setDateRange:(state,action)=>{
+      state.selectedStartDate = action.payload.startDate ? action.payload.startDate.toISOString() : null;
+      state.selectedEndDate = action.payload.endDate ? action.payload.endDate.toISOString() : null;
     },
     setConfirmationPopUp:(state,action)=>{
       state.confirmationPopUp = action.payload;
@@ -87,6 +99,6 @@ const constStateSlice = createSlice({
   },
 });
 
-export const { setMatchPage,setTimeLineCard ,setMatchLoader ,setLogin ,setShowCalendar,setRegisteration,setActiveTabIndex,setshowNotification,setProfileVisible ,setSubmitModal,setViewModal ,setPreviewImage,setIsMatctCreated,setNotificationTabIndex,setActiveTournamentTab,setConfirmationPopUp       } = constStateSlice.actions;
+export const { setMatchPage,setTimeLineCard ,setMatchLoader ,setLogin ,setShowCalendar,setRegisteration,setActiveTabIndex,setshowNotification,setProfileVisible ,setSubmitModal,setViewModal ,setPreviewImage,setIsMatctCreated,setNotificationTabIndex,setActiveTournamentTab,setConfirmationPopUp,setSelectedStartDate,setSelectedEndDate,setDateRange       } = constStateSlice.actions;
 
 export default constStateSlice.reducer;
