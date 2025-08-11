@@ -1,7 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-
-import { useTranslation } from "react-i18next";
-import { TeamOneScoreList } from "../Matchs/teamOneSection";
+import React, { useEffect, useState } from "react";
 import {
   FirstPosCard_gold,
   EvenPosCard,
@@ -11,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getDraftById, setPickedPlayer, socket, stopDraftSocket } from "../../app/socket/socket";
 import { getIntervalCountdown, getServerURL } from "../../utils/constant";
+import GamingLoader from "../../components/Loader/loader";
 
 const DraftingDetail = () => {
   const { draftId } = useParams();
@@ -19,6 +17,7 @@ const DraftingDetail = () => {
   const { draftData, picks, teams, otherPlayers } = useSelector((state) => state.draft);
   // Countdown state
   const [countdown, setCountdown] = useState(0);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   useEffect(() => {
     if (isSocketConnected) {
@@ -28,6 +27,13 @@ const DraftingDetail = () => {
       stopDraftSocket();
     };
   }, [isSocketConnected, user, window.location.pathname, draftId]);
+
+  // Handle initial loading state
+  useEffect(() => {
+    if (draftData && teams && otherPlayers) {
+      setIsInitialLoading(false);
+    }
+  }, [draftData, teams, otherPlayers]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -78,7 +84,6 @@ const DraftingDetail = () => {
 
   const rows = chunkArray(picks, otherPlayers?.length / 4);
 
-
   const handlePlayerClick = (Playerdata) => {
     if (isSocketConnected) {
       setPickedPlayer({ draftId, Playerdata, isSocketConnected });
@@ -88,50 +93,12 @@ const DraftingDetail = () => {
     };
   }
 
-  // const assignPlayerToCaptainTeamSnakeDraft = (selectedPlayerData) => {
+  if (isInitialLoading || !draftData || !teams || !otherPlayers) {
+    return (
+      <GamingLoader />
+    );
+  }
 
-  //   setDraftData(prev => {
-  //     const { currentInterval, totalTeams, teams, otherPlayers } = prev;
-  //     const round = Math.floor(currentInterval / totalTeams);
-  //     const indexInRound = currentInterval % totalTeams;
-  //     const teamIndex = (round % 2 === 0)
-  //       ? indexInRound
-  //       : (totalTeams - 1 - indexInRound);
-
-  //     const playerEntry = otherPlayers.find(p => p.userId._id === selectedPlayerData.id);
-  //     if (!playerEntry) {
-  //       console.error("Player not found");
-  //       return prev;
-  //     }
-  //     const playerId = playerEntry.userId._id;
-  //     const playername = playerEntry.userId.username;
-
-  //     // Prevent duplicate
-  //     const alreadyPicked = prev.teams.some(team => team.players.includes(playerId));
-  //     if (alreadyPicked) {
-  //       console.warn("Player already picked");
-  //       return prev;
-  //     }
-
-  //     // Build updated teams array immutably
-  //     const updatedTeams = prev.teams.map((team, idx) => {
-  //       if (idx === teamIndex) {
-  //         return {
-  //           ...team,
-  //           players: [...team.players, playername]
-  //         };
-  //       }
-  //       return team;
-  //     });
-
-  //     return {
-  //       ...prev,
-  //       currentInterval: currentInterval + 1,
-  //       teams: updatedTeams
-  //     };
-  //   });
-  // };
-  // console.log("draftDataState", draftDataState);
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
       {/* --- dashboard main content back groud --- */}
@@ -149,376 +116,121 @@ const DraftingDetail = () => {
           </div>
           <div className="drafting__final_teams-wrapper mb-5">
             <div className="drafting__teams-list-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
-              {teams?.map(
-                (team, teamIdx) => {
-                  // console.log("team======", team);
+              {teams?.map((team, teamIdx) => {
 
-                  const isCurrentCaptainTurn = (() => {
-                    if (!draftData?.currentInterval || draftData.currentInterval === -1) {
-                      return false; // Draft not started or finished
+                const isCurrentCaptainTurn = (() => {
+                  if (!draftData?.currentInterval || draftData.currentInterval === -1) {
+                    return false; // Draft not started or finished
+                  }
+                  // Calculate snake order for current interval
+                  const totalTeams = draftData?.totalTeams || teams.length;
+                  const currentInterval = draftData.currentInterval; // Convert to 0-based index
+                  const interval = draftData.currentInterval + 1;
+
+                  // // Determine if we're in forward or backward direction
+                  // const roundNumber = Math.floor(currentInterval / totalTeams);
+                  // const positionInRound = currentInterval % totalTeams;
+                  // const isForwardRound = roundNumber % 2 === 0;
+
+                  // // Calculate which team should pick
+                  // const currentTeamIndex = isForwardRound
+                  //   ? positionInRound
+                  //   : totalTeams - 1 - positionInRound;
+                  // Build snake order array for this specific interval
+                  const snakeOrder = [];
+                  let direction = 1; // 1 for forward, -1 for backward
+                  let currentRoundTeams = [];
+
+                  for (let i = 1; i <= interval; i++) {
+                    if (currentRoundTeams.length === 0) {
+                      // Start new round
+                      currentRoundTeams = direction === 1
+                        ? [...Array(totalTeams).keys()] // [0,1,2,3]
+                        : [...Array(totalTeams).keys()].reverse(); // [3,2,1,0]
                     }
+                    snakeOrder.push(currentRoundTeams.shift());
 
-                    // Calculate snake order for current interval
-                    const totalTeams = draftData?.totalTeams || teams.length;
-                    const currentInterval = draftData.currentInterval - 1; // Convert to 0-based index
+                    // If round is complete, switch direction
+                    if (currentRoundTeams.length === 0) {
+                      direction *= -1;
+                    }
+                  }
 
-                    // Determine if we're in forward or backward direction
-                    const roundNumber = Math.floor(currentInterval / totalTeams);
-                    const positionInRound = currentInterval % totalTeams;
-                    const isForwardRound = roundNumber % 2 === 0;
+                  const currentTeamIndex = snakeOrder[interval - 1]; // Get team for current interval
 
-                    // Calculate which team should pick
-                    const currentTeamIndex = isForwardRound
-                      ? positionInRound
-                      : totalTeams - 1 - positionInRound;
+                  return currentTeamIndex === teamIdx;
+                })();
 
-                    return currentTeamIndex === teamIdx;
-                  })();
+                return (
+                  <div className="drafting__teams-list" key={teamIdx}>
+                    <h2 className="grad_head--txt max-w-full md:text-[2.5rem] text-[1.8rem] pl-[1rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
+                      Team {teamIdx + 1}
+                    </h2>
+                    <div className="drafting__teams-list-block">
+                      <div className={`drafting__teams-item relative ${isCurrentCaptainTurn ? 'captain_turn' : ''}`}>
+                        <span className="gold_crown absolute top-[-2.5rem] ltr:right-6 rtl:left-6 z-10">
+                          <img
+                            alt="Gold Crown"
+                            className="h-9"
+                            src="/src/assets/images/gold_crown.png"
+                          />
+                        </span>
+                        {team && (
+                          <FirstPosCard_gold
+                            props={{
+                              index: teamIdx,
+                              username:
+                                team?.captains?.userId?.username || "",
+                              fullName:
+                                team?.captains?.userId?.fullName || "",
+                              id: team?.captains?.userId?._id || "",
+                              rep:
+                                team?.captains?.wilsonScore || 0,
+                              profilePic: getServerURL(
+                                team?.captains?.userId
+                                  ?.profilePicture || ""
+                              ),
+                              rank: team?.captains?.rank || "",
+                              score: Math.round(
+                                team?.captains?.totalLeaguesScore || 0
+                              ),
+                            }}
+                          />
+                        )}
+                      </div>
 
+                      {/* Team captain card */}
+                      {/* Players slots (placeholders or picks) */}
+                      <ul className="drafting__teams-picked-list">
+                        {team.players.map((p, slotIdx) => {
+                          const isPicked = !!p.username;
 
-                  return (
-                    <div className="drafting__teams-list" key={teamIdx}>
-                      <h2 className="grad_head--txt max-w-full md:text-[2.5rem] text-[1.8rem] pl-[1rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
-                        Team {teamIdx + 1}
-                                {/* {isCurrentCaptainTurn && <span className="ml-2 text-yellow-400">(Current Turn)</span>} */}
+                          const data = {
+                            index: p.index,
+                            username: p.username || "",
+                            fullName: p.fullName || "",
+                            id: p.id || `empty-${teamIdx}-${slotIdx}`,
+                            rep: p.rep || 0,
+                            profilePic: getServerURL(p.profilePic) || "",
+                            rank: p.rank || "",
+                            score: Math.round(p.score || 0)
+                          };
 
-                      </h2>
-                      <div className="drafting__teams-list-block">
-                        <div className={`drafting__teams-item relative ${isCurrentCaptainTurn ? 'captain_turn' : ''}`}>
-                          <span className="gold_crown absolute top-[-2.5rem] ltr:right-6 rtl:left-6 z-10">
-                            <img
-                              alt="Gold Crown"
-                              className="h-9"
-                              src="/src/assets/images/gold_crown.png"
-                            />
-                          </span>
-                          {team && (
-                            <FirstPosCard_gold
-                              props={{
-                                index: teamIdx,
-                                username:
-                                  team?.captains?.userId?.username || "",
-                                fullName:
-                                  team?.captains?.userId?.fullName || "",
-                                id: team?.captains?.userId?._id || "",
-                                rep:
-                                  team?.captains?.wilsonScore || 0,
-                                profilePic: getServerURL(
-                                  team?.captains?.userId
-                                    ?.profilePicture || ""
-                                ),
-                                rank: team?.captains?.rank || "",
-                                score: Math.round(
-                                  team?.captains?.totalLeaguesScore || 0
-                                ),
-                              }}
-                            />
-                          )}
-                        </div>
+                          // pick even/odd styling on the placeholder index
+                          const Card = slotIdx % 2 === 0 ? EvenPosCard : OddPosCard;
 
+                          return (
+                            <li
+                              key={data.id}
+                              className={`drafting__teams-item list-none ${isPicked ? "assign" : "empty"}`}
+                            >
+                              <Card props={data} />
+                            </li>
+                          );
+                        })}
+                      </ul>
 
-                        {/* {team?.players?.length > 0 && (
-                          <>
-                            {team.players.map((playerId, playerIndex) => {
-                              // Find the actual player data from otherPlayers
-                              const playerData = otherPlayers?.find(p => p.userId._id === playerId.id);
-
-                              if (!playerData) {
-                                console.warn(`Player with ID ${playerId} not found in otherPlayers`);
-                                return null;
-                              }
-
-                              const data = {
-                                index: playerIndex + 1, // Start from 1 since captain is 0
-                                username: playerData?.userId?.username || "",
-                                fullName: playerData?.userId?.fullName || "",
-                                id: playerData?.userId?._id || "",
-                                rep: playerData?.wilsonScore || 0,
-                                profilePic: getServerURL(playerData?.userId?.profilePicture || ""),
-                                rank: playerData?.rank || "",
-                                score: Math.round(playerData?.totalLeaguesScore || 0)
-                              };
-
-                              // Alternate between Even and Odd cards
-                              const Card = playerIndex % 2 === 0 ? EvenPosCard : OddPosCard;
-
-                              return (
-                                <li key={playerId} className="drafting__teams-item list-none">
-                                  <Card props={data} />
-                                </li>
-                              );
-                            })}
-                          </>
-                        )} */}
-
-                        {/* {otherPlayers?.length > 0 &&
-                          (() => {
-                            // Calculate the number of teams and picks
-                            const totalTeams = draftData?.totalTeams;
-                            const maxCount = draftData?.totalPlayers - draftData?.totalTeams;
-                            const numPicks = otherPlayers.length;
-                            let snakeOrder = [];
-                            let direction = 1; // 1 for forward, -1 for backward
-                            while (snakeOrder.length < numPicks) {
-                              for (
-                                let i = 0;
-                                i < totalTeams && snakeOrder.length < numPicks;
-                                i++
-                              ) {
-                                snakeOrder.push(
-                                  direction === 1 ? i : totalTeams - 1 - i
-                                );
-                              }
-                              direction *= -1;
-                            }
-
-                            // Calculate pickIdx so that Pick # starts from maxCount and decreases
-                            // If maxCount is 25 and there are 25 picks, Pick #25 is first, Pick #1 is last
-                            const teamPicks = snakeOrder
-                              .map((teamIdxInOrder, pickIdx) => {
-                                if (
-                                  teamIdxInOrder === teamIdx &&
-                                  // picks[pickIdx]
-                                  team?.players?.[pickIdx]
-                                ) {
-                                  // Pick # should start from maxCount and decrease
-                                  let pickNumber = maxCount
-                                    ? maxCount - pickIdx
-                                    : numPicks - pickIdx;
-                                  return {
-                                    pickIdx: pickNumber,
-                                    playerId: team.players[pickIdx]
-
-                                  };
-                                }
-                                return null;
-                              })
-                              .filter(Boolean); // remove nulls
-
-                            return teamPicks.map((pick, index) => {
-                              const playerData = otherPlayers?.find(p => p.userId._id === pick.playerId);
-
-                              if (!playerData) return null;
-                              const data = {
-                                index: maxCount + 1 - pick.pickIdx,
-                                username: playerData?.userId?.username || "",
-                                fullName: playerData?.userId?.fullName || "",
-                                id: playerData?.userId?._id || "",
-                                rep: playerData?.wilsonScore || 0,
-                                profilePic: getServerURL(playerData?.userId?.profilePicture || ""),
-                                rank: playerData?.rank || "",
-                                score: Math.round(playerData?.totalLeaguesScore || 0)
-                              };
-
-                              const Card = pick.pickIdx % 2 === 0 ? EvenPosCard : OddPosCard;
-                              return (
-                                <li key={pick.playerId} className="drafting__teams-item list-none">
-                                  <Card props={data} />
-                                </li>
-                              );
-                            })
-                          })()} */}
-
-                        {/* {(() => {
-  const totalTeams = draftData?.totalTeams || 0;
-  const totalOtherPlayers = draftData?.totalPlayers - totalTeams;
-  const maxPlayersPerTeam = Math.floor(totalOtherPlayers / totalTeams);
-  
-  console.log(`Team ${teamIdx + 1}: Max players per team = ${maxPlayersPerTeam}`);
-  
-  // Create array of slots for this team
-  const teamSlots = Array.from({ length: maxPlayersPerTeam }, (_, slotIndex) => {
-    const playerId = team?.players?.[slotIndex]; // Get player at this slot (if exists)
-    const isEmpty = !playerId;
-    
-    return {
-      slotIndex,
-      playerId,
-      isEmpty,
-      pickNumber: slotIndex + 1 // Simple pick numbering (1, 2, 3...)
-    };
-  });
-  
-  // Render all slots
-  return teamSlots.map((slot) => {
-    let data;
-    
-    if (!slot.isEmpty) {
-      // Slot has a player - find player data
-      const playerData = otherPlayers?.find(p => {
-        // Handle both object and string IDs
-        const playerIdToMatch = typeof slot.playerId === 'string' 
-          ? slot.playerId 
-          : slot.playerId?.id || slot.playerId?._id;
-        return p.userId._id === playerIdToMatch;
-      });
-      
-      if (playerData) {
-        data = {
-          index: slot.pickNumber,
-          username: playerData?.userId?.username || "",
-          fullName: playerData?.userId?.fullName || "",
-          id: playerData?.userId?._id || "",
-          rep: playerData?.wilsonScore || 0,
-          profilePic: getServerURL(playerData?.userId?.profilePicture || ""),
-          rank: playerData?.rank || "",
-          score: Math.round(playerData?.totalLeaguesScore || 0),
-          isEmpty: false
-        };
-      } else {
-        // Player data not found, treat as empty
-        slot.isEmpty = true;
-      }
-    }
-    
-    if (slot.isEmpty) {
-      // Empty slot - show placeholder
-      data = {
-        index: slot.pickNumber,
-        username: "",
-        fullName: `Pick #${slot.pickNumber}`,
-        id: `empty-team-${teamIdx}-slot-${slot.slotIndex}`,
-        rep: 0,
-        profilePic: "",
-        rank: "",
-        score: 0,
-        isEmpty: true
-      };
-    }
-    
-    // Alternate between Even and Odd cards
-    const Card = slot.slotIndex % 2 === 0 ? EvenPosCard : OddPosCard;
-    
-    return (
-      <li 
-        key={slot.isEmpty ? data.id : data.id} 
-        className={`drafting__teams-item list-none ${!slot.isEmpty && data.username ? 'assign' : ''}`}
-      >
-        <Card props={data} />
-      </li>
-    );
-  });
-})()} */}
-
-                        {/* {(() => {
-                          const totalTeams = draftData?.totalTeams;
-                          const maxCount = draftData?.totalPlayers - draftData?.totalTeams;
-                          const maxPlayersPerTeam = Math.floor((draftData?.totalPlayers - totalTeams) / totalTeams);
-                          let snakeOrder = [];
-                          let direction = 1;
-
-                          // Build the snake order array for all possible picks
-                          const totalPossiblePicks = maxPlayersPerTeam * totalTeams;
-                          while (snakeOrder.length < totalPossiblePicks) {
-                            for (let i = 0; i < totalTeams && snakeOrder.length < totalPossiblePicks; i++) {
-                              snakeOrder.push(direction === 1 ? i : totalTeams - 1 - i);
-                            }
-                            direction *= -1;
-                          }
-
-                          // Find ALL pick slots for this team (both filled and empty)
-                          const teamSlots = [];
-                          snakeOrder.forEach((teamIdxInOrder, pickIdx) => {
-                            if (teamIdxInOrder === teamIdx) {
-                              let pickNumber = maxCount ? maxCount - pickIdx : totalPossiblePicks - pickIdx;
-                              const slotIndex = teamSlots.length; // 0, 1, 2, etc.
-                              const playerId = team?.players?.[slotIndex]; // Get actual player if exists
-
-                              teamSlots.push({
-                                pickIdx: pickNumber,
-                                playerId: playerId,
-                                globalPickIndex: pickIdx,
-                                slotIndex: slotIndex,
-                                isEmpty: !playerId
-                              });
-                            }
-                          });
-
-                          // Render ALL slots for this team (filled and empty)
-                          return teamSlots.map((slot, index) => {
-                            let data;
-                            let Card;
-
-                            if (!slot.isEmpty) {
-                              // Slot has a player - show player data
-                              const playerData = otherPlayers?.find(p => p.userId._id === slot.playerId);
-
-                              if (playerData) {
-                                data = {
-                                  index: maxCount + 1 - slot.pickIdx,
-                                  username: playerData?.userId?.username || "",
-                                  fullName: playerData?.userId?.fullName || "",
-                                  id: playerData?.userId?._id || "",
-                                  rep: playerData?.wilsonScore || 0,
-                                  profilePic: getServerURL(playerData?.userId?.profilePicture || ""),
-                                  rank: playerData?.rank || "",
-                                  score: Math.round(playerData?.totalLeaguesScore || 0)
-                                };
-                              } else {
-                                // Player data not found, treat as empty
-                                slot.isEmpty = true;
-                              }
-                            }
-
-                            if (slot.isEmpty) {
-                              // Empty slot - show placeholder data
-                              data = {
-                                index: maxCount + 1 - slot.pickIdx,
-                                username: "",
-                                fullName: "",
-                                id: ``,
-                                rep: 0,
-                                profilePic: "",
-                                rank: "",
-                                score: 0,
-                                isEmpty: true
-                              };
-                            }
-
-                            // Use pick number to determine even/odd card
-                            Card = slot.pickIdx % 2 === 0 ? EvenPosCard : OddPosCard;
-
-                            return (
-                              <li key={slot.isEmpty ? data.id : slot.playerId} className="drafting__teams-item list-none">
-                                <Card props={data} />
-                              </li>
-                            );
-                          });
-                        })()} */}
-
-
-                        {/* Players slots (placeholders or picks) */}
-                        <ul className="drafting__teams-picked-list">
-                          {team.players.map((p, slotIdx) => {
-                            // `p` is either { index } or full player object
-                            const isPicked = !!p.username; // you only get `username` once someone is picked
-
-                            const data = {
-                              index: p.index,                     // always present
-                              username: p.username || "",           // empty for placeholder
-                              fullName: p.fullName || "",
-                              id: p.id || `empty-${teamIdx}-${slotIdx}`,
-                              rep: p.rep || 0,
-                              profilePic: p.profilePic || "",
-                              rank: p.rank || "",
-                              score: Math.round(p.score || 0)
-                            };
-
-                            // pick even/odd styling on the placeholder index
-                            const Card = slotIdx % 2 === 0 ? EvenPosCard : OddPosCard;
-
-                            return (
-                              <li
-                                key={data.id}
-                                className={`drafting__teams-item list-none ${isPicked ? "assign" : "empty"}`}
-                              >
-                                <Card props={data} />
-                              </li>
-                            );
-                          })}
-                        </ul>
-
-                        {/* {otherPlayers?.length > 0 && (() => {
+                      {/* {otherPlayers?.length > 0 && (() => {
                           const totalTeams = draftData?.totalTeams;
                           const maxCount = draftData?.totalPlayers - draftData?.totalTeams;
                           const numPicks = otherPlayers.length;
@@ -577,10 +289,10 @@ const DraftingDetail = () => {
                             );
                           });
                         })()} */}
-                      </div>
                     </div>
-                  )
-                })}
+                  </div>
+                )
+              })}
             </div>
           </div>
 
@@ -640,7 +352,6 @@ const DraftingDetail = () => {
                 )}
               </div>
             )}
-
             {/* <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8">
                   {otherPlayers.length > 0 ? (
                     rows.map((row, rowIdx) => (
@@ -666,8 +377,6 @@ const DraftingDetail = () => {
                     </div>
                   )}
                 </div> */}
-
-
           </div>
         </div>
       }

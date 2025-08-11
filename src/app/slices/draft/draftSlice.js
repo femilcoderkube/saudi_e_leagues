@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getServerURL } from "../../../utils/constant";
-import { captureOwnerStack } from "react";
 
 const initialState = {
   draftData: null,
@@ -19,7 +18,7 @@ const draftSlice = createSlice({
   reducers: {
     setDraftData: (state, action) => {
       if (action.payload.status) {
-        if (state.draftData?.updatedAt !== action.payload.data?.updatedAt) {
+        if (state.draftData?.updatedAt !== action.payload.data?.updatedAt || state.draftData?.currentInterval == 0) {
           state.draftData = action.payload.data;
           state.teams = action.payload.data.teams || [];
 
