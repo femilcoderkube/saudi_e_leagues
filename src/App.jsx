@@ -25,6 +25,7 @@ import ResetPasswordPage from "./pages/profile/resetPassword.jsx";
 import { items } from "./utils/constant.js";
 import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";   
 import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
+import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
 // import { getMessaging, getToken } from "firebase/messaging";
 // import { messaging } from "./firebase.js";
 
@@ -62,6 +63,7 @@ function App() {
           <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
             <Route index element={<PrimeHome />} />
             <Route path="match/:mId" element={<MatchDetail />} />
+            <Route path="tournament/match/:mId" element={<MatchDetailTournament />} />
             <Route path="lobby" element={<Lobby />} />
             <Route path="lobby/drafting/:draftId" element={<DraftingDetail/>} />
             <Route path="lobby/tournament/:tId" element={<TournamentDetail />} />

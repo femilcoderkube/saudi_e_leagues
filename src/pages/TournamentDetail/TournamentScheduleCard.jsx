@@ -61,7 +61,7 @@ const TournamentScheduleCard = ({ item }) => {
               />
             </div>
             <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
-              {data?.acticeScore?.opponent1Score || "-"}
+              {data?.acticeScore?.opponent1Score?.toString() || "-"}
             </h2>
           </div>
           <div className="tournament-schedule-card-header-center">
@@ -69,7 +69,7 @@ const TournamentScheduleCard = ({ item }) => {
           </div>
           <div className="tournament-schedule-card-header-right flex items-center gap-4 md:gap-8 relative z-10">
             <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
-              {data?.acticeScore?.opponent2Score || "-"}
+              {data?.acticeScore?.opponent2Score?.toString()  || "-"}
             </h2>
             <div className="sm:w-[5rem] sm:h-[5rem] w-[4rem] h-[4rem] rounded-lg overflow-hidden">
               <img
