@@ -1032,8 +1032,7 @@ export const FirstPosCard_gold = ({ props }) => {
   )
 }
 
-export const EvenPosCard = ({ props, onClick  }) => {
-  console.log("props", props);
+export const EvenPosCard = ({ props, onClick  }) => {  
   
   return (
    
