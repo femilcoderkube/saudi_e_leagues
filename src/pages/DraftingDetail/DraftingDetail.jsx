@@ -37,7 +37,7 @@ const DraftingDetail = () => {
         );
         setCountdown(initialCountdown);
       }
-    }, 1000);
+    }, 100);
   }, [draftData, draftData?.currentIntervalTime]);
 
   // Replace your countdown timer effect with this:
@@ -152,7 +152,7 @@ const DraftingDetail = () => {
             <div className="drafting__teams-list-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
               {teams?.map(
                 (team, teamIdx) => {
-                  console.log("team======", team);
+                  // console.log("team======", team);
                   return (
                     <div className="drafting__teams-list" key={teamIdx}>
                       <h2 className="grad_head--txt max-w-full md:text-[2.5rem] text-[1.8rem] pl-[1rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
