@@ -88,10 +88,10 @@ const SingleDoubleStages = () => {
     return (
       <div id="tournament-tab-contents" className="mt-7">
         <div id="first" className="py-4 active">
-          <div className="tab-btn-wp flex justify-between items-center gap-5">
+          <div className={`tab-btn-wp flex justify-between items-center gap-5 ${activeTournamentTab === 1 ? "bracket-btn" :""}`}>
             <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
               {
-                <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
+                <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] sm:top-1 top-0 inline-flex justify-center sm:justify-start">
                   <button
                     onClick={() => handleActiveTournamentTab(1)}
                     class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
@@ -119,11 +119,11 @@ const SingleDoubleStages = () => {
               }
             </div>
             <div className="relative inline-block">
-              <div className="full-screen-wp p-2 w-16 h-16 text-center cursor-pointer">
+             {activeTournamentTab === 1 &&  <div className="full-screen-wp p-2 w-16 h-16 text-center cursor-pointer">
                 <div className="full-screen p-3 w-12 h-12 flex items-center justify-center">
                   <img className="w-6 h-6" src={full_screen} alt="" />
                 </div>
-              </div>
+              </div>}
               {/* Displayed Range */}
               {activeTournamentTab === 2 && (
                 <button

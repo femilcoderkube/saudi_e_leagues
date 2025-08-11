@@ -193,12 +193,12 @@ const TournamentDetail = () => {
                 {/* <!-- Tabs --> */}
                 <ul
                   id="tournament-tabs"
-                  className="sa__tournament-tabs inline-flex pt-2 w-full border-b border-gray-200/20 overflow-x-auto"
+                  className="sa__tournament-tabs inline-flex sm:flex-row flex-col pt-2 w-full sm:border-b sm:border-gray-200/20"
                 >
                   {tournamentData?.stages?.map((item, index) => {
                     return (
                       <li
-                        className={`font-semibold  cursor-pointer ${
+                        className={`font-semibold  cursor-pointer sm:border-b-0 border-b border-gray-200/20 ${
                           index == activeStage ? "active" : ""
                         }`}
                       >

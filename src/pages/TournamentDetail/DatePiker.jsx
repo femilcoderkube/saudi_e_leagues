@@ -198,7 +198,7 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
                       ? 'text-white hover:bg-blue-500 rounded-lg'
                       : ''}
                     ${!inRange && !isSelectedStart && !isSelectedEnd && !isCurrentMonth
-                      ? 'text-[#141721] hover:bg-blue-600 rounded-lg'
+                      ? 'text-[#687092] hover:bg-blue-400 rounded-lg'
                       : ''}
                   `}
                 >

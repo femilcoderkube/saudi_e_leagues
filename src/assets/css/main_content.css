@@ -102,10 +102,6 @@ html[dir="rtl"] .player_score {
   box-shadow: inset 0 5px 6px 0px rgb(94 95 184 / 12%);
 }
 
-.tournament_page--wrapper .game_polygon-link {
-  width: 21.2rem;
-}
-
 .sd_game-con.polygon_border:before,
 .sd_game-con.polygon_border:after {
   width: 5.25rem;
@@ -796,6 +792,37 @@ input[type="radio"]:checked+label .checkbox-inner:before {
   animation-name: slideInLeft;
 }
 
+@keyframes slideOutRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slideOutLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+.notification-sidebar.slide-out-right {
+  animation-name: slideOutRight;
+}
+
+.notification-sidebar.slide-out-left {
+  animation-name: slideOutLeft;
+}
+
+
 .notification-sidebar::before {
   position: absolute;
   content: "";
@@ -1025,7 +1052,7 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
     width: 100%;
   }
 
-  .game_polygon-link,.tournament_page--wrapper .game_polygon-link {
+  .game_polygon-link {
     width: 100%;
   }
 
@@ -1358,10 +1385,6 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
 
   .sd_game_info--wrap .sd_game-con {
     width: auto;
-  }
-
-  .tournament_page--wrapper .sd_game_info--wrap .sd_game-con{
-    width: 100%;
   }
 
   .game_polygon-link {
