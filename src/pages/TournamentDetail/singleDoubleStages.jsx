@@ -15,7 +15,7 @@ const SingleDoubleStages = () => {
   const { activeTournamentTab, showCalendar } = useSelector(
     (state) => state.constState
   );
-  const { activeStage, tournamentStages ,loader} = useSelector(
+  const { activeStage, tournamentStages} = useSelector(
     (state) => state.tournament
   );
   const dispatch = useDispatch();
@@ -63,11 +63,7 @@ const SingleDoubleStages = () => {
   const handleActiveTournamentTab = (tab) => {
     dispatch(setActiveTournamentTab(tab));
   };
-  if(loader){
-    return (
-        <GamingLoader/>
-    )
-  }
+
   if (tournamentStages && tournamentStages?.config?.match) {
     return (
       <div id="tournament-tab-contents" className="mt-7">
@@ -104,7 +100,7 @@ const SingleDoubleStages = () => {
             </div>
             <div className="relative inline-block">
               {/* Displayed Range */}
-              <button
+              { activeTournamentTab === 2 &&  <button
                 className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
                 onClick={() => dispatch(setShowCalendar(!showCalendar))}
               >
@@ -116,10 +112,10 @@ const SingleDoubleStages = () => {
                   src={cal_arrow}
                   alt=""
                 />
-              </button>
+              </button>}
 
               {/* Calendar Dropdown */}
-              {showCalendar && (
+              {showCalendar && activeTournamentTab === 2 && (
                 <div className="open-cal absolute ltr:right-0 rtl:left-0 top-[100%] z-50">
                   <TournamentDatepiker />
                 </div>

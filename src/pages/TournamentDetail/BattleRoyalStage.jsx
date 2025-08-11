@@ -21,11 +21,7 @@ export default function BattleRoyalStage() {
         dispatch(setActiveTournamentTab(tab));
       };
 
-      if(loader){
-        return (
-            <GamingLoader/>
-        )
-      }
+      
     
     if (
       battleRoyalSchedule &&

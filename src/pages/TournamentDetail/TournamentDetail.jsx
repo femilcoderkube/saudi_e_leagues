@@ -1,18 +1,10 @@
 import teamSizeImage from "../../assets/images/teamSize.png";
-import mob_star_of_week from "../../assets/images/mob_star_week.png";
-import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
-import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
-import LeaderBoard from "../../components/LobbyPageComp/LeaderBoardTable.jsx";
-import { Link, useParams } from "react-router-dom";
-import PopUp from "../../components/ModalPopUp/Popup.jsx";
+
+import center_league from "../../assets/images/center_league.png";
+import { useParams } from "react-router-dom";
 import { getServerURL, stageTypes } from "../../utils/constant.js";
-import GetQueueButton from "../LeagueDetail/queueButton.jsx";
-import Que_btn from "../../assets/images/quebtn.png";
-import leagueLogo from "../../assets/images/large_prime.png";
-import headerPhoto from "../../assets/images/game_detail_img.png";
 
 import { useTranslation } from "react-i18next";
-import { fromPairs, transform } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,26 +14,23 @@ import {
   getTournamentStages,
   startTournamentSocket,
 } from "../../app/socket/socket.js";
-import {
-  setActiveStage,
-  setTournamentStages,
-} from "../../app/slices/tournamentSlice/tournamentSlice.js";
+import { clearData, setActiveStage } from "../../app/slices/tournamentSlice/tournamentSlice.js";
 import BattleRoyalStage from "./BattleRoyalStage.jsx";
 
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
-  const { tournamentData, activeStage, battleRoyalSchedule ,battleRoyalGroup } = useSelector(
+  const { tournamentData, activeStage, loader } = useSelector(
     (state) => state.tournament
   );
-  
+
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { user } = useSelector((state) => state.auth);
   const { tId } = useParams();
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     if (isSocketConnected) {
+      dispatch(clearData())
       startTournamentSocket({
         tId: tId,
         user: user,
@@ -56,13 +45,11 @@ const TournamentDetail = () => {
     }
   }, [tournamentData]);
 
-
-
   useEffect(() => {
     if (tournamentData?.stages?.length > 0 && isSocketConnected) {
       getTournamentStages({
         stageId: tournamentData?.stages[activeStage]?._id,
-        stageType : tournamentData?.stages[activeStage]?.stageType,
+        stageType: tournamentData?.stages[activeStage]?.stageType,
         isSocketConnected: isSocketConnected,
         user: user,
       });
@@ -217,7 +204,11 @@ const TournamentDetail = () => {
                       >
                         <div
                           id={`stage-${index}`}
-                          onClick={() => activeStage!= index ? dispatch(setActiveStage(index)): null}
+                          onClick={() =>
+                            activeStage != index
+                              ? dispatch(setActiveStage(index))
+                              : null
+                          }
                           className="px-4 py-2 pl-0 flex items-center justify-center text-xl whitespace-nowrap"
                         >
                           {item?.stageName}
@@ -227,13 +218,21 @@ const TournamentDetail = () => {
                   })}
                 </ul>
 
-                {/* <!-- Tab Contents --> */}
-               { tournamentData?.stages[activeStage]?.stageType == stageTypes.BattleRoyal ? 
-              (
-                <BattleRoyalStage/>
-              ):( <SingleDoubleStages />)
-              }
-               
+                {loader ? (
+                  <div className="flex justify-center items-center">
+                    <img
+                      className="center-league-loader  left-1/2 mt-20"
+                      src={center_league}
+                      alt=""
+                      style={{ width: "11rem" }}
+                    />
+                  </div>
+                ) : tournamentData?.stages[activeStage]?.stageType ==
+                  stageTypes.BattleRoyal ? (
+                  <BattleRoyalStage />
+                ) : (
+                  <SingleDoubleStages />
+                )}
               </div>
             </div>
           </div>

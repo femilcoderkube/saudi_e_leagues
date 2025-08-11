@@ -14,6 +14,12 @@ const tournamentSlice = createSlice({
   name: "tournament",
   initialState,
   reducers: {
+    clearData:(state)=>{
+      state.tournamentStages = null;
+      state.battleRoyalGroup = null;
+      state.battleRoyalSchedule = null;
+      state.tournamentData = null;
+    },
     setActiveStage: (state, action) => {
       state.tournamentStages = null;
       state.battleRoyalGroup = null;
@@ -37,7 +43,7 @@ const tournamentSlice = createSlice({
   extraReducers: (builder) => {},
 });
 
-export const { setTournamentData, setActiveStage, setTournamentStages } =
+export const { setTournamentData, setActiveStage,clearData, setTournamentStages } =
   tournamentSlice.actions;
 
 export default tournamentSlice.reducer;
