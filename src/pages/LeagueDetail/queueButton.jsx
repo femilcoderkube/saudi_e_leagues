@@ -74,7 +74,7 @@ const GetQueueButton = () => {
             className="mx-auto"
             src={Drafting_btn}
             alt=""
-            style={{ width: "30.5rem" }}
+            style={{ width: "100%" }}
           />{" "}
         </div>
       );
@@ -95,7 +95,7 @@ const GetQueueButton = () => {
             className="mx-auto"
             src={Que_btn}
             alt=""
-            style={{ width: "30.5rem" }}
+            style={{ width: "100%" }}
           />{" "}
         </div>
       );
@@ -116,7 +116,7 @@ const GetQueueButton = () => {
         >
           {t("images.join_button")}
         </span>
-        <img className="mx-auto" src={join_btn} alt="" style={{ width: "30.5rem" }} />
+        <img className="mx-auto" src={join_btn} alt="" style={{ width: "100%" }} />
       </div>
     );
   } else if (isQueueUser) {
@@ -145,7 +145,7 @@ const GetQueueButton = () => {
           className="mx-auto"
           src={Cancel_btn}
           alt=""
-          style={{ width: "30.5rem" }}
+          style={{ width: "100%" }}
         />{" "}
       </div>
     );
@@ -206,7 +206,7 @@ const GetQueueButton = () => {
             className="mx-auto"
             src={Que_btn}
             alt=""
-            style={{ width: "30.5rem" }}
+            style={{ width: "100%" }}
           />{" "}
         </div>
       );
@@ -228,7 +228,7 @@ const GetQueueButton = () => {
             className="mx-auto"
             src={text.includes(t("images.opens_in")) ? Open_btn : Que_btn}
             alt=""
-            style={{ width: "30.5rem" }}
+            style={{ width: "100%" }}
           />{" "}
         </div>
       );

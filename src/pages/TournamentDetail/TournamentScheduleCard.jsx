@@ -99,12 +99,12 @@ const TournamentScheduleCard = ({ item }) => {
             </h2>
           </div>
         </div>
-        {/* <div className="tournament-schedule-card-footer tournament-schedule-card-footer-hover flex justify-center items-center h-[3rem] md:h-[4rem] px-4 md:px-8 md:pb-6 py-4 overflow-hidden relative">
-          <div className="tournament-schedule-card-footer-left flex gap-2 items-center ">
+        <div className="tournament-schedule-card-footer tournament-schedule-card-footer-hover flex justify-center items-center h-[3rem] md:h-[4rem] px-4 md:px-8 md:pb-6 py-4 overflow-hidden relative">
+          <div className="tournament-schedule-card-footer-left flex gap-2 items-center justify-center">
             <h2 className="text-base md:text-xl font-semibold text-[#3ECCF3]">Match Page</h2>
             <img src={footer_card_icon} alt="" />
           </div>
-        </div> */}
+        </div>
 
         {/* card bottom shape */}
         <svg

@@ -111,7 +111,6 @@ export default function BattleRoyalStage() {
                   )}
                 </div>
               </div>
-    
               <>
                 {activeTournamentTab === 1 && (
                   <div className="tournament-bracket-wrapper mb-15">

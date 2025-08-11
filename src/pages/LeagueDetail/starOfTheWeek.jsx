@@ -32,7 +32,7 @@ const StarOfTheWeek = () => {
 
   return (
     <div className="w-full flex justify-center items-center ">
-      <div className="w-[30rem] md:mb-[2.4rem]">
+      <div className="w-[32rem] md:mb-[2.4rem]">
         <Swiper
           navigation={false}
           spaceBetween={0}
@@ -50,7 +50,7 @@ const StarOfTheWeek = () => {
             let isYourPoints = star?.weeklyUsersData?.userId?._id.toString() != star?.requestedUsersScore?.userId.toString() && user?._id
             return(
             <SwiperSlide className="w-full" key={index}>
-              <div className="mob-star-week bg-[url(./assets/images/mob-star-week-shape.png)] sm:max-w-[30rem] sm:w-full flex flex-col bg-no-repeat bg-center bg-cover relative p-5 mx-auto md:order-2 order-2">
+              <div className="mob-star-week bg-[url(./assets/images/mob-star-week-shape.png)] sm:max-w-[32rem] sm:w-full flex flex-col bg-no-repeat bg-center bg-cover relative p-5 mx-auto md:order-2 order-2">
                 <div className="sd_bedge_left-con border-b-1 border-[#7b7ed047] pb-5 mb-6 flex flex-row items-center justify-between gap-4 w-full">
                   <div className="sd_bedge-lable flex gap-2 items-end">
                     {i18n.language === 'ar' ? (

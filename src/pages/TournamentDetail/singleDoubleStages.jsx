@@ -8,14 +8,18 @@ import TournamentScheduleCard from "./TournamentScheduleCard.jsx";
 import TournamentDatepiker from "./DatePiker.jsx";
 import cal_arrow from "../../assets/images/cal_arrow.png";
 import center_league from "../../assets/images/center_league.png";
+import full_screen from "../../assets/images/full-screen.png";
 import { getServerURL } from "../../utils/constant.js";
 import GamingLoader from "../../components/Loader/loader.jsx";
 
 const SingleDoubleStages = () => {
-  const { activeTournamentTab, showCalendar, selectedStartDate, selectedEndDate } = useSelector(
-    (state) => state.constState
-  );
-  const { activeStage, tournamentStages} = useSelector(
+  const {
+    activeTournamentTab,
+    showCalendar,
+    selectedStartDate,
+    selectedEndDate,
+  } = useSelector((state) => state.constState);
+  const { activeStage, tournamentStages, loader } = useSelector(
     (state) => state.tournament
   );
   const dispatch = useDispatch();
@@ -26,7 +30,7 @@ const SingleDoubleStages = () => {
     const dateObj = new Date(date);
     return {
       day: dateObj.getDate(),
-      month: dateObj.toLocaleString('en', { month: 'short' })
+      month: dateObj.toLocaleString("en", { month: "short" }),
     };
   };
 
@@ -77,12 +81,14 @@ const SingleDoubleStages = () => {
   const handleActiveTournamentTab = (tab) => {
     dispatch(setActiveTournamentTab(tab));
   };
-
+  if (loader) {
+    return <GamingLoader />;
+  }
   if (tournamentStages && tournamentStages?.config?.match) {
     return (
       <div id="tournament-tab-contents" className="mt-7">
         <div id="first" className="py-4 active">
-          <div className="tab-btn-wp flex sm:justify-between justify-center items-center gap-5">
+          <div className="tab-btn-wp flex justify-between items-center gap-5">
             <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
               {
                 <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
@@ -113,28 +119,38 @@ const SingleDoubleStages = () => {
               }
             </div>
             <div className="relative inline-block">
+              <div className="full-screen-wp p-2 w-16 h-16 text-center cursor-pointer">
+                <div className="full-screen p-3 w-12 h-12 flex items-center justify-center">
+                  <img className="w-6 h-6" src={full_screen} alt="" />
+                </div>
+              </div>
               {/* Displayed Range */}
-              { activeTournamentTab === 2 &&  <button
-                className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
-                onClick={() => dispatch(setShowCalendar(!showCalendar))}
-              >
-                <span className="sm:text-lg text-base font-bold">
-                  {startDateDisplay && endDateDisplay ? (
-                    <>
-                      {startDateDisplay.day} - {endDateDisplay.day} <span className="font-normal">{endDateDisplay.month}</span>
-                    </>
-                  ) : (
-                    <>
-                      12 - 17 <span className="font-normal">Jul</span>
-                    </>
-                  )}
-                </span>
-                <img
-                  className="w-3.5 h-2 object-cover object-center"
-                  src={cal_arrow}
-                  alt=""
-                />
-              </button>}
+              {activeTournamentTab === 2 && (
+                <button
+                  className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
+                  onClick={() => dispatch(setShowCalendar(!showCalendar))}
+                >
+                  <span className="sm:text-lg text-base font-bold">
+                    {startDateDisplay && endDateDisplay ? (
+                      <>
+                        {startDateDisplay.day} - {endDateDisplay.day}{" "}
+                        <span className="font-normal">
+                          {endDateDisplay.month}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        12 - 17 <span className="font-normal">Jul</span>
+                      </>
+                    )}
+                  </span>
+                  <img
+                    className="w-3.5 h-2 object-cover object-center"
+                    src={cal_arrow}
+                    alt=""
+                  />
+                </button>
+              )}
 
               {/* Calendar Dropdown */}
               {showCalendar && activeTournamentTab === 2 && (
@@ -143,6 +159,12 @@ const SingleDoubleStages = () => {
                 </div>
               )}
             </div>
+            {/* <div className="bracket-date">
+                <span>
+                Thu, Aug 15
+                </span>
+                <span>9:00 PM</span>
+            </div> */}
           </div>
 
           <>
@@ -174,7 +196,7 @@ const SingleDoubleStages = () => {
         </div>
       </div>
     );
-  } else  {
+  } else {
     return (
       <div className="flex justify-center items-center py-50 text-xl text-gray-400">
         No data found

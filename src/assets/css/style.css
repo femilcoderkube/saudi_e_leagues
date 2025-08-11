@@ -125,8 +125,8 @@ html[lang="en"][dir="rtl"] .font_oswald {
 }
 
 .notification-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.8rem;
+  height: 1.8rem;
   background: linear-gradient(0deg,
       rgba(1, 2, 29, 1) 0%,
       rgba(2, 3, 41, 1) 100%);
@@ -139,8 +139,8 @@ html[lang="en"][dir="rtl"] .font_oswald {
   position: absolute;
   content: '';
   background: linear-gradient(180deg, #35FAFA 0%, #118F7A 100%);
-  width: 1rem;
-  height: 1rem;
+  width: 1.4rem;
+  height: 1.4rem;
   border-radius: 50%;
   z-index: -1;
 }
@@ -732,7 +732,7 @@ html[dir=rtl] .schdule-accordion-body:nth-child(3) {
 }
 
 .active-accordation .schdule-icon img {
- transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 html[dir=rtl] .schdule-icon {
@@ -778,8 +778,64 @@ html[dir=rtl] .battle-shape {
 .schdule-accordion-card.active-accordation .battle-shape {
   border-bottom-left-radius: 0;
 }
+
 .schdule-accordion-body .mob-body-full {
   width: 50%;
+}
+
+.full-screen-wp {
+  background: linear-gradient(180deg, rgba(94, 95, 184, 0.2) 0%, rgba(34, 35, 86, 0.2) 100%);
+  backdrop-filter: blur(1.5rem);
+  box-shadow: 0px 2px 2px 0px #5E5FB81F inset;
+  clip-path: polygon(91% 0, 100% 11%, 100% 35%, 100% 70%, 100% 89%, 91% 100%, 10% 100%, 0 89%, 0 11%, 11% 0);
+}
+
+.full-screen {
+  clip-path: polygon(91% 0, 100% 11%, 100% 35%, 100% 70%, 100% 89%, 91% 100%, 10% 100%, 0 89%, 0 11%, 11% 0);
+  background: linear-gradient(180deg, rgba(188, 82, 37, 0.8464) 0%, rgba(244, 149, 40, 0.92) 107.14%);
+  box-shadow:
+    0px -2px 12px 0px #E26936 inset,
+    0px 4px 12px 0px #E2693666 inset,
+    0px 4px 12px 0px #F465281F inset;
+}
+
+.bracket-date {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #1D1E4E 0%, #2A2B67 100%);
+  backdrop-filter: blur(1.5rem);
+  padding: 0.5rem;
+  padding-right: 2rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  position: relative;
+}
+
+.bracket-date::after {
+  position: absolute;
+  content: '';
+  background: url(../images/double_arrow.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  right: 0.55rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 8px;
+  height: 8px;
+  z-index: 1;
+}
+
+.bracket-date span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.bracket-date span:last-child {
+  color: #BABDFF;
+  border-left: 0.6px solid rgb(94, 95, 184, 0.6);
+  padding-left: 0.75rem;
+  margin-left: 0.75rem;
 }
 
 /* battle royal end */
@@ -1092,21 +1148,21 @@ html[dir=rtl] .battle-shape {
 }
 
 .brackets-viewer .participant:nth-of-type(2) {
-  border-bottom-left-radius: 8px;
+  border-bottom-left-radius: 0.5rem;
   overflow: hidden;
-  border-bottom-right-radius: 8px;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .brackets-viewer .participant:nth-of-type(1) {
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
   overflow: hidden;
 
 }
 
 .brackets-viewer .participant {
   padding: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   background-color: transparent;
 
@@ -1114,25 +1170,27 @@ html[dir=rtl] .battle-shape {
 
 .brackets-viewer .participant .name,
 .brackets-viewer .participant .result {
-  padding: 5px;
-  min-height: 48px;
+  padding: 0.313rem;
+  min-height: 3rem;
   margin: 0;
   display: flex;
   align-items: center;
   color: #fff;
-  background: linear-gradient(180deg, rgba(54, 73, 87, 0.32) 0%, rgba(40, 55, 66, 0.32) 100%);
+  background: linear-gradient(180deg, rgba(94, 95, 184, 0.2) 0%, rgba(34, 35, 86, 0.2) 125%);
+  backdrop-filter: blur(0.75rem);
   font-weight: 600;
-
 }
 
 .brackets-viewer .participant .name {
-  padding-left: 12px;
+  padding-left: 0.75rem;
 }
 
 .brackets-viewer .participant .result {
   justify-content: center;
-  width: 48px;
-  background: linear-gradient(180deg, rgba(54, 73, 87, 0.12) 0%, rgba(40, 55, 66, 0.12) 100%);
+  width: 3rem;
+  background: linear-gradient(180deg, rgba(94, 95, 184, 0.2) 0%, rgba(34, 35, 86, 0.2) 125%);
+  box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
+  backdrop-filter: blur(0.75rem)
 }
 
 .brackets-viewer .participant.win .result {
@@ -1145,7 +1203,7 @@ html[dir=rtl] .battle-shape {
 .brackets-viewer .match.connect-next::after,
 .brackets-viewer .match.connect-next:nth-of-type(even)::after,
 .brackets-viewer .opponents.connect-previous::before {
-  border-color: #434BE9 !important;
+  border-color: rgb(40, 55, 66, 0.8) !important;
 }
 
 .brackets-viewer .participant.loss .result {
@@ -1193,6 +1251,14 @@ html[dir=rtl] .battle-shape {
   background: radial-gradient(100% 100% at 50% 0%, rgba(45, 46, 109, 0.4416) 0%, rgba(34, 35, 86, 0.384) 100%);
   box-shadow: 0px 2px 4px 0px rgba(87, 89, 195, 0.08) inset;
   clip-path: url(#clipPathBanner);
+  transition: 0.3s;
+}
+
+.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-wrapper {
+  background: linear-gradient(183.7deg, rgba(94, 95, 184, 0.2) 3.03%, rgba(34, 35, 86, 0.2) 97.05%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 44.23%, rgba(68, 127, 241, 0.5) 100%);
+  box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
+  backdrop-filter: blur(0.75rem);
 }
 
 .tournament-schedule-card-header h2 {
@@ -1214,7 +1280,7 @@ html[dir=rtl] .battle-shape {
   position: relative;
   width: 47%;
   padding: 0;
-  height: 2.2rem;
+  height: 2.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1243,6 +1309,23 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 }
 
 .tournament-schedule-card-footer-hover.tournament-schedule-card-footer {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+  transition: 0.3s;
+}
+
+.main-tournament-schedule-card-wrapper {
+  transition: 0.3s;
+}
+
+.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-footer-hover.tournament-schedule-card-footer {
+  opacity: 1;
+  visibility: visible;
+  display: block;
+}
+
+.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-footer {
   display: none;
 }
 
@@ -1263,23 +1346,23 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 }
 
 
-.update-btn{
+.update-btn {
   background: linear-gradient(180deg, #458CF3 0%, #4354EA 107.14%);
   box-shadow: 0px 4px 4px 0px #FFFFFF3D inset;
   box-shadow: 0px 4px 24px 0px #00F5A41F;
   transition: 0.3s;
 }
 
-.update-btn:hover{
+.update-btn:hover {
   opacity: 0.75;
 }
 
-.datepiker-head::before{
+.datepiker-head::before {
   position: absolute;
   content: '';
   width: 100%;
   height: 0.065rem;
-  background:linear-gradient(90deg, rgba(27, 28, 76, 0.8) 0%, rgba(19, 21, 59, 0.8) 100%);
+  background: linear-gradient(90deg, rgba(27, 28, 76, 0.8) 0%, rgba(19, 21, 59, 0.8) 100%);
   left: 0;
   bottom: 0;
 }
@@ -1292,33 +1375,35 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   }
 
   .tournament-schedule-card-header-time h2 {
-    height: 1.65rem;
+    height: 1.6rem;
   }
 }
 
 @media (max-width: 639px) {
   .tournament-schedule-card-header-time h2 {
-    height: 1.55rem;
+    height: 1.42rem;
   }
 }
 
 @media (max-width: 575px) {
   .tournament-schedule-card-header-time h2 {
-    height: 1.45rem;
+    height: 1.4rem;
   }
-  .tab-btn-wp{
+
+  .tab-btn-wp {
     flex-direction: column;
   }
-  .open-cal{
+
+  .open-cal {
     right: auto;
     left: 50%;
-    transform: translate(-50%,0);
+    transform: translate(-50%, 0);
   }
 }
 
 @media (max-width: 425px) {
-  .datepiker-wp{
-    width:calc(100vw - 30px);
+  .datepiker-wp {
+    width: calc(100vw - 30px);
   }
 }
 
