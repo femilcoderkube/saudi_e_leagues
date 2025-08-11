@@ -25,7 +25,7 @@ const TournamentMatchDetailSlice = createSlice({
     setshowMobileChat :(state,action)=>{
       state.showMobileChat = action.payload;
     },
-    setmatchData: (state, action) => {
+    setmatchTData: (state, action) => {
       
       state.error = null;
     },

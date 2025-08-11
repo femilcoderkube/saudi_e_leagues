@@ -12,7 +12,11 @@ import { store } from "./app/slices/store.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Don't forget to import the CSS!
 import "@emran-alhaddad/saudi-riyal-font/index.css";
+import { registerSW } from "virtual:pwa-register";
 setAxiosStore(store);
+
+// Register PWA service worker (auto-updates)
+registerSW({ immediate: true });
 
 // Register Firebase Messaging service worker for FCM push notifications
 // if ('serviceWorker' in navigator) {
