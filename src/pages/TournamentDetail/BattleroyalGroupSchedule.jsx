@@ -228,7 +228,7 @@ export default function BattleRoyalSChedule() {
 
                   {/* Conditionally visible body with smooth animation */}
                   <SmoothCollapse isOpen={activeIndex === `S${idx}a${index}`}>
-                    <div className="schdule-collapse">
+                    <div className="schdule-collapse h-full">
                       {(() => {
                         return scores.slice(0, half).map((team1, tIdx) => {
                           const team2 = scores[tIdx + half];
