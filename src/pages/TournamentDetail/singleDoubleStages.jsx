@@ -124,7 +124,7 @@ const SingleDoubleStages = () => {
                 <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] sm:top-1 top-0 inline-flex justify-center sm:justify-start">
                   <button
                     onClick={() => handleActiveTournamentTab(1)}
-                    class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+                    className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
                 ${
                   activeTournamentTab === 1
                     ? "active-tab hover:opacity-100 polygon_border"
@@ -136,7 +136,7 @@ const SingleDoubleStages = () => {
 
                   <button
                     onClick={() => handleActiveTournamentTab(2)}
-                    class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+                    className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
                 ${
                   activeTournamentTab === 2
                     ? "active-tab hover:opacity-100 polygon_border"

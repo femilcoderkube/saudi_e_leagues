@@ -26,6 +26,7 @@ import { setLastMatch, setNotification } from "../slices/notificationSlice/notif
 import { setTournamentData, setTournamentStages } from "../slices/tournamentSlice/tournamentSlice";
 import { setDraftData, setDraftCaptain, setDraftPlayers, setDraftStatus } from "../slices/draft/draftSlice";
 import { useEffect, useRef } from "react";
+import { setmatchTData } from "../slices/MatchSlice/TournamentMatchDetailSlice";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -217,7 +218,7 @@ export function getTournamentStages({ stageId, stageType, isSocketConnected, use
       console.log("Tournament Stages Update Data:", data);
       store.dispatch(setTournamentStages(data));
     });
-    socket.emit(SOCKET.GETTOURNAMENTSTAGES, { stageId: stageId, stageType:stageType,userId: user?._id });
+    socket.emit(SOCKET.GETTOURNAMENTSTAGES, { stageId: stageId, stageType: stageType, userId: user?._id });
   }
 }
 export function stopTournamentStagesSocket() {
@@ -233,8 +234,8 @@ export function getDraftById({ draftId, isSocketConnected }) {
       console.log("Draft Update Data:", data);
 
       // Saving entire data
-        store.dispatch(setDraftData(data))
-      
+      store.dispatch(setDraftData(data))
+
     });
     socket.emit(SOCKET.GETDRAFTDATA, { draftId })
   }
@@ -247,10 +248,24 @@ export function setPickedPlayer({ draftId, Playerdata, isSocketConnected }) {
 
       // Saving entire data
       // store.dispatch(setDraftData(data))
-       
-        store.dispatch(setDraftData(data))
-   
+
+      store.dispatch(setDraftData(data))
+
     });
     socket.emit(SOCKET.SETPICKEDDRAFTPLAYER, { draftId, Playerdata })
+  }
+}
+export function stopMatchDetailTSocket() {
+  socket.off(SOCKET.ONMATCHT);
+}
+export function getMatchDetailTById({ mId, isSocketConnected }) {
+  if (isSocketConnected) {
+    stopMatchDetailTSocket();
+    socket.on(SOCKET.ONMATCHT, (data) => {
+      console.log("Match Details T Data:", data);
+
+      store.dispatch(setmatchTData(data))
+    });
+    socket.emit(SOCKET.GETMATCHT, { mId })
   }
 }

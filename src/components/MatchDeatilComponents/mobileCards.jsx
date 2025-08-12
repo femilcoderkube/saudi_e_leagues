@@ -1,4 +1,4 @@
-import { getSmile } from "./matchCards";
+import { getColor, getSmile } from "./matchCards";
 
 export const mobileViewCard_one = ({ player }) => (
   <svg
@@ -323,7 +323,7 @@ export const mobileViewCard_one = ({ player }) => (
     <g filter="url(#filter2_d_3264_14073)">
       <path
         d="M46 22C59.2548 22 70 32.7452 70 46C70 59.2548 59.2548 70 46 70C32.7452 70 22 59.2548 22 46C22 42.43 22.7797 39.0421 24.1777 35.9971C30.664 35.9029 35.9029 30.664 35.9971 24.1777C39.0421 22.7797 42.43 22 46 22Z"
-        fill="url(#pattern0_3264_14073)"
+        fill={`url(#pattern0_3264_14073${player.index})`}
         shapeRendering="crispEdges"
       />
     </g>
@@ -347,7 +347,7 @@ export const mobileViewCard_one = ({ player }) => (
       />
     </mask>
     <g mask="url(#mask1_3264_14073)">
-      <rect x={16} y={16} width={16} height={16} fill="#09D75F" />
+      <rect x={16} y={16} width={16} height={16} fill={getColor(player.rep)} />
     </g>
     
       <text
@@ -442,12 +442,12 @@ export const mobileViewCard_one = ({ player }) => (
         />
       </filter>
       <pattern
-        id="pattern0_3264_14073"
+        id={`pattern0_3264_14073${player.index}`}
         patternContentUnits="objectBoundingBox"
         width={1}
         height={1}
       >
-        <use xlinkHref="#image0_3264_14073" transform="scale(0.0013587)" />
+        <use xlinkHref={`#image0_3264_14073${player.index}`} transform="scale(0.0013587)" />
       </pattern>
       <pattern
         id="pattern1_3264_14073"
@@ -1011,7 +1011,9 @@ export const mobileViewCard_one = ({ player }) => (
         <stop offset={0.923372} stopColor="#FFD0AF" />
       </linearGradient>
       <image
-        id="image0_3264_14073"
+      //{`image0_3264_14073${player.index}`}}
+        // id="image0_3264_14073"
+        id={`image0_3264_14073${player.index}`}
         width={736}
         height={736}
         preserveAspectRatio="none"
@@ -1351,7 +1353,7 @@ export const mobileViewCard_two = ({ player }) => (
     <g filter="url(#filter2_d_3264_14144)">
       <path
         d="M46 26C59.2548 26 70 36.7452 70 50C70 63.2548 59.2548 74 46 74C32.7452 74 22 63.2548 22 50C22 46.43 22.7797 43.0421 24.1777 39.9971C30.664 39.9029 35.9029 34.664 35.9971 28.1777C39.0421 26.7797 42.43 26 46 26Z"
-        fill="url(#pattern0_3264_14144)"
+        fill={`url(#pattern0_3264_14144${player.index})`}
         shapeRendering="crispEdges"
       />
     </g>
@@ -1375,7 +1377,7 @@ export const mobileViewCard_two = ({ player }) => (
       />
     </mask>
     <g mask="url(#mask1_3264_14144)">
-      <rect x={16} y={20} width={16} height={16} fill="#09D75F" />
+      <rect x={16} y={20} width={16} height={16} fill={getColor(player.rep)} />
     </g>
     
       <text
@@ -1470,13 +1472,13 @@ export const mobileViewCard_two = ({ player }) => (
         />
       </filter>
       <pattern
-        id="pattern0_3264_14144"
+        id={`pattern0_3264_14144${player.index}`}
         patternContentUnits="objectBoundingBox"
         width={1}
         height={1}
       >
         <use
-          xlinkHref="#image0_3264_14144"
+          xlinkHref={`#image0_3264_14144${player.index}`}
           transform="translate(0 -0.0503401) scale(0.00136054)"
         />
       </pattern>
@@ -2042,7 +2044,7 @@ export const mobileViewCard_two = ({ player }) => (
         <stop offset={0.923372} stopColor="#989DFF" />
       </linearGradient>
       <image
-        id="image0_3264_14144"
+        id={`image0_3264_14144${player.index}`}
         width={735}
         height={809}
         preserveAspectRatio="none"
@@ -2382,7 +2384,7 @@ export const mobileViewCard_three = ({ player }) => (
     <g filter="url(#filter2_d_3264_14223)">
       <path
         d="M46 22C59.2548 22 70 32.7452 70 46C70 59.2548 59.2548 70 46 70C32.7452 70 22 59.2548 22 46C22 42.43 22.7797 39.0421 24.1777 35.9971C30.664 35.9029 35.9029 30.664 35.9971 24.1777C39.0421 22.7797 42.43 22 46 22Z"
-        fill="url(#pattern0_3264_14223)"
+        fill={`url(#pattern0_3264_14223${player.index})`}
         shapeRendering="crispEdges"
       />
     </g>
@@ -2406,7 +2408,7 @@ export const mobileViewCard_three = ({ player }) => (
       />
     </mask>
     <g mask="url(#mask1_3264_14223)">
-      <rect x={16} y={16} width={16} height={16} fill="#FA4768" />
+      <rect x={16} y={16} width={16} height={16} fill={getColor(player.rep)} />
     </g>
     
       <text
@@ -2501,13 +2503,13 @@ export const mobileViewCard_three = ({ player }) => (
         />
       </filter>
       <pattern
-        id="pattern0_3264_14223"
+        id={`pattern0_3264_14223${player.index}`}
         patternContentUnits="objectBoundingBox"
         width={1}
         height={1}
       >
         <use
-          xlinkHref="#image0_3264_14223"
+          xlinkHref={`#image0_3264_14223${player.index}`}
           transform="translate(0 -0.0748299) scale(0.00136054)"
         />
       </pattern>
@@ -3076,7 +3078,7 @@ export const mobileViewCard_three = ({ player }) => (
         <stop offset={0.923372} stopColor="#989DFF" />
       </linearGradient>
       <image
-        id="image0_3264_14223"
+        id={`image0_3264_14223${player.index}`}
         width={735}
         height={845}
         preserveAspectRatio="none"
@@ -3416,7 +3418,7 @@ export const mobileViewCard_four = ({ player }) => (
     <g filter="url(#filter2_d_3264_14298)">
       <path
         d="M46 26C59.2548 26 70 36.7452 70 50C70 63.2548 59.2548 74 46 74C32.7452 74 22 63.2548 22 50C22 46.43 22.7797 43.0421 24.1777 39.9971C30.664 39.9029 35.9029 34.664 35.9971 28.1777C39.0421 26.7797 42.43 26 46 26Z"
-        fill="url(#pattern0_3264_14298)"
+        fill={`url(#pattern0_3264_14298${player.index})`}
         shapeRendering="crispEdges"
       />
     </g>
@@ -3440,7 +3442,7 @@ export const mobileViewCard_four = ({ player }) => (
       />
     </mask>
     <g mask="url(#mask1_3264_14298)">
-      <rect x={16} y={20} width={16} height={16} fill="#D7BF09" />
+      <rect x={16} y={20} width={16} height={16} fill={getColor(player.rep)} />
     </g>
     
       <text
@@ -3535,13 +3537,13 @@ export const mobileViewCard_four = ({ player }) => (
         />
       </filter>
       <pattern
-        id="pattern0_3264_14298"
+        id={`pattern0_3264_14298${player.index}`}
         patternContentUnits="objectBoundingBox"
         width={1}
         height={1}
       >
         <use
-          xlinkHref="#image0_3264_14298"
+          xlinkHref={`#image0_3264_14298${player.index}`}
           transform="translate(0 -0.05) scale(0.00166667)"
         />
       </pattern>
@@ -4107,7 +4109,7 @@ export const mobileViewCard_four = ({ player }) => (
         <stop offset={0.923372} stopColor="#989DFF" />
       </linearGradient>
       <image
-        id="image0_3264_14298"
+        id={`image0_3264_14298${player.index}`}
         width={600}
         height={660}
         preserveAspectRatio="none"
@@ -4447,7 +4449,7 @@ export const mobileViewCard_Last_odd = ({ player }) => (
     <g filter="url(#filter2_d_3264_14377)">
       <path
         d="M46 22C59.2548 22 70 32.7452 70 46C70 59.2548 59.2548 70 46 70C32.7452 70 22 59.2548 22 46C22 42.43 22.7797 39.0421 24.1777 35.9971C30.664 35.9029 35.9029 30.664 35.9971 24.1777C39.0421 22.7797 42.43 22 46 22Z"
-        fill="url(#pattern0_3264_14377)"
+        fill={`url(#pattern0_3264_14377${player.index})`}
         shapeRendering="crispEdges"
       />
     </g>
@@ -4471,7 +4473,7 @@ export const mobileViewCard_Last_odd = ({ player }) => (
       />
     </mask>
     <g mask="url(#mask1_3264_14377)">
-      <rect x={16} y={16} width={16} height={16} fill="#09D75F" />
+      <rect x={16} y={16} width={16} height={16} fill={getColor(player.rep)} />
     </g>
     
       <text
@@ -4566,13 +4568,13 @@ export const mobileViewCard_Last_odd = ({ player }) => (
         />
       </filter>
       <pattern
-        id="pattern0_3264_14377"
+        id={`pattern0_3264_14377${player.index}`}
         patternContentUnits="objectBoundingBox"
         width={1}
         height={1}
       >
         <use
-          xlinkHref="#image0_3264_14377"
+          xlinkHref={`#image0_3264_14377${player.index}`}
           transform="translate(0 -0.0503401) scale(0.00136054)"
         />
       </pattern>
@@ -5138,7 +5140,7 @@ export const mobileViewCard_Last_odd = ({ player }) => (
         <stop offset={0.923372} stopColor="#989DFF" />
       </linearGradient>
       <image
-        id="image0_3264_14377"
+        id={`image0_3264_14377${player.index}`}
         width={735}
         height={809}
         preserveAspectRatio="none"
@@ -5444,7 +5446,7 @@ export const mobileViewCard_Last_even = ({ player }) => (
     <g filter="url(#filter2_d_5060_2401)">
       <path
         d="M46.0665 26.2891C59.3213 26.2891 70.0665 37.0342 70.0665 50.2891C70.0665 63.5439 59.3213 74.2891 46.0665 74.2891C32.8116 74.2891 22.0665 63.5439 22.0665 50.2891C22.0665 46.719 22.8461 43.3311 24.2442 40.2861C30.7305 40.1919 35.9694 34.9531 36.0635 28.4668C39.1085 27.0687 42.4964 26.2891 46.0665 26.2891Z"
-        fill="url(#pattern0_5060_2401)"
+        fill={`url(#pattern0_5060_2401${player.index})`}
         shapeRendering="crispEdges"
       />
     </g>
@@ -5468,7 +5470,7 @@ export const mobileViewCard_Last_even = ({ player }) => (
       />
     </mask>
     <g mask="url(#mask1_5060_2401)">
-      <rect x={16.0665} y={20.2891} width={16} height={16} fill="#09D75F" />
+      <rect x={16.0665} y={20.2891} width={16} height={16} fill={getColor(player.rep)} />
     </g>
     <path
       d="M210.066 28.2891H341.066V72.2891H210.066V28.2891Z"
@@ -5601,13 +5603,13 @@ export const mobileViewCard_Last_even = ({ player }) => (
         />
       </filter>
       <pattern
-        id="pattern0_5060_2401"
+        id={`pattern0_5060_2401${player.index}`}
         patternContentUnits="objectBoundingBox"
         width={1}
         height={1}
       >
         <use
-          xlinkHref="#image0_5060_2401"
+          xlinkHref={`#image0_5060_2401${player.index}`}
           transform="translate(0 -0.0503401) scale(0.00136054)"
         />
       </pattern>
@@ -6173,7 +6175,7 @@ export const mobileViewCard_Last_even = ({ player }) => (
         <stop offset={0.923372} stopColor="#989DFF" />
       </linearGradient>
       <image
-        id="image0_5060_2401"
+        id={`image0_5060_2401${player.index}`}
         width={735}
         height={809}
         preserveAspectRatio="none"

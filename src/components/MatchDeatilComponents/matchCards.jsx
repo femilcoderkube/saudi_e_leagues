@@ -29,7 +29,7 @@ export function getCards(position, isOpponent = false) {
     ? [
         undefined,
         SecondPosCard_Opp,
-        ThirdPosCard_Opp,
+        ThirdPosCard_Opp, 
         ForthPosCard_Opp,
         FifthPosCard_Opp,
       ]

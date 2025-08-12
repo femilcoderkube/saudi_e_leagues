@@ -5,8 +5,11 @@ import leage_shape from "../../assets/images/leage_shape.png";
 import footer_card_icon from "../../assets/images/footer-card-icon.png";
 import { useSelector } from "react-redux";
 import { getServerURL } from "../../utils/constant";
+import { useNavigate, useParams } from "react-router-dom";
 
 const TournamentScheduleCard = ({ item }) => {
+  const { id } = useParams();
+  
   const { tournamentData } = useSelector(
     (state) => state.tournament
   );
@@ -32,7 +35,7 @@ const TournamentScheduleCard = ({ item }) => {
     acticeScore:
       item?.matchScores?.find((score) => score.isActive === true) || {},
   };
-  console.log("dateeeee---", data);
+  const navigate = useNavigate();
 
   return (
     <div className="relative main-tournament-schedule-card-wrapper cursor-pointer">
@@ -99,7 +102,8 @@ const TournamentScheduleCard = ({ item }) => {
             </h2>
           </div>
         </div>
-        <div className="tournament-schedule-card-footer tournament-schedule-card-footer-hover flex justify-center items-center h-[3rem] md:h-[4rem] px-4 md:px-8 md:pb-6 py-4 overflow-hidden relative">
+        <div className="tournament-schedule-card-footer tournament-schedule-card-footer-hover flex justify-center items-center h-[3rem] md:h-[4rem] px-4 md:px-8 md:pb-6 py-4 overflow-hidden relative" onClick={() => {
+          navigate(`/${id}/tournament/match/${item._id}`)}}>
           <div className="tournament-schedule-card-footer-left flex gap-2 items-center justify-center">
             <h2 className="text-base md:text-xl font-semibold text-[#3ECCF3]">Match Page</h2>
             <img src={footer_card_icon} alt="" />

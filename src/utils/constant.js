@@ -60,7 +60,10 @@ export const SOCKET = {
   // DRAFTING PHASE
   GETDRAFTDATA: "getDraftData",
   ONDRAFTDATAUPDATE: "onDraftDataUpdate",
-  SETPICKEDDRAFTPLAYER: "setPickedDraftPlayer"
+  SETPICKEDDRAFTPLAYER: "setPickedDraftPlayer",
+
+  GETMATCHT: "getMatchT",
+  ONMATCHT: "onMatchT"
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range
@@ -494,8 +497,8 @@ export function getDigitList(num) {
     digits.length >= 8
       ? digits.slice(0, 8)
       : Array(8 - digits.length)
-          .fill(0)
-          .concat(digits);
+        .fill(0)
+        .concat(digits);
   return firstSix;
 }
 export const formatTime = (secs) => {

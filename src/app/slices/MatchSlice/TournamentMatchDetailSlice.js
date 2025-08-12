@@ -5,6 +5,8 @@ import axiosInstance from "../../../utils/axios";
 
 const initialState = {
   matchData: null,
+  opponent1: null,
+  opponent2: null,
   chatData: [],
   winnerScore: {
     teamOne: "-",
@@ -16,17 +18,21 @@ const TournamentMatchDetailSlice = createSlice({
   name: "TournamentMatchDetailSlice",
   initialState,
   reducers: {
-    setShowCancelBtn :(state,action)=>{
+    setShowCancelBtn: (state, action) => {
       state.showCancelBtn = action.payload;
     },
-    setSubmitScoreLoading :(state,action)=>{
+    setSubmitScoreLoading: (state, action) => {
       state.submitScoreLoading = action.payload;
     },
-    setshowMobileChat :(state,action)=>{
+    setshowMobileChat: (state, action) => {
       state.showMobileChat = action.payload;
     },
     setmatchTData: (state, action) => {
-      
+      if(action.payload.status) {
+        state.matchData = action.payload.data;
+        state.opponent1 = action.payload.data.opponent1;
+        state.opponent2 = action.payload.data.opponent2;
+      }
       state.error = null;
     },
     setIsTeamOne: (state, action) => {
@@ -46,12 +52,12 @@ const TournamentMatchDetailSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-   
+
   },
 });
 
 export const {
-
+  setmatchTData
 } = TournamentMatchDetailSlice.actions;
 
 export default TournamentMatchDetailSlice.reducer;
