@@ -16,6 +16,7 @@ export const TournamentteamOneSection = () => {
   );
   const { opponent1 } = useSelector((state) => state.tournamentMatch);
   // console.log("Opponent 1 Data:", opponent1);
+  console.log("Opponent 1 Data:", opponent1);
   const teamMembers = opponent1?.team?.members || [];
 
   let cards = getCards(opponent1?.team?.members.length, false);
@@ -71,6 +72,7 @@ export const TournamentteamOneSection = () => {
             score: "",
           };
 
+      
           return (
             <li
               key={index}

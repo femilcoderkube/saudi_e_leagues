@@ -16,6 +16,7 @@ export const TournamentteamTwoSection = () => {
   );
   const { opponent2 } = useSelector((state) => state.tournamentMatch);
   // console.log("Opponent 2 Data:", opponent2);
+  console.log("Opponent 2 Data:", opponent2);
   const teamMembers = opponent2?.team?.members || [];
 
   let cards = getCards(opponent2?.team?.members.length, true);
@@ -72,6 +73,7 @@ export const TournamentteamTwoSection = () => {
           };
 
 
+      
           return (
             <li
               key={index}
