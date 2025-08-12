@@ -49,7 +49,7 @@ const TournamentScheduleCard = ({ item }) => {
         </h2>
       </div>
       <div className="tournament-schedule-card-wrapper relative">
-        <div className="tournament-schedule-card-header flex justify-between items-center p-4 md:pt-10 md:pb-6 md:px-8 relative">
+        <div className="tournament-schedule-card-header flex justify-between items-center p-4 md:pt-10 pt-6 md:pb-6 md:px-8 relative">
           <img
             src={tournament_bg_img}
             alt="tournament-schedule"

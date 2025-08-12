@@ -8,66 +8,13 @@ import battale_sahpe_img from "../../assets/images/battale-sahpe-img.png";
 import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";
 
-// Helper component for smooth accordion animation
-function SmoothCollapse({ isOpen, children }) {
-  const ref = useRef(null);
-  const [height, setHeight] = useState(isOpen ? "auto" : "0px");
-  const [shouldRender, setShouldRender] = useState(isOpen);
-
-  useEffect(() => {
-    if (isOpen) {
-      setShouldRender(true);
-      // Wait for next tick to allow transition
-      setTimeout(() => {
-        if (ref.current) {
-          setHeight(ref.current.scrollHeight + "px");
-        }
-      }, 10);
-    } else {
-      if (ref.current) {
-        setHeight(ref.current.scrollHeight + "px");
-        // Force reflow for transition
-        void ref.current.offsetHeight;
-        setHeight("0px");
-      }
-      // Remove from DOM after transition
-      const timeout = setTimeout(() => setShouldRender(false), 300);
-      return () => clearTimeout(timeout);
-    }
-  }, [isOpen]);
-
-  // When open, after transition, set height to auto for dynamic content
-  useEffect(() => {
-    if (isOpen && ref.current) {
-      const handle = setTimeout(() => {
-        setHeight("auto");
-      }, 300);
-      return () => clearTimeout(handle);
-    }
-  }, [isOpen]);
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        height: shouldRender ? height : "0px",
-        overflow: "hidden",
-        transition: "height 0.3s cubic-bezier(0.4,0,0.2,1)",
-        willChange: "height",
-      }}
-      aria-hidden={!isOpen}
-    >
-      {shouldRender ? children : null}
-    </div>
-  );
-}
-
 export default function BattleRoyalSChedule() {
   const { battleRoyalSchedule, tournamentData ,stageSettings} = useSelector(
     (state) => state.tournament
   );
 
   const [activeIndex, setActiveIndex] = useState(null);
+  const contentRefs = useRef({});
 
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -85,15 +32,13 @@ export default function BattleRoyalSChedule() {
   };
 
   // Convert the data to key-value array
-  const matcheDataArray = convertMatcheDataToArray(
-    battleRoyalSchedule
-  );
+  const matcheDataArray = convertMatcheDataToArray(battleRoyalSchedule);
 
   return (
     <>
       {matcheDataArray?.map((itemObj, index) => {
         return (
-          <>
+          <div key={`date-${index}`}>
             <div className="schedule-date-wp pb-9 lg:pt-17 md:pt-8 pt-5 flex items-center gap-5">
               <img className="w-5 h-6" src={date_icon} alt="" />
               <div className="schdule-date">
@@ -110,16 +55,19 @@ export default function BattleRoyalSChedule() {
               const half = Math.ceil(scores.length / 2);
               const iconTeams = scores.length > 3 ? scores.slice(0, 3) : scores;
               const ExtraTeams = scores.length > 3 ? scores.slice(3).length : 0;
+              const accordionKey = `S${idx}a${index}`;
 
               return (
                 <div
-                  key={`S${idx}a${index}`}
-                  onClick={() => toggleAccordion(`S${idx}a${index}`)}
+                  key={accordionKey}
                   className={`${
-                    activeIndex === `S${idx}a${index}` ? "active-accordation" : ""
+                    activeIndex === accordionKey ? "active-accordation" : ""
                   } schdule-accordion-card w-full mb-6`}
                 >
-                  <div className="schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative">
+                  <div 
+                    onClick={() => toggleAccordion(accordionKey)}
+                    className="schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer"
+                  >
                     <img
                       className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
                       src={getServerURL(stageSettings?.maps[item?.matchNumber - 1]?.photo || "")}
@@ -192,14 +140,14 @@ export default function BattleRoyalSChedule() {
                             </div>
                           );
                         })}
-                        {ExtraTeams > 0 &&  (
-                            <div
-                              className={`round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center`}
-                            >
-                              <span className="text-base font-semibold text-white">
-                                +{ExtraTeams}
-                              </span>
-                            </div>
+                        {ExtraTeams > 0 && (
+                          <div
+                            className={`round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center`}
+                          >
+                            <span className="text-base font-semibold text-white">
+                              +{ExtraTeams}
+                            </span>
+                          </div>
                           )} */}
                       </div>
                     </div>
@@ -215,7 +163,7 @@ export default function BattleRoyalSChedule() {
                         </p>
                       </div>
                       <div
-                        className={`schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer`}   
+                        className={`schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer`}
                       >
                         <img
                           className={`sm:w-5 sm:h-3 w-4 h-2`}
@@ -227,183 +175,184 @@ export default function BattleRoyalSChedule() {
                   </div>
 
                   {/* Conditionally visible body with smooth animation */}
-                  <SmoothCollapse isOpen={activeIndex === `S${idx}a${index}`}>
-                    <div className="schdule-collapse h-full">
-                      {(() => {
-                        return scores.slice(0, half).map((team1, tIdx) => {
-                          const team2 = scores[tIdx + half];
+                  <div 
+                    className="schdule-collapse"
+                    ref={(el) => (contentRefs.current[accordionKey] = el)}
+                  >
+                    {(() => {
+                      return scores.slice(0, half).map((team1, tIdx) => {
+                        const team2 = scores[tIdx + half];
 
-                          return (
+                        return (
+                          <div
+                            className="schdule-accordion-body flex justify-between items-center"
+                            key={`${team1?.participant?._id || "team1"}-${
+                              team2?.participant?._id || "team2"
+                            }-${tIdx}`}
+                          >
+                            {/* Left Side (team1) */}
                             <div
-                              className="schdule-accordion-body flex justify-between items-center"
-                              key={`${team1?.participant?._id || "team1"}-${
-                                team2?.participant?._id || "team2"
-                              }-${tIdx}`}
+                              className={`mob-body-full flex justify-between gap-3 items-center md:p-8 sm:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
                             >
-                              {/* Left Side (team1) */}
-                              <div
-                                className={`mob-body-full flex justify-between gap-3 items-center md:p-8 sm:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
-                              >
-                                <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
-                                  <div className="schdule-common">
-                                    <p className="text-base font-black grad_text-clip uppercase w-11">
-                                      {tIdx + 1}
-                                      {tIdx === 0
-                                        ? "st"
-                                        : tIdx === 1
-                                        ? "nd"
-                                        : tIdx === 2
-                                        ? "rd"
-                                        : "th"}
-                                    </p>
-                                  </div>
-                                  <div className="flex items-center sm:gap-4 gap-2">
-                                    {team1?.participant?.team?.logoImage ? (
-                                      <img
-                                        src={getServerURL(
-                                          team1?.participant?.team?.logoImage
-                                        )}
-                                        alt={team1?.participant?.team?.teamName}
-                                        className="md:w-8 md:h-8 h-6 w-6"
-                                      />
-                                    ) : (
-                                      <div
-                                        className="md:w-8 md:h-8 h-6 w-6"
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                          background: getRandomColor(
-                                            team1?.participant?._id
-                                          ),
-                                          color: "#fff",
-                                          fontWeight: "bold",
-                                          fontSize: "1.5rem",
-                                          borderRadius: "50%",
-                                        }}
-                                      >
-                                        {team1?.participant?.team?.teamName
-                                          ?.charAt(0)
-                                          ?.toUpperCase() || "?"}
-                                      </div>
-                                    )}
-
-                                    <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                                      {team1?.participant?.team?.teamName}
-                                    </span>
-                                  </div>
+                              <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
+                                <div className="schdule-common">
+                                  <p className="text-base font-black grad_text-clip uppercase w-11">
+                                    {tIdx + 1}
+                                    {tIdx === 0
+                                      ? "st"
+                                      : tIdx === 1
+                                      ? "nd"
+                                      : tIdx === 2
+                                      ? "rd"
+                                      : "th"}
+                                  </p>
                                 </div>
-                                <div className="flex items-center lg:gap-13 gap-6">
-                                  <p className="text-lg font-bold text-[#1DED85]">
-                                    {team1?.totalPoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                      {" "}
-                                      Points
-                                    </span>
-                                  </p>
-                                  <p className="text-lg font-bold text-[#F4F7FF]">
-                                    {team1?.placePoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                      {" "}
-                                      PP
-                                    </span>
-                                  </p>
-                                  <p className="text-lg font-bold text-[#F4F7FF]">
-                                    {team1?.killPoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                      {" "}
-                                      KP
-                                    </span>
-                                  </p>
+                                <div className="flex items-center sm:gap-4 gap-2">
+                                  {team1?.participant?.team?.logoImage ? (
+                                    <img
+                                      src={getServerURL(
+                                        team1?.participant?.team?.logoImage
+                                      )}
+                                      alt={team1?.participant?.team?.teamName}
+                                      className="md:w-8 md:h-8 h-6 w-6"
+                                    />
+                                  ) : (
+                                    <div
+                                      className="md:w-8 md:h-8 h-6 w-6"
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        background: getRandomColor(
+                                          team1?.participant?._id
+                                        ),
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                        fontSize: "1.5rem",
+                                        borderRadius: "50%",
+                                      }}
+                                    >
+                                      {team1?.participant?.team?.teamName
+                                        ?.charAt(0)
+                                        ?.toUpperCase() || "?"}
+                                    </div>
+                                  )}
+
+                                  <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                                    {team1?.participant?.team?.teamName}
+                                  </span>
                                 </div>
                               </div>
-                              {/* Right Side (team2) */}
-                              <div
-                                className={`mob-body-full flex justify-between gap-3 items-center md:p-8 sm:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
-                              >
-                                <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
-                                  <div className="schdule-common-1">
-                                    <p className="text-base font-black grad_text-clip uppercase w-11">
-                                      {tIdx + 1 + half}
-                                      {tIdx + half === 0
-                                        ? "st"
-                                        : tIdx + half === 1
-                                        ? "nd"
-                                        : tIdx + half === 2
-                                        ? "rd"
-                                        : "th"}
-                                    </p>
-                                  </div>
-                                  <div className="flex items-center sm:gap-4 gap-2">
-                                    {team2?.participant?.team?.logoImage ? (
-                                      <img
-                                        src={getServerURL(
-                                          team2?.participant?.team?.logoImage
-                                        )}
-                                        alt={team2?.participant?.team?.teamName}
-                                        className="md:w-8 md:h-8 h-6 w-6"
-                                      />
-                                    ) : (
-                                      <div
-                                        className="md:w-8 md:h-8 h-6 w-6"
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                          background: getRandomColor(
-                                            team2?.participant?._id
-                                          ),
-                                          color: "#fff",
-                                          fontWeight: "bold",
-                                          fontSize: "1.5rem",
-                                          borderRadius: "50%",
-                                        }}
-                                      >
-                                        {team2?.participant?.team?.teamName
-                                          ?.charAt(0)
-                                          ?.toUpperCase() || "?"}
-                                      </div>
-                                    )}
-
-                                    <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                                      {team2?.participant?.team?.teamName}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="flex items-center lg:gap-13 gap-6">
-                                  <p className="text-lg font-bold text-[#1DED85]">
-                                    {team2?.totalPoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                      {" "}
-                                      Points
-                                    </span>
-                                  </p>
-                                  <p className="text-lg font-bold text-[#F4F7FF]">
-                                    {team2?.placePoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                      {" "}
-                                      PP
-                                    </span>
-                                  </p>
-                                  <p className="text-lg font-bold text-[#F4F7FF]">
-                                    {team2?.killPoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                      {" "}
-                                      KP
-                                    </span>
-                                  </p>
-                                </div>
+                              <div className="flex items-center lg:gap-13 gap-6">
+                                <p className="text-lg font-bold text-[#1DED85]">
+                                  {team1?.totalPoints || 0}
+                                  <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    {" "}
+                                    Points
+                                  </span>
+                                </p>
+                                <p className="text-lg font-bold text-[#F4F7FF]">
+                                  {team1?.placePoints || 0}
+                                  <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    {" "}
+                                    PP
+                                  </span>
+                                </p>
+                                <p className="text-lg font-bold text-[#F4F7FF]">
+                                  {team1?.killPoints || 0}
+                                  <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    {" "}
+                                    KP
+                                  </span>
+                                </p>
                               </div>
                             </div>
-                          );
-                        });
-                      })()}
-                    </div>
-                  </SmoothCollapse>
+                            {/* Right Side (team2) */}
+                            <div
+                              className={`mob-body-full flex justify-between gap-3 items-center md:p-8 sm:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
+                            >
+                              <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
+                                <div className="schdule-common-1">
+                                  <p className="text-base font-black grad_text-clip uppercase w-11">
+                                    {tIdx + 1 + half}
+                                    {tIdx + half === 0
+                                      ? "st"
+                                      : tIdx + half === 1
+                                      ? "nd"
+                                      : tIdx + half === 2
+                                      ? "rd"
+                                      : "th"}
+                                  </p>
+                                </div>
+                                <div className="flex items-center sm:gap-4 gap-2">
+                                  {team2?.participant?.team?.logoImage ? (
+                                    <img
+                                      src={getServerURL(
+                                        team2?.participant?.team?.logoImage
+                                      )}
+                                      alt={team2?.participant?.team?.teamName}
+                                      className="md:w-8 md:h-8 h-6 w-6"
+                                    />
+                                  ) : (
+                                    <div
+                                      className="md:w-8 md:h-8 h-6 w-6"
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        background: getRandomColor(
+                                          team2?.participant?._id
+                                        ),
+                                        color: "#fff",
+                                        fontWeight: "bold",
+                                        fontSize: "1.5rem",
+                                        borderRadius: "50%",
+                                      }}
+                                    >
+                                      {team2?.participant?.team?.teamName
+                                        ?.charAt(0)
+                                        ?.toUpperCase() || "?"}
+                                    </div>
+                                  )}
+
+                                  <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                                    {team2?.participant?.team?.teamName}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="flex items-center lg:gap-13 gap-6">
+                                <p className="text-lg font-bold text-[#1DED85]">
+                                  {team2?.totalPoints || 0}
+                                  <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    {" "}
+                                    Points
+                                  </span>
+                                </p>
+                                <p className="text-lg font-bold text-[#F4F7FF]">
+                                  {team2?.placePoints || 0}
+                                  <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    {" "}
+                                    PP
+                                  </span>
+                                </p>
+                                <p className="text-lg font-bold text-[#F4F7FF]">
+                                  {team2?.killPoints || 0}
+                                  <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    {" "}
+                                    KP
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      });
+                    })()}
+                  </div>
                 </div>
               );
             })}
-          </>
+          </div>
         );
       })}
     </>

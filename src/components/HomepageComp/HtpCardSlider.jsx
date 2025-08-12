@@ -76,10 +76,6 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const mainSwiperRef = useRef(null);
 
-  // Set navigation for both swipers using Swiper's Navigation module
-  // Both swipers will be controlled by the same navigation buttons
-  // The main swiper (big) will be the controller, the thumbs will be synced via thumbs prop
-
   // Ensure navigation refs are set after mount
   useEffect(() => {
     // Swiper's navigation expects DOM elements, so we need to update navigation when refs are ready

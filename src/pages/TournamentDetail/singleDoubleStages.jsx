@@ -24,6 +24,8 @@ const SingleDoubleStages = () => {
   );
   const dispatch = useDispatch();
 
+  let container;
+
   // Format date for display
   const formatDateForDisplay = (date) => {
     if (!date) return null;
@@ -34,13 +36,12 @@ const SingleDoubleStages = () => {
     };
   };
 
-  // Get display dates
   const startDateDisplay = formatDateForDisplay(selectedStartDate);
   const endDateDisplay = formatDateForDisplay(selectedEndDate);
-  let container ;
+
   useEffect(() => {
     if (tournamentStages) {
-     container = document.getElementById("Major-final");
+      container = document.getElementById("Major-final");
       if (window.bracketsViewer && container) {
         if (container.innerHTML) {
           container.innerHTML = "";
@@ -78,86 +79,98 @@ const SingleDoubleStages = () => {
     }
   }, [tournamentStages, activeStage, activeTournamentTab]);
 
+  // Detect exit fullscreen and remove class
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const el = document.getElementById("Major-final");
+      if (document.fullscreenElement !== el) {
+        el?.classList.remove("brackt_fullscreen");
+      }
+    };
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange); // Safari
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange); // Firefox
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange); // IE/Edge
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("mozfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("MSFullscreenChange", handleFullscreenChange);
+    };
+  }, []);
+
   const handleActiveTournamentTab = (tab) => {
     dispatch(setActiveTournamentTab(tab));
   };
+
   function openFullscreen() {
-    if (container) {
-      // Add padding before entering fullscreen
-      // container.style.padding = "20rem";
-      if (container.requestFullscreen) {
-        container.requestFullscreen();
-      } else if (container.mozRequestFullScreen) {
-        // Firefox
-        container.mozRequestFullScreen();
-      } else if (container.webkitRequestFullscreen) {
-        // Chrome, Safari, Opera
-        container.webkitRequestFullscreen();
-      } else if (container.msRequestFullscreen) {
-        // IE/Edge
-        container.msRequestFullscreen();
+    const el = document.getElementById("Major-final");
+    if (el) {
+      el.classList.add("brackt_fullscreen");
+      if (el.requestFullscreen) {
+        el.requestFullscreen();
+      } else if (el.mozRequestFullScreen) {
+        el.mozRequestFullScreen();
+      } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen();
+      } else if (el.msRequestFullscreen) {
+        el.msRequestFullscreen();
       }
     }
   }
- 
-  function closeFullscreen() {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-  }
+
   if (loader) {
     return <GamingLoader />;
   }
+
   if (tournamentStages && tournamentStages?.config?.match) {
     return (
       <div id="tournament-tab-contents" className="mt-7">
         <div id="first" className="py-4 active">
-          <div className={`tab-btn-wp flex justify-between items-center gap-5 ${activeTournamentTab === 1 ? "bracket-btn" :""}`}>
+          <div
+            className={`tab-btn-wp flex justify-between items-center gap-5 ${
+              activeTournamentTab === 1 ? "bracket-btn" : ""
+            }`}
+          >
             <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
-              {
-                <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] sm:top-1 top-0 inline-flex justify-center sm:justify-start">
-                  <button
-                    onClick={() => handleActiveTournamentTab(1)}
-                    className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
-                ${
-                  activeTournamentTab === 1
-                    ? "active-tab hover:opacity-100 polygon_border"
-                    : ""
-                }`}
-                  >
-                    Brackets
-                  </button>
-
-                  <button
-                    onClick={() => handleActiveTournamentTab(2)}
-                    className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
-                ${
-                  activeTournamentTab === 2
-                    ? "active-tab hover:opacity-100 polygon_border"
-                    : ""
-                }`}
-                  >
-                    Schedule
-                  </button>
-                </div>
-              }
-            </div>
-            <div className="relative inline-block">
-             {activeTournamentTab === 1 &&  <div className="full-screen-wp p-2 w-16 h-16 text-center cursor-pointer">
-                <div className="full-screen p-3 w-12 h-12 flex items-center justify-center"
-                onClick={()=>openFullscreen()}
-                
+              <div className="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] sm:top-1 top-0 inline-flex justify-center sm:justify-start">
+                <button
+                  onClick={() => handleActiveTournamentTab(1)}
+                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
+                    activeTournamentTab === 1
+                      ? "active-tab hover:opacity-100 polygon_border"
+                      : ""
+                  }`}
                 >
-                  <img className="w-6 h-6" src={full_screen} alt="" />
+                  Brackets
+                </button>
+
+                <button
+                  onClick={() => handleActiveTournamentTab(2)}
+                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
+                    activeTournamentTab === 2
+                      ? "active-tab hover:opacity-100 polygon_border"
+                      : ""
+                  }`}
+                >
+                  Schedule
+                </button>
+              </div>
+            </div>
+
+            <div className="relative inline-block">
+              {activeTournamentTab === 1 && (
+                <div className="full-screen-wp p-2 w-16 h-16 text-center cursor-pointer">
+                  <div
+                    className="full-screen p-3 w-12 h-12 flex items-center justify-center"
+                    onClick={() => openFullscreen()}
+                  >
+                    <img className="w-6 h-6" src={full_screen} alt="" />
+                  </div>
                 </div>
-              </div>}
-              {/* Displayed Range */}
+              )}
+
               {activeTournamentTab === 2 && (
                 <button
                   className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
@@ -185,26 +198,19 @@ const SingleDoubleStages = () => {
                 </button>
               )}
 
-              {/* Calendar Dropdown */}
               {showCalendar && activeTournamentTab === 2 && (
                 <div className="open-cal absolute ltr:right-0 rtl:left-0 top-[100%] z-50">
                   <TournamentDatepiker />
                 </div>
               )}
             </div>
-            {/* <div className="bracket-date">
-                <span>
-                Thu, Aug 15
-                </span>
-                <span>9:00 PM</span>
-            </div> */}
           </div>
 
           <>
             {activeTournamentTab === 1 && (
               <div className="tournament-bracket-wrapper mb-15">
                 <div
-                  id={`Major-final`}
+                  id="Major-final"
                   className="!p-0 brackets-viewer !bg-transparent"
                   dir="ltr"
                 ></div>
