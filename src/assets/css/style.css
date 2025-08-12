@@ -451,7 +451,7 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
 }
 
 .mob-common-btn {
-  top: 50%;
+  top: 46%;
   transform: translate(0, calc(-50% + 5px));
 }
 
