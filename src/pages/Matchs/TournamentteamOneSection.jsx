@@ -71,7 +71,6 @@ export const TournamentteamOneSection = () => {
             score: "",
           };
 
-
           return (
             <li
               key={index}
