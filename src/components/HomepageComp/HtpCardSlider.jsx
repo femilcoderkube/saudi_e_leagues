@@ -53,7 +53,7 @@ const HtpCard = ({ item }) => (
           {item.gameLabel}{" "}
         </h3>
       </div>
-      <div className="game_card--footer !m-0 flex justify-between items-center ">
+      <div className="game_card--footer !m-0 flex justify-between items-center">
         <div
           className="match_date flex flex-col justify-center absolute ltr:right-[0] rtl:left-0 rtl:right-auto top-[1.5rem] !bg-no-repeat"
           style={{ backgroundImage: `url(${sliderBG_opp})` }}
@@ -75,6 +75,7 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
   const nextRef = useRef(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const mainSwiperRef = useRef(null);
+  const thumbsSwiperRef = useRef(null);
 
   // Ensure navigation refs are set after mount
   useEffect(() => {
@@ -92,6 +93,15 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
     }
     // For thumbsSwiper, navigation is not needed, it will be synced via thumbs prop  
   }, [prevRef, nextRef, mainSwiperRef, thumbsSwiper]);
+
+  // Handle main slider slide change to sync thumbs slider
+  const handleMainSlideChange = (swiper) => {
+    if (thumbsSwiperRef.current && thumbsSwiperRef.current.swiper) {
+      // Move thumbs slider to next slide (+1) when main slider changes
+      const nextSlideIndex = Math.min(swiper.activeIndex + 1, HtpCardDetails.length - 1);
+      thumbsSwiperRef.current.swiper.slideTo(nextSlideIndex, 600);
+    }
+  };
 
   return (
     <div className="relative htp_slider h-full flex gap-10">
@@ -112,8 +122,8 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
         slidesPerView={1}
         loop={false}
         speed={600}
-        thumbs={{ swiper: thumbsSwiper }}
-        modules={[FreeMode, Thumbs, Navigation]}
+        initialSlide={0} // Start with 1 (index 0)
+        modules={[FreeMode, Navigation]}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current,
@@ -121,6 +131,7 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
         onSwiper={(swiper) => {
           mainSwiperRef.current = { swiper };
         }}
+        onSlideChange={handleMainSlideChange}
       >
         {HtpCardDetails.map((item, index) => (
           <SwiperSlide key={index}> 
@@ -133,16 +144,19 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
       <Swiper
         slidesPerView={1.5}
         speed={600}
-        onSwiper={setThumbsSwiper}
+        onSwiper={(swiper) => {
+          setThumbsSwiper(swiper);
+          thumbsSwiperRef.current = { swiper };
+        }}
         loop={false}
         watchSlidesProgress={true}
-        modules={[FreeMode, Thumbs]}
+        initialSlide={1} // Start with 2 (index 1)
+        modules={[FreeMode]}
         className="mySwiper pointer-events-none"
-        
         // No navigation here, thumbs will sync with main swiper
       >
         {HtpCardDetails.map((item, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index+1}>
             <HtpCard item={item} />
           </SwiperSlide>
         ))}
