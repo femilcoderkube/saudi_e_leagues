@@ -249,6 +249,7 @@ html[dir=rtl] .swiper-slide.swiper-slide-active {
     height: 100%;
 }
 
+/* two slider css start */
 .htp_slider-sec .game_card_wrap--link,
 .htp_slider-sec .htp_card--body,
 .htp_slider-sec .htp_right-con .swiper {
@@ -308,6 +309,7 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
     max-width: calc(77%);
     flex: 0 0 calc(72%);
 }
+/* two slider css End */
 /* --------------------------------
     
     Timeline Section CSS Start
