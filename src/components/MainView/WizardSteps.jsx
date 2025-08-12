@@ -322,7 +322,7 @@ const WizardSteps = ({
                     name={field}
                     className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                     placeholder={t("form." + field)}
-                    onChange={(e) => setCurrenrEmail(e.target.value)}
+                    // onChange={(e) => setCurrenrEmail(e.target.value)}
                   // placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                   />
                   {field === "password" && (
