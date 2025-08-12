@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { getDraftById, setPickedPlayer, socket, stopDraftSocket } from "../../app/socket/socket";
 import { getIntervalCountdown, getServerURL } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
+import GoldCrown from "../../assets/images/gold_crown.png";
 
 const DraftingDetail = () => {
   const { draftId } = useParams();
@@ -172,7 +173,7 @@ const DraftingDetail = () => {
                           <img
                             alt="Gold Crown"
                             className="h-9"
-                            src="/src/assets/images/gold_crown.png"
+                            src={GoldCrown}
                           />
                         </span>
                         {team && (
