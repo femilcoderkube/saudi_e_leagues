@@ -105,7 +105,6 @@ const WizardSteps = ({
   const debouncedCheckphone = useMemo(
     () =>
       debounce(async (dialCodeValue, phoneNumber, resolve) => {
-        console.log("function call")
         const fullPhone = `${dialCodeValue}-${phoneNumber}`;
 
         if (phoneCache.has(fullPhone)) {
@@ -235,7 +234,7 @@ const WizardSteps = ({
           "check-phone-exists",
           t("validation_messages.phone_taken"),
           async function (value) {
-            const { dialCode } = this.parent; // `this.parent` is the sibling object in Yup shape
+            const { dialCode } = this.parent;
 
             if (!value || !dialCode?.value || (isEdit && value === initialValues.phoneNumber))
               return true;
