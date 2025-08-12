@@ -17,8 +17,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   setChatData,
-  setIsMyMatch,
-  setIsTeamOne,
+
   setmatchData,
 } from "../slices/MatchSlice/matchDetailSlice";
 import { setIsMatctCreated } from "../slices/constState/constStateSlice";
@@ -26,7 +25,7 @@ import { setLastMatch, setNotification } from "../slices/notificationSlice/notif
 import { setTournamentData, setTournamentStages } from "../slices/tournamentSlice/tournamentSlice";
 import { setDraftData, setDraftCaptain, setDraftPlayers, setDraftStatus } from "../slices/draft/draftSlice";
 import { useEffect, useRef } from "react";
-import { setmatchTData } from "../slices/MatchSlice/TournamentMatchDetailSlice";
+import { setChatTData, setmatchTData } from "../slices/MatchSlice/TournamentMatchDetailSlice";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -258,13 +257,19 @@ export function setPickedPlayer({ draftId, Playerdata, isSocketConnected }) {
 export function stopMatchDetailTSocket() {
   socket.off(SOCKET.ONMATCHT);
 }
-export function getMatchDetailTById({ mId, isSocketConnected }) {
+export function getMatchDetailTById({ mId, isSocketConnected , user }) {
   if (isSocketConnected) {
     stopMatchDetailTSocket();
     socket.on(SOCKET.ONMATCHT, (data) => {
       console.log("Match Details T Data:", data);
-
-      store.dispatch(setmatchTData(data))
+      if (data.status) {
+        if (data.isMatchUpdate == true) {
+          
+          store.dispatch(setmatchTData({user :user ,matchData: data.data}))
+        } else {
+          store.dispatch(setChatTData(data.data?.reverse()))
+        }
+      }
     });
     socket.emit(SOCKET.GETMATCHT, { mId })
   }

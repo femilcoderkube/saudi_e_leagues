@@ -70,7 +70,11 @@ export default function BattleRoyalSChedule() {
                   >
                     <img
                       className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
-                      src={getServerURL(stageSettings?.maps[item?.matchNumber - 1]?.photo || "")}
+                      src={
+                        stageSettings?.maps
+                          ? getServerURL(stageSettings.maps[item?.matchNumber - 1]?.photo || "")
+                          : battale_sahpe_img
+                      }
                       alt=""
                     />
 
@@ -104,7 +108,8 @@ export default function BattleRoyalSChedule() {
                           alt=""
                         />
                         <span className="uppercase inline-block md:text-2xl sm:text-lg text-base font-bold">
-                          {stageSettings?.maps[item?.matchNumber - 1]?.name || ""}
+                          { stageSettings?.maps
+                          ? stageSettings?.maps[item?.matchNumber - 1]?.name || "" : tournamentData?.game?.name}
                         </span>
                       </div>
                       <div className="flex items-center lg:gap-6 sm:gap-4 gap-2">

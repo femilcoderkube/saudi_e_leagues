@@ -11,9 +11,7 @@ import { useTranslation } from "react-i18next";
 export const TournamentteamTwoSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const user = useSelector((state) => state.auth.user);
-  const { matchData, isTeamOne, isMyMatch, winnerScore } = useSelector(
-    (state) => state.matchs
-  );
+ 
   const { opponent2 } = useSelector((state) => state.tournamentMatch);
   // console.log("Opponent 2 Data:", opponent2);
   console.log("Opponent 2 Data:", opponent2);

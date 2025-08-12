@@ -4,9 +4,11 @@ import axiosInstance from "../../../utils/axios";
 // Async thunk for file upload
 
 const initialState = {
-  matchData: null,
+  matchDataT: null,
   opponent1: null,
   opponent2: null,
+  isShowChat: false,
+  showMobileChat : false,
   chatData: [],
   winnerScore: {
     teamOne: "-",
@@ -24,16 +26,55 @@ const TournamentMatchDetailSlice = createSlice({
     setSubmitScoreLoading: (state, action) => {
       state.submitScoreLoading = action.payload;
     },
-    setshowMobileChat: (state, action) => {
+    setshowMobileChatT: (state, action) => {
       state.showMobileChat = action.payload;
     },
     setmatchTData: (state, action) => {
-      if(action.payload.status) {
-        state.matchData = action.payload.data;
-        state.opponent1 = action.payload.data.opponent1;
-        state.opponent2 = action.payload.data.opponent2;
+      const { matchData, user } = action.payload || {};
+      
+      // Early return if no match data
+      if (!matchData) return;
+    
+      // Helper function to check if user is in team
+      const isUserInTeam = (team) => {
+        return team?.team?.members?.some(member => 
+          member?.user?.userId?._id?.toString() === user?._id?.toString()
+        );
+      };
+    
+      // Helper function to determine chat visibility
+      const shouldShowChat = (matchData, isMyMatch) => {
+        if (!isMyMatch) return false;
+        
+        const currentTime = Date.now();
+        const startTime = new Date(matchData?.startTime).getTime() || 0;
+        const endTime = new Date(matchData?.endTime).getTime() || 0;
+        
+        return currentTime >= startTime && currentTime <= endTime;
+      };
+    
+      // Update basic match data
+      state.matchDataT = matchData;
+      state.opponent1 = matchData.opponent1;
+      state.opponent2 = matchData.opponent2;
+    
+      // Check if current user is in this match
+      const isMyMatch = isUserInTeam(matchData.opponent1) || isUserInTeam(matchData.opponent2);
+    
+      // Reset scores to default
+      state.winnerScore.teamOne = "-";
+      state.winnerScore.teamTwo = "-";
+    
+      // Find active score or determine chat visibility
+      const activeScore = matchData?.matchScores?.find(score => score.isActive);
+      
+      if (activeScore) {
+        state.winnerScore.teamOne = activeScore.opponent1Score;
+        state.winnerScore.teamTwo = activeScore.opponent2Score;
+        state.isShowChat = false; // Don't show chat when there's an active score
+      } else {
+        state.isShowChat = shouldShowChat(matchData, isMyMatch);
       }
-      state.error = null;
     },
     setIsTeamOne: (state, action) => {
       state.isTeamOne = action.payload;
@@ -43,12 +84,12 @@ const TournamentMatchDetailSlice = createSlice({
       state.isMyMatch = action.payload;
       state.error = null;
     },
-    setChatData: (state, action) => {
+    setChatTData: (state, action) => {
       state.chatData = action.payload;
       state.error = null;
     },
     clearmatchDetail: (state) => {
-      state.matchData = null;
+      state.matchDataT  = null;
     },
   },
   extraReducers: (builder) => {
@@ -57,7 +98,9 @@ const TournamentMatchDetailSlice = createSlice({
 });
 
 export const {
-  setmatchTData
+  setmatchTData,
+  setChatTData,
+  setshowMobileChatT
 } = TournamentMatchDetailSlice.actions;
 
 export default TournamentMatchDetailSlice.reducer;
