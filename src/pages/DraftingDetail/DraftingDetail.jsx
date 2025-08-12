@@ -16,7 +16,7 @@ const DraftingDetail = () => {
   const user = useSelector((state) => state.auth.user);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { draftData, picks, teams, otherPlayers } = useSelector((state) => state.draft);
-  // Countdown state
+  
   const [countdown, setCountdown] = useState(0);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
