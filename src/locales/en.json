@@ -310,6 +310,7 @@
     "phone_required": "Phone number is required",
     "phone_digit_count": "Phone number must contain between 7 and 15 digits",
     "phone_format": "Phone number can only contain digits, spaces, hyphens, and parentheses",
+    "phone_taken": "Phone number is aleady taken",
     "dob_required": "Date of birth is required",
     "dob_future": "Date of birth cannot be in the future",
     "dob_invalid": "Please enter a valid date",

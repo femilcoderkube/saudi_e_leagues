@@ -58,6 +58,7 @@ const WizardSteps = ({
   const TOTAL_STEPS = isEdit ? 0 : 4;
   const usernameCache = useMemo(() => new Map(), []);
   const emailCache = useMemo(() => new Map(), []);
+  const phoneCache = useMemo(() => new Map(), []);
 
   const debouncedCheckUsername = useMemo(
     () =>
@@ -101,48 +102,36 @@ const WizardSteps = ({
     [dispatch]
   );
 
+  const debouncedCheckphone = useMemo(
+    () =>
+      debounce(async (dialCodeValue, phoneNumber, resolve) => {
+        const fullPhone = `${dialCodeValue}-${phoneNumber}`;
+
+        if (phoneCache.has(fullPhone)) {
+          resolve(phoneCache.get(fullPhone));
+          return;
+        }
+        try {
+          const result = await dispatch(checkUsersExists({ phone: fullPhone })).unwrap();
+          const isAvailable = !result.exists;
+          phoneCache.set(fullPhone, isAvailable);
+          resolve(isAvailable);
+        } catch (error) {
+          phoneCache.set(fullPhone, false);
+          resolve(false);
+        }
+      }, 500),
+    [dispatch]
+  );
+
   useEffect(() => {
     dispatch(fetchGames());
     return () => {
       debouncedCheckUsername.cancel();
       debouncedCheckEmail.cancel();
+      debouncedCheckphone.cancel();
     };
-  }, [dispatch, debouncedCheckUsername, debouncedCheckEmail]);
-
-  // const handleOtpChange = (index, value) => {
-  //   if (/^[0-9]?$/.test(value)) {
-  //     const newOtp = [...otp];
-  //     newOtp[index] = value;
-  //     setOtp(newOtp);
-  //     setOtpError("");
-  //     if (value && index < 5) {
-  //       document.getElementById(`otp-${index + 1}`).focus();
-  //     }
-  //   }
-  // };
-
-  // const handleOtpSubmit = () => {
-  //   const otpValue = otp.join("");
-  //   if (otpValue.length === 6 && /^[0-9]{6}$/.test(otpValue)) {
-  //     dispatch(verifyOtp({ otp: otpValue })).then((action) => {
-  //       if (action.meta.requestStatus === "fulfilled") {
-  //         setShowOtpPopup(false);
-  //         setOtp(["", "", "", "", "", ""]);
-  //         setOtpError("");
-  //         dispatch(fetchUserById(user?._id));
-  //         if (isRegisteration) {
-  //           dispatch(setRegisteration(false));
-  //         } else {
-  //           dispatch(setProfileVisible(false));
-  //         }
-  //       } else {
-  //         setOtpError(action.payload || t("validation_messages.otp_invalid"));
-  //       }
-  //     });
-  //   } else {
-  //     setOtpError(t("validation_messages.otp_invalid"));
-  //   }
-  // };
+  }, [dispatch, debouncedCheckUsername, debouncedCheckEmail, debouncedCheckphone]);
 
   const countryOptions = countryData.map((country) => ({
     value: country.name,
@@ -240,7 +229,21 @@ const WizardSteps = ({
             return digits.length >= 7 && digits.length <= 15;
           }
         )
-        .matches(/^[0-9\s\-\(\)]*$/, t("validation_messages.phone_format")),
+        .matches(/^[0-9\s\-\(\)]*$/, t("validation_messages.phone_format"))
+        .test(
+          "check-phone-exists",
+          t("validation_messages.phone_taken"),
+          async function (value) {
+            const { dialCode } = this.parent;
+
+            if (!value || !dialCode?.value || (isEdit && value === initialValues.phoneNumber))
+              return true;
+
+            return new Promise((resolve) =>
+              debouncedCheckphone(dialCode.value, value, resolve)
+            );
+          }
+        ),
     }),
     Yup.object({
       dateOfBirth: isEdit
@@ -322,7 +325,7 @@ const WizardSteps = ({
                     name={field}
                     className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                     placeholder={t("form." + field)}
-                    // onChange={(e) => setCurrenrEmail(e.target.value)}
+                  // onChange={(e) => setCurrenrEmail(e.target.value)}
                   // placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                   />
                   {field === "password" && (
@@ -907,66 +910,66 @@ const WizardSteps = ({
         }, [values]);
         return (
           <Form>
-            {/* {showOtpPopup && renderOtpPopup()} */ }
+            {/* {showOtpPopup && renderOtpPopup()} */}
             {verificationModal && <VerifiyOTPModel module={verificationModule} />}
-        {isEdit
-          ? renderContent(values, setFieldValue)
-          : renderStepContent(values, setFieldValue)}
-        <div className="wizard_step--btn gap-5 flex justify-end sm:mt-14 mt-8 mb-8 mr-5">
-          {step > 1 && (
-            <div className="game_status--tab wizard_btn back_btn">
-              <button
-                type="button"
-                onClick={onBack}
-                className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-                style={{ width: "8rem", height: "4rem" }}
-                disabled={loadingSubmit}
-              >
-                {t("auth.back")}
-              </button>
-            </div>
-          )}
-          <div className="game_status--tab wizard_btn next_btn">
-            <button
-              type="submit"
-              className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-              style={{ width: "8rem", height: "4rem" }}
-              disabled={loadingSubmit}
-            >
-              {step < TOTAL_STEPS ? (
-                t("auth.next")
-              ) : loadingSubmit ? (
-                <>
-                  <svg
-                    className="animate-spin h-5 w-5 mr-2 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
+            {isEdit
+              ? renderContent(values, setFieldValue)
+              : renderStepContent(values, setFieldValue)}
+            <div className="wizard_step--btn gap-5 flex justify-end sm:mt-14 mt-8 mb-8 mr-5">
+              {step > 1 && (
+                <div className="game_status--tab wizard_btn back_btn">
+                  <button
+                    type="button"
+                    onClick={onBack}
+                    className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                    style={{ width: "8rem", height: "4rem" }}
+                    disabled={loadingSubmit}
                   >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                  {t("auth.loading")}
-                </>
-              ) : isEdit ? (
-                t("auth.update")
-              ) : (
-                t("auth.submit")
+                    {t("auth.back")}
+                  </button>
+                </div>
               )}
-            </button>
-          </div>
-        </div>
+              <div className="game_status--tab wizard_btn next_btn">
+                <button
+                  type="submit"
+                  className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                  style={{ width: "8rem", height: "4rem" }}
+                  disabled={loadingSubmit}
+                >
+                  {step < TOTAL_STEPS ? (
+                    t("auth.next")
+                  ) : loadingSubmit ? (
+                    <>
+                      <svg
+                        className="animate-spin h-5 w-5 mr-2 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      {t("auth.loading")}
+                    </>
+                  ) : isEdit ? (
+                    t("auth.update")
+                  ) : (
+                    t("auth.submit")
+                  )}
+                </button>
+              </div>
+            </div>
           </Form>
         );
       }}

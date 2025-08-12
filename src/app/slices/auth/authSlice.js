@@ -59,11 +59,12 @@ export const checkBannedUser = createAsyncThunk(
 
 export const checkUsersExists = createAsyncThunk(
   "users/checkUsersExists",
-  async ({ email, userName }, { rejectWithValue }) => {
+  async ({ email, userName, phone }, { rejectWithValue }) => {
     try {
       const params = new URLSearchParams();
       if (email) params.append("email", email);
       if (userName) params.append("username", userName);
+      if (phone) params.append("phone", phone);
       const response = await axiosInstance.get(
         `/users/check?${params.toString()}`
       );
