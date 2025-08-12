@@ -838,9 +838,43 @@ html[dir=rtl] .battle-shape {
   margin-left: 0.75rem;
 }
 
+.schdule-collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.active-accordation .schdule-collapse {
+  max-height: 1000px; /* Adjust based on your content height */
+}
+
+.schdule-icon img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.active-accordation .schdule-icon img {
+  transform: rotate(180deg);
+}
+
+.schdule-accordion-body {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease-in-out 0.1s, transform 0.2s ease-in-out 0.1s;
+}
+
+.active-accordation .schdule-accordion-body {
+  opacity: 1;
+  transform: translateY(0);
+}
 /* battle royal end */
 
 /* call-duty-card End*/
+@media (min-width: 1280px) {
+  .brackt_fullscreen{
+    display: flex !important;
+    align-items: center !important;
+  }
+}
 @media (max-width: 1279px) {
   .game_polygon-link {
     width: 14rem;
@@ -1019,7 +1053,7 @@ html[dir=rtl] .battle-shape {
   .battle-common+p,
   .battle-common+div {
     max-width: 36%;
-    gap: 0.6rem;
+    gap: 0.4rem;
   }
 
   .battle-shape {
@@ -1367,6 +1401,13 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   bottom: 0;
 }
 
+.brackt_fullscreen{
+  background:linear-gradient(0deg, rgba(1, 2, 29, 1) 0%, rgba(2, 3, 41, 1) 100%) !important;
+}
+
+.brackt_fullscreen .bracket{
+  padding:1.8rem !important;
+}
 @media (max-width: 767px) {
 
   .sd_tournament-content .polygon_border:before,
@@ -1381,7 +1422,7 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 
 @media (max-width: 639px) {
   .tournament-schedule-card-header-time h2 {
-    height: 1.42rem;
+    height: 1.45rem;
   }
   .sa__tournament-tabs li {
     padding: 0;
@@ -1394,10 +1435,6 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 }
 
 @media (max-width: 575px) {
-  .tournament-schedule-card-header-time h2 {
-    height: 1.4rem;
-  }
-
   .tab-btn-wp {
     flex-direction: column;
   }
@@ -1410,6 +1447,10 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 
   .tab-btn-wp.bracket-btn{
     flex-direction: row;
+  }
+
+  .brackt_fullscreen .bracket{
+    padding:1.25rem !important;
   }
 }
 
