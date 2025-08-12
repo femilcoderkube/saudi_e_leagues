@@ -2,26 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowCalendar, setDateRange } from '../../app/slices/constState/constStateSlice';
+import { setcurrentDate, setnextDayDate } from '../../app/slices/tournamentSlice/tournamentSlice';
 
 const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate }) => {
-  const [currentDate, setCurrentDate] = useState(new Date(2025, 6, 17));
+  const [currentDate, setCurrentDate] = useState(new Date(propStartDate));
   const [startDate, setStartDate] = useState(propStartDate || null);
   const [endDate, setEndDate] = useState(propEndDate || null);
   const dispatch = useDispatch();
-  
-  // Get date range from Redux state
-  const { selectedStartDate, selectedEndDate } = useSelector((state) => state.constState);
+
 
   useEffect(() => {
     // Initialize with Redux state if available, otherwise use props
-    if (selectedStartDate && selectedEndDate) {
-      setStartDate(new Date(selectedStartDate));
-      setEndDate(new Date(selectedEndDate));
+    if (propStartDate && propStartDate) {
+      setStartDate(new Date(propStartDate));
+      setEndDate(new Date(propEndDate));
     } else {
       setStartDate(propStartDate || null);
       setEndDate(propEndDate || null);
     }
-  }, [propStartDate, propEndDate, selectedStartDate, selectedEndDate]);
+  }, [propStartDate, propEndDate ]);
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -102,18 +101,15 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
   };
 
   const handleReset = () => {
-    setStartDate(null);
-    setEndDate(null);
+    setStartDate(new Date());
+    setEndDate(new Date(Date.now() + 86400000));
   };
 
   const handleUpdate = () => {
     dispatch(setShowCalendar(false));
-    
-    // Update Redux state with selected date range
-    dispatch(setDateRange({
-      startDate: startDate,
-      endDate: endDate
-    }));
+
+    dispatch(setcurrentDate(startDate))
+    dispatch(setnextDayDate(endDate))
     
     if (onUpdate) {
       onUpdate(startDate, endDate);

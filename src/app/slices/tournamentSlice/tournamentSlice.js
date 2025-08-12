@@ -9,6 +9,9 @@ const initialState = {
   stageSettings : null,
   loader :false,
   activeStage: 0,
+  currentDate : new Date(),
+  nextDayDate : new Date(Date.now() + 86400000)
+
 };
 
 const tournamentSlice = createSlice({
@@ -30,6 +33,12 @@ const tournamentSlice = createSlice({
       state.loader =true
       state.activeStage = action.payload;
     },
+    setcurrentDate:(state, action) => {
+      state.currentDate = action.payload;
+    },
+    setnextDayDate:(state, action) => {
+      state.nextDayDate = action.payload;
+    },
     setTournamentData: (state, action) => {
       state.tournamentData = action.payload;
     },
@@ -48,7 +57,7 @@ const tournamentSlice = createSlice({
   extraReducers: (builder) => {},
 });
 
-export const { setTournamentData, setActiveStage,clearData, setTournamentStages } =
+export const { setTournamentData, setActiveStage,clearData, setTournamentStages, setnextDayDate ,setcurrentDate } =
   tournamentSlice.actions;
 
 export default tournamentSlice.reducer;

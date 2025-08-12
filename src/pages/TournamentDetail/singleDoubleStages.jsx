@@ -19,7 +19,7 @@ const SingleDoubleStages = () => {
     selectedStartDate,
     selectedEndDate,
   } = useSelector((state) => state.constState);
-  const { activeStage, tournamentStages, loader } = useSelector(
+  const { activeStage, tournamentStages, loader, nextDayDate, currentDate } = useSelector(
     (state) => state.tournament
   );
   const dispatch = useDispatch();
@@ -129,30 +129,27 @@ const SingleDoubleStages = () => {
       <div id="tournament-tab-contents" className="mt-7">
         <div id="first" className="py-4 active">
           <div
-            className={`tab-btn-wp flex justify-between items-center gap-5 ${
-              activeTournamentTab === 1 ? "bracket-btn" : ""
-            }`}
+            className={`tab-btn-wp flex justify-between items-center gap-5 ${activeTournamentTab === 1 ? "bracket-btn" : ""
+              }`}
           >
             <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
               <div className="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] sm:top-1 top-0 inline-flex justify-center sm:justify-start">
                 <button
                   onClick={() => handleActiveTournamentTab(1)}
-                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
-                    activeTournamentTab === 1
+                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${activeTournamentTab === 1
                       ? "active-tab hover:opacity-100 polygon_border"
                       : ""
-                  }`}
+                    }`}
                 >
                   Brackets
                 </button>
 
                 <button
                   onClick={() => handleActiveTournamentTab(2)}
-                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
-                    activeTournamentTab === 2
+                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${activeTournamentTab === 2
                       ? "active-tab hover:opacity-100 polygon_border"
                       : ""
-                  }`}
+                    }`}
                 >
                   Schedule
                 </button>
@@ -177,18 +174,17 @@ const SingleDoubleStages = () => {
                   onClick={() => dispatch(setShowCalendar(!showCalendar))}
                 >
                   <span className="sm:text-lg text-base font-bold">
-                    {startDateDisplay && endDateDisplay ? (
+                     
                       <>
-                        {startDateDisplay.day} - {endDateDisplay.day}{" "}
-                        <span className="font-normal">
-                          {endDateDisplay.month}
-                        </span>
+                        {currentDate.toLocaleString("en-US", {
+                          day: "2-digit",
+                        })} - {nextDayDate.toLocaleString("en-US", {
+                          day: "2-digit",
+                        })} <span className="font-normal">{currentDate.toLocaleString("en-US", {
+                          month: "short",
+                        })}</span>
                       </>
-                    ) : (
-                      <>
-                        12 - 17 <span className="font-normal">Jul</span>
-                      </>
-                    )}
+                    
                   </span>
                   <img
                     className="w-3.5 h-2 object-cover object-center"
@@ -200,7 +196,7 @@ const SingleDoubleStages = () => {
 
               {showCalendar && activeTournamentTab === 2 && (
                 <div className="open-cal absolute ltr:right-0 rtl:left-0 top-[100%] z-50">
-                  <TournamentDatepiker />
+                  <TournamentDatepiker startDate={currentDate} endDate={nextDayDate}/>
                 </div>
               )}
             </div>
@@ -220,9 +216,17 @@ const SingleDoubleStages = () => {
               <div className="tournament-bracket-wrapper md:mt-20 mt-15 mb-15">
                 {tournamentStages?.matcheData.length > 0 ? (
                   <div className="tournament-schedule-card-list grid gap-x-8 gap-y-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-                    {tournamentStages?.matcheData?.map((item, index) => {
-                      return <TournamentScheduleCard key={index} item={item} />;
-                    })}
+                    {tournamentStages?.matcheData
+                      ?.filter(
+                        (item) =>
+                          new Date(item.startTime).setHours(0, 0, 0, 0) >=
+                            currentDate.setHours(0, 0, 0, 0) &&
+                          new Date(item.startTime).setHours(0, 0, 0, 0) <
+                            nextDayDate.setHours(0, 0, 0, 0)
+                      )
+                      .map((item, index) => {
+                        return <TournamentScheduleCard key={index} item={item} />;
+                      })}
                   </div>
                 ) : (
                   <div className="flex justify-center items-center py-50 text-xl text-gray-400">
