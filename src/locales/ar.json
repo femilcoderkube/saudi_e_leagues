@@ -381,7 +381,11 @@
     "cancel": "إلغاء",
     "cancelMatchTitle": "هل أنت متأكد من إلغاء المباراة؟",
     "yes": "نعم",
-    "no": "لا"
+    "no": "لا",
+    "confirmplayerselection": "تأكيد اختيار اللاعب",
+    "confirmplayerselectionMessage": "هل أنت متأكد أنك تريد اختيار",
+    "thisplayer": "هذا اللاعب",
+    "selectplayer": "اختر اللاعب"
   },
   "drafting": {
     "drafting_picks": "اختيارات المسودة",

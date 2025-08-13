@@ -382,7 +382,11 @@
     "cancel": "Cancel",
     "cancelMatchTitle": "Are you sure you want to cancel the match?",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "confirmplayerselection": "Confirm Player Selection",
+    "confirmplayerselectionMessage": "Are you sure you want to select ",
+    "thisplayer": "this player",
+    "selectplayer": "Select Player"
   },
   "drafting": {
     "drafting_picks": "Draft Picks",

@@ -37,46 +37,30 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
     }
   };
 
-  const handlePlayerSelection = (playerData) => {
-    // Your existing player selection logic goes here
-    console.log('Player selected:', playerData);
-    // Example: call API to select player
-    // selectPlayer({ playerId: playerData.id, draftId: draftData._id });
-
-    // Add your actual player selection API call here
-    // For example:
-    // dispatch(selectPlayerAction({
-    //   playerId: playerData._id,
-    //   draftId: draftData._id,
-    //   captainId: myPId
-    // }));
-  };
-
   const getConfirmationTitle = () => {
     if (confirmationPopUp == 1) return t("confirmation.logoutTitle");
     if (confirmationPopUp == 2) return t("confirmation.cancelMatchTitle");
-    if (confirmationPopUp == 3) return "Confirm Player Selection";
+    if (confirmationPopUp == 3) return t("confirmation.confirmplayerselection");
     return "";
   };
 
   const getConfirmationMessage = () => {
     if (confirmationPopUp == 3 && selectedPlayerData) {
-      return `Are you sure you want to select ${selectedPlayerData.name || selectedPlayerData.playerName || 'this player'}?`;
+      return `${t("confirmation.confirmplayerselectionMessage")} ${selectedPlayerData?.username || t("confirmation.thisplayer")}?`;
     }
     return "";
   };
 
   const getCancelText = () => {
-    if (confirmationPopUp == 1) return t("confirmation.cancel");
+    if (confirmationPopUp == 1 || confirmationPopUp == 3) return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
-    if (confirmationPopUp == 3) return "Cancel";
     return "";
   };
 
   const getConfirmText = () => {
     if (confirmationPopUp == 1) return t("confirmation.logoutConfirm");
     if (confirmationPopUp == 2) return t("confirmation.yes");
-    if (confirmationPopUp == 3) return "Select Player";
+    if (confirmationPopUp == 3) return t("confirmation.selectplayer");
     return "";
   };
 
@@ -125,23 +109,6 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
               {confirmationPopUp == 3 && selectedPlayerData && (
                 <div className="mb-4 text-center">
                   <p className="text-lg text-gray-700 mb-3">{getConfirmationMessage()}</p>
-
-                  {/* {selectedPlayerData.image && (
-                    <div className="mb-3">
-                      <img 
-                        src={selectedPlayerData.image} 
-                        alt={selectedPlayerData.name || selectedPlayerData.playerName}
-                        className="w-20 h-20 rounded-full mx-auto object-cover border-2 border-purple-300"
-                      />
-                    </div>
-                  )}
-                  
-                  <div className="space-y-2">
-                    <p className="font-bold text-xl text-purple-600">
-                      {selectedPlayerData.name || selectedPlayerData.playerName || 'Player'}
-                    </p>
-                  </div> */}
-
                 </div>
               )}
 
@@ -176,7 +143,7 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
                           handleOnClick();
                         }}
                       >
-                        {confirmationPopUp == 1 ? t("confirmation.logoutConfirm") : t("confirmation.yes")}
+                        {/* {confirmationPopUp == 1 ? t("confirmation.logoutConfirm") : t("confirmation.yes")} */}
                         {getConfirmText()}
 
                       </button>
