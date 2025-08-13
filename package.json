@@ -38,6 +38,7 @@
     "socket.io-client": "^4.8.1",
     "swiper": "^11.2.7",
     "tailwindcss": "^4.1.7",
+    "vite-plugin-pwa": "^1.0.2",
     "yup": "^1.6.1"
   },
   "devDependencies": {
