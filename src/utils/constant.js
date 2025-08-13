@@ -573,21 +573,35 @@ export function getIntervalCountdown(
   intervalTimeMinutes
 ) {
   const now = new Date();
+  const intervalStartTime = new Date(currentIntervalStartTime);
+  
+  // If interval hasn't started yet, return "00:00"
+  if (intervalStartTime.getTime() > now.getTime()) {
+    return "00:00";
+  }
+
   const intervalTimeMs = intervalTimeMinutes * 1000; // Convert to milliseconds
 
   // Calculate when current interval should end
   const currentIntervalEndTime = new Date(
-    new Date(currentIntervalStartTime).getTime() + intervalTimeMs
+    intervalStartTime.getTime() + intervalTimeMs
   );
 
   // Calculate remaining time in milliseconds
   const remainingMs = currentIntervalEndTime.getTime() - now.getTime();
 
-  // Convert to seconds (round up to avoid showing 0 when there's still time)
-  const remainingSeconds = Math.ceil(remainingMs / 1000);
+  // If interval has ended, return "00:00"
+  if (remainingMs <= 0) {
+    return "00:00";
+  }
 
-  // Return 0 if interval has already ended
-  return Math.max(0, remainingSeconds);
+  // Convert to minutes and seconds
+  const remainingSeconds = Math.ceil(remainingMs / 1000);
+  const minutes = Math.floor(remainingSeconds / 60);
+  const seconds = remainingSeconds % 60;
+
+  // Format as MM:SS
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 export const stageTypes = {
   SingleElimination: "SingleElimination",

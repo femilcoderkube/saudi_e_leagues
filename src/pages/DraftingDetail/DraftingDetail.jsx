@@ -10,6 +10,7 @@ import { getDraftById, setPickedPlayer, socket, stopDraftSocket } from "../../ap
 import { getIntervalCountdown, getServerURL } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
 import GoldCrown from "../../assets/images/gold_crown.png";
+import moment from "moment";
 
 const DraftingDetail = () => {
   const { draftId } = useParams();
@@ -172,7 +173,16 @@ const DraftingDetail = () => {
         <div className="fixed top-16 left-1/2 transform -translate-x-1/2 z-40">
           <div className={`px-4 py-2 rounded-lg text-white font-semibold ${isCurrentTurn ? 'bg-green-500' : 'bg-gray-500'
             }`}>
-            {isCurrentTurn ? 'Your Turn to Pick!' : 'Waiting for other captain...'}
+            {/* {otherPlayers.length > 0
+              ? (isCurrentTurn ? "Your Turn to Pick!" : "Waiting for other captain...")
+              : "Draft Complete"
+            } */}
+            {new Date() < new Date(draftData?.startTime)
+              ? ``
+              : otherPlayers.length > 0
+                ? (isCurrentTurn ? "Your Turn to Pick!" : "Waiting for other captain...")
+                : "Draft Complete"
+            }
           </div>
         </div>
       )}
@@ -186,8 +196,8 @@ const DraftingDetail = () => {
           {/* === League Top Hero Block HTML block Start === */}
           <div className="drafting__time-wrapper flex justify-center items-center mb-3">
             <h2 className="text-[7.5rem] font-bold font_oswald drafting__title-bg">
-              {formatCountdown(countdown)}
 
+              {otherPlayers.length > 0 ? formatCountdown(countdown) : formatCountdown(0)}
             </h2>
           </div>
           <div className="drafting__final_teams-wrapper mb-5">
@@ -196,7 +206,7 @@ const DraftingDetail = () => {
 
                 const isCurrentCaptainTurn = (() => {
                   if (!draftData?.currentInterval || draftData.currentInterval === -1) {
-                    return false; 
+                    return false;
                   }
 
                   const totalTeams = draftData?.totalTeams || teams.length;
