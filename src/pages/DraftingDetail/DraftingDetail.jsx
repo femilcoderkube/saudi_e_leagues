@@ -135,7 +135,7 @@ const DraftingDetail = () => {
     return result;
   };
 
-  const rows = chunkArray(picks, teams?.length > picks?.length ? 1 : Math.ceil(picks?.length / teams?.length));
+  const rows = chunkArray(picks,  1);
 
   const handlePlayerClick = (Playerdata) => {
     if (isUserCaptain && isCurrentTurn) {
@@ -248,7 +248,7 @@ const DraftingDetail = () => {
                       {t("drafting.teams")} {teamIdx + 1}
                     </h2>
                     <div className="drafting__teams-list-block">
-                      <div className={`drafting__teams-item relative ${isCurrentCaptainTurn ? 'captain_turn' : ''}`}>
+                      <div className={`drafting__teams-item relative ${isCurrentCaptainTurn  && new Date() > new Date(draftData?.startTime) ? 'captain_turn' : ''}`}>
                         <span className="gold_crown absolute top-[-2.5rem] ltr:right-6 rtl:left-6 z-10">
                           <img
                             alt={t("drafting.gold_crown")}
@@ -333,17 +333,17 @@ const DraftingDetail = () => {
 
                 {/* Show grayed out players */}
                 <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8 opacity-50 pointer-events-none">
-                  {otherPlayers.length > 0 && rows.map((row, rowIdx) => (
-                    <div className="draft-row" key={rowIdx}>
-                      {row.map((data, idx) => (
+                  {otherPlayers.length > 0 && picks.map((data, rowIdx) => (
+                    <div className="draft-row" key={rowIdx + "A"}>
+                      {/* {row.map((data, idx) => ( */}
                         <div className="draft-picks-wrapper-item" key={data.index}>
-                          {idx % 2 === 0 ? (
+                          {rowIdx % 2 === 0 ? (
                             <OddPosCard props={data} />
                           ) : (
                             <EvenPosCard props={data} />
                           )}
                         </div>
-                      ))}
+                      {/* ))} */}
                     </div>
                   ))}
                 </div>
@@ -352,23 +352,22 @@ const DraftingDetail = () => {
               // Normal draft interface when time has reached
               <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8">
                 {otherPlayers.length > 0 ? (
-                  rows.map((row, rowIdx) => (
+                  picks.map((data, rowIdx) => (
                     <div className="">
-                      {row.map((data, idx) => {
-                        const isClickable = isUserCaptain && isCurrentTurn;
-                        return (
+                      {/* {row.map((data, idx) => { */}
+                    
                           <div className="draft-picks-wrapper-item">
-                            {idx % 2 === 0 ? (
+                            {rowIdx % 2 === 0 ? (
                               <OddPosCard props={data}
-                                onClick={isClickable ? () => handlePlayerClick(data) : undefined}
+                                onClick={isUserCaptain && isCurrentTurn ? () => handlePlayerClick(data) : undefined}
                               />
                             ) : (
                               <EvenPosCard props={data}
-                                onClick={isClickable ? () => handlePlayerClick(data) : undefined} />
+                                onClick={isUserCaptain && isCurrentTurn ? () => handlePlayerClick(data) : undefined} />
                             )}
                           </div>
-                        );
-                      })}
+                        
+                      {/* })} */}
                     </div>
                   ))
                 ) : (
