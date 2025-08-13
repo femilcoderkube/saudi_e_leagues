@@ -1,9 +1,10 @@
 // File: HtpCardSlider.jsx
 import React, { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, FreeMode, Thumbs } from "swiper/modules";
+import { Navigation, FreeMode, Thumbs, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 import playgameBG from "../../assets/images/playgameBG.png";
 import sliderBG_opp from "../../assets/images/sliderBG_opp.png";
 import activeslideBG from "../../assets/images/activeslideBG.png";
@@ -70,7 +71,11 @@ const HtpCard = ({ item }) => (
   </div>
 );
 
-const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
+const HtpCardSlider = ({
+  HtpCardDetails,
+  HtpCardDetails1 = [],
+  sliderId = "",
+}) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -91,14 +96,17 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
       mainSwiperRef.current.swiper.navigation.init();
       mainSwiperRef.current.swiper.navigation.update();
     }
-    // For thumbsSwiper, navigation is not needed, it will be synced via thumbs prop  
+    // For thumbsSwiper, navigation is not needed, it will be synced via thumbs prop
   }, [prevRef, nextRef, mainSwiperRef, thumbsSwiper]);
 
   // Handle main slider slide change to sync thumbs slider
   const handleMainSlideChange = (swiper) => {
     if (thumbsSwiperRef.current && thumbsSwiperRef.current.swiper) {
       // Move thumbs slider to next slide (+1) when main slider changes
-      const nextSlideIndex = Math.min(swiper.activeIndex + 1, HtpCardDetails.length - 1);
+      const nextSlideIndex = Math.min(
+        swiper.activeIndex,
+        HtpCardDetails.length
+      );
       thumbsSwiperRef.current.swiper.slideTo(nextSlideIndex, 600);
     }
   };
@@ -106,7 +114,7 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
   return (
     <div className="relative htp_slider h-full flex gap-10">
       {/* Custom Nav */}
-      <div className="swiper-navigation-wrapper absolute ltr:right-0 rtl:left-0 lg:top-[0rem] sm:top-[-5rem] top-[-2.5rem] z-10 flex gap-2 ltr:md:pr-[7.5rem] rtl:md:pr-[7.5rem] pr-[1rem]">
+      <div className="swiper-navigation-wrapper absolute ltr:right-0 rtl:left-0 lg:top-[0rem] sm:top-[-5rem] top-[-2.5rem] z-10 flex gap-2 ltr:md:pr-[7.5rem] rtl:md:pl-[7.5rem] ltr:pr-[1rem] rtl:pl-[1rem]">
         <div
           ref={prevRef}
           className={`swiper-button-prev sd_prev-${sliderId} rtl:order-2 sd_prev-btn !relative ltr:!left-[auto] ltr:!right-[0.5rem] rtl:!left-[0.5rem] rtl:!right-[auto] custom-nav-btn`}
@@ -117,16 +125,31 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
         />
       </div>
       {/* Main Swiper (Big Card) */}
+      {/* Main Swiper (Big Card) */}
       <Swiper
         className="big-card mySwiper2"
         slidesPerView={1}
         loop={false}
         speed={600}
-        initialSlide={0} // Start with 1 (index 0)
-        modules={[FreeMode, Navigation]}
+        modules={[FreeMode, Navigation, Pagination]}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current,
+        }}
+        pagination={{
+          el: `.custom-pagination-${sliderId}`,
+          clickable: true,
+        }}
+        breakpoints={{
+          0: {
+            pagination: {
+              el: `.custom-pagination-${sliderId}`,
+              clickable: true,
+            },
+          },
+          640: {
+            pagination: false, // disable pagination on larger screens
+          },
         }}
         onSwiper={(swiper) => {
           mainSwiperRef.current = { swiper };
@@ -134,11 +157,17 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
         onSlideChange={handleMainSlideChange}
       >
         {HtpCardDetails.map((item, index) => (
-          <SwiperSlide key={index}> 
+          <SwiperSlide key={index}>
             <HtpCardBig item={item} />
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* Custom Pagination Dots for Mobile */}
+      <div
+        className={`custom-pagination-${sliderId} flex justify-end mt-4 gap-2 sm:hidden absolute ltr:right-0 rtl:left-0 -bottom-[3rem] z-100`}
+      >
+      </div>
 
       {/* Thumbs Swiper (Small Card) */}
       <Swiper
@@ -150,13 +179,12 @@ const HtpCardSlider = ({ HtpCardDetails = [], sliderId = "" }) => {
         }}
         loop={false}
         watchSlidesProgress={true}
-        initialSlide={1} // Start with 2 (index 1)
         modules={[FreeMode]}
         className="mySwiper pointer-events-none"
         // No navigation here, thumbs will sync with main swiper
       >
-        {HtpCardDetails.map((item, index) => (
-          <SwiperSlide key={index+1}>
+        {HtpCardDetails1.map((item, index) => (
+          <SwiperSlide key={index}>
             <HtpCard item={item} />
           </SwiperSlide>
         ))}

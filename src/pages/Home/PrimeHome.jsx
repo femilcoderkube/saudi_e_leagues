@@ -216,7 +216,7 @@ export default function PrimeHome() {
             </svg>
           </div>
 
-          <div className="htp_right-con  relative max-w-[75%] basis-[72.5%]">
+          <div className="htp_right-con relative max-w-[75%] basis-[72.5%]">
             <HtpCardSlider
               sliderId="one"
               HtpCardDetails={[
@@ -249,6 +249,44 @@ export default function PrimeHome() {
                   gameLabel: t("games.game_6"),
                   gameName: t("games.apex"),
                   Step: "06",
+                },
+              ]}
+
+              HtpCardDetails1={[             
+                {
+                  gameLabel: t("games.game_2"),
+                  gameName: t("games.dota2"),
+                  Step: "02",
+                },
+                {
+                  gameLabel: t("games.game_3"),
+                  gameName: t("games.csgo"),
+                  Step: "03",
+                },
+                {
+                  gameLabel: t("games.game_4"),
+                  gameName: t("games.apex"),
+                  Step: "04",
+                },
+                {
+                  gameLabel: t("games.game_5"),
+                  gameName: t("games.apex"),
+                  Step: "05",
+                },
+                {
+                  gameLabel: t("games.game_6"),
+                  gameName: t("games.apex"),
+                  Step: "06",
+                },
+                {
+                  gameLabel: t("games.game_1"),
+                  gameName: t("games.valorant"),
+                  Step: "01",
+                },
+                {
+                  gameLabel: t("games.game_2"),
+                  gameName: t("games.dota2"),
+                  Step: "02",
                 },
               ]}
             />
