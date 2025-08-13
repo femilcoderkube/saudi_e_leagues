@@ -79,7 +79,8 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
     } else if (clickedDate < startDate) {
       setStartDate(clickedDate);
       setEndDate(null);
-    } else {
+    } else if(clickedDate != startDate ) {
+      // setStartDate(clickedDate);
       setEndDate(clickedDate);
     }
   };
@@ -108,8 +109,8 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
   const handleUpdate = () => {
     dispatch(setShowCalendar(false));
 
-    dispatch(setcurrentDate(startDate.toString()));
-    dispatch(setnextDayDate(endDate.toString()));
+    dispatch(setcurrentDate(startDate?.toString()));
+    dispatch(setnextDayDate(endDate?.toString() || new Date(startDate.getTime() + 86400000).toString()));
     // dispatch(setnextDayDate(endDate))
     
     if (onUpdate) {

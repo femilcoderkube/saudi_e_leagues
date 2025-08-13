@@ -105,7 +105,7 @@ export default function BattleRoyalStanding() {
               </div>
               <div className="px-6 ltr:lg:pr-16 rtl:lg:pl-16 ltr:pr-7 rtl:pl-7 py-4 ltr:text-right rtl:text-left max-w-[13%] w-full">
                 <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                {0}
+                {player.totalVictorys || 0}
                 </span>
               </div>
             </div>
