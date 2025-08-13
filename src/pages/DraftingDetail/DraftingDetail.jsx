@@ -207,9 +207,13 @@ const DraftingDetail = () => {
           <div className="drafting__final_teams-wrapper mb-5">
             <div className="drafting__teams-list-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
               {teams?.map((team, teamIdx) => {
-
+                const draftComplete = teams.every(team =>
+                  team.players.every(p => !!p.username)
+                );
                 const isCurrentCaptainTurn = (() => {
-                  if (!draftData?.currentInterval || draftData.currentInterval === -1) {
+                    if (draftComplete) return false; // ✅ hide crown after end
+
+                  if (!draftData?.currentInterval == null || draftData.currentInterval === -1) {
                     return false;
                   }
 
