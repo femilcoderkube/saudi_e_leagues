@@ -411,6 +411,7 @@ const Header = () => {
   const { isActiveTab, showNotification, profileVisible } = useSelector(
     (state) => state.constState
   );
+  const { draftData } = useSelector((state) => state.draft);
   const navigator = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -479,6 +480,23 @@ const Header = () => {
     let item = {
       label: i18n.language === "en" ? tournamentData?.title : tournamentData?.titleAr,
       path: `/${params.id}/lobby/tournament/${params.tId}`,
+      icon: Champions,
+      active: true,
+    };
+    if (
+      breadcrumbItems.length === 2 ||
+      breadcrumbItems[2].label !== item.label
+    ) {
+      breadcrumbItems[1].active = false;
+      breadcrumbItems.push(item);
+    }
+  } else if(params.draftId){
+    if (breadcrumbItems.length === 3) {
+      breadcrumbItems.pop();
+    }
+    let item = {
+      label: i18n.language === "en" ? draftData?.leagueId?.title : draftData?.leagueId?.titleAr,
+      path: `/${params.id}/lobby/${draftData?.leagueId?._id}`,
       icon: Champions,
       active: true,
     };
