@@ -872,7 +872,6 @@ html[dir=rtl] .battle-shape {
 @media (min-width: 1280px) {
   .brackt_fullscreen{
     display: flex !important;
-    align-items: center !important;
   }
 }
 @media (max-width: 1279px) {
@@ -1534,11 +1533,6 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   position: relative;
 }
 
-.drafting__teams-list-block,
-.draft-picks-wrapper-list {
-  direction: ltr;
-}
-
 .drafting__teams-list-wrapper .evenbox-draft_svg_contant--wrap,
 .drafting__teams-list-wrapper .oddbox-draft_svg_contant--wrap {
   display: none;
@@ -1567,6 +1561,7 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 .drafting__teams-item,
 .draft-picks-wrapper-item {
   transition: all 0.3s ease;
+  direction: ltr;
 }
 
 .drafting__teams-item:hover,

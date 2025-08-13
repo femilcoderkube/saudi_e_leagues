@@ -293,7 +293,7 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
 }
 
 .big-card.swiper {
-    width: 188rem !important;
+    width: 108rem !important;
 }
 
 .htp_slider-sec .htp_left-con{
@@ -313,11 +313,13 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
     height: 2rem;
     width: 2rem;
     border-radius: unset;
+    color: rgba(199, 212, 255, 1);
 }
 
 .htp_slider .swiper-pagination-bullet{
     background: radial-gradient(116.31% 116.35% at 50% 0%, rgba(60, 61, 128, 0.736) 0%, rgba(34, 35, 86, 0.64) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
     box-shadow: 0px 2px 4px 0px rgba(87, 89, 195, 0.24) inset;
+    color: rgba(115, 148, 255, 1);
 }
 /* two slider css End */
 /* --------------------------------
