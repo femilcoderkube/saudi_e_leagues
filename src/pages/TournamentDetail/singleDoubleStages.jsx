@@ -16,8 +16,6 @@ const SingleDoubleStages = () => {
   const {
     activeTournamentTab,
     showCalendar,
-    selectedStartDate,
-    selectedEndDate,
   } = useSelector((state) => state.constState);
   const { activeStage, tournamentStages, loader, nextDayDate, currentDate } = useSelector(
     (state) => state.tournament
@@ -26,18 +24,7 @@ const SingleDoubleStages = () => {
 
   let container;
 
-  // Format date for display
-  const formatDateForDisplay = (date) => {
-    if (!date) return null;
-    const dateObj = new Date(date);
-    return {
-      day: dateObj.getDate(),
-      month: dateObj.toLocaleString("en", { month: "short" }),
-    };
-  };
 
-  const startDateDisplay = formatDateForDisplay(selectedStartDate);
-  const endDateDisplay = formatDateForDisplay(selectedEndDate);
 
   useEffect(() => {
     if (tournamentStages) {
@@ -176,11 +163,11 @@ const SingleDoubleStages = () => {
                   <span className="sm:text-lg text-base font-bold">
                      
                       <>
-                        {currentDate.toLocaleString("en-US", {
+                        {new Date(currentDate).toLocaleString("en-US", {
                           day: "2-digit",
-                        })} - {nextDayDate.toLocaleString("en-US", {
+                        })} - {new Date(nextDayDate).toLocaleString("en-US", {
                           day: "2-digit",
-                        })} <span className="font-normal">{currentDate.toLocaleString("en-US", {
+                        })} <span className="font-normal">{new Date(currentDate).toLocaleString("en-US", {
                           month: "short",
                         })}</span>
                       </>
@@ -196,7 +183,7 @@ const SingleDoubleStages = () => {
 
               {showCalendar && activeTournamentTab === 2 && (
                 <div className="open-cal absolute ltr:right-0 rtl:left-0 top-[100%] z-50">
-                  <TournamentDatepiker startDate={currentDate} endDate={nextDayDate}/>
+                  <TournamentDatepiker startDate={new Date(currentDate)} endDate={new Date(nextDayDate)}/>
                 </div>
               )}
             </div>
@@ -220,9 +207,9 @@ const SingleDoubleStages = () => {
                       ?.filter(
                         (item) =>
                           new Date(item.startTime).setHours(0, 0, 0, 0) >=
-                            currentDate.setHours(0, 0, 0, 0) &&
+                            new Date(currentDate).setHours(0, 0, 0, 0) &&
                           new Date(item.startTime).setHours(0, 0, 0, 0) <
-                            nextDayDate.setHours(0, 0, 0, 0)
+                            new Date(nextDayDate).setHours(0, 0, 0, 0)
                       )
                       .map((item, index) => {
                         return <TournamentScheduleCard key={index} item={item} />;

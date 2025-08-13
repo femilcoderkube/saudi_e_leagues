@@ -108,8 +108,9 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
   const handleUpdate = () => {
     dispatch(setShowCalendar(false));
 
-    dispatch(setcurrentDate(startDate))
-    dispatch(setnextDayDate(endDate))
+    dispatch(setcurrentDate(startDate.toString()));
+    dispatch(setnextDayDate(endDate.toString()));
+    // dispatch(setnextDayDate(endDate))
     
     if (onUpdate) {
       onUpdate(startDate, endDate);

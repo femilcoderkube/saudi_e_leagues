@@ -9,8 +9,8 @@ const initialState = {
   stageSettings : null,
   loader :false,
   activeStage: 0,
-  currentDate : new Date(),
-  nextDayDate : new Date(Date.now() + 86400000)
+    currentDate: Date.now(), // store timestamp
+  nextDayDate: Date.now() + 86400000 // store timestamp
 
 };
 
@@ -54,6 +54,13 @@ const tournamentSlice = createSlice({
       state.loader =false
     },
   },
+   middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredPaths: ['tournament.currentDate', 'tournament.nextDayDate'],
+        ignoredActionPaths: ['payload'], // optional
+      },
+    }),
   extraReducers: (builder) => {},
 });
 
