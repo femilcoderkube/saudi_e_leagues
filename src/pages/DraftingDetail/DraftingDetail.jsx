@@ -16,9 +16,51 @@ const DraftingDetail = () => {
   const user = useSelector((state) => state.auth.user);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { draftData, picks, teams, otherPlayers } = useSelector((state) => state.draft);
-  
   const [countdown, setCountdown] = useState(0);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [validationMessage, setValidationMessage] = useState("");
+
+  const getCaptainValidation = () => {
+    if (!user || !teams || !draftData) {
+      return { isUserCaptain: false, isCurrentTurn: false, userTeamIndex: -1 };
+    }
+
+    const userTeamIndex = teams.findIndex(team =>
+      team?.captains?.userId?._id === user._id
+    );
+
+    const isUserCaptain = userTeamIndex !== -1;
+
+    let isCurrentTurn = false;
+    if (isUserCaptain && draftData?.currentInterval !== undefined && draftData.currentInterval !== -1) {
+      const totalTeams = draftData?.totalTeams || teams.length;
+      const interval = draftData.currentInterval + 1;
+
+      const snakeOrder = [];
+      let direction = 1;
+      let currentRoundTeams = [];
+
+      for (let i = 1; i <= interval; i++) {
+        if (currentRoundTeams.length === 0) {
+          currentRoundTeams = direction === 1
+            ? [...Array(totalTeams).keys()]
+            : [...Array(totalTeams).keys()].reverse();
+        }
+        snakeOrder.push(currentRoundTeams.shift());
+
+        if (currentRoundTeams.length === 0) {
+          direction *= -1;
+        }
+      }
+
+      const currentTeamIndex = snakeOrder[interval - 1];
+      isCurrentTurn = currentTeamIndex === userTeamIndex;
+    }
+
+    return { isUserCaptain, isCurrentTurn, userTeamIndex };
+  };
+
+  const { isUserCaptain, isCurrentTurn, userTeamIndex } = getCaptainValidation();
 
   useEffect(() => {
     if (isSocketConnected) {
@@ -29,7 +71,6 @@ const DraftingDetail = () => {
     };
   }, [isSocketConnected, user, window.location.pathname, draftId]);
 
-  // Handle initial loading state
   useEffect(() => {
     if (draftData && teams && otherPlayers) {
       setIsInitialLoading(false);
@@ -47,7 +88,6 @@ const DraftingDetail = () => {
     }, 100);
   }, [draftData, draftData?.currentIntervalTime]);
 
-  // Replace your countdown timer effect with this:
   useEffect(() => {
     if (countdown <= 0) return;
 
@@ -64,7 +104,15 @@ const DraftingDetail = () => {
     return () => clearInterval(timer);
   }, [countdown]);
 
-  // Format countdown as MM:SS
+  useEffect(() => {
+    if (validationMessage) {
+      const timer = setTimeout(() => {
+        setValidationMessage("");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [validationMessage]);
+
   const formatCountdown = (seconds) => {
     const m = Math.floor(seconds / 60)
       .toString()
@@ -73,7 +121,6 @@ const DraftingDetail = () => {
     return `${m}:${s}`;
   };
 
-  // Helper to chunk array into rows of given size
   const chunkArray = (arr, size) => {
     if (!Array.isArray(arr) || size <= 0) return [];
     const result = [];
@@ -86,12 +133,25 @@ const DraftingDetail = () => {
   const rows = chunkArray(picks, otherPlayers?.length / 4);
 
   const handlePlayerClick = (Playerdata) => {
+
+    if (!isUserCaptain) {
+      setValidationMessage("You are not a captain!");
+      return;
+    }
+
+    if (!isCurrentTurn) {
+      setValidationMessage("It's not your turn to pick!");
+      return;
+    }
+
     if (isSocketConnected) {
       setPickedPlayer({ draftId, Playerdata, isSocketConnected });
+      setValidationMessage(""); // Clear any existing message
+
     }
-    return () => {
-      stopDraftSocket();
-    };
+    // return () => {
+    //   stopDraftSocket();
+    // };
   }
 
   if (isInitialLoading || !draftData || !teams || !otherPlayers) {
@@ -102,6 +162,20 @@ const DraftingDetail = () => {
 
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
+      {validationMessage && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg">
+          <p className="font-semibold">{validationMessage}</p>
+        </div>
+      )}
+
+      {isUserCaptain && (
+        <div className="fixed top-16 left-1/2 transform -translate-x-1/2 z-40">
+          <div className={`px-4 py-2 rounded-lg text-white font-semibold ${isCurrentTurn ? 'bg-green-500' : 'bg-gray-500'
+            }`}>
+            {isCurrentTurn ? 'Your Turn to Pick!' : 'Waiting for other captain...'}
+          </div>
+        </div>
+      )}
       {/* --- dashboard main content back groud --- */}
       {/* <div
         className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
@@ -113,6 +187,7 @@ const DraftingDetail = () => {
           <div className="drafting__time-wrapper flex justify-center items-center mb-3">
             <h2 className="text-[7.5rem] font-bold font_oswald drafting__title-bg">
               {formatCountdown(countdown)}
+
             </h2>
           </div>
           <div className="drafting__final_teams-wrapper mb-5">
@@ -121,43 +196,30 @@ const DraftingDetail = () => {
 
                 const isCurrentCaptainTurn = (() => {
                   if (!draftData?.currentInterval || draftData.currentInterval === -1) {
-                    return false; // Draft not started or finished
+                    return false; 
                   }
-                  // Calculate snake order for current interval
+
                   const totalTeams = draftData?.totalTeams || teams.length;
-                  const currentInterval = draftData.currentInterval; // Convert to 0-based index
                   const interval = draftData.currentInterval + 1;
 
-                  // // Determine if we're in forward or backward direction
-                  // const roundNumber = Math.floor(currentInterval / totalTeams);
-                  // const positionInRound = currentInterval % totalTeams;
-                  // const isForwardRound = roundNumber % 2 === 0;
-
-                  // // Calculate which team should pick
-                  // const currentTeamIndex = isForwardRound
-                  //   ? positionInRound
-                  //   : totalTeams - 1 - positionInRound;
-                  // Build snake order array for this specific interval
                   const snakeOrder = [];
-                  let direction = 1; // 1 for forward, -1 for backward
+                  let direction = 1;
                   let currentRoundTeams = [];
 
                   for (let i = 1; i <= interval; i++) {
                     if (currentRoundTeams.length === 0) {
-                      // Start new round
                       currentRoundTeams = direction === 1
-                        ? [...Array(totalTeams).keys()] // [0,1,2,3]
-                        : [...Array(totalTeams).keys()].reverse(); // [3,2,1,0]
+                        ? [...Array(totalTeams).keys()]
+                        : [...Array(totalTeams).keys()].reverse();
                     }
                     snakeOrder.push(currentRoundTeams.shift());
 
-                    // If round is complete, switch direction
                     if (currentRoundTeams.length === 0) {
                       direction *= -1;
                     }
                   }
 
-                  const currentTeamIndex = snakeOrder[interval - 1]; // Get team for current interval
+                  const currentTeamIndex = snakeOrder[interval - 1];
 
                   return currentTeamIndex === teamIdx;
                 })();
@@ -201,7 +263,6 @@ const DraftingDetail = () => {
                       </div>
 
                       {/* Team captain card */}
-                      {/* Players slots (placeholders or picks) */}
                       <ul className="drafting__teams-picked-list">
                         {team.players.map((p, slotIdx) => {
                           const isPicked = !!p.username;
@@ -217,7 +278,6 @@ const DraftingDetail = () => {
                             score: Math.round(p.score || 0)
                           };
 
-                          // pick even/odd styling on the placeholder index
                           const Card = slotIdx % 2 === 0 ? EvenPosCard : OddPosCard;
 
                           return (
@@ -304,7 +364,6 @@ const DraftingDetail = () => {
               </h2>
             </div>
 
-            {/* Check if draft hasn't started yet */}
             {new Date() < new Date(draftData?.startTime) ? (
               <div className="text-center py-8">
                 <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
@@ -335,15 +394,22 @@ const DraftingDetail = () => {
                 {otherPlayers.length > 0 ? (
                   rows.map((row, rowIdx) => (
                     <div className="draft-row" key={rowIdx}>
-                      {row.map((data, idx) => (
-                        <div className="draft-picks-wrapper-item" key={data.index}>
-                          {idx % 2 === 0 ? (
-                            <OddPosCard props={data} onClick={() => handlePlayerClick(data)} />
-                          ) : (
-                            <EvenPosCard props={data} onClick={() => handlePlayerClick(data)} />
-                          )}
-                        </div>
-                      ))}
+                      {row.map((data, idx) => {
+
+                        const isClickable = isUserCaptain && isCurrentTurn;
+                        return (
+                          <div className="draft-picks-wrapper-item" key={data.index}>
+                            {idx % 2 === 0 ? (
+                              <OddPosCard props={data}
+                                onClick={isClickable ? () => handlePlayerClick(data) : undefined}
+                              />
+                            ) : (
+                              <EvenPosCard props={data}
+                                onClick={isClickable ? () => handlePlayerClick(data) : undefined} />
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
                   ))
                 ) : (
@@ -353,31 +419,7 @@ const DraftingDetail = () => {
                 )}
               </div>
             )}
-            {/* <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8">
-                  {otherPlayers.length > 0 ? (
-                    rows.map((row, rowIdx) => (
-                      <div className="draft-row" key={rowIdx}>
-                        {row.map((data, idx) => (
 
-                          <div
-                            className="draft-picks-wrapper-item"
-                            key={data.index}
-                          >
-                            {idx % 2 === 0 ? (
-                              <OddPosCard props={data} onClick={() => handlePlayerClick(data)} />
-                            ) : (
-                              <EvenPosCard props={data} onClick={() => handlePlayerClick(data)} />
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    ))
-                  ) : (
-                    <div className="w-full text-center py-8 text-xl text-gray-500">
-                      No players available for drafting.
-                    </div>
-                  )}
-                </div> */}
           </div>
         </div>
       }
