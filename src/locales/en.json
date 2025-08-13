@@ -34,7 +34,6 @@
     "cancel": "Cancel",
     "verify": "Verify"
   },
-
   "form": {
     "username": "Username",
     "firstName": "First Name",
@@ -384,5 +383,14 @@
     "cancelMatchTitle": "Are you sure you want to cancel the match?",
     "yes": "Yes",
     "no": "No"
+  },
+  "drafting": {
+    "drafting_picks": "Draft Picks",
+    "no_draft_picks": "No Draft Picks Available",
+    "draft_not_started": "Draft hasn't started yet!",
+    "draft_will_begin": "Draft will begin at: ",
+    "no_draft_player": "No players available for drafting.",
+    "teams": "Teams",
+    "gold_crown": "Gold Crown"
   }
 }

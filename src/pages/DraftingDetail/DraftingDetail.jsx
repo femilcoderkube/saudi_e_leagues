@@ -13,6 +13,7 @@ import GoldCrown from "../../assets/images/gold_crown.png";
 import moment from "moment";
 import { setConfirmationPopUp, setSelectedPlayerData } from "../../app/slices/constState/constStateSlice";
 import ConfirmationPopUp from "../../components/ModalPopUp/confirmationPopUp";
+import { t } from "i18next";
 
 const DraftingDetail = () => {
   const { draftId } = useParams();
@@ -164,24 +165,20 @@ const DraftingDetail = () => {
       <GamingLoader />
     );
   }
-const cards = otherPlayers; // already filtered/ordered as you want
 
   return (
-    <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
+    <main className="flex-1 tournament_page--wrapper pb-[5.25rem] sm:pb-0">
       {validationMessage && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg">
           <p className="font-semibold">{validationMessage}</p>
         </div>
       )}
 
-      {isUserCaptain && (
+      {/* {isUserCaptain && (
         <div className="fixed top-16 left-1/2 transform -translate-x-1/2 z-40">
+
           <div className={`px-4 py-2 rounded-lg text-white font-semibold ${isCurrentTurn ? 'bg-green-500' : 'bg-gray-500'
             }`}>
-            {/* {otherPlayers.length > 0
-              ? (isCurrentTurn ? "Your Turn to Pick!" : "Waiting for other captain...")
-              : "Draft Complete"
-            } */}
             {new Date() < new Date(draftData?.startTime)
               ? ``
               : otherPlayers.length > 0
@@ -189,8 +186,10 @@ const cards = otherPlayers; // already filtered/ordered as you want
                 : "Draft Complete"
             }
           </div>
+          
         </div>
-      )}
+      )} */}
+
       {/* --- dashboard main content back groud --- */}
       {/* <div
         className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
@@ -242,13 +241,13 @@ const cards = otherPlayers; // already filtered/ordered as you want
                 return (
                   <div className="drafting__teams-list" key={teamIdx}>
                     <h2 className="grad_head--txt max-w-full md:text-[2.5rem] text-[1.8rem] pl-[1rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
-                      Team {teamIdx + 1}
+                      {t("drafting.teams")} {teamIdx + 1}
                     </h2>
                     <div className="drafting__teams-list-block">
                       <div className={`drafting__teams-item relative ${isCurrentCaptainTurn ? 'captain_turn' : ''}`}>
                         <span className="gold_crown absolute top-[-2.5rem] ltr:right-6 rtl:left-6 z-10">
                           <img
-                            alt="Gold Crown"
+                            alt={t("drafting.gold_crown")}
                             className="h-9"
                             src={GoldCrown}
                           />
@@ -315,15 +314,15 @@ const cards = otherPlayers; // already filtered/ordered as you want
           <div className="draft-picks-wrapper mb-8">
             <div className="draft-picks-wrapper-title text-center relative mb-4">
               <h2 className="text-[3.2rem] font-bold font_oswald drafting__title-bg relative inline-block">
-                {otherPlayers.length > 0 ? "Draft Pick" : "No Draft Picks Available"}
+                {otherPlayers.length > 0 ? t("drafting.drafting_picks") : t("drafting.no_draft_picks")}
               </h2>
             </div>
 
             {new Date() < new Date(draftData?.startTime) ? (
               <div className="text-center py-8">
                 <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
-                  <p className="text-xl font-semibold">Draft hasn't started yet!</p>
-                  <p>Draft will begin at: {new Date(draftData.startTime).toLocaleString()}</p>
+                  <p className="text-xl font-semibold">{t("drafting.draft_not_started")}</p>
+                  <p>{t("drafting.draft_will_begin")}{new Date(draftData.startTime).toLocaleString()}</p>
                 </div>
 
                 {/* Show grayed out players */}
@@ -368,7 +367,7 @@ const cards = otherPlayers; // already filtered/ordered as you want
                   ))
                 ) : (
                   <div className="w-full text-center py-8 text-xl text-gray-500">
-                    No players available for drafting.
+                    {t("drafting.no_draft_player")}
                   </div>
                 )}
               </div>
@@ -378,7 +377,7 @@ const cards = otherPlayers; // already filtered/ordered as you want
               onPlayerSelect={({ draftId, Playerdata, isSocketConnected }) => {
                 if (isSocketConnected) {
                   setPickedPlayer({ draftId, Playerdata, isSocketConnected });
-                  setValidationMessage(""); // Clear any existing message
+                  setValidationMessage("");
                 }
               }}
               draftId={draftId}
