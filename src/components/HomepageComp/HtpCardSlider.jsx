@@ -138,16 +138,22 @@ const HtpCardSlider = ({
         pagination={{
           el: `.custom-pagination-${sliderId}`,
           clickable: true,
+          renderBullet: (index, className) => {
+            return `<span class="${className}">${index + 1}</span>`;
+          },
         }}
         breakpoints={{
           0: {
             pagination: {
               el: `.custom-pagination-${sliderId}`,
               clickable: true,
+              renderBullet: (index, className) => {
+                return `<span class="${className}">${index + 1}</span>`;
+              },
             },
           },
           640: {
-            pagination: false, // disable pagination on larger screens
+            pagination: false,
           },
         }}
         onSwiper={(swiper) => {
@@ -162,11 +168,12 @@ const HtpCardSlider = ({
         ))}
       </Swiper>
 
-        {/* Custom Pagination Dots for Mobile */}
-     {<div
-        className={`custom-pagination-${sliderId} flex justify-end mt-4 gap-2 sm:hidden absolute ltr:right-0 rtl:left-0 !-bottom-[3.3rem] z-100`}
-      >
-      </div> }   
+      {/* Custom Pagination Dots for Mobile */}
+      {
+        <div
+          className={`custom-pagination-${sliderId} flex justify-end mt-4 gap-3 sm:hidden absolute ltr:right-0 rtl:left-0 !-bottom-[3rem] z-100`}
+        ></div>
+      }
 
       {/* Thumbs Swiper (Small Card) */}
       <Swiper
