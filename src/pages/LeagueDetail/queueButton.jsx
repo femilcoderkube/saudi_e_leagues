@@ -56,7 +56,7 @@ const GetQueueButton = () => {
     // if (leagueData?.draft?.isPublished && leagueData?.draft?.startTime && new Date(leagueData?.draft?.startTime) > now) {
     if (leagueData?.draft?.isPublished) {
       return (
-        <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before "
+        <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
             navigate(`/${id}/lobby/drafting/${leagueData?.draft?._id}`);
           }}

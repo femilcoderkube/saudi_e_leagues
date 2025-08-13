@@ -34,6 +34,7 @@
     "cancel": "Cancel",
     "verify": "Verify"
   },
+
   "form": {
     "username": "Username",
     "firstName": "First Name",

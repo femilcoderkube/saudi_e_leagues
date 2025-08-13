@@ -5,21 +5,24 @@ import {
   OddPosCard,
 } from "../../components/DraftingDetailComponents/DraftTeamsCards";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDraftById, setPickedPlayer, socket, stopDraftSocket } from "../../app/socket/socket";
 import { getIntervalCountdown, getServerURL } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
 import GoldCrown from "../../assets/images/gold_crown.png";
 import moment from "moment";
+import { setConfirmationPopUp, setSelectedPlayerData } from "../../app/slices/constState/constStateSlice";
+import ConfirmationPopUp from "../../components/ModalPopUp/confirmationPopUp";
 
 const DraftingDetail = () => {
   const { draftId } = useParams();
   const user = useSelector((state) => state.auth.user);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { draftData, picks, teams, otherPlayers } = useSelector((state) => state.draft);
-  const [countdown, setCountdown] = useState(0);
+  const [countdown, setCountdown] = useState("00:00");
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [validationMessage, setValidationMessage] = useState("");
+  const dispatch = useDispatch();
 
   const getCaptainValidation = () => {
     if (!user || !teams || !draftData) {
@@ -84,7 +87,7 @@ const DraftingDetail = () => {
         const initialCountdown = getIntervalCountdown(
           draftData?.currentIntervalTime, draftData?.pickTimeSeconds
         );
-        setCountdown(initialCountdown);
+        setCountdown(initialCountdown || "00:00");
       }
     }, 100);
   }, [draftData, draftData?.currentIntervalTime]);
@@ -97,8 +100,7 @@ const DraftingDetail = () => {
         const realTimeCountdown = getIntervalCountdown(
           draftData?.currentIntervalTime, draftData?.pickTimeSeconds
         );
-
-        setCountdown(realTimeCountdown);
+        setCountdown(realTimeCountdown || "00:00");
       }
     }, 100);
 
@@ -126,30 +128,32 @@ const DraftingDetail = () => {
     if (!Array.isArray(arr) || size <= 0) return [];
     const result = [];
     for (let i = 0; i < arr.length; i += size) {
+      // Always push in the same order
       result.push(arr.slice(i, i + size));
     }
     return result;
   };
 
-  const rows = chunkArray(picks, otherPlayers?.length / 4);
+  const rows = chunkArray(picks, teams?.length > picks?.length ? 1 : Math.ceil(picks?.length / teams?.length));
 
   const handlePlayerClick = (Playerdata) => {
+    if (isUserCaptain && isCurrentTurn) {
+      // Store the player data and show confirmation popup
+      dispatch(setSelectedPlayerData(Playerdata));
+      dispatch(setConfirmationPopUp(3)); // 3 for player selection confirmation
+    } else {
+      // Show validation messages for non-captains or wrong turn
+      if (!isUserCaptain) {
+        setValidationMessage("You are not a captain!");
+        return;
+      }
 
-    if (!isUserCaptain) {
-      setValidationMessage("You are not a captain!");
-      return;
+      if (!isCurrentTurn) {
+        setValidationMessage("It's not your turn to pick!");
+        return;
+      }
     }
 
-    if (!isCurrentTurn) {
-      setValidationMessage("It's not your turn to pick!");
-      return;
-    }
-
-    if (isSocketConnected) {
-      setPickedPlayer({ draftId, Playerdata, isSocketConnected });
-      setValidationMessage(""); // Clear any existing message
-
-    }
     // return () => {
     //   stopDraftSocket();
     // };
@@ -160,6 +164,7 @@ const DraftingDetail = () => {
       <GamingLoader />
     );
   }
+const cards = otherPlayers; // already filtered/ordered as you want
 
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
@@ -197,7 +202,7 @@ const DraftingDetail = () => {
           <div className="drafting__time-wrapper flex justify-center items-center mb-3">
             <h2 className="text-[7.5rem] font-bold font_oswald drafting__title-bg">
 
-              {otherPlayers.length > 0 ? formatCountdown(countdown) : formatCountdown(0)}
+              {otherPlayers.length > 0 ? countdown : "00:00"}
             </h2>
           </div>
           <div className="drafting__final_teams-wrapper mb-5">
@@ -300,66 +305,6 @@ const DraftingDetail = () => {
                           );
                         })}
                       </ul>
-
-                      {/* {otherPlayers?.length > 0 && (() => {
-                          const totalTeams = draftData?.totalTeams;
-                          const maxCount = draftData?.totalPlayers - draftData?.totalTeams;
-                          const numPicks = otherPlayers.length;
-                          let snakeOrder = [];
-                          let direction = 1; // 1 for forward, -1 for backward
-
-                          // Build the snake order array
-                          while (snakeOrder.length < numPicks) {
-                            for (let i = 0; i < totalTeams && snakeOrder.length < numPicks; i++) {
-                              snakeOrder.push(direction === 1 ? i : totalTeams - 1 - i);
-                            }
-                            direction *= -1;
-                          }
-                          
-
-                          // Find picks for this specific team based on snake order
-                          const teamPicks = [];
-                          snakeOrder.forEach((teamIdxInOrder, pickIdx) => {
-                            if (teamIdxInOrder === teamIdx && team?.players?.[teamPicks.length]) {
-                              let pickNumber = maxCount ? maxCount - pickIdx : numPicks - pickIdx;
-                              teamPicks.push({
-                                pickIdx: pickNumber,
-                                playerId: team.players[teamPicks.length],
-                                globalPickIndex: pickIdx
-                              });
-                            }
-                          });
-
-                          // Render the player cards for this team
-                          return teamPicks.map((pick, index) => {
-                            const playerData = otherPlayers?.find(p => p.userId._id === pick.playerId.id);
-
-                            if (!playerData) {
-                              console.warn(`Player with ID ${pick.playerId} not found in otherPlayers`);
-                              return null;
-                            }
-
-                            const data = {
-                              index: maxCount + 1 - pick.pickIdx,
-                              username: playerData?.userId?.username || "",
-                              fullName: playerData?.userId?.fullName || "",
-                              id: playerData?.userId?._id || "",
-                              rep: playerData?.wilsonScore || 0,
-                              profilePic: getServerURL(playerData?.userId?.profilePicture || ""),
-                              rank: playerData?.rank || "",
-                              score: Math.round(playerData?.totalLeaguesScore || 0)
-                            };
-
-                            // Use pick number to determine even/odd card
-                            const Card = pick.pickIdx % 2 === 0 ? EvenPosCard : OddPosCard;
-
-                            return (
-                              <li key={pick.index} className={`drafting__teams-item list-none ${data.username ? 'assign' : ''}`}>
-                                <Card props={data} />
-                              </li>
-                            );
-                          });
-                        })()} */}
                     </div>
                   </div>
                 )
@@ -403,12 +348,11 @@ const DraftingDetail = () => {
               <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8">
                 {otherPlayers.length > 0 ? (
                   rows.map((row, rowIdx) => (
-                    <div className="draft-row" key={rowIdx}>
+                    <div className="">
                       {row.map((data, idx) => {
-
                         const isClickable = isUserCaptain && isCurrentTurn;
                         return (
-                          <div className="draft-picks-wrapper-item" key={data.index}>
+                          <div className="draft-picks-wrapper-item">
                             {idx % 2 === 0 ? (
                               <OddPosCard props={data}
                                 onClick={isClickable ? () => handlePlayerClick(data) : undefined}
@@ -429,6 +373,17 @@ const DraftingDetail = () => {
                 )}
               </div>
             )}
+
+            <ConfirmationPopUp
+              onPlayerSelect={({ draftId, Playerdata, isSocketConnected }) => {
+                if (isSocketConnected) {
+                  setPickedPlayer({ draftId, Playerdata, isSocketConnected });
+                  setValidationMessage(""); // Clear any existing message
+                }
+              }}
+              draftId={draftId}
+              isSocketConnected={isSocketConnected}
+            />
 
           </div>
         </div>

@@ -8,22 +8,79 @@ import { setConfirmationPopUp } from "../../app/slices/constState/constStateSlic
 import { logout } from "../../app/slices/auth/authSlice";
 import { cancelMatch } from "../../app/socket/socket";
 
-function ConfirmationPopUp() {
-  const { confirmationPopUp } = useSelector((state) => state.constState);
-  const { matchData , myPId } = useSelector((state) => state.matchs);
+function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
+  const { confirmationPopUp, selectedPlayerData } = useSelector((state) => state.constState);
+  const { matchData, myPId } = useSelector((state) => state.matchs);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
   const handleOnClick = () => {
     if (confirmationPopUp == 1) {
       dispatch(setConfirmationPopUp(0));
       dispatch(logout());
       localStorage.clear();
     }
-    if(confirmationPopUp == 2){
+    if (confirmationPopUp == 2) {
       dispatch(setConfirmationPopUp(0));
       cancelMatch({ matchId: matchData?._id, participantId: myPId });
     }
+    if (confirmationPopUp == 3) {
+      // Handle player selection confirmation
+      dispatch(setConfirmationPopUp(0));
+      if (selectedPlayerData && onPlayerSelect) {
+        onPlayerSelect({
+          draftId,
+          Playerdata: selectedPlayerData,
+          isSocketConnected
+        });
+      }
+    }
   };
+
+  const handlePlayerSelection = (playerData) => {
+    // Your existing player selection logic goes here
+    console.log('Player selected:', playerData);
+    // Example: call API to select player
+    // selectPlayer({ playerId: playerData.id, draftId: draftData._id });
+
+    // Add your actual player selection API call here
+    // For example:
+    // dispatch(selectPlayerAction({
+    //   playerId: playerData._id,
+    //   draftId: draftData._id,
+    //   captainId: myPId
+    // }));
+  };
+
+  const getConfirmationTitle = () => {
+    if (confirmationPopUp == 1) return t("confirmation.logoutTitle");
+    if (confirmationPopUp == 2) return t("confirmation.cancelMatchTitle");
+    if (confirmationPopUp == 3) return "Confirm Player Selection";
+    return "";
+  };
+
+  const getConfirmationMessage = () => {
+    if (confirmationPopUp == 3 && selectedPlayerData) {
+      return `Are you sure you want to select ${selectedPlayerData.name || selectedPlayerData.playerName || 'this player'}?`;
+    }
+    return "";
+  };
+
+  const getCancelText = () => {
+    if (confirmationPopUp == 1) return t("confirmation.cancel");
+    if (confirmationPopUp == 2) return t("confirmation.no");
+    if (confirmationPopUp == 3) return "Cancel";
+    return "";
+  };
+
+  const getConfirmText = () => {
+    if (confirmationPopUp == 1) return t("confirmation.logoutConfirm");
+    if (confirmationPopUp == 2) return t("confirmation.yes");
+    if (confirmationPopUp == 3) return "Select Player";
+    return "";
+  };
+
+  if (confirmationPopUp === 0) return null;
 
   return (
     <>
@@ -59,8 +116,34 @@ function ConfirmationPopUp() {
             </div>
             <div className="popup_body px-8   flex flex-col items-center gap-4 pt-15 justify-center">
               <h2 className="text-2xl font-bold mb-4 purple_col">
-                {confirmationPopUp == 1 ? t("confirmation.logoutTitle") : t("confirmation.cancelMatchTitle")}
+                {/* {confirmationPopUp == 1 ? t("confirmation.logoutTitle") : t("confirmation.cancelMatchTitle")} */}
+                {getConfirmationTitle()}
+
               </h2>
+
+              {/* Show player details for confirmation */}
+              {confirmationPopUp == 3 && selectedPlayerData && (
+                <div className="mb-4 text-center">
+                  <p className="text-lg text-gray-700 mb-3">{getConfirmationMessage()}</p>
+
+                  {/* {selectedPlayerData.image && (
+                    <div className="mb-3">
+                      <img 
+                        src={selectedPlayerData.image} 
+                        alt={selectedPlayerData.name || selectedPlayerData.playerName}
+                        className="w-20 h-20 rounded-full mx-auto object-cover border-2 border-purple-300"
+                      />
+                    </div>
+                  )}
+                  
+                  <div className="space-y-2">
+                    <p className="font-bold text-xl text-purple-600">
+                      {selectedPlayerData.name || selectedPlayerData.playerName || 'Player'}
+                    </p>
+                  </div> */}
+
+                </div>
+              )}
 
               <div className="flex gap-4 justify-center">
                 <div className="flex  sd_uaser-menu ">
@@ -74,7 +157,9 @@ function ConfirmationPopUp() {
                           dispatch(setConfirmationPopUp(0));
                         }}
                       >
-                        {confirmationPopUp == 1 ? t("confirmation.cancel") : t("confirmation.no")}
+                        {/* {confirmationPopUp == 1 ? t("confirmation.cancel") : t("confirmation.no")} */}
+                        {getCancelText()}
+
                       </button>
                     </div>
                   </div>
@@ -92,6 +177,8 @@ function ConfirmationPopUp() {
                         }}
                       >
                         {confirmationPopUp == 1 ? t("confirmation.logoutConfirm") : t("confirmation.yes")}
+                        {getConfirmText()}
+
                       </button>
                     </div>
                   </div>
