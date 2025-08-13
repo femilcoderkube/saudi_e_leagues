@@ -211,7 +211,7 @@ const DraftingDetail = () => {
                   team.players.every(p => !!p.username)
                 );
                 const isCurrentCaptainTurn = (() => {
-                    if (draftComplete) return false; // ✅ hide crown after end
+                  if (draftComplete) return false;
 
                   if (!draftData?.currentInterval == null || draftData.currentInterval === -1) {
                     return false;
@@ -326,7 +326,9 @@ const DraftingDetail = () => {
               <div className="text-center py-8">
                 <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
                   <p className="text-xl font-semibold">{t("drafting.draft_not_started")}</p>
-                  <p>{t("drafting.draft_will_begin")}{new Date(draftData.startTime).toLocaleString()}</p>
+                  <p>{t("drafting.draft_will_begin")}{moment(draftData.startTime)
+                    .tz("Asia/Riyadh")
+                    .format("DD/MM/YYYY hh:mm A")}</p>
                 </div>
 
                 {/* Show grayed out players */}
