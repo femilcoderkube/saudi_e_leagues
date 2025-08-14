@@ -8,57 +8,32 @@ import { getServerURL } from "../../utils/constant";
 import { useNavigate, useParams } from "react-router-dom";
 
 const TournamentScheduleCard = ({ item }) => {
-  const { id } = useParams();
-  
-  const { tournamentData } = useSelector(
-    (state) => state.tournament
-  );
-
-  let data = {
-    time: item?.startTime
-      ? new Date(item.startTime)
-          .toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true,
-          })
-          .toLowerCase()
-      : "",
-      date: item?.startTime
-        ? new Date(item.startTime).toLocaleDateString("en-US", {
-            month: "short",
-            day: "2-digit",
-          })
-        : "",
-    team1: item?.opponent1.team || item?.opponent1.user,
-    team2: item?.opponent2.team || item?.opponent2.user,
-    acticeScore:
-      item?.matchScores?.find((score) => score.isActive === true) || {},
-  };
-  const navigate = useNavigate();
-
   return (
-    <div className="relative main-tournament-schedule-card-wrapper cursor-pointer"
-    onClick={() => {
-      navigate(`/${id}/tournament/match/${item._id}`)}}>
-      {" "}
-      <div className="tournament-schedule-card-header-time absolute top-0 left-0 z-10 w-full flex items-center justify-center ">
-        <h2 className="text-base font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative">
-          {data?.date}&nbsp;&nbsp;
+    <div className="flex flex-col mt-5">
+    <div className="card-duty-wp relative main-tournament-schedule-card-wrapper cursor-pointer !mb-5">
+      <div className="tournament-schedule-card-header-time absolute bottom-0 left-0 z-10 w-full flex items-center justify-center ">
+        <h2 className="text-[0.7rem] font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative">
+          12 Jul
           <span className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative">
-          {data?.time}
+            08:30 PM
           </span>
         </h2>
       </div>
-      <div className="tournament-schedule-card-wrapper relative">
-        <div className="tournament-schedule-card-header flex justify-between items-center p-4 md:pt-10 pt-6 md:pb-6 md:px-8 relative">
-          <img
-            src={tournament_bg_img}
-            alt="tournament-schedule"
-            className="w-full h-full object-cover absolute top-0 left-0 z-0 opacity-4 "
-          />
-          <div className="tournament-schedule-card-header-left flex items-center gap-4 md:gap-8 relative z-10">
-            <div className="sm:w-[5rem] sm:h-[5rem] w-[4rem] h-[4rem] rounded-lg overflow-hidden">
+      <div className="tournament-schedule-card-footer flex justify-between items-center h-[2rem] md:h-[2.5rem] p-3  absolute top-0 w-full">
+          <div className="tournament-schedule-card-footer-left flex items-center gap-3">
+            <img src={footer_card_icon} alt="" />
+            <h2 className="text-sm grad_text-clip font-bold">
+              Valorant
+            </h2>
+          </div>
+          <div className="tournament-schedule-card-footer-right text-right">
+            <button className="common-process px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">Progress</button>
+          </div>
+        </div>
+      <div className="tournament-schedule-card-wrapper relative  p-2  md:px-3 ">
+        <div className="tournament-schedule-card-header flex justify-between items-center relative gap-6 mt-2">
+          <div className="tournament-schedule-card-header-left flex items-center gap-3 md:gap-4 relative z-10">
+            <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
               <img
                 src={tournament_thumbnail}
                 alt="tournament-schedule"
@@ -66,17 +41,21 @@ const TournamentScheduleCard = ({ item }) => {
               />
             </div>
             <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
-              {data?.acticeScore?.opponent1Score?.toString() || "-"}
+              2
             </h2>
           </div>
           <div className="tournament-schedule-card-header-center">
-            <img className="w-11.5 h-11.5" src={getServerURL(tournamentData?.game?.logo)} alt="" />
+            <img
+              className="w-5.5 h-10 shrink-0 object-cover"
+              src={tournament_thumbnail}
+              alt=""
+            />
           </div>
           <div className="tournament-schedule-card-header-right flex items-center gap-4 md:gap-8 relative z-10">
             <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
-              {data?.acticeScore?.opponent2Score?.toString()  || "-"}
+              0
             </h2>
-            <div className="sm:w-[5rem] sm:h-[5rem] w-[4rem] h-[4rem] rounded-lg overflow-hidden">
+            <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
               <img
                 src={tournament_thumbnail}
                 alt="tournament-schedule"
@@ -85,48 +64,20 @@ const TournamentScheduleCard = ({ item }) => {
             </div>
           </div>
         </div>
-        <div className="tournament-schedule-card-footer flex justify-between items-center h-[3rem] md:h-[4rem] px-4 md:px-8 py-4 overflow-hidden relative">
-          <div className="tournament-schedule-card-footer-left">
-            <h2 className="text-base md:text-lg grad_text-clip font-bold">
-              {data?.team1?.teamName || data?.team1?.username}
-            </h2>
-          </div>
-          <div className="tournament-schedule-card-footer-center w-[2rem] md:w-[3rem]">
-            <img
-              src={tournament_vs_icon}
-              alt="tournament-schedule"
-              className="mix-blend-luminosity"
-            />
-          </div>
-          <div className="tournament-schedule-card-footer-right text-right">
-            <h2 className="text-base md:text-lg grad_text-clip font-bold">
-              {data?.team2?.teamName || data?.team2?.username}
-            </h2>
-          </div>
-        </div>
-        <div className="tournament-schedule-card-footer tournament-schedule-card-footer-hover flex justify-center items-center h-[3rem] md:h-[4rem] px-4 md:px-8 md:pb-6 py-4 overflow-hidden relative">
-          <div className="tournament-schedule-card-footer-left flex gap-2 items-center justify-center">
-            <h2 className="text-base md:text-xl font-semibold text-[#3ECCF3]">Match Page</h2>
-            <img src={footer_card_icon} alt="" />
-          </div>
-        </div>
 
-        {/* card bottom shape */}        
+        {/* card bottom shape */}
         <svg
           width={0}
           height={0}
-          viewBox="0 0 448 64"
+          viewBox="0 0 112 20"
           xmlns="http://www.w3.org/2000/svg"
           style={{
             position: "absolute",
           }}
         >
           <defs>
-            <clipPath id="clipPathBanner" clipPathUnits="objectBoundingBox">
-              <path
-                transform="scale(0.00223214, 0.015625)"
-                d="M448 8V48L432 64H272L264 56H184L176 64H16L0 48V8L8 0H440L448 8Z"
-              />
+            <clipPath id="duty_bottom1" clipPathUnits="objectBoundingBox">
+              <path d="         M0,1         H1         L0.82143,0         H0.17857         L0,1         Z       " />
             </clipPath>
           </defs>
         </svg>
@@ -134,38 +85,246 @@ const TournamentScheduleCard = ({ item }) => {
         <svg
           width={0}
           height={0}
-          viewBox="0 0 448 200"
+          viewBox="0 0 232 132"
           xmlns="http://www.w3.org/2000/svg"
           style={{
             position: "absolute",
           }}
         >
           <defs>
-            <clipPath id="scalableClipPath" clipPathUnits="objectBoundingBox">
-              <path
-                transform="scale(0.00223214, 0.005)"
-                d="M144 36H304L336 0H432L448 16V184L432 200H272L264 192H184L176 200H16L0 184V16L16 0H112L144 36Z"
-              />
+            <clipPath id="duty_main2" clipPathUnits="objectBoundingBox">
+              <path d="         M1,0.93939         L0.96552,1         H0.77586         L0.67241,0.81818         H0.32759         L0.22414,1         H0.03448         L0,0.93939         V0.30303         H1         V0.93939         Z       " />
             </clipPath>
           </defs>
         </svg>
       </div>
       {/* card top shape */}
       <svg
-        width="0%"
-        height="0%"
-        viewBox="0 0 212 32"
+        width={0}
+        height={0}
+        viewBox="0 0 232 40"
         xmlns="http://www.w3.org/2000/svg"
         style={{
           position: "absolute",
         }}
       >
         <defs>
-          <clipPath id="scalable-clip" clipPathUnits="objectBoundingBox">
-            <path d="M0,0 H1 L0.8679,1 H0.1321 L0,0 Z" />
+          <clipPath id="duty_top1" clipPathUnits="objectBoundingBox">
+            <path d="         M1,0.2         V1 H0 V0.2         L0.03448,0 H0.96552 L1,0.2 Z       " />
           </clipPath>
         </defs>
       </svg>
+    </div>
+    <div className="card-duty-wp relative main-tournament-schedule-card-wrapper cursor-pointer !mb-5">
+      <div className="tournament-schedule-card-header-time absolute bottom-0 left-0 z-10 w-full flex items-center justify-center ">
+        <h2 className="text-[0.7rem] font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative">
+          12 Jul
+          <span className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative">
+            08:30 PM
+          </span>
+        </h2>
+      </div>
+      <div className="tournament-schedule-card-footer flex justify-between items-center h-[2rem] md:h-[2.5rem] p-3  absolute top-0 w-full">
+          <div className="tournament-schedule-card-footer-left flex items-center gap-3">
+            <img src={footer_card_icon} alt="" />
+            <h2 className="text-sm grad_text-clip font-bold">
+              Valorant
+            </h2>
+          </div>
+          <div className="tournament-schedule-card-footer-right text-right">
+            <button className="common-green px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">Progress</button>
+          </div>
+        </div>
+      <div className="tournament-schedule-card-wrapper relative  p-2  md:px-3 ">
+        <div className="tournament-schedule-card-header flex justify-between items-center relative gap-6 mt-2">
+          <div className="tournament-schedule-card-header-left flex items-center gap-3 md:gap-4 relative z-10">
+            <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
+              <img
+                src={tournament_thumbnail}
+                alt="tournament-schedule"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
+              2
+            </h2>
+          </div>
+          <div className="tournament-schedule-card-header-center">
+            <img
+              className="w-5.5 h-10 shrink-0 object-cover"
+              src={tournament_thumbnail}
+              alt=""
+            />
+          </div>
+          <div className="tournament-schedule-card-header-right flex items-center gap-4 md:gap-8 relative z-10">
+            <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
+              0
+            </h2>
+            <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
+              <img
+                src={tournament_thumbnail}
+                alt="tournament-schedule"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* card bottom shape */}
+        <svg
+          width={0}
+          height={0}
+          viewBox="0 0 112 20"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            position: "absolute",
+          }}
+        >
+          <defs>
+            <clipPath id="duty_bottom1" clipPathUnits="objectBoundingBox">
+              <path d="         M0,1         H1         L0.82143,0         H0.17857         L0,1         Z       " />
+            </clipPath>
+          </defs>
+        </svg>
+        {/* card main shape */}
+        <svg
+          width={0}
+          height={0}
+          viewBox="0 0 232 132"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            position: "absolute",
+          }}
+        >
+          <defs>
+            <clipPath id="duty_main2" clipPathUnits="objectBoundingBox">
+              <path d="         M1,0.93939         L0.96552,1         H0.77586         L0.67241,0.81818         H0.32759         L0.22414,1         H0.03448         L0,0.93939         V0.30303         H1         V0.93939         Z       " />
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+      {/* card top shape */}
+      <svg
+        width={0}
+        height={0}
+        viewBox="0 0 232 40"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{
+          position: "absolute",
+        }}
+      >
+        <defs>
+          <clipPath id="duty_top1" clipPathUnits="objectBoundingBox">
+            <path d="         M1,0.2         V1 H0 V0.2         L0.03448,0 H0.96552 L1,0.2 Z       " />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+    <div className="card-duty-wp relative main-tournament-schedule-card-wrapper cursor-pointer  !mb-5">
+      <div className="tournament-schedule-card-header-time absolute bottom-0 left-0 z-10 w-full flex items-center justify-center ">
+        <h2 className="text-[0.7rem] font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative">
+          12 Jul
+          <span className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative">
+            08:30 PM
+          </span>
+        </h2>
+      </div>
+      <div className="tournament-schedule-card-footer flex justify-between items-center h-[2rem] md:h-[2.5rem] p-3  absolute top-0 w-full">
+          <div className="tournament-schedule-card-footer-left flex items-center gap-3">
+            <img src={footer_card_icon} alt="" />
+            <h2 className="text-sm grad_text-clip font-bold">
+              Valorant
+            </h2>
+          </div>
+          <div className="tournament-schedule-card-footer-right text-right">
+            <button className="common-red px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">Progress</button>
+          </div>
+        </div>
+      <div className="tournament-schedule-card-wrapper relative  p-2  md:px-3 ">
+        <div className="tournament-schedule-card-header flex justify-between items-center relative gap-6 mt-2">
+          <div className="tournament-schedule-card-header-left flex items-center gap-3 md:gap-4 relative z-10">
+            <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
+              <img
+                src={tournament_thumbnail}
+                alt="tournament-schedule"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
+              2
+            </h2>
+          </div>
+          <div className="tournament-schedule-card-header-center">
+            <img
+              className="w-5.5 h-10 object-cover shrink-0"
+              src={tournament_thumbnail}
+              alt=""
+            />
+          </div>
+          <div className="tournament-schedule-card-header-right flex items-center gap-4 md:gap-8 relative z-10">
+            <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
+              0
+            </h2>
+            <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
+              <img
+                src={tournament_thumbnail}
+                alt="tournament-schedule"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* card bottom shape */}
+        <svg
+          width={0}
+          height={0}
+          viewBox="0 0 112 20"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            position: "absolute",
+          }}
+        >
+          <defs>
+            <clipPath id="duty_bottom1" clipPathUnits="objectBoundingBox">
+              <path d="         M0,1         H1         L0.82143,0         H0.17857         L0,1         Z       " />
+            </clipPath>
+          </defs>
+        </svg>
+        {/* card main shape */}
+        <svg
+          width={0}
+          height={0}
+          viewBox="0 0 232 132"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            position: "absolute",
+          }}
+        >
+          <defs>
+            <clipPath id="duty_main2" clipPathUnits="objectBoundingBox">
+              <path d="         M1,0.93939         L0.96552,1         H0.77586         L0.67241,0.81818         H0.32759         L0.22414,1         H0.03448         L0,0.93939         V0.30303         H1         V0.93939         Z       " />
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+      {/* card top shape */}
+      <svg
+        width={0}
+        height={0}
+        viewBox="0 0 232 40"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{
+          position: "absolute",
+        }}
+      >
+        <defs>
+          <clipPath id="duty_top1" clipPathUnits="objectBoundingBox">
+            <path d="         M1,0.2         V1 H0 V0.2         L0.03448,0 H0.96552 L1,0.2 Z       " />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
     </div>
   );
 };
