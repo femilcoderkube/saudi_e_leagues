@@ -223,16 +223,19 @@ export default function PrimeHome() {
                 {
                   gameLabel: t("games.game_1"),
                   gameName: t("games.valorant"),
+                  gameDiscription: t("games.disc_1"),
                   Step: "01",
                 },
                 {
                   gameLabel: t("games.game_2"),
                   gameName: t("games.dota2"),
+                  gameDiscription: t("games.disc_2"),
                   Step: "02",
                 },
                 {
                   gameLabel: t("games.game_3"),
                   gameName: t("games.csgo"),
+                  gameDiscription: t("games.disc_3"),
                   Step: "03",
                 },
                 // {

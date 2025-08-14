@@ -211,9 +211,14 @@
   },
   "games": {
     "game": "Game",
-    "game_2": "Game 2",
-    "game_3": "Game 3",
-    "game_4": "Game 4",
+    "game_1": "Power Up Your Profile",
+    "disc_1": "Sign up and step into the world of real competition",
+    "game_2": "Enter the Arena",
+    "disc_2": "Select your game and get ready to prove yourself",
+    "game_3": "Hit the Queue",
+    "disc_3": "Let the system work its magic and shape your squad",
+    "game_4": "Rise and Repeat",
+    "disc_4": "Win, level up, and climb the leaderboard match by match",
     "game_5": "Game 5",
     "game_6": "Game 6",
     "valorant": "Valorant",
@@ -221,7 +226,8 @@
     "csgo": "CSGO",
     "apex": "Apex",
     "select_game": "Select Game",
-    "search_game": "Search Game"
+    "search_game": "Search Game",
+    "step": "Step"
   },
   "navigation": {
     "lobby": "Lobby",

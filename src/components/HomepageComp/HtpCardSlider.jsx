@@ -11,64 +11,76 @@ import activeslideBG from "../../assets/images/activeslideBG.png";
 import sliderBG from "../../assets/images/sliderBG.png";
 import { useTranslation } from "react-i18next";
 
-const HtpCardBig = ({ item }) => (
-  <div className="game_card_wrap--link relative inline-flex flex-col justify-end self-end">
-    <div
-      className="htp_card--body inline-block relative !m-0 p-5 w-[37.5rem] !h-[12.01rem] !bg-[unset] !bg-[length:100%] !bg-no-repeat"
-      style={{ backgroundImage: `url(${activeslideBG})` }}
-    >
-      <div className="game_mask--con pt-3 sm:pb-0 pb-5 relative h-full flex flex-col justify-end w-full">
-        <h3 className="game_label !mb-0 md:text-[1.75rem] text-lg !font-bold  purple_light leading-tight sm:pb-6 pb-3 sm:pl-3 pl-1">
-          {item.gameLabel}
-        </h3>
-        <p className="game_info !mb-0 md:text-2xl text-sm !font-semibold w-[24rem] purple_col pb-5 sm:pl-3 pl-1">
-          Sign up and step into the world of real competition
-        </p>
-      </div>
-      <div className="game_card--footer !m-0 flex justify-between items-center">
-        <div
-          className="match_date flex flex-col justify-center absolute ltr:right-[0] rtl:left-0 rtl:right-auto bottom-[0.3rem] h-[7.75rem] bg-[length:100%] !bg-no-repeat"
-          style={{ backgroundImage: `url(${sliderBG})` }}
-        >
-          <h2 className="sm:text-[3.25rem] text-[1.75rem] match_date-con pt-1 pb-1 text-center !font-bold grad_text-clip">
-            {item.Step}
-          </h2>
-          <p className="sm:text-sm text-[0.75rem] purple_light font-semibold text-center uppercase">
-            Step
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
-const HtpCard = ({ item }) => (
-  <div className="game_card_wrap--link relative inline-flex flex-col justify-end self-end">
-    <div
-      className="htp_card--body inline-block relative !m-0 p-5 w-[17.5rem] !h-[12.01rem] !bg-[unset] opacity-70 !bg-[length:100%] !bg-no-repeat"
-      style={{ backgroundImage: `url(${playgameBG})` }}
-    >
-      <div className="game_mask--con pt-3 relative h-full flex flex-col justify-end w-full">
-        <h3 className="game_label !mb-0 md:text-[1.75rem] text-lg !font-bold purple_light leading-tight pb-0 sm:pl-3 pl-1">
-          {item.gameLabel}
-        </h3>
-      </div>
-      <div className="game_card--footer !m-0 flex justify-between items-center">
-        <div
-          className="match_date flex flex-col justify-center absolute ltr:right-[0] rtl:left-0 rtl:right-auto top-[1.5rem] !bg-no-repeat"
-          style={{ backgroundImage: `url(${sliderBG_opp})` }}
-        >
-          <h2 className="sm:text-[3.25rem] text-[1.75rem] match_date-con pt-1 pb-1 text-center !font-bold grad_text-clip">
-            {item.Step}
-          </h2>
-          <p className="sm:text-sm text-[0.85rem] purple_light font-semibold text-center uppercase">
-            Step
+const HtpCardBig = ({ item }) => {
+
+  const { t } = useTranslation();
+
+  return (
+    <div className="game_card_wrap--link relative inline-flex flex-col justify-end self-end">
+      <div
+        className="htp_card--body inline-block relative !m-0 p-5 w-[37.5rem] !h-[12.01rem] !bg-[unset] !bg-[length:100%] !bg-no-repeat"
+        style={{ backgroundImage: `url(${activeslideBG})` }}
+      >
+        <div className="game_mask--con pt-3 sm:pb-0 pb-5 relative h-full flex flex-col justify-end w-full">
+          <h3 className="game_label !mb-0 md:text-[1.75rem] text-lg !font-bold  purple_light leading-tight sm:pb-6 pb-3 sm:pl-3 pl-1">
+            {item.gameLabel}
+          </h3>
+          <p className="game_info !mb-0 md:text-2xl text-sm !font-semibold w-[24rem] purple_col pb-5 sm:pl-3 pl-1">
+            {/* Sign up and step into the world of real competition */}
+            {item.gameDiscription}
           </p>
+        </div>
+        <div className="game_card--footer !m-0 flex justify-between items-center">
+          <div
+            className="match_date flex flex-col justify-center absolute ltr:right-[0] rtl:left-0 rtl:right-auto bottom-[0.3rem] h-[7.75rem] bg-[length:100%] !bg-no-repeat"
+            style={{ backgroundImage: `url(${sliderBG})` }}
+          >
+            <h2 className="sm:text-[3.25rem] text-[1.75rem] match_date-con pt-1 pb-1 text-center !font-bold grad_text-clip">
+              {item.Step}
+            </h2>
+            <p className="sm:text-sm text-[0.75rem] purple_light font-semibold text-center uppercase">
+              {t("games.step")}
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  )
+};
+
+const HtpCard = ({ item }) => {
+
+  const { t } = useTranslation();
+
+  return (
+    <div className="game_card_wrap--link relative inline-flex flex-col justify-end self-end">
+      <div
+        className="htp_card--body inline-block relative !m-0 p-5 w-[17.5rem] !h-[12.01rem] !bg-[unset] opacity-70 !bg-[length:100%] !bg-no-repeat"
+        style={{ backgroundImage: `url(${playgameBG})` }}
+      >
+        <div className="game_mask--con pt-3 relative h-full flex flex-col justify-end w-full">
+          <h3 className="game_label !mb-0 md:text-[1.75rem] text-lg !font-bold purple_light leading-tight pb-0 sm:pl-3 pl-1">
+            {item.gameLabel}
+          </h3>
+        </div>
+        <div className="game_card--footer !m-0 flex justify-between items-center">
+          <div
+            className="match_date flex flex-col justify-center absolute ltr:right-[0] rtl:left-0 rtl:right-auto top-[1.5rem] !bg-no-repeat"
+            style={{ backgroundImage: `url(${sliderBG_opp})` }}
+          >
+            <h2 className="sm:text-[3.25rem] text-[1.75rem] match_date-con pt-1 pb-1 text-center !font-bold grad_text-clip">
+              {item.Step}
+            </h2>
+            <p className="sm:text-sm text-[0.85rem] purple_light font-semibold text-center uppercase">
+              {t("games.step")}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const HtpCardSlider = ({
   HtpCardDetails,
