@@ -45,7 +45,7 @@ export default function BattleRoyalSChedule() {
                       )?.map((itemObj, index) => {
         return (
           <div key={`date-${index}`}>
-            <div className="schedule-date-wp pb-9 lg:pt-17 md:pt-8 pt-5 flex items-center gap-5">
+            <div className="schedule-date-wp pb-8 pt-5 flex items-center gap-5">
               <img className="w-5 h-6" src={date_icon} alt="" />
               <div className="schdule-date">
                 <span className="grad_text-clip sm:text-2xl text-lg font-bold inline-block ltr:pr-5 rtl:pl-5 ltr:mr-5 rtl:ml-5 ltr:border-r rtl:border-l border-[rgb(40,55,66,0.8)]">

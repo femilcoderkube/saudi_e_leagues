@@ -103,7 +103,6 @@ const TournamentDetail = () => {
                   />
                 </div>
               </div>
-              <div className="player_score mt-4 flex md:flex-col items-start md:h-full sm:ltr:ml-[-2.5rem] sm:rtl:ml-0 z-2"></div>
             </div>
           </div>
           <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-center ">

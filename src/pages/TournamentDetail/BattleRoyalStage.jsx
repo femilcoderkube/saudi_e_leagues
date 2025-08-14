@@ -56,7 +56,7 @@ export default function BattleRoyalStage() {
     return (
       <div id="tournament-tab-contents" className="mt-7">
         <div id="first" className="py-4 active">
-          <div className="tab-btn-wp flex sm:justify-between justify-center items-center gap-5">
+          <div className="tab-btn-wp flex sm:justify-between justify-center items-center gap-5 md:mb-12 mb-7">
             <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
               {
                 <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">

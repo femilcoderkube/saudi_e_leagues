@@ -135,7 +135,7 @@ const DraftingDetail = () => {
     return result;
   };
 
-  const rows = chunkArray(picks,  1);
+  const rows = chunkArray(picks, 1);
 
   const handlePlayerClick = (Playerdata) => {
     if (isUserCaptain && isCurrentTurn) {
@@ -248,7 +248,7 @@ const DraftingDetail = () => {
                       {t("drafting.teams")} {teamIdx + 1}
                     </h2>
                     <div className="drafting__teams-list-block">
-                      <div className={`drafting__teams-item relative ${isCurrentCaptainTurn  && new Date() > new Date(draftData?.startTime) ? 'captain_turn' : ''}`}>
+                      <div className={`drafting__teams-item relative ${isCurrentCaptainTurn && new Date() > new Date(draftData?.startTime) ? 'captain_turn' : ''}`}>
                         <span className="gold_crown absolute top-[-2.5rem] ltr:right-6 rtl:left-6 z-10">
                           <img
                             alt={t("drafting.gold_crown")}
@@ -327,7 +327,7 @@ const DraftingDetail = () => {
                 <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
                   <p className="text-xl font-semibold">{t("drafting.draft_not_started")}</p>
                   <p>{t("drafting.draft_will_begin")}{moment(draftData.startTime)
-                    .tz("Asia/Riyadh")
+                    .local()
                     .format("DD/MM/YYYY hh:mm A")}</p>
                 </div>
 
@@ -336,13 +336,13 @@ const DraftingDetail = () => {
                   {otherPlayers.length > 0 && picks.map((data, rowIdx) => (
                     <div className="draft-row" key={rowIdx + "A"}>
                       {/* {row.map((data, idx) => ( */}
-                        <div className="draft-picks-wrapper-item" key={data.index}>
-                          {rowIdx % 2 === 0 ? (
-                            <OddPosCard props={data} />
-                          ) : (
-                            <EvenPosCard props={data} />
-                          )}
-                        </div>
+                      <div className="draft-picks-wrapper-item" key={data.index}>
+                        {rowIdx % 2 === 0 ? (
+                          <OddPosCard props={data} />
+                        ) : (
+                          <EvenPosCard props={data} />
+                        )}
+                      </div>
                       {/* ))} */}
                     </div>
                   ))}
@@ -355,18 +355,18 @@ const DraftingDetail = () => {
                   picks.map((data, rowIdx) => (
                     <div className="">
                       {/* {row.map((data, idx) => { */}
-                    
-                          <div className="draft-picks-wrapper-item">
-                            {rowIdx % 2 === 0 ? (
-                              <OddPosCard props={data}
-                                onClick={isUserCaptain && isCurrentTurn ? () => handlePlayerClick(data) : undefined}
-                              />
-                            ) : (
-                              <EvenPosCard props={data}
-                                onClick={isUserCaptain && isCurrentTurn ? () => handlePlayerClick(data) : undefined} />
-                            )}
-                          </div>
-                        
+
+                      <div className="draft-picks-wrapper-item">
+                        {rowIdx % 2 === 0 ? (
+                          <OddPosCard props={data}
+                            onClick={isUserCaptain && isCurrentTurn ? () => handlePlayerClick(data) : undefined}
+                          />
+                        ) : (
+                          <EvenPosCard props={data}
+                            onClick={isUserCaptain && isCurrentTurn ? () => handlePlayerClick(data) : undefined} />
+                        )}
+                      </div>
+
                       {/* })} */}
                     </div>
                   ))

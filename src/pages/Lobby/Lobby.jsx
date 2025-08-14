@@ -72,7 +72,7 @@ const Lobby = () => {
       ></div>
       <div className="sd_slect_game--wrapper relative md:mt-5 ">
         <div className="w-full flex justify-center ">
-        <div className="game_status--tab rounded-xl overflow-hidden relative md:mt-0 mt-3 md:left-auto md:-translate-x-0 rtl:translate-x-[0] md:absolute top-1 md:ltr:right-32 rtl:right-70 inline-flex mb-8 md:mb-4">
+        <div className="game_status--tab rounded-xl overflow-hidden relative md:mt-0 mt-3 md:left-auto md:-translate-x-0 rtl:translate-x-[0] md:absolute top-1 md:ltr:right-32 rtl:right-75 inline-flex mb-8 md:mb-4">
           {tabs.map((tab, index) => (
             <button
               key={index}

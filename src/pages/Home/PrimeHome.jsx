@@ -216,7 +216,7 @@ export default function PrimeHome() {
             </svg>
           </div>
 
-          {/* <div className="htp_right-con relative max-w-[75%] basis-[72.5%]">
+          <div className="htp_right-con relative max-w-[75%] basis-[72.5%]">
             <HtpCardSlider
               sliderId="one"
               HtpCardDetails={[
@@ -290,7 +290,7 @@ export default function PrimeHome() {
                 },
               ]}
             />
-          </div> */}
+          </div>
           <div className="btn_polygon--mask how-to-play-mb-btn inline-flex sm:hidden  max-w-[fit-content] justify-center relative hover:opacity-70 duration-400">
             <Link
               to={"#"}
