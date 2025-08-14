@@ -18,6 +18,7 @@ const initialState = {
   sendOtpError: null,
   verifyOtpSuccess: false,
   verifyOtpError: null,
+  isUserBanned: false,
 };
 
 export const loginUser = createAsyncThunk(
@@ -257,6 +258,11 @@ const authSlice = createSlice({
       state.verifyOtpError = null;
       state.isVerified = false;
     },
+    setIsBannedUser: (state, action) => {
+      if (action.payload) {
+        state.isUserBanned = action.payload.data;
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -431,5 +437,6 @@ export const {
   clearUpdatePasswordState,
   clearSendOtpState,
   clearVerifyOtpState,
+  setIsBannedUser,
 } = authSlice.actions;
 export default authSlice.reducer;

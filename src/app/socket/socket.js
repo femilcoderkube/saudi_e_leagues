@@ -26,6 +26,7 @@ import { setTournamentData, setTournamentStages } from "../slices/tournamentSlic
 import { setDraftData, setDraftCaptain, setDraftPlayers, setDraftStatus } from "../slices/draft/draftSlice";
 import { useEffect, useRef } from "react";
 import { setChatTData, setmatchTData } from "../slices/MatchSlice/TournamentMatchDetailSlice";
+import { logout, setIsBannedUser } from "../slices/auth/authSlice";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -57,6 +58,26 @@ socket.on("connect", () => {
       sessionStorage.removeItem("canAccessFindingMatch");
     }
   });
+
+  // socket.on(SOCKET.ONISBANUSER, (data) => {
+  //   if (data.isBanned) {
+  //     store.dispatch(setIsBannedUser(data))
+  //   }
+  // });
+  if (user?._id) {
+    checkIsUserBanned({ userId: user?._id })
+  }
+
+  socket.on(SOCKET.ONISBANUSER, (payload) => {
+    const isBanned = payload?.isUserBan ?? false;
+    console.log("isBanned",isBanned)
+    store.dispatch(setIsBannedUser({ data: isBanned }));
+    if (isBanned) {
+      store.dispatch(logout());
+      // optional: window.location.href = "/";
+    }
+  });
+
   socket.on(SOCKET.ONNOTIFICATION, (data) => {
     // console.log("Notification Data:", data);
     store.dispatch(setNotification(data));
@@ -90,6 +111,11 @@ socket.on("connect_error", (error) => {
   );
   store.dispatch(setSocketConnected(false));
 });
+export function checkIsUserBanned({ userId }) {
+  if (userId) {
+    socket.emit(SOCKET.ISBANUSER, { userId });
+  }
+}
 export function startNotificationSocket({ userId, isRead }) {
   // console.log("startNotificationSocket", userId, isRead);
   if (userId) {
@@ -257,15 +283,15 @@ export function setPickedPlayer({ draftId, Playerdata, isSocketConnected }) {
 export function stopMatchDetailTSocket() {
   socket.off(SOCKET.ONMATCHT);
 }
-export function getMatchDetailTById({ mId, isSocketConnected , user }) {
+export function getMatchDetailTById({ mId, isSocketConnected, user }) {
   if (isSocketConnected) {
     stopMatchDetailTSocket();
     socket.on(SOCKET.ONMATCHT, (data) => {
       console.log("Match Details T Data:", data);
       if (data.status) {
         if (data.isMatchUpdate == true) {
-          
-          store.dispatch(setmatchTData({user :user ,matchData: data.data}))
+
+          store.dispatch(setmatchTData({ user: user, matchData: data.data }))
         } else {
           store.dispatch(setChatTData(data.data?.reverse()))
         }

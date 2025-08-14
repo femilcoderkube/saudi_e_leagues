@@ -63,7 +63,9 @@ export const SOCKET = {
   SETPICKEDDRAFTPLAYER: "setPickedDraftPlayer",
 
   GETMATCHT: "getMatchT",
-  ONMATCHT: "onMatchT"
+  ONMATCHT: "onMatchT",
+  ISBANUSER: "isBanUser",
+  ONISBANUSER: "onIsBanUser"
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range
@@ -419,7 +421,7 @@ export function getIntervalCountdown(
 ) {
   const now = new Date();
   const intervalStartTime = new Date(currentIntervalStartTime);
-  
+
   // If interval hasn't started yet, return "00:00"
   if (intervalStartTime.getTime() > now.getTime()) {
     return "00:00";
