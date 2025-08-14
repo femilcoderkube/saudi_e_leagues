@@ -111,7 +111,7 @@ const TournamentScheduleCard = ({ item }) => {
           </div>
         </div>
 
-        {/* card bottom shape */}
+        {/* card bottom shape */}        
         <svg
           width={0}
           height={0}

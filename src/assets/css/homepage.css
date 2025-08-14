@@ -277,6 +277,11 @@ html[dir=rtl] .swiper-slide.swiper-slide-active {
     display: block;
 }
 
+.mySwiper .game_label{
+    max-width: 11rem;
+}
+
+
 html[dir=rtl] .htp_slider .swiper-slide .game_card_wrap--link .htp_card--body {
     background-image: url(../images/rtl_playgameBG.png) !important;
 }
@@ -294,7 +299,7 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
 }
 
 .big-card.swiper {
-    width: 108rem !important;
+    width: 135rem !important;
 }
 
 .htp_slider-sec .htp_left-con {
@@ -328,6 +333,7 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
     opacity: 1;
     margin: 0;
 }
+
 
 /* two slider css End */
 /* --------------------------------

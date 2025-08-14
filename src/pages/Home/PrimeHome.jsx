@@ -258,8 +258,15 @@ export default function PrimeHome() {
                   Step: "03",
                 },                 
                 {
+                  gameLabel: t("games.game_4"),
+                  gameName: t("games.apex"),
+                  gameDiscription: t("games.disc_4"),
+                  Step: "04",
+                }, 
+                {
                   gameLabel: t("games.game_1"),
                   gameName: t("games.valorant"),
+                  gameDiscription: t("games.disc_1"),
                   Step: "01",
                 },
                 {
