@@ -209,7 +209,7 @@ const SingleDoubleStages = () => {
                           new Date(item.startTime).setHours(0, 0, 0, 0) >=
                             new Date(currentDate).setHours(0, 0, 0, 0) &&
                           new Date(item.startTime).setHours(0, 0, 0, 0) <
-                            new Date(nextDayDate).setHours(0, 0, 0, 0)
+                            new Date(nextDayDate).setHours(23, 59, 59, 999)
                       )
                       .map((item, index) => {
                         return <TournamentScheduleCard key={index} item={item} />;

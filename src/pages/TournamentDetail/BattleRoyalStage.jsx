@@ -88,21 +88,21 @@ export default function BattleRoyalStage() {
             </div>
             <div className="relative inline-block">
               {/* Displayed Range */}
-              <button
+             {activeTournamentTab === 2 && <button
                 className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
                 onClick={() => dispatch(setShowCalendar(!showCalendar))}
               >
                 <span className="sm:text-lg text-base font-bold">
                   <>
-                    {currentDate.toLocaleString("en-US", {
+                    {new Date(currentDate).toLocaleString("en-US", {
                       day: "2-digit",
                     })}{" "}
                     -{" "}
-                    {nextDayDate.toLocaleString("en-US", {
+                    {new Date(nextDayDate).toLocaleString("en-US", {
                       day: "2-digit",
                     })}{" "}
                     <span className="font-normal">
-                      {currentDate.toLocaleString("en-US", {
+                      {new Date(currentDate).toLocaleString("en-US", {
                         month: "short",
                       })}
                     </span>
@@ -113,14 +113,14 @@ export default function BattleRoyalStage() {
                   src={cal_arrow}
                   alt=""
                 />
-              </button>
+              </button>}
 
               {/* Calendar Dropdown */}
-              {showCalendar && (
+              {(showCalendar && activeTournamentTab === 2 ) && (
                 <div className="open-cal absolute ltr:right-0 rtl:left-0 top-[100%] z-50">
                   <TournamentDatepiker
-                    startDate={currentDate}
-                    endDate={nextDayDate}
+                    startDate={new Date(currentDate)}
+                    endDate={new Date(nextDayDate)}
                   />
                 </div>
               )}

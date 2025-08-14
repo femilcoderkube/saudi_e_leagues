@@ -146,161 +146,6 @@ export function canJoinQueue(leagueData, t) {
   return text === t("images.queue");
 }
 
-// export function getQueueText(leagueData , t) {
-//   if (!leagueData || !leagueData.queueSettings) return "";
-
-//   const { alwaysOn, schedule } = leagueData.queueSettings;
-
-//   // If alwaysOn at the root, use startDate logic
-//   if (alwaysOn) {
-//     const now = new Date();
-//     const start = new Date(leagueData.startDate);
-//     if (start > now) {
-//       return t("images.starts_in") + " " + GetTimeString(leagueData.startDate , t);
-//     } else {
-//       return t("images.queue");
-//     }
-//   }
-
-//   // New schedule.days structure
-//   if (
-//     schedule &&
-//     Array.isArray(schedule.days) &&
-//     schedule.days.length > 0
-//   ) {
-//     // Get today's day in lowercase
-//     const today = new Date();
-//     const daysOfWeek = [
-//       "sunday",
-//       "monday",
-//       "tuesday",
-//       "wednesday",
-//       "thursday",
-//       "friday",
-//       "saturday",
-//     ];
-//     const todayName = daysOfWeek[today.getDay()];
-
-//     // Find today's schedule object
-//     const todaySchedule = schedule.days.find(
-//       (d) => d.day && d.day.toLowerCase() === todayName
-//     );
-
-//     // If today is a queue day
-//     if (todaySchedule) {
-//       // If alwaysOn for today, queue is always open
-//       if (todaySchedule.alwaysOn) {
-//         return t("images.queue");
-//       }
-
-//       // If there are time slots for today
-//       if (Array.isArray(todaySchedule.time) && todaySchedule.time.length > 0) {
-//         // Use moment-timezone to convert to Saudi Riyadh timezone
-//         // import moment from "moment-timezone";
-//         const saTz = "Asia/Riyadh";
-//         const nowRiyadh = moment.tz(new Date(), saTz);
-
-//         // Find the current or next slot
-//         let foundOpen = false;
-//         let nextOpenTime = null;
-
-//         for (let slot of todaySchedule.time) {
-//           const startTime = moment.tz(
-//             `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${slot.startTime}`,
-//             "YYYY-M-D HH:mm",
-//             saTz
-//           );
-//           const endTime = moment.tz(
-//             `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${slot.endTime}`,
-//             "YYYY-M-D HH:mm",
-//             saTz
-//           );
-
-//           if (nowRiyadh.isBefore(startTime)) {
-//             // Next slot not started yet
-//             if (!nextOpenTime || startTime.isBefore(nextOpenTime)) {
-//               nextOpenTime = startTime;
-//             }
-//           } else if (nowRiyadh.isSameOrAfter(startTime) && nowRiyadh.isSameOrBefore(endTime)) {
-//             // Currently in a slot
-//             foundOpen = true;
-//             break;
-//           }
-//         }
-
-//         if (foundOpen) {
-//           return t("images.queue");
-//         } else if (nextOpenTime) {
-//           return t("images.opens_in") + " " + GetTimeString(nextOpenTime.toDate() , t);
-//         }
-//         // If no more slots today, look for next available day
-//       }
-//       // If no time slots, treat as closed for today unless alwaysOn
-//     }
-
-//     // Find the next available day with alwaysOn or a time slot
-//     let soonestDay = null;
-//     let soonestTime = null;
-//     for (let i = 1; i <= 7; i++) {
-//       const nextDayIdx = (today.getDay() + i) % 7;
-//       const nextDayName = daysOfWeek[nextDayIdx];
-//       const nextDayObj = schedule.days.find(
-//         (d) => d.day && d.day.toLowerCase() === nextDayName
-//       );
-//       if (nextDayObj) {
-//         // If alwaysOn for that day, that's the soonest
-//         if (nextDayObj.alwaysOn) {
-//           soonestDay = i;
-//           soonestTime = null;
-//           break;
-//         }
-//         // If there are time slots, pick the earliest slot
-//         if (Array.isArray(nextDayObj.time) && nextDayObj.time.length > 0) {
-//           const nextDate = new Date(today);
-//           nextDate.setDate(today.getDate() + i);
-//           // Find earliest slot
-//           let earliestSlot = nextDayObj.time[0];
-//           for (let slot of nextDayObj.time) {
-//             if (
-//               slot.startTime < earliestSlot.startTime
-//             ) {
-//               earliestSlot = slot;
-//             }
-//           }
-//           const saTz = "Asia/Riyadh";
-//           const slotStart = moment.tz(
-//             `${nextDate.getFullYear()}-${nextDate.getMonth() + 1}-${nextDate.getDate()} ${earliestSlot.startTime}`,
-//             "YYYY-M-D HH:mm",
-//             saTz
-//           );
-//           if (
-//             soonestTime === null ||
-//             slotStart.isBefore(soonestTime)
-//           ) {
-//             soonestDay = i;
-//             soonestTime = slotStart;
-//           }
-//         }
-//       }
-//     }
-
-//     if (soonestDay !== null) {
-//       if (soonestTime) {
-//         return t("images.opens_in") + " " + GetTimeString(soonestTime.toDate() , t);
-//       } else {
-//         // Next day is alwaysOn, so opens at midnight
-//         const nextDate = new Date(today);
-//         nextDate.setDate(today.getDate() + soonestDay);
-//         nextDate.setHours(0, 0, 0, 0);
-//         return t("images.opens_in") + " " + GetTimeString(nextDate , t);
-//       }
-//     }
-
-//     return t("images.queue_closed");
-//   }
-
-//   return t("images.queue_closed");
-// }
 export function getQueueText(leagueData, t) {
   if (!leagueData || !leagueData.queueSettings) return "";
 
@@ -611,3 +456,29 @@ export const stageTypes = {
   BattleRoyal: "BattleRoyal",
   Custom: "Custom",
 };
+export async function isPrivateMode() {
+  return new Promise((resolve) => {
+    const on = () => resolve(true);
+    const off = () => resolve(false);
+
+    if (window.webkitRequestFileSystem) {
+      window.webkitRequestFileSystem(
+        window.TEMPORARY,
+        1,
+        off,
+        on
+      );
+    } else if (window.indexedDB && /Firefox/.test(navigator.userAgent)) {
+      let db;
+      try {
+        db = indexedDB.open("test");
+        db.onerror = on;
+        db.onsuccess = off;
+      } catch (e) {
+        on();
+      }
+    } else {
+      off();
+    }
+  });
+}

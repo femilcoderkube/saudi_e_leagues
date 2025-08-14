@@ -4,6 +4,7 @@ import axiosInstance from "../../../utils/axios";
 import { toast } from "react-toastify";
 import { getToken } from "firebase/messaging";
 import { messaging } from "../../../firebase";
+import { isPrivateMode } from "../../../utils/constant";
 
 
 const initialState = {
@@ -23,8 +24,16 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async (loginRequest, { rejectWithValue }) => {
     try {
+      let privateMode = await isPrivateMode();
       // Get FCM token if available
-      loginRequest.fcmToken =  await getToken(messaging);
+      if (!privateMode) {
+        try {
+          loginRequest.fcmToken = await getToken(messaging);
+        } catch (err) {
+          console.warn("FCM token not available in private mode or permissions blocked:", err);
+          loginRequest.fcmToken = null; // fallback
+        }
+      }
       // API call to login with /admin/login
       const response = await axiosInstance.post("/users/login", loginRequest);
 

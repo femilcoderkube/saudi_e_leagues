@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";
 
 export default function BattleRoyalSChedule() {
-  const { battleRoyalSchedule, tournamentData ,stageSettings} = useSelector(
+  const { battleRoyalSchedule, tournamentData ,stageSettings ,nextDayDate ,currentDate} = useSelector(
     (state) => state.tournament
   );
 
@@ -36,7 +36,13 @@ export default function BattleRoyalSChedule() {
 
   return (
     <>
-      {matcheDataArray?.map((itemObj, index) => {
+      {matcheDataArray?.filter(
+                        (item) =>
+                          new Date(item.date).setHours(0, 0, 0, 0) >=
+                            new Date(currentDate).setHours(0, 0, 0, 0) &&
+                          new Date(item.date).setHours(0, 0, 0, 0) <
+                            new Date(nextDayDate).setHours(23, 59, 59, 999)
+                      )?.map((itemObj, index) => {
         return (
           <div key={`date-${index}`}>
             <div className="schedule-date-wp pb-9 lg:pt-17 md:pt-8 pt-5 flex items-center gap-5">
