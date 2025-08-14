@@ -845,7 +845,7 @@ html[dir=rtl] .battle-shape {
 }
 
 .active-accordation .schdule-collapse {
-  max-height: 1000px; /* Adjust based on your content height */
+  max-height: 100%; /* Adjust based on your content height */
 }
 
 .schdule-icon img {

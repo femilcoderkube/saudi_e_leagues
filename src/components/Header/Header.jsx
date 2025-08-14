@@ -633,7 +633,7 @@ const Header = () => {
           profileVisible={profileVisible}
         />
         
-        <div className="sd_notification-block self-center flex gap-4 ltr:ml-[1rem] xl:ltr:mr-[9rem] xl:rtl:ml-[9rem] sm:ltr:mr-[2rem] sm:rtl:ml-[2rem]">
+        <div className="sd_notification-block self-center flex sm:gap-4 gap-2 ltr:ml-[1rem] xl:ltr:mr-[9rem] xl:rtl:ml-[9rem] sm:ltr:mr-[2rem] sm:rtl:ml-[2rem]">
           <LanguageToggle />
           <NotificationIcon user={user} />
         </div>
