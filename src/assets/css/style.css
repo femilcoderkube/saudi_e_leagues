@@ -887,6 +887,10 @@ html[dir=rtl] .battle-shape {
   .game_image {
     width: 100% !important;
   }
+
+  .common-width .mob-common-btn + img{
+    width: auto !important;
+  }
 }
 
 @media (max-width: 991px) {
@@ -1479,7 +1483,8 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 
   .sd_tournament-content .polygon_border:before,
   .sd_tournament-content .polygon_border:after {
-    left: 53%;
+    left: 52%;
+    width: 4.5rem;
   }
 
   .sd_tournament-content .bracket-btn .polygon_border:before,

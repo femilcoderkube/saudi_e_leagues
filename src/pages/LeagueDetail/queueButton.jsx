@@ -28,7 +28,7 @@ const GetQueueButton = () => {
   if (user?._id == null || user?._id == undefined) {
     return (
       <div
-        className="lobby_btn mb-8 relative cursor-pointer flex items-center justify-center md:justify-center"
+        className="common-width lobby_btn mb-8 relative cursor-pointer flex items-center justify-center md:justify-center"
         onClick={() => {
           dispatch(setLogin(true));
         }}
@@ -48,7 +48,7 @@ const GetQueueButton = () => {
         <img
           src={need_btn}
           alt={t("images.need_login")}
-          style={{ width: "30.5rem" }}
+          style={{ width: "100%" }}
         />{" "}
       </div>
     );
@@ -56,7 +56,7 @@ const GetQueueButton = () => {
     // if (leagueData?.draft?.isPublished && leagueData?.draft?.startTime && new Date(leagueData?.draft?.startTime) > now) {
     if (leagueData?.draft?.isPublished) {
       return (
-        <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
+        <div className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
             navigate(`/${id}/lobby/drafting/${leagueData?.draft?._id}`);
           }}
@@ -81,7 +81,7 @@ const GetQueueButton = () => {
       );
     } else {
       return (
-        <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
+        <div className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
           <span
             className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{
@@ -105,7 +105,7 @@ const GetQueueButton = () => {
     return (
       <div
         onClick={() => dispatch(setRegistrationModal(true))}
-        className="join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
+        className="common-width join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
       >
         <span
           className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
@@ -123,7 +123,7 @@ const GetQueueButton = () => {
   } else if (isQueueUser) {
     return (
       <div
-        className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
+        className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
         onClick={() => {
           stopReadyToPlaySocket({
             lId: leagueData?._id,
@@ -158,7 +158,7 @@ const GetQueueButton = () => {
     ) {
       return (
         <Link
-          className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before"
+          className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before"
           to={`/${id}/match/${isMatchJoind?.currentMatch}`}
         >
           <span
@@ -175,14 +175,14 @@ const GetQueueButton = () => {
             className="mx-auto"
             src={Que_btn}
             alt=""
-            style={{ width: "30.5rem" }}
+            style={{ width: "100%" }}
           />{" "}
         </Link>
       );
     } else if (text == t("images.queue")) {
       return (
         <div
-          className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
+          className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
             if (user?.isVerified) {
               sessionStorage.setItem("canAccessFindingMatch", "true");
@@ -213,7 +213,7 @@ const GetQueueButton = () => {
       );
     } else {
       return (
-        <div className="mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
+        <div className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-not-allowed">
           <span
             className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
             style={{

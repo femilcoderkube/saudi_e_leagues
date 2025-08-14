@@ -13,7 +13,7 @@ export default function BattleRoyalStanding() {
 
   return (
     <>
-      <div className="battle-wp lg:pt-12 md:pt-8 pt-5">
+      <div className="battle-wp lg:pt-5 pt-2">
         {/* Battle Table Heading */}
         <div className="battle-head flex">
           {/* Headings */}
