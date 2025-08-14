@@ -1588,4 +1588,3 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   50% {transform: translate3d(0,-40%,0) scale(1);}
   100% {transform: translate3d(0,0,0) scale(1);}
 }
-

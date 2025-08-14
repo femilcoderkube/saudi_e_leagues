@@ -239,17 +239,7 @@ export default function PrimeHome() {
                 //   gameLabel: t("games.game_4"),
                 //   gameName: t("games.apex"),
                 //   Step: "04",
-                // },
-                // {
-                //   gameLabel: t("games.game_5"),
-                //   gameName: t("games.apex"),
-                //   Step: "05",
-                // },
-                // {
-                //   gameLabel: t("games.game_6"),
-                //   gameName: t("games.apex"),
-                //   Step: "06",
-                // },
+                // },           
               ]}
 
               HtpCardDetails1={[             
@@ -262,22 +252,7 @@ export default function PrimeHome() {
                   gameLabel: t("games.game_3"),
                   gameName: t("games.csgo"),
                   Step: "03",
-                },
-                // {
-                //   gameLabel: t("games.game_4"),
-                //   gameName: t("games.apex"),
-                //   Step: "04",
-                // },
-                // {
-                //   gameLabel: t("games.game_5"),
-                //   gameName: t("games.apex"),
-                //   Step: "05",
-                // },
-                // {
-                //   gameLabel: t("games.game_6"),
-                //   gameName: t("games.apex"),
-                //   Step: "06",
-                // },
+                },                 
                 {
                   gameLabel: t("games.game_1"),
                   gameName: t("games.valorant"),

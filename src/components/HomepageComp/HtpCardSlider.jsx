@@ -9,6 +9,7 @@ import playgameBG from "../../assets/images/playgameBG.png";
 import sliderBG_opp from "../../assets/images/sliderBG_opp.png";
 import activeslideBG from "../../assets/images/activeslideBG.png";
 import sliderBG from "../../assets/images/sliderBG.png";
+import { useTranslation } from "react-i18next";
 
 const HtpCardBig = ({ item }) => (
   <div className="game_card_wrap--link relative inline-flex flex-col justify-end self-end">
@@ -79,6 +80,14 @@ const HtpCardSlider = ({
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const mainSwiperRef = useRef(null);
   const thumbsSwiperRef = useRef(null);
+  const { i18n } = useTranslation();
+
+  // Add a state to force rerender on language change
+  const [langKey, setLangKey] = useState(i18n.language);
+
+  useEffect(() => {
+    setLangKey(i18n.language);
+  }, [i18n.language]);
 
   useEffect(() => {
     if (
@@ -93,7 +102,7 @@ const HtpCardSlider = ({
       swiper.navigation.init();
       swiper.navigation.update();
     }
-  }, [prevRef, nextRef, mainSwiperRef, thumbsSwiper]);
+  }, [prevRef, nextRef, mainSwiperRef, thumbsSwiper, langKey]);
 
   const handleMainSlideChange = (swiper) => {
     if (thumbsSwiperRef.current && thumbsSwiperRef.current.swiper) {
@@ -125,10 +134,12 @@ const HtpCardSlider = ({
       {/* Main Swiper */}
       <Swiper
         className="big-card mySwiper2"
+        dir={i18n.language === "ar" ? "rtl" : "ltr"}
         slidesPerView={1}
         loop={false}
         speed={600}
         modules={[FreeMode, Navigation, Pagination]}
+        key={`main-swiper-${langKey}`}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current,
@@ -178,7 +189,9 @@ const HtpCardSlider = ({
       {/* Thumbs Swiper */}
       <Swiper
         slidesPerView={1.5}
+        dir={i18n.language === "ar" ? "rtl" : "ltr"}
         speed={600}
+        key={`thumbs-swiper-${langKey}`}
         onSwiper={(swiper) => {
           setThumbsSwiper(swiper);
           thumbsSwiperRef.current = { swiper };
