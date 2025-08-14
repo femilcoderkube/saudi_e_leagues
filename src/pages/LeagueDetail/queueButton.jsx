@@ -54,7 +54,7 @@ const GetQueueButton = () => {
     );
   } else if (end < now) {
     // if (leagueData?.draft?.isPublished && leagueData?.draft?.startTime && new Date(leagueData?.draft?.startTime) > now) {
-    if (leagueData?.draft?.isPublished) {
+    if (leagueData?.draft?.isPublished && leagueData?.draft?.isDeactivate == false) {
       return (
         <div className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
