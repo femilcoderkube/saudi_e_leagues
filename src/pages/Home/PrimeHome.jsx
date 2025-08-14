@@ -238,11 +238,12 @@ export default function PrimeHome() {
                   gameDiscription: t("games.disc_3"),
                   Step: "03",
                 },
-                // {
-                //   gameLabel: t("games.game_4"),
-                //   gameName: t("games.apex"),
-                //   Step: "04",
-                // },           
+                {
+                  gameLabel: t("games.game_4"),
+                  gameName: t("games.apex"),
+                  gameDiscription: t("games.disc_4"),
+                  Step: "04",
+                },           
               ]}
 
               HtpCardDetails1={[             
