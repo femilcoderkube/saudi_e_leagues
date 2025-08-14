@@ -35,7 +35,7 @@ const GameCardGridView = ({ leagues }) => {
           className="game_card_wrap--link relative inline-block"
         >
           <Link
-            to={item?._id ? `/${id}/lobby/${item._id}` : "#"}
+            to={item?._id ? item.isLeague ? `/${id}/lobby/${item._id}`: `/${id}/lobby/tournament/${item._id}` : "#"}
             state={{ league: item }}
           >
             <div className="card_top_left-shap absolute top-0">
