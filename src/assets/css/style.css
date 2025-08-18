@@ -798,52 +798,6 @@ html[dir=rtl] .battle-shape {
     0px 4px 12px 0px #E2693666 inset,
     0px 4px 12px 0px #F465281F inset;
 }
-.brackets-viewer .match{
-  margin: 0 !important;
-}
-.bracket-date-blank{
-  height: 30px;
-}
-.bracket-date {
-  display: flex;
-  align-items: center;
-  background: linear-gradient(180deg, #1D1E4E 0%, #2A2B67 100%);
-  backdrop-filter: blur(1.5rem);
-  padding: 0.5rem;
-  padding-right: 2rem;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  position: relative;
-  color: F4F7FF;
-  height: 30px;
-}
-
-.bracket-date::after {
-  position: absolute;
-  content: '';
-  background: url(../images/double_arrow.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  right: 0.55rem;
-  top: 50%;
-  transform: translate(0, -50%);
-  width: 0.5rem;
-  height: 0.5rem;
-  z-index: 1;
-}
-
-.bracket-date span {
-  font-size: 0.75rem;
-  font-weight: 600;
-  display: inline-block;
-}
-
-.bracket-date span:last-child {
-  color: #BABDFF;
-  border-left: 0.6px solid rgb(94, 95, 184, 0.6);
-  padding-left: 0.75rem;
-  margin-left: 0.75rem;
-}
 
 .schdule-collapse {
   max-height: 0;
@@ -1194,7 +1148,7 @@ html[dir=rtl] .battle-shape {
   padding: 0;
 }
 
-.brackets-viewer .participant:nth-of-type(2) {
+.brackets-viewer .bracket-abcd {
   border-bottom-left-radius: 0.5rem;
   overflow: hidden;
   border-bottom-right-radius: 0.5rem;
@@ -1285,6 +1239,53 @@ html[dir=rtl] .battle-shape {
   height: 2rem !important;
   border-radius: 50% !important;
   margin-right: 1rem !important;
+}
+
+.brackets-viewer .match{
+  margin: 0 !important;
+}
+.bracket-date-blank{
+  height: 30px;
+}
+.bracket-date {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #1D1E4E 0%, #2A2B67 100%);
+  backdrop-filter: blur(1.5rem);
+  padding: 0.5rem;
+  padding-right: 2rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  position: relative;
+  color: F4F7FF;
+  height: 30px;
+}
+
+.bracket-date::after {
+  position: absolute;
+  content: '';
+  background: url(../images/double_arrow.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  right: 0.55rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 0.5rem;
+  height: 0.5rem;
+  z-index: 1;
+}
+
+.bracket-date span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.bracket-date span:last-child {
+  color: #BABDFF;
+  border-left: 0.6px solid rgb(94, 95, 184, 0.6);
+  padding-left: 0.75rem;
+  margin-left: 0.75rem;
 }
 
 .tournament-schedule-card-wrapper {
