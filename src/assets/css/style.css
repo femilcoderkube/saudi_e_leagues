@@ -1194,7 +1194,7 @@ html[dir=rtl] .battle-shape {
   padding: 0;
 }
 
-.brackets-viewer .participant:nth-of-type(2) {
+.brackets-viewer .bracket-abcd {
   border-bottom-left-radius: 0.5rem;
   overflow: hidden;
   border-bottom-right-radius: 0.5rem;
