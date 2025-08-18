@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
 import GetStartedBtn from "../../assets/images/get_started_btn.png";
 import GetStartedBtnAr from "../../assets/images/get_started_btn_ar.png";
 import GetStartedBtnAr_1 from "../../assets/images/mobile_get_start_ar.png";
@@ -11,6 +10,7 @@ import "../../assets/css/homepage.css";
 import HeroCardSlider from "../../components/HomepageComp/HeroCardSlider.jsx";
 import HtpCardSlider from "../../components/HomepageComp/HtpCardSlider.jsx";
 import Accordation from "../../components/HomepageComp/Accordation.jsx";
+import { leftToRight, rightToLeft } from "../../components/Animation/animation.jsx";
 import TimelineCard from "../../components/HomepageComp/TimelineCard.jsx";
 import VideoModal from "../../components/ModalPopUp/VideoModal.jsx";
 import { useTranslation } from "react-i18next";
@@ -24,7 +24,7 @@ import battale_sahpe_img from "../../assets/images/battale-sahpe-img.png";
 import { useStateManager } from "react-select";
 import BattleRoyalStanding from "../TournamentDetail/BattleroyalGroupStandings.jsx";
 import BattleRoyalSchedule from "../TournamentDetail/BattleroyalGroupSchedule.jsx";
-
+import { motion } from "motion/react"
 export default function PrimeHome() {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
@@ -53,11 +53,16 @@ export default function PrimeHome() {
         style={{ backgroundSize: "auto" }}
       ></div>
 
-      <div className="sd_home-wrapper ">
+      <div className="sd_home-wrapper">
         {/* === Hero Section HTML block Start === */}
         <section className="home_hero--sec relative flex lg:pt-[21.125rem] md:pt-[13rem] pt-[10rem] justify-between items-end">
           {/* === Hero Left Block Conatain === */}
-          <div className="home_hero_left-con h-full flex justify-end flex-col">
+          <motion.div className="home_hero_left-con h-full flex justify-end flex-col"
+           variants={leftToRight}
+           custom={0} 
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, amount: 0.4 }}>
             <h3 className="xl:text-[2.375rem] text-[1.75rem] uppercase !font-black">
               {t("homepage.level_up")}
             </h3>
@@ -96,10 +101,15 @@ export default function PrimeHome() {
                 alt={t("images.get_started_button")}
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* === Hero Right Game Slider Block Conatain === */}
-          <div className="home_hero_right-con h-full relative">
+          <motion.div className="home_hero_right-con h-full relative"
+          variants={rightToLeft}
+          custom={1}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.4 }}>
             <div className="slider_header--con  md:pb-[2.2rem] pb-8 md:inline-block flex gap-1">
               <h3 className="purple_col md:text-lg text-2xl !font-black leading-none text-right uppercase">
                 {t("homepage.choose_your")}
@@ -110,12 +120,17 @@ export default function PrimeHome() {
             </div>
             {/* <!-- Slider main container --> */}
             <HeroCardSlider />
-          </div>
+          </motion.div>
         </section>
 
         {/* === About Section HTML block Start === */}
         <section className="home_about--sec relative lg:pt-[7.5rem] pt-[2rem] lg:pb-[6rem] pb-[1rem] flex overflow-hidden">
-          <div className="about_left--con max-w-[45%]">
+          <motion.div className="about_left--con max-w-[45%]"
+           variants={leftToRight}
+           custom={0} 
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, amount: 0.4 }}>
             <h3 className="md:text-[2.375rem] text-2xl uppercase !font-black mb-5">
               {t("homepage.about")}
             </h3>
@@ -142,8 +157,13 @@ export default function PrimeHome() {
                 {t("homepage.prime_description_5")}
               </h4>
             </div>
-          </div>
-          <div className="about_right--con w-full sd_before sd_after relative">
+          </motion.div>
+          <motion.div className="about_right--con w-full sd_before sd_after relative"
+           variants={rightToLeft}
+           custom={1}
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, amount: 0.4 }}>
             <div className="sd_play-link relative sd_before before:w-full before:h-full flex flex-col items-center h-full justify-center">
               <button
                 onClick={() => setShowVideoModal(true)}
@@ -159,11 +179,16 @@ export default function PrimeHome() {
                 </span>
               </button>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         <section className="htp_slider-sec flex xl:gap-0 sm:gap-10 gap-0 ">
-          <div className="htp_left-con h-full flex justify-end flex-col max-w-[27.5%] basis-[27.5%]">
+          <motion.div className="htp_left-con h-full flex justify-end flex-col max-w-[27.5%] basis-[27.5%]"
+           variants={leftToRight}
+           custom={0} 
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, amount: 0.4 }}>
             <h2 className="grad_head--txt max-w-full xl:text-[5rem] text-[3rem] tracking-wide !font-black leading-none uppercase">
               {t("homepage.how")}
             </h2>
@@ -214,9 +239,14 @@ export default function PrimeHome() {
                 </clipPath>
               </defs>
             </svg>
-          </div>
+          </motion.div>
 
-          <div className="htp_right-con relative max-w-[75%] basis-[72.5%]">
+          <motion.div className="htp_right-con relative max-w-[75%] basis-[72.5%]"
+           variants={rightToLeft}
+           custom={1}
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, amount: 0.4 }}>
             <HtpCardSlider
               sliderId="one"
               HtpCardDetails={[
@@ -276,7 +306,7 @@ export default function PrimeHome() {
                 },
               ]}
             />
-          </div>
+          </motion.div>
           <div className="btn_polygon--mask how-to-play-mb-btn inline-flex sm:hidden  max-w-[fit-content] justify-center relative hover:opacity-70 duration-400">
             <Link
               to={"#"}
@@ -310,15 +340,25 @@ export default function PrimeHome() {
 
         {/* === FAQ Section HTML block Start === */}
         <section className="home_faq--sec pt-[5rem] pb-[5rem] pl-[7.5rem] relative flex justify-end ">
-          <div className="faq_left--con w-full absolute ltr:left-0 rtl:right-0 h-full top-[2rem]"></div>
-          <div className="faq_right--con max-w-[65%] flex-[0_0_65%] ltr:pr-[6.5rem] rtl:pr-[8.5rem] relative">
+          <motion.div className="faq_left--con w-full absolute ltr:left-0 rtl:right-0 h-full top-[2rem]"
+           variants={leftToRight}
+           custom={0} 
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, amount: 0.4 }}></motion.div>
+          <motion.div className="faq_right--con max-w-[65%] flex-[0_0_65%] ltr:pr-[6.5rem] rtl:pr-[8.5rem] relative"
+           variants={rightToLeft}
+           custom={1}
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, amount: 0.4 }}>
             <h2 className="md:text-[4rem] text-[2rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none items-center tracking-wider !font-black md:pb-10 pb-8">
               {t("homepage.faq.faq")}
             </h2>
             <div className="sd_faq-con">
               <Accordation />
             </div>
-          </div>
+          </motion.div>
         </section>
       </div>
 

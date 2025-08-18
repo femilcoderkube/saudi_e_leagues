@@ -806,9 +806,10 @@ html[dir=rtl] .battle-shape {
   backdrop-filter: blur(1.5rem);
   padding: 0.5rem;
   padding-right: 2rem;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
   position: relative;
+  color: F4F7FF;
 }
 
 .bracket-date::after {
@@ -820,8 +821,8 @@ html[dir=rtl] .battle-shape {
   right: 0.55rem;
   top: 50%;
   transform: translate(0, -50%);
-  width: 8px;
-  height: 8px;
+  width: 0.5rem;
+  height: 0.5rem;
   z-index: 1;
 }
 
