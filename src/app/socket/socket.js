@@ -251,11 +251,12 @@ export function stopTournamentStagesSocket() {
 export function stopDraftSocket() {
   socket.off(SOCKET.ONDRAFTDATAUPDATE);
 }
-export function getDraftById({ draftId, isSocketConnected }) {
+export function getDraftById({ draftId, isSocketConnected , user}) {
   if (isSocketConnected) {
     stopDraftSocket();
     socket.on(SOCKET.ONDRAFTDATAUPDATE, (data) => {
       console.log("Draft Update Data:", data);
+      data.user = user;
 
       // Saving entire data
       store.dispatch(setDraftData(data))
@@ -266,16 +267,16 @@ export function getDraftById({ draftId, isSocketConnected }) {
 }
 export function setPickedPlayer({ draftId, Playerdata, isSocketConnected }) {
   if (isSocketConnected) {
-    stopDraftSocket();
-    socket.on(SOCKET.ONDRAFTDATAUPDATE, (data) => {
-      console.log("Draft Update Data:", data);
+    // stopDraftSocket();
+    // socket.on(SOCKET.ONDRAFTDATAUPDATE, (data) => {
+    //   console.log("Draft Update Data:", data);
 
-      // Saving entire data
-      // store.dispatch(setDraftData(data))
+    //   // Saving entire data
+    //   // store.dispatch(setDraftData(data))
 
-      store.dispatch(setDraftData(data))
+    //   store.dispatch(setDraftData(data))
 
-    });
+    // });
     socket.emit(SOCKET.SETPICKEDDRAFTPLAYER, { draftId, Playerdata })
   }
 }

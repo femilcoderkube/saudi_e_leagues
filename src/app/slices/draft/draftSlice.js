@@ -21,7 +21,8 @@ const draftSlice = createSlice({
   initialState,
   reducers: {
     setDraftData: (state, action) => {
-      const { status, data } = action.payload;
+      
+      const { status, data , user } = action.payload;
       
       if (!status || !data) return;
       
