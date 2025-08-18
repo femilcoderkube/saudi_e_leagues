@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getServerURL } from "../../../utils/constant";
+import { calculateSnakeDraftPosition, getServerURL } from "../../../utils/constant";
 
 const initialState = {
   draftData: null,
@@ -10,6 +10,10 @@ const initialState = {
   draftStatus: null,
   currentPick: null,
   picks: [],
+  isUserCaptain : false,
+  isCurrentTurn : false,
+  userTeamIndex : -1
+
 };
 
 const draftSlice = createSlice({
@@ -17,26 +21,56 @@ const draftSlice = createSlice({
   initialState,
   reducers: {
     setDraftData: (state, action) => {
-      if (action.payload.status) {
-        if (state.draftData?.updatedAt !== action.payload.data?.updatedAt || state.draftData?.currentInterval == 0) {
-          state.draftData = action.payload.data;
-          state.teams = action.payload.data.teams || [];
-
-          state.otherPlayers = action.payload.data?.otherPlayers || []
-
-          state.picks = action.payload.data.otherPlayers?.map((pick, idx) => ({
-            index: idx,
-            username: pick?.userId?.username || "",
-            fullName: pick?.userId?.fullName || "",
-            id: pick?.userId?._id || "",
-            rep: pick?.wilsonScore || 0,
-            profilePic: getServerURL(pick?.userId?.profilePicture || ""),
-            rank: pick?.rank || "",
-            score: Math.round(pick?.totalLeaguesScore || 0),
-          })) || [];
-        }
+      const { status, data } = action.payload;
+      
+      if (!status || !data) return;
+      
+      // Early return if data hasn't changed and currentInterval is not 0
+      if (state.draftData?.updatedAt === data.updatedAt && 
+          state.draftData?.currentInterval !== 0) {
+        return;
+      }
+      
+      // Update core data
+      state.draftData = data;
+      state.teams = data.teams || [];
+      state.otherPlayers = data.otherPlayers || [];
+      
+      // Transform picks data
+      state.picks = state.otherPlayers.map((pick, idx) => ({
+        index: idx,
+        username: pick?.userId?.username || "",
+        fullName: pick?.userId?.fullName || "",
+        id: pick?.userId?._id || "",
+        rep: pick?.wilsonScore || 0,
+        profilePic: getServerURL(pick?.userId?.profilePicture || ""),
+        rank: pick?.rank || "",
+        score: Math.round(pick?.totalLeaguesScore || 0),
+      }));
+      
+      // Calculate user team status
+      state.userTeamIndex = state.teams.findIndex(team => 
+        team?.captains?.userId?._id === user._id
+      );
+      state.isUserCaptain = state.userTeamIndex !== -1;
+      state.isCurrentTurn = false; // Default value
+      
+      // Calculate current turn if user is captain and interval is valid
+      if (state.isUserCaptain && 
+          data.currentInterval !== undefined && 
+          data.currentInterval !== -1) {
+        
+        const totalTeams = data.totalTeams || state.teams.length;
+        const currentInterval = data.currentInterval + 1;
+        
+        // Generate snake draft order for current interval
+        const currentTeamIndex = calculateSnakeDraftPosition(currentInterval, totalTeams);
+        state.isCurrentTurn = currentTeamIndex === state.userTeamIndex;
       }
     },
+    
+    // Helper function to calculate snake draft position
+
     setDraftCaptain: (state, action) => {
       state.captains = action.payload;
     },

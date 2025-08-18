@@ -394,7 +394,7 @@
     "selectplayer": "اختر اللاعب"
   },
   "drafting": {
-    "drafting" : "صياغة",
+    "drafting": "صياغة",
     "drafting_picks": "اختيارات المسودة",
     "no_draft_picks": "لا توجد اختيارات متاحة",
     "draft_not_started": "لم تبدأ المسودة بعد!",
@@ -403,5 +403,12 @@
     "no_draft_player": "لا يوجد لاعبين متاحين للمسودة.",
     "teams": "الفرق",
     "gold_crown": "التاج الذهبي"
+  },
+  "tournament": {
+    "schedule": "الجدول",
+    "brackets": "الأدوار الإقصائية",
+    "group_standings": "ترتيب المجموعات",
+    "no_matchs_found":"لم يتم العثور على أي تطابقات",
+    "no_data_found":"لم يتم العثور على بيانات"
   }
 }

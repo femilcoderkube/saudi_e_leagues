@@ -11,8 +11,10 @@ import center_league from "../../assets/images/center_league.png";
 import full_screen from "../../assets/images/full-screen.png";
 import { getServerURL } from "../../utils/constant.js";
 import GamingLoader from "../../components/Loader/loader.jsx";
+import { useTranslation } from "react-i18next";
 
 const SingleDoubleStages = () => {
+  const { t } = useTranslation();
   const {
     activeTournamentTab,
     showCalendar,
@@ -128,7 +130,7 @@ const SingleDoubleStages = () => {
                       : ""
                     }`}
                 >
-                  Brackets
+                  {t("tournament.brackets")}
                 </button>
 
                 <button
@@ -138,7 +140,8 @@ const SingleDoubleStages = () => {
                       : ""
                     }`}
                 >
-                  Schedule
+                  {t("tournament.schedule")}
+                    
                 </button>
               </div>
             </div>
@@ -217,7 +220,7 @@ const SingleDoubleStages = () => {
                   </div>
                 ) : (
                   <div className="flex justify-center items-center py-50 text-xl text-gray-400">
-                    No Matchs found
+                    {t("tournament.no_matchs_found")}
                   </div>
                 )}
               </div>
@@ -229,7 +232,7 @@ const SingleDoubleStages = () => {
   } else {
     return (
       <div className="flex justify-center items-center py-50 text-xl text-gray-400">
-        No data found
+        {t("tournament.no_data_found")}
       </div>
     );
   }

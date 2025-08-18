@@ -404,5 +404,12 @@
     "no_draft_player": "No players available for drafting.",
     "teams": "Teams",
     "gold_crown": "Gold Crown"
-  }
+  },
+   "tournament":{
+    "schedule" :"Schedule",
+    "brackets" : "Brackets",
+    "group_standings" : "Group Standings",
+    "no_matchs_found":"No Matchs found",
+    "no_data_found":"No Data found"
+   }
 }
