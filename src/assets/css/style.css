@@ -812,10 +812,6 @@ html[dir=rtl] .battle-shape {
   border-top-right-radius: 0.5rem;
   position: relative;
   color: F4F7FF;
-  height: 30px;
-}
-.bracket-date-blank {
-  height: 30px;
 }
 
 .bracket-date::after {
