@@ -27,7 +27,7 @@ const DraftingDetail = () => {
 
   useEffect(() => {
     if (isSocketConnected) {
-      getDraftById({ draftId, isSocketConnected });
+      getDraftById({ draftId, isSocketConnected , user });
     }
     return () => {
       stopDraftSocket();

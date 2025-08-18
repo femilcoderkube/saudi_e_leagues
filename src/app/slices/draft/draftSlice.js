@@ -23,6 +23,7 @@ const draftSlice = createSlice({
     setDraftData: (state, action) => {
       
       const { status, data , user } = action.payload;
+      console.log("user--",user)
       
       if (!status || !data) return;
       
@@ -51,7 +52,7 @@ const draftSlice = createSlice({
       
       // Calculate user team status
       state.userTeamIndex = state.teams.findIndex(team => 
-        team?.captains?.userId?._id === user._id
+        team?.captains?.userId?._id === user?._id
       );
       state.isUserCaptain = state.userTeamIndex !== -1;
       state.isCurrentTurn = false; // Default value
