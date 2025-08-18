@@ -1,3 +1,4 @@
+// LTR And RTL Start
 export const leftToRight = {
     hidden: { opacity: 0, x: -100 },
     visible: (i = 1) => ({
@@ -23,4 +24,6 @@ export const leftToRight = {
       },
     }),
   };
+  // LTR And RTL end
+
   

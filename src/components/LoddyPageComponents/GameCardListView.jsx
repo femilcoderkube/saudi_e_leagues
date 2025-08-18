@@ -8,12 +8,13 @@ import {
   getServerURL,
 } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
+import { motion } from "motion/react"
 
 const GameCardListView = ({ leagues }) => {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
   return (
-    <div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-5 sm:pt-10 md:pt-14 gap-[1.7rem] justify-center md:justify-start">
+    <motion.div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-5 sm:pt-10 md:pt-14 gap-[1.7rem] justify-center md:justify-start">
       {leagues.map((item, index) => (
         <Link
           key={index}
@@ -118,7 +119,7 @@ const GameCardListView = ({ leagues }) => {
           </div>
         </Link>
       ))}
-    </div>
+    </motion.div>
   );
 };
 

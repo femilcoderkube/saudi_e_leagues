@@ -102,6 +102,10 @@ html[dir="rtl"] .player_score {
   box-shadow: inset 0 5px 6px 0px rgb(94 95 184 / 12%);
 }
 
+.tournament_page--wrapper .game_polygon-link{
+  width: 21.5rem;
+}
+
 .sd_game-con.polygon_border:before,
 .sd_game-con.polygon_border:after {
   width: 5.25rem;
@@ -1052,7 +1056,7 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
     width: 100%;
   }
 
-  .game_polygon-link {
+  .game_polygon-link,.tournament_page--wrapper .game_polygon-link {
     width: 100%;
   }
 

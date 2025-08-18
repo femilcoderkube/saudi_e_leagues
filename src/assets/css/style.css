@@ -836,6 +836,9 @@ html[dir=rtl] .battle-shape {
   .brackt_fullscreen {
     display: flex !important;
   }
+  .schdule-accordion-body .mob-body-full div:last-child p{
+    width: 5rem;
+  }
 }
 
 @media (max-width: 1279px) {
@@ -1148,17 +1151,16 @@ html[dir=rtl] .battle-shape {
   padding: 0;
 }
 
+.brackets-viewer .bracket-efgh {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  overflow: hidden;
+}
+
 .brackets-viewer .bracket-abcd {
   border-bottom-left-radius: 0.5rem !important;
   overflow: hidden;
   border-bottom-right-radius: 0.5rem !important;
-}
-
-
-.brackets-viewer .participant:nth-of-type(1) {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  overflow: hidden;
 }
 
 .brackets-viewer .participant {
