@@ -398,6 +398,7 @@
     "drafting_picks": "Draft Picks",
     "no_draft_picks": "No Draft Picks Available",
     "draft_not_started": "Draft hasn't started yet!",
+    "draft_finished": "Draft finished!",
     "draft_will_begin": "Draft will begin at: ",
     "no_draft_player": "No players available for drafting.",
     "teams": "Teams",

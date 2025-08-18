@@ -204,7 +204,8 @@ const DraftingDetail = () => {
               {otherPlayers.length > 0 ? countdown : "00:00"}
             </h2>
           </div>
-          <div className="text-center py-8">
+
+          {new Date() < new Date(draftData?.startTime) ? <div className="text-center py-8">
             <div className="mx-auto max-w-[40rem] sd_before sd_after relative polygon_border">
               <div className="px-6 py-4">
                 <p className="text-2xl font_oswald font-bold uppercase yellow_grad-bg grad_text-clip">
@@ -217,6 +218,17 @@ const DraftingDetail = () => {
               </div>
             </div>
           </div>
+            :
+            <div className="text-center py-8">
+              <div className="mx-auto max-w-[40rem] sd_before sd_after relative polygon_border">
+                <div className="px-6 py-4">
+                  <p className="text-2xl font_oswald font-bold uppercase yellow_grad-bg grad_text-clip">
+                    {t("drafting.draft_finished")}
+                  </p>
+                </div>
+              </div>
+            </div>}
+
           <div className="drafting__final_teams-wrapper mb-5">
             <div className="drafting__teams-list-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
               {teams?.map((team, teamIdx) => {
