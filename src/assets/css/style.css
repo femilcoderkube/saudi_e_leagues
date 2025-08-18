@@ -1154,6 +1154,7 @@ html[dir=rtl] .battle-shape {
   border-bottom-right-radius: 0.5rem;
 }
 
+
 .brackets-viewer .participant:nth-of-type(1) {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
@@ -1279,6 +1280,7 @@ html[dir=rtl] .battle-shape {
   font-size: 0.75rem;
   font-weight: 600;
   display: inline-block;
+  color: #f4f7ff;
 }
 
 .bracket-date span:last-child {
