@@ -20,6 +20,17 @@ const draftSlice = createSlice({
   name: "draft",
   initialState,
   reducers: {
+    clearData : (state, action) => {
+      state.draftData = null;
+      state.draftStatus = null;
+      state.currentPick = null;
+      state.isUserCaptain =false;
+      state.isCurrentTurn =false;
+      state.userTeamIndex = -1;
+      state.teams = [];
+      state.picks = [];
+      state.otherPlayers =[];
+    },
     setDraftData: (state, action) => {
       
       const { status, data , user } = action.payload;
@@ -150,6 +161,7 @@ export const {
   setTeams,
   updateTeam,
   clearDraftData,
+  clearData,
 } = draftSlice.actions;
 
 export default draftSlice.reducer;

@@ -14,6 +14,7 @@ import moment from "moment";
 import { setConfirmationPopUp, setSelectedPlayerData } from "../../app/slices/constState/constStateSlice";
 import ConfirmationPopUp from "../../components/ModalPopUp/confirmationPopUp";
 import { t } from "i18next";
+import { clearData } from "../../app/slices/draft/draftSlice";
 
 const DraftingDetail = () => {
   const { draftId } = useParams();
@@ -26,11 +27,12 @@ const DraftingDetail = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(clearData());
     if (isSocketConnected) {
       getDraftById({ draftId, isSocketConnected , user });
     }
     return () => {
-      stopDraftSocket();
+      stopDraftSocket({draftId});
     };
   }, [isSocketConnected, user, window.location.pathname, draftId]);
 

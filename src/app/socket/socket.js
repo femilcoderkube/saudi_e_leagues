@@ -23,7 +23,7 @@ import {
 import { setIsMatctCreated } from "../slices/constState/constStateSlice";
 import { setLastMatch, setNotification } from "../slices/notificationSlice/notificationSlice";
 import { setTournamentData, setTournamentStages } from "../slices/tournamentSlice/tournamentSlice";
-import { setDraftData, setDraftCaptain, setDraftPlayers, setDraftStatus } from "../slices/draft/draftSlice";
+import { setDraftData, setDraftCaptain, setDraftPlayers, setDraftStatus, clearData } from "../slices/draft/draftSlice";
 import { useEffect, useRef } from "react";
 import { setChatTData, setmatchTData } from "../slices/MatchSlice/TournamentMatchDetailSlice";
 import { logout, setIsBannedUser } from "../slices/auth/authSlice";
@@ -248,12 +248,15 @@ export function getTournamentStages({ stageId, stageType, isSocketConnected, use
 export function stopTournamentStagesSocket() {
   socket.off(SOCKET.ONTOURNAMENTSTAGESUPDATE);
 }
-export function stopDraftSocket() {
+export function stopDraftSocket({draftId}) {
   socket.off(SOCKET.ONDRAFTDATAUPDATE);
+  socket.emit(SOCKET.REMOVEDRAFTDATA,{draftId});
+  
+
 }
 export function getDraftById({ draftId, isSocketConnected , user}) {
   if (isSocketConnected) {
-    stopDraftSocket();
+    stopDraftSocket({draftId});
     socket.on(SOCKET.ONDRAFTDATAUPDATE, (data) => {
       console.log("Draft Update Data:", data);
       data.user = user;

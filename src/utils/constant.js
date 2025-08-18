@@ -65,7 +65,8 @@ export const SOCKET = {
   GETMATCHT: "getMatchT",
   ONMATCHT: "onMatchT",
   ISBANUSER: "isBanUser",
-  ONISBANUSER: "onIsBanUser"
+  ONISBANUSER: "onIsBanUser",
+   REMOVEDRAFTDATA :"removeDraftData"
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range
