@@ -1287,13 +1287,6 @@ html[dir=rtl] .battle-shape {
   clip-path: url(#scalableClipPath);
 }
 
-.card-duty-wp .tournament-schedule-card-wrapper{
-  clip-path: url(#duty_main2);
-  height: 132px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
 .tournament-schedule-card-footer {
   background: radial-gradient(100% 100% at 50% 0%, rgba(45, 46, 109, 0.4416) 0%, rgba(34, 35, 86, 0.384) 100%);
   box-shadow: 0px 2px 4px 0px rgba(87, 89, 195, 0.08) inset;
@@ -1301,26 +1294,9 @@ html[dir=rtl] .battle-shape {
   transition: 0.3s;
 }
 
-.card-duty-wp .tournament-schedule-card-footer{
-  clip-path: url(#duty_top1);
-  background: radial-gradient(100% 100% at 50% 0%, #2D2E6D 0%, #222356 100%);
-  box-shadow: 0px 2px 4px 0px rgba(87, 89, 195, 0.24) inset;
-
-}
-
 .main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-wrapper {
   background: linear-gradient(183.7deg, rgba(94, 95, 184, 0.2) 3.03%, rgba(34, 35, 86, 0.2) 97.05%),
     linear-gradient(180deg, rgba(0, 0, 0, 0) 44.23%, rgba(68, 127, 241, 0.5) 100%);
-  box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
-  backdrop-filter: blur(0.75rem);
-}
-
-.card-duty-wp.main-tournament-schedule-card-wrapper{
-  margin: 0 1.75rem;
-}
-
-.card-duty-wp.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-wrapper {
-  background: linear-gradient(183.7deg, rgba(94, 95, 184, 0.2) 3.03%, rgba(34, 35, 86, 0.2) 97.05%);
   box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
   backdrop-filter: blur(0.75rem);
 }
@@ -1348,13 +1324,6 @@ html[dir=rtl] .battle-shape {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.card-duty-wp .tournament-schedule-card-header-time h2{
-  clip-path: url(#duty_bottom1);
-  background: linear-gradient(180deg, rgba(94, 95, 184, 0.2) -20%, rgba(34, 35, 86, 0.2) 180%);
-  box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
-  backdrop-filter: blur(12px);
-  height: 1.34rem;
 }
 
 .tournament-schedule-card-header-time h2 span::before {
@@ -1398,10 +1367,6 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 
 .main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-footer {
   display: none;
-}
-
-.card-duty-wp.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-footer{
-  display: flex;
 }
 
 .tournament_page--wrapper .sd_game-con.polygon_border:before,
@@ -1454,7 +1419,7 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   border-radius: 4px;    
 }
 
-.tournament-schedule-card-footer-right button.common-process{
+.card-duty-wp .tournament-schedule-card-footer-right button.common-process{
   background: linear-gradient(270deg, rgba(237, 237, 237, 0.16) 0%, rgba(230, 230, 230, 0.4) 100%),
   linear-gradient(180deg, rgba(145, 145, 145, 0) 0%, rgba(129, 129, 129, 0.2) 100%),
   radial-gradient(100% 378.13% at 0% 100%, rgba(225, 225, 225, 0.12) 0%, rgba(220, 220, 220, 0) 72.36%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
@@ -1462,7 +1427,7 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   backdrop-filter: blur(48px);
 }
 
-.tournament-schedule-card-footer-right button.common-green{
+.card-duty-wp .tournament-schedule-card-footer-right button.common-green{
   background: linear-gradient(270deg, rgba(37, 238, 114, 0.16) 0%, rgba(39, 221, 115, 0.4) 100%),
   linear-gradient(180deg, rgba(9, 126, 54, 0) 0%, rgba(9, 126, 54, 0.2) 100%),
   radial-gradient(100% 378.13% at 0% 100%, rgba(37, 238, 114, 0.12) 0%, rgba(37, 238, 114, 0) 72.36%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
@@ -1471,16 +1436,49 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   box-shadow: 0px -2px 12px 0px rgba(29, 197, 150, 0.24) inset;
 }
 
-.tournament-schedule-card-footer-right button.common-red{
+.card-duty-wp .tournament-schedule-card-footer-right button.common-red{
   background: linear-gradient(270deg, rgba(238, 37, 40, 0.16) 0%, rgba(221, 39, 42, 0.4) 100%),
 linear-gradient(180deg, rgba(126, 9, 11, 0) 0%, rgba(126, 9, 11, 0.2) 100%),
 radial-gradient(100% 378.13% at 0% 100%, rgba(238, 37, 40, 0.12) 0%, rgba(238, 37, 40, 0) 72.36%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
 box-shadow: 0px 2px 2px 0px rgba(184, 94, 96, 0.24) inset;
-
 backdrop-filter: blur(48px);
-
 box-shadow: 0px -2px 12px 0px rgba(255, 0, 4, 0.24) inset;
+}
 
+.card-duty-wp .tournament-schedule-card-wrapper{
+  clip-path: url(#duty_main2);
+  height: 8.26rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.card-duty-wp .tournament-schedule-card-footer{
+  clip-path: url(#duty_top1);
+  background: radial-gradient(100% 100% at 50% 0%, #2D2E6D 0%, #222356 100%);
+  box-shadow: 0px 2px 4px 0px rgba(87, 89, 195, 0.24) inset;
+}
+
+.card-duty-wp.main-tournament-schedule-card-wrapper{
+  margin: 0 1.75rem;
+}
+
+.card-duty-wp.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-wrapper {
+  background: linear-gradient(183.7deg, rgba(94, 95, 184, 0.2) 3.03%, rgba(34, 35, 86, 0.2) 97.05%);
+  box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
+  backdrop-filter: blur(0.75rem);
+}
+.card-duty-wp .tournament-schedule-card-header-time h2{
+  clip-path: url(#duty_bottom1);
+  background: linear-gradient(180deg, rgba(94, 95, 184, 0.2) -20%, rgba(34, 35, 86, 0.2) 180%);
+  box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
+  backdrop-filter: blur(12px);
+  height: 1.34rem;
+  width: 52%;
+}
+
+.card-duty-wp.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-footer{
+  display: flex;
 }
 
 @media (max-width: 767px) {
