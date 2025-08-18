@@ -102,7 +102,7 @@ const LeagueDetail = () => {
             </motion.div>
             <motion.div className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2"
             variants={rightToLeft}
-            custom={0}
+            custom={1}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
@@ -143,13 +143,13 @@ const LeagueDetail = () => {
               </div>
             </motion.div>
           </div>
-          <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-start">
-            <motion.div className="sd_content-left order-2 md:order-1"
-            variants={leftToRight}
-            custom={1} 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}>
+          <motion.div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-start"
+           initial="hidden"
+                whileInView="visible"
+                variants={cardVariantsAni}
+                viewport={{ once: true, amount:0 }}
+          >
+            <div className="sd_content-left order-2 md:order-1">
               <div className="sd_game_info--wrap md:flex-row md:inline-flex hidden gap-3 md:gap-5 items-center justify-center md:justify-baseline w-full">
                 <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
                   <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
@@ -245,13 +245,8 @@ const LeagueDetail = () => {
                 </svg> */}
               </div>
               <LeaderBoard />
-            </motion.div>
-            <motion.div className="sd_content-right w-full order-0 xl:order-1"
-             variants={rightToLeft}
-             custom={1}
-             initial="hidden"
-             whileInView="visible"
-             viewport={{ once: true, amount: 0.4 }}>
+            </div>
+            <div className="sd_content-right w-full order-0 xl:order-1">
               <GetQueueButton />
               <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 w-full md:pb-0 pb-6 items-center justify-center md:justify-baseline">
                 <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
@@ -327,8 +322,8 @@ const LeagueDetail = () => {
                 {leagueData?.isWeekOfTheStar && <StarOfTheWeek />}
                 <TimelineCard />
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       )}
       <svg
