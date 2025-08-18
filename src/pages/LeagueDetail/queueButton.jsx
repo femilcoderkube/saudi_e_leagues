@@ -6,7 +6,10 @@ import Que_btn from "../../assets/images/quebtn.png";
 import Open_btn from "../../assets/images/open.png";
 import Drafting_btn from "../../assets/images/drafting.png";
 import Cancel_btn from "../../assets/images/cancelbtn.png";
-import { setRegistrationModal, setVerificationModal } from "../../app/slices/leagueDetail/leagueDetailSlice";
+import {
+  setRegistrationModal,
+  // setVerificationModal 
+} from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { getQueueText } from "../../utils/constant";
 import { stopReadyToPlaySocket } from "../../app/socket/socket";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -184,13 +187,13 @@ const GetQueueButton = () => {
         <div
           className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
-            if (user?.isVerified) {
-              sessionStorage.setItem("canAccessFindingMatch", "true");
-              navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
-            } else {
-              console.log("User is not verified");
-              dispatch(setVerificationModal({ open: true, module: "queue" }));
-            }
+            // if (user?.isVerified) {
+            sessionStorage.setItem("canAccessFindingMatch", "true");
+            navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+            // } else {
+            // console.log("User is not verified");
+            // dispatch(setVerificationModal({ open: true, module: "queue" }));
+            // }
           }}
         >
           <span
