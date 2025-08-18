@@ -23,7 +23,7 @@ export const FirstPosCard_gold = ({ props }) => {
         />
       </foreignObject>
       <path
-        data-figma-bg-blur-radius={48}
+        // data-figma-bg-blur-radius={48}
         d="M342 8V84L330 92H222L218 88H124L120 92H12L0 84V8L12 0H330L342 8Z"
         fill={`url(#paint0_linear_5056_2586${props.index})`}
       />
@@ -1058,7 +1058,7 @@ export const EvenPosCard = ({ props, onClick  }) => {
         </foreignObject>
         <path
           id={`evenbox-background${props.index}even`}
-          data-figma-bg-blur-radius={48}
+          // data-figma-bg-blur-radius={48}
           d="M214 100.554H128L124 96.5542H12L0 88.5542V12.5542L12 4.5542H124L128 0.554199H214L218 4.5542H330L342 12.5542V88.5542L330 96.5542H218L214 100.554Z"
           fill={`url(#paint0_linear_5056_2586${props.index}even)`}
           fillOpacity={0.4}
@@ -2221,7 +2221,7 @@ export const OddPosCard = ({ props,onClick  }) => {
         </foreignObject>
         <path
           id={`oddbox-background${props.index}odd`}
-          data-figma-bg-blur-radius={48}
+          // data-figma-bg-blur-radius={48}
           d="M124.066 4.41602H218.066L222.066 0.416016H330.066L342.066 8.41602V84.416L330.066 92.416H222.066L218.066 88.416H124.066L120.066 92.416H12.0665L0.0664673 84.416V8.41602L12.0665 0.416016H120.066L124.066 4.41602Z"
           fill={`url(#paint0_linear_5060_2319${props.index}odd)`}
           fillOpacity={0.4}

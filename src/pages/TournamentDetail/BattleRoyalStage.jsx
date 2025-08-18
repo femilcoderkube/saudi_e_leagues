@@ -11,8 +11,10 @@ import BattleRoyalSChedule from "./BattleroyalGroupSchedule.jsx";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react"
+import { useTranslation } from "react-i18next";
 
 export default function BattleRoyalStage() {
+  const { t } = useTranslation();
   const {
     battleRoyalSchedule,
     battleRoyalGroup,
@@ -23,8 +25,6 @@ export default function BattleRoyalStage() {
   const {
     activeTournamentTab,
     showCalendar,
-    selectedStartDate,
-    selectedEndDate,
   } = useSelector((state) => state.constState);
 
   const dispatch = useDispatch();
@@ -32,19 +32,7 @@ export default function BattleRoyalStage() {
     dispatch(setActiveTournamentTab(tab));
   };
 
-  // Format date for display
-  const formatDateForDisplay = (date) => {
-    if (!date) return null;
-    const dateObj = new Date(date);
-    return {
-      day: dateObj.getDate(),
-      month: dateObj.toLocaleString("en", { month: "short" }),
-    };
-  };
 
-  // Get display dates
-  const startDateDisplay = formatDateForDisplay(selectedStartDate);
-  const endDateDisplay = formatDateForDisplay(selectedEndDate);
 
   if (loader) {
     return <GamingLoader />;
@@ -68,14 +56,15 @@ export default function BattleRoyalStage() {
                 <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
                   <button
                     onClick={() => handleActiveTournamentTab(1)}
-                    class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+                    class={`w-[10rem] h-[4rem] md:py-2 ltr:md:px-2.5 rtl:md:px-0.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
                     ${
                       activeTournamentTab === 1
                         ? "active-tab hover:opacity-100 polygon_border"
                         : ""
                     }`}
                   >
-                    Group Standings
+                  {t("tournament.group_standings")}
+                    
                   </button>
 
                   <button
@@ -87,7 +76,7 @@ export default function BattleRoyalStage() {
                         : ""
                     }`}
                   >
-                    Schedule
+                    {t("tournament.schedule")}
                   </button>
                 </div>
               }
@@ -150,7 +139,7 @@ export default function BattleRoyalStage() {
   } else {
     return (
       <div className="flex justify-center items-center py-50 text-xl text-gray-400">
-        No data found
+       {t("tournament.no_data_found")}
       </div>
     );
   }

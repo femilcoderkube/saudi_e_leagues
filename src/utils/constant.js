@@ -484,3 +484,13 @@ export async function isPrivateMode() {
     }
   });
 }
+
+export const calculateSnakeDraftPosition = (interval, totalTeams) => {
+  const round = Math.floor((interval - 1) / totalTeams);
+  const positionInRound = (interval - 1) % totalTeams;
+  
+  // Even rounds go forward (0,1,2...), odd rounds go backward
+  return round % 2 === 0 
+    ? positionInRound 
+    : totalTeams - 1 - positionInRound;
+};

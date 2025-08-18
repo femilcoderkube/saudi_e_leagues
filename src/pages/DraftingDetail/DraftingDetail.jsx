@@ -19,53 +19,11 @@ const DraftingDetail = () => {
   const { draftId } = useParams();
   const user = useSelector((state) => state.auth.user);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { draftData, picks, teams, otherPlayers } = useSelector((state) => state.draft);
+  const { draftData, picks, teams, otherPlayers,isUserCaptain ,isCurrentTurn ,userTeamIndex} = useSelector((state) => state.draft);
   const [countdown, setCountdown] = useState("00:00");
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [validationMessage, setValidationMessage] = useState("");
   const dispatch = useDispatch();
-
-  const getCaptainValidation = () => {
-    if (!user || !teams || !draftData) {
-      return { isUserCaptain: false, isCurrentTurn: false, userTeamIndex: -1 };
-    }
-
-    const userTeamIndex = teams.findIndex(team =>
-      team?.captains?.userId?._id === user._id
-    );
-
-    const isUserCaptain = userTeamIndex !== -1;
-
-    let isCurrentTurn = false;
-    if (isUserCaptain && draftData?.currentInterval !== undefined && draftData.currentInterval !== -1) {
-      const totalTeams = draftData?.totalTeams || teams.length;
-      const interval = draftData.currentInterval + 1;
-
-      const snakeOrder = [];
-      let direction = 1;
-      let currentRoundTeams = [];
-
-      for (let i = 1; i <= interval; i++) {
-        if (currentRoundTeams.length === 0) {
-          currentRoundTeams = direction === 1
-            ? [...Array(totalTeams).keys()]
-            : [...Array(totalTeams).keys()].reverse();
-        }
-        snakeOrder.push(currentRoundTeams.shift());
-
-        if (currentRoundTeams.length === 0) {
-          direction *= -1;
-        }
-      }
-
-      const currentTeamIndex = snakeOrder[interval - 1];
-      isCurrentTurn = currentTeamIndex === userTeamIndex;
-    }
-
-    return { isUserCaptain, isCurrentTurn, userTeamIndex };
-  };
-
-  const { isUserCaptain, isCurrentTurn, userTeamIndex } = getCaptainValidation();
 
   useEffect(() => {
     if (isSocketConnected) {
@@ -117,25 +75,8 @@ const DraftingDetail = () => {
     }
   }, [validationMessage]);
 
-  const formatCountdown = (seconds) => {
-    const m = Math.floor(seconds / 60)
-      .toString()
-      .padStart(2, "0");
-    const s = (seconds % 60).toString().padStart(2, "0");
-    return `${m}:${s}`;
-  };
 
-  const chunkArray = (arr, size) => {
-    if (!Array.isArray(arr) || size <= 0) return [];
-    const result = [];
-    for (let i = 0; i < arr.length; i += size) {
-      // Always push in the same order
-      result.push(arr.slice(i, i + size));
-    }
-    return result;
-  };
 
-  const rows = chunkArray(picks, 1);
 
   const handlePlayerClick = (Playerdata) => {
     if (isUserCaptain && isCurrentTurn) {
@@ -154,10 +95,6 @@ const DraftingDetail = () => {
         return;
       }
     }
-
-    // return () => {
-    //   stopDraftSocket();
-    // };
   }
 
   if (isInitialLoading || !draftData || !teams || !otherPlayers) {
@@ -214,12 +151,7 @@ const DraftingDetail = () => {
                   team.players.every(p => !!p.username)
                 );
                 const isCurrentCaptainTurn = (() => {
-                  if (draftComplete) return false;
-
-                  if (!draftData?.currentInterval == null || draftData.currentInterval === -1) {
-                    return false;
-                  }
-
+                  if (draftComplete || !draftData?.currentInterval == null || draftData.currentInterval === -1) return false;
                   const totalTeams = draftData?.totalTeams || teams.length;
                   const interval = draftData.currentInterval + 1;
 
@@ -239,10 +171,7 @@ const DraftingDetail = () => {
                       direction *= -1;
                     }
                   }
-
-                  const currentTeamIndex = snakeOrder[interval - 1];
-
-                  return currentTeamIndex === teamIdx;
+                  return snakeOrder[interval - 1] === teamIdx;
                 })();
 
                 return (
