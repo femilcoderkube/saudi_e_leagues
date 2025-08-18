@@ -15,7 +15,7 @@ export const FirstPosCard_gold = ({ props }) => {
         <div
           xmlns="http://www.w3.org/1999/xhtml"
           style={{
-            backdropFilter: "blur(24px)",
+            // backdropFilter: "blur(24px)",
             clipPath: `url(#bgblur_0_5056_2586${props.index}_clip_path)`,
             height: "100%",
             width: "100%",
@@ -1049,7 +1049,7 @@ export const EvenPosCard = ({ props, onClick  }) => {
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             style={{
-              backdropFilter: "blur(24px)",
+              // backdropFilter: "blur(24px)",
               clipPath: `url(#bgblur_0_5056_2586${props.index}even_clip_path)`,
               height: "100%",
               width: "100%",
@@ -2212,7 +2212,7 @@ export const OddPosCard = ({ props,onClick  }) => {
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             style={{
-              backdropFilter: "blur(24px)",
+              // backdropFilter: "blur(24px)",
               clipPath: `url(#bgblur_0_5060_2319${props.index}odd_clip_path)`,
               height: "100%",
               width: "100%",

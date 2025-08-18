@@ -204,6 +204,19 @@ const DraftingDetail = () => {
               {otherPlayers.length > 0 ? countdown : "00:00"}
             </h2>
           </div>
+          <div className="text-center py-8">
+            <div className="mx-auto max-w-[40rem] sd_before sd_after relative polygon_border">
+              <div className="px-6 py-4">
+                <p className="text-2xl font_oswald font-bold uppercase yellow_grad-bg grad_text-clip">
+                  {t("drafting.draft_not_started")}
+                </p>
+                <p className="text-white mt-1">
+                  {t("drafting.draft_will_begin")}
+                  {moment(draftData.startTime).local().format("DD/MM/YYYY hh:mm A")}
+                </p>
+              </div>
+            </div>
+          </div>
           <div className="drafting__final_teams-wrapper mb-5">
             <div className="drafting__teams-list-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
               {teams?.map((team, teamIdx) => {
@@ -324,13 +337,6 @@ const DraftingDetail = () => {
 
             {new Date() < new Date(draftData?.startTime) ? (
               <div className="text-center py-8">
-                <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
-                  <p className="text-xl font-semibold">{t("drafting.draft_not_started")}</p>
-                  <p>{t("drafting.draft_will_begin")}{moment(draftData.startTime)
-                    .local()
-                    .format("DD/MM/YYYY hh:mm A")}</p>
-                </div>
-
                 {/* Show grayed out players */}
                 <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8 opacity-50 pointer-events-none">
                   {otherPlayers.length > 0 && picks.map((data, rowIdx) => (
@@ -390,9 +396,9 @@ const DraftingDetail = () => {
             />
 
           </div>
-        </div>
+        </div >
       }
-    </main>
+    </main >
   );
 };
 
