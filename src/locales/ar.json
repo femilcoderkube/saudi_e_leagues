@@ -394,6 +394,7 @@
     "selectplayer": "اختر اللاعب"
   },
   "drafting": {
+    "drafting" : "صياغة",
     "drafting_picks": "اختيارات المسودة",
     "no_draft_picks": "لا توجد اختيارات متاحة",
     "draft_not_started": "لم تبدأ المسودة بعد!",

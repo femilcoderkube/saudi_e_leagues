@@ -395,6 +395,7 @@
     "selectplayer": "Select Player"
   },
   "drafting": {
+    "drafting" : "Drafting",
     "drafting_picks": "Draft Picks",
     "no_draft_picks": "No Draft Picks Available",
     "draft_not_started": "Draft hasn't started yet!",

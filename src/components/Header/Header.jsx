@@ -16,6 +16,7 @@ import {
   Champions,
   NextArrow2,
   NextArrow3,
+  DraftingIcon,
 } from "../ui/svg/index.jsx";
 import country_us from "../../assets/images/country_us.png";
 import country_ar from "../../assets/images/ar_lang.png";
@@ -490,7 +491,7 @@ const Header = () => {
       breadcrumbItems[1].active = false;
       breadcrumbItems.push(item);
     }
-  } else if(params.draftId){
+  } else if(params.draftId && draftData){
     if (breadcrumbItems.length === 3) {
       breadcrumbItems.pop();
     }
@@ -498,6 +499,12 @@ const Header = () => {
       label: i18n.language === "en" ? draftData?.leagueId?.title : draftData?.leagueId?.titleAr,
       path: `/${params.id}/lobby/${draftData?.leagueId?._id}`,
       icon: Champions,
+      active: false,
+    };
+    let item1 = {
+      label: t("drafting.drafting"),
+      path: ``,
+      icon: DraftingIcon,
       active: true,
     };
     if (
@@ -506,6 +513,7 @@ const Header = () => {
     ) {
       breadcrumbItems[1].active = false;
       breadcrumbItems.push(item);
+      breadcrumbItems.push(item1);
     }
   }
 

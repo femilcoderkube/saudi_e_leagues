@@ -173,28 +173,6 @@ const DraftingDetail = () => {
           <p className="font-semibold">{validationMessage}</p>
         </div>
       )}
-
-      {/* {isUserCaptain && (
-        <div className="fixed top-16 left-1/2 transform -translate-x-1/2 z-40">
-
-          <div className={`px-4 py-2 rounded-lg text-white font-semibold ${isCurrentTurn ? 'bg-green-500' : 'bg-gray-500'
-            }`}>
-            {new Date() < new Date(draftData?.startTime)
-              ? ``
-              : otherPlayers.length > 0
-                ? (isCurrentTurn ? "Your Turn to Pick!" : "Waiting for other captain...")
-                : "Draft Complete"
-            }
-          </div>
-          
-        </div>
-      )} */}
-
-      {/* --- dashboard main content back groud --- */}
-      {/* <div
-        className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
-        style={{ backgroundSize: "100%" }}
-      ></div> */}
       {
         <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
