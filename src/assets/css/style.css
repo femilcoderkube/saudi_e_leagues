@@ -798,7 +798,9 @@ html[dir=rtl] .battle-shape {
     0px 4px 12px 0px #E2693666 inset,
     0px 4px 12px 0px #F465281F inset;
 }
-
+.brackets-viewer .match{
+  margin: 0 !important;
+}
 .bracket-date {
   display: flex;
   align-items: center;
@@ -810,6 +812,10 @@ html[dir=rtl] .battle-shape {
   border-top-right-radius: 0.5rem;
   position: relative;
   color: F4F7FF;
+  height: 30px;
+}
+.bracket-date-blank {
+  height: 30px;
 }
 
 .bracket-date::after {
