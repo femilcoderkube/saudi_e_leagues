@@ -70,7 +70,6 @@ socket.on("connect", () => {
 
   socket.on(SOCKET.ONISBANUSER, (payload) => {
     const isBanned = payload?.isUserBan ?? false;
-    console.log("isBanned",isBanned)
     store.dispatch(setIsBannedUser({ data: isBanned }));
     if (isBanned) {
       store.dispatch(logout());
