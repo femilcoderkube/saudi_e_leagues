@@ -1139,6 +1139,8 @@ html[dir=rtl] .battle-shape {
   font-size: 1rem;
   padding: 0.9rem 1rem;
   font-weight: 400;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
 }
 
 .brackets-viewer .match,

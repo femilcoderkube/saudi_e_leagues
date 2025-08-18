@@ -4,6 +4,8 @@ import team_falcons from "../../assets/images/team-falcons.png";
 import pubg_icon from "../../assets/images/pubg_icon.png";
 import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";
+import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
+import { motion } from "motion/react";
 
 export default function BattleRoyalStanding() {
   // ✅ Move this data OUTSIDE return
@@ -13,7 +15,12 @@ export default function BattleRoyalStanding() {
 
   return (
     <>
-      <div className="battle-wp lg:pt-5 pt-2">
+      <motion.div className="battle-wp lg:pt-5 pt-2"
+      initial="hidden"
+      whileInView="visible"
+      variants={cardVariantsAni}
+      viewport={{ once: true, amount: 0.3 }}
+      >
         {/* Battle Table Heading */}
         <div className="battle-head flex">
           {/* Headings */}
@@ -111,7 +118,7 @@ export default function BattleRoyalStanding() {
             </div>
           ))}
         </div>
-      </div>     
+      </motion.div>     
     </>
   );
 }

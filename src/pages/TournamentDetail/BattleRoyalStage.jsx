@@ -9,6 +9,8 @@ import {
 import BattleRoyalStanding from "./BattleroyalGroupStandings.jsx";
 import BattleRoyalSChedule from "./BattleroyalGroupSchedule.jsx";
 import GamingLoader from "../../components/Loader/loader.jsx";
+import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
+import { motion } from "motion/react"
 
 export default function BattleRoyalStage() {
   const {
@@ -56,7 +58,11 @@ export default function BattleRoyalStage() {
     return (
       <div id="tournament-tab-contents" className="mt-7">
         <div id="first" className="py-4 active">
-          <div className="tab-btn-wp flex sm:justify-between justify-center items-center gap-5 md:mb-12 mb-7">
+          <motion.div className="tab-btn-wp flex sm:justify-between justify-center items-center gap-5 md:mb-12 mb-7"
+          initial="hidden"
+          whileInView="visible"
+          variants={cardVariantsAni}
+          viewport={{ once: true, amount: 0.3 }}>
             <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
               {
                 <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
@@ -89,7 +95,7 @@ export default function BattleRoyalStage() {
             <div className="relative inline-block">
               {/* Displayed Range */}
              {activeTournamentTab === 2 && <button
-                className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
+                className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer mb-4"
                 onClick={() => dispatch(setShowCalendar(!showCalendar))}
               >
                 <span className="sm:text-lg text-base font-bold">
@@ -125,7 +131,7 @@ export default function BattleRoyalStage() {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
           <>
             {activeTournamentTab === 1 && (
               <div className="tournament-bracket-wrapper mb-15">

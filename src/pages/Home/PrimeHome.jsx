@@ -24,7 +24,7 @@ import battale_sahpe_img from "../../assets/images/battale-sahpe-img.png";
 import { useStateManager } from "react-select";
 import BattleRoyalStanding from "../TournamentDetail/BattleroyalGroupStandings.jsx";
 import BattleRoyalSchedule from "../TournamentDetail/BattleroyalGroupSchedule.jsx";
-import { motion } from "motion/react"
+import { motion } from "motion/react";
 export default function PrimeHome() {
   const { id } = useParams();
   const { t, i18n } = useTranslation();

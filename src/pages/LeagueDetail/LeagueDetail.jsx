@@ -24,6 +24,8 @@ import RegistrationModel from "./RegustrationModel.jsx";
 import GetQueueButton from "./queueButton.jsx";
 import StarOfTheWeek from "./starOfTheWeek.jsx";
 import VerifiyOTPModel from "../../components/MainView/VerifiyOTPModel.jsx";
+import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
+import { motion } from "motion/react";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
@@ -69,7 +71,13 @@ const LeagueDetail = () => {
         <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8">
-            <div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1">
+            <motion.div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1"
+             variants={leftToRight}
+             custom={0} 
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true, amount: 0.4 }}
+            >
               <div className="sd_com--logo cursor-hide w-[8.75rem] md:w-[18.5rem]">
                 <img
                   src={getServerURL(leagueData?.internalPhoto || "")}
@@ -91,8 +99,14 @@ const LeagueDetail = () => {
                   {t("league.prize_pool")}
                 </span>
               </div>
-            </div>
-            <div className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2">
+            </motion.div>
+            <motion.div className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2"
+            variants={rightToLeft}
+            custom={0}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            >
               <div className="player_img flex flex-row items-center gap-2 sm:gap-5">
                 <div className="player_one sd_before relative gradiant_bg con_center w-[41.02rem] h-[27.33rem]">
                   <img
@@ -127,10 +141,15 @@ const LeagueDetail = () => {
                   </h3>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
           <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-start">
-            <div className="sd_content-left order-2 md:order-1">
+            <motion.div className="sd_content-left order-2 md:order-1"
+            variants={leftToRight}
+            custom={1} 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}>
               <div className="sd_game_info--wrap md:flex-row md:inline-flex hidden gap-3 md:gap-5 items-center justify-center md:justify-baseline w-full">
                 <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
                   <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
@@ -226,8 +245,13 @@ const LeagueDetail = () => {
                 </svg> */}
               </div>
               <LeaderBoard />
-            </div>
-            <div className="sd_content-right w-full order-0 xl:order-1">
+            </motion.div>
+            <motion.div className="sd_content-right w-full order-0 xl:order-1"
+             variants={rightToLeft}
+             custom={1}
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true, amount: 0.4 }}>
               <GetQueueButton />
               <div className="sd_game_info--wrap md:flex-row inline-flex md:hidden gap-3 md:gap-5 w-full md:pb-0 pb-6 items-center justify-center md:justify-baseline">
                 <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border">
@@ -303,7 +327,7 @@ const LeagueDetail = () => {
                 {leagueData?.isWeekOfTheStar && <StarOfTheWeek />}
                 <TimelineCard />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       )}

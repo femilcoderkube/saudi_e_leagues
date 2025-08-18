@@ -16,6 +16,8 @@ import {
 } from "../../app/socket/socket.js";
 import { clearData, setActiveStage } from "../../app/slices/tournamentSlice/tournamentSlice.js";
 import BattleRoyalStage from "./BattleRoyalStage.jsx";
+import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
+import { motion } from "motion/react";
 
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
@@ -70,7 +72,12 @@ const TournamentDetail = () => {
         <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8">
-            <div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1">
+            <motion.div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1"
+            variants={leftToRight}
+            custom={0} 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}>
               <div className="sd_com--logo cursor-hide w-[8.75rem] md:w-[18.5rem]">
                 <img
                   src={getServerURL(tournamentData.internalPhoto)}
@@ -92,8 +99,13 @@ const TournamentDetail = () => {
                   {t("league.prize_pool")}
                 </span>
               </div>
-            </div>
-            <div className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2">
+            </motion.div>
+            <motion.div className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2"
+            variants={rightToLeft}
+            custom={1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}>
               <div className="player_img flex flex-row items-center gap-2 sm:gap-5">
                 <div className="player_one sd_before relative gradiant_bg con_center w-[41.02rem] h-[27.33rem]">
                   <img
@@ -103,11 +115,15 @@ const TournamentDetail = () => {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
           <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-center ">
             <div className="sd_content-top order-2 flex-col xl:flex-row md:order-1 flex gap-5 justify-between w-full">
-              <div className="sd_game_info--wrap md:flex-row flex-1 inline-flex gap-[2.063rem] flex-wrap w-full justify-center xl:justify-start">
+              <motion.div className="sd_game_info--wrap md:flex-row flex-1 inline-flex gap-[2.063rem] flex-wrap w-full justify-center xl:justify-start"
+                initial="hidden"
+                whileInView="visible"
+                variants={cardVariantsAni}
+                viewport={{ once: true, amount: 0.3 }}>
                 <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
                   <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
                     <img
@@ -182,7 +198,7 @@ const TournamentDetail = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
 
@@ -190,9 +206,13 @@ const TournamentDetail = () => {
             <div className="sd_tournament-content">
               <div className="mx-auto mt-4">
                 {/* <!-- Tabs --> */}
-                <ul
+                <motion.ul
                   id="tournament-tabs"
                   className="sa__tournament-tabs inline-flex sm:flex-row flex-col pt-2 w-full sm:border-b sm:border-gray-200/20"
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={cardVariantsAni}
+                  viewport={{ once: true, amount: 0.3 }}
                 >
                   {tournamentData?.stages?.map((item, index) => {
                     return (
@@ -215,7 +235,7 @@ const TournamentDetail = () => {
                       </li>
                     );
                   })}
-                </ul>
+                </motion.ul>
 
                 {loader ? (
                   <div className="flex justify-center items-center">
