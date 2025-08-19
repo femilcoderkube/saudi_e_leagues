@@ -33,7 +33,12 @@ const GetQueueButton = () => {
       <div
         className="common-width lobby_btn mb-8 relative cursor-pointer flex items-center justify-center md:justify-center"
         onClick={() => {
+          if(type== "mobile"){
+            window.AndroidInterface?.signInCallbackHandler(`${window.location.href}`);
+            window.webkit?.messageHandlers?.jsMessageHandler?.signInCallbackHandler(`${window.location.href}`);
+          }else{
           dispatch(setLogin(true));
+          }
         }}
       >
         <span

@@ -115,7 +115,13 @@ const AuthButtons = ({ isMobile = false }) => {
         className="sm:hidden flex ltr:ml-3 rtl:mr-3"
         onClick={(e) => {
           e.preventDefault();
+          let type = localStorage.getItem("deviceType")
+          if(type== "mobile"){
+            window.AndroidInterface?.signInCallbackHandler(`${window.location.href}`);
+            window.webkit?.messageHandlers?.jsMessageHandler?.signInCallbackHandler(`${window.location.href}`);
+          }else{
           dispatch(setLogin(true));
+          }
         }}
       >
         <img className="h-full" src={mobile_menu_icon_user} alt="user" />
