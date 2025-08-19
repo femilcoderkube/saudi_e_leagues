@@ -2,10 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axiosInstance from "../../../utils/axios";
 import { toast } from "react-toastify";
-import { getToken } from "firebase/messaging";
-import { messaging } from "../../../firebase";
+// import { getToken } from "firebase/messaging";
+import { requestFCMToken } from "../../../firebase";
 import { isPrivateMode } from "../../../utils/constant";
-
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -29,9 +28,12 @@ export const loginUser = createAsyncThunk(
       // Get FCM token if available
       if (!privateMode) {
         try {
-          loginRequest.fcmToken = await getToken(messaging);
+          loginRequest.fcmToken = await requestFCMToken();
         } catch (err) {
-          console.warn("FCM token not available in private mode or permissions blocked:", err);
+          console.warn(
+            "FCM token not available in private mode or permissions blocked:",
+            err
+          );
           loginRequest.fcmToken = null; // fallback
         }
       }
@@ -263,7 +265,7 @@ const authSlice = createSlice({
       if (action.payload) {
         state.isUserBanned = action.payload.data;
       }
-    }
+    },
   },
   extraReducers: (builder) => {
     builder

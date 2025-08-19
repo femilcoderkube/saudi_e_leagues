@@ -30,11 +30,7 @@ setAxiosStore(store);
 // main.tsx or index.tsx
 
 // Define the function globally
-window.appLoginData = function (
-  authToken,
-  language,
-  userData
-) {
+window.appLoginData = function (authToken, language, userData) {
   console.log("Callback from App:", authToken, language, userData);
 
   // Store values in localStorage or state management
@@ -46,9 +42,8 @@ window.appLoginData = function (
   window.dispatchEvent(new Event("appLoginDataReceived"));
 };
 
-
 const permission = await Notification.requestPermission();
-console.log("asfdsadfsd",permission);
+console.log("asfdsadfsd", permission);
 if ("serviceWorker" in navigator && "PushManager" in window) {
   navigator.serviceWorker
     .register("/firebase-messaging-sw.js")
@@ -57,9 +52,6 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
     })
     .catch((err) => console.error("SW registration failed", err));
 }
- 
- 
-
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode> // StrictMode is often helpful for development, consider re-enabling
@@ -75,9 +67,8 @@ createRoot(document.getElementById("root")).render(
       draggable // Allow dragging to dismiss
       pauseOnHover // Pause autoClose on hover
       theme="light" // Light theme for toasts
-  
     />
-        <svg
+    <svg
       width="0"
       height="0"
       viewBox="0 0 400 72"
@@ -97,3 +88,14 @@ createRoot(document.getElementById("root")).render(
   </Provider>
   // </StrictMode>
 );
+// Register Service Worker
+if ("serviceWorker" in navigator && "PushManager" in window) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((reg) => {
+        console.log("Service Worker registered ✅", reg);
+      })
+      .catch((err) => console.error("SW registration failed ❌", err));
+  });
+}

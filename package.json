@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@emran-alhaddad/saudi-riyal-font": "^1.0.3",
+    "@firebase/app": "^0.14.1",
+    "@firebase/installations": "^0.6.19",
+    "@firebase/messaging": "^0.12.23",
     "@react-pdf-viewer/core": "^3.12.0",
     "@react-pdf-viewer/default-layout": "^3.12.0",
     "@reduxjs/toolkit": "^2.8.2",
