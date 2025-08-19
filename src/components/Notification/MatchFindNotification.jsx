@@ -19,7 +19,7 @@ const MatchFindNotification = ({ data }) => {
     subject = i18n.language == "en" ? data.notificationId.Subject.toString() : data.notificationId.SubjectAr.toString();
     body = i18n.language == "en" ? data.notificationId.Body.toString() : data.notificationId.BodyAr.toString();
   }
-  let imageUrl = data.userId.profilePicture || data.extras.leagueLogo;
+  let imageUrl = data?.notificationId?.notificationtype === 4 ? data?.extras?.leagueLogo : data?.userId?.profilePicture;
   let notificationData = {
     image: imageUrl ? getServerURL(imageUrl) : null,
     username: data.userId.username,
@@ -38,7 +38,7 @@ const MatchFindNotification = ({ data }) => {
           <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
             <div className="notification-box-head flex items-center gap-4">
               <img src={notificationData.image || defaultImg} alt="" style={{ width: "2.51rem", height: "2.51rem", borderRadius: "50%", objectFit: "cover" }} />
-              <h6 className="text-xl sleading-6">{notificationData.leaguename || notificationData.username}</h6>
+              <h6 className="text-xl sleading-6">{data?.notificationId?.notificationtype === 4 ? notificationData.leaguename : notificationData.username}</h6>
             </div>
             <div>
               <span className="purple_col font-semibold">{notificationData.createdAt}</span>
