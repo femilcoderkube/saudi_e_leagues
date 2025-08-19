@@ -29,7 +29,8 @@ function QueueConfirmationPopUp() {
         className="absolute inset-0 bg-[#010221]/60 backdrop-blur-sm"
         onClick={() => dispatch(setQueueConfirmation(false))}
       ></div>
-      <div className="relative bg-[#0b0e2d] text-white rounded-2xl shadow-xl w-[100%] max-w-xl p-10 z-50">
+      <div className="relative text-white rounded-2xl shadow-xl w-[100%] max-w-xl p-10 z-50"
+      style={{background:"linear-gradient(180deg, rgba(23, 26, 67, 90%) 0%, rgba(9, 11, 44, 100%) 100%"}}>
         <div className="text-left">
           <div className="flex items-center gap-3 mb-6">
             <h2 className="text-2xl font-bold">{t("confirmation.matchmaking")}</h2>
@@ -57,7 +58,7 @@ function QueueConfirmationPopUp() {
             >
               <span
                 // className="mob-common-btn absolute -top-1 w-full text-center md:text-lg text-base"
-                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
+                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center md:text-lg text-base"
                 style={{
                   fontFamily: i18n.language === 'ar' ? "Cairo" : "Yapari",
                   fontWeight: "bold",

@@ -26,6 +26,12 @@ import { TeamTwoScoreList } from "./teamTwoSection";
 import { useTranslation } from "react-i18next";
 import { setShowCancelBtn, setshowMobileChat } from "../../app/slices/MatchSlice/matchDetailSlice";
 import { setSubmitModal } from "../../app/slices/constState/constStateSlice";
+import {
+  leftToRight,
+  rightToLeft,
+  cardVariantsAni,
+} from "../../components/Animation/animation.jsx";
+import { motion } from "motion/react";
 const MatchDetail = () => {
   const { id, mId } = useParams();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -124,15 +130,25 @@ useEffect(()=>{
       <section className="match_team--wrap flex pt-[5rem] justify-between items-end sm:pl-[7.5rem] sm:pr-[7.5rem] pl-[3rem] pr-[3rem]  pb-[5.25rem] sm:pb-0">
         <div className="team_score--con flex xl:flex-row flex-col justify-between w-full gap-10 items-center xl:items-start">
           {/* Team 1 */}
-          <div className="team_score--wrap max-w-[24.625rem] order-2 xl:order-1">
+          <motion.div className="team_score--wrap max-w-[24.625rem] order-2 xl:order-1"
+          variants={leftToRight}
+          custom={0} 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.4 }}
+          >
             <h2 className="grad_head--txt max-w-full ltr:md:text-[4rem] rtl:md:text-[3.75rem] text-[2.5rem] sm:pr-[2rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
               {t("match.team_one")}
             </h2>
             <TeamOneScoreList />
-          </div>
+          </motion.div>
 
           {/* Score */}
-          <div className="match_center-con flex-1 order-1 xl:order-2">
+          <motion.div className="match_center-con flex-1 order-1 xl:order-2"
+           initial={{ opacity: 0,scale:0.85}}
+           animate={{ opacity: 1,scale:1}}
+           transition={{ duration: 0.4, delay: 0.4 }}
+          >
             <h2 className="text-[4rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center text-center tracking-wider !font-black pb-[4rem]">
               <>
                 <span>{winnerScore.teamOne}</span>:
@@ -657,15 +673,21 @@ useEffect(()=>{
                 </div>
               </div>
             )}
-          </div>
+          </motion.div>
 
           {/* Team 2 */}
-          <div className="team_score--wrap max-w-[24.625rem] order-3 xl:order-3">
+          <motion.div className="team_score--wrap max-w-[24.625rem] order-3 xl:order-3"
+          variants={rightToLeft}
+          custom={0}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.4 }}
+          >
             <h2 className="grad_head--txt max-w-full ltr:md:text-[4rem] rtl:md:text-[3.75rem] text-[2.5rem] sm:pr-[2rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium sm:text-right leading-none uppercase">
               {t("match.team_two")}
             </h2>
             <TeamTwoScoreList />
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>
