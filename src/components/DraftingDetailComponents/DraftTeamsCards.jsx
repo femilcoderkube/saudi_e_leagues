@@ -354,7 +354,7 @@ export const FirstPosCard_gold = ({ props }) => {
       </g>
       <g filter={`url(#filter3_d_5056_2586${props.index})`}>
         <text
-          fill={`url(#paint46_linear_5056_2586${props.index})`}
+          fill="#fff"
           xmlSpace="preserve"
           style={{
             whiteSpace: "pre",
@@ -1443,7 +1443,7 @@ export const EvenPosCard = ({ props, onClick  }) => {
             </text>
             <g id={`149.221${props.index}even`} filter={`url(#filter3_d_5056_2586${props.index}even)`}>
               <text
-                fill={`url(#paint46_linear_5056_2586${props.index}even)`}
+                 fill="#fff"
                 xmlSpace="preserve"
                 style={{
                   whiteSpace: "pre",
@@ -2601,7 +2601,7 @@ export const OddPosCard = ({ props,onClick  }) => {
             </text>
             <g id={`132.841${props.index}odd`} filter={`url(#filter3_d_5060_2319${props.index}odd)`}>
               <text
-                fill={`url(#paint46_linear_5060_2319${props.index}odd)`}
+                 fill="#fff"
                 xmlSpace="preserve"
                 style={{
                   whiteSpace: "pre",
