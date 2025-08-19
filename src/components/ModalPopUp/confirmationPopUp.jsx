@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { setConfirmationPopUp } from "../../app/slices/constState/constStateSlice";
 import { logout } from "../../app/slices/auth/authSlice";
 import { cancelMatch } from "../../app/socket/socket";
+import { motion } from "framer-motion";
 
 function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
   const { confirmationPopUp, selectedPlayerData } = useSelector((state) => state.constState);
@@ -73,7 +74,12 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
       ></div>
 
       <div className="fixed modal_popup-con inset-0 overflow-y-auto flex justify-center items-center z-50">
-        <div className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
+        <motion.div className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60"
+        initial={{ scale: 0.5, opacity: 0, y: 50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.5, opacity: 0, y: 50 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
           <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after ">
             <div className="popup_header px-8 pt-4 flex items-start ltr:justify-end mt-3 text-center sm:mt-0 sm:text-left rtl:justify-start rtl:text-right">
               <div className="flex items-center gap-2 h-8 absolute left-1/2 translate-x-[-50%] top-10">
@@ -162,7 +168,7 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
               </clipPath>
             </defs>
           </svg>
-        </div>
+        </motion.div>
       </div>
     </>
   );

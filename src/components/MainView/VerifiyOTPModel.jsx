@@ -12,6 +12,7 @@ import {
 } from "../../app/slices/constState/constStateSlice";
 import { setVerificationModal } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const VerifiyOTPModel = ({ module }) => {
   // State
@@ -84,10 +85,14 @@ const VerifiyOTPModel = ({ module }) => {
 
   return (
     <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
-      <div
+      <motion.div
         className={`verify-otp-shape bg-[#151743] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md ${
           module === "queue" ? "" : "otp-verify"
         }`}
+        initial={{ scale: 0.5, opacity: 0, y: 50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.5, opacity: 0, y: 50 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         <h2 className="text-xl font-medium text-white mb-3 font_oswald">
           {t("form.verify_otp")}
@@ -177,7 +182,7 @@ const VerifiyOTPModel = ({ module }) => {
             </clipPath>
           </defs>
         </svg>
-      </div>
+      </motion.div>
     </div>
   );
 };

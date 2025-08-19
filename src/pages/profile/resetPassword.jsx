@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
+import { motion } from "framer-motion";
 import center_league from "../../assets/images/center_league.png";
 import {
   clearUpdatePasswordState,
@@ -118,9 +118,13 @@ const ResetPasswordPage = () => {
             />
           </div>
           {tokenValid ? (
-            <div
+            <motion.div
               className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative max-h-[80vh] overflow-y-auto overflow-x-hidden`}
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              initial={{ scale: 0.5, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.5, opacity: 0, y: 50 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               <div className="text-center mb-5">
                 <h2 className="text-xl font-bold mb-2">Reset Password</h2>
@@ -249,7 +253,7 @@ const ResetPasswordPage = () => {
                   </clipPath>
                 </defs>
               </svg>
-            </div>
+            </motion.div>
           ) : (
             <div className="text-white text-center text-2xl font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               Token expired. Redirecting to home...

@@ -41,7 +41,7 @@ function VideoModal({ onClose }) {
           initial={{ scale: 0.5, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Close button */}

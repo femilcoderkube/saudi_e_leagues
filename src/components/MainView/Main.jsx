@@ -25,6 +25,7 @@ import { registerUser } from "../../app/slices/auth/authSlice";
 import { useTranslation } from "react-i18next";
 import Notification_sidebar from "../Notification/notificationsidebar";
 import ConfirmationPopUp from "../ModalPopUp/confirmationPopUp";
+import { motion } from "framer-motion";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -80,23 +81,20 @@ export default function Main() {
   // Pre-fill form values for editing
   const editInitialValues = user
     ? {
-      username: user.username || "",
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-      email: user.email || "",
-      dialCode:
-        dialCodeOptions.find(
-          (option) =>
-            option.value === (user?.phone?.split("-")[0] || "+966")
-        ) || defaultDialCode,
-      phoneNumber: user?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
-      favoriteGame: user?.favoriteGame
-        ? gameOptions?.find(
-          (option) => option.value === user?.favoriteGame
-        )
-        : null,
-      profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
-    }
+        username: user.username || "",
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        email: user.email || "",
+        dialCode:
+          dialCodeOptions.find(
+            (option) => option.value === (user?.phone?.split("-")[0] || "+966")
+          ) || defaultDialCode,
+        phoneNumber: user?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
+        favoriteGame: user?.favoriteGame
+          ? gameOptions?.find((option) => option.value === user?.favoriteGame)
+          : null,
+        profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
+      }
     : initialValues;
 
   const handleSubmit = async (values, isEdit = false) => {
@@ -139,7 +137,7 @@ export default function Main() {
         if (res.success) {
           toast.success(
             res?.message ||
-            "Registration successful! Please log in to continue."
+              "Registration successful! Please log in to continue."
           );
           dispatch(setRegisteration(false));
           if (window.location.pathname.includes("/lobby")) {
@@ -181,52 +179,79 @@ export default function Main() {
     > */}
       <Header />
       <main
-        className={`flex-1 game_card_main--con sm:mt-0 mt-19  ${checkParams("finding-match") || checkParams("match")
-          ? ""
-          : "px-4 pt-3 md:px-[4.5rem] ltr:md:pr-[2rem] rtl:md:pl-[2rem]"
-          }`}
+        className={`flex-1 game_card_main--con sm:mt-0 mt-19  ${
+          checkParams("finding-match") || checkParams("match")
+            ? ""
+            : "px-4 pt-3 md:px-[4.5rem] ltr:md:pr-[2rem] rtl:md:pl-[2rem]"
+        }`}
       >
         {(isRegisteration || profileVisible) && (
           <>
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
             <div className="fixed inset-0 flex justify-center items-center z-50">
-              <div
+              <motion.div
                 className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative
-    ${profileVisible
-                    ? "h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden match_reg--popup2 sm:overflow-y-auto"
-                    : "p-6 overflow-y-auto "
-                  }`} // Ensured vertical scrolling on smaller devices
+    ${
+      profileVisible
+        ? "h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden match_reg--popup2 sm:overflow-y-auto"
+        : "p-6 overflow-y-auto "
+    }`} // Ensured vertical scrolling on smaller devices
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                initial={{ scale: 0.5, opacity: 0, y: 50 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.5, opacity: 0, y: 50 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
               >
-
                 <style jsx>{`
-    /* Custom scrollbar styling for smaller devices */
-    @media (max-width: 767px) {
-      .match_reg--popup::-webkit-scrollbar {
-        width: 6px;
-      }
-      .match_reg--popup::-webkit-scrollbar-thumb {
-        background-color: #7b7ed0;
-        border-radius: 4px;
-      }
-      .match_reg--popup::-webkit-scrollbar-track {
-        background: transparent;
-      }
-    }
-  `}</style>
+                  /* Custom scrollbar styling for smaller devices */
+                  @media (max-width: 767px) {
+                    .match_reg--popup::-webkit-scrollbar {
+                      width: 6px;
+                    }
+                    .match_reg--popup::-webkit-scrollbar-thumb {
+                      background-color: #7b7ed0;
+                      border-radius: 4px;
+                    }
+                    .match_reg--popup::-webkit-scrollbar-track {
+                      background: transparent;
+                    }
+                  }
+                `}</style>
                 {profileVisible && profileLoading ? (
                   <div className="flex justify-center items-center h-200">
                     {/* Simple spinner, you can replace with your own */}
-                    <svg className="animate-spin h-8 w-8 text-[#7b7ed0]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                    <svg
+                      className="animate-spin h-8 w-8 text-[#7b7ed0]"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v8z"
+                      ></path>
                     </svg>
                   </div>
                 ) : (
                   <>
-                    <div className={` justify-between items-center mb-4 ${isRegisteration ? "flex" : "hidden sm:flex "}`}>
+                    <div
+                      className={` justify-between items-center mb-4 ${
+                        isRegisteration ? "flex" : "hidden sm:flex "
+                      }`}
+                    >
                       <h2 className="text-xl font-bold">
-                        {isRegisteration ? t("auth.registration") : t("form.edit_profile")}
+                        {isRegisteration
+                          ? t("auth.registration")
+                          : t("form.edit_profile")}
                       </h2>
                       <button
                         onClick={() => {
@@ -245,7 +270,12 @@ export default function Main() {
                         }}
                         className="cursor-pointer hover:opacity-70 duration-300"
                       >
-                        <svg width="18" height="18" fill="none" stroke="#7B7ED0">
+                        <svg
+                          width="18"
+                          height="18"
+                          fill="none"
+                          stroke="#7B7ED0"
+                        >
                           <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />
                         </svg>
                       </button>
@@ -253,8 +283,12 @@ export default function Main() {
 
                     <WizardSteps
                       step={step}
-                      initialValues={profileVisible ? editInitialValues : initialValues}
-                      onSubmit={(values) => handleSubmit(values, profileVisible)}
+                      initialValues={
+                        profileVisible ? editInitialValues : initialValues
+                      }
+                      onSubmit={(values) =>
+                        handleSubmit(values, profileVisible)
+                      }
                       onNext={() => setStep((prev) => prev + 1)}
                       onBack={() => setStep((prev) => prev - 1)}
                       loadingSubmit={loadingSubmit}
@@ -263,7 +297,7 @@ export default function Main() {
                     />
                   </>
                 )}
-              </div>
+              </motion.div>
             </div>
             <svg
               width="0"

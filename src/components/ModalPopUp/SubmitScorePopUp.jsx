@@ -11,6 +11,7 @@ import { setSubmitScoreLoading, uploadFile } from "../../app/slices/MatchSlice/m
 import { socket } from "../../app/socket/socket.js";
 import { getServerURL, SOCKET } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 function SubmitPopUp({ handleClose }) {
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
@@ -197,7 +198,12 @@ function SubmitPopUp({ handleClose }) {
       ></div>
 
       <div className="fixed modal_popup-con inset-0 overflow-y-auto flex justify-center items-center z-50">
-        <div className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
+        <motion.div className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60"
+        initial={{ scale: 0.5, opacity: 0, y: 50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.5, opacity: 0, y: 50 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
           <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after ">
             <div className="popup_header px-8 pt-4 flex items-start ltr:justify-end mt-3 text-center sm:mt-0 sm:text-left rtl:justify-start rtl:text-right">
               <div className="flex items-center gap-2 absolute left-12 top-5">
@@ -423,7 +429,7 @@ function SubmitPopUp({ handleClose }) {
               </clipPath>
             </defs>
           </svg>
-        </div>
+        </motion.div>
       </div>
     </>
   );
