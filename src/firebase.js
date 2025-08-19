@@ -8,13 +8,13 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCF4RjOPkVJnLEZzC0tbmcYUxGcPRS-hbo",
-  authDomain: "prime-notification-b1994.firebaseapp.com",
-  projectId: "prime-notification-b1994",
-  storageBucket: "prime-notification-b1994.firebasestorage.app",
-  messagingSenderId: "105701365488",
-  appId: "1:105701365488:web:fe1029cc490e1d76fe9435",
-  measurementId: "G-0DN1PSS2ZY"
+  apiKey: "AIzaSyAr6qxfWZaQ6-9Xq_2qLoYHR-uFA7A6eZc",
+  authDomain: "stagingprime.firebaseapp.com",
+  projectId: "stagingprime",
+  storageBucket: "stagingprime.firebasestorage.app",
+  messagingSenderId: "408870663796",
+  appId: "1:408870663796:web:bb28b8cded171d1f4bc321",
+  measurementId: "G-R273JZNFD2"
 };
 
 // Initialize Firebase
