@@ -47,7 +47,18 @@ window.appLoginData = function (
 };
 
 
-
+const permission = await Notification.requestPermission();
+console.log("asfdsadfsd",permission);
+if ("serviceWorker" in navigator && "PushManager" in window) {
+  navigator.serviceWorker
+    .register("/firebase-messaging-sw.js")
+    .then((reg) => {
+      console.log("Service Worker registered", reg);
+    })
+    .catch((err) => console.error("SW registration failed", err));
+}
+ 
+ 
 
 
 createRoot(document.getElementById("root")).render(

@@ -31,7 +31,7 @@ import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
 
 function App() {
   const { i18n } = useTranslation();
-
+  
   useEffect(() => {
     const dir = i18n.language === "ar" ? "rtl" : "ltr";
     document.documentElement.setAttribute("dir", dir);

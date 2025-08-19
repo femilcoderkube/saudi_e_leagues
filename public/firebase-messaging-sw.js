@@ -4,13 +4,13 @@ importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-com
 
 // TODO: Replace with your Firebase project config
 firebase.initializeApp({
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
+  apiKey: "AIzaSyAr6qxfWZaQ6-9Xq_2qLoYHR-uFA7A6eZc",
+  authDomain: "stagingprime.firebaseapp.com",
+  projectId: "stagingprime",
+  storageBucket: "stagingprime.firebasestorage.app",
+  messagingSenderId: "408870663796",
+  appId: "1:408870663796:web:bb28b8cded171d1f4bc321",
+  measurementId: "G-R273JZNFD2"
 });
 
 const messaging = firebase.messaging();
