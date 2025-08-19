@@ -50,8 +50,8 @@ window.appLoginData = function (authToken, language, userData,deviceType) {
   window.dispatchEvent(new Event("appLoginDataReceived"));
 };
 
-const permission = await Notification.requestPermission();
-console.log("asfdsadfsd", permission);
+// const permission = await Notification.requestPermission();
+// console.log("asfdsadfsd", permission);
 // if ("serviceWorker" in navigator && "PushManager" in window) {
 //   navigator.serviceWorker
 //     .register("/firebase-messaging-sw.js")
