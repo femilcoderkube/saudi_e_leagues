@@ -36,7 +36,13 @@ export async function requestFCMToken() {
 export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
-      console.log("📩 Foreground Message:", payload);
+      console.log("Message received. ", payload);
+      if (payload?.notification) {
+        const { title, body } = payload.notification;
+        if (Notification.permission === "granted") {
+          new Notification(title, { body });
+        }
+      }
       resolve(payload);
     });
   });

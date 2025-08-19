@@ -57,9 +57,7 @@ function App() {
     // Get FCM Token
     requestFCMToken();
 
-    onMessageListener().then((payload) => {
-      alert("📩 New Notification: " + payload.notification?.title);
-    });
+    onMessageListener()
   }, []);
 
   return (
