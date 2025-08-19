@@ -19,7 +19,7 @@ export default function BattleRoyalStanding() {
       initial="hidden"
       whileInView="visible"
       variants={cardVariantsAni}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0 }}
       >
         {/* Battle Table Heading */}
         <div className="battle-head flex">

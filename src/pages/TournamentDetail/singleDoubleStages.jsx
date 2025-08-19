@@ -12,23 +12,23 @@ import full_screen from "../../assets/images/full-screen.png";
 import { getServerURL } from "../../utils/constant.js";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import { useTranslation } from "react-i18next";
-import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
-import { motion } from "motion/react"
+import {
+  leftToRight,
+  rightToLeft,
+  cardVariantsAni,
+} from "../../components/Animation/animation.jsx";
+import { motion } from "motion/react";
 
 const SingleDoubleStages = () => {
   const { t } = useTranslation();
-  const {
-    activeTournamentTab,
-    showCalendar,
-  } = useSelector((state) => state.constState);
-  const { activeStage, tournamentStages, loader, nextDayDate, currentDate } = useSelector(
-    (state) => state.tournament
+  const { activeTournamentTab, showCalendar } = useSelector(
+    (state) => state.constState
   );
+  const { activeStage, tournamentStages, loader, nextDayDate, currentDate } =
+    useSelector((state) => state.tournament);
   const dispatch = useDispatch();
 
   let container;
-
-
 
   useEffect(() => {
     if (tournamentStages) {
@@ -85,9 +85,18 @@ const SingleDoubleStages = () => {
 
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
-      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
-      document.removeEventListener("mozfullscreenchange", handleFullscreenChange);
-      document.removeEventListener("MSFullscreenChange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
+      document.removeEventListener(
+        "mozfullscreenchange",
+        handleFullscreenChange
+      );
+      document.removeEventListener(
+        "MSFullscreenChange",
+        handleFullscreenChange
+      );
     };
   }, []);
 
@@ -120,30 +129,32 @@ const SingleDoubleStages = () => {
       <div id="tournament-tab-contents" className="mt-7">
         <div id="first" className="py-4 active">
           <div
-            className={`tab-btn-wp flex justify-between items-center gap-5 ${activeTournamentTab === 1 ? "bracket-btn" : ""
-              }`}
+            className={`tab-btn-wp flex justify-between items-center gap-5 ${
+              activeTournamentTab === 1 ? "bracket-btn" : ""
+            }`}
           >
             <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
               <div className="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] sm:top-1 top-0 inline-flex justify-center sm:justify-start">
                 <button
                   onClick={() => handleActiveTournamentTab(1)}
-                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${activeTournamentTab === 1
+                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
+                    activeTournamentTab === 1
                       ? "active-tab hover:opacity-100 polygon_border"
                       : ""
-                    }`}
+                  }`}
                 >
                   {t("tournament.brackets")}
                 </button>
 
                 <button
                   onClick={() => handleActiveTournamentTab(2)}
-                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${activeTournamentTab === 2
+                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
+                    activeTournamentTab === 2
                       ? "active-tab hover:opacity-100 polygon_border"
                       : ""
-                    }`}
+                  }`}
                 >
                   {t("tournament.schedule")}
-                    
                 </button>
               </div>
             </div>
@@ -162,21 +173,25 @@ const SingleDoubleStages = () => {
 
               {activeTournamentTab === 2 && (
                 <button
+                  id="calendar-popup-btn"
                   className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer mb-4"
                   onClick={() => dispatch(setShowCalendar(!showCalendar))}
                 >
                   <span className="sm:text-lg text-base font-bold">
-                     
-                      <>
+                    <>
+                      {new Date(currentDate).toLocaleString("en-US", {
+                        day: "2-digit",
+                      })}{" "}
+                      -{" "}
+                      {new Date(nextDayDate).toLocaleString("en-US", {
+                        day: "2-digit",
+                      })}{" "}
+                      <span className="font-normal">
                         {new Date(currentDate).toLocaleString("en-US", {
-                          day: "2-digit",
-                        })} - {new Date(nextDayDate).toLocaleString("en-US", {
-                          day: "2-digit",
-                        })} <span className="font-normal">{new Date(currentDate).toLocaleString("en-US", {
                           month: "short",
-                        })}</span>
-                      </>
-                    
+                        })}
+                      </span>
+                    </>
                   </span>
                   <img
                     className="w-3.5 h-2 object-cover object-center"
@@ -185,10 +200,23 @@ const SingleDoubleStages = () => {
                   />
                 </button>
               )}
-
               {showCalendar && activeTournamentTab === 2 && (
-                <div className="open-cal absolute ltr:right-0 rtl:left-0 top-[100%] z-50">
-                  <TournamentDatepiker startDate={new Date(currentDate)} endDate={new Date(nextDayDate)}/>
+                <div
+                  id="calendar-popup"
+                  className={`open-cal absolute ltr:right-0 rtl:left-0 z-50 ${
+                    window.innerHeight -
+                      document
+                        .getElementById("calendar-popup-btn")
+                        ?.getBoundingClientRect().bottom <
+                    300
+                      ? "bottom-[100%] mb-2"
+                      : "top-[100%] mt-2"
+                  }`}
+                >
+                  <TournamentDatepiker
+                    startDate={new Date(currentDate)}
+                    endDate={new Date(nextDayDate)}
+                  />
                 </div>
               )}
             </div>
@@ -196,11 +224,12 @@ const SingleDoubleStages = () => {
 
           <>
             {activeTournamentTab === 1 && (
-              <motion.div className="tournament-bracket-wrapper mb-15"
-              initial="hidden"
-              whileInView="visible"
-              variants={cardVariantsAni}
-              viewport={{ once: true, amount: 0 }}
+              <motion.div
+                className="tournament-bracket-wrapper mb-15"
+                initial="hidden"
+                whileInView="visible"
+                variants={cardVariantsAni}
+                viewport={{ once: true, amount: 0 }}
               >
                 <div
                   id="Major-final"
@@ -210,11 +239,12 @@ const SingleDoubleStages = () => {
               </motion.div>
             )}
             {activeTournamentTab === 2 && (
-              <motion.div className="tournament-bracket-wrapper md:mt-20 mt-15 mb-15"
-              initial="hidden"
-              whileInView="visible"
-              variants={cardVariantsAni}
-              viewport={{ once: true, amount: 0 }}
+              <div
+                className="tournament-bracket-wrapper md:mt-20 mt-15 mb-15"
+                initial="hidden"
+                whileInView="visible"
+                variants={cardVariantsAni}
+                viewport={{ once: true, amount: 0 }}
               >
                 {tournamentStages?.matcheData.length > 0 ? (
                   <div className="tournament-schedule-card-list grid gap-x-8 gap-y-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
@@ -227,7 +257,9 @@ const SingleDoubleStages = () => {
                             new Date(nextDayDate).setHours(23, 59, 59, 999)
                       )
                       .map((item, index) => {
-                        return <TournamentScheduleCard key={index} item={item} />;
+                        return (
+                          <TournamentScheduleCard key={index} item={item} />
+                        );
                       })}
                   </div>
                 ) : (
@@ -235,7 +267,7 @@ const SingleDoubleStages = () => {
                     {t("tournament.no_matchs_found")}
                   </div>
                 )}
-              </motion.div>
+              </div>
             )}
           </>
         </div>
