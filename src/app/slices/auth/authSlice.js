@@ -228,6 +228,7 @@ const authSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       sessionStorage.clear();
+      window.AndroidInterface?.androidLogoutCallbackHandler("success");
     },
     // resetRegisterState from registerSlice
     resetRegisterState: (state) => {

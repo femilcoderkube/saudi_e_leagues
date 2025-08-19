@@ -30,25 +30,28 @@ setAxiosStore(store);
 // main.tsx or index.tsx
 
 // Define the function globally
-window.appLoginData = function (
-  authToken,
-  language,
-  userData
-) {
-  console.log("Callback from App:", authToken, language, userData);
-
+window.appLoginData = function (authToken, language, userData,deviceType) {
+  console.log("Callback from App:", authToken, language, userData ,deviceType);
   // Store values in localStorage or state management
-  localStorage.setItem("token", authToken);
-  localStorage.setItem("lang", language);
-  localStorage.setItem("user", userData);
+  if (authToken) {
+    localStorage.setItem("token", authToken);
+  }
+  if(deviceType){
+    localStorage.setItem("deviceType", deviceType);
+  }
+  if (language) {
+    localStorage.setItem("lang", language);
+  }
+  if (userData) {
+    localStorage.setItem("user", userData);
+  }
 
   // (Optional) trigger a custom event so React components can update
   window.dispatchEvent(new Event("appLoginDataReceived"));
 };
 
-
 const permission = await Notification.requestPermission();
-console.log("asfdsadfsd",permission);
+console.log("asfdsadfsd", permission);
 if ("serviceWorker" in navigator && "PushManager" in window) {
   navigator.serviceWorker
     .register("/firebase-messaging-sw.js")
@@ -57,9 +60,6 @@ if ("serviceWorker" in navigator && "PushManager" in window) {
     })
     .catch((err) => console.error("SW registration failed", err));
 }
- 
- 
-
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode> // StrictMode is often helpful for development, consider re-enabling
@@ -75,9 +75,8 @@ createRoot(document.getElementById("root")).render(
       draggable // Allow dragging to dismiss
       pauseOnHover // Pause autoClose on hover
       theme="light" // Light theme for toasts
-  
     />
-        <svg
+    <svg
       width="0"
       height="0"
       viewBox="0 0 400 72"
