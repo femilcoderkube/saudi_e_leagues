@@ -123,14 +123,24 @@ export default function BattleRoyalStage() {
           </motion.div>
           <>
             {activeTournamentTab === 1 && (
-              <div className="tournament-bracket-wrapper mb-15">
+              <motion.div className="tournament-bracket-wrapper mb-15"
+              initial="hidden"
+              whileInView="visible"
+              variants={cardVariantsAni}
+              viewport={{ once: true, amount: 0.3 }}
+              >
                 <BattleRoyalStanding />
-              </div>
+              </motion.div>
             )}
             {activeTournamentTab === 2 && (
-              <div className="tournament-bracket-wrapper mb-15">
+              <motion.div className="tournament-bracket-wrapper mb-15"
+              initial="hidden"
+              whileInView="visible"
+              variants={cardVariantsAni}
+              viewport={{ once: true, amount: 0.3 }}
+              >
                 <BattleRoyalSChedule />
-              </div>
+              </motion.div>
             )}
           </>
         </div>

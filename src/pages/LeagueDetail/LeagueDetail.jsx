@@ -70,7 +70,7 @@ const LeagueDetail = () => {
       ) : (
         <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
-          <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8">
+          <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8 mb-10">
             <motion.div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1"
              variants={leftToRight}
              custom={0} 

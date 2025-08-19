@@ -12,6 +12,8 @@ import full_screen from "../../assets/images/full-screen.png";
 import { getServerURL } from "../../utils/constant.js";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import { useTranslation } from "react-i18next";
+import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
+import { motion } from "motion/react"
 
 const SingleDoubleStages = () => {
   const { t } = useTranslation();
@@ -194,16 +196,26 @@ const SingleDoubleStages = () => {
 
           <>
             {activeTournamentTab === 1 && (
-              <div className="tournament-bracket-wrapper mb-15">
+              <motion.div className="tournament-bracket-wrapper mb-15"
+              initial="hidden"
+              whileInView="visible"
+              variants={cardVariantsAni}
+              viewport={{ once: true, amount: 0 }}
+              >
                 <div
                   id="Major-final"
                   className="!p-0 brackets-viewer !bg-transparent"
                   dir="ltr"
                 ></div>
-              </div>
+              </motion.div>
             )}
             {activeTournamentTab === 2 && (
-              <div className="tournament-bracket-wrapper md:mt-20 mt-15 mb-15">
+              <motion.div className="tournament-bracket-wrapper md:mt-20 mt-15 mb-15"
+              initial="hidden"
+              whileInView="visible"
+              variants={cardVariantsAni}
+              viewport={{ once: true, amount: 0 }}
+              >
                 {tournamentStages?.matcheData.length > 0 ? (
                   <div className="tournament-schedule-card-list grid gap-x-8 gap-y-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                     {tournamentStages?.matcheData
@@ -223,7 +235,7 @@ const SingleDoubleStages = () => {
                     {t("tournament.no_matchs_found")}
                   </div>
                 )}
-              </div>
+              </motion.div>
             )}
           </>
         </div>
