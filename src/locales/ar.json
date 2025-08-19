@@ -391,7 +391,12 @@
     "confirmplayerselection": "تأكيد اختيار اللاعب",
     "confirmplayerselectionMessage": "هل أنت متأكد أنك تريد اختيار",
     "thisplayer": "هذا اللاعب",
-    "selectplayer": "اختر اللاعب"
+    "selectplayer": "اختر اللاعب",
+    "matchmaking": "تأكيد المطابقة",
+    "matchmakingmsg1": "بالضغط على \"الانضمام إلى الطابور\"، ستدخل في مباراة حقيقية ضد لاعبين حقيقيين آخرين",
+    "matchmakingmsg2": "المغادرة أو عدم اللعب سيُحسب كخسارة وقد يؤدي إلى عقوبات بما في ذلك الحظر من المنصة",
+    "matchmakingmsg3": "هل أنت مستعد للعب؟",
+    "donotshow": "لا تُعرض مرة أخرى"
   },
   "drafting": {
     "drafting": "صياغة",
@@ -408,7 +413,7 @@
     "schedule": "الجدول",
     "brackets": "الأدوار الإقصائية",
     "group_standings": "ترتيب المجموعات",
-    "no_matchs_found":"لم يتم العثور على أي تطابقات",
-    "no_data_found":"لم يتم العثور على بيانات"
+    "no_matchs_found": "لم يتم العثور على أي تطابقات",
+    "no_data_found": "لم يتم العثور على بيانات"
   }
 }

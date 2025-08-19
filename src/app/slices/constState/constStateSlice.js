@@ -16,6 +16,7 @@ const initialState = {
   NotificationTabIndex: 0,
   activeTournamentTab: 1,
   confirmationPopUp: 0,
+  queueConfimation: false,
   showCalendar: false,
   selectedStartDate: null,
   selectedEndDate: null,
@@ -59,6 +60,9 @@ const constStateSlice = createSlice({
       if (action.payload === 0) {
         state.selectedPlayerData = null;
       }
+    },
+    setQueueConfirmation: (state, action) => {
+      state.queueConfimation = action.payload;
     },
     setActiveTournamentTab: (state, action) => {
       state.activeTournamentTab = action.payload;
@@ -109,6 +113,6 @@ const constStateSlice = createSlice({
   },
 });
 
-export const { setMatchPage, setTimeLineCard, setMatchLoader, setLogin, setShowCalendar, setRegisteration, setActiveTabIndex, setshowNotification, setProfileVisible, setSubmitModal, setViewModal, setPreviewImage, setIsMatctCreated, setNotificationTabIndex, setActiveTournamentTab, setConfirmationPopUp, setSelectedStartDate, setSelectedEndDate, setDateRange, setSelectedPlayerData } = constStateSlice.actions;
+export const { setMatchPage, setTimeLineCard, setMatchLoader, setLogin, setShowCalendar, setRegisteration, setActiveTabIndex, setshowNotification, setProfileVisible, setSubmitModal, setViewModal, setPreviewImage, setIsMatctCreated, setNotificationTabIndex, setActiveTournamentTab, setConfirmationPopUp, setSelectedStartDate, setSelectedEndDate, setDateRange, setSelectedPlayerData, setQueueConfirmation } = constStateSlice.actions;
 
 export default constStateSlice.reducer;

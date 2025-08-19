@@ -227,6 +227,7 @@ const authSlice = createSlice({
       state.userDetail = null;
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      sessionStorage.clear();
     },
     // resetRegisterState from registerSlice
     resetRegisterState: (state) => {

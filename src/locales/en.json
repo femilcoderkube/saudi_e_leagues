@@ -392,10 +392,15 @@
     "confirmplayerselection": "Confirm Player Selection",
     "confirmplayerselectionMessage": "Are you sure you want to select ",
     "thisplayer": "this player",
-    "selectplayer": "Select Player"
+    "selectplayer": "Select Player",
+    "matchmaking": "Matchmaking Confirmation",
+    "matchmakingmsg1": "By clicking \"Queue\", you'll enter a real match against other real players",
+    "matchmakingmsg2" : "Leaving or not playing will count as a loss and may result in penalties including ban from the platform",
+    "matchmakingmsg3" : "Are you ready to play?",
+    "donotshow" : "Do not show again"
   },
   "drafting": {
-    "drafting" : "Drafting",
+    "drafting": "Drafting",
     "drafting_picks": "Draft Picks",
     "no_draft_picks": "No Draft Picks Available",
     "draft_not_started": "Draft hasn't started yet!",
@@ -405,11 +410,11 @@
     "teams": "Teams",
     "gold_crown": "Gold Crown"
   },
-   "tournament":{
-    "schedule" :"Schedule",
-    "brackets" : "Brackets",
-    "group_standings" : "Group Standings",
-    "no_matchs_found":"No Matchs found",
-    "no_data_found":"No Data found"
-   }
+  "tournament": {
+    "schedule": "Schedule",
+    "brackets": "Brackets",
+    "group_standings": "Group Standings",
+    "no_matchs_found": "No Matchs found",
+    "no_data_found": "No Data found"
+  }
 }
