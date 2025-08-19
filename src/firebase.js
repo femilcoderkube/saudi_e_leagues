@@ -17,9 +17,11 @@ const messaging = getMessaging(app);
 
 export async function requestFCMToken() {
   try {
+    const swRegistration = await navigator.serviceWorker.ready;
     const currentToken = await getToken(messaging, {
       vapidKey:
         "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI", // from Firebase console
+      serviceWorkerRegistration: swRegistration,
     });
     if (currentToken) {
       console.log("FCM Token:", currentToken);
