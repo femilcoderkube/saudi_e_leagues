@@ -371,7 +371,7 @@ const MobileNavigation = ({ user, isActiveTab, breadcrumbItems }) => {
   return (
     <div
       className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${
-        breadcrumbItems?.length == 3 ? "hidden" : ""
+        breadcrumbItems?.length == 3 ? "hidden " : ""
       }${user ? "" : "nav-condition"}`}
     >
       <div className="sq__main-wrap h-full">
