@@ -36,6 +36,9 @@ const WizardSteps = ({
   isEdit = false,
   isVerified,
 }) => {
+
+  console.log("step", step)
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
@@ -148,6 +151,57 @@ const WizardSteps = ({
     label: game.name,
   }));
 
+  const editValidationSchema = Yup.object({
+    firstName: Yup.string()
+      .required(t("validation_messages.first_name_required"))
+      .matches(/^[a-zA-Z]+$/, t("validation_messages.first_name_format")),
+    lastName: Yup.string()
+      .required(t("validation_messages.last_name_required"))
+      .matches(/^[a-zA-Z]+$/, t("validation_messages.last_name_format")),
+    email: Yup.string()
+      .email(t("validation_messages.email_invalid"))
+      .required(t("validation_messages.email_required"))
+      .test(
+        "check-email-exists",
+        t("validation_messages.email_taken"),
+        async (value) => {
+          if (!value || (isEdit && value === initialValues.email)) return true;
+          return new Promise((resolve) => debouncedCheckEmail(value, resolve));
+        }
+      ),
+    dialCode: Yup.object({
+      value: Yup.string().required(),
+      label: Yup.string().required(),
+    }).required(t("validation_messages.dial_code_required")),
+    phoneNumber: Yup.string()
+      .required(t("validation_messages.phone_required"))
+      .test("phone-digit-count", t("validation_messages.phone_digit_count"), (value) => {
+        if (!value) return false;
+        const digits = value.replace(/[^0-9]/g, "");
+        return digits.length >= 7 && digits.length <= 15;
+      })
+      .matches(/^[0-9\s\-\(\)]*$/, t("validation_messages.phone_format"))
+      .test(
+        "check-phone-exists",
+        t("validation_messages.phone_taken"),
+        async function (value) {
+          const { dialCode } = this.parent;
+          if (!value || !dialCode?.value) return true;
+
+          const digits = value.replace(/[^0-9]/g, "");
+          const fullPhone = `${dialCode.value}-${digits}`;
+          const initialDigits = (initialValues.phoneNumber || "").replace(/[^0-9]/g, "");
+          const initialFullPhone = `${initialValues.dialCode?.value || ""}-${initialDigits}`;
+
+          if (isEdit && fullPhone === initialFullPhone) return true;
+
+          return new Promise((resolve) =>
+            debouncedCheckphone(dialCode.value, digits, resolve)
+          );
+        }
+      ),
+  });
+
   const validationSchemas = [
     Yup.object({
       username: isEdit
@@ -212,35 +266,66 @@ const WizardSteps = ({
             label: Yup.string().required(),
           })
           .required(t("validation_messages.nationality_required")),
-      dialCode: Yup.object()
-        .shape({
-          value: Yup.string().required(),
-          label: Yup.string().required(),
-        })
-        .required(t("validation_messages.dial_code_required")),
+      // dialCode: Yup.object()
+      //   .shape({
+      //     value: Yup.string().required(),
+      //     label: Yup.string().required(),
+      //   })
+      //   .required(t("validation_messages.dial_code_required")),
+      // phoneNumber: Yup.string()
+      //   .required(t("validation_messages.phone_required"))
+      //   .test(
+      //     "phone-digit-count",
+      //     t("validation_messages.phone_digit_count"),
+      //     (value) => {
+      //       if (!value) return false;
+      //       const digits = value.replace(/[^0-9]/g, "");
+      //       return digits.length >= 7 && digits.length <= 15;
+      //     }
+      //   )
+      //   .matches(/^[0-9\s\-\(\)]*$/, t("validation_messages.phone_format"))
+      //   .test(
+      //     "check-phone-exists",
+      //     t("validation_messages.phone_taken"),
+      //     async function (value) {
+      //       const { dialCode } = this.parent;
+
+      //       if (!value || !dialCode?.value || (isEdit && value === initialValues.phoneNumber))
+      //         return true;
+
+      //       return new Promise((resolve) =>
+      //         debouncedCheckphone(dialCode.value, value, resolve)
+      //       );
+      //     }
+      //   ),
+      dialCode: Yup.object({
+        value: Yup.string().required(),
+        label: Yup.string().required(),
+      }).required(t("validation_messages.dial_code_required")),
       phoneNumber: Yup.string()
         .required(t("validation_messages.phone_required"))
-        .test(
-          "phone-digit-count",
-          t("validation_messages.phone_digit_count"),
-          (value) => {
-            if (!value) return false;
-            const digits = value.replace(/[^0-9]/g, "");
-            return digits.length >= 7 && digits.length <= 15;
-          }
-        )
+        .test("phone-digit-count", t("validation_messages.phone_digit_count"), (value) => {
+          if (!value) return false;
+          const digits = value.replace(/[^0-9]/g, "");
+          return digits.length >= 7 && digits.length <= 15;
+        })
         .matches(/^[0-9\s\-\(\)]*$/, t("validation_messages.phone_format"))
         .test(
           "check-phone-exists",
           t("validation_messages.phone_taken"),
           async function (value) {
             const { dialCode } = this.parent;
+            if (!value || !dialCode?.value) return true;
 
-            if (!value || !dialCode?.value || (isEdit && value === initialValues.phoneNumber))
-              return true;
+            const digits = value.replace(/[^0-9]/g, "");
+            const fullPhone = `${dialCode.value}-${digits}`;
+            const initialDigits = (initialValues.phoneNumber || "").replace(/[^0-9]/g, "");
+            const initialFullPhone = `${initialValues.dialCode?.value || ""}-${initialDigits}`;
+
+            if (isEdit && fullPhone === initialFullPhone) return true;
 
             return new Promise((resolve) =>
-              debouncedCheckphone(dialCode.value, value, resolve)
+              debouncedCheckphone(dialCode.value, digits, resolve)
             );
           }
         ),
@@ -883,7 +968,8 @@ const WizardSteps = ({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchemas[step - 1]}
+      // validationSchema={validationSchemas[step - 1]}
+      validationSchema={isEdit ? editValidationSchema : validationSchemas[step - 1]}
       onSubmit={(values) => {
         if (isEdit) {
           const phone = values.dialCode
