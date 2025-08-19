@@ -229,6 +229,7 @@ const authSlice = createSlice({
       localStorage.removeItem("user");
       sessionStorage.clear();
       window.AndroidInterface?.androidLogoutCallbackHandler("success");
+      window.webkit.messageHandlers.jsMessageHandler?.iosLogoutCallbackHandler("success");
     },
     // resetRegisterState from registerSlice
     resetRegisterState: (state) => {
