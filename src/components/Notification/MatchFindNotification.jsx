@@ -1,43 +1,43 @@
-import {  useNavigate, useParams } from "react-router-dom";
-
-
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getServerURL, getTimeAgo } from "../../utils/constant";
 import { setshowNotification } from "../../app/slices/constState/constStateSlice";
 import { readNotificationSocket } from "../../app/socket/socket";
+import defaultImg from "../../assets/images/bydefault.png";
 
-const MatchFindNotification = ({data}) => {
+const MatchFindNotification = ({ data }) => {
   const { t, i18n } = useTranslation();
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  let subject,body;
-  if(data.extras?.tempId){
-    subject = i18n.language == "en" ? data.notificationId.Subject.toString().replace("{#1}",data.extras.tempId): data.notificationId.SubjectAr.toString().replace("{#1}",data.extras.tempId);
-    body = i18n.language == "en" ? data.notificationId.Body.toString().replace("{#1}",data.extras.tempId) : data.notificationId.BodyAr.toString().replace("{#1}",data.extras.tempId);
+  let subject, body;
+  if (data.extras?.tempId) {
+    subject = i18n.language == "en" ? data.notificationId.Subject.toString().replace("{#1}", data.extras.tempId) : data.notificationId.SubjectAr.toString().replace("{#1}", data.extras.tempId);
+    body = i18n.language == "en" ? data.notificationId.Body.toString().replace("{#1}", data.extras.tempId) : data.notificationId.BodyAr.toString().replace("{#1}", data.extras.tempId);
   } else {
-    subject = i18n.language == "en" ? data.notificationId.Subject.toString(): data.notificationId.SubjectAr.toString();
-    body = i18n.language == "en" ? data.notificationId.Body.toString(): data.notificationId.BodyAr.toString();
+    subject = i18n.language == "en" ? data.notificationId.Subject.toString() : data.notificationId.SubjectAr.toString();
+    body = i18n.language == "en" ? data.notificationId.Body.toString() : data.notificationId.BodyAr.toString();
   }
+  let imageUrl = data.userId.profilePicture || data.extras.leagueLogo;
   let notificationData = {
-    image: getServerURL(data.userId.profilePicture),
+    image: imageUrl ? getServerURL(imageUrl) : null,
     username: data.userId.username,
     leaguename: data.extras.leagueTitle,
     createdAt: getTimeAgo(data.createdAt),
     subject,
     body,
-    buttonText: i18n.language == "en" ? data.notificationId.ActionButton.toString(): data.notificationId.ActionButtonAr.toString(),
+    buttonText: i18n.language == "en" ? data.notificationId.ActionButton.toString() : data.notificationId.ActionButtonAr.toString(),
     isRead: data.isRead,
   }
-  console.log("data",data._id);
+
   return (
-      <div className="notification-box-wp relative polygon_border sd_before sd_after">
-        <div className="notification-box">
-          <div className="notification-box-rotate">
+    <div className="notification-box-wp relative polygon_border sd_before sd_after">
+      <div className="notification-box">
+        <div className="notification-box-rotate">
           <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
             <div className="notification-box-head flex items-center gap-4">
-              <img src={notificationData.image} alt="" style={{ width: "2.51rem" , height: "2.51rem" , borderRadius: "50%", objectFit :"cover"}} />
+              <img src={notificationData.image || defaultImg} alt="" style={{ width: "2.51rem", height: "2.51rem", borderRadius: "50%", objectFit: "cover" }} />
               <h6 className="text-xl sleading-6">{notificationData.leaguename || notificationData.username}</h6>
             </div>
             <div>
@@ -50,22 +50,22 @@ const MatchFindNotification = ({data}) => {
               {notificationData.body}
             </h6>
             <div className="notification-box-btn flex gap-4 items-center mt-5">
-            {!data.isRead && <button className="uppercase text-xl sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300"
-              
-              onClick={()=>{
-                readNotificationSocket(data._id);
-              }}>
+              {!data.isRead && <button className="uppercase text-xl sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300"
+
+                onClick={() => {
+                  readNotificationSocket(data._id);
+                }}>
                 {t("images.skip")}
               </button>}
               <button className={`relative overflow-hidden pl-0 go-btn uppercase flex items-center justify-center gap-3 active-tab text-lg z-10 sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300 ${data.isRead ? "singleButton" : ""}`}
-              onClick={() => {
-                console.log("data",data); 
-                navigate(`/${id}/match/${data.extras.matchId}`);
-                readNotificationSocket(data._id);
-                dispatch(setshowNotification(false));
-              }}>
+                onClick={() => {
+                  console.log("data", data);
+                  navigate(`/${id}/match/${data.extras.matchId}`);
+                  readNotificationSocket(data._id);
+                  dispatch(setshowNotification(false));
+                }}>
                 {notificationData.buttonText}
-              </button>              
+              </button>
             </div>
           </div>
           <svg
@@ -73,7 +73,7 @@ const MatchFindNotification = ({data}) => {
             viewBox="0 0 360 332"
             width="100%"
             height="100%"
-            
+
           >
             <defs>
               <clipPath
@@ -89,9 +89,9 @@ const MatchFindNotification = ({data}) => {
               <rect width="360" height="332" fill="url(#blob-grad)" />
             </g>
           </svg>
-          </div>
         </div>
       </div>
+    </div>
   );
 };
 
