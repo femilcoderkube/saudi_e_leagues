@@ -6,7 +6,6 @@ import footer_card_icon from "../../assets/images/footer-card-icon.png";
 import { useSelector } from "react-redux";
 import { getServerURL } from "../../utils/constant";
 import { useNavigate, useParams } from "react-router-dom";
-
 const TournamentScheduleCard = ({ item }) => {
   const { id } = useParams();
   
@@ -141,7 +140,7 @@ const TournamentScheduleCard = ({ item }) => {
           }}
         >
           <defs>
-            <clipPath id="scalableClipPath" clipPathUnits="objectBoundingBox">
+            <clipPath id="scalableClipPath1" clipPathUnits="objectBoundingBox">
               <path
                 transform="scale(0.00223214, 0.005)"
                 d="M144 36H304L336 0H432L448 16V184L432 200H272L264 192H184L176 200H16L0 184V16L16 0H112L144 36Z"

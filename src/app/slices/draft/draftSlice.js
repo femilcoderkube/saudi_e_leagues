@@ -34,22 +34,18 @@ const draftSlice = createSlice({
     setDraftData: (state, action) => {
       
       const { status, data , user } = action.payload;
-      console.log("user--",user)
       
       if (!status || !data) return;
       
-      // Early return if data hasn't changed and currentInterval is not 0
       if (state.draftData?.updatedAt === data.updatedAt && 
           state.draftData?.currentInterval !== 0) {
         return;
       }
       
-      // Update core data
       state.draftData = data;
       state.teams = data.teams || [];
       state.otherPlayers = data.otherPlayers || [];
       
-      // Transform picks data
       state.picks = state.otherPlayers.map((pick, idx) => ({
         index: idx,
         username: pick?.userId?.username || "",
@@ -61,14 +57,12 @@ const draftSlice = createSlice({
         score: Math.round(pick?.totalLeaguesScore || 0),
       }));
       
-      // Calculate user team status
       state.userTeamIndex = state.teams.findIndex(team => 
         team?.captains?.userId?._id === user?._id
       );
       state.isUserCaptain = state.userTeamIndex !== -1;
-      state.isCurrentTurn = false; // Default value
+      state.isCurrentTurn = false;
       
-      // Calculate current turn if user is captain and interval is valid
       if (state.isUserCaptain && 
           data.currentInterval !== undefined && 
           data.currentInterval !== -1) {
@@ -76,13 +70,11 @@ const draftSlice = createSlice({
         const totalTeams = data.totalTeams || state.teams.length;
         const currentInterval = data.currentInterval + 1;
         
-        // Generate snake draft order for current interval
         const currentTeamIndex = calculateSnakeDraftPosition(currentInterval, totalTeams);
         state.isCurrentTurn = currentTeamIndex === state.userTeamIndex;
       }
     },
     
-    // Helper function to calculate snake draft position
 
     setDraftCaptain: (state, action) => {
       state.captains = action.payload;

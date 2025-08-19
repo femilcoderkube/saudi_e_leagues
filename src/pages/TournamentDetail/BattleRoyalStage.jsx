@@ -9,8 +9,12 @@ import {
 import BattleRoyalStanding from "./BattleroyalGroupStandings.jsx";
 import BattleRoyalSChedule from "./BattleroyalGroupSchedule.jsx";
 import GamingLoader from "../../components/Loader/loader.jsx";
-import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
-import { motion } from "motion/react"
+import {
+  leftToRight,
+  rightToLeft,
+  cardVariantsAni,
+} from "../../components/Animation/animation.jsx";
+import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 
 export default function BattleRoyalStage() {
@@ -22,17 +26,14 @@ export default function BattleRoyalStage() {
     nextDayDate,
     currentDate,
   } = useSelector((state) => state.tournament);
-  const {
-    activeTournamentTab,
-    showCalendar,
-  } = useSelector((state) => state.constState);
+  const { activeTournamentTab, showCalendar } = useSelector(
+    (state) => state.constState
+  );
 
   const dispatch = useDispatch();
   const handleActiveTournamentTab = (tab) => {
     dispatch(setActiveTournamentTab(tab));
   };
-
-
 
   if (loader) {
     return <GamingLoader />;
@@ -46,11 +47,13 @@ export default function BattleRoyalStage() {
     return (
       <div id="tournament-tab-contents" className="mt-7">
         <div id="first" className="py-4 active">
-          <motion.div className="tab-btn-wp flex sm:justify-between justify-center items-center gap-5 md:mb-12 mb-7"
-          initial="hidden"
-          whileInView="visible"
-          variants={cardVariantsAni}
-          viewport={{ once: true, amount: 0.3 }}>
+          <motion.div
+            className="tab-btn-wp flex sm:justify-between justify-center items-center gap-5 md:mb-12 mb-7"
+            initial="hidden"
+            whileInView="visible"
+            variants={cardVariantsAni}
+            viewport={{ once: true, amount: 0.3 }}
+          >
             <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
               {
                 <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
@@ -63,8 +66,7 @@ export default function BattleRoyalStage() {
                         : ""
                     }`}
                   >
-                  {t("tournament.group_standings")}
-                    
+                    {t("tournament.group_standings")}
                   </button>
 
                   <button
@@ -83,36 +85,50 @@ export default function BattleRoyalStage() {
             </div>
             <div className="relative inline-block">
               {/* Displayed Range */}
-             {activeTournamentTab === 2 && <button
-                className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer mb-4"
-                onClick={() => dispatch(setShowCalendar(!showCalendar))}
-              >
-                <span className="sm:text-lg text-base font-bold">
-                  <>
-                    {new Date(currentDate).toLocaleString("en-US", {
-                      day: "2-digit",
-                    })}{" "}
-                    -{" "}
-                    {new Date(nextDayDate).toLocaleString("en-US", {
-                      day: "2-digit",
-                    })}{" "}
-                    <span className="font-normal">
+              {activeTournamentTab === 2 && (
+                <button
+                  id="calendar-popup-btn"
+                  className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer mb-4"
+                  onClick={() => dispatch(setShowCalendar(!showCalendar))}
+                >
+                  <span className="sm:text-lg text-base font-bold">
+                    <>
                       {new Date(currentDate).toLocaleString("en-US", {
-                        month: "short",
-                      })}
-                    </span>
-                  </>
-                </span>
-                <img
-                  className="w-3.5 h-2 object-cover object-center"
-                  src={cal_arrow}
-                  alt=""
-                />
-              </button>}
+                        day: "2-digit",
+                      })}{" "}
+                      -{" "}
+                      {new Date(nextDayDate).toLocaleString("en-US", {
+                        day: "2-digit",
+                      })}{" "}
+                      <span className="font-normal">
+                        {new Date(currentDate).toLocaleString("en-US", {
+                          month: "short",
+                        })}
+                      </span>
+                    </>
+                  </span>
+                  <img
+                    className="w-3.5 h-2 object-cover object-center"
+                    src={cal_arrow}
+                    alt=""
+                  />
+                </button>
+              )}
 
               {/* Calendar Dropdown */}
-              {(showCalendar && activeTournamentTab === 2 ) && (
-                <div className="open-cal absolute ltr:right-0 rtl:left-0 top-[100%] z-50">
+              {showCalendar && activeTournamentTab === 2 && (
+                <div
+                  id="calendar-popup"
+                  className={`open-cal absolute ltr:right-0 rtl:left-0 z-50 ${
+                    window.innerHeight -
+                      document
+                        .getElementById("calendar-popup-btn")
+                        ?.getBoundingClientRect().bottom <
+                    300
+                      ? "bottom-[100%] mb-2"
+                      : "top-[100%] mt-2"
+                  }`}
+                >
                   <TournamentDatepiker
                     startDate={new Date(currentDate)}
                     endDate={new Date(nextDayDate)}
@@ -123,21 +139,23 @@ export default function BattleRoyalStage() {
           </motion.div>
           <>
             {activeTournamentTab === 1 && (
-              <motion.div className="tournament-bracket-wrapper mb-15"
-              initial="hidden"
-              whileInView="visible"
-              variants={cardVariantsAni}
-              viewport={{ once: true, amount: 0.3 }}
+              <motion.div
+                className="tournament-bracket-wrapper mb-15"
+                initial="hidden"
+                whileInView="visible"
+                variants={cardVariantsAni}
+                viewport={{ once: true, amount: 0 }}
               >
                 <BattleRoyalStanding />
               </motion.div>
             )}
             {activeTournamentTab === 2 && (
-              <motion.div className="tournament-bracket-wrapper mb-15"
-              initial="hidden"
-              whileInView="visible"
-              variants={cardVariantsAni}
-              viewport={{ once: true, amount: 0.3 }}
+              <motion.div
+                className="tournament-bracket-wrapper mb-15"
+                initial="hidden"
+                whileInView="visible"
+                variants={cardVariantsAni}
+                viewport={{ once: true, amount: 0 }}
               >
                 <BattleRoyalSChedule />
               </motion.div>
@@ -149,7 +167,7 @@ export default function BattleRoyalStage() {
   } else {
     return (
       <div className="flex justify-center items-center py-50 text-xl text-gray-400">
-       {t("tournament.no_data_found")}
+        {t("tournament.no_data_found")}
       </div>
     );
   }

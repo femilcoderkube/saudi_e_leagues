@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setLogin } from "../../app/slices/constState/constStateSlice";
+import { setLogin, setQueueConfirmation } from "../../app/slices/constState/constStateSlice";
 import join_btn from "../../assets/images/join_btn.png";
 import need_btn from "../../assets/images/needToLogin.png";
 import Que_btn from "../../assets/images/quebtn.png";
@@ -187,9 +187,15 @@ const GetQueueButton = () => {
         <div
           className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
+            if (sessionStorage.getItem("skipQueueConfirmation")) {
+              sessionStorage.setItem("canAccessFindingMatch", "true");
+              navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+            } else {
+              dispatch(setQueueConfirmation(true))
+            }
             // if (user?.isVerified) {
-            sessionStorage.setItem("canAccessFindingMatch", "true");
-            navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+            // sessionStorage.setItem("canAccessFindingMatch", "true");
+            // navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
             // } else {
             // console.log("User is not verified");
             // dispatch(setVerificationModal({ open: true, module: "queue" }));

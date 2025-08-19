@@ -25,7 +25,6 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
       cancelMatch({ matchId: matchData?._id, participantId: myPId });
     }
     if (confirmationPopUp == 3) {
-      // Handle player selection confirmation
       dispatch(setConfirmationPopUp(0));
       if (selectedPlayerData && onPlayerSelect) {
         onPlayerSelect({
@@ -100,15 +99,12 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
             </div>
             <div className="popup_body px-8   flex flex-col items-center gap-4 pt-15 justify-center">
               <h2 className="text-2xl font-bold mb-4 purple_col">
-                {/* {confirmationPopUp == 1 ? t("confirmation.logoutTitle") : t("confirmation.cancelMatchTitle")} */}
                 {getConfirmationTitle()}
-
               </h2>
 
-              {/* Show player details for confirmation */}
               {confirmationPopUp == 3 && selectedPlayerData && (
-                <div className="mb-4 text-center">
-                  <p className="text-lg text-gray-700 mb-3">{getConfirmationMessage()}</p>
+                <div className="mb-4 text-center ">
+                  <p className="text-lg text-gray-300 mb-3">{getConfirmationMessage()}</p>
                 </div>
               )}
 
@@ -124,9 +120,7 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
                           dispatch(setConfirmationPopUp(0));
                         }}
                       >
-                        {/* {confirmationPopUp == 1 ? t("confirmation.cancel") : t("confirmation.no")} */}
                         {getCancelText()}
-
                       </button>
                     </div>
                   </div>
@@ -143,9 +137,7 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
                           handleOnClick();
                         }}
                       >
-                        {/* {confirmationPopUp == 1 ? t("confirmation.logoutConfirm") : t("confirmation.yes")} */}
                         {getConfirmText()}
-
                       </button>
                     </div>
                   </div>

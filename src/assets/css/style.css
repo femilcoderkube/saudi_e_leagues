@@ -1301,7 +1301,7 @@ html[dir=rtl] .battle-shape {
   background: linear-gradient(183.7deg, rgba(94, 95, 184, 0.2) 3.03%, rgba(34, 35, 86, 0.2) 97.05%);
   box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
   backdrop-filter: blur(0.75rem);
-  clip-path: url(#scalableClipPath);
+  clip-path: url(#scalableClipPath1);
 }
 
 .tournament-schedule-card-footer {
@@ -1386,6 +1386,10 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   display: none;
 }
 
+.main-tournament-schedule-card-wrapper:hover{
+  transform: scale(1.03);
+}
+
 .tournament_page--wrapper .sd_game-con.polygon_border:before,
 .tournament_page--wrapper .sd_game-con.polygon_border:after {
   width: 30%;
@@ -1439,9 +1443,7 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 .card-duty-wp .tournament-schedule-card-footer-right button.common-process {
   background: linear-gradient(270deg, rgba(237, 237, 237, 0.16) 0%, rgba(230, 230, 230, 0.4) 100%),
     linear-gradient(180deg, rgba(145, 145, 145, 0) 0%, rgba(129, 129, 129, 0.2) 100%),
-    radial-gradient(100% 378.13% at 0% 100%, rgba(225, 225, 225, 0.12) 0%, rgba(220, 220, 220, 0) 72.36%)
-    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
-  ;
+    radial-gradient(100% 378.13% at 0% 100%, rgba(225, 225, 225, 0.12) 0%, rgba(220, 220, 220, 0) 72.36%);
   box-shadow: 0px 2px 2px 0px rgba(255, 255, 255, 0.24) inset;
   backdrop-filter: blur(48px);
 }
@@ -1449,9 +1451,7 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 .card-duty-wp .tournament-schedule-card-footer-right button.common-green {
   background: linear-gradient(270deg, rgba(37, 238, 114, 0.16) 0%, rgba(39, 221, 115, 0.4) 100%),
     linear-gradient(180deg, rgba(9, 126, 54, 0) 0%, rgba(9, 126, 54, 0.2) 100%),
-    radial-gradient(100% 378.13% at 0% 100%, rgba(37, 238, 114, 0.12) 0%, rgba(37, 238, 114, 0) 72.36%)
-    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
-  ;
+    radial-gradient(100% 378.13% at 0% 100%, rgba(37, 238, 114, 0.12) 0%, rgba(37, 238, 114, 0) 72.36%);
   box-shadow: 0px 2px 2px 0px rgba(94, 154, 184, 0.24) inset;
   backdrop-filter: blur(48px);
   box-shadow: 0px -2px 12px 0px rgba(29, 197, 150, 0.24) inset;
@@ -1460,9 +1460,7 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 .card-duty-wp .tournament-schedule-card-footer-right button.common-red {
   background: linear-gradient(270deg, rgba(238, 37, 40, 0.16) 0%, rgba(221, 39, 42, 0.4) 100%),
     linear-gradient(180deg, rgba(126, 9, 11, 0) 0%, rgba(126, 9, 11, 0.2) 100%),
-    radial-gradient(100% 378.13% at 0% 100%, rgba(238, 37, 40, 0.12) 0%, rgba(238, 37, 40, 0) 72.36%)
-    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
-  ;
+    radial-gradient(100% 378.13% at 0% 100%, rgba(238, 37, 40, 0.12) 0%, rgba(238, 37, 40, 0) 72.36%);
   box-shadow: 0px 2px 2px 0px rgba(184, 94, 96, 0.24) inset;
   backdrop-filter: blur(48px);
   box-shadow: 0px -2px 12px 0px rgba(255, 0, 4, 0.24) inset;
@@ -1490,6 +1488,10 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   background: linear-gradient(183.7deg, rgba(94, 95, 184, 0.2) 3.03%, rgba(34, 35, 86, 0.2) 97.05%);
   box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
   backdrop-filter: blur(0.75rem);
+}
+
+.card-duty-wp.main-tournament-schedule-card-wrapper:hover{
+  transform: scale(1);
 }
 
 .card-duty-wp .tournament-schedule-card-header-time h2 {

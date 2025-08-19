@@ -495,3 +495,27 @@ export const calculateSnakeDraftPosition = (interval, totalTeams) => {
     ? positionInRound 
     : totalTeams - 1 - positionInRound;
 };
+
+export const checkIsCurrentCaptainTurn = (draftComplete, draftData, teams, teamIdx) => {
+  if (draftComplete || !draftData?.currentInterval == null || draftData.currentInterval === -1) return false;
+  const totalTeams = draftData?.totalTeams || teams.length;
+  const interval = draftData.currentInterval + 1;
+
+  const snakeOrder = [];
+  let direction = 1;
+  let currentRoundTeams = [];
+
+  for (let i = 1; i <= interval; i++) {
+    if (currentRoundTeams.length === 0) {
+      currentRoundTeams = direction === 1
+        ? [...Array(totalTeams).keys()]
+        : [...Array(totalTeams).keys()].reverse();
+    }
+    snakeOrder.push(currentRoundTeams.shift());
+
+    if (currentRoundTeams.length === 0) {
+      direction *= -1;
+    }
+  }
+  return snakeOrder[interval - 1] === teamIdx;
+};
