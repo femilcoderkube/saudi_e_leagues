@@ -7,7 +7,7 @@ import {
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDraftById, setPickedPlayer, socket, stopDraftSocket } from "../../app/socket/socket";
-import { getIntervalCountdown, getServerURL } from "../../utils/constant";
+import { checkIsCurrentCaptainTurn, getIntervalCountdown, getServerURL } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
 import GoldCrown from "../../assets/images/gold_crown.png";
 import moment from "moment";
@@ -18,21 +18,21 @@ import { clearData } from "../../app/slices/draft/draftSlice";
 
 const DraftingDetail = () => {
   const { draftId } = useParams();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { draftData, picks, teams, otherPlayers,isUserCaptain ,isCurrentTurn ,userTeamIndex} = useSelector((state) => state.draft);
+  const { draftData, picks, teams, otherPlayers, isUserCaptain, isCurrentTurn } = useSelector((state) => state.draft);
   const [countdown, setCountdown] = useState("00:00");
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [validationMessage, setValidationMessage] = useState("");
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(clearData());
     if (isSocketConnected) {
-      getDraftById({ draftId, isSocketConnected , user });
+      getDraftById({ draftId, isSocketConnected, user });
     }
     return () => {
-      stopDraftSocket({draftId});
+      stopDraftSocket({ draftId });
     };
   }, [isSocketConnected, user, window.location.pathname, draftId]);
 
@@ -77,16 +77,11 @@ const DraftingDetail = () => {
     }
   }, [validationMessage]);
 
-
-
-
   const handlePlayerClick = (Playerdata) => {
     if (isUserCaptain && isCurrentTurn) {
-      // Store the player data and show confirmation popup
       dispatch(setSelectedPlayerData(Playerdata));
       dispatch(setConfirmationPopUp(3)); // 3 for player selection confirmation
     } else {
-      // Show validation messages for non-captains or wrong turn
       if (!isUserCaptain) {
         setValidationMessage("You are not a captain!");
         return;
@@ -114,10 +109,8 @@ const DraftingDetail = () => {
       )}
       {
         <div className="sd_content-wrapper max-w-full">
-          {/* === League Top Hero Block HTML block Start === */}
           <div className="drafting__time-wrapper flex justify-center items-center mb-3">
             <h2 className="text-[7.5rem] font-bold font_oswald drafting__title-bg">
-
               {otherPlayers.length > 0 ? countdown : "00:00"}
             </h2>
           </div>
@@ -135,7 +128,9 @@ const DraftingDetail = () => {
                   </p>
                 </div>
               </div>
-            </div> : ""}
+            </div>
+            : ""}
+
           {draftData?.otherPlayers.length === 0 ?
             <div className="text-center py-8">
               <div className="mx-auto max-w-[40rem] sd_before sd_after relative polygon_border">
@@ -145,8 +140,8 @@ const DraftingDetail = () => {
                   </p>
                 </div>
               </div>
-            </div> : ""}
-
+            </div>
+            : ""}
 
           <div className="drafting__final_teams-wrapper mb-5">
             <div className="drafting__teams-list-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
@@ -154,29 +149,7 @@ const DraftingDetail = () => {
                 const draftComplete = teams.every(team =>
                   team.players.every(p => !!p.username)
                 );
-                const isCurrentCaptainTurn = (() => {
-                  if (draftComplete || !draftData?.currentInterval == null || draftData.currentInterval === -1) return false;
-                  const totalTeams = draftData?.totalTeams || teams.length;
-                  const interval = draftData.currentInterval + 1;
-
-                  const snakeOrder = [];
-                  let direction = 1;
-                  let currentRoundTeams = [];
-
-                  for (let i = 1; i <= interval; i++) {
-                    if (currentRoundTeams.length === 0) {
-                      currentRoundTeams = direction === 1
-                        ? [...Array(totalTeams).keys()]
-                        : [...Array(totalTeams).keys()].reverse();
-                    }
-                    snakeOrder.push(currentRoundTeams.shift());
-
-                    if (currentRoundTeams.length === 0) {
-                      direction *= -1;
-                    }
-                  }
-                  return snakeOrder[interval - 1] === teamIdx;
-                })();
+                const isCurrentCaptainTurn = checkIsCurrentCaptainTurn(draftComplete, draftData, teams, teamIdx);
 
                 return (
                   <div className="drafting__teams-list" key={teamIdx}>
@@ -216,7 +189,6 @@ const DraftingDetail = () => {
                         )}
                       </div>
 
-                      {/* Team captain card */}
                       <ul className="drafting__teams-picked-list">
                         {team.players.map((p, slotIdx) => {
                           const isPicked = !!p.username;
@@ -258,54 +230,52 @@ const DraftingDetail = () => {
               </h2>
             </div>
 
-            {new Date() < new Date(draftData?.startTime) ? (
-              <div className="text-center py-8">
-                {/* Show grayed out players */}
-                <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8 opacity-50 pointer-events-none">
-                  {otherPlayers.length > 0 && picks.map((data, rowIdx) => (
-                    <div className="draft-row" key={rowIdx + "A"}>
-                      {/* {row.map((data, idx) => ( */}
-                      <div className="draft-picks-wrapper-item" key={data.index}>
-                        {rowIdx % 2 === 0 ? (
-                          <OddPosCard props={data} />
-                        ) : (
-                          <EvenPosCard props={data} />
-                        )}
-                      </div>
-                      {/* ))} */}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              // Normal draft interface when time has reached
-              <div className="draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8">
-                {otherPlayers.length > 0 ? (
-                  picks.map((data, rowIdx) => (
-                    <div className="">
-                      {/* {row.map((data, idx) => { */}
+            {(() => {
+              const isDraftNotStarted = new Date() < new Date(draftData?.startTime);
+              const isClickable = isUserCaptain && isCurrentTurn && !isDraftNotStarted;
 
-                      <div className="draft-picks-wrapper-item">
-                        {rowIdx % 2 === 0 ? (
-                          <OddPosCard props={data}
-                            onClick={isUserCaptain && isCurrentTurn ? () => handlePlayerClick(data) : undefined}
-                          />
-                        ) : (
-                          <EvenPosCard props={data}
-                            onClick={isUserCaptain && isCurrentTurn ? () => handlePlayerClick(data) : undefined} />
-                        )}
-                      </div>
+              const containerClasses = `draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8 ${isDraftNotStarted ? 'opacity-50 pointer-events-none' : ''
+                }`;
 
-                      {/* })} */}
+              const content = otherPlayers.length > 0 ? (
+                picks.map((data, rowIdx) => (
+                  <div
+                    className={isDraftNotStarted ? "draft-row" : ""}
+                    key={isDraftNotStarted ? rowIdx + "A" : rowIdx}
+                  >
+                    <div className="draft-picks-wrapper-item" key={isDraftNotStarted ? data.index : undefined}>
+                      {rowIdx % 2 === 0 ? (
+                        <OddPosCard
+                          props={data}
+                          onClick={isClickable ? () => handlePlayerClick(data) : undefined}
+                        />
+                      ) : (
+                        <EvenPosCard
+                          props={data}
+                          onClick={isClickable ? () => handlePlayerClick(data) : undefined}
+                        />
+                      )}
                     </div>
-                  ))
-                ) : (
-                  <div className="w-full text-center py-8 text-xl text-gray-500">
-                    {t("drafting.no_draft_player")}
                   </div>
-                )}
-              </div>
-            )}
+                ))
+              ) : (
+                <div className="w-full text-center py-8 text-xl text-gray-500">
+                  {t("drafting.no_draft_player")}
+                </div>
+              );
+
+              if (isDraftNotStarted) {
+                return (
+                  <div className="text-center py-8">
+                    <div className={containerClasses}>
+                      {otherPlayers.length > 0 && content}
+                    </div>
+                  </div>
+                );
+              }
+
+              return <div className={containerClasses}>{content}</div>;
+            })()}
 
             <ConfirmationPopUp
               onPlayerSelect={({ draftId, Playerdata, isSocketConnected }) => {
