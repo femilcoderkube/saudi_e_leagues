@@ -27,6 +27,26 @@ setAxiosStore(store);
 //   });
 // }
 
+// main.tsx or index.tsx
+
+// Define the function globally
+window.appLoginData = function (
+  authToken,
+  language,
+  userData
+) {
+  console.log("Callback from App:", authToken, language, userData);
+
+  // Store values in localStorage or state management
+  localStorage.setItem("token", authToken);
+  localStorage.setItem("lang", language);
+  localStorage.setItem("user", userData);
+
+  // (Optional) trigger a custom event so React components can update
+  window.dispatchEvent(new Event("appLoginDataReceived"));
+};
+
+
 
 
 
