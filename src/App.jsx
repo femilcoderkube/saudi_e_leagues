@@ -1,5 +1,4 @@
-
-   import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -57,7 +56,6 @@ function App() {
 
     // Get FCM Token
     requestFCMToken();
-
     onMessageListener()
   }, []);
 
