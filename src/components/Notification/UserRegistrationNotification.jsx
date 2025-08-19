@@ -20,7 +20,7 @@ const UserRegistrationNotification = ({data}) => {
     buttonText: i18n.language == "en" ? data.notificationId.ActionButton.toString(): data.notificationId.ActionButtonAr.toString(),
     isRead: data.isRead,
   }
-  console.log("data",data._id);
+  
   return (
       <div className="notification-box-wp relative polygon_border sd_before sd_after">
         <div className={`notification-box ${

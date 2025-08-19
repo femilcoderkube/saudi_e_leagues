@@ -23,6 +23,7 @@ const MatchFindNotification = ({data}) => {
   let notificationData = {
     image: getServerURL(data.userId.profilePicture),
     username: data.userId.username,
+    leaguename: data.extras.leagueTitle,
     createdAt: getTimeAgo(data.createdAt),
     subject,
     body,
@@ -37,7 +38,7 @@ const MatchFindNotification = ({data}) => {
           <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
             <div className="notification-box-head flex items-center gap-4">
               <img src={notificationData.image} alt="" style={{ width: "2.51rem" , height: "2.51rem" , borderRadius: "50%", objectFit :"cover"}} />
-              <h6 className="text-xl sleading-6">{notificationData.username}</h6>
+              <h6 className="text-xl sleading-6">{notificationData.leaguename || notificationData.username}</h6>
             </div>
             <div>
               <span className="purple_col font-semibold">{notificationData.createdAt}</span>

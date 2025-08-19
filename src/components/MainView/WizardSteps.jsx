@@ -36,9 +36,6 @@ const WizardSteps = ({
   isEdit = false,
   isVerified,
 }) => {
-
-  console.log("step", step)
-
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
