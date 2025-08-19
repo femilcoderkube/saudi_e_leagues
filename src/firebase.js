@@ -1,12 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { getInstallations } from "firebase/installations";
+// TODO: Replace with your Firebase project config
 const firebaseConfig = {
   apiKey: "AIzaSyAr6qxfWZaQ6-9Xq_2qLoYHR-uFA7A6eZc",
   authDomain: "stagingprime.firebaseapp.com",
@@ -14,14 +9,41 @@ const firebaseConfig = {
   storageBucket: "stagingprime.firebasestorage.app",
   messagingSenderId: "408870663796",
   appId: "1:408870663796:web:bb28b8cded171d1f4bc321",
-  measurementId: "G-R273JZNFD2"
+  measurementId: "G-R273JZNFD2",
 };
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+getInstallations(app);
 const messaging = getMessaging(app);
 
+export async function requestFCMToken() {
+  try {
+    const currentToken = await getToken(messaging, {
+      vapidKey:
+        "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI", // from Firebase console
+    });
+    if (currentToken) {
+      console.log("FCM Token:", currentToken);
+      return currentToken;
+    } else {
+      console.log("No registration token available. Request permission.");
+    }
+  } catch (err) {
+    console.error("An error occurred while retrieving token:", err);
+  }
+}
 
+// Listen for messages when the app is open
+export const onMessageListener = () =>
+  new Promise((resolve) => {
+    onMessage(messaging, (payload) => {
+      console.log("Message received. ", payload);
+      if (payload?.notification) {
+        const { title, body } = payload.notification;
+        if (Notification.permission === "granted") {
+          new Notification(title, { body });
+        }
+      }
+      resolve(payload);
+    });
+  });
 
-export { app, messaging, getToken, onMessage }; 

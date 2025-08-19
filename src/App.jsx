@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+   import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -23,21 +24,20 @@ import { useTranslation } from "react-i18next";
 import UserProfilePage from "./pages/profile/UserProfilePage.jsx";
 import ResetPasswordPage from "./pages/profile/resetPassword.jsx";
 import { items } from "./utils/constant.js";
-import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";   
+import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";
 import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
 import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
+import { onMessageListener, requestFCMToken } from "./firebase.js";
 // import { getMessaging, getToken } from "firebase/messaging";
 // import { messaging } from "./firebase.js";
 
 function App() {
   const { i18n } = useTranslation();
-  
+
   useEffect(() => {
     const dir = i18n.language === "ar" ? "rtl" : "ltr";
     document.documentElement.setAttribute("dir", dir);
     document.body.setAttribute("dir", dir);
-  
-  
   }, [i18n.language]);
 
   const [selectedItem, setSelectedItem] = useState("PrimeHome");
@@ -46,10 +46,21 @@ function App() {
     setSelectedItem(item);
   };
   const firstItem = items[0];
-  const getTokenA = async () => {
-   
-  }
-  getTokenA();
+
+  useEffect(() => {
+    // Request permission for notifications
+    if ("Notification" in window) {
+      Notification.requestPermission().then((permission) => {
+        console.log("Notification permission:", permission);
+      });
+    }
+
+    // Get FCM Token
+    requestFCMToken();
+
+    onMessageListener()
+  }, []);
+
   return (
     <Router>
       <div className="flex">
@@ -63,10 +74,19 @@ function App() {
           <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
             <Route index element={<PrimeHome />} />
             <Route path="match/:mId" element={<MatchDetail />} />
-            <Route path="tournament/match/:mId" element={<MatchDetailTournament />} />
+            <Route
+              path="tournament/match/:mId"
+              element={<MatchDetailTournament />}
+            />
             <Route path="lobby" element={<Lobby />} />
-            <Route path="lobby/drafting/:draftId" element={<DraftingDetail/>} />
-            <Route path="lobby/tournament/:tId" element={<TournamentDetail />} />
+            <Route
+              path="lobby/drafting/:draftId"
+              element={<DraftingDetail />}
+            />
+            <Route
+              path="lobby/tournament/:tId"
+              element={<TournamentDetail />}
+            />
             <Route path="lobby/:lId" element={<LeagueDetail />} />
             <Route path="lobby/:lId/finding-match" element={<MatchMaking />} />
             <Route path="profile" element={<UserProfilePage />} />
@@ -80,5 +100,3 @@ function App() {
 }
 
 export default App;
-
-
