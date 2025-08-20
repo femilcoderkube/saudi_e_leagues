@@ -14,42 +14,11 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 getInstallations(app);
-const messaging = getMessaging(app);
+export const messaging = getMessaging(app);
 
-// let originalTitle = null;
-// let intervalRef = null;
-
-// const startFlashing = (msgTitle) => {
-//   if (intervalRef) return;
-
-//   if (!originalTitle) {
-//     originalTitle = document.title;
-//   }
-
-//   let visible = true;
-
-//   intervalRef = setInterval(() => {
-//     document.title = visible ? `🔔 ${msgTitle}` : originalTitle;
-//     visible = !visible;
-//   }, 1000);
-
-//   setTimeout(stopFlashing, 10000);
-//   window.addEventListener("focus", stopFlashing);
-// };
-
-// const stopFlashing = () => {
-//   if (intervalRef) {
-//     clearInterval(intervalRef);
-//     intervalRef = null;
-//     document.title = originalTitle || 'Your App';
-//   }
-//   window.removeEventListener("focus", stopFlashing);
-// };
 
 export async function requestFCMToken() {
   try {
-    // const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
-    // const swRegistration = await navigator.serviceWorker.ready;
     const currentToken = await getToken(messaging, {
       vapidKey:
         "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI", // from Firebase console
