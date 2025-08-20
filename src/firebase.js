@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { getInstallations } from "firebase/installations";
+import sound from './assets/mp3/game-level-complete-143022.mp3';
 // TODO: Replace with your Firebase project config
 const firebaseConfig = {
   apiKey: "AIzaSyAr6qxfWZaQ6-9Xq_2qLoYHR-uFA7A6eZc",
@@ -42,7 +43,13 @@ export const onMessageListener = () =>
       console.log("Message received. ", payload);
       if (payload?.notification) {
         const { title, body } = payload.notification;
+        const { type } = payload.data;
+
         if (Notification.permission === "granted") {
+          if (type == 4) {
+            const audio = new Audio(sound);
+            audio.play();
+          }
           new Notification(title, { body });
         }
       }
