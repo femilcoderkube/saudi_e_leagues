@@ -53,8 +53,9 @@ const messaging = getMessaging(app);
 // Check if service worker is already registered
 navigator.serviceWorker.getRegistrations().then((registrations) => {
   const existingRegistration = registrations.find(
-    (reg) => reg.scope.includes('firebase-messaging-sw.js') || 
-             reg.active?.scriptURL.includes('firebase-messaging-sw.js')
+    (reg) =>
+      reg.scope.includes("/firebase-messaging-sw.js") ||
+      reg.active?.scriptURL.includes("/firebase-messaging-sw.js")
   );
 
   if (existingRegistration) {
@@ -80,14 +81,17 @@ function handleFCMToken(registration) {
   Notification.requestPermission().then((permission) => {
     if (permission === "granted") {
       getToken(messaging, {
-        vapidKey: "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI",
+        vapidKey:
+          "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI",
         serviceWorkerRegistration: registration,
-      }).then((token) => {
-        console.log("FCM Token:", token);
-        // Send this token to your backend
-      }).catch((error) => {
-        console.error("Error getting FCM token:", error);
-      });
+      })
+        .then((token) => {
+          console.log("FCM Token:", token);
+          // Send this token to your backend
+        })
+        .catch((error) => {
+          console.error("Error getting FCM token:", error);
+        });
     } else {
       console.log("Notification permission denied");
     }
