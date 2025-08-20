@@ -12,22 +12,19 @@ import { store } from "./app/slices/store.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Don't forget to import the CSS!
 import "@emran-alhaddad/saudi-riyal-font/index.css";
+import { getMessaging, getToken } from "firebase/messaging";
+import { initializeApp } from "firebase/app";
 setAxiosStore(store);
 
-// Register Firebase Messaging service worker for FCM push notifications
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', function() {
-//     navigator.serviceWorker.register('/firebase-messaging-sw.js')
-//       .then(function(registration) {
-//         console.log('Firebase Messaging Service Worker registered:', registration);
-//       })
-//       .catch(function(err) {
-//         console.log('Service Worker registration failed:', err);
-//       });
-//   });
-// }
-
-// main.tsx or index.tsx
+const firebaseConfig = {
+  apiKey: "AIzaSyAr6qxfWZaQ6-9Xq_2qLoYHR-uFA7A6eZc",
+  authDomain: "stagingprime.firebaseapp.com",
+  projectId: "stagingprime",
+  storageBucket: "stagingprime.firebasestorage.app",
+  messagingSenderId: "408870663796",
+  appId: "1:408870663796:web:bb28b8cded171d1f4bc321",
+  measurementId: "G-R273JZNFD2",
+};
 
 // Define the function globally
 window.appLoginData = function (authToken, language, userData, deviceType) {
@@ -50,26 +47,29 @@ window.appLoginData = function (authToken, language, userData, deviceType) {
   window.dispatchEvent(new Event("appLoginDataReceived"));
 };
 
-// const permission = await Notification.requestPermission();
-// console.log("asfdsadfsd", permission);
-// if ("serviceWorker" in navigator && "PushManager" in window) {
-//   navigator.serviceWorker
-//     .register("/firebase-messaging-sw.js")
-//     .then((reg) => {
-//       console.log("Service Worker registered", reg);
-//     })
-//     .catch((err) => console.error("SW registration failed", err));
-// }
+const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
 
-if ("serviceWorker" in navigator && "PushManager" in window) {
-  navigator.serviceWorker
-    .register("/sw.js")
-    .then((reg) => {
-      console.log("Service Worker registered", reg);
-    })
-    .catch((err) => console.error("SW registration failed", err));
-}
+// Register service worker
+navigator.serviceWorker
+  .register("/firebase-messaging-sw.js")
+  .then((registration) => {
+    console.log("Service Worker registered:", registration);
 
+    // Request permission
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        getToken(messaging, {
+          vapidKey:
+            "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI",
+          serviceWorkerRegistration: registration,
+        }).then((token) => {
+          console.log("FCM Token main.jsx:", token);
+          // send this token to your backend
+        });
+      }
+    });
+  });
 createRoot(document.getElementById("root")).render(
   // <StrictMode> // StrictMode is often helpful for development, consider re-enabling
   <Provider store={store}>
