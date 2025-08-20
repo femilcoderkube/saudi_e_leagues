@@ -14,18 +14,17 @@ import "react-toastify/dist/ReactToastify.css"; // Don't forget to import the CS
 import "@emran-alhaddad/saudi-riyal-font/index.css";
 import { getMessaging, getToken } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
-import { messaging } from "./firebase.js";
 setAxiosStore(store);
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAr6qxfWZaQ6-9Xq_2qLoYHR-uFA7A6eZc",
-//   authDomain: "stagingprime.firebaseapp.com",
-//   projectId: "stagingprime",
-//   storageBucket: "stagingprime.firebasestorage.app",
-//   messagingSenderId: "408870663796",
-//   appId: "1:408870663796:web:bb28b8cded171d1f4bc321",
-//   measurementId: "G-R273JZNFD2",
-// };
+const firebaseConfig = {
+  apiKey: "AIzaSyAr6qxfWZaQ6-9Xq_2qLoYHR-uFA7A6eZc",
+  authDomain: "stagingprime.firebaseapp.com",
+  projectId: "stagingprime",
+  storageBucket: "stagingprime.firebasestorage.app",
+  messagingSenderId: "408870663796",
+  appId: "1:408870663796:web:bb28b8cded171d1f4bc321",
+  measurementId: "G-R273JZNFD2",
+};
 
 // Define the function globally
 window.appLoginData = function (authToken, language, userData, deviceType) {
@@ -48,7 +47,10 @@ window.appLoginData = function (authToken, language, userData, deviceType) {
   window.dispatchEvent(new Event("appLoginDataReceived"));
 };
 
+const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
 
+// Check if service worker is already registered
 navigator.serviceWorker.getRegistrations().then((registrations) => {
   const existingRegistration = registrations.find(
     (reg) =>
