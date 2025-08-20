@@ -55,8 +55,7 @@ function App() {
     }
 
     // Get FCM Token
-    requestFCMToken();
-    onMessageListener()
+    onMessageListener();
   }, []);
 
   return (
