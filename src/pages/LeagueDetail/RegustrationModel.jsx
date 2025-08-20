@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { baseURL } from "../../utils/axios.js";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 const RegistrationModel = () => {
   const { isAgreedToJoin, leagueData } = useSelector((state) => state.leagues);
@@ -109,7 +110,12 @@ const RegistrationModel = () => {
 
         <div className="fixed  inset-0 overflow-y-auto flex justify-center items-center">
           <div className="popup-wrap inline-flex justify-center  items-center h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60 ">
-            <div className="match_reg--popup relative sd_before sd_after">
+            <motion.div className="match_reg--popup relative sd_before sd_after"
+             initial={{ scale: 0.5, opacity: 0, y: 50 }}
+             animate={{ scale: 1, opacity: 1, y: 0 }}
+             exit={{ scale: 0.5, opacity: 0, y: 50 }}
+             transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
               <div className="popup_header px-8 pt-8 pb-5 flex items-start justify-between mt-3 text-center sm:mt-0 sm:text-left">
                 <img
                   src={i18n.language === "ar" ? match_reg_ar : match_reg}
@@ -317,7 +323,7 @@ const RegistrationModel = () => {
                   </clipPath>
                 </defs>
               </svg>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

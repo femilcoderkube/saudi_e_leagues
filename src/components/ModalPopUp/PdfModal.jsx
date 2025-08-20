@@ -7,6 +7,7 @@ import { baseURL } from "../../utils/axios";
 import { useSelector } from "react-redux";
 import { getServerURL } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 // Set the workerSrc to match react-pdf's PDF.js version
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@4.8.69/build/pdf.worker.min.mjs`;
@@ -77,11 +78,15 @@ function PdfModal({ onClose }) {
       className="fixed inset-0 bg-transparent bg-opacity-60 flex items-center justify-center z-[999] m-4 md:m-0 transition-opacity duration-300"
       onClick={onClose}
     >
-      <div
+      <motion.div
         className={`match_reg2--popup rounded-2xl p-6 w-full max-w-4xl max-h-[95vh] relative overflow-hidden shadow-2xl transform transition-all scroll-hide duration-300 ${
           isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
         }`}
         onClick={(e) => e.stopPropagation()}
+        initial={{ scale: 0.5, opacity: 0, y: 50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.5, opacity: 0, y: 50 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         {/* Close button - Fixed position */}
         <button
@@ -134,7 +139,7 @@ function PdfModal({ onClose }) {
             ))}
           </Document>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

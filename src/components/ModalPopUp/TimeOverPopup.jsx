@@ -2,7 +2,7 @@ import match_reg from "../../assets/images/match_making.png";
 import match_reg_ar from "../../assets/images/match_making_ar.png";
 import { Popup_btn } from "../ui/svg/index.jsx";
 import { useTranslation } from "react-i18next";
-
+import { motion } from "framer-motion";
 function TimeOverPopup({
   onYes,
   onNo,
@@ -30,7 +30,12 @@ function TimeOverPopup({
       ></div>
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
         <div className="timeout-popup popup-wrap inline-flex items-center justify-center h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
-          <div className="match_reg--popup relative sd_before sd_after">
+          <motion.div className="match_reg--popup relative sd_before sd_after"
+           initial={{ scale: 0.5, opacity: 0, y: 50 }}
+           animate={{ scale: 1, opacity: 1, y: 0 }}
+           exit={{ scale: 0.5, opacity: 0, y: 50 }}
+           transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
             <div className="popup_header px-8 pt-8 pb-5 flex items-start justify-between mt-3 text-center sm:mt-0 sm:text-left">
               <img
                src={i18n.language === "ar" ? match_reg_ar : match_reg}
@@ -80,7 +85,7 @@ function TimeOverPopup({
                 </clipPath>
               </defs>
             </svg>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
