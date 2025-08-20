@@ -15,6 +15,12 @@ import { setConfirmationPopUp, setSelectedPlayerData } from "../../app/slices/co
 import ConfirmationPopUp from "../../components/ModalPopUp/confirmationPopUp";
 import { t } from "i18next";
 import { clearData } from "../../app/slices/draft/draftSlice";
+import {
+  leftToRight,
+  rightToLeft,
+  cardVariantsAni,
+} from "../../components/Animation/animation.jsx";
+import { motion } from "motion/react";
 
 const DraftingDetail = () => {
   const { draftId } = useParams();
@@ -109,14 +115,24 @@ const DraftingDetail = () => {
       )}
       {
         <div className="sd_content-wrapper max-w-full">
-          <div className="drafting__time-wrapper flex justify-center items-center mb-3">
+          <motion.div className="drafting__time-wrapper flex justify-center items-center mb-3"
+          initial="hidden"
+          whileInView="visible"
+          variants={cardVariantsAni}
+          viewport={{ once: true, amount: 0.3 }}
+          >
             <h2 className="text-[7.5rem] font-bold font_oswald drafting__title-bg">
               {otherPlayers.length > 0 ? countdown : "00:00"}
             </h2>
-          </div>
+          </motion.div>
 
           {new Date() < new Date(draftData?.startTime) ?
-            <div className="text-center py-8">
+            <motion.div className="text-center py-8"
+            initial="hidden"
+            whileInView="visible"
+            variants={cardVariantsAni}
+            viewport={{ once: true, amount: 0.3 }}
+            >
               <div className="mx-auto max-w-[40rem] sd_before sd_after relative polygon_border">
                 <div className="px-6 py-4">
                   <p className="text-2xl font_oswald font-bold uppercase yellow_grad-bg grad_text-clip">
@@ -128,11 +144,16 @@ const DraftingDetail = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
             : ""}
 
           {draftData?.otherPlayers.length === 0 ?
-            <div className="text-center py-8">
+            <motion.div className="text-center py-8"
+            initial="hidden"
+            whileInView="visible"
+            variants={cardVariantsAni}
+            viewport={{ once: true, amount: 0.3 }}
+            >
               <div className="mx-auto max-w-[40rem] sd_before sd_after relative polygon_border">
                 <div className="px-6 py-4">
                   <p className="text-2xl font_oswald font-bold uppercase yellow_grad-bg grad_text-clip">
@@ -140,10 +161,15 @@ const DraftingDetail = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
             : ""}
 
-          <div className="drafting__final_teams-wrapper mb-5">
+          <motion.div className="drafting__final_teams-wrapper mb-5"
+          initial="hidden"
+            whileInView="visible"
+            variants={cardVariantsAni}
+            viewport={{ once: true, amount: 0.3 }}
+          >
             <div className="drafting__teams-list-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
               {teams?.map((team, teamIdx) => {
                 const draftComplete = teams.every(team =>
@@ -221,9 +247,14 @@ const DraftingDetail = () => {
                 )
               })}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="draft-picks-wrapper mb-8">
+          <motion.div className="draft-picks-wrapper mb-8"
+                initial="hidden"
+                whileInView="visible"
+                variants={cardVariantsAni}
+                viewport={{ once: true, amount: 0.3 }}
+          >
             <div className="draft-picks-wrapper-title text-center relative mb-4">
               <h2 className="text-[3.2rem] font-bold font_oswald drafting__title-bg relative inline-block">
                 {otherPlayers.length > 0 ? t("drafting.drafting_picks") : t("drafting.no_draft_picks")}
@@ -288,7 +319,7 @@ const DraftingDetail = () => {
               isSocketConnected={isSocketConnected}
             />
 
-          </div>
+          </motion.div>
         </div >
       }
     </main >
