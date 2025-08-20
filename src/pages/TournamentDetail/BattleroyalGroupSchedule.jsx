@@ -203,7 +203,7 @@ export default function BattleRoyalSChedule() {
                           >
                             {/* Left Side (team1) */}
                             <div
-                              className={`mob-body-full flex justify-between gap-3 items-center md:p-8 sm:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
+                              className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
                             >
                               <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
                                 <div className="schdule-common">
@@ -229,7 +229,7 @@ export default function BattleRoyalSChedule() {
                                     />
                                   ) : (
                                     <div
-                                      className="md:w-8 md:h-8 h-6 w-6"
+                                      className="mob-sch-img md:w-8 md:h-8 h-6 w-6"
                                       style={{
                                         display: "flex",
                                         alignItems: "center",
@@ -280,7 +280,7 @@ export default function BattleRoyalSChedule() {
                             </div>
                             {/* Right Side (team2) */}
                             <div
-                              className={`mob-body-full flex justify-between gap-3 items-center md:p-8 sm:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
+                              className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5  p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
                             >
                               <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
                                 <div className="schdule-common-1">
@@ -306,7 +306,7 @@ export default function BattleRoyalSChedule() {
                                     />
                                   ) : (
                                     <div
-                                      className="md:w-8 md:h-8 h-6 w-6"
+                                      className="mob-sch-img md:w-8 md:h-8 h-6 w-6"
                                       style={{
                                         display: "flex",
                                         alignItems: "center",
@@ -375,7 +375,7 @@ export default function BattleRoyalSChedule() {
                           >
                             {/* Left Side (team1) */}
                             <div
-                              className={`mob-body-full flex justify-between gap-3 items-center md:p-8 sm:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
+                              className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
                             >
                               <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
                                 <div className="schdule-common">
@@ -401,7 +401,7 @@ export default function BattleRoyalSChedule() {
                                     />
                                   ) : (
                                     <div
-                                      className="md:w-8 md:h-8 h-6 w-6"
+                                      className="mob-sch-img md:w-8 md:h-8 h-6 w-6"
                                       style={{
                                         display: "flex",
                                         alignItems: "center",

@@ -61,7 +61,7 @@ export default function BattleRoyalStanding() {
                     : `${index + 1}th`}
                 </p>
               </div>
-              <div className="lg:px-15 sm:px-7 px-3 py-4 flex items-center gap-4 md:max-w-[44.5%] sm:max-w-[40.5%] w-full">
+              <div className="mob-battel-img lg:px-15 sm:px-7 px-3 py-4 flex items-center gap-4 md:max-w-[44.5%] sm:max-w-[40.5%] w-full">
               {player?.participant?.team?.logoImage ? (
                                       <img
                                         src={getServerURL(

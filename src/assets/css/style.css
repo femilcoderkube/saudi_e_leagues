@@ -998,28 +998,54 @@ html[dir=rtl] .battle-shape {
     height: 3.5rem;
   }
 
-  /* .battle-head {
-    display: none;
-  } */
-
-  .battle-head P:first-child {
-    max-width: 8%;
-  }
-
   .battle-common+p,
   .battle-common+div {
     max-width: 38%;
   }
 
-  .battle-body-wp div:last-child {
-    padding-right: 1.3rem;
+  .battle-wp {
+    overflow-x: auto;
+    width: calc(100vw - 1.8rem);
+  }
+
+  .battle-head P,
+  .battle-body-wp div {
+    max-width: unset;
+    padding-inline: 0.8rem;
+  }
+
+  .battle-head P:first-child,
+  .battle-body-wp div:first-child {
+    min-width: 13%;
+  }
+
+  .battle-head P:nth-child(2),
+  .battle-body-wp div:nth-child(2) {
+    min-width: 33%;
+  }
+
+  .battle-head P:nth-child(3),
+  .battle-body-wp div:nth-child(3) {
+    min-width: 20%;
+  }
+
+  .battle-head P:nth-child(4),
+  .battle-body-wp div:nth-child(4) {
+    min-width: 8%;
+  }
+
+  .battle-head P:nth-child(5),
+  .battle-body-wp div:nth-child(17) {
+    min-width: 17%;
+  }
+
+  .battle-head P:nth-child(6),
+  .battle-body-wp div:nth-child(6) {
+    min-width: 8%;
   }
 }
 
 @media (max-width: 575px) {
-  .battle-head P:first-child {
-    max-width: 11%;
-  }
 
   .battle-common+p,
   .battle-common+div {
@@ -1055,41 +1081,38 @@ html[dir=rtl] .battle-shape {
   .mob-common-btn {
     transform: translate(0, calc(-50% + 3px));
   }
-
-  .battle-head P:first-child {
-    max-width: 16%;
-  }
-
-  .battle-head P:nth-child(2) {
-    max-width: 18%;
-  }
-
-  html[dir=ltr] .battle-head P:nth-child(3) {
-    padding-left: 0.8rem;
-  }
-
-  html[dir=rtl] .battle-head P:nth-child(3) {
-    padding-right: 0.8rem;
-  }
-
-  .battle-head P:nth-child(4) {
-    max-width: 20%;
-  }
-
-  .battle-body-wp div {
-    max-width: 23%;
-    padding: 0.8rem;
-    vertical-align: middle;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .battle-body-wp div:last-child {
-    padding-right: 0.8rem;
-  }
 }
 
+@media (max-width: 425px) {
+  .battle-body-wp div:nth-child(4),
+  .battle-head P:nth-child(4) {
+    min-width: 11%;
+  }
+
+  .battle-body-wp div:nth-child(5),
+  .battle-head P:nth-child(5) {
+    min-width: 11%;
+  }
+
+  .battle-head P,
+  .battle-body-wp div {
+    padding-inline: 0.6rem;
+  }
+
+  .battle-body-wp p,
+  .battle-body-wp span {
+    font-size: 14px;
+  }
+  .mob-body-full p,.mob-body-full span,.battle-shape-text span,.mob-match-gp p{
+    font-size: 14px;
+      }
+
+      .mob-body-full img,.mob-body-full .mob-sch-img{
+        width: 1.2rem;
+        height: 1.2rem;
+        font-size: 14px !important;
+      }
+}
 
 @media (max-width: 389px) {
   .battle-shape {
@@ -1105,24 +1128,30 @@ html[dir=rtl] .battle-shape {
     height: 1.8rem;
   }
 
-  .mob-body-full p span {
-    padding: 0;
+  .battle-head P:first-child,
+  .battle-body-wp div:first-child {
+    min-width: 15%;
   }
 
-  .battle-head P:nth-child(3) {
-    padding-left: 1.3rem;
+  .battle-head P:nth-child(2), .battle-body-wp div:nth-child(2){
+    min-width: 34%;
   }
 
-  .battle-head P:nth-child(4) {
-    padding-left: 1.8rem;
+  .battle-common+div{
+    gap: 0.25rem;
   }
 
-  .battle-head P:nth-child(6) {
-    padding-left: 0.4rem;
+  .battle-body-wp p, .battle-body-wp span{
+    font-size: 13px;
   }
 
-  .battle-body-wp div {
-    max-width: 30%;
+  .mob-battel-img img,.mob-battel-img div{
+    width: 1.2rem;
+    height: 1.2rem;
+    font-size: 13px !important;
+  }
+  .battle-wp {
+    width: calc(100vw - 1.25rem);
   }
 }
 
