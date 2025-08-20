@@ -1069,6 +1069,7 @@ html[dir=rtl] .battle-shape {
 
   .schdule-accordion-header {
     padding-inline: 0.6rem;
+    padding-block: 0.8rem;
   }
 
 }
