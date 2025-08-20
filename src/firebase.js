@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { getInstallations } from "firebase/installations";
-import sound from './assets/mp3/game-level-complete-143022.mp3';
+import sound from "./assets/mp3/game-level-complete-143022.mp3";
 // TODO: Replace with your Firebase project config
 const firebaseConfig = {
   apiKey: "AIzaSyAr6qxfWZaQ6-9Xq_2qLoYHR-uFA7A6eZc",
@@ -48,8 +48,8 @@ const messaging = getMessaging(app);
 
 export async function requestFCMToken() {
   try {
-    const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
-    const swRegistration = await navigator.serviceWorker.ready;
+    // const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
+    // const swRegistration = await navigator.serviceWorker.ready;
     const currentToken = await getToken(messaging, {
       vapidKey:
         "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI", // from Firebase console
