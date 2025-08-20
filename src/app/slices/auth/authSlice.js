@@ -236,6 +236,8 @@ const authSlice = createSlice({
         window.webkit?.messageHandlers?.jsMessageHandler?.iosLogoutCallbackHandler(
           "success"
         );
+        console.log("androidLogoutCallbackHandler---- called")
+
       }
     },
     // resetRegisterState from registerSlice

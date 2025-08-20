@@ -37,6 +37,7 @@ const GetQueueButton = () => {
           if(type== "mobile"){
             window.AndroidInterface?.signInCallbackHandler(`${window.location.href}`);
             window.webkit?.messageHandlers?.jsMessageHandler?.signInCallbackHandler(`${window.location.href}`);
+            console.log("signInCallbackHandler---- called")
           }else{
           dispatch(setLogin(true));
           }

@@ -60,6 +60,7 @@ const LanguageToggle = () => {
     if(type== "mobile"){
       window.AndroidInterface?.languageCallbackHandler(`${newLang}`);
       window.webkit?.messageHandlers?.jsMessageHandler?.languageCallbackHandler(`${newLang}`);
+      console.log("languageCallbackHandler---- called")
     }
     
   };
@@ -125,6 +126,7 @@ const AuthButtons = ({ isMobile = false }) => {
           if(type== "mobile"){
             window.AndroidInterface?.signInCallbackHandler(`${window.location.href}`);
             window.webkit?.messageHandlers?.jsMessageHandler?.signInCallbackHandler(`${window.location.href}`);
+            console.log("signInCallbackHandler---- called")
           }else{
           dispatch(setLogin(true));
           }
