@@ -61,13 +61,15 @@ window.appLoginData = function (authToken, language, userData, deviceType) {
 //     .catch((err) => console.error("SW registration failed", err));
 // }
 
-if ("serviceWorker" in navigator && "PushManager" in window) {
+if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register("/sw.js")
-    .then((reg) => {
-      console.log("Service Worker registered", reg);
+    .register("/firebase-messaging-sw.js")
+    .then((registration) => {
+      console.log("✅ Firebase Service Worker registered:", registration);
     })
-    .catch((err) => console.error("SW registration failed", err));
+    .catch((err) => {
+      console.error("❌ Service Worker registration failed:", err);
+    });
 }
 
 createRoot(document.getElementById("root")).render(
