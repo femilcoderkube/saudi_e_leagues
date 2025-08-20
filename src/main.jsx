@@ -50,26 +50,50 @@ window.appLoginData = function (authToken, language, userData, deviceType) {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
-// Register service worker
-navigator.serviceWorker
-  .register("/firebase-messaging-sw.js")
-  .then((registration) => {
-    console.log("Service Worker registered:", registration);
+// Check if service worker is already registered
+navigator.serviceWorker.getRegistrations().then((registrations) => {
+  const existingRegistration = registrations.find(
+    (reg) => reg.scope.includes('firebase-messaging-sw.js') || 
+             reg.active?.scriptURL.includes('firebase-messaging-sw.js')
+  );
 
-    // Request permission
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        getToken(messaging, {
-          vapidKey:
-            "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI",
-          serviceWorkerRegistration: registration,
-        }).then((token) => {
-          console.log("FCM Token main.jsx:", token);
-          // send this token to your backend
-        });
-      }
-    });
+  if (existingRegistration) {
+    console.log("Service Worker already registered:", existingRegistration);
+    // Use existing registration for FCM token
+    handleFCMToken(existingRegistration);
+  } else {
+    // Register new service worker only if not already registered
+    navigator.serviceWorker
+      .register("/firebase-messaging-sw.js")
+      .then((registration) => {
+        console.log("New Service Worker registered:", registration);
+        handleFCMToken(registration);
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
+  }
+});
+
+function handleFCMToken(registration) {
+  // Request permission
+  Notification.requestPermission().then((permission) => {
+    if (permission === "granted") {
+      getToken(messaging, {
+        vapidKey: "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI",
+        serviceWorkerRegistration: registration,
+      }).then((token) => {
+        console.log("FCM Token:", token);
+        // Send this token to your backend
+      }).catch((error) => {
+        console.error("Error getting FCM token:", error);
+      });
+    } else {
+      console.log("Notification permission denied");
+    }
   });
+}
+
 createRoot(document.getElementById("root")).render(
   // <StrictMode> // StrictMode is often helpful for development, consider re-enabling
   <Provider store={store}>

@@ -16,6 +16,36 @@ const app = initializeApp(firebaseConfig);
 getInstallations(app);
 const messaging = getMessaging(app);
 
+// let originalTitle = null;
+// let intervalRef = null;
+
+// const startFlashing = (msgTitle) => {
+//   if (intervalRef) return;
+
+//   if (!originalTitle) {
+//     originalTitle = document.title;
+//   }
+
+//   let visible = true;
+
+//   intervalRef = setInterval(() => {
+//     document.title = visible ? `🔔 ${msgTitle}` : originalTitle;
+//     visible = !visible;
+//   }, 1000);
+
+//   setTimeout(stopFlashing, 10000);
+//   window.addEventListener("focus", stopFlashing);
+// };
+
+// const stopFlashing = () => {
+//   if (intervalRef) {
+//     clearInterval(intervalRef);
+//     intervalRef = null;
+//     document.title = originalTitle || 'Your App';
+//   }
+//   window.removeEventListener("focus", stopFlashing);
+// };
+
 export async function requestFCMToken() {
   try {
     const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
@@ -36,11 +66,11 @@ export async function requestFCMToken() {
   }
 }
 
-// Listen for messages when the app is open
 export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
       console.log("Message received. ", payload);
+
       if (payload?.notification) {
         const { title, body } = payload.notification;
         const { type } = payload.data;
@@ -49,11 +79,17 @@ export const onMessageListener = () =>
           if (type == 4) {
             const audio = new Audio(sound);
             audio.play();
+            // startFlashing(title);
           }
-          new Notification(title, { body });
+
+          const notification = new Notification(title, { body });
+          // notification.onclick = () => {
+          //   stopFlashing();
+          //   window.focus();
+          //   notification.close();
+          // };
         }
       }
       resolve(payload);
     });
   });
-
