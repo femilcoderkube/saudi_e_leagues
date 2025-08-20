@@ -30,13 +30,13 @@ setAxiosStore(store);
 // main.tsx or index.tsx
 
 // Define the function globally
-window.appLoginData = function (authToken, language, userData,deviceType) {
-  console.log("Callback from App:", authToken, language, userData ,deviceType);
+window.appLoginData = function (authToken, language, userData, deviceType) {
+  console.log("Callback from App:", authToken, language, userData, deviceType);
   // Store values in localStorage or state management
   if (authToken) {
     localStorage.setItem("token", authToken);
   }
-  if(deviceType){
+  if (deviceType) {
     localStorage.setItem("deviceType", deviceType);
   }
   if (language) {
@@ -60,6 +60,15 @@ window.appLoginData = function (authToken, language, userData,deviceType) {
 //     })
 //     .catch((err) => console.error("SW registration failed", err));
 // }
+
+if ("serviceWorker" in navigator && "PushManager" in window) {
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then((reg) => {
+      console.log("Service Worker registered", reg);
+    })
+    .catch((err) => console.error("SW registration failed", err));
+}
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode> // StrictMode is often helpful for development, consider re-enabling
