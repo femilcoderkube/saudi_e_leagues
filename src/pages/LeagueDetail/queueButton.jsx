@@ -193,7 +193,7 @@ const GetQueueButton = () => {
         <div
           className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
-            if (sessionStorage.getItem("skipQueueConfirmation")) {
+            if (localStorage.getItem("skipQueueConfirmation")) {
               sessionStorage.setItem("canAccessFindingMatch", "true");
               navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
             } else {

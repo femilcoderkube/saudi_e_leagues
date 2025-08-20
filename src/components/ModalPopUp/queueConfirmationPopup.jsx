@@ -17,7 +17,7 @@ function QueueConfirmationPopUp() {
   if (!queueConfimation) return null;
 
   const handleQueueClick = () => {
-    if (doNotShowAgain) sessionStorage.setItem("skipQueueConfirmation", "true");
+    if (doNotShowAgain) localStorage.setItem("skipQueueConfirmation", "true");
     sessionStorage.setItem("canAccessFindingMatch", "true");
     navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
     dispatch(setQueueConfirmation(false));

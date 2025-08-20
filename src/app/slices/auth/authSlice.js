@@ -229,7 +229,7 @@ const authSlice = createSlice({
       state.userDetail = null;
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      sessionStorage.clear();
+      localStorage.clear();
       let type = localStorage.getItem("deviceType");
       if (type == "mobile") {
         window.AndroidInterface?.androidLogoutCallbackHandler("success");
