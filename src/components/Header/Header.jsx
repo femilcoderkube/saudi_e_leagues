@@ -56,6 +56,12 @@ const LanguageToggle = () => {
     const newLang = i18n.language === "en" ? "ar" : "en";
     i18n.changeLanguage(newLang);
     localStorage.setItem("lang", newLang);
+    let type = localStorage.getItem("deviceType")
+    if(type== "mobile"){
+      window.AndroidInterface?.languageCallbackHandler(`${newLang}`);
+      window.webkit?.messageHandlers?.jsMessageHandler?.languageCallbackHandler(`${newLang}`);
+    }
+    
   };
 
   return (

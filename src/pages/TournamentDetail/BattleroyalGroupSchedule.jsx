@@ -254,7 +254,7 @@ export default function BattleRoyalSChedule() {
                                   </span>
                                 </div>
                               </div>
-                              <div className="flex items-center xl:gap-13 gap-6">
+                              <div className="flex items-center xl:gap-13 gap-4">
                                 <p className="text-lg font-bold text-[#1DED85]">
                                   {team1?.totalPoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
@@ -426,7 +426,7 @@ export default function BattleRoyalSChedule() {
                                   </span>
                                 </div>
                               </div>
-                              <div className="flex items-center xl:gap-13 gap-6">
+                              <div className="flex items-center xl:gap-13 gap-4">
                                 <p className="text-lg font-bold text-[#1DED85]">
                                   {team1?.totalPoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">

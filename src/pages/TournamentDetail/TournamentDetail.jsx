@@ -208,7 +208,7 @@ const TournamentDetail = () => {
                 {/* <!-- Tabs --> */}
                 <motion.ul
                   id="tournament-tabs"
-                  className="sa__tournament-tabs inline-flex sm:flex-row flex-col pt-2 w-full sm:border-b sm:border-gray-200/20"
+                  className="sa__tournament-tabs inline-flex md:flex-row flex-col pt-2 w-full md:border-b md:border-gray-200/20"
                   initial="hidden"
                   whileInView="visible"
                   variants={cardVariantsAni}
@@ -217,7 +217,7 @@ const TournamentDetail = () => {
                   {tournamentData?.stages?.map((item, index) => {
                     return (
                       <li
-                        className={`font-semibold  cursor-pointer sm:border-b-0 border-b border-gray-200/20 ${
+                        className={`font-semibold  cursor-pointer md:border-b-0 border-b border-gray-200/20 ${
                           index == activeStage ? "active" : ""
                         }`}
                       >

@@ -27,7 +27,7 @@ export default function BattleRoyalStanding() {
           <p className="text-[#9EA7CC] text-sm font-semibold xl:px-6 lg:px-4 px-2 py-2 max-w-[5.5%] w-full">
             Place
           </p>
-          <p className="text-[#9EA7CC] text-sm font-semibold md:px-15 sm:px-9 px-3 py-2 md:max-w-[44.5%] max-w-[40.5%] w-full ltr:text-left rtl:text-right">
+          <p className="text-[#9EA7CC] text-sm font-semibold md:px-15 sm:px-9 px-3 py-2 md:max-w-[44.5%] sm:max-w-[40.5%] max-w-[35%] w-full ltr:text-left rtl:text-right">
             Team
           </p>
           <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[13%] w-full text-center">
@@ -61,7 +61,7 @@ export default function BattleRoyalStanding() {
                     : `${index + 1}th`}
                 </p>
               </div>
-              <div className="lg:px-15 sm:px-7 px-3 py-4 flex items-center gap-4 md:max-w-[44.5%] max-w-[40.5%] w-full">
+              <div className="lg:px-15 sm:px-7 px-3 py-4 flex items-center gap-4 md:max-w-[44.5%] sm:max-w-[40.5%] w-full">
               {player?.participant?.team?.logoImage ? (
                                       <img
                                         src={getServerURL(
