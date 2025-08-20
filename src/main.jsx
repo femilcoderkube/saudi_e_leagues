@@ -63,8 +63,8 @@ navigator.serviceWorker.getRegistrations().then((registrations) => {
 navigator.serviceWorker.getRegistrations().then((registrations) => {
   const existingRegistration = registrations.find(
     (reg) =>
-      reg.scope.includes("/firebase-messaging-sw.js") ||
-      reg.active?.scriptURL.includes("/firebase-messaging-sw.js")
+      reg.scope.includes("firebase-messaging-sw.js") ||
+      reg.active?.scriptURL.includes("firebase-messaging-sw.js")
   );
 
   if (existingRegistration) {
