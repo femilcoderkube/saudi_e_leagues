@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      injectRegister: "auto",
+      injectRegister: null,
       registerType: "autoUpdate",
       manifest: {
         name: "Prime eLeague",
