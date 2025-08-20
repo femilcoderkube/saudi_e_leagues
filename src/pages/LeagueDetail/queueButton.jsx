@@ -34,7 +34,6 @@ const GetQueueButton = () => {
         className="common-width lobby_btn mb-8 relative cursor-pointer flex items-center justify-center md:justify-center"
         onClick={() => {
           let type = localStorage.getItem("deviceType")
-          console.log("signInCallbackHandler---- type",type)
           if(type== "mobile"){
             window.AndroidInterface?.signInCallbackHandler(`${window.location.href}`);
             window.webkit?.messageHandlers?.jsMessageHandler?.signInCallbackHandler(`${window.location.href}`);

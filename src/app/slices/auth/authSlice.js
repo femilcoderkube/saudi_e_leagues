@@ -229,16 +229,13 @@ const authSlice = createSlice({
       state.userDetail = null;
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      localStorage.clear();
       let type = localStorage.getItem("deviceType");
-      console.log("androidLogoutCallbackHandler---- type",type)
       if (type == "mobile") {
         window.AndroidInterface?.androidLogoutCallbackHandler("success");
         window.webkit?.messageHandlers?.jsMessageHandler?.iosLogoutCallbackHandler(
           "success"
         );
-        console.log("androidLogoutCallbackHandler---- called")
-
+        localStorage.removeItem("deviceType");
       }
     },
     // resetRegisterState from registerSlice
