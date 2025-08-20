@@ -57,6 +57,7 @@ const LanguageToggle = () => {
     i18n.changeLanguage(newLang);
     localStorage.setItem("lang", newLang);
     let type = localStorage.getItem("deviceType")
+    console.log("languageCallbackHandler---- type",type)
     if(type== "mobile"){
       window.AndroidInterface?.languageCallbackHandler(`${newLang}`);
       window.webkit?.messageHandlers?.jsMessageHandler?.languageCallbackHandler(`${newLang}`);
@@ -123,6 +124,7 @@ const AuthButtons = ({ isMobile = false }) => {
         onClick={(e) => {
           e.preventDefault();
           let type = localStorage.getItem("deviceType")
+          console.log("signInCallbackHandler---- type",type)
           if(type== "mobile"){
             window.AndroidInterface?.signInCallbackHandler(`${window.location.href}`);
             window.webkit?.messageHandlers?.jsMessageHandler?.signInCallbackHandler(`${window.location.href}`);
