@@ -836,7 +836,8 @@ html[dir=rtl] .battle-shape {
   .brackt_fullscreen {
     display: flex !important;
   }
-  .schdule-accordion-body .mob-body-full div:last-child p{
+
+  .schdule-accordion-body .mob-body-full div:last-child p {
     width: 5rem;
   }
 }
@@ -1042,12 +1043,8 @@ html[dir=rtl] .battle-shape {
 
   .schdule-accordion-header {
     padding-inline: 0.6rem;
-    justify-content: start;
   }
 
-  .mob-match-gp {
-    padding-right: 0;
-  }
 }
 
 @media (max-width: 475px) {
@@ -1063,16 +1060,24 @@ html[dir=rtl] .battle-shape {
     max-width: 16%;
   }
 
-  .battle-head P:nth-child(2){
+  .battle-head P:nth-child(2) {
     max-width: 18%;
   }
 
-  .battle-head P:nth-child(3){
+  html[dir=ltr] .battle-head P:nth-child(3) {
     padding-left: 0.8rem;
   }
 
+  html[dir=rtl] .battle-head P:nth-child(3) {
+    padding-right: 0.8rem;
+  }
+
+  .battle-head P:nth-child(4) {
+    max-width: 20%;
+  }
+
   .battle-body-wp div {
-    max-width: unset;
+    max-width: 23%;
     padding: 0.8rem;
     vertical-align: middle;
     display: flex;
@@ -1095,10 +1100,6 @@ html[dir=rtl] .battle-shape {
     width: 4.5rem;
   }
 
-  .schdule-icon {
-    width: 2rem;
-  }
-
   .round-gold {
     width: 1.8rem;
     height: 1.8rem;
@@ -1106,6 +1107,22 @@ html[dir=rtl] .battle-shape {
 
   .mob-body-full p span {
     padding: 0;
+  }
+
+  .battle-head P:nth-child(3) {
+    padding-left: 1.3rem;
+  }
+
+  .battle-head P:nth-child(4) {
+    padding-left: 1.8rem;
+  }
+
+  .battle-head P:nth-child(6) {
+    padding-left: 0.4rem;
+  }
+
+  .battle-body-wp div {
+    max-width: 30%;
   }
 }
 
@@ -1169,7 +1186,7 @@ html[dir=rtl] .battle-shape {
   overflow: hidden;
 }
 
-.brackets-viewer .participant:nth-of-type(2){
+.brackets-viewer .participant:nth-of-type(2) {
   border-bottom-right-radius: 0;
 }
 
@@ -1396,7 +1413,7 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   display: none;
 }
 
-.main-tournament-schedule-card-wrapper:hover{
+.main-tournament-schedule-card-wrapper:hover {
   transform: scale(1.03);
 }
 
@@ -1500,7 +1517,7 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   backdrop-filter: blur(0.75rem);
 }
 
-.card-duty-wp.main-tournament-schedule-card-wrapper:hover{
+.card-duty-wp.main-tournament-schedule-card-wrapper:hover {
   transform: scale(1);
 }
 
