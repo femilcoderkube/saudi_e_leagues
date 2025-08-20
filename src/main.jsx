@@ -50,6 +50,15 @@ window.appLoginData = function (authToken, language, userData, deviceType) {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
+navigator.serviceWorker.getRegistrations().then((registrations) => {
+  registrations.forEach((registration) => {
+    if (registration.active?.scriptURL.includes("sw.js")) {
+      console.log("Unregistering default sw.js");
+      registration.unregister();
+    }
+  });
+});
+
 // Check if service worker is already registered
 navigator.serviceWorker.getRegistrations().then((registrations) => {
   const existingRegistration = registrations.find(
