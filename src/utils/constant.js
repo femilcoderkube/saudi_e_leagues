@@ -66,7 +66,8 @@ export const SOCKET = {
   ONMATCHT: "onMatchT",
   ISBANUSER: "isBanUser",
   ONISBANUSER: "onIsBanUser",
-   REMOVEDRAFTDATA :"removeDraftData"
+  REMOVEDRAFTDATA: "removeDraftData",
+  SETFCMTOKEN: "setFcmToken",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range
@@ -345,8 +346,8 @@ export function getDigitList(num) {
     digits.length >= 8
       ? digits.slice(0, 8)
       : Array(8 - digits.length)
-        .fill(0)
-        .concat(digits);
+          .fill(0)
+          .concat(digits);
   return firstSix;
 }
 export const formatTime = (secs) => {
@@ -449,7 +450,9 @@ export function getIntervalCountdown(
   const seconds = remainingSeconds % 60;
 
   // Format as MM:SS
-  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  return `${minutes.toString().padStart(2, "0")}:${seconds
+    .toString()
+    .padStart(2, "0")}`;
 }
 export const stageTypes = {
   SingleElimination: "SingleElimination",
@@ -465,12 +468,7 @@ export async function isPrivateMode() {
     const off = () => resolve(false);
 
     if (window.webkitRequestFileSystem) {
-      window.webkitRequestFileSystem(
-        window.TEMPORARY,
-        1,
-        off,
-        on
-      );
+      window.webkitRequestFileSystem(window.TEMPORARY, 1, off, on);
     } else if (window.indexedDB && /Firefox/.test(navigator.userAgent)) {
       let db;
       try {
@@ -489,15 +487,23 @@ export async function isPrivateMode() {
 export const calculateSnakeDraftPosition = (interval, totalTeams) => {
   const round = Math.floor((interval - 1) / totalTeams);
   const positionInRound = (interval - 1) % totalTeams;
-  
+
   // Even rounds go forward (0,1,2...), odd rounds go backward
-  return round % 2 === 0 
-    ? positionInRound 
-    : totalTeams - 1 - positionInRound;
+  return round % 2 === 0 ? positionInRound : totalTeams - 1 - positionInRound;
 };
 
-export const checkIsCurrentCaptainTurn = (draftComplete, draftData, teams, teamIdx) => {
-  if (draftComplete || !draftData?.currentInterval == null || draftData.currentInterval === -1) return false;
+export const checkIsCurrentCaptainTurn = (
+  draftComplete,
+  draftData,
+  teams,
+  teamIdx
+) => {
+  if (
+    draftComplete ||
+    !draftData?.currentInterval == null ||
+    draftData.currentInterval === -1
+  )
+    return false;
   const totalTeams = draftData?.totalTeams || teams.length;
   const interval = draftData.currentInterval + 1;
 
@@ -507,9 +513,10 @@ export const checkIsCurrentCaptainTurn = (draftComplete, draftData, teams, teamI
 
   for (let i = 1; i <= interval; i++) {
     if (currentRoundTeams.length === 0) {
-      currentRoundTeams = direction === 1
-        ? [...Array(totalTeams).keys()]
-        : [...Array(totalTeams).keys()].reverse();
+      currentRoundTeams =
+        direction === 1
+          ? [...Array(totalTeams).keys()]
+          : [...Array(totalTeams).keys()].reverse();
     }
     snakeOrder.push(currentRoundTeams.shift());
 

@@ -17,16 +17,31 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   setChatData,
-
   setmatchData,
 } from "../slices/MatchSlice/matchDetailSlice";
 import { setIsMatctCreated } from "../slices/constState/constStateSlice";
-import { setLastMatch, setNotification } from "../slices/notificationSlice/notificationSlice";
-import { setTournamentData, setTournamentStages } from "../slices/tournamentSlice/tournamentSlice";
-import { setDraftData, setDraftCaptain, setDraftPlayers, setDraftStatus, clearData } from "../slices/draft/draftSlice";
+import {
+  setLastMatch,
+  setNotification,
+} from "../slices/notificationSlice/notificationSlice";
+import {
+  setTournamentData,
+  setTournamentStages,
+} from "../slices/tournamentSlice/tournamentSlice";
+import {
+  setDraftData,
+  setDraftCaptain,
+  setDraftPlayers,
+  setDraftStatus,
+  clearData,
+} from "../slices/draft/draftSlice";
 import { useEffect, useRef } from "react";
-import { setChatTData, setmatchTData } from "../slices/MatchSlice/TournamentMatchDetailSlice";
+import {
+  setChatTData,
+  setmatchTData,
+} from "../slices/MatchSlice/TournamentMatchDetailSlice";
 import { logout, setIsBannedUser } from "../slices/auth/authSlice";
+import { requestFCMToken } from "../../firebase";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -65,7 +80,7 @@ socket.on("connect", () => {
   //   }
   // });
   if (user?._id) {
-    checkIsUserBanned({ userId: user?._id })
+    checkIsUserBanned({ userId: user?._id });
   }
 
   socket.on(SOCKET.ONISBANUSER, (payload) => {
@@ -142,6 +157,10 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
       if (window.location.pathname.includes(data?.data?._id?.toString())) {
         data.data.userId = user?._id;
+        socket.emit(SOCKET.SETFCMTOKEN, {
+          userId: user?._id,
+          fcmToken: requestFCMToken(),
+        });
         console.log(" user?._id", user?._id);
         if (data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id) {
           store.dispatch(setLeagueData(data.data));
@@ -153,7 +172,11 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
     });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
-    startStarOfTheWeekSocket({ lId: lId, user: user, isSocketConnected: isSocketConnected });
+    startStarOfTheWeekSocket({
+      lId: lId,
+      user: user,
+      isSocketConnected: isSocketConnected,
+    });
   }
 }
 export function stopLeagueSocket() {
@@ -218,7 +241,7 @@ export function giveReputation(body) {
   socket.emit(SOCKET.GIVEREPUTATION, body);
 }
 export function cancelMatch(data) {
-  socket.emit(SOCKET.CANCELMATCH, data)
+  socket.emit(SOCKET.CANCELMATCH, data);
 }
 export function startTournamentSocket({ tId, user, isSocketConnected }) {
   // console.log("startTournamentSocket", tId, user, isSocketConnected);
@@ -234,7 +257,12 @@ export function startTournamentSocket({ tId, user, isSocketConnected }) {
 export function stopTournamentSocket() {
   socket.off(SOCKET.ONTOURNAMENTUPDATE);
 }
-export function getTournamentStages({ stageId, stageType, isSocketConnected, user }) {
+export function getTournamentStages({
+  stageId,
+  stageType,
+  isSocketConnected,
+  user,
+}) {
   console.log("getTournamentStages", stageId, isSocketConnected, user);
   if (isSocketConnected) {
     stopTournamentStagesSocket();
@@ -242,30 +270,31 @@ export function getTournamentStages({ stageId, stageType, isSocketConnected, use
       console.log("Tournament Stages Update Data:", data);
       store.dispatch(setTournamentStages(data));
     });
-    socket.emit(SOCKET.GETTOURNAMENTSTAGES, { stageId: stageId, stageType: stageType, userId: user?._id });
+    socket.emit(SOCKET.GETTOURNAMENTSTAGES, {
+      stageId: stageId,
+      stageType: stageType,
+      userId: user?._id,
+    });
   }
 }
 export function stopTournamentStagesSocket() {
   socket.off(SOCKET.ONTOURNAMENTSTAGESUPDATE);
 }
-export function stopDraftSocket({draftId}) {
+export function stopDraftSocket({ draftId }) {
   socket.off(SOCKET.ONDRAFTDATAUPDATE);
-  socket.emit(SOCKET.REMOVEDRAFTDATA,{draftId});
-  
-
+  socket.emit(SOCKET.REMOVEDRAFTDATA, { draftId });
 }
-export function getDraftById({ draftId, isSocketConnected , user}) {
+export function getDraftById({ draftId, isSocketConnected, user }) {
   if (isSocketConnected) {
-    stopDraftSocket({draftId});
+    stopDraftSocket({ draftId });
     socket.on(SOCKET.ONDRAFTDATAUPDATE, (data) => {
       console.log("Draft Update Data:", data);
       data.user = user;
 
       // Saving entire data
-      store.dispatch(setDraftData(data))
-
+      store.dispatch(setDraftData(data));
     });
-    socket.emit(SOCKET.GETDRAFTDATA, { draftId })
+    socket.emit(SOCKET.GETDRAFTDATA, { draftId });
   }
 }
 export function setPickedPlayer({ draftId, Playerdata, isSocketConnected }) {
@@ -280,7 +309,7 @@ export function setPickedPlayer({ draftId, Playerdata, isSocketConnected }) {
     //   store.dispatch(setDraftData(data))
 
     // });
-    socket.emit(SOCKET.SETPICKEDDRAFTPLAYER, { draftId, Playerdata })
+    socket.emit(SOCKET.SETPICKEDDRAFTPLAYER, { draftId, Playerdata });
   }
 }
 export function stopMatchDetailTSocket() {
@@ -293,13 +322,12 @@ export function getMatchDetailTById({ mId, isSocketConnected, user }) {
       console.log("Match Details T Data:", data);
       if (data.status) {
         if (data.isMatchUpdate == true) {
-
-          store.dispatch(setmatchTData({ user: user, matchData: data.data }))
+          store.dispatch(setmatchTData({ user: user, matchData: data.data }));
         } else {
-          store.dispatch(setChatTData(data.data?.reverse()))
+          store.dispatch(setChatTData(data.data?.reverse()));
         }
       }
     });
-    socket.emit(SOCKET.GETMATCHT, { mId })
+    socket.emit(SOCKET.GETMATCHT, { mId });
   }
 }
