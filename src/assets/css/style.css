@@ -997,9 +997,9 @@ html[dir=rtl] .battle-shape {
     height: 3.5rem;
   }
 
-  .battle-head {
+  /* .battle-head {
     display: none;
-  }
+  } */
 
   .battle-head P:first-child {
     max-width: 8%;
@@ -1042,13 +1042,11 @@ html[dir=rtl] .battle-shape {
 
   .schdule-accordion-header {
     padding-inline: 0.6rem;
-    flex-direction: column;
-    align-items: self-start;
+    justify-content: start;
   }
 
   .mob-match-gp {
     padding-right: 0;
-    padding-left: 7rem;
   }
 }
 
@@ -1061,9 +1059,25 @@ html[dir=rtl] .battle-shape {
     transform: translate(0, calc(-50% + 3px));
   }
 
+  .battle-head P:first-child {
+    max-width: 16%;
+  }
+
+  .battle-head P:nth-child(2){
+    max-width: 18%;
+  }
+
+  .battle-head P:nth-child(3){
+    padding-left: 0.8rem;
+  }
+
   .battle-body-wp div {
     max-width: unset;
     padding: 0.8rem;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .battle-body-wp div:last-child {
@@ -1079,10 +1093,6 @@ html[dir=rtl] .battle-shape {
 
   .battle-shape-text {
     width: 4.5rem;
-  }
-
-  .mob-match-gp {
-    padding-left: 6rem;
   }
 
   .schdule-icon {
@@ -1517,12 +1527,6 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   .tournament-schedule-card-header-time h2 {
     height: 1.6rem;
   }
-}
-
-@media (max-width: 639px) {
-  .tournament-schedule-card-header-time h2 {
-    height: 1.45rem;
-  }
 
   .sa__tournament-tabs li {
     padding: 0;
@@ -1531,6 +1535,12 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 
   .sa__tournament-tabs li:first-child {
     margin-top: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  .tournament-schedule-card-header-time h2 {
+    height: 1.45rem;
   }
 }
 
