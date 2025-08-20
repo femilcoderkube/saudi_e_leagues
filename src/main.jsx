@@ -52,7 +52,7 @@ const messaging = getMessaging(app);
 
 navigator.serviceWorker.getRegistrations().then((registrations) => {
   registrations.forEach((registration) => {
-    if (registration.active?.scriptURL.includes("sw.js")) {
+    if (registration.active?.scriptURL.includes("/sw.js")) {
       console.log("Unregistering default sw.js");
       registration.unregister();
     }
