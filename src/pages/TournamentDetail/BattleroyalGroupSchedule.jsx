@@ -123,47 +123,51 @@ export default function BattleRoyalSChedule() {
                         </span>
                       </div>
                       <div className="flex items-center lg:gap-6 sm:gap-4 gap-2">
-                        {/* {iconTeams.map((team, i) => {
-                          const classs =
-                            i === 0
-                              ? ""
-                              : i === 1
-                              ? "round-gray"
-                              : i === 2
-                              ? "round-red"
-                              : "round-common";
-                          return (
-                            <div
-                              key={i}
-                              className={`round-gold ${classs} md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center`}
-                            >
-                              {team?.participant?.team?.logoImage ? (
-                                <img
-                                  src={getServerURL(
-                                    team?.participant?.team?.logoImage
+                        {new Date() > new Date(item?.endTime) && (
+                          <>
+                            {iconTeams.map((team, i) => {
+                              const classs =
+                                i === 0
+                                  ? ""
+                                  : i === 1
+                                    ? "round-gray"
+                                    : i === 2
+                                      ? "round-red"
+                                      : "round-common";
+                              return (
+                                <div
+                                  key={i}
+                                  className={`round-gold ${classs} md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center`}
+                                >
+                                  {team?.participant?.team?.logoImage ? (
+                                    <img
+                                      src={getServerURL(
+                                        team?.participant?.team?.logoImage
+                                      )}
+                                      alt={team?.participant?.team?.teamName}
+                                      className="md:w-6 md:h-6 w-4 h-4"
+                                    />
+                                  ) : (
+                                    <span className="text-base font-semibold text-white">
+                                      {team?.participant?.team?.teamName
+                                        ?.charAt(0)
+                                        ?.toUpperCase() || "?"}
+                                    </span>
                                   )}
-                                  alt={team?.participant?.team?.teamName}
-                                  className="md:w-6 md:h-6 w-4 h-4"
-                                />
-                              ) : (
+                                </div>
+                              );
+                            })}
+                            {ExtraTeams > 0 && (
+                              <div
+                                className={`round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center`}
+                              >
                                 <span className="text-base font-semibold text-white">
-                                  {team?.participant?.team?.teamName
-                                    ?.charAt(0)
-                                    ?.toUpperCase() || "?"}
+                                  +{ExtraTeams}
                                 </span>
-                              )}
-                            </div>
-                          );
-                        })}
-                        {ExtraTeams > 0 && (
-                          <div
-                            className={`round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center`}
-                          >
-                            <span className="text-base font-semibold text-white">
-                              +{ExtraTeams}
-                            </span>
-                          </div>
-                          )} */}
+                              </div>
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
 
@@ -180,7 +184,7 @@ export default function BattleRoyalSChedule() {
 
                       <div className="royal-date-time flex gap-2 items-center">
                         <p className="md:text-xl text-base font-semibold text-[#BABDFF]">
-                        {moment(item?.startTime).format("DD MMM")}
+                          {moment(item?.startTime).format("DD MMM")}
                         </p>
                         <p className="md:text-xl text-base font-semibold text-[#7B7ED0]">
                           {moment(item?.startTime).format('LT')}
