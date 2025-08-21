@@ -415,6 +415,14 @@
     "brackets": "Brackets",
     "group_standings": "Group Standings",
     "no_matchs_found": "No Matchs found",
-    "no_data_found": "No Data found"
+    "no_data_found": "No Data found",
+    "place" : "Place",
+    "team" : "Team",
+    "points" : "Points",
+    "placement_points" : "Placement Points (PP)",
+    "kill_points" : "Kill Points (KP)",
+    "victory" : "Victory",
+    "group" : "Group",
+    "match" : "Match"
   }
 }

@@ -8,8 +8,12 @@ import battale_sahpe_img from "../../assets/images/battale-sahpe-img.png";
 import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 export default function BattleRoyalSChedule() {
+
+  const { t } = useTranslation();
+
   const { battleRoyalSchedule, tournamentData, stageSettings, nextDayDate, currentDate } = useSelector(
     (state) => state.tournament
   );
@@ -167,10 +171,10 @@ export default function BattleRoyalSChedule() {
                     <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
                       <div className="flex gap-2 items-center">
                         <p className="md:text-xl text-base font-semibold text-white">
-                          Group {item?.groupNumber || 0}
+                          {t("tournament.group")} {item?.groupNumber || 0}
                         </p>
                         <p className="md:text-xl text-base font-semibold text-white">
-                          Match {item?.matchNumber || 0}
+                          {t("tournament.match")} {item?.matchNumber || 0}
                         </p>
                       </div>
 
