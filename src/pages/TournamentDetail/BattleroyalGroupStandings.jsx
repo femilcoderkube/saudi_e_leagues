@@ -6,8 +6,12 @@ import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";
 import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 export default function BattleRoyalStanding() {
+
+  const { t } = useTranslation();
+
   // ✅ Move this data OUTSIDE return
   const { battleRoyalGroup } = useSelector(
     (state) => state.tournament
@@ -25,24 +29,24 @@ export default function BattleRoyalStanding() {
         <div className="battle-head flex">
           {/* Headings */}
           <p className="text-[#9EA7CC] text-sm font-semibold xl:px-6 lg:px-4 px-2 py-2 max-w-[5.5%] w-full">
-            Place
+            {t("tournament.place")}
           </p>
           <p className="text-[#9EA7CC] text-sm font-semibold md:px-15 sm:px-9 px-3 py-2 md:max-w-[44.5%] sm:max-w-[40.5%] max-w-[35%] w-full ltr:text-left rtl:text-right">
-            Team
+            {t("tournament.team")}
           </p>
           <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[13%] w-full text-center">
-            Points
+            {t("tournament.points")}
           </p>
           <p className="text-[#9EA7CC] text-sm font-semibold xl:px-6 px-2 py-2 md:max-w-[13%] max-w-[15%] w-full text-center">
-            <span className="md:block hidden">Placement Points (PP)</span>
+            <span className="md:block hidden">{t("tournament.placement_points")}</span>
             <span className="md:hidden block">PP</span>
           </p>
           <p className="text-[#9EA7CC] text-sm font-semibold lg:px-6 px-3 py-2 max-w-[13%] w-full text-center">
-            <span className="md:block hidden">Kill Points (KP)</span>
+            <span className="md:block hidden">{t("tournament.kill_points")}</span>
             <span className="block md:hidden">KP</span>
           </p>
           <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 ltr:lg:pr-14 rtl:lg:pl-14 max-w-[13%] w-full ltr:text-right rtl:text-left">
-            Victory
+            {t("tournament.victory")}
           </p>
         </div>
 
