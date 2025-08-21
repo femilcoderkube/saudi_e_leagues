@@ -1085,7 +1085,6 @@ html[dir=rtl] .battle-shape {
 }
 
 @media (max-width: 425px) {
-
   .battle-body-wp div:nth-child(4),
   .battle-head P:nth-child(4) {
     min-width: 11%;
