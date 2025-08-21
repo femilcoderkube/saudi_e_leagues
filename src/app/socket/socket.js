@@ -45,7 +45,7 @@ import { requestFCMToken } from "../../firebase";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
-  import.meta.env.VITE_SOCKET_URL || "https://devnode.coderkubes.com";
+  import.meta.env.VITE_SOCKET_URL || "https://staging-backend.primeeleague.com";
 // const SOCKET_URL =
 //   import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
 
