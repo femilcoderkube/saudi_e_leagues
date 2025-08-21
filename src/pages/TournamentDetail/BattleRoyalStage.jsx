@@ -59,7 +59,7 @@ export default function BattleRoyalStage() {
                 <div class="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] top-1  inline-flex justify-center sm:justify-start">
                   <button
                     onClick={() => handleActiveTournamentTab(1)}
-                    class={`w-[10rem] h-[4rem] md:py-2 ltr:md:px-2.5 rtl:md:px-0.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+                    class={`w-[10rem] h-[4rem] md:py-2 ltr:md:px-2.5 rtl:md:px-0.5 ltr:px-4 rtl:px-2 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
                     ${
                       activeTournamentTab === 1
                         ? "active-tab hover:opacity-100 polygon_border"
