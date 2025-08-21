@@ -27,23 +27,9 @@ import { items } from "./utils/constant.js";
 import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";
 import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
 import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
-// import { onMessageListener, requestFCMToken } from "./firebase.js";
-// import { getMessaging, getToken } from "firebase/messaging";
-// import { messaging } from "./firebase.js";
 
 function App() {
   const { i18n } = useTranslation();
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   // Set the global navigate function for socket use
-  //   setGlobalNavigate(navigate);
-
-  //   // Cleanup function to remove the reference when component unmounts
-  //   return () => {
-  //     setGlobalNavigate(null);
-  //   };
-  // }, [navigate]);
 
   useEffect(() => {
     const dir = i18n.language === "ar" ? "rtl" : "ltr";
@@ -57,18 +43,6 @@ function App() {
     setSelectedItem(item);
   };
   const firstItem = items[0];
-
-  // useEffect(() => {
-  //   // Request permission for notifications
-  //   if ("Notification" in window) {
-  //     Notification.requestPermission().then((permission) => {
-  //       console.log("Notification permission:", permission);
-  //     });
-  //   }
-
-  //   // Get FCM Token
-  //   onMessageListener();
-  // }, []);
 
   return (
     <Router>

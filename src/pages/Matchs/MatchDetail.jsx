@@ -57,13 +57,13 @@ const MatchDetail = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-useEffect(()=>{
-  if(timeout){
-    const timer = setTimeout(() => {
-      dispatch(setShowCancelBtn(false));
-    }, timeout);
-  }
-},[timeout])
+  useEffect(() => {
+    if (timeout) {
+      const timer = setTimeout(() => {
+        dispatch(setShowCancelBtn(false));
+      }, timeout);
+    }
+  }, [timeout])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -105,7 +105,7 @@ useEffect(()=>{
     // Scroll to the invisible anchor (which is at the top due to flex-col-reverse)
     if (scrollAnchorRef.current && !showMobileChat) {
       scrollAnchorRef.current.scrollIntoView({ behavior: "smooth" });
-    } 
+    }
     else if (scrollAnchorRef.current && showMobileChat) {
       scrollAnchorRef.current.scrollIntoView({
         behavior: "smooth",
@@ -131,11 +131,11 @@ useEffect(()=>{
         <div className="team_score--con flex xl:flex-row flex-col justify-between w-full gap-10 items-center xl:items-start">
           {/* Team 1 */}
           <motion.div className="team_score--wrap max-w-[24.625rem] order-2 xl:order-1"
-          variants={leftToRight}
-          custom={0} 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
+            variants={leftToRight}
+            custom={0}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
           >
             <h2 className="grad_head--txt max-w-full ltr:md:text-[4rem] rtl:md:text-[3.75rem] text-[2.5rem] sm:pr-[2rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium leading-none uppercase">
               {t("match.team_one")}
@@ -145,9 +145,9 @@ useEffect(()=>{
 
           {/* Score */}
           <motion.div className="match_center-con flex-1 order-1 xl:order-2"
-           initial={{ opacity: 0,scale:0.85}}
-           animate={{ opacity: 1,scale:1}}
-           transition={{ duration: 0.4, delay: 0.4 }}
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
           >
             <h2 className="text-[4rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center text-center tracking-wider !font-black pb-[4rem]">
               <>
@@ -164,25 +164,25 @@ useEffect(()=>{
               />
             </div>
             <div className="mob-sub-btn flex items-center justify-center flex-wrap gap-6 mb-[1rem]">
-            {user && isMyMatch &&(!IsSubmited || isEditScore != null)  && !matchData?.isCanceled && showCancelBtn  && <div className="cancel-score-btn mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
-                  <div                    
-                    className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center cursor-pointer"
-                  >
-                   {t("match.cancel_match")}{" "}{cancelMatchCount}
-                  </div>
-                  <svg
-                    width="0"
-                    height="0"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ position: "absolute" }}
-                  >
-                    <defs>
-                      <clipPath
-                        id="polygonClip12"
-                        clipPathUnits="objectBoundingBox"
-                      >
-                        <path
-                          d="
+              {user && isMyMatch && (!IsSubmited || isEditScore != null) && !matchData?.isCanceled && showCancelBtn && <div className="cancel-score-btn mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
+                <div
+                  className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center cursor-pointer"
+                >
+                  {t("match.cancel_match")}{" "}{cancelMatchCount}
+                </div>
+                <svg
+                  width="0"
+                  height="0"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ position: "absolute" }}
+                >
+                  <defs>
+                    <clipPath
+                      id="polygonClip12"
+                      clipPathUnits="objectBoundingBox"
+                    >
+                      <path
+                        d="
               M1,0.1111
               V0.8889
               L0.9219,1
@@ -202,12 +202,12 @@ useEffect(()=>{
               L1,0.1111
               Z
             "
-                        />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </div>}
-              {user && isCaptain && (!IsSubmited || isEditScore != null)  && !matchData?.isCanceled && (                
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>}
+              {user && isCaptain && (!IsSubmited || isEditScore != null) && !matchData?.isCanceled && (
                 <div className="mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                   <div
                     onClick={() => {
@@ -276,7 +276,7 @@ useEffect(()=>{
                 <div className="chat_block--con pt-[1rem] h-[25rem] sd_before relative flex flex-col max-w-lg mx-auto">
                   <div
                     className="flex-1 flex flex-col-reverse mx-h-[20rem] chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4"
-                    // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
+                  // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
                   >
                     <div ref={scrollAnchorRef}></div>
                     <div className="flex flex-col space-y-1">
@@ -357,11 +357,10 @@ useEffect(()=>{
                         }
                         return (
                           <div
-                            className={`block ${
-                              user?._id == chat.senderId?._id
+                            className={`block ${user?._id == chat.senderId?._id
                                 ? "send_msg-con"
                                 : "reply_msg-con"
-                            }`}
+                              }`}
                           >
                             <div className="px-2 py-1 rounded-lg">
                               <p className="text-white text-lg font-light">
@@ -677,11 +676,11 @@ useEffect(()=>{
 
           {/* Team 2 */}
           <motion.div className="team_score--wrap max-w-[24.625rem] order-3 xl:order-3"
-          variants={rightToLeft}
-          custom={0}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
+            variants={rightToLeft}
+            custom={0}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
           >
             <h2 className="grad_head--txt max-w-full ltr:md:text-[4rem] rtl:md:text-[3.75rem] text-[2.5rem] sm:pr-[2rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium sm:text-right leading-none uppercase">
               {t("match.team_two")}
