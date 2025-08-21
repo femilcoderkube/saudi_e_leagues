@@ -7,9 +7,10 @@ import schdule_down from "../../assets/images/schdule_down.png";
 import battale_sahpe_img from "../../assets/images/battale-sahpe-img.png";
 import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";
+import moment from "moment";
 
 export default function BattleRoyalSChedule() {
-  const { battleRoyalSchedule, tournamentData ,stageSettings ,nextDayDate ,currentDate} = useSelector(
+  const { battleRoyalSchedule, tournamentData, stageSettings, nextDayDate, currentDate } = useSelector(
     (state) => state.tournament
   );
 
@@ -37,12 +38,12 @@ export default function BattleRoyalSChedule() {
   return (
     <>
       {matcheDataArray?.filter(
-                        (item) =>
-                          new Date(item.date).setHours(0, 0, 0, 0) >=
-                            new Date(currentDate).setHours(0, 0, 0, 0) &&
-                          new Date(item.date).setHours(0, 0, 0, 0) <
-                            new Date(nextDayDate).setHours(23, 59, 59, 999)
-                      )?.map((itemObj, index) => {
+        (item) =>
+          new Date(item.date).setHours(0, 0, 0, 0) >=
+          new Date(currentDate).setHours(0, 0, 0, 0) &&
+          new Date(item.date).setHours(0, 0, 0, 0) <
+          new Date(nextDayDate).setHours(23, 59, 59, 999)
+      )?.map((itemObj, index) => {
         return (
           <div key={`date-${index}`}>
             <div className="schedule-date-wp pb-8 pt-5 flex items-center gap-5">
@@ -66,11 +67,10 @@ export default function BattleRoyalSChedule() {
               return (
                 <div
                   key={accordionKey}
-                  className={`${
-                    activeIndex === accordionKey ? "active-accordation" : ""
-                  } schdule-accordion-card w-full mb-6`}
+                  className={`${activeIndex === accordionKey ? "active-accordation" : ""
+                    } schdule-accordion-card w-full mb-6`}
                 >
-                  <div 
+                  <div
                     onClick={() => toggleAccordion(accordionKey)}
                     className="schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer"
                   >
@@ -114,8 +114,8 @@ export default function BattleRoyalSChedule() {
                           alt=""
                         />
                         <span className="uppercase inline-block md:text-2xl sm:text-lg text-base font-bold">
-                          { stageSettings?.maps
-                          ? stageSettings?.maps[item?.matchNumber - 1]?.name || "" : tournamentData?.game?.name}
+                          {stageSettings?.maps
+                            ? stageSettings?.maps[item?.matchNumber - 1]?.name || "" : tournamentData?.game?.name}
                         </span>
                       </div>
                       <div className="flex items-center lg:gap-6 sm:gap-4 gap-2">
@@ -176,13 +176,13 @@ export default function BattleRoyalSChedule() {
 
                       <div className="royal-date-time flex gap-2 items-center">
                         <p className="md:text-xl text-base font-semibold text-[#BABDFF]">
-                        12 Jul
+                          {moment(item?.startTime).format("MMM Do")}
                         </p>
                         <p className="md:text-xl text-base font-semibold text-[#7B7ED0]">
-                        08:30 PM
+                          {moment(item?.startTime).format('LT')}
                         </p>
                       </div>
-                      
+
                       <div
                         className={`schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer`}
                       >
@@ -196,7 +196,7 @@ export default function BattleRoyalSChedule() {
                   </div>
 
                   {/* Conditionally visible body with smooth animation */}
-                  <div 
+                  <div
                     className="schdule-collapse hidden md:block"
                     ref={(el) => (contentRefs.current[accordionKey] = el)}
                   >
@@ -207,9 +207,8 @@ export default function BattleRoyalSChedule() {
                         return (
                           <div
                             className="schdule-accordion-body flex justify-between items-center"
-                            key={`${team1?.participant?._id || "team1"}-${
-                              team2?.participant?._id || "team2"
-                            }-${tIdx}`}
+                            key={`${team1?.participant?._id || "team1"}-${team2?.participant?._id || "team2"
+                              }-${tIdx}`}
                           >
                             {/* Left Side (team1) */}
                             <div
@@ -222,10 +221,10 @@ export default function BattleRoyalSChedule() {
                                     {tIdx === 0
                                       ? "st"
                                       : tIdx === 1
-                                      ? "nd"
-                                      : tIdx === 2
-                                      ? "rd"
-                                      : "th"}
+                                        ? "nd"
+                                        : tIdx === 2
+                                          ? "rd"
+                                          : "th"}
                                   </p>
                                 </div>
                                 <div className="flex items-center sm:gap-4 gap-2">
@@ -299,10 +298,10 @@ export default function BattleRoyalSChedule() {
                                     {tIdx + half === 0
                                       ? "st"
                                       : tIdx + half === 1
-                                      ? "nd"
-                                      : tIdx + half === 2
-                                      ? "rd"
-                                      : "th"}
+                                        ? "nd"
+                                        : tIdx + half === 2
+                                          ? "rd"
+                                          : "th"}
                                   </p>
                                 </div>
                                 <div className="flex items-center sm:gap-4 gap-2">
@@ -370,13 +369,13 @@ export default function BattleRoyalSChedule() {
                       });
                     })()}
                   </div>
-                  <div 
+                  <div
                     className="schdule-collapse block  md:hidden"
                     ref={(el) => (contentRefs.current[accordionKey] = el)}
                   >
                     {(() => {
                       return scores.map((team1, tIdx) => {
-                        
+
 
                         return (
                           <div
@@ -394,10 +393,10 @@ export default function BattleRoyalSChedule() {
                                     {tIdx === 0
                                       ? "st"
                                       : tIdx === 1
-                                      ? "nd"
-                                      : tIdx === 2
-                                      ? "rd"
-                                      : "th"}
+                                        ? "nd"
+                                        : tIdx === 2
+                                          ? "rd"
+                                          : "th"}
                                   </p>
                                 </div>
                                 <div className="flex items-center sm:gap-4 gap-2">
@@ -460,7 +459,7 @@ export default function BattleRoyalSChedule() {
                                 </p>
                               </div>
                             </div>
-                          
+
                           </div>
                         );
                       });

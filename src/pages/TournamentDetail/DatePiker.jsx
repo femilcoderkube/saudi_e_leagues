@@ -135,13 +135,13 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
         </h2>
         <div className="flex">
           <button 
-            onClick={() => changeMonth(1)}
+            onClick={() => changeMonth(-1)}
             className="p-1 hover:bg-slate-700 rounded transition-colors"
           >
             <ChevronUp size={16} />
           </button>
           <button 
-            onClick={() => changeMonth(-1)}
+            onClick={() => changeMonth(1)}
             className="p-1 hover:bg-slate-700 rounded transition-colors"
           >
             <ChevronDown size={16} />
