@@ -277,7 +277,7 @@ html[dir=rtl] .swiper-slide.swiper-slide-active {
     display: block;
 }
 
-.mySwiper .game_label{
+.mySwiper .game_label {
     max-width: 11rem;
 }
 
@@ -319,7 +319,7 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
     height: 2rem;
     width: 2rem;
     border-radius: unset;
-     display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     color: rgba(199, 233, 255, 1);
@@ -327,14 +327,16 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
     margin: 0 !important;
 }
 
-.htp_slider .swiper-pagination-bullet.swiper-pagination-bullet-active{
+.htp_slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
     box-shadow: 0px 2px 4px 0px rgba(87, 89, 195, 0.24) inset;
     color: rgba(115, 148, 255, 1);
     opacity: 1;
     margin: 0;
 }
 
-
+.htp_slider .custom-pagination-one {
+    bottom: -3rem !important;
+}
 /* two slider css End */
 /* --------------------------------
     
@@ -856,6 +858,12 @@ html[dir="rtl"] .home_faq--sec {
     .htp_slider-sec .game_label {
         padding-bottom: 0.2rem;
     }
+
+    .htp_slider  .custom-pagination-one {
+        max-width: calc(100% - 10rem);
+        flex-wrap: wrap;
+        margin-left: auto;
+    }
 }
 
 @media (max-width: 420px) {
@@ -926,5 +934,9 @@ html[dir="rtl"] .home_faq--sec {
     .how-to-play-mb-btn .btn_polygon-link {
         width: 10rem;
         height: 3rem;
+    }
+
+    .htp_slider .custom-pagination-one {
+        bottom: -5rem !important;
     }
 }

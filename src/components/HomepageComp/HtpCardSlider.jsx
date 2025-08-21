@@ -195,7 +195,7 @@ const HtpCardSlider = ({
 
       {/* Mobile Pagination */}
       <div
-        className={`custom-pagination-${sliderId} flex justify-end mt-4 gap-3 sm:hidden absolute ltr:right-0 rtl:left-0 !-bottom-[3rem] z-100`}
+        className={`custom-pagination-${sliderId} flex justify-end mt-4 gap-3 sm:hidden absolute ltr:right-0 rtl:left-0 z-100`}
       ></div>
 
       {/* Thumbs Swiper */}

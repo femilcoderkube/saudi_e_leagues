@@ -16,6 +16,11 @@ import GamingLoader from "../../components/Loader/loader";
 import { setLeagueData } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { useTranslation } from "react-i18next";
 import { setTournamentData } from "../../app/slices/tournamentSlice/tournamentSlice";
+import {
+  leftToRight,
+  rightToLeft,
+  cardVariantsAni,
+} from "../../components/Animation/animation.jsx";
 
 // Animation variants for the card wrapper
 const containerVariants = {
@@ -70,7 +75,12 @@ const Lobby = () => {
         className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
         style={{ backgroundSize: "100%" }}
       ></div>
-      <div className="sd_slect_game--wrapper relative md:mt-5 ">
+      <motion.div className="sd_slect_game--wrapper relative md:mt-5 "
+      initial="hidden"
+      whileInView="visible"
+      variants={cardVariantsAni}
+      viewport={{ once: true, amount: 0.1 }}
+      >
         <div className="w-full flex justify-center ">
         <div className="game_status--tab rounded-xl overflow-hidden relative md:mt-0 mt-3 md:left-auto md:-translate-x-0 rtl:translate-x-[0] md:absolute top-1 md:ltr:right-32 rtl:right-75 inline-flex mb-8 md:mb-4">
           {tabs.map((tab, index) => (
@@ -133,7 +143,7 @@ const Lobby = () => {
             </AnimatePresence>
           )}
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
