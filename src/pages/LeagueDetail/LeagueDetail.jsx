@@ -28,6 +28,7 @@ import { leftToRight, rightToLeft, cardVariantsAni } from "../../components/Anim
 import { motion } from "motion/react";
 import { setQueueConfirmation } from "../../app/slices/constState/constStateSlice.js";
 import QueueConfirmationPopUp from "../../components/ModalPopUp/queueConfirmationPopup.jsx";
+import TournamentInfoBar from "../../components/TournamentInfoBar/TournamentInfoBar.jsx";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
@@ -154,62 +155,10 @@ const LeagueDetail = () => {
           >
             <div className="sd_content-left order-2 md:order-1">
               <div className="sd_game_info--wrap md:flex-row md:inline-flex hidden gap-3 md:gap-5 items-center justify-center md:justify-baseline w-full">
-                <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
-                  <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
-                    <img
-                      src={getServerURL(leagueData?.game?.logo || "")}
-                      alt=""
-                      className="absolute left-8"
-                      style={{ width: "3rem" }}
-                    />
-                    <div className="sd_game--con text-center">
-                      <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        {t("league.game")}
-                      </p>
-                      <h4 className="text-lg md:text-xl font-bold">
-                        {leagueData?.game?.shortName || ""}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
-                  <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
-                    <img
-                      src={getServerURL(leagueData?.platform?.logo || "")}
-                      alt=""
-                      className="absolute left-8"
-                      style={{ width: "3rem" }}
-                    />
-                    <div className="sd_game--con text-center">
-                      <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        {t("league.platform")}
-                      </p>
-                      <h4 className="text-lg md:text-xl font-bold">
-                        {leagueData?.platform?.name?.toUpperCase() || ""}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="sd_game-con sd_team_size--info relative sd_before sd_after polygon_border cursor-default">
-                  <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
-                    <img
-                      src={teamSizeImage}
-                      alt=""
-                      className="absolute left-8"
-                      style={{ width: "3rem" }}
-                    />
-                    <div className="sd_game--con text-center">
-                      <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        {t("league.team_size")}
-                      </p>
-                      <h4 className="text-lg md:text-xl font-bold">
-                        {" "}
-                        {leagueData.playersPerTeam || 1}v
-                        {leagueData.playersPerTeam || 1}{" "}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
+             
+                <TournamentInfoBar title={t("league.game")} logo={leagueData?.game?.logo} name={leagueData?.game?.shortName}/>
+                <TournamentInfoBar title={t("league.platform")} logo={leagueData?.platform?.logo} name={leagueData?.platform?.name?.toUpperCase()}/>
+                <TournamentInfoBar title={t("league.team_size")} logo={teamSizeImage} name={leagueData.playersPerTeam} type={1}/>
                 {/* <svg
                   width="0"
                   height="0"

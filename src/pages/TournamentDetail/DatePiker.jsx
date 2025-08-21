@@ -176,9 +176,9 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
                 if (isSelectedStart && isSelectedEnd) {
                   rangeClass = 'bg-blue-500 text-white rounded-lg';
                 } else if (isSelectedStart) {
-                  rangeClass = 'bg-blue-500 text-white rounded-l-lg';
+                  rangeClass = 'bg-blue-500 text-white ltr:rounded-l-lg rtl:rounded-r-lg';
                 } else if (isSelectedEnd) {
-                  rangeClass = 'bg-blue-500 text-white rounded-r-lg';
+                  rangeClass = 'bg-blue-500 text-white ltr:rounded-r-lg rtl:rounded-l-lg';
                 } else {
                   rangeClass = 'bg-blue-500 text-white';
                 }

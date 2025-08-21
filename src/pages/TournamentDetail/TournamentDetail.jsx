@@ -14,10 +14,18 @@ import {
   getTournamentStages,
   startTournamentSocket,
 } from "../../app/socket/socket.js";
-import { clearData, setActiveStage } from "../../app/slices/tournamentSlice/tournamentSlice.js";
+import {
+  clearData,
+  setActiveStage,
+} from "../../app/slices/tournamentSlice/tournamentSlice.js";
 import BattleRoyalStage from "./BattleRoyalStage.jsx";
-import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
+import {
+  leftToRight,
+  rightToLeft,
+  cardVariantsAni,
+} from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
+import TournamentInfoBar from "../../components/TournamentInfoBar/TournamentInfoBar.jsx";
 
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
@@ -32,7 +40,7 @@ const TournamentDetail = () => {
 
   useEffect(() => {
     if (isSocketConnected) {
-      dispatch(clearData())
+      dispatch(clearData());
       startTournamentSocket({
         tId: tId,
         user: user,
@@ -72,12 +80,14 @@ const TournamentDetail = () => {
         <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8 mb-10">
-            <motion.div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1"
-            variants={leftToRight}
-            custom={0} 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}>
+            <motion.div
+              className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1"
+              variants={leftToRight}
+              custom={0}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.4 }}
+            >
               <div className="sd_com--logo cursor-hide w-[8.75rem] md:w-[18.5rem]">
                 <img
                   src={getServerURL(tournamentData.internalPhoto)}
@@ -100,12 +110,14 @@ const TournamentDetail = () => {
                 </span>
               </div>
             </motion.div>
-            <motion.div className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2"
-            variants={rightToLeft}
-            custom={1}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}>
+            <motion.div
+              className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2"
+              variants={rightToLeft}
+              custom={1}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.4 }}
+            >
               <div className="player_img flex flex-row items-center gap-2 sm:gap-5">
                 <div className="player_one sd_before relative gradiant_bg con_center w-[41.02rem] h-[27.33rem]">
                   <img
@@ -119,85 +131,36 @@ const TournamentDetail = () => {
           </div>
           <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-center ">
             <div className="sd_content-top order-2 flex-col xl:flex-row md:order-1 flex gap-5 justify-between w-full">
-              <motion.div className="sd_game_info--wrap md:flex-row flex-1 inline-flex gap-[2.063rem] flex-wrap w-full justify-center xl:justify-start"
+              <motion.div
+                className="sd_game_info--wrap md:flex-row flex-1 inline-flex gap-[2.063rem] flex-wrap w-full justify-center xl:justify-start"
                 initial="hidden"
                 whileInView="visible"
                 variants={cardVariantsAni}
-                viewport={{ once: true, amount: 0.3 }}>
-                <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
-                  <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
-                    <img
-                      src={getServerURL(tournamentData?.game?.logo)}
-                      alt=""
-                      className="absolute left-8"
-                      style={{ width: "3rem" }}
-                    />
-                    <div className="sd_game--con text-center">
-                      <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        {t("league.game")}
-                      </p>
-                      <h4 className="text-lg md:text-xl font-bold">
-                        {tournamentData?.game?.shortName}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="sd_game-con sd_platform--info relative sd_before sd_after polygon_border cursor-default">
-                  <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
-                    <img
-                      src={getServerURL(tournamentData?.platform?.logo)}
-                      alt=""
-                      className="absolute left-8"
-                      style={{ width: "3rem" }}
-                    />
-                    <div className="sd_game--con text-center">
-                      <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        {t("league.platform")}
-                      </p>
-                      <h4 className="text-lg md:text-xl font-bold">
-                        {tournamentData?.platform?.name?.toUpperCase()}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="sd_game-con sd_team_size--info relative sd_before sd_after polygon_border cursor-default">
-                  <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
-                    <img
-                      src={teamSizeImage}
-                      alt=""
-                      className="absolute left-8"
-                      style={{ width: "3rem" }}
-                    />
-                    <div className="sd_game--con text-center">
-                      <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        {t("league.team_size")}
-                      </p>
-                      <h4 className="text-lg md:text-xl font-bold">
-                        {tournamentData?.maxPlayersPerTeam}v
-                        {tournamentData?.maxPlayersPerTeam}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="sd_game-con sd_team_size--info relative sd_before sd_after polygon_border cursor-default">
-                  <div className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center">
-                    <img
-                      src={teamSizeImage}
-                      alt=""
-                      className="absolute left-8"
-                      style={{ width: "3rem" }}
-                    />
-                    <div className="sd_game--con text-center">
-                      <p className="text-sm md:text-base mb-2 purple_col font-medium">
-                        {t("league.participants")}
-                      </p>
-                      <h4 className="text-lg md:text-xl font-bold">
-                        {tournamentData?.totalRegistrations}/
-                        {tournamentData?.maxParticipants}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
+                viewport={{ once: true, amount: 0.3 }}
+              >
+                <TournamentInfoBar
+                  title={t("league.game")}
+                  logo={tournamentData?.game?.logo}
+                  name={tournamentData?.game?.shortName}
+                />
+                <TournamentInfoBar
+                  title={t("league.platform")}
+                  logo={tournamentData?.platform?.logo}
+                  name={tournamentData?.platform?.name?.toUpperCase()}
+                />
+                <TournamentInfoBar
+                  title={t("league.team_size")}
+                  logo={teamSizeImage}
+                  name={tournamentData.maxPlayersPerTeam}
+                  type={1}
+                />
+                <TournamentInfoBar
+                  title={t("league.participants")}
+                  logo={teamSizeImage}
+                  name={`${tournamentData?.totalRegistrations}/
+                  ${tournamentData?.maxParticipants}`}
+                  type={2}
+                />
               </motion.div>
             </div>
           </div>
