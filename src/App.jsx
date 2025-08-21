@@ -4,7 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
+  // useNavigate,
 } from "react-router-dom";
 import Sidebar from "./components/SideBar/SideBar";
 import Main from "./components/MainView/Main";
@@ -33,17 +33,17 @@ import { onMessageListener, requestFCMToken } from "./firebase.js";
 
 function App() {
   const { i18n } = useTranslation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    // Set the global navigate function for socket use
-    setGlobalNavigate(navigate);
+  // useEffect(() => {
+  //   // Set the global navigate function for socket use
+  //   setGlobalNavigate(navigate);
 
-    // Cleanup function to remove the reference when component unmounts
-    return () => {
-      setGlobalNavigate(null);
-    };
-  }, [navigate]);
+  //   // Cleanup function to remove the reference when component unmounts
+  //   return () => {
+  //     setGlobalNavigate(null);
+  //   };
+  // }, [navigate]);
 
   useEffect(() => {
     const dir = i18n.language === "ar" ? "rtl" : "ltr";

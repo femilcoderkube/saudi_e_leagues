@@ -54,12 +54,12 @@ export const socket = io(SOCKET_URL, {
   autoConnect: false,
 });
 
-// Store navigate function globally
-let globalNavigate = null;
+// // Store navigate function globally
+// let globalNavigate = null;
 
-export const setGlobalNavigate = (navigate) => {
-  globalNavigate = navigate;
-};
+// export const setGlobalNavigate = (navigate) => {
+//   globalNavigate = navigate;
+// };
 socket.connect();
 socket.on("connect", () => {
   const user = JSON.parse(localStorage.getItem("user")) || null;
@@ -76,7 +76,8 @@ socket.on("connect", () => {
       // If already on a /match/ page, do nothing
       if (window.location.pathname.includes("/match/")) return;
       let pId = getPartnerByDocId(data.partner).id;
-      globalNavigate(`/${pId}/match/${data.matchId}`);
+      // globalNavigate(`/${pId}/match/${data.matchId}`);
+       window.location.href = `/${pId}/match/${data.matchId}`;
       // window.location.href = ;
       sessionStorage.removeItem("canAccessFindingMatch");
     }
