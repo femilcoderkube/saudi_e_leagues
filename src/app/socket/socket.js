@@ -41,7 +41,7 @@ import {
   setmatchTData,
 } from "../slices/MatchSlice/TournamentMatchDetailSlice";
 import { logout, setIsBannedUser } from "../slices/auth/authSlice";
-import { requestFCMToken } from "../../firebase";
+// import { requestFCMToken } from "../../firebase";
 
 // const SOCKET_URL = "/";
 const SOCKET_URL =
@@ -159,10 +159,10 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
       if (window.location.pathname.includes(data?.data?._id?.toString())) {
         data.data.userId = user?._id;
-        socket.emit(SOCKET.SETFCMTOKEN, {
-          userId: user?._id,
-          fcmToken: requestFCMToken(),
-        });
+        // socket.emit(SOCKET.SETFCMTOKEN, {
+        //   userId: user?._id,
+        //   fcmToken: requestFCMToken(),
+        // });
         console.log(" user?._id", user?._id);
         if (data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id) {
           store.dispatch(setLeagueData(data.data));
