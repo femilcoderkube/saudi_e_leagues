@@ -272,21 +272,21 @@ export default function BattleRoyalSChedule() {
                                   {team1?.totalPoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                     {" "}
-                                    Points
+                                    {t("tournament.points")}
                                   </span>
                                 </p>
                                 <p className="text-lg font-bold text-[#F4F7FF]">
                                   {team1?.placePoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                     {" "}
-                                    PP
+                                    {t("tournament.pp")}
                                   </span>
                                 </p>
                                 <p className="text-lg font-bold text-[#F4F7FF]">
                                   {team1?.killPoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                     {" "}
-                                    KP
+                                    {t("tournament.kp")}
                                   </span>
                                 </p>
                               </div>
@@ -349,21 +349,21 @@ export default function BattleRoyalSChedule() {
                                   {team2?.totalPoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                     {" "}
-                                    Points
+                                    {t("tournament.points")}
                                   </span>
                                 </p>
                                 <p className="text-lg font-bold text-[#F4F7FF]">
                                   {team2?.placePoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                     {" "}
-                                    PP
+                                    {t("tournament.pp")}
                                   </span>
                                 </p>
                                 <p className="text-lg font-bold text-[#F4F7FF]">
                                   {team2?.killPoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                     {" "}
-                                    KP
+                                    {t("tournament.kp")}
                                   </span>
                                 </p>
                               </div>
@@ -444,21 +444,21 @@ export default function BattleRoyalSChedule() {
                                   {team1?.totalPoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                     {" "}
-                                    Points
+                                    {t("tournament.points")}
                                   </span>
                                 </p>
                                 <p className="text-lg font-bold text-[#F4F7FF]">
                                   {team1?.placePoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                     {" "}
-                                    PP
+                                    {t("tournament.pp")}
                                   </span>
                                 </p>
                                 <p className="text-lg font-bold text-[#F4F7FF]">
                                   {team1?.killPoints || 0}
                                   <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                     {" "}
-                                    KP
+                                    {t("tournament.kp")}
                                   </span>
                                 </p>
                               </div>

@@ -39,11 +39,11 @@ export default function BattleRoyalStanding() {
           </p>
           <p className="text-[#9EA7CC] text-sm font-semibold xl:px-6 px-2 py-2 md:max-w-[13%] max-w-[15%] w-full text-center">
             <span className="md:block hidden">{t("tournament.placement_points")}</span>
-            <span className="md:hidden block">PP</span>
+            <span className="md:hidden block">{t("tournament.pp")}</span>
           </p>
           <p className="text-[#9EA7CC] text-sm font-semibold lg:px-6 px-3 py-2 max-w-[13%] w-full text-center">
             <span className="md:block hidden">{t("tournament.kill_points")}</span>
-            <span className="block md:hidden">KP</span>
+            <span className="block md:hidden">{t("tournament.kp")}</span>
           </p>
           <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 ltr:lg:pr-14 rtl:lg:pl-14 max-w-[13%] w-full ltr:text-right rtl:text-left">
             {t("tournament.victory")}

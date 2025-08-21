@@ -418,10 +418,12 @@
     "place": "المركز",
     "team": "الفريق",
     "points": "النقاط",
-    "placement_points": "نقاط الترتيب",
-    "kill_points": "نقاط القتل",
+    "placement_points": "نقاط التنسيب (PP)",
+    "kill_points": "نقاط القتل (KP)",
     "victory": "الفوز",
     "group": "المجموعة",
-    "match": "المباراة"
+    "match": "المباراة",
+    "pp" : "ص",
+    "kp" : "ك.ب"
   }
 }

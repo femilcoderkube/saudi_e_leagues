@@ -423,6 +423,8 @@
     "kill_points" : "Kill Points (KP)",
     "victory" : "Victory",
     "group" : "Group",
-    "match" : "Match"
+    "match" : "Match",
+    "pp" : "PP",
+    "kp" : "KP"
   }
 }
