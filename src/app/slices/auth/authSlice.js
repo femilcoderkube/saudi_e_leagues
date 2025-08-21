@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../../utils/axios";
 import { toast } from "react-toastify";
 
-import { requestFCMToken } from "../../../firebase";
+// import { requestFCMToken } from "../../../firebase";
 import { isPrivateMode } from "../../../utils/constant";
 
 const initialState = {
@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
       // Get FCM token if available
       if (!privateMode) {
         try {
-          loginRequest.fcmToken = await requestFCMToken();
+          // loginRequest.fcmToken = await requestFCMToken();
         } catch (err) {
           console.warn(
             "FCM token not available in private mode or permissions blocked:",
