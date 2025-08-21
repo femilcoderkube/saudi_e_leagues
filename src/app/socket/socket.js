@@ -53,6 +53,13 @@ export const socket = io(SOCKET_URL, {
   transports: ["websocket"],
   autoConnect: false,
 });
+
+// Store navigate function globally
+let globalNavigate = null;
+
+export const setGlobalNavigate = (navigate) => {
+  globalNavigate = navigate;
+};
 socket.connect();
 socket.on("connect", () => {
   const user = JSON.parse(localStorage.getItem("user")) || null;
@@ -69,16 +76,12 @@ socket.on("connect", () => {
       // If already on a /match/ page, do nothing
       if (window.location.pathname.includes("/match/")) return;
       let pId = getPartnerByDocId(data.partner).id;
-      window.location.href = `/${pId}/match/${data.matchId}`;
+      globalNavigate(`/${pId}/match/${data.matchId}`);
+      // window.location.href = ;
       sessionStorage.removeItem("canAccessFindingMatch");
     }
   });
 
-  // socket.on(SOCKET.ONISBANUSER, (data) => {
-  //   if (data.isBanned) {
-  //     store.dispatch(setIsBannedUser(data))
-  //   }
-  // });
   if (user?._id) {
     checkIsUserBanned({ userId: user?._id });
   }
@@ -147,8 +150,6 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
     // Remove any previous listener to prevent duplicate handlers
     stopLeagueSocket();
 
-    // Emit join league event
-    // Listen for league updates and update state
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
       // console.log("League Update Data:", data);
       if (!data?.status) {
@@ -299,17 +300,7 @@ export function getDraftById({ draftId, isSocketConnected, user }) {
 }
 export function setPickedPlayer({ draftId, Playerdata, isSocketConnected }) {
   if (isSocketConnected) {
-    // stopDraftSocket();
-    // socket.on(SOCKET.ONDRAFTDATAUPDATE, (data) => {
-    //   console.log("Draft Update Data:", data);
-
-    //   // Saving entire data
-    //   // store.dispatch(setDraftData(data))
-
-    //   store.dispatch(setDraftData(data))
-
-    // });
-    socket.emit(SOCKET.SETPICKEDDRAFTPLAYER, { draftId, Playerdata });
+    socket.emit(SOCKET.SETPICKEDDRAFTPLAYER, { draftId, Playerdata })
   }
 }
 export function stopMatchDetailTSocket() {
