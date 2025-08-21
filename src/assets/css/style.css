@@ -731,9 +731,9 @@ html[dir=rtl] .schdule-accordion-body:nth-child(3) {
   border-bottom-right-radius: 0.75rem;
 }
 
-html[dir=rtl] .schdule-icon{
-border-left: 0;
-border-right: 1px solid #28374266;
+html[dir=rtl] .schdule-icon {
+  border-left: 0;
+  border-right: 1px solid #28374266;
 }
 
 .active-accordation .schdule-icon img {
@@ -834,27 +834,28 @@ html[dir=rtl] .battle-shape {
   transform: translateY(0);
 }
 
-.mob-match-gp div p{
+.mob-match-gp div p {
   line-height: 1;
 }
 
-html[dir=ltr] .mob-match-gp div p:first-child{
+html[dir=ltr] .mob-match-gp div p:first-child {
   border-right: 1px solid #FFFFFF99;
   padding-right: 0.5rem;
 }
 
-html[dir=ltr] .mob-match-gp .royal-date-time p:first-child{
+html[dir=ltr] .mob-match-gp .royal-date-time p:first-child {
   border-right: 1px solid #5E5FB899;
 }
 
-html[dir=rtl] .mob-match-gp div p:first-child{
+html[dir=rtl] .mob-match-gp div p:first-child {
   border-left: 1px solid #FFFFFF99;
   padding-left: 0.5rem;
 }
 
-html[dir=rtl] .mob-match-gp .royal-date-time p:first-child{
+html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
   border-left: 1px solid #5E5FB899;
 }
+
 /* battle royal end */
 
 /* call-duty-card End*/
@@ -1111,6 +1112,7 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child{
 }
 
 @media (max-width: 425px) {
+
   .battle-body-wp div:nth-child(4),
   .battle-head P:nth-child(4) {
     min-width: 11%;
@@ -1190,17 +1192,17 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child{
     width: calc(100vw - 1.25rem);
   }
 
-  .mob-match-gp > div{
-gap: 0.35rem;
+  .mob-match-gp>div {
+    gap: 0.35rem;
   }
 
-  html[dir=ltr] .mob-match-gp div p:first-child{
+  html[dir=ltr] .mob-match-gp div p:first-child {
     padding-right: 0.3rem;
-   }
+  }
 
-   html[dir=rtl] .mob-match-gp div p:first-child{
+  html[dir=rtl] .mob-match-gp div p:first-child {
     padding-left: 0.3rem;
-   }
+  }
 }
 
 .react-pdf__Page {

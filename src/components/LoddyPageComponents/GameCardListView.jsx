@@ -8,19 +8,22 @@ import {
   getServerURL,
 } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
-import { motion } from "motion/react"
-
 const GameCardListView = ({ leagues }) => {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
   return (
-    <motion.div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-5 sm:pt-10 md:pt-14 gap-[1.7rem] justify-center md:justify-start">
+    <div className="game_card--wrapper game_card--wrapv2 flex flex-wrap pt-5 sm:pt-10 md:pt-14 gap-[1.7rem] justify-center md:justify-start">
       {leagues.map((item, index) => (
         <Link
           key={index}
-          to={item?._id ? item.isLeague ? `/${id}/lobby/${item._id}`: `/${id}/lobby/tournament/${item._id}` : "#"}
+          to={
+            item?._id
+              ? item.isLeague
+                ? `/${id}/lobby/${item._id}`
+                : `/${id}/lobby/tournament/${item._id}`
+              : "#"
+          }
           className="game_card_wrap--link relative inline-block"
-          
         >
           <div className="game_card--body inline-block relative !m-0 p-5">
             <div className="game_img--mask relative flex">
@@ -119,7 +122,7 @@ const GameCardListView = ({ leagues }) => {
           </div>
         </Link>
       ))}
-    </motion.div>
+    </div>
   );
 };
 
