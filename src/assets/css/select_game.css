@@ -63,7 +63,7 @@ background: unset;
 }
 
 .otp-input .polygon_border:after{
-  bottom: -1px;
+  bottom: -1.5px;
 }
 .otp-input .polygon_border::before{
   top: -1px;
