@@ -164,7 +164,7 @@ export default function BattleRoyalSChedule() {
                     </div>
 
                     {/* Right section with dropdown toggle */}
-                    <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-center ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
+                    <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
                       <div className="flex gap-2 items-center">
                         <p className="md:text-xl text-base font-semibold text-white">
                           Group {item?.groupNumber || 0}

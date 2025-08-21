@@ -731,6 +731,11 @@ html[dir=rtl] .schdule-accordion-body:nth-child(3) {
   border-bottom-right-radius: 0.75rem;
 }
 
+html[dir=rtl] .schdule-icon{
+border-left: 0;
+border-right: 1px solid #28374266;
+}
+
 .active-accordation .schdule-icon img {
   transform: rotate(180deg);
 }
@@ -833,13 +838,22 @@ html[dir=rtl] .battle-shape {
   line-height: 1;
 }
 
-.mob-match-gp div p:first-child{
+html[dir=ltr] .mob-match-gp div p:first-child{
   border-right: 1px solid #FFFFFF99;
   padding-right: 0.5rem;
 }
 
-.mob-match-gp .royal-date-time p:first-child{
+html[dir=ltr] .mob-match-gp .royal-date-time p:first-child{
   border-right: 1px solid #5E5FB899;
+}
+
+html[dir=rtl] .mob-match-gp div p:first-child{
+  border-left: 1px solid #FFFFFF99;
+  padding-left: 0.5rem;
+}
+
+html[dir=rtl] .mob-match-gp .royal-date-time p:first-child{
+  border-left: 1px solid #5E5FB899;
 }
 /* battle royal end */
 
@@ -1175,6 +1189,18 @@ html[dir=rtl] .battle-shape {
   .battle-wp {
     width: calc(100vw - 1.25rem);
   }
+
+  .mob-match-gp > div{
+gap: 0.35rem;
+  }
+
+  html[dir=ltr] .mob-match-gp div p:first-child{
+    padding-right: 0.3rem;
+   }
+
+   html[dir=rtl] .mob-match-gp div p:first-child{
+    padding-left: 0.3rem;
+   }
 }
 
 .react-pdf__Page {
@@ -1658,13 +1684,13 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
 
   .sd_tournament-content .polygon_border:before,
   .sd_tournament-content .polygon_border:after {
-    left: 52%;
+    left: 53%;
     width: 4.5rem;
   }
 
   .sd_tournament-content .bracket-btn .polygon_border:before,
   .sd_tournament-content .bracket-btn .polygon_border:after {
-    left: 52%;
+    left: 53%;
   }
 
   .tab-btn-wp.bracket-btn {
