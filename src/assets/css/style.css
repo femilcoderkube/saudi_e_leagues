@@ -1085,6 +1085,7 @@ html[dir=rtl] .battle-shape {
 }
 
 @media (max-width: 425px) {
+
   .battle-body-wp div:nth-child(4),
   .battle-head P:nth-child(4) {
     min-width: 11%;
@@ -1104,15 +1105,20 @@ html[dir=rtl] .battle-shape {
   .battle-body-wp span {
     font-size: 14px;
   }
-  .mob-body-full p,.mob-body-full span,.battle-shape-text span,.mob-match-gp p{
-    font-size: 14px;
-      }
 
-      .mob-body-full img,.mob-body-full .mob-sch-img{
-        width: 1.2rem;
-        height: 1.2rem;
-        font-size: 14px !important;
-      }
+  .mob-body-full p,
+  .mob-body-full span,
+  .battle-shape-text span,
+  .mob-match-gp p {
+    font-size: 14px;
+  }
+
+  .mob-body-full img,
+  .mob-body-full .mob-sch-img {
+    width: 1.2rem;
+    height: 1.2rem;
+    font-size: 14px !important;
+  }
 }
 
 @media (max-width: 389px) {
@@ -1134,23 +1140,27 @@ html[dir=rtl] .battle-shape {
     min-width: 15%;
   }
 
-  .battle-head P:nth-child(2), .battle-body-wp div:nth-child(2){
+  .battle-head P:nth-child(2),
+  .battle-body-wp div:nth-child(2) {
     min-width: 34%;
   }
 
-  .battle-common+div{
+  .battle-common+div {
     gap: 0.25rem;
   }
 
-  .battle-body-wp p, .battle-body-wp span{
+  .battle-body-wp p,
+  .battle-body-wp span {
     font-size: 13px;
   }
 
-  .mob-battel-img img,.mob-battel-img div{
+  .mob-battel-img img,
+  .mob-battel-img div {
     width: 1.2rem;
     height: 1.2rem;
     font-size: 13px !important;
   }
+
   .battle-wp {
     width: calc(100vw - 1.25rem);
   }
