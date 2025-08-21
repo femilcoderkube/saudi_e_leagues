@@ -164,15 +164,25 @@ export default function BattleRoyalSChedule() {
                     </div>
 
                     {/* Right section with dropdown toggle */}
-                    <div className="mob-match-gp flex items-center ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
-                      <div>
-                        <p className="md:text-xl text-base font-bold text-[#F4F7FF]">
+                    <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-center ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
+                      <div className="flex gap-2 items-center">
+                        <p className="md:text-xl text-base font-semibold text-white">
                           Group {item?.groupNumber || 0}
                         </p>
-                        <p className="md:text-xl text-base font-bold text-[#F4F7FF]">
+                        <p className="md:text-xl text-base font-semibold text-white">
                           Match {item?.matchNumber || 0}
                         </p>
                       </div>
+
+                      <div className="royal-date-time flex gap-2 items-center">
+                        <p className="md:text-xl text-base font-semibold text-[#BABDFF]">
+                        12 Jul
+                        </p>
+                        <p className="md:text-xl text-base font-semibold text-[#7B7ED0]">
+                        08:30 PM
+                        </p>
+                      </div>
+                      
                       <div
                         className={`schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer`}
                       >

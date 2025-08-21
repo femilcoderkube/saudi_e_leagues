@@ -829,6 +829,18 @@ html[dir=rtl] .battle-shape {
   transform: translateY(0);
 }
 
+.mob-match-gp div p{
+  line-height: 1;
+}
+
+.mob-match-gp div p:first-child{
+  border-right: 1px solid #FFFFFF99;
+  padding-right: 0.5rem;
+}
+
+.mob-match-gp .royal-date-time p:first-child{
+  border-right: 1px solid #5E5FB899;
+}
 /* battle royal end */
 
 /* call-duty-card End*/
