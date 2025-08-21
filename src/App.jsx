@@ -27,7 +27,7 @@ import { items } from "./utils/constant.js";
 import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";
 import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
 import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
-import { onMessageListener, requestFCMToken } from "./firebase.js";
+// import { onMessageListener, requestFCMToken } from "./firebase.js";
 // import { getMessaging, getToken } from "firebase/messaging";
 // import { messaging } from "./firebase.js";
 
@@ -58,17 +58,17 @@ function App() {
   };
   const firstItem = items[0];
 
-  useEffect(() => {
-    // Request permission for notifications
-    if ("Notification" in window) {
-      Notification.requestPermission().then((permission) => {
-        console.log("Notification permission:", permission);
-      });
-    }
+  // useEffect(() => {
+  //   // Request permission for notifications
+  //   if ("Notification" in window) {
+  //     Notification.requestPermission().then((permission) => {
+  //       console.log("Notification permission:", permission);
+  //     });
+  //   }
 
-    // Get FCM Token
-    onMessageListener();
-  }, []);
+  //   // Get FCM Token
+  //   onMessageListener();
+  // }, []);
 
   return (
     <Router>
