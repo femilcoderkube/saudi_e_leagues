@@ -82,10 +82,10 @@ const LeaderBoard = () => {
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody key={"requestedUser"}>
           {requestedUser && requestedUser.rank > 3 && (
-            <>
-              <tr className={`${requestedUser.badgeColor} overflow-hidden`}>
+           
+              <tr key={requestedUser.rank} className={`${requestedUser.badgeColor} overflow-hidden` }>
                 <td
                   className={`py-4 px-4 w-[6rem] ${requestedUser.bedgeBG} ${
                     String(requestedUser.rank).length === 1
@@ -200,7 +200,7 @@ const LeaderBoard = () => {
                   </td>
                 )}
               </tr>
-            </>
+            
           )}
           {leagueData?.leaderBoard?.topUsers?.map((data, index) => {
             let user = {
@@ -233,8 +233,8 @@ const LeaderBoard = () => {
               user.bedgesrc = blue_bedge;
             }
             return (
-              <>
-              <tr className={`${user.badgeColor} overflow-hidden`}>
+             
+              <tr  key={user?.rank + "-"} className={`${user.badgeColor} overflow-hidden`}>
                 <td
                   className={`py-4 px-4 ${user.bedgeBG} ${
                     String(user.rank).length === 1 ? "one_digit" : "two_digit"
@@ -346,7 +346,7 @@ const LeaderBoard = () => {
                 )}
                 
               </tr>
-            </>
+           
             );
           })}
         </tbody>
