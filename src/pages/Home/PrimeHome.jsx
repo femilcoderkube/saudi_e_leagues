@@ -25,6 +25,7 @@ import { useStateManager } from "react-select";
 import BattleRoyalStanding from "../TournamentDetail/BattleroyalGroupStandings.jsx";
 import BattleRoyalSchedule from "../TournamentDetail/BattleroyalGroupSchedule.jsx";
 import { motion } from "motion/react";
+import { logout } from "../../app/slices/auth/authSlice.js";
 export default function PrimeHome() {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
@@ -58,11 +59,11 @@ export default function PrimeHome() {
         <section className="home_hero--sec relative flex lg:pt-[21.125rem] md:pt-[13rem] pt-[10rem] justify-between items-end">
           {/* === Hero Left Block Conatain === */}
           <motion.div className="home_hero_left-con h-full flex justify-end flex-col"
-           variants={leftToRight}
-           custom={0} 
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true, amount: 0.4 }}>
+            variants={leftToRight}
+            custom={0}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}>
             <h3 className="xl:text-[2.375rem] text-[1.75rem] uppercase !font-black">
               {t("homepage.level_up")}
             </h3>
@@ -105,11 +106,11 @@ export default function PrimeHome() {
 
           {/* === Hero Right Game Slider Block Conatain === */}
           <motion.div className="home_hero_right-con h-full relative"
-          variants={rightToLeft}
-          custom={1}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}>
+            variants={rightToLeft}
+            custom={1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}>
             <div className="slider_header--con  md:pb-[2.2rem] pb-8 md:inline-block flex gap-1">
               <h3 className="purple_col md:text-lg text-2xl !font-black leading-none text-right uppercase">
                 {t("homepage.choose_your")}
@@ -126,11 +127,11 @@ export default function PrimeHome() {
         {/* === About Section HTML block Start === */}
         <section className="home_about--sec relative lg:pt-[7.5rem] pt-[2rem] lg:pb-[6rem] pb-[1rem] flex overflow-hidden">
           <motion.div className="about_left--con max-w-[45%]"
-           variants={leftToRight}
-           custom={0} 
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true, amount: 0.4 }}>
+            variants={leftToRight}
+            custom={0}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}>
             <h3 className="md:text-[2.375rem] text-2xl uppercase !font-black mb-5">
               {t("homepage.about")}
             </h3>
@@ -159,11 +160,11 @@ export default function PrimeHome() {
             </div>
           </motion.div>
           <motion.div className="about_right--con w-full sd_before sd_after relative"
-           variants={rightToLeft}
-           custom={1}
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true, amount: 0.4 }}>
+            variants={rightToLeft}
+            custom={1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}>
             <div className="sd_play-link relative sd_before before:w-full before:h-full flex flex-col items-center h-full justify-center">
               <button
                 onClick={() => setShowVideoModal(true)}
@@ -184,11 +185,11 @@ export default function PrimeHome() {
 
         <section className="htp_slider-sec flex xl:gap-0 sm:gap-10 gap-0 ">
           <motion.div className="htp_left-con h-full flex justify-end flex-col max-w-[27.5%] basis-[27.5%]"
-           variants={leftToRight}
-           custom={0} 
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true, amount: 0.4 }}>
+            variants={leftToRight}
+            custom={0}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}>
             <h2 className="grad_head--txt max-w-full xl:text-[5rem] text-[3rem] tracking-wide !font-black leading-none uppercase">
               {t("homepage.how")}
             </h2>
@@ -199,12 +200,14 @@ export default function PrimeHome() {
               {t("homepage.htp_description")}
             </p> */}
             <div className="btn_polygon--mask sm:inline-flex hidden max-w-[fit-content] justify-center my-6 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
-              <Link
-                to={"#"}
+              <div
                 className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center"
+                onClick={() => {
+                  dispatch(logout());
+                }}
               >
                 {t("homepage.go_play_now")}
-              </Link>
+              </div>
             </div>
             <svg
               width="0"
@@ -242,11 +245,11 @@ export default function PrimeHome() {
           </motion.div>
 
           <motion.div className="htp_right-con relative max-w-[75%] basis-[72.5%]"
-           variants={rightToLeft}
-           custom={1}
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true, amount: 0.4 }}>
+            variants={rightToLeft}
+            custom={1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}>
             <HtpCardSlider
               sliderId="one"
               HtpCardDetails={[
@@ -273,10 +276,10 @@ export default function PrimeHome() {
                   gameName: t("games.apex"),
                   gameDiscription: t("games.disc_4"),
                   Step: "04",
-                },           
+                },
               ]}
 
-              HtpCardDetails1={[             
+              HtpCardDetails1={[
                 {
                   gameLabel: t("games.game_2"),
                   gameName: t("games.dota2"),
@@ -286,13 +289,13 @@ export default function PrimeHome() {
                   gameLabel: t("games.game_3"),
                   gameName: t("games.csgo"),
                   Step: "03",
-                },                 
+                },
                 {
                   gameLabel: t("games.game_4"),
                   gameName: t("games.apex"),
                   gameDiscription: t("games.disc_4"),
                   Step: "04",
-                }, 
+                },
                 {
                   gameLabel: t("games.game_1"),
                   gameName: t("games.valorant"),
@@ -316,9 +319,9 @@ export default function PrimeHome() {
             </Link>
           </div>
           <svg
-          width="0"
-          height="0"
-          style={{ position: "absolute" }}
+            width="0"
+            height="0"
+            style={{ position: "absolute" }}
             viewBox="0 0 182 52"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -341,17 +344,17 @@ export default function PrimeHome() {
         {/* === FAQ Section HTML block Start === */}
         <section className="home_faq--sec pt-[5rem] pb-[5rem] pl-[7.5rem] relative flex justify-end ">
           <motion.div className="faq_left--con w-full absolute ltr:left-0 rtl:right-0 h-full top-[2rem]"
-           variants={leftToRight}
-           custom={0} 
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true, amount: 0.4 }}></motion.div>
+            variants={leftToRight}
+            custom={0}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}></motion.div>
           <motion.div className="faq_right--con max-w-[65%] flex-[0_0_65%] ltr:pr-[6.5rem] rtl:pr-[8.5rem] relative"
-           variants={rightToLeft}
-           custom={1}
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true, amount: 0.4 }}>
+            variants={rightToLeft}
+            custom={1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}>
             <h2 className="md:text-[4rem] text-[2rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none items-center tracking-wider !font-black md:pb-10 pb-8">
               {t("homepage.faq.faq")}
             </h2>
