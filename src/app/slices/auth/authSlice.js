@@ -218,7 +218,7 @@ const authSlice = createSlice({
       let type = localStorage.getItem("deviceType");
       if (type == "mobile") {
         window.AndroidInterface?.androidLogoutCallbackHandler("success");
-        window.webkit?.messageHandlers?.jsMessageHandler?.iosLogoutCallbackHandler(
+        window.webkit?.messageHandlers?.iosLogoutCallbackHandler?.postMessage(
           "success"
         );
         localStorage.removeItem("deviceType");

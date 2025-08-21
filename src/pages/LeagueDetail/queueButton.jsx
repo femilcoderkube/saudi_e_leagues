@@ -36,7 +36,7 @@ const GetQueueButton = () => {
           let type = localStorage.getItem("deviceType")
           if(type== "mobile"){
             window.AndroidInterface?.signInCallbackHandler(`${window.location.href}`);
-            window.webkit?.messageHandlers?.jsMessageHandler?.signInCallbackHandler(`${window.location.href}`);
+            window.webkit?.messageHandlers?.signInCallbackHandler?.postMessage(`${window.location.href}`);
             console.log("signInCallbackHandler---- called")
           }else{
           dispatch(setLogin(true));

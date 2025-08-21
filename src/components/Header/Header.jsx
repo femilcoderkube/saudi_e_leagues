@@ -59,7 +59,7 @@ const LanguageToggle = () => {
     let type = localStorage.getItem("deviceType")
     if(type== "mobile"){
       window.AndroidInterface?.languageCallbackHandler(`${newLang}`);
-      window.webkit?.messageHandlers?.jsMessageHandler?.languageCallbackHandler(`${newLang}`);
+      window.webkit?.messageHandlers?.languageCallbackHandler?.postMessage(`${newLang}`);
     }
     
   };
@@ -124,7 +124,7 @@ const AuthButtons = ({ isMobile = false }) => {
           let type = localStorage.getItem("deviceType")
           if(type== "mobile"){
             window.AndroidInterface?.signInCallbackHandler(`${window.location.href}`);
-            window.webkit?.messageHandlers?.jsMessageHandler?.signInCallbackHandler(`${window.location.href}`);
+            window.webkit?.messageHandlers?.signInCallbackHandler?.postMessage(`${window.location.href}`);
           }else{
           dispatch(setLogin(true));
           }
