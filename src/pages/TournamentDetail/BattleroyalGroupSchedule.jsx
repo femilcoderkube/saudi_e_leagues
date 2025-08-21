@@ -180,7 +180,7 @@ export default function BattleRoyalSChedule() {
 
                       <div className="royal-date-time flex gap-2 items-center">
                         <p className="md:text-xl text-base font-semibold text-[#BABDFF]">
-                          {moment(item?.startTime).format("MMM Do")}
+                        {moment(item?.startTime).format("DD MMM")}
                         </p>
                         <p className="md:text-xl text-base font-semibold text-[#7B7ED0]">
                           {moment(item?.startTime).format('LT')}

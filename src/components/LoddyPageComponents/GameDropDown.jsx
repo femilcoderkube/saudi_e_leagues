@@ -11,7 +11,7 @@ import {
 } from "../../app/slices/lobby/lobbySlice";
 import { getServerURL } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
-
+import { motion } from "framer-motion";
 const GameDropDown = () => {
   const { filteredGames, selectedGame, isGameDropDownOpen, gameSearchTerm } =
     useSelector((state) => state.lobby);
@@ -107,7 +107,12 @@ const GameDropDown = () => {
       </div>
 
       {isGameDropDownOpen && (
-        <div className="game_dropdown-body absolute sd_after after:w-full after:h-full after:top-0 rounded-lg z-10 mt-6 w-full z-50">
+        <motion.div className="game_dropdown-body absolute sd_after after:w-full after:h-full after:top-0 rounded-lg mt-6 w-full z-50"
+        initial={{ scale: 0.8, opacity: 0, y: -100 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.8, opacity: 0, y: -100 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+        >
           <div className="game_menu-con relative">
             <form className="game_search max-w-full md:max-w-md mx-auto">
               <label
@@ -222,7 +227,7 @@ const GameDropDown = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   );
