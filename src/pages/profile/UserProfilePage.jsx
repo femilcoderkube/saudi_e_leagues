@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useScreenSize from "../../utils/screenUtils";
 import { useEffect } from "react";
-import { setActiveTabIndex, setProfileVisible } from "../../app/slices/constState/constStateSlice";
+import { setActiveTabIndex, setConfirmationPopUp, setProfileVisible } from "../../app/slices/constState/constStateSlice";
 import { useDispatch, useSelector } from "react-redux";
 import mobile_menu_icon_user from "../../assets/images/LoginPersone.png";
 import logOut from "../../assets/images/logOut.png";
@@ -48,23 +48,24 @@ const UserProfilePage = () => {
       <div className="flex-col gap-2">
         <ul className="flex flex-col gap-6 pt-8 ltr:pl-5 rtl:pr-5">
           <li className="text-lg purple_col flex gap-2 cursor-pointer"
-          onClick={() => {
-            dispatch(setProfileVisible(true));
-          }}
-          
+            onClick={() => {
+              dispatch(setProfileVisible(true));
+            }}
+
           >
             <img className="w-6 h-6" src={mobile_menu_icon_user} alt="user" />
-            
-            
+
+
             {t("auth.edit_profile")}</li>
           <li className="text-lg purple_col flex gap-2 cursor-pointer"
-           onClick={() => {
-            dispatch(logout());
-            localStorage.clear();
-            dispatch(setActiveTabIndex(0));
-            navigate(`/${id}/lobby`);
-           }}>
-          <img className="w-6 h-6" src={logOut} alt="user" />
+            onClick={() => {
+              dispatch(setConfirmationPopUp(1));
+              // dispatch(logout());
+              localStorage.clear();
+              dispatch(setActiveTabIndex(0));
+              navigate(`/${id}/lobby`);
+            }}>
+            <img className="w-6 h-6" src={logOut} alt="user" />
             {t("auth.logout")}</li>
         </ul>
       </div>

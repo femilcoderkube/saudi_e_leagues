@@ -459,6 +459,10 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
   background-color: transparent !important;
 }
 
+.select__single-value {
+  overflow: visible !important;
+}
+
 /* call-duty-card Start*/
 .call-duty-card {
   background: linear-gradient(180deg, #111435, #101234);
