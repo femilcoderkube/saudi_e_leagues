@@ -26,7 +26,6 @@ import { useTranslation } from "react-i18next";
 import Notification_sidebar from "../Notification/notificationsidebar";
 import ConfirmationPopUp from "../ModalPopUp/confirmationPopUp";
 import { motion } from "framer-motion";
-import { requestForToken } from "../../firebase";
 import { getUpdateToken } from "../../app/socket/socket";
 
 export default function Main() {
@@ -49,21 +48,6 @@ export default function Main() {
   const [profileLoading, setProfileLoading] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    getUpdates();
-  }, [location.pathname]);
-
-  const getUpdates = async () => {
-    try {
-      const fcmToken = await requestForToken();
-      if (fcmToken) {
-        getUpdateToken(fcmToken);
-      }
-    } catch (error) {
-      console.log("err", error);
-    }
-  };
 
   //  dispatch(checkBannedUser());
 
