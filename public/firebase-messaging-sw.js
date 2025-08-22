@@ -19,6 +19,17 @@ firebase.initializeApp(firebaseConfig);
 // Retrieve firebase messaging
 const messaging = firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
+  console.log("asasasas--onBackgroundMessage",payload)
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+    // icon: payload.notification.image,
+  };
+
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});
+messaging.onMessage((payload) => {
+  console.log("asasasas--onMessage",payload)
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
