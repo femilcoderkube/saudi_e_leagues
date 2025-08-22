@@ -44,10 +44,11 @@ function NavigatorSetter() {
   return null;
 }
 
-console.log("isSupported()" ,await isSupported())
+
 
 
 async function requestPermission() {
+  console.log("isSupported()" ,await isSupported())
   //requesting permission using Notification API
   const permission = await Notification.requestPermission();
 
