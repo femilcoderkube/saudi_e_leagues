@@ -31,7 +31,7 @@ import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
 import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
 // import Notification from "./components/Notification/Notification.jsx";
 import { setNavigator } from "./navigationService.js";
-import { getToken, onMessage } from "firebase/messaging";
+import { getToken, isSupported, onMessage } from "firebase/messaging";
 import { messaging } from "./firebase.js";
 import { getUpdateToken } from "./app/socket/socket.js";
 import { useSelector } from "react-redux";
@@ -73,6 +73,7 @@ function App() {
   }, [i18n.language]);
   useEffect(() => {
     requestPermission();
+    console.log("isSupported()" ,isSupported())
     onMessage(messaging, (payload) => {
       console.log("sfdghgjkl---------", payload)
       new window.Notification(payload.notification.title, {
