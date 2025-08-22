@@ -193,18 +193,19 @@ function SubmitPopUp({ handleClose }) {
   return (
     <>
       <div
-        className="fixed inset-0 popup-overlay transition-opacity submit__score--popup"
+        className="fixed inset-0 popup-overlay transition-opacity submit__score--popup z-50"
         aria-hidden="true"
       ></div>
 
-      <div className="fixed modal_popup-con inset-0 overflow-y-auto flex justify-center items-center z-50">
+      <div className="fixed modal_popup-con inset-0 flex justify-center items-center z-50">
         <motion.div className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60"
         initial={{ scale: 0.5, opacity: 0, y: 50 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.5, opacity: 0, y: 50 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after ">
+          <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-auto text-white 
+    h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden sm:overflow-y-auto">
             <div className="popup_header px-8 pt-4 flex items-start ltr:justify-end mt-3 text-center sm:mt-0 sm:text-left rtl:justify-start rtl:text-right">
               <div className="flex items-center gap-2 absolute left-12 top-5">
                 <span className="text-[#7B7ED0] font-bold text-lg">{team}</span>
@@ -372,7 +373,7 @@ function SubmitPopUp({ handleClose }) {
                 </p>
               )}
             </div>
-            <div className="popup_footer sm:px-12 px-8 pt-6">
+            <div className="popup_footer px-5  pt-6">
               <button
                 type="submit"
                 onClick={formik.handleSubmit}

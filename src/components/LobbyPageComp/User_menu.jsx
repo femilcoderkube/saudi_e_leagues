@@ -65,7 +65,7 @@ const Dropdown = ({ user }) => {
         </svg>
       </div>
       {isOpen && (
-        <div className="dropdown-body absolute rounded-lg mt-1 z-10 w-full sd_radial-bg overflow-hidden">
+        <div className="dropdown-body absolute rounded-lg mt-1 z-101 w-full sd_radial-bg overflow-hidden">
           {data.map((item) => (
             <Link
               key={item.id}
