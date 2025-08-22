@@ -137,7 +137,7 @@ export default function BattleRoyalSChedule() {
                               return (
                                 <div
                                   key={i}
-                                  className={`round-gold ${classs} md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center`}
+                                  className={`round-gold ${classs} rounded-full flex items-center justify-center`}
                                 >
                                   {team?.participant?.team?.logoImage ? (
                                     <img
@@ -145,7 +145,7 @@ export default function BattleRoyalSChedule() {
                                         team?.participant?.team?.logoImage
                                       )}
                                       alt={team?.participant?.team?.teamName}
-                                      className="md:w-6 md:h-6 w-4 h-4"
+                                      className="md:w-12 md:h-12 h-9 w-9 rounded-full"
                                     />
                                   ) : (
                                     <span className="text-base font-semibold text-white">
@@ -242,7 +242,7 @@ export default function BattleRoyalSChedule() {
                                         team1?.participant?.team?.logoImage
                                       )}
                                       alt={team1?.participant?.team?.teamName}
-                                      className="md:w-8 md:h-8 h-6 w-6"
+                                      className="md:w-8 md:h-8 h-6 w-6 rounded-full"
                                     />
                                   ) : (
                                     <div
@@ -319,7 +319,7 @@ export default function BattleRoyalSChedule() {
                                         team2?.participant?.team?.logoImage
                                       )}
                                       alt={team2?.participant?.team?.teamName}
-                                      className="md:w-8 md:h-8 h-6 w-6"
+                                      className="md:w-8 md:h-8 h-6 w-6 rounded-full"
                                     />
                                   ) : (
                                     <div
@@ -414,7 +414,7 @@ export default function BattleRoyalSChedule() {
                                         team1?.participant?.team?.logoImage
                                       )}
                                       alt={team1?.participant?.team?.teamName}
-                                      className="md:w-8 md:h-8 h-6 w-6"
+                                      className="md:w-8 md:h-8 h-6 w-6 rounded-full"
                                     />
                                   ) : (
                                     <div

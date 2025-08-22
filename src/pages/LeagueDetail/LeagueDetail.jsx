@@ -1,8 +1,7 @@
 import teamSizeImage from "../../assets/images/teamSize.png";
-import mob_star_of_week from "../../assets/images/mob_star_week.png";
-import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
+// import mob_star_of_week from "../../assets/images/mob_star_week.png";
+// import ScoreTicker from "../../components/LobbyPageComp/Score_ticker.jsx";
 import TimelineCard from "../../components/LobbyPageComp/TimeLineCard.jsx";
-import LeaderBoard from "../../components/LobbyPageComp/LeaderBoardTable.jsx";
 import { Link, useParams } from "react-router-dom";
 import PopUp from "../../components/ModalPopUp/Popup.jsx";
 import { useEffect } from "react";
@@ -12,13 +11,13 @@ import {
 } from "../../app/socket/socket.js";
 import {
   formatAmountWithCommas,
-  generateTailwindGradient,
-  getRandomColor,
+  // generateTailwindGradient,
+  // getRandomColor,
   getServerURL,
 } from "../../utils/constant.js";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-
+import LeaderBoard from "../../components/LobbyPageComp/LeaderBoard/LeaderBoardTable.jsx";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import RegistrationModel from "./RegustrationModel.jsx";
 import GetQueueButton from "./queueButton.jsx";
@@ -26,13 +25,13 @@ import StarOfTheWeek from "./starOfTheWeek.jsx";
 import VerifiyOTPModel from "../../components/MainView/VerifiyOTPModel.jsx";
 import { leftToRight, rightToLeft, cardVariantsAni } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
-import { setQueueConfirmation } from "../../app/slices/constState/constStateSlice.js";
+// import { setQueueConfirmation } from "../../app/slices/constState/constStateSlice.js";
 import QueueConfirmationPopUp from "../../components/ModalPopUp/queueConfirmationPopup.jsx";
 import TournamentInfoBar from "../../components/TournamentInfoBar/TournamentInfoBar.jsx";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
-  const { user, userDetail } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const { queueConfimation } = useSelector((state) => state.constState);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { leagueData, registrationModal, verificationModal, verificationModule } = useSelector(
@@ -44,7 +43,7 @@ const LeagueDetail = () => {
   );
   useEffect(() => {
     let res = startLeagueSocket({ lId, user, isSocketConnected });
-    // console.log("res", res);
+    console.log("res", res);
     return () => {
       stopLeagueSocket();
     };
@@ -159,42 +158,6 @@ const LeagueDetail = () => {
                 <TournamentInfoBar title={t("league.game")} logo={leagueData?.game?.logo} name={leagueData?.game?.shortName}/>
                 <TournamentInfoBar title={t("league.platform")} logo={leagueData?.platform?.logo} name={leagueData?.platform?.name?.toUpperCase()}/>
                 <TournamentInfoBar title={t("league.team_size")} logo={teamSizeImage} name={leagueData.playersPerTeam} type={1}/>
-                {/* <svg
-                  width="0"
-                  height="0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ position: "absolute" }}
-                >
-                  <defs>
-                    <clipPath
-                      id="game_polygon_clip"
-                      clipPathUnits="objectBoundingBox"
-                    >
-                      <path
-                        d="
-                        M0.3649,0.0833
-                        H0.6351
-                        L0.6622,0
-                        H0.9459
-                        L1,0.1667
-                        V0.8333
-                        L0.9459,1
-                        H0.6622
-                        L0.6351,0.9167
-                        H0.3649
-                        L0.3378,1
-                        H0.0541
-                        L0,0.8333
-                        V0.1667
-                        L0.0541,0
-                        H0.3378
-                        L0.3649,0.0833
-                        Z
-                      "
-                      />
-                    </clipPath>
-                  </defs>
-                </svg> */}
               </div>
               <LeaderBoard />
             </div>

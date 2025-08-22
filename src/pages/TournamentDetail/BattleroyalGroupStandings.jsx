@@ -4,7 +4,7 @@ import team_falcons from "../../assets/images/team-falcons.png";
 import pubg_icon from "../../assets/images/pubg_icon.png";
 import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";
-import { leftToRight, rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
+import { leftToRight, rightToLeft, cardVariantsAni } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 
@@ -20,10 +20,10 @@ export default function BattleRoyalStanding() {
   return (
     <>
       <motion.div className="battle-wp lg:pt-5 pt-2"
-      initial="hidden"
-      whileInView="visible"
-      variants={cardVariantsAni}
-      viewport={{ once: true, amount: 0 }}
+        initial="hidden"
+        whileInView="visible"
+        variants={cardVariantsAni}
+        viewport={{ once: true, amount: 0 }}
       >
         {/* Battle Table Heading */}
         <div className="battle-head flex">
@@ -59,42 +59,42 @@ export default function BattleRoyalStanding() {
                   {index === 0
                     ? "1st"
                     : index === 1
-                    ? "2nd"
-                    : index === 2
-                    ? "3rd"
-                    : `${index + 1}th`}
+                      ? "2nd"
+                      : index === 2
+                        ? "3rd"
+                        : `${index + 1}th`}
                 </p>
               </div>
               <div className="mob-battel-img lg:px-15 sm:px-7 px-3 py-4 flex items-center gap-4 md:max-w-[44.5%] sm:max-w-[40.5%] w-full">
-              {player?.participant?.team?.logoImage ? (
-                                      <img
-                                        src={getServerURL(
-                                          player?.participant?.team?.logoImage
-                                        )}
-                                        alt={player?.participant?.team?.teamName}
-                                        className="md:w-8 md:h-8 h-6 w-6"
-                                      />
-                                    ) : (
-                                      <div
-                                        className="md:w-8 md:h-8 h-6 w-6"
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                          background: getRandomColor(
-                                            player?.participant?._id
-                                          ),
-                                          color: "#fff",
-                                          fontWeight: "bold",
-                                          fontSize: "1.5rem",
-                                          borderRadius: "50%",
-                                        }}
-                                      >
-                                        {player?.participant?.team?.teamName
-                                          ?.charAt(0)
-                                          ?.toUpperCase() || "?"}
-                                      </div>
-                                    )}
+                {player?.participant?.team?.logoImage ? (
+                  <img
+                    src={getServerURL(
+                      player?.participant?.team?.logoImage
+                    )}
+                    alt={player?.participant?.team?.teamName}
+                    className="md:w-8 md:h-8 h-6 w-6 rounded-2xl"
+                  />
+                ) : (
+                  <div
+                    className="md:w-8 md:h-8 h-6 w-6"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: getRandomColor(
+                        player?.participant?._id
+                      ),
+                      color: "#fff",
+                      fontWeight: "bold",
+                      fontSize: "1.5rem",
+                      borderRadius: "50%",
+                    }}
+                  >
+                    {player?.participant?.team?.teamName
+                      ?.charAt(0)
+                      ?.toUpperCase() || "?"}
+                  </div>
+                )}
                 <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
                   {player?.participant?.team?.teamName}
                 </span>
@@ -106,23 +106,23 @@ export default function BattleRoyalStanding() {
               </div>
               <div className="px-6 py-4 text-center max-w-[13%] w-full">
                 <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                {player.totalPlacePoints || 0}
+                  {player.totalPlacePoints || 0}
                 </span>
               </div>
               <div className="px-6 py-4 text-center max-w-[13%] w-full">
                 <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                {player.totalKillPoints || 0}
+                  {player.totalKillPoints || 0}
                 </span>
               </div>
               <div className="px-6 ltr:lg:pr-16 rtl:lg:pl-16 ltr:pr-7 rtl:pl-7 py-4 ltr:text-right rtl:text-left max-w-[13%] w-full">
                 <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                {player.totalVictory || 0}
+                  {player.totalVictory || 0}
                 </span>
               </div>
             </div>
           ))}
         </div>
-      </motion.div>     
+      </motion.div>
     </>
   );
 }
