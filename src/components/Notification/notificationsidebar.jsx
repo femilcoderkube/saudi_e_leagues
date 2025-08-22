@@ -48,7 +48,7 @@ const Notification_Sidebar = () => {
             <NotificationTab />
           </div>
         </div>
-        <div className="flex flex-col gap-5 h-[calc(100%-19rem)] sm:h-[calc(100%-13rem)] custom_scroll overflow-y-auto px-5 mt-[12rem] xl:ltr:w-[calc(100%-0.18rem)] rtl:w-full">
+        <div className="flex flex-col gap-5 h-[calc(100%-13rem)] sm:h-[calc(100%-13rem)] custom_scroll overflow-y-auto px-5 mt-[12rem] xl:ltr:w-[calc(100%-0.18rem)] rtl:w-full">
           {(() => {
             const renderNotification = (item, index) => {
               const type = item.notificationId?.notificationtype;
