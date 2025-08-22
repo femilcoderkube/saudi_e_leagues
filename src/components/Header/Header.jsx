@@ -51,17 +51,17 @@ import { SOCKET } from "../../utils/constant";    // <-- Make sure this path is 
 // Language Toggle Component
 const LanguageToggle = () => {
   const { i18n } = useTranslation();
-  
+
   const handleLangToggle = () => {
     const newLang = i18n.language === "en" ? "ar" : "en";
     i18n.changeLanguage(newLang);
     localStorage.setItem("lang", newLang);
     let type = localStorage.getItem("deviceType")
-    if(type== "mobile"){
+    if (type == "mobile") {
       window.AndroidInterface?.languageCallbackHandler(`${newLang}`);
       window.webkit?.messageHandlers?.languageCallbackHandler?.postMessage(`${newLang}`);
     }
-    
+
   };
 
   return (
@@ -122,11 +122,11 @@ const AuthButtons = ({ isMobile = false }) => {
         onClick={(e) => {
           e.preventDefault();
           let type = localStorage.getItem("deviceType")
-          if(type== "mobile"){
+          if (type == "mobile") {
             window.AndroidInterface?.signInCallbackHandler(`${window.location.href}`);
             window.webkit?.messageHandlers?.signInCallbackHandler?.postMessage(`${window.location.href}`);
-          }else{
-          dispatch(setLogin(true));
+          } else {
+            dispatch(setLogin(true));
           }
         }}
       >
@@ -382,9 +382,8 @@ const MobileNavigation = ({ user, isActiveTab, breadcrumbItems }) => {
 
   return (
     <div
-      className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${
-        breadcrumbItems?.length == 3 ? "hidden " : ""
-      }${user ? "" : "nav-condition"}`}
+      className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${breadcrumbItems?.length == 3 ? "hidden " : ""
+        }${user ? "" : "nav-condition"}`}
     >
       <div className="sq__main-wrap h-full">
         <ul className="listWrap h-full flex justify-around items-center">
@@ -432,12 +431,12 @@ const Header = () => {
   const { matchData, isCaptain, IsSubmited, isEditScore, myPId, showCancelBtn, cancelMatchCount, isMyMatch, isMatchCanceled } = useSelector(
     (state) => state.matchs
   );
-  const { matchDataT  } = useSelector((state) => state.tournamentMatch);
+  const { matchDataT } = useSelector((state) => state.tournamentMatch);
 
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
-  useEffect(() => {}, [matchData, matchDataT,user, location]);
+  useEffect(() => { }, [matchData, matchDataT, user, location]);
   const userUpdate = useSelector((state) => state.auth.user);
 
   const { i18n, t } = useTranslation();
@@ -503,7 +502,7 @@ const Header = () => {
       breadcrumbItems[1].active = false;
       breadcrumbItems.push(item);
     }
-  } else if(params.draftId && draftData){
+  } else if (params.draftId && draftData) {
     if (breadcrumbItems.length === 3) {
       breadcrumbItems.pop();
     }
@@ -546,7 +545,8 @@ const Header = () => {
     // Extract common data
     const isEnglish = i18n.language === "en";
     const isTournament = checkParams("tournament");
-    
+    console.log("isTournament", isTournament)
+
     // Get title based on language and type
     const getTitle = () => {
       if (isTournament) {
@@ -554,29 +554,31 @@ const Header = () => {
       }
       return isEnglish ? matchData?.league?.title : matchData?.league?.titleAr;
     };
-    
+
     // Get match ID
     const getMatchId = () => {
       if (isTournament && matchDataT?.config?.id) return `#${matchDataT?.config?.id}`;
       return matchData?.matchTempId || "#";
     };
-    
+
     // Get path ID
     const getPathId = () => {
-      return isTournament ?`/${params.id}/lobby/tournament/${matchDataT?.tournament?._id}`  : `/${params.id}/lobby/${ matchData?.league?._id}`;
+      return isTournament
+        ? `/${params.id}/lobby/tournament/${matchDataT?.tournament?._id}`
+        : `/${params.id}/lobby/${matchData?.league?._id}`;
     };
-    
+
     const title = getTitle();
     const matchId = getMatchId();
     const pathId = getPathId();
-    
+
     // Common header styles
     const headerStyles = {
       background: "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
     };
-    
+
     const baseHeaderClass = "header_teture--bg text-white flex items-center sd_before before:w-full before:h-full relative";
-    
+
     // Render match header (when params.mId exists)
     if (params.mId) {
       return (
@@ -588,13 +590,13 @@ const Header = () => {
           <div className="flex items-center">
             <BackButton
               className="absolute ltr:left-[1rem] rtl:right-[1rem] md:ltr:left-[5rem] md:rtl:right-[5rem]"
-              onClick={() => navigator(-1)}
+              onClick={() => isTournament ? navigator(pathId) : navigator(-1)}
             />
             <h2 className="lg:text-[2rem] text-[1.25rem] !font-black uppercase block ltr:ml-12 rtl:mr-12">
               {title || t("match.finding_matchmaking")} - {t("match.match")} {matchId}
             </h2>
           </div>
-          
+
           <div className="flex items-center lg:gap-15 gap-3">
             <MatchControls
               user={user}
@@ -615,14 +617,14 @@ const Header = () => {
             )}
             <UserMenu user={user} userUpdate={userUpdate} />
           </div>
-          
+
           <div className="mob-logo sm:hidden block">
             <img className="w-18 h-auto" src={logo_ltr} alt="" />
           </div>
         </header>
       );
     }
-    
+
     // Render simple header (when params.mId doesn't exist)
     return (
       <header
@@ -652,7 +654,7 @@ const Header = () => {
           mainItem={mainItem}
           profileVisible={profileVisible}
         />
-        
+
         <div className="sd_notification-block self-center flex sm:gap-4 ltr:gap-2 rtl:gap-4 ltr:ml-[1rem] xl:ltr:mr-[9rem] xl:rtl:ml-[9rem] sm:ltr:mr-[2rem] sm:rtl:ml-[2rem]">
           <LanguageToggle />
           <NotificationIcon user={user} />
@@ -661,7 +663,7 @@ const Header = () => {
         {!user && <AuthButtons />}
         {!user && <AuthButtons isMobile />}
         <UserMenu user={user} userUpdate={userUpdate} />
-        
+
         <MobileNavigation
           user={user}
           isActiveTab={isActiveTab}
