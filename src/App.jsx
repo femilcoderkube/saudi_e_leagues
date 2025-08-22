@@ -44,6 +44,9 @@ function NavigatorSetter() {
   return null;
 }
 
+console.log("isSupported()" ,await isSupported())
+
+
 async function requestPermission() {
   //requesting permission using Notification API
   const permission = await Notification.requestPermission();
@@ -73,7 +76,7 @@ function App() {
   }, [i18n.language]);
   useEffect(() => {
     requestPermission();
-    console.log("isSupported()" ,isSupported())
+    
     onMessage(messaging, (payload) => {
       console.log("sfdghgjkl---------", payload)
       new window.Notification(payload.notification.title, {
@@ -88,7 +91,6 @@ function App() {
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
-  
   const firstItem = items[0];
 
   return (
