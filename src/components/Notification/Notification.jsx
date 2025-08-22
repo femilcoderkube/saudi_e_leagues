@@ -13,6 +13,7 @@ const Notification = () => {
 
     const unsubscribe = onMessageListener()
       .then((payload) => {
+        console.log("payload", payload);
         setNotification({
           title: payload?.notification?.title || "",
           body: payload?.notification?.body || "",
