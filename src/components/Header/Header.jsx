@@ -588,7 +588,7 @@ const Header = () => {
           <div className="flex items-center">
             <BackButton
               className="absolute ltr:left-[1rem] rtl:right-[1rem] md:ltr:left-[5rem] md:rtl:right-[5rem]"
-              onClick={() => navigator(pathId)}
+              onClick={() => navigator(-1)}
             />
             <h2 className="lg:text-[2rem] text-[1.25rem] !font-black uppercase block ltr:ml-12 rtl:mr-12">
               {title || t("match.finding_matchmaking")} - {t("match.match")} {matchId}

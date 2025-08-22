@@ -25,7 +25,7 @@ import { TeamOneScoreList } from "./teamOneSection";
 import { TeamTwoScoreList } from "./teamTwoSection";
 import { useTranslation } from "react-i18next";
 import { setShowCancelBtn, setshowMobileChat } from "../../app/slices/MatchSlice/matchDetailSlice";
-import { setSubmitModal } from "../../app/slices/constState/constStateSlice";
+import { setConfirmationPopUp, setSubmitModal } from "../../app/slices/constState/constStateSlice";
 import {
   leftToRight,
   rightToLeft,
@@ -166,6 +166,7 @@ const MatchDetail = () => {
             <div className="mob-sub-btn flex items-center justify-center flex-wrap gap-6 mb-[1rem]">
               {user && isMyMatch && (!IsSubmited || isEditScore != null) && !matchData?.isCanceled && showCancelBtn && <div className="cancel-score-btn mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                 <div
+                  onClick={() => dispatch(setConfirmationPopUp(2))}
                   className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center cursor-pointer"
                 >
                   {t("match.cancel_match")}{" "}{cancelMatchCount}
@@ -358,8 +359,8 @@ const MatchDetail = () => {
                         return (
                           <div
                             className={`block ${user?._id == chat.senderId?._id
-                                ? "send_msg-con"
-                                : "reply_msg-con"
+                              ? "send_msg-con"
+                              : "reply_msg-con"
                               }`}
                           >
                             <div className="px-2 py-1 rounded-lg">
