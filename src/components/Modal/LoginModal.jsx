@@ -14,7 +14,6 @@ import {
 } from "../../app/slices/constState/constStateSlice";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { requestForToken } from "../../firebase";
 
 const LoginModal = () => {
   const dispatch = useDispatch();
@@ -56,11 +55,10 @@ const LoginModal = () => {
   // Handle login submission
   const handleLoginSubmit = async (values, { setSubmitting }) => {
     try {
-      const fcmToken = await requestForToken();
+     
 
       const payload = {
         ...values,
-        fcmToken,
       };
       const res = await dispatch(loginUser(payload)).unwrap();
       if (res.status === 203) {

@@ -29,8 +29,12 @@ import { items } from "./utils/constant.js";
 import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";
 import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
 import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
-import Notification from "./components/Notification/Notification.jsx";
+// import Notification from "./components/Notification/Notification.jsx";
 import { setNavigator } from "./navigationService.js";
+import { getToken, onMessage } from "firebase/messaging";
+import { messaging } from "./firebase.js";
+import { getUpdateToken } from "./app/socket/socket.js";
+import { useSelector } from "react-redux";
 
 function NavigatorSetter() {
   const navigate = useNavigate();
@@ -40,59 +44,49 @@ function NavigatorSetter() {
   return null;
 }
 
+async function requestPermission() {
+  //requesting permission using Notification API
+  const permission = await Notification.requestPermission();
+
+  if (permission === "granted") {
+    const token = await getToken(messaging, {
+      vapidKey:"BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI" ,
+    });
+    getUpdateToken(token)
+    console.log("tokeeenn ----", token)
+    //We can send token to server
+   
+  } else if (permission === "denied") {
+    //notifications are blocked
+    alert("You denied for the notification");
+  }
+}
+
 function App() {
   const { i18n } = useTranslation();
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const dir = i18n.language === "ar" ? "rtl" : "ltr";
     document.documentElement.setAttribute("dir", dir);
     document.body.setAttribute("dir", dir);
   }, [i18n.language]);
-
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      console.log("Attempting to register service worker");
-      // Unregister any existing service workers to avoid conflicts
-      navigator.serviceWorker
-        .getRegistrations()
-        .then((registrations) => {
-          registrations.forEach((registration) => {
-            console.log(
-              "Unregistering existing service worker:",
-              registration.scope
-            );
-            registration.unregister();
-          });
-        })
-        .then(() => {
-          // Register the service worker
-          const swUrl = "/firebase-messaging-sw.js";
-          navigator.serviceWorker
-            .register(swUrl) // ✅ no custom scope
-            .then((registration) => {
-              console.log(
-                "Service Worker registered with scope:",
-                registration.scope
-              );
-            })
-            .catch((error) => {
-              console.error("Service Worker registration failed:", error);
-              console.error("Error details:", error.message, error.stack);
-            });
-        })
-        .catch((error) => {
-          console.error("Error fetching existing service workers:", error);
-        });
-    } else {
-      console.warn("Service Workers not supported in this browser.");
-    }
-  }, []);
+    requestPermission();
+  }, [user]);
 
   const [selectedItem, setSelectedItem] = useState("PrimeHome");
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
+  onMessage(messaging, (payload) => {
+     console.log("sfdghgjkl---------",payload)
+     new window.Notification(payload.notification.title, {
+              body: payload.notification.body,
+              icon: "/icon-192-maskable.png",
+            });
+  });
   const firstItem = items[0];
 
   return (
@@ -135,7 +129,7 @@ function App() {
           </Routes>
         </div>
       </Router>
-      <Notification />
+      {/* <Notification /> */}
     </>
   );
 }
