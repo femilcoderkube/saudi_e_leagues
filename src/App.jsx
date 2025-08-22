@@ -4,6 +4,8 @@ import {
   Routes,
   Route,
   Navigate,
+  useNavigate,
+  useLocation,
   // useNavigate,
 } from "react-router-dom";
 import Sidebar from "./components/SideBar/SideBar";
@@ -27,6 +29,16 @@ import { items } from "./utils/constant.js";
 import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";
 import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
 import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
+import Notification from "./components/Notification/Notification.jsx";
+import { setNavigator } from "./navigationService.js";
+
+function NavigatorSetter() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    setNavigator(navigate);
+  }, [navigate]);
+  return null;
+}
 
 function App() {
   const { i18n } = useTranslation();
@@ -37,6 +49,45 @@ function App() {
     document.body.setAttribute("dir", dir);
   }, [i18n.language]);
 
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      console.log("Attempting to register service worker");
+      // Unregister any existing service workers to avoid conflicts
+      navigator.serviceWorker
+        .getRegistrations()
+        .then((registrations) => {
+          registrations.forEach((registration) => {
+            console.log(
+              "Unregistering existing service worker:",
+              registration.scope
+            );
+            registration.unregister();
+          });
+        })
+        .then(() => {
+          // Register the service worker
+          const swUrl = "/firebase-messaging-sw.js";
+          navigator.serviceWorker
+            .register(swUrl) // ✅ no custom scope
+            .then((registration) => {
+              console.log(
+                "Service Worker registered with scope:",
+                registration.scope
+              );
+            })
+            .catch((error) => {
+              console.error("Service Worker registration failed:", error);
+              console.error("Error details:", error.message, error.stack);
+            });
+        })
+        .catch((error) => {
+          console.error("Error fetching existing service workers:", error);
+        });
+    } else {
+      console.warn("Service Workers not supported in this browser.");
+    }
+  }, []);
+
   const [selectedItem, setSelectedItem] = useState("PrimeHome");
 
   const handleItemClick = (item) => {
@@ -45,40 +96,47 @@ function App() {
   const firstItem = items[0];
 
   return (
-    <Router>
-      <div className="flex">
-        <Sidebar onItemClick={handleItemClick} selectedItem={selectedItem} />
-        <Routes>
-          <Route path="reset-password" element={<ResetPasswordPage />} />
-          {/* <Route index element={<MainView selectedItem={selectedItem} />} /> */}
-          <Route path="/" element={<Navigate to={`/${firstItem.id}`} />} />
-          {/* Redirect "/:id" to "/:id/lobby" */}
-          {/* <Route path="/:id" element={<Navigate to={`/${window.location.pathname.split('/')[1]}/lobby`} replace />} /> */}
-          <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
-            <Route index element={<PrimeHome />} />
-            <Route path="match/:mId" element={<MatchDetail />} />
-            <Route
-              path="tournament/match/:mId"
-              element={<MatchDetailTournament />}
-            />
-            <Route path="lobby" element={<Lobby />} />
-            <Route
-              path="lobby/drafting/:draftId"
-              element={<DraftingDetail />}
-            />
-            <Route
-              path="lobby/tournament/:tId"
-              element={<TournamentDetail />}
-            />
-            <Route path="lobby/:lId" element={<LeagueDetail />} />
-            <Route path="lobby/:lId/finding-match" element={<MatchMaking />} />
-            <Route path="profile" element={<UserProfilePage />} />
-            {/* Add more routes as needed */}
-          </Route>
-          <Route path="*" element={<Navigate to={`/${firstItem.id}`} />} />
-        </Routes>
-      </div>
-    </Router>
+    <>
+      <Router>
+        <NavigatorSetter />
+        <div className="flex">
+          <Sidebar onItemClick={handleItemClick} selectedItem={selectedItem} />
+          <Routes>
+            <Route path="reset-password" element={<ResetPasswordPage />} />
+            {/* <Route index element={<MainView selectedItem={selectedItem} />} /> */}
+            <Route path="/" element={<Navigate to={`/${firstItem.id}`} />} />
+            {/* Redirect "/:id" to "/:id/lobby" */}
+            {/* <Route path="/:id" element={<Navigate to={`/${window.location.pathname.split('/')[1]}/lobby`} replace />} /> */}
+            <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
+              <Route index element={<PrimeHome />} />
+              <Route path="match/:mId" element={<MatchDetail />} />
+              <Route
+                path="tournament/match/:mId"
+                element={<MatchDetailTournament />}
+              />
+              <Route path="lobby" element={<Lobby />} />
+              <Route
+                path="lobby/drafting/:draftId"
+                element={<DraftingDetail />}
+              />
+              <Route
+                path="lobby/tournament/:tId"
+                element={<TournamentDetail />}
+              />
+              <Route path="lobby/:lId" element={<LeagueDetail />} />
+              <Route
+                path="lobby/:lId/finding-match"
+                element={<MatchMaking />}
+              />
+              <Route path="profile" element={<UserProfilePage />} />
+              {/* Add more routes as needed */}
+            </Route>
+            <Route path="*" element={<Navigate to={`/${firstItem.id}`} />} />
+          </Routes>
+        </div>
+      </Router>
+      <Notification />
+    </>
   );
 }
 

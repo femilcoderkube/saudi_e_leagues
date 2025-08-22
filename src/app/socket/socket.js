@@ -41,6 +41,7 @@ import {
   setmatchTData,
 } from "../slices/MatchSlice/TournamentMatchDetailSlice";
 import { logout, setIsBannedUser } from "../slices/auth/authSlice";
+import { globalNavigate } from "../../navigationService";
 // import { requestFCMToken } from "../../firebase";
 
 // const SOCKET_URL = "/";
@@ -77,7 +78,8 @@ socket.on("connect", () => {
       if (window.location.pathname.includes("/match/")) return;
       let pId = getPartnerByDocId(data.partner).id;
       // globalNavigate(`/${pId}/match/${data.matchId}`);
-       window.location.href = `/${pId}/match/${data.matchId}`;
+      //  window.location.href = `/${pId}/match/${data.matchId}`;
+      globalNavigate(`/${pId}/match/${data.matchId}`);
       // window.location.href = ;
       sessionStorage.removeItem("canAccessFindingMatch");
     }
@@ -159,10 +161,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
       if (window.location.pathname.includes(data?.data?._id?.toString())) {
         data.data.userId = user?._id;
-        // socket.emit(SOCKET.SETFCMTOKEN, {
-        //   userId: user?._id,
-        //   fcmToken: requestFCMToken(),
-        // });
+
         console.log(" user?._id", user?._id);
         if (data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id) {
           store.dispatch(setLeagueData(data.data));
@@ -301,7 +300,7 @@ export function getDraftById({ draftId, isSocketConnected, user }) {
 }
 export function setPickedPlayer({ draftId, Playerdata, isSocketConnected }) {
   if (isSocketConnected) {
-    socket.emit(SOCKET.SETPICKEDDRAFTPLAYER, { draftId, Playerdata })
+    socket.emit(SOCKET.SETPICKEDDRAFTPLAYER, { draftId, Playerdata });
   }
 }
 export function stopMatchDetailTSocket() {
@@ -323,3 +322,11 @@ export function getMatchDetailTById({ mId, isSocketConnected, user }) {
     socket.emit(SOCKET.GETMATCHT, { mId });
   }
 }
+
+export const getUpdateToken = (fcmToken) => {
+  const user = JSON.parse(localStorage.getItem("user")) || null;
+  socket.emit(SOCKET.SETFCMTOKEN, {
+    userId: user?._id,
+    fcmToken: fcmToken,
+  });
+};

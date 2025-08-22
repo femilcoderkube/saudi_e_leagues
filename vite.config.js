@@ -11,6 +11,12 @@ export default defineConfig({
     VitePWA({
       injectRegister: null,
       registerType: "autoUpdate",
+      srcDir: "public",
+      filename: "firebase-messaging-sw.js",
+      devOptions: { enabled: true, type: "classic" },
+      // injectManifest: {
+      //   injectionPoint: "self.__WB_MANIFEST",
+      // },
       manifest: {
         name: "Prime eLeague",
         short_name: "Prime eLeague",
@@ -43,6 +49,13 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
         maximumFileSizeToCacheInBytes: 4000000,
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.destination === "document",
+            handler: "NetworkFirst",
+            options: { cacheName: "html-cache" },
+          },
+        ],
       },
     }),
   ],

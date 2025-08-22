@@ -14,6 +14,7 @@ import {
 } from "../../app/slices/constState/constStateSlice";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { requestForToken } from "../../firebase";
 
 const LoginModal = () => {
   const dispatch = useDispatch();
@@ -55,7 +56,13 @@ const LoginModal = () => {
   // Handle login submission
   const handleLoginSubmit = async (values, { setSubmitting }) => {
     try {
-      const res = await dispatch(loginUser(values)).unwrap();
+      const fcmToken = await requestForToken();
+
+      const payload = {
+        ...values,
+        fcmToken,
+      };
+      const res = await dispatch(loginUser(payload)).unwrap();
       if (res.status === 203) {
         toast.error(res.message || t("auth.login_failed"));
         return;
@@ -101,11 +108,12 @@ const LoginModal = () => {
     <>
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
       <div className="fixed inset-0 flex justify-center items-center z-[999]">
-        <motion.div className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative m-4 md:m-0"
-        initial={{ scale: 0.5, opacity: 0, y: 50 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.5, opacity: 0, y: 50 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
+        <motion.div
+          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative m-4 md:m-0"
+          initial={{ scale: 0.5, opacity: 0, y: 50 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.5, opacity: 0, y: 50 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">
