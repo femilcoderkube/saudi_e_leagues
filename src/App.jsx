@@ -43,7 +43,13 @@ function NavigatorSetter() {
   }, [navigate]);
   return null;
 }
-
+onMessage(messaging, (payload) => {
+  console.log("sfdghgjkl---------", payload)
+  new window.Notification(payload.notification.title, {
+    body: payload.notification.body,
+    icon: "/icon-192-maskable.png",
+  });
+});
 async function requestPermission() {
   //requesting permission using Notification API
   const permission = await Notification.requestPermission();

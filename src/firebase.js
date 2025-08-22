@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 
-import { getMessaging, onMessage } from "firebase/messaging";
+import { getMessaging } from "firebase/messaging";
 
 //Firebase Config values imported from .env file
 const firebaseConfig = {
@@ -18,10 +18,3 @@ const app = initializeApp(firebaseConfig);
 
 // Messaging service
 export const messaging = getMessaging(app);
-onMessage(messaging, (payload) => {
-  console.log("sfdghgjkl---------", payload)
-  new window.Notification(payload.notification.title, {
-    body: payload.notification.body,
-    icon: "/icon-192-maskable.png",
-  });
-});
