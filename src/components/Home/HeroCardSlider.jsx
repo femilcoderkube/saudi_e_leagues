@@ -1,13 +1,10 @@
-// File: HeroCardSlider.jsx
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import SliderCard from "./SliderCard";
 
-
-// Card data here
 const SliderCardDetails = [
   {
     paht: "#",
@@ -36,7 +33,6 @@ const HeroCardSlider = () => {
   const nextRef = useRef(null);
   return (
     <div className="game-slider-container relative">
-      {/* Custom Navigation Wrapper */}
       <div className="swiper-navigation-wrapper absolute ltr:right-18 rtl:left-18 top-[-5rem] z-10 md:flex hidden gap-2">
         <div
           ref={prevRef}
@@ -54,19 +50,17 @@ const HeroCardSlider = () => {
         slidesPerView={2.5}
         centeredSlides={false}
         loop={true}
-         style={{ position: 'relative' }}
+        style={{ position: 'relative' }}
         breakpoints={{
-    0: {
-      slidesPerView: 1.5, // 👈 mobile view
-    },
-    640: {
-      slidesPerView: 2.5, // 👈 tablets and up
-    },
-  }}
+          0: {
+            slidesPerView: 1.5,
+          },
+          640: {
+            slidesPerView: 2.5,
+          },
+        }}
         speed={600}
-        // style={{ overflow: 'visible' }}
         onSwiper={(swiper) => {
-          // Assign navigation manually after refs are set
           swiper.params.navigation.prevEl = prevRef.current;
           swiper.params.navigation.nextEl = nextRef.current;
           swiper.navigation.init();

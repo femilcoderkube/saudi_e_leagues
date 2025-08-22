@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-// import { DownArrow } from "../ui/svg/index.jsx";
 
 const Accordion = () => {
-  const [openIndex, setOpenIndex] = useState(0); // 👈 default to 0 for first open
-  let data = [1, 2, 3, 4, 5, 6];
+  const [openIndex, setOpenIndex] = useState(0); 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };

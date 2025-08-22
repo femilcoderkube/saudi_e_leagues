@@ -1,4 +1,3 @@
-// SliderCard.jsx
 import React from "react";
 import CardTopLeftShap from "../../assets/images/card_top_left-shap.png";
 import { Link, useNavigate, useParams } from "react-router-dom";

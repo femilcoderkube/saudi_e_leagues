@@ -77,7 +77,6 @@ function App() {
   }, [i18n.language]);
   useEffect(() => {
     requestPermission();
-    
     onMessage(messaging, (payload) => {
       console.log("sfdghgjkl---------", payload)
       new window.Notification(payload.notification.title, {
@@ -85,6 +84,7 @@ function App() {
         icon: "/icon-192-maskable.png",
       });
     });
+
   }, [user]);
 
   const [selectedItem, setSelectedItem] = useState("PrimeHome");
