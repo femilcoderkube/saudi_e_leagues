@@ -11,9 +11,7 @@ export async function requestPermission() {
         const permission = await Notification.requestPermission();
 
         if (permission === "granted") {
-            const token = await getToken(messaging, {
-                vapidKey: "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI",
-            });
+            const token = await genrateFCMToken();
             getUpdateToken(token)
             console.log("tokeeenn ----", token)
         } else if (permission === "denied") {
@@ -21,7 +19,15 @@ export async function requestPermission() {
         }
     }
 }
-
+export const genrateFCMToken = async () => {
+    try {
+        return await getToken(messaging, {
+            vapidKey: "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI",
+        });
+    } catch (e) {
+        return "";
+    }
+}
 export const setupMessageListener = () => {
     const deviceType = localStorage.getItem("deviceType");
 
