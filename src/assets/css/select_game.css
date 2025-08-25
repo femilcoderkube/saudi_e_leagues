@@ -431,11 +431,11 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
     background: #447df1;
   }
 
-  .sd_uaser-menu .active-tab.polygon_border:before,
+  /* .sd_uaser-menu .active-tab.polygon_border:before,
   .sd_uaser-menu .active-tab.polygon_border:after {
     width: 2.65rem;
     height: 0.08rem;
-  }
+  } */
 
   .game_card--wrapv2.game_card--wrapper > a {
     max-width: 22rem;

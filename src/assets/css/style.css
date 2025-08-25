@@ -288,7 +288,7 @@ html[lang="ar"] body {
 
 html[dir="rtl"] .sparkles-overlay {
   right: auto;
-  left: 1.5rem;
+  left: -2.8rem;
 }
 
 html[dir="rtl"] .team_score--con {
@@ -920,7 +920,7 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
     margin-right: 16.3rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header{
+  .schdule-accordion-header.active-schdule-accordion-header {
     flex-direction: column;
     align-items: start;
     gap: 1rem;
@@ -962,6 +962,7 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
   .battle-shape-text {
     width: 11.5rem;
   }
+
   .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
     margin-left: 13rem;
   }
@@ -970,7 +971,8 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
     margin-left: 0;
     margin-right: 13rem;
   }
-  .schdule-accordion-header.active-schdule-accordion-header{
+
+  .schdule-accordion-header.active-schdule-accordion-header {
     gap: 0.6rem;
   }
 }
@@ -1129,15 +1131,17 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
     padding-inline: 0.6rem;
     padding-block: 0.8rem;
   }
+
   .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
-    margin-left:7rem;
+    margin-left: 7rem;
   }
 
   html[dir=rtl] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 7rem;
   }
-  .schdule-accordion-header.active-schdule-accordion-header{
+
+  .schdule-accordion-header.active-schdule-accordion-header {
     gap: 0.3rem;
   }
 }
@@ -1198,12 +1202,13 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
     width: 4.5rem;
   }
 
-  .round-gold,.round-gold img {
+  .round-gold,
+  .round-gold img {
     width: 1.6rem;
     height: 1.6rem;
   }
 
-  .round-gold span{
+  .round-gold span {
     font-size: 14px;
   }
 
@@ -1249,7 +1254,6 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
     padding-left: 0.3rem;
   }
 
-  
   .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
     margin-left: 6rem;
   }

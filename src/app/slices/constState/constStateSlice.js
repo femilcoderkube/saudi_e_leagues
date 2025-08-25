@@ -22,6 +22,7 @@ const initialState = {
   selectedEndDate: null,
   // New state for player selection confirmation
   selectedPlayerData: null,
+  gameMatchLoader :false,
 
   countryOptions: countryData.map((country) => ({
     value: country.name,
@@ -37,6 +38,9 @@ const constStateSlice = createSlice({
   name: "constState",
   initialState,
   reducers: {
+    setGameMatchLoader: (state, action) => {
+      state.gameMatchLoader = action.payload;
+    },
     // New reducer for player selection
     setSelectedPlayerData: (state, action) => {
       state.selectedPlayerData = action.payload;
@@ -113,6 +117,6 @@ const constStateSlice = createSlice({
   },
 });
 
-export const { setMatchPage, setTimeLineCard, setMatchLoader, setLogin, setShowCalendar, setRegisteration, setActiveTabIndex, setshowNotification, setProfileVisible, setSubmitModal, setViewModal, setPreviewImage, setIsMatctCreated, setNotificationTabIndex, setActiveTournamentTab, setConfirmationPopUp, setSelectedStartDate, setSelectedEndDate, setDateRange, setSelectedPlayerData, setQueueConfirmation } = constStateSlice.actions;
+export const { setMatchPage, setTimeLineCard, setMatchLoader, setLogin, setShowCalendar, setRegisteration, setActiveTabIndex, setshowNotification,setGameMatchLoader, setProfileVisible, setSubmitModal, setViewModal, setPreviewImage, setIsMatctCreated, setNotificationTabIndex, setActiveTournamentTab, setConfirmationPopUp, setSelectedStartDate, setSelectedEndDate, setDateRange, setSelectedPlayerData, setQueueConfirmation } = constStateSlice.actions;
 
 export default constStateSlice.reducer;
