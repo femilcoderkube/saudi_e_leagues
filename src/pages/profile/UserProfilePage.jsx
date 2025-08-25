@@ -90,14 +90,14 @@ const UserProfilePage = () => {
             <img className="w-6 h-6" src={logOut} alt="user" />
             {t("auth.logout")}</li>
 
-          {deviceType == 'mobile' && (
+          {/* {deviceType == 'mobile' && ( */}
             <li className="text-lg purple_col flex gap-2 cursor-pointer"
               onClick={() => {
                 dispatch(setConfirmationPopUp(4));
               }}>
               <img className="w-6 h-6" src={logOut} alt="user" />
               {t("auth.delete_account")}</li>
-          )}
+          {/* )} */}
 
           <ConfirmationPopUp
             onDeleteAccount={handleDeleteAccount}
