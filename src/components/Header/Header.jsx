@@ -584,7 +584,7 @@ const Header = () => {
       return (
         <header
           key={location.pathname}
-          className={`${baseHeaderClass} py-[1.35rem] px-[1rem] md:px-[4.5rem] justify-between`}
+          className={`${baseHeaderClass} py-[1.28rem] px-[1rem] md:px-[4.5rem] justify-between`}
           style={headerStyles}
         >
           <div className="flex items-center">
