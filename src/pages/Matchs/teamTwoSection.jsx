@@ -63,7 +63,7 @@ export const TeamTwoScoreList = () => {
             onMouseLeave={() => setHoveredIndex(null)}
           >
             {index === 0 && (
-              <span className="gold_crown absolute top-[-3rem] right-8 z-10">
+              <span className="gold_crown absolute top-[-3rem] left-8 z-10">
                 <img src={GoldCrown} alt="Gold Crown" className="h-10" />
               </span>
             )}

@@ -31,7 +31,7 @@ import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
 import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
 // import Notification from "./components/Notification/Notification.jsx";
 import { setNavigator } from "./navigationService.js";
-import { getToken, onMessage } from "firebase/messaging";
+import { getToken, isSupported, onMessage } from "firebase/messaging";
 import { messaging } from "./firebase.js";
 import { getUpdateToken } from "./app/socket/socket.js";
 import { useSelector } from "react-redux";
@@ -44,7 +44,11 @@ function NavigatorSetter() {
   return null;
 }
 
+
+
+
 async function requestPermission() {
+  console.log("isSupported()" ,await isSupported())
   //requesting permission using Notification API
   const permission = await Notification.requestPermission();
 
@@ -73,6 +77,14 @@ function App() {
   }, [i18n.language]);
   useEffect(() => {
     requestPermission();
+    onMessage(messaging, (payload) => {
+      console.log("sfdghgjkl---------", payload)
+      new window.Notification(payload.notification.title, {
+        body: payload.notification.body,
+        icon: "/icon-192-maskable.png",
+      });
+    });
+
   }, [user]);
 
   const [selectedItem, setSelectedItem] = useState("PrimeHome");
@@ -80,13 +92,6 @@ function App() {
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
-  onMessage(messaging, (payload) => {
-     console.log("sfdghgjkl---------",payload)
-     new window.Notification(payload.notification.title, {
-              body: payload.notification.body,
-              icon: "/icon-192-maskable.png",
-            });
-  });
   const firstItem = items[0];
 
   return (

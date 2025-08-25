@@ -127,7 +127,7 @@ export const updateUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Error updating user"
+        error.response?.data?.message ? error.response?.data?.message : "Error updating user"
       );
     }
   }

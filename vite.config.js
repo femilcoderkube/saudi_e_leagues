@@ -9,10 +9,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      injectRegister: null,
+      injectRegister: "auto",
       registerType: "autoUpdate",
       srcDir: "public",
-      filename: "firebase-messaging-sw.js",
+      // filename: "firebase-messaging-sw.js",
       devOptions: { enabled: true, type: "classic" },
       // injectManifest: {
       //   injectionPoint: "self.__WB_MANIFEST",

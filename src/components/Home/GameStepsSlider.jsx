@@ -1,7 +1,6 @@
-// File: HtpCardSlider.jsx
 import React, { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, FreeMode, Thumbs, Pagination } from "swiper/modules";
+import { Navigation, FreeMode, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -12,7 +11,7 @@ import sliderBG from "../../assets/images/sliderBG.png";
 import { useTranslation } from "react-i18next";
 
 
-const HtpCardBig = ({ item }) => {
+const GameStepCardLarge = ({ item }) => {
 
   const { t } = useTranslation();
 
@@ -49,7 +48,7 @@ const HtpCardBig = ({ item }) => {
   )
 };
 
-const HtpCard = ({ item }) => {
+const GameStepCardSmall = ({ item }) => {
 
   const { t } = useTranslation();
 
@@ -82,9 +81,9 @@ const HtpCard = ({ item }) => {
   )
 }
 
-const HtpCardSlider = ({
-  HtpCardDetails,
-  HtpCardDetails1 = [],
+const GameStepsSlider = ({
+  mainSteps,
+  secondarySteps = [],
   sliderId = "slider1", // ensure always non-empty
 }) => {
   const prevRef = useRef(null);
@@ -120,7 +119,7 @@ const HtpCardSlider = ({
     if (thumbsSwiperRef.current && thumbsSwiperRef.current.swiper) {
       const nextSlideIndex = Math.min(
         swiper.activeIndex,
-        HtpCardDetails.length
+        mainSteps.length
       );
       thumbsSwiperRef.current.swiper.slideTo(nextSlideIndex, 600);
     }
@@ -186,9 +185,9 @@ const HtpCardSlider = ({
         }}
         onSlideChange={handleMainSlideChange}
       >
-        {HtpCardDetails.map((item, index) => (
+        {mainSteps.map((item, index) => (
           <SwiperSlide key={index}>
-            <HtpCardBig item={item} />
+            <GameStepCardLarge item={item} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -213,9 +212,9 @@ const HtpCardSlider = ({
         modules={[FreeMode]}
         className="mySwiper pointer-events-none"
       >
-        {HtpCardDetails1.map((item, index) => (
+        {secondarySteps.map((item, index) => (
           <SwiperSlide key={index}>
-            <HtpCard item={item} />
+            <GameStepCardSmall item={item} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -223,4 +222,4 @@ const HtpCardSlider = ({
   );
 };
 
-export default HtpCardSlider;
+export default GameStepsSlider;

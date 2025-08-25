@@ -18,3 +18,4 @@ const app = initializeApp(firebaseConfig);
 
 // Messaging service
 export const messaging = getMessaging(app);
+

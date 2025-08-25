@@ -1,8 +1,6 @@
 // Scripts for firebase and firebase messaging
-importScripts("https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js");
-importScripts(
-  "https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"
-);
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 
 // Initialize the Firebase app in the service worker
 // "Default" Firebase configuration (prevents errors)
@@ -20,13 +18,23 @@ firebase.initializeApp(firebaseConfig);
 
 // Retrieve firebase messaging
 const messaging = firebase.messaging();
+// messaging.onBackgroundMessage((payload) => {
+//   console.log("asasasas--onBackgroundMessage",payload)
+//   const notificationTitle = payload.notification.title;
+//   const notificationOptions = {
+//     body: payload.notification.body,
+//      icon: "/icon-192-maskable.png",
+//   };
 
-messaging.onBackgroundMessage((payload) => {
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-    icon: payload.notification.image,
-  };
+//   self.registration.showNotification(notificationTitle, notificationOptions);
+// });
+// messaging.onMessage((payload) => {
+//   console.log("asasasas--onMessage",payload)
+//   const notificationTitle = payload.notification.title;
+//   const notificationOptions = {
+//     body: payload.notification.body,
+//     // icon: payload.notification.image,
+//   };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
-});
+//   self.registration.showNotification(notificationTitle, notificationOptions);
+// });
