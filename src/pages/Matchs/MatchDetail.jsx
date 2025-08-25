@@ -64,7 +64,7 @@ const MatchDetail = () => {
   useEffect(() => {
     dispatch(setGameMatchLoader(true));
     const timer = setTimeout(() => {
-      // dispatch(setGameMatchLoader(false));
+      dispatch(setGameMatchLoader(false));
     }, 3000);
     return () => {
       clearTimeout(timer);
