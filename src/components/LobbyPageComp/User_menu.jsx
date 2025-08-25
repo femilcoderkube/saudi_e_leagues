@@ -8,6 +8,7 @@ import { getServerURL } from "../../utils/constant";
 import { setProfileVisible } from "../../app/slices/constState/constStateSlice";
 import { useTranslation } from "react-i18next";
 import { setConfirmationPopUp } from "../../app/slices/constState/constStateSlice";
+import { motion,AnimatePresence} from "framer-motion";
 const data = [
   { id: 0, label: "My Profile" }, // Will be localized in the component
   { id: 1, label: "Logout" }, // Will be localized in the component
@@ -64,8 +65,14 @@ const Dropdown = ({ user }) => {
           />
         </svg>
       </div>
+      <AnimatePresence>
       {isOpen && (
-        <div className="dropdown-body absolute rounded-lg mt-1 z-101 w-full sd_radial-bg overflow-hidden">
+        <motion.div className="dropdown-body absolute rounded-lg mt-1 z-10 w-full sd_radial-bg overflow-hidden"
+        initial={{ scale: 0.8, opacity: 0, y: -50 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.8, opacity: 0, y: -50 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+        >
           {data.map((item) => (
             <Link
               key={item.id}
@@ -77,8 +84,9 @@ const Dropdown = ({ user }) => {
                 : t("user_menu.logout")}
             </Link>
           ))}
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
     </div>
   );
 };

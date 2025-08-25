@@ -42,7 +42,7 @@ export default function Main() {
     isRegisteration,
     showNotification,
     confirmationPopUp,
-    gameMatchLoader
+    gameMatchLoader,
   } = useSelector((state) => state.constState);
   const location = useLocation();
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -172,9 +172,9 @@ export default function Main() {
 
   return (
     <div
-      className={
-        `flex-1 flex flex-col sd_main-content md:ltr:ml-[-2.5rem] md:rtl:mr-[-2.5rem] relative bg-[#020326] ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20 ${gameMatchLoader ? "!overflow-y-hidden" : ""}`
-      }
+      className={`flex-1 flex flex-col sd_main-content md:ltr:ml-[-2.5rem] md:rtl:mr-[-2.5rem] relative bg-[#020326] ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20 ${
+        gameMatchLoader ? "!overflow-y-hidden" : ""
+      }`}
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
       {/* <div
@@ -194,7 +194,7 @@ export default function Main() {
             <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
             <div className="fixed inset-0 flex justify-center items-center z-50">
               <motion.div
-                className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative
+                className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative 
     ${
       profileVisible
         ? "h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden match_reg--popup2 sm:overflow-y-auto"
