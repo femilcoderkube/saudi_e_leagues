@@ -15,13 +15,13 @@ const MatchLoader = () => {
       await controls.start({
         opacity: 1,
         scale: 1,
-        transition: { delay: 1, duration: 0.8, ease: "easeOut" },
+        transition: { delay: 0.5, duration: 0.8, ease: "easeOut" },
       });
 
       // then run infinite pulse
       controls.start({
         opacity: [1, 0.85, 1],
-        scale: [1, 1.08, 1],
+        scale: [1, 1, 1],
         rotate: [0, 1.5, -1.5, 0],
         transition: {
           duration: 3,
