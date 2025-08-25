@@ -68,6 +68,8 @@ export default function BattleRoyalSChedule() {
               const ExtraTeams = scores.length > 3 ? scores.slice(3).length : 0;
               const accordionKey = `S${idx}a${index}`;
 
+              console.log("iconTeams",iconTeams)
+
               return (
                 <div
                   key={accordionKey}
@@ -76,7 +78,10 @@ export default function BattleRoyalSChedule() {
                 >
                   <div
                     onClick={() => toggleAccordion(accordionKey)}
-                    className="schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer"
+                    // className="schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer"
+                    className={`schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer ${
+                      iconTeams.length > 0 && new Date() > new Date(item?.endTime) && "active-schdule-accordion-header" 
+                    }`}
                   >
                     <img
                       className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
@@ -122,7 +127,7 @@ export default function BattleRoyalSChedule() {
                             ? stageSettings?.maps[item?.matchNumber - 1]?.name || "" : tournamentData?.game?.name}
                         </span>
                       </div>
-                      <div className="flex items-center lg:gap-6 sm:gap-4 gap-2">
+                      <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
                         {new Date() > new Date(item?.endTime) && (
                           <>
                             {iconTeams.map((team, i) => {

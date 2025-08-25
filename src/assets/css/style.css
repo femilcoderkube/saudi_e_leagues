@@ -909,6 +909,22 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
   .battle-shape-text {
     width: 14.5rem;
   }
+
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+    padding: 0;
+    margin-left: 16.3rem;
+  }
+
+  html[dir=rtl] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+    margin-left: 0;
+    margin-right: 16.3rem;
+  }
+
+  .schdule-accordion-header.active-schdule-accordion-header{
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 767px) {
@@ -945,6 +961,17 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
 
   .battle-shape-text {
     width: 11.5rem;
+  }
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+    margin-left: 13rem;
+  }
+
+  html[dir=rtl] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+    margin-left: 0;
+    margin-right: 13rem;
+  }
+  .schdule-accordion-header.active-schdule-accordion-header{
+    gap: 0.6rem;
   }
 }
 
@@ -1102,7 +1129,17 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
     padding-inline: 0.6rem;
     padding-block: 0.8rem;
   }
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+    margin-left:7rem;
+  }
 
+  html[dir=rtl] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+    margin-left: 0;
+    margin-right: 7rem;
+  }
+  .schdule-accordion-header.active-schdule-accordion-header{
+    gap: 0.3rem;
+  }
 }
 
 @media (max-width: 475px) {
@@ -1161,9 +1198,13 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
     width: 4.5rem;
   }
 
-  .round-gold {
-    width: 1.8rem;
-    height: 1.8rem;
+  .round-gold,.round-gold img {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .round-gold span{
+    font-size: 14px;
   }
 
   .battle-head P:first-child,
@@ -1207,6 +1248,17 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
   html[dir=rtl] .mob-match-gp div p:first-child {
     padding-left: 0.3rem;
   }
+
+  
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+    margin-left: 6rem;
+  }
+
+  html[dir=rtl] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+    margin-left: 0;
+    margin-right: 6rem;
+  }
+
 }
 
 .react-pdf__Page {
@@ -1689,7 +1741,7 @@ html[dir=rtl] .tournament-schedule-card-header-time h2 span::before {
   }
 
   .sd_tournament-content .polygon_border:before,
-  .sd_tournament-content .polygon_border:after{
+  .sd_tournament-content .polygon_border:after {
     left: 52%;
     width: 4.5rem;
   }

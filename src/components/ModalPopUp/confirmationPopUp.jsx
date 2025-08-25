@@ -74,7 +74,7 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected }) {
       ></div>
 
       <div className="fixed modal_popup-con inset-0 overflow-y-auto flex justify-center items-center z-50">
-        <motion.div className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60"
+        <motion.div className="popup-wrap inline-flex  relative"
         initial={{ scale: 0.5, opacity: 0, y: 50 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.5, opacity: 0, y: 50 }}
