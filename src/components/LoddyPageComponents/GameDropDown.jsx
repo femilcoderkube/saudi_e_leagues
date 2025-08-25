@@ -11,7 +11,7 @@ import {
 } from "../../app/slices/lobby/lobbySlice";
 import { getServerURL } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
+import { motion,AnimatePresence} from "framer-motion";
 const GameDropDown = () => {
   const { filteredGames, selectedGame, isGameDropDownOpen, gameSearchTerm } =
     useSelector((state) => state.lobby);
@@ -105,7 +105,7 @@ const GameDropDown = () => {
       </svg>
         </Link>
       </div>
-
+      <AnimatePresence>
       {isGameDropDownOpen && (
         <motion.div className="game_dropdown-body absolute sd_after after:w-full after:h-full after:top-0 rounded-lg mt-6 w-full z-50"
         initial={{ scale: 0.8, opacity: 0, y: -100 }}
@@ -229,6 +229,7 @@ const GameDropDown = () => {
           </div>
         </motion.div>
       )}
+        </AnimatePresence>
     </div>
   );
 };

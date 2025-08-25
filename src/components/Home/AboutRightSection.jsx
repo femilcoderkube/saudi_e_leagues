@@ -11,7 +11,7 @@ const AboutRightSection = React.memo(({ onPlayVideo }) => {
 
     return (
         <motion.div
-            className="about_right--con w-full sd_before sd_after relative"
+            className="about_right--con sd_before sd_after relative"
             variants={rightToLeft}
             custom={1}
             initial="hidden"

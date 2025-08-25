@@ -288,7 +288,7 @@ html[lang="ar"] body {
 
 html[dir="rtl"] .sparkles-overlay {
   right: auto;
-  left: 1.5rem;
+  left: -2.8rem;
 }
 
 html[dir="rtl"] .team_score--con {

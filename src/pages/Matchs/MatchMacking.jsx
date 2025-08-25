@@ -141,7 +141,7 @@ const MatchMaking = () => {
                 style={{ width: "11rem" }}
               />
               <div onClick={handleCancel}>
-              <div className="absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[3rem]">
+              <div className="absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem]">
                 <img
                   className="cancel-btn duration-400 cursor-pointer z-2"
                   src={cancel_btn}

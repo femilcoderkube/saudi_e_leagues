@@ -151,10 +151,10 @@ const Sparkles = () => {
           position: absolute;
           pointer-events: none;
           z-index: -1;
-          bottom: 0.5rem;
+          bottom: 0;
           right: -3.5rem;
-          height: 8.5rem;
-          width: 30.5rem;
+          height: 10rem;
+          width: 30rem;
           border-radius: 50% 50% 50% 50% / 80% 40% 80% 40%;
           overflow: hidden;
         }
