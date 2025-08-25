@@ -58,7 +58,7 @@ const MatchLoader = () => {
               rotate: [0, 1.5, -1.5, 0],
             }}
             transition={{
-              delay: 1.3, // ⏳ start after 0.3s extra
+              delay: 1, // ⏳ start after 0.3s extra
               duration: 3,
               repeat: Infinity,
               repeatType: "loop",
