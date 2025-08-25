@@ -15,7 +15,7 @@ const HowToPlaySection = React.memo(() => {
     const ANIMATION_VIEWPORT_CONFIG = { once: true, amount: 0.4 };
 
     const handleGoPlayNow = useCallback(() => {
-        dispatch(logout());
+        // dispatch(logout());
     }, [dispatch]);
 
     const howToPlayCards = useMemo(

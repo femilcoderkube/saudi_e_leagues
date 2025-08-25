@@ -93,6 +93,8 @@ socket.on("connect", () => {
     const isBanned = payload?.isUserBan ?? false;
     store.dispatch(setIsBannedUser({ data: isBanned }));
     if (isBanned) {
+      getUpdateToken("")
+
       store.dispatch(logout());
       // optional: window.location.href = "/";
     }

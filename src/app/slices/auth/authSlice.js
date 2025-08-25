@@ -3,8 +3,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../../utils/axios";
 import { toast } from "react-toastify";
 
-import { isPrivateMode } from "../../../utils/constant";
-
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   token: localStorage.getItem("token") || null,
@@ -204,6 +202,39 @@ export const updatePassword = createAsyncThunk(
     }
   }
 );
+// Delete account thunk
+export const deleteAccount = createAsyncThunk(
+  "auth/deleteAccount",
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const { auth } = getState();
+      const user = auth.user;
+      const token = auth.token;
+
+      if (!token) {
+        return rejectWithValue("Authentication token not found");
+      }
+
+      if (!user || !user._id) {
+        return rejectWithValue("User information not found");
+      }
+
+      const response = await axiosInstance.delete(
+        `/users?id=${user._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to delete account"
+      );
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -223,6 +254,12 @@ const authSlice = createSlice({
         );
         localStorage.removeItem("deviceType");
       }
+    },
+    clearDeleteAccountState: (state) => {
+      state.token = null;
+      state.user = null;
+      state.userDetail = null;
+      localStorage.clear();
     },
     // resetRegisterState from registerSlice
     resetRegisterState: (state) => {
@@ -434,5 +471,6 @@ export const {
   clearSendOtpState,
   clearVerifyOtpState,
   setIsBannedUser,
+  clearDeleteAccountState
 } = authSlice.actions;
 export default authSlice.reducer;

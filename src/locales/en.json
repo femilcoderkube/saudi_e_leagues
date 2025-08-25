@@ -32,7 +32,8 @@
     "forgot_email_sent": "A password reset link has been sent to your email.",
     "forgot_failed": "Failed to send password reset email",
     "cancel": "Cancel",
-    "verify": "Verify"
+    "verify": "Verify",
+    "delete_account": "Delete Account"
   },
   "form": {
     "username": "Username",
@@ -397,7 +398,10 @@
     "matchmakingmsg1": "By clicking \"Queue\", you'll enter a real match against other real players",
     "matchmakingmsg2" : "Leaving or not playing will count as a loss and may result in penalties including ban from the platform",
     "matchmakingmsg3" : "Are you ready to play?",
-    "donotshow" : "Do not show again"
+    "donotshow" : "Do not show again",
+    "deleteAccountTitle": "Are you sure you want to delete your account?",
+    "deleteAccountMessage": "Are you sure you want to delete your account?",
+    "deleteAccount": "Delete Account"
   },
   "drafting": {
     "drafting": "Drafting",

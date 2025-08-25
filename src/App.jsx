@@ -31,10 +31,8 @@ import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
 import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
 // import Notification from "./components/Notification/Notification.jsx";
 import { setNavigator } from "./navigationService.js";
-import { getToken, isSupported, onMessage } from "firebase/messaging";
-import { messaging } from "./firebase.js";
-import { getUpdateToken } from "./app/socket/socket.js";
 import { useSelector } from "react-redux";
+import { requestPermission, setupMessageListener } from "./utils/NotificationService.js";
 
 function NavigatorSetter() {
   const navigate = useNavigate();
@@ -42,28 +40,6 @@ function NavigatorSetter() {
     setNavigator(navigate);
   }, [navigate]);
   return null;
-}
-
-
-
-
-async function requestPermission() {
-  console.log("isSupported()" ,await isSupported())
-  //requesting permission using Notification API
-  const permission = await Notification.requestPermission();
-
-  if (permission === "granted") {
-    const token = await getToken(messaging, {
-      vapidKey:"BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI" ,
-    });
-    getUpdateToken(token)
-    console.log("tokeeenn ----", token)
-    //We can send token to server
-   
-  } else if (permission === "denied") {
-    //notifications are blocked
-    alert("You denied for the notification");
-  }
 }
 
 function App() {
@@ -75,16 +51,10 @@ function App() {
     document.documentElement.setAttribute("dir", dir);
     document.body.setAttribute("dir", dir);
   }, [i18n.language]);
+
   useEffect(() => {
     requestPermission();
-    onMessage(messaging, (payload) => {
-      console.log("sfdghgjkl---------", payload)
-      new window.Notification(payload.notification.title, {
-        body: payload.notification.body,
-        icon: "/icon-192-maskable.png",
-      });
-    });
-
+    setupMessageListener();
   }, [user]);
 
   const [selectedItem, setSelectedItem] = useState("PrimeHome");

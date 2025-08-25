@@ -5,10 +5,11 @@ import { setActiveTabIndex, setConfirmationPopUp, setProfileVisible } from "../.
 import { useDispatch, useSelector } from "react-redux";
 import mobile_menu_icon_user from "../../assets/images/LoginPersone.png";
 import logOut from "../../assets/images/logOut.png";
-import Dropdown from "../../components/LobbyPageComp/User_menu";
 import { getServerURL } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
-import { logout } from "../../app/slices/auth/authSlice";
+import { clearDeleteAccountState, deleteAccount, logout } from "../../app/slices/auth/authSlice";
+import ConfirmationPopUp from "../../components/ModalPopUp/confirmationPopUp";
+import { getUpdateToken } from "../../app/socket/socket";
 
 const UserProfilePage = () => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const UserProfilePage = () => {
   const userUpdate = useSelector((state) => state.auth.user);
   let user = userUpdate ? userUpdate : userdata;
   const { t } = useTranslation();
+
   useEffect(() => {
     console.log("azsdfasfas-------", screenSize);
     if (screenSize > 768) {
@@ -26,6 +28,30 @@ const UserProfilePage = () => {
       dispatch(setActiveTabIndex(0));
     }
   }, [screenSize]);
+
+  const handleDeleteAccount = () => {
+    try {
+      dispatch(deleteAccount());
+      dispatch(clearDeleteAccountState());
+      dispatch(setActiveTabIndex(0));
+      navigate(`/${id}/lobby`);
+    } catch (error) {
+      console.error('Failed to delete account:', error);
+    }
+  };
+
+  const handleLogout = () => {
+    try {
+      getUpdateToken("");
+      dispatch(setConfirmationPopUp(0));
+      dispatch(logout());
+      localStorage.clear();
+      dispatch(setActiveTabIndex(0));
+      navigate(`/${id}/lobby`);
+    } catch (error) {
+      console.error("Failed to logout:", error);
+    }
+  };
 
   return (
     <main className="flex-1 lobby_page--wrapper">
@@ -51,22 +77,28 @@ const UserProfilePage = () => {
             onClick={() => {
               dispatch(setProfileVisible(true));
             }}
-
           >
             <img className="w-6 h-6" src={mobile_menu_icon_user} alt="user" />
-
-
             {t("auth.edit_profile")}</li>
+
           <li className="text-lg purple_col flex gap-2 cursor-pointer"
             onClick={() => {
               dispatch(setConfirmationPopUp(1));
-              // dispatch(logout());
-              localStorage.clear();
-              dispatch(setActiveTabIndex(0));
-              navigate(`/${id}/lobby`);
             }}>
             <img className="w-6 h-6" src={logOut} alt="user" />
             {t("auth.logout")}</li>
+            
+          <li className="text-lg purple_col flex gap-2 cursor-pointer"
+            onClick={() => {
+              dispatch(setConfirmationPopUp(4));
+            }}>
+            <img className="w-6 h-6" src={logOut} alt="user" />
+            {t("auth.delete_account")}</li>
+
+          <ConfirmationPopUp
+            onDeleteAccount={handleDeleteAccount}
+            onLogout={handleLogout}
+          />
         </ul>
       </div>
     </main>

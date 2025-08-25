@@ -1,0 +1,48 @@
+import { getToken, isSupported, onMessage } from "firebase/messaging";
+import { getUpdateToken } from "../app/socket/socket";
+import sound from '../assets/mp3/game-level-complete-143022.mp3';
+import { messaging } from "../firebase.js";
+
+export async function requestPermission() {
+    const deviceType = localStorage.getItem("deviceType");
+    if (deviceType != 'mobile') {
+        console.log("isSupported()", await isSupported())
+        const permission = await Notification.requestPermission();
+
+        if (permission === "granted") {
+            const token = await getToken(messaging, {
+                vapidKey: "BA1GZo6MbvoJ3c4SCPNUOKx3rjFg1NU9YdqeblxYAxx3Sbd18nRpTl507rFcjQpoAoqW_XOioM7q-Qf47y0H4WI",
+            });
+            getUpdateToken(token)
+            console.log("tokeeenn ----", token)
+        } else if (permission === "denied") {
+            alert("You denied for the notification");
+        }
+    }
+}
+
+export const setupMessageListener = () => {
+    if (deviceType != 'mobile') {
+
+        onMessage(messaging, (payload) => {
+
+            const { notification, data } = payload;
+
+            if (notification) {
+                const { title, body } = notification;
+
+                new window.Notification(title, {
+                    body,
+                    icon: "/icon-192-maskable.png",
+                });
+
+                if (data?.type == 4) {
+                    const audio = new Audio(sound);
+                    audio.play().catch((err) =>
+                        console.error("Error playing sound:", err)
+                    );
+                }
+            }
+        });
+    }
+};

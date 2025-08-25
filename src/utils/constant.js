@@ -346,8 +346,8 @@ export function getDigitList(num) {
     digits.length >= 8
       ? digits.slice(0, 8)
       : Array(8 - digits.length)
-          .fill(0)
-          .concat(digits);
+        .fill(0)
+        .concat(digits);
   return firstSix;
 }
 export const formatTime = (secs) => {
@@ -463,27 +463,12 @@ export const stageTypes = {
   Custom: "Custom",
 };
 export async function isPrivateMode() {
-  return new Promise((resolve) => {
-    const on = () => resolve(true);
-    const off = () => resolve(false);
-
-    if (window.webkitRequestFileSystem) {
-      window.webkitRequestFileSystem(window.TEMPORARY, 1, off, on);
-    } else if (window.indexedDB && /Firefox/.test(navigator.userAgent)) {
-      let db;
-      try {
-        db = indexedDB.open("test");
-        db.onerror = on;
-        db.onsuccess = off;
-      } catch (e) {
-        on();
-      }
-    } else {
-      off();
-    }
-  });
+  try {
+    return window.self !== window.top;
+  } catch (e) {
+    return true;
+  }
 }
-
 export const calculateSnakeDraftPosition = (interval, totalTeams) => {
   const round = Math.floor((interval - 1) / totalTeams);
   const positionInRound = (interval - 1) % totalTeams;
