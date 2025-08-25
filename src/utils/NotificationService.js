@@ -5,6 +5,7 @@ import { messaging } from "../firebase.js";
 
 export async function requestPermission() {
     const deviceType = localStorage.getItem("deviceType");
+
     if (deviceType != 'mobile') {
         console.log("isSupported()", await isSupported())
         const permission = await Notification.requestPermission();
@@ -22,6 +23,8 @@ export async function requestPermission() {
 }
 
 export const setupMessageListener = () => {
+    const deviceType = localStorage.getItem("deviceType");
+
     if (deviceType != 'mobile') {
 
         onMessage(messaging, (payload) => {

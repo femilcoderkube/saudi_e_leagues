@@ -18,6 +18,8 @@ const UserProfilePage = () => {
   const dispatch = useDispatch();
   const userdata = useSelector((state) => state.auth.user);
   const userUpdate = useSelector((state) => state.auth.user);
+  const deviceType = localStorage.getItem("deviceType");
+
   let user = userUpdate ? userUpdate : userdata;
   const { t } = useTranslation();
 
@@ -87,13 +89,15 @@ const UserProfilePage = () => {
             }}>
             <img className="w-6 h-6" src={logOut} alt="user" />
             {t("auth.logout")}</li>
-            
-          <li className="text-lg purple_col flex gap-2 cursor-pointer"
-            onClick={() => {
-              dispatch(setConfirmationPopUp(4));
-            }}>
-            <img className="w-6 h-6" src={logOut} alt="user" />
-            {t("auth.delete_account")}</li>
+
+          {deviceType == 'mobile' && (
+            <li className="text-lg purple_col flex gap-2 cursor-pointer"
+              onClick={() => {
+                dispatch(setConfirmationPopUp(4));
+              }}>
+              <img className="w-6 h-6" src={logOut} alt="user" />
+              {t("auth.delete_account")}</li>
+          )}
 
           <ConfirmationPopUp
             onDeleteAccount={handleDeleteAccount}
