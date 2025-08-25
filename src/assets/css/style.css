@@ -1254,7 +1254,7 @@ html[dir=rtl] .mob-match-gp .royal-date-time p:first-child {
     margin-left: 6rem;
   }
 
-  html[dir=rtl]  .mob-match-gp {
+  html[dir=rtl] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 6rem;
   }
