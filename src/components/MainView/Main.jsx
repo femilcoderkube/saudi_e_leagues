@@ -42,6 +42,7 @@ export default function Main() {
     isRegisteration,
     showNotification,
     confirmationPopUp,
+    gameMatchLoader
   } = useSelector((state) => state.constState);
   const location = useLocation();
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -171,7 +172,9 @@ export default function Main() {
 
   return (
     <div
-      className="flex-1 flex flex-col sd_main-content md:ltr:ml-[-2.5rem] md:rtl:mr-[-2.5rem] relative bg-[#020326] ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20"
+      className={
+        `flex-1 flex flex-col sd_main-content md:ltr:ml-[-2.5rem] md:rtl:mr-[-2.5rem] relative bg-[#020326] ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20 ${gameMatchLoader ? "!overflow-y-hidden" : ""}`
+      }
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
       {/* <div

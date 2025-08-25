@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import "../../assets/css/Matchmaking.css";
-
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
 import ChatIcon from "../../assets/images/chat_icon.png";
 import ChatArr from "../../assets/images/chat_arr.png";
@@ -18,14 +16,12 @@ import {
   startMatchUpdate,
   stopMatchUpdate,
 } from "../../app/socket/socket";
-
 import MatchLoader from "../../components/Loader/MatchLoader";
-
 import { TeamOneScoreList } from "./teamOneSection";
 import { TeamTwoScoreList } from "./teamTwoSection";
 import { useTranslation } from "react-i18next";
 import { setShowCancelBtn, setshowMobileChat } from "../../app/slices/MatchSlice/matchDetailSlice";
-import { setConfirmationPopUp, setSubmitModal } from "../../app/slices/constState/constStateSlice";
+import { setConfirmationPopUp, setGameMatchLoader ,setSubmitModal } from "../../app/slices/constState/constStateSlice";
 import {
   leftToRight,
   rightToLeft,
@@ -51,9 +47,9 @@ const MatchDetail = () => {
     isMatchCanceled,
     cancelMatchCount,
   } = useSelector((state) => state.matchs);
+  const {gameMatchLoader} = useSelector((state)=> state.constState)
   const user = useSelector((state) => state.auth.user);
   const [messageInput, setMessageInput] = useState("");
-  const [showLoader, setShowLoader] = useState(true);
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -66,8 +62,9 @@ const MatchDetail = () => {
   }, [timeout])
 
   useEffect(() => {
+    dispatch(setGameMatchLoader(true));
     const timer = setTimeout(() => {
-      setShowLoader(false);
+      // dispatch(setGameMatchLoader(false));
     }, 3000);
     return () => {
       clearTimeout(timer);
@@ -119,7 +116,7 @@ const MatchDetail = () => {
     }
   };
   const LargePrime = getPartnerById(id).logo;
-  if (showLoader || !matchData) {
+  if (gameMatchLoader || !matchData) {
     return <MatchLoader />;
   }
   return (
