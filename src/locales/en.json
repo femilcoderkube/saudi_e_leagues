@@ -33,7 +33,8 @@
     "forgot_failed": "Failed to send password reset email",
     "cancel": "Cancel",
     "verify": "Verify",
-    "delete_account": "Delete Account"
+    "delete_account": "Delete Account",
+    "continue": "Continue"
   },
   "form": {
     "username": "Username",

@@ -55,27 +55,12 @@ function NotificationWindow() {
               />
               {t("confirmation.donotshow")}
             </label>
-            <div
-              className="w-[52%] relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
-              onClick={handleQueueClick}
+            <button
+              className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400
+                }`}
             >
-              <span
-                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center md:text-lg text-base"
-                style={{
-                  fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
-                  fontWeight: "bold",
-                  textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
-                }}
-              >
-                {t("images.queue")}
-              </span>
-              <img
-                className="mx-auto"
-                src={Que_btn}
-                alt=""
-                style={{ width: "100%" }}
-              />{" "}
-            </div>
+              {t("auth.continue")}
+            </button>
           </div>
         </div>
       </motion.div>

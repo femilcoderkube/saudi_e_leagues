@@ -10,6 +10,9 @@ import AboutLeftSection from "../../components/Home/AboutLeftSection.jsx";
 import AboutRightSection from "../../components/Home/AboutRightSection.jsx";
 import HowToPlaySection from "../../components/Home/HowToPlaySection.jsx";
 import FaqSection from "../../components/Home/FaqSection.jsx";
+import NotificationWindow from "../../components/ModalPopUp/NotificationWindow.jsx";
+import { setNotificationwindow } from "../../app/slices/constState/constStateSlice.js";
+import { useSelector } from "react-redux";
 
 const usePageLoading = (delay = 300) => {
   useEffect(() => {
@@ -28,7 +31,7 @@ const usePageLoading = (delay = 300) => {
 
 export default function PrimeHome() {
   const { id } = useParams();
-
+  const { notificationWindow } = useSelector((state) => state.constState);
   const [showVideoModal, setShowVideoModal] = useState(false);
 
   usePageLoading();
@@ -64,6 +67,9 @@ export default function PrimeHome() {
 
       {showVideoModal && (
         <VideoModal onClose={() => setShowVideoModal(false)} />
+      )}
+      {notificationWindow && (
+        <NotificationWindow onClose={() => setNotificationwindow(false)} />
       )}
     </main>
   );
