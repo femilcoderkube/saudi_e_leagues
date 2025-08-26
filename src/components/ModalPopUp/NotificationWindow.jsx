@@ -33,7 +33,7 @@ function NotificationWindow() {
         exit={{ scale: 0.5, opacity: 0, y: 50 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >
-        <div className="text-left">
+        <div className="ltr:text-left rtl:text-right">
           <div className="flex items-center gap-3 md:mb-8 mb-5">
             <h2 className="sm:text-xl text-lg !font-extrabold">
               {t("confirmation.announcement")}

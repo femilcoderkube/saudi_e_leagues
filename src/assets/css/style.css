@@ -1785,6 +1785,8 @@ html[dir="rtl"] .tournament-schedule-card-header-time h2 span::before {
     rgba(1, 2, 29, 1) 0%,
     rgba(2, 3, 41, 1) 100%
   ) !important;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .brackt_fullscreen .bracket {
@@ -1800,7 +1802,11 @@ html[dir="rtl"] .tournament-schedule-card-header-time h2 span::before {
 }
 
 .fullscreen-close-btn button {
-  background: rgba(0, 0, 0, 0.7) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(188, 82, 37, 0.8464) 0%,
+    rgba(244, 149, 40, 0.92) 107.14%
+  ) !important;
   border: 2px solid rgba(255, 255, 255, 0.3) !important;
   border-radius: 50% !important;
   padding: 12px !important;
@@ -1810,12 +1816,12 @@ html[dir="rtl"] .tournament-schedule-card-header-time h2 span::before {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
-.fullscreen-close-btn button:hover {
+/* .fullscreen-close-btn button:hover {
   background: rgba(0, 0, 0, 0.9) !important;
   border-color: rgba(255, 255, 255, 0.6) !important;
   transform: scale(1.1) !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
-}
+} */
 
 .fullscreen-close-btn img {
   width: 24px !important;
