@@ -10,6 +10,7 @@ import {
 import { toast } from "react-toastify";
 import {
   setLogin,
+  setNotificationwindow,
   setRegisteration,
 } from "../../app/slices/constState/constStateSlice";
 import { useTranslation } from "react-i18next";
@@ -77,6 +78,7 @@ const LoginModal = () => {
       toast.error(error.message || t("auth.login_failed"));
       console.error("Login failed:", error);
       dispatch(setLogin(false));
+      dispatch(setNotificationwindow(true))
     } finally {
       setSubmitting(false);
     }

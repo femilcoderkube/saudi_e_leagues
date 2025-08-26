@@ -17,12 +17,13 @@ const initialState = {
   activeTournamentTab: 1,
   confirmationPopUp: 0,
   queueConfimation: false,
+  notificationWindow: false,
   showCalendar: false,
   selectedStartDate: null,
   selectedEndDate: null,
   // New state for player selection confirmation
   selectedPlayerData: null,
-  gameMatchLoader :false,
+  gameMatchLoader: false,
 
   countryOptions: countryData.map((country) => ({
     value: country.name,
@@ -67,6 +68,9 @@ const constStateSlice = createSlice({
     },
     setQueueConfirmation: (state, action) => {
       state.queueConfimation = action.payload;
+    },
+    setNotificationwindow: (state, action) => {
+      state.notificationWindow = action.payload;
     },
     setActiveTournamentTab: (state, action) => {
       state.activeTournamentTab = action.payload;
@@ -117,6 +121,6 @@ const constStateSlice = createSlice({
   },
 });
 
-export const { setMatchPage, setTimeLineCard, setMatchLoader, setLogin, setShowCalendar, setRegisteration, setActiveTabIndex, setshowNotification,setGameMatchLoader, setProfileVisible, setSubmitModal, setViewModal, setPreviewImage, setIsMatctCreated, setNotificationTabIndex, setActiveTournamentTab, setConfirmationPopUp, setSelectedStartDate, setSelectedEndDate, setDateRange, setSelectedPlayerData, setQueueConfirmation } = constStateSlice.actions;
+export const { setMatchPage, setTimeLineCard, setMatchLoader, setLogin, setShowCalendar, setRegisteration, setActiveTabIndex, setshowNotification, setGameMatchLoader, setProfileVisible, setSubmitModal, setViewModal, setPreviewImage, setIsMatctCreated, setNotificationTabIndex, setActiveTournamentTab, setConfirmationPopUp, setSelectedStartDate, setSelectedEndDate, setDateRange, setSelectedPlayerData, setQueueConfirmation, setNotificationwindow } = constStateSlice.actions;
 
 export default constStateSlice.reducer;
