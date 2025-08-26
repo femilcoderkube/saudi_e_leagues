@@ -13,6 +13,7 @@ import FaqSection from "../../components/Home/FaqSection.jsx";
 import NotificationWindow from "../../components/ModalPopUp/NotificationWindow.jsx";
 import { setNotificationwindow } from "../../app/slices/constState/constStateSlice.js";
 import { useSelector } from "react-redux";
+import { getPopupData, shouldDisplayPopup } from "../../utils/constant.js";
 
 const usePageLoading = (delay = 300) => {
   useEffect(() => {
@@ -33,6 +34,8 @@ export default function PrimeHome() {
   const { id } = useParams();
   const { notificationWindow } = useSelector((state) => state.constState);
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [popupData, setPopupData] = useState(null);
+  const [isLoadingPopup, setIsLoadingPopup] = useState(true);
 
   usePageLoading();
 
@@ -40,7 +43,36 @@ export default function PrimeHome() {
     setShowVideoModal(true);
   }, []);
 
-  const isBeforeDeadline = new Date() < new Date("2025-09-01T00:00:00Z");
+  useEffect(() => {
+    const fetchPopupData = async () => {
+      try {
+        setIsLoadingPopup(true);
+        const response = await getPopupData();
+        const popups = response.data || response;
+
+        setPopupData(popups);
+
+      } catch (error) {
+        console.error('Error fetching popup data:', error);
+        setPopupData(null);
+      } finally {
+        setIsLoadingPopup(false);
+      }
+    };
+
+    fetchPopupData();
+  }, []);
+
+  const shouldShowPopup = () => {
+    if (isLoadingPopup) return false;
+    
+    return (
+      !localStorage.getItem("skipAnnouncement") &&
+      localStorage.getItem("user") &&
+      notificationWindow &&
+      shouldDisplayPopup(popupData)
+    );
+  };
 
   return (
     <main className="flex-1 md:pt-[0.5rem] pt-[1.5rem] home_page--wrapper pb-[5.25rem] sm:pb-0">
@@ -70,14 +102,9 @@ export default function PrimeHome() {
       {showVideoModal && (
         <VideoModal onClose={() => setShowVideoModal(false)} />
       )}
-      {(
-        !localStorage.getItem("skipAnnouncement") &&
-        localStorage.getItem("user") &&
-        notificationWindow &&
-        isBeforeDeadline
-      ) && (
-          <NotificationWindow onClose={() => setNotificationwindow(false)} />
-        )}
+      {shouldShowPopup() && (
+        <NotificationWindow onClose={() => setNotificationwindow(false)} />
+      )}
     </main>
   );
 }

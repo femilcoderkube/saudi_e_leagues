@@ -2,7 +2,7 @@ import prime_icon from "../assets/images/prime_icon.svg";
 import prime_hover from "../assets/images/prime_hover.png";
 import { Prime } from "../components/ui/svg";
 import LargePrime from "../assets/images/prime_hover.png";
-import { baseURL } from "./axios";
+import axiosInstance, { baseURL } from "./axios";
 import moment from "moment-timezone";
 
 export const items = [
@@ -510,4 +510,37 @@ export const checkIsCurrentCaptainTurn = (
     }
   }
   return snakeOrder[interval - 1] === teamIdx;
+};
+
+export const getPopupData = async () => {
+  try {
+    const response = await axiosInstance.get('/Popup');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching popup data:', error);
+    throw error;
+  }
+};
+
+export const shouldDisplayPopup = (popupData) => {
+  if (!popupData || !Array.isArray(popupData) || popupData.length === 0) {
+    return false;
+  }
+
+  const popup = popupData[0];
+  
+  if (popup.status == 'inactive') {    
+    return false;
+  }
+
+  if (popup.expireDateTime) {
+    const currentDate = new Date();
+    const expireDate = new Date(popup.expireDateTime);
+    
+    if (currentDate > expireDate) {
+      return false;
+    }
+  }
+
+  return true;
 };
