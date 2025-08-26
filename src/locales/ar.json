@@ -33,7 +33,8 @@
     "forgot_failed": "فشل في إرسال بريد إلكتروني لإعادة تعيين كلمة المرور",
     "cancel": "إلغاء",
     "verify": "تحقق",
-    "delete_account": "حذف الحساب"
+    "delete_account": "حذف الحساب",
+    "continue": "يكمل"
   },
   "form": {
     "username": "اسم المستخدم",
