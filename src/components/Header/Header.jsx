@@ -33,6 +33,7 @@ import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
 import {
   setActiveTabIndex,
   setConfirmationPopUp,
+  setGameMatchLoader,
   setLogin,
   setProfileVisible,
   setRegisteration,
@@ -286,6 +287,7 @@ const BreadcrumbNavigation = ({ breadcrumbItems, mainItem, profileVisible }) => 
               onClick={() => {
                 dispatch(setActiveTabIndex(2));
                 dispatch(setProfileVisible(false));
+                dispatch(setGameMatchLoader(false));
               }}
             >
               {i18n.language === "ar" ? <NextArrow2 /> : <NextArrow3 />}
@@ -308,6 +310,7 @@ const BreadcrumbNavigation = ({ breadcrumbItems, mainItem, profileVisible }) => 
                   mainItem.label != t("navigation.home")
                 ) {
                   navigator(-1);
+                  dispatch(setGameMatchLoader(false));
                 }
               }}
             >
@@ -378,6 +381,7 @@ const MobileNavigation = ({ user, isActiveTab, breadcrumbItems }) => {
     navigator(item.path);
     dispatch(setActiveTabIndex(item.id));
     dispatch(setProfileVisible(false));
+    dispatch(setGameMatchLoader(false));
   };
 
   return (
@@ -590,7 +594,15 @@ const Header = () => {
           <div className="flex items-center">
             <BackButton
               className="absolute ltr:left-[1rem] rtl:right-[1rem] md:ltr:left-[5rem] md:rtl:right-[5rem]"
-              onClick={() => isTournament ? navigator(pathId) : navigator(-1)}
+              onClick={() => {
+                if (isTournament) {
+                  navigator(pathId);
+                } else {
+                  navigator(-1);
+                 
+                }
+                dispatch(setGameMatchLoader(false));
+              }}
             />
             <h2 className="lg:text-[2rem] text-[1.25rem] !font-black uppercase block ltr:ml-12 rtl:mr-12">
               {title || t("match.finding_matchmaking")} - {t("match.match")} {matchId}
@@ -633,7 +645,10 @@ const Header = () => {
       >
         <BackButton
           className="absolute ltr:left-[5rem] rtl:right-[5rem]"
-          onClick={() => navigator(-1)}
+          onClick={() => {
+            navigator(-1)
+            dispatch(setGameMatchLoader(false));
+          }}
         />
         <h2 className="sm:text-[2rem] text-lg !font-black uppercase text-center block">
           {isEnglish ? leagueData?.title : leagueData?.titleAr || t("match.finding_matchmaking")}

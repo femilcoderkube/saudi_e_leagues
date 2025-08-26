@@ -826,7 +826,6 @@ input[type="radio"]:checked+label .checkbox-inner:before {
   animation-name: slideOutLeft;
 }
 
-
 .notification-sidebar::before {
   position: absolute;
   content: "";

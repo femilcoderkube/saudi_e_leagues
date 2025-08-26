@@ -22,7 +22,7 @@ const MatchLoader = () => {
       controls.start({
         opacity: [1, 0.85, 1],
         scale: [1, 1, 1],
-        rotate: [0, 1.5, -1.5, 0],
+        rotate: [0, 1, -1, 0],
         transition: {
           duration: 3,
           repeat: Infinity,
@@ -36,12 +36,12 @@ const MatchLoader = () => {
   }, [controls]);
 
   return (
-    <div className="flex-1 flex flex-col sd_main-content relative bg-[#020326] rounded-b-[0] z-20">
+    <div className="flex-1 flex flex-col justify-between sd_main-content relative bg-[#020326] rounded-b-[0] z-20">
       <main className="flex-1 match_loading--wrapper overflow-hidden relative ">
-        <div className="loading-not-finish-wp h-[88%] flex justify-center items-center">
+        <div className="loading-not-finish-wp h-[100%] flex justify-center items-center">
           {/* Pink background */}
           <motion.img
-            className="pink-left absolute left-0 top-0 w-full sm:h-[88%] h-[92%]"
+            className="pink-left absolute left-0 top-0 w-full h-full"
             src={pink_left}
             alt=""
             initial={{ x: "-100%", opacity: 0 }}
@@ -51,7 +51,7 @@ const MatchLoader = () => {
 
           {/* Blue background */}
           <motion.img
-            className="blue-right absolute right-0 top-0 w-[67%] sm:h-[88%] h-[92%]"
+            className="blue-right absolute right-0 top-0 w-[67%] h-full"
             src={blue_right}
             alt=""
             initial={{ x: "100%", opacity: 0 }}
@@ -76,10 +76,10 @@ const MatchLoader = () => {
 
           {/* Smooth glow without blink */}
           <motion.img
-            className="animate-vs absolute left-0 top-0 w-full sm:h-[88%] h-[92%] pointer-events-none"
+            className="animate-vs absolute left-0 top-0 w-full h-full pointer-events-none"
             src={vs_animate}
             alt=""
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.7 }}
             animate={controls}
           />
         </div>
