@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -32,7 +32,10 @@ import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
 // import Notification from "./components/Notification/Notification.jsx";
 import { setNavigator } from "./navigationService.js";
 import { useSelector } from "react-redux";
-import { requestPermission, setupMessageListener } from "./utils/NotificationService.js";
+import {
+  requestPermission,
+  setupMessageListener,
+} from "./utils/NotificationService.js";
 
 function NavigatorSetter() {
   const navigate = useNavigate();
@@ -46,18 +49,30 @@ function App() {
   const { i18n } = useTranslation();
   const { user } = useSelector((state) => state.auth);
 
+  const dir = useMemo(
+    () => (i18n.language === "ar" ? "rtl" : "ltr"),
+    [i18n.language]
+  );
+
+  const newLang = useMemo(
+    () => (i18n.language === "en" ? "en" : "ar"),
+    [i18n.language]
+  );
+
   useEffect(() => {
-    const dir = i18n.language === "ar" ? "rtl" : "ltr";
+    // Update DOM direction
     document.documentElement.setAttribute("dir", dir);
     document.body.setAttribute("dir", dir);
 
-    const newLang = i18n.language === "en" ? "en" : "ar";
-    let type = localStorage.getItem("deviceType")
-    if (type == "mobile") {
-      window.AndroidInterface?.languageCallbackHandler(`${newLang}`);
-      window.webkit?.messageHandlers?.languageCallbackHandler?.postMessage(`${newLang}`);
+    // Notify native (only for mobile)
+    const type = localStorage.getItem("deviceType");
+    if (type === "mobile") {
+      window.AndroidInterface?.languageCallbackHandler(newLang);
+      window.webkit?.messageHandlers?.languageCallbackHandler?.postMessage(
+        newLang
+      );
     }
-  }, [i18n.language]);
+  }, [dir, newLang]);
 
   useEffect(() => {
     requestPermission();
