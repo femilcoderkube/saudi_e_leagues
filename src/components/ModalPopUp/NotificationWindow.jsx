@@ -2,13 +2,12 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotificationwindow } from "../../app/slices/constState/constStateSlice";
-import Que_btn from "../../assets/images/quebtn.png";
 import { motion } from "framer-motion";
 function NotificationWindow() {
   const [doNotShowAgain, setDoNotShowAgain] = useState(false);
   const { notificationWindow } = useSelector((state) => state.constState);
   const dispatch = useDispatch();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   if (!notificationWindow) return null;
 
