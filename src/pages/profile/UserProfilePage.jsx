@@ -85,6 +85,15 @@ const UserProfilePage = () => {
             <img className="w-6 h-6" src={mobile_menu_icon_user} alt="user" />
             {t("auth.edit_profile")}</li>
 
+          {deviceType == 'mobile' && (
+            <li className="text-lg purple_col flex gap-2 cursor-pointer"
+              onClick={() => {
+                dispatch(setConfirmationPopUp(4));
+              }}>
+              <img className="w-6 h-6" src={deleteIcon} alt="user" />
+              {t("auth.delete_account")}</li>
+          )}
+          
           <li className="text-lg purple_col flex gap-2 cursor-pointer"
             onClick={() => {
               dispatch(setConfirmationPopUp(1));
@@ -92,14 +101,7 @@ const UserProfilePage = () => {
             <img className="w-6 h-6" src={logOut} alt="user" />
             {t("auth.logout")}</li>
 
-          {/* {deviceType == 'mobile' && ( */}
-            <li className="text-lg purple_col flex gap-2 cursor-pointer"
-              onClick={() => {
-                dispatch(setConfirmationPopUp(4));
-              }}>
-              <img className="w-6 h-6" src={deleteIcon} alt="user" />
-              {t("auth.delete_account")}</li>
-          {/* )} */}
+
 
           <ConfirmationPopUp
             onDeleteAccount={handleDeleteAccount}
