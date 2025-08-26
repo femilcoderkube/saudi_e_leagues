@@ -34,7 +34,7 @@ import {
   rightToLeft,
   cardVariantsAni,
 } from "../../components/Animation/animation.jsx";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const MatchDetailTournament = () => {
   const { id, mId } = useParams();
@@ -325,14 +325,19 @@ const MatchDetailTournament = () => {
                 </div>
               )}
             </div>
+            <AnimatePresence>
             {showMobileChat && (
               <div
                 className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-100"
                 onClick={() => dispatch(setshowMobileChatT(false))}
               >
-                <div
+                <motion.div
                   className="mob-chat-wp sm:hidden w-full max-w-[19rem] fixed top-0 ltr:right-0 rtl:left-0 z-11 bg-slate-900 text-white  flex flex-col justify-between"
                   onClick={(e) => e.stopPropagation()}
+                  initial={{ x: "100%" }}   // start from right
+                  animate={{ x: 0 }}        // slide in
+                  exit={{ x: "100%" }}      // slide out
+                  transition={{ type: "tween", duration: 0.35 }}
                 >
                   {/* Header */}
                   <div className="block">
@@ -511,9 +516,10 @@ const MatchDetailTournament = () => {
                       </svg>
                     </button>
                   </div>
-                </div>
+                </motion.div>
               </div>
             )}
+            </AnimatePresence>
           </motion.div>
 
           {/* Team 2 */}
