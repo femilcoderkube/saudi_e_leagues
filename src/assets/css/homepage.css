@@ -815,6 +815,7 @@ html[dir="rtl"] .home_faq--sec {
     .big-card.swiper {
         width: 27.5rem !important;
         height: 9.5rem !important;
+        min-height: 9.5rem !important;
     }
 
     .htp_slider-sec {
@@ -839,6 +840,7 @@ html[dir="rtl"] .home_faq--sec {
     .big-card.swiper {
         width: 22rem !important;
         height: 8rem !important;
+        min-height: 8rem !important;
     }
 
     .htp_slider-sec {
@@ -903,6 +905,7 @@ html[dir="rtl"] .home_faq--sec {
     .big-card.swiper {
         width: 18rem !important;
         height: 6.5rem !important;
+        min-height: 6.5rem !important;
     }
 
     .htp_slider-sec {
