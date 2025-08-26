@@ -51,7 +51,7 @@ function App() {
     document.documentElement.setAttribute("dir", dir);
     document.body.setAttribute("dir", dir);
 
-    const newLang = i18n.language === "en" ? "ar" : "en";
+    const newLang = i18n.language === "en" ? "en" : "ar";
     let type = localStorage.getItem("deviceType")
     if (type == "mobile") {
       window.AndroidInterface?.languageCallbackHandler(`${newLang}`);

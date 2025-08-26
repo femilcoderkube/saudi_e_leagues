@@ -5,6 +5,7 @@ import { setActiveTabIndex, setConfirmationPopUp, setProfileVisible } from "../.
 import { useDispatch, useSelector } from "react-redux";
 import mobile_menu_icon_user from "../../assets/images/LoginPersone.png";
 import logOut from "../../assets/images/logOut.png";
+import deleteIcon from "../../assets/images/delete-account-icon.png";
 import { getServerURL } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
 import { clearDeleteAccountState, deleteAccount, logout } from "../../app/slices/auth/authSlice";
@@ -91,14 +92,14 @@ const UserProfilePage = () => {
             <img className="w-6 h-6" src={logOut} alt="user" />
             {t("auth.logout")}</li>
 
-          {deviceType == 'mobile' && (
+          {/* {deviceType == 'mobile' && ( */}
             <li className="text-lg purple_col flex gap-2 cursor-pointer"
               onClick={() => {
                 dispatch(setConfirmationPopUp(4));
               }}>
-              <img className="w-6 h-6" src={logOut} alt="user" />
+              <img className="w-6 h-6" src={deleteIcon} alt="user" />
               {t("auth.delete_account")}</li>
-          )}
+          {/* )} */}
 
           <ConfirmationPopUp
             onDeleteAccount={handleDeleteAccount}
