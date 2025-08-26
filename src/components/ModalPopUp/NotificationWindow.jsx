@@ -24,7 +24,7 @@ function NotificationWindow() {
         onClick={() => dispatch(setNotificationwindow(false))}
       ></div>
       <motion.div
-        className="relative text-white rounded-2xl shadow-xl w-[100%] max-w-xl p-10 z-50"
+        className="relative text-white rounded-2xl shadow-xl w-[100%] max-w-xl md:px-8 md:py-10 p-5 z-50 border border-[#FFFFFF33]"
         style={{
           background:
             "linear-gradient(180deg, rgba(23, 26, 67, 90%) 0%, rgba(9, 11, 44, 100%) 100%",
@@ -35,18 +35,18 @@ function NotificationWindow() {
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         <div className="text-left">
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-2xl font-bold">
+          <div className="flex items-center gap-3 md:mb-8 mb-5">
+            <h2 className="text-xl !font-extrabold">
               {t("confirmation.matchmaking")}
             </h2>
           </div>
 
-          <div className="space-y-4 text-gray-200 mb-5">
+          <div className="text-xl text-white md:mb-8 mb-5">
             <p>{t("confirmation.matchmakingmsg1")}</p>
           </div>
 
           <div className="flex gap-4 justify-between items-center flex-wrap">
-            <label className="flex items-center gap-2 text-white text-sm sm:text-base cursor-pointer">
+            <label className="flex items-center gap-2 text-[#A2A2A2] cursor-pointer">
               <input
                 type="checkbox"
                 checked={doNotShowAgain}
@@ -55,12 +55,15 @@ function NotificationWindow() {
               />
               {t("confirmation.donotshow")}
             </label>
+            <div className="game_status--tab rounded-xl">
             <button
-              className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400
+              className={` py-2 px-4 text-xl font-black transition-all sd_after sd_before relative hover:opacity-50 duration-300 active-tab polygon_border
                 }`}
+                style={{ width: "10rem", height: "4rem" }}
             >
               {t("auth.continue")}
             </button>
+            </div>
           </div>
         </div>
       </motion.div>
