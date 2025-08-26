@@ -8,7 +8,7 @@ import logOut from "../../assets/images/logOut.png";
 import deleteIcon from "../../assets/images/delete-account-icon.png";
 import { getServerURL } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
-import { clearDeleteAccountState, deleteAccount, logout } from "../../app/slices/auth/authSlice";
+import { clearDeleteAccountState, deleteAccount, deleteFcmToken, logout } from "../../app/slices/auth/authSlice";
 import ConfirmationPopUp from "../../components/ModalPopUp/confirmationPopUp";
 import { getUpdateToken } from "../../app/socket/socket";
 
@@ -45,6 +45,7 @@ const UserProfilePage = () => {
 
   const handleLogout = () => {
     try {
+      dispatch(deleteFcmToken())
       getUpdateToken("");
       dispatch(setConfirmationPopUp(0));
       dispatch(logout());

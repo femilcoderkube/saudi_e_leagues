@@ -40,7 +40,7 @@ import {
   setChatTData,
   setmatchTData,
 } from "../slices/MatchSlice/TournamentMatchDetailSlice";
-import { logout, setIsBannedUser } from "../slices/auth/authSlice";
+import { deleteFcmToken, logout, setIsBannedUser } from "../slices/auth/authSlice";
 import { globalNavigate } from "../../navigationService";
 // import { requestFCMToken } from "../../firebase";
 
@@ -93,6 +93,8 @@ socket.on("connect", () => {
     const isBanned = payload?.isUserBan ?? false;
     store.dispatch(setIsBannedUser({ data: isBanned }));
     if (isBanned) {
+      store.dispatch(deleteFcmToken());
+
       getUpdateToken("")
 
       store.dispatch(logout());

@@ -236,6 +236,36 @@ export const deleteAccount = createAsyncThunk(
   }
 );
 
+// Delete FCM Token thunk
+export const deleteFcmToken = createAsyncThunk(
+  "auth/deleteFcmToken",
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const { auth } = getState();
+      const token = auth.token;
+
+      if (!token) {
+        return rejectWithValue("Authentication token not found");
+      }
+
+      const response = await axiosInstance.put(
+        "/users/delete-fcm-token",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to delete FCM token"
+      );
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,

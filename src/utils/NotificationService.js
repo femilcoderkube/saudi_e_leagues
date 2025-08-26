@@ -33,25 +33,25 @@ export const setupMessageListener = () => {
 
     if (deviceType != 'mobile') {
 
-        // onMessage(messaging, (payload) => {
+        onMessage(messaging, (payload) => {
 
-            // const { notification, data } = payload;
+            const { notification, data } = payload;
 
-            // if (notification) {
-            //     const { title, body } = notification;
+            if (notification) {
+                const { title, body } = notification;
 
-            //     new window.Notification(title, {
-            //         body,
-            //         icon: "/icon-192-maskable.png",
-            //     });
+                new window.Notification(title, {
+                    body,
+                    icon: "/icon-192-maskable.png",
+                });
 
-            //     if (data?.type == 4) {
-            //         const audio = new Audio(sound);
-            //         audio.play().catch((err) =>
-            //             console.error("Error playing sound:", err)
-            //         );
-            //     }
-            // }
-        // });
+                if (data?.type == 4) {
+                    const audio = new Audio(sound);
+                    audio.play().catch((err) =>
+                        console.error("Error playing sound:", err)
+                    );
+                }
+            }
+        });
     }
 };

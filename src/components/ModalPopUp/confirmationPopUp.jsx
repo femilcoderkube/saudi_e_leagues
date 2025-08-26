@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setConfirmationPopUp } from "../../app/slices/constState/constStateSlice";
 import { cancelMatch, getUpdateToken } from "../../app/socket/socket";
 import { motion } from "framer-motion";
-import { logout } from "../../app/slices/auth/authSlice";
+import { deleteFcmToken, logout } from "../../app/slices/auth/authSlice";
 
 function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDeleteAccount, onLogout }) {
   const { confirmationPopUp, selectedPlayerData } = useSelector((state) => state.constState);
@@ -14,6 +14,7 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
 
   const handleOnClick = () => {
     if (confirmationPopUp == 1) {
+      dispatch(deleteFcmToken())
       getUpdateToken("");
       dispatch(setConfirmationPopUp(0));
       dispatch(logout());
@@ -38,6 +39,7 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
       }
     }
     if (confirmationPopUp == 4) {
+      dispatch(deleteFcmToken())
       getUpdateToken("")
       dispatch(setConfirmationPopUp(0));
       if (onDeleteAccount) {
