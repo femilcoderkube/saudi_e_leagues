@@ -20,7 +20,7 @@ function NotificationWindow() {
     <div className="fixed inset-0 flex items-center justify-center z-50 overflow-auto">
       <div
         className="absolute inset-0 bg-[#010221]/60 backdrop-blur-sm"
-        onClick={() => dispatch(setNotificationwindow(false))}
+        // onClick={() => dispatch(setNotificationwindow(false))}
       ></div>
       <motion.div
         className="relative text-white rounded-2xl shadow-xl sm:w-[100%] max-w-xl w-[calc(100%-30px)] md:px-8 md:py-10 p-5 z-50 border border-[#FFFFFF33]"
