@@ -74,11 +74,11 @@ const LoginModal = () => {
         }
       }
       dispatch(setLogin(false));
+      dispatch(setNotificationwindow(true))
     } catch (error) {
       toast.error(error.message || t("auth.login_failed"));
       console.error("Login failed:", error);
       dispatch(setLogin(false));
-      dispatch(setNotificationwindow(true))
     } finally {
       setSubmitting(false);
     }
