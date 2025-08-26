@@ -50,6 +50,13 @@ function App() {
     const dir = i18n.language === "ar" ? "rtl" : "ltr";
     document.documentElement.setAttribute("dir", dir);
     document.body.setAttribute("dir", dir);
+
+    const newLang = i18n.language === "en" ? "ar" : "en";
+    let type = localStorage.getItem("deviceType")
+    if (type == "mobile") {
+      window.AndroidInterface?.languageCallbackHandler(`${newLang}`);
+      window.webkit?.messageHandlers?.languageCallbackHandler?.postMessage(`${newLang}`);
+    }
   }, [i18n.language]);
 
   useEffect(() => {
