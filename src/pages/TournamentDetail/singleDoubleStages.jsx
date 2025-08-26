@@ -9,6 +9,7 @@ import TournamentDatepiker from "./DatePiker.jsx";
 import cal_arrow from "../../assets/images/cal_arrow.png";
 import center_league from "../../assets/images/center_league.png";
 import full_screen from "../../assets/images/full-screen.png";
+import exit_screen from "../../assets/images/exit-screen.png";
 import { getServerURL } from "../../utils/constant.js";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import { useTranslation } from "react-i18next";
@@ -27,6 +28,7 @@ const SingleDoubleStages = () => {
   const { activeStage, tournamentStages, loader, nextDayDate, currentDate } =
     useSelector((state) => state.tournament);
   const dispatch = useDispatch();
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   let container;
 
@@ -70,18 +72,32 @@ const SingleDoubleStages = () => {
     }
   }, [tournamentStages, activeStage, activeTournamentTab]);
 
-  // Detect exit fullscreen and remove class
+  // Detect fullscreen changes and manage state
   useEffect(() => {
     const handleFullscreenChange = () => {
       const el = document.getElementById("Major-final");
-      if (document.fullscreenElement !== el) {
+      const isInFullscreen = !!(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+
+      if (isInFullscreen && document.fullscreenElement === el) {
+        setIsFullscreen(true);
+      } else {
         el?.classList.remove("brackt_fullscreen");
+        setIsFullscreen(false);
       }
     };
+
+    // Check initial state
+    handleFullscreenChange();
+
     document.addEventListener("fullscreenchange", handleFullscreenChange);
-    document.addEventListener("webkitfullscreenchange", handleFullscreenChange); // Safari
-    document.addEventListener("mozfullscreenchange", handleFullscreenChange); // Firefox
-    document.addEventListener("MSFullscreenChange", handleFullscreenChange); // IE/Edge
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
 
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
@@ -117,7 +133,27 @@ const SingleDoubleStages = () => {
       } else if (el.msRequestFullscreen) {
         el.msRequestFullscreen();
       }
+      setIsFullscreen(true);
     }
+  }
+
+  function closeFullscreen() {
+    const el = document.getElementById("Major-final");
+
+    // Exit fullscreen using the appropriate method
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+
+    // Remove fullscreen class and update state
+    el?.classList.remove("brackt_fullscreen");
+    setIsFullscreen(false);
   }
 
   if (loader) {
@@ -162,12 +198,21 @@ const SingleDoubleStages = () => {
             <div className="relative inline-block">
               {activeTournamentTab === 1 && (
                 <div className="full-screen-wp p-2 w-16 h-16 text-center cursor-pointer">
-                  <div
-                    className="full-screen p-3 w-12 h-12 flex items-center justify-center"
-                    onClick={() => openFullscreen()}
-                  >
-                    <img className="w-6 h-6" src={full_screen} alt="" />
-                  </div>
+                  {!isFullscreen ? (
+                    <div
+                      className="full-screen p-3 w-12 h-12 flex items-center justify-center"
+                      onClick={() => openFullscreen()}
+                    >
+                      <img className="w-6 h-6" src={full_screen} alt="" />
+                    </div>
+                  ) : (
+                    <div
+                      className="full-screen p-3 w-12 h-12 flex items-center justify-center"
+                      onClick={() => closeFullscreen()}
+                    >
+                      <img className="w-6 h-6" src={exit_screen} alt="" />
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -233,9 +278,20 @@ const SingleDoubleStages = () => {
               >
                 <div
                   id="Major-final"
-                  className="!p-0 brackets-viewer !bg-transparent"
+                  className="!p-0 brackets-viewer !bg-transparent relative"
                   dir="ltr"
-                ></div>
+                >
+                  {isFullscreen && (
+                    <div className="fullscreen-close-btn">
+                      <button
+                        onClick={() => closeFullscreen()}
+                        title="Exit Fullscreen"
+                      >
+                        <img src={exit_screen} alt="Exit Fullscreen" />
+                      </button>
+                    </div>
+                  )}
+                </div>
               </motion.div>
             )}
             {activeTournamentTab === 2 && (
