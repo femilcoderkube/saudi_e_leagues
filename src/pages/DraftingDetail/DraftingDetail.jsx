@@ -268,7 +268,7 @@ const DraftingDetail = () => {
               const containerClasses = `draft-picks-wrapper-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 gap-x-8 ${isDraftNotStarted ? 'opacity-50 pointer-events-none' : ''
                 }`;
 
-              const content = otherPlayers.length > 0 ? (
+              const content = otherPlayers.length > 0 && (
                 picks.map((data, rowIdx) => (
                   <div
                     className={isDraftNotStarted ? "draft-row" : ""}
@@ -289,10 +289,6 @@ const DraftingDetail = () => {
                     </div>
                   </div>
                 ))
-              ) : (
-                <div className="w-full text-center py-8 text-xl text-gray-500">
-                  {t("drafting.no_draft_player")}
-                </div>
               );
 
               if (isDraftNotStarted) {

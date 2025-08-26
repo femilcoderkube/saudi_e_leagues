@@ -40,6 +40,8 @@ export default function PrimeHome() {
     setShowVideoModal(true);
   }, []);
 
+  const isBeforeDeadline = new Date() < new Date("2025-09-01T00:00:00Z");
+
   return (
     <main className="flex-1 md:pt-[0.5rem] pt-[1.5rem] home_page--wrapper pb-[5.25rem] sm:pb-0">
       <div
@@ -68,9 +70,14 @@ export default function PrimeHome() {
       {showVideoModal && (
         <VideoModal onClose={() => setShowVideoModal(false)} />
       )}
-      {notificationWindow && (
-        <NotificationWindow onClose={() => setNotificationwindow(false)} />
-      )}
+      {(
+        !localStorage.getItem("skipAnnouncement") &&
+        localStorage.getItem("user") &&
+        notificationWindow &&
+        isBeforeDeadline
+      ) && (
+          <NotificationWindow onClose={() => setNotificationwindow(false)} />
+        )}
     </main>
   );
 }

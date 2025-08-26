@@ -17,7 +17,8 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
       getUpdateToken("");
       dispatch(setConfirmationPopUp(0));
       dispatch(logout());
-      localStorage.clear();
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       if (onLogout) {
         onLogout();
       }

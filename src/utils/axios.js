@@ -42,7 +42,8 @@ axiosInstance.interceptors.response.use(
       if (reduxStore) {
         reduxStore.dispatch(logout());
       }
-      localStorage.clear();
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       // Optionally, force reload or redirect to login
       window.location.href = "/";
     }

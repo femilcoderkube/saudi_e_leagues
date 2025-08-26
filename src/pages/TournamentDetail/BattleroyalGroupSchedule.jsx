@@ -68,7 +68,7 @@ export default function BattleRoyalSChedule() {
               const ExtraTeams = scores.length > 3 ? scores.slice(3).length : 0;
               const accordionKey = `S${idx}a${index}`;
 
-              console.log("iconTeams",iconTeams)
+              console.log("iconTeams", iconTeams)
 
               return (
                 <div
@@ -79,9 +79,8 @@ export default function BattleRoyalSChedule() {
                   <div
                     onClick={() => toggleAccordion(accordionKey)}
                     // className="schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer"
-                    className={`schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer ${
-                      iconTeams.length > 0 && new Date() > new Date(item?.endTime) && "active-schdule-accordion-header" 
-                    }`}
+                    className={`schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer ${iconTeams.length > 0 && new Date() > new Date(item?.endTime) && "active-schdule-accordion-header"
+                      }`}
                   >
                     <img
                       className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
@@ -153,7 +152,7 @@ export default function BattleRoyalSChedule() {
                                       className="md:w-12 md:h-12 h-9 w-9 rounded-full"
                                     />
                                   ) : (
-                                    <span className="text-base font-semibold text-white">
+                                    <span className="text-lg font-semibold text-white md:w-12 md:h-12 h-9 w-9 rounded-full flex items-center justify-center">
                                       {team?.participant?.team?.teamName
                                         ?.charAt(0)
                                         ?.toUpperCase() || "?"}

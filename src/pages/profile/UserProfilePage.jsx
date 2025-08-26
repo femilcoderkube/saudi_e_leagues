@@ -47,7 +47,8 @@ const UserProfilePage = () => {
       getUpdateToken("");
       dispatch(setConfirmationPopUp(0));
       dispatch(logout());
-      localStorage.clear();
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       dispatch(setActiveTabIndex(0));
       navigate(`/${id}/lobby`);
     } catch (error) {

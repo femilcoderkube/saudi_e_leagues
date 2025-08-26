@@ -401,7 +401,10 @@
     "donotshow" : "Do not show again",
     "deleteAccountTitle": "Are you sure you want to delete your account?",
     "deleteAccountMessage": "Are you sure you want to delete your account?",
-    "deleteAccount": "Delete Account"
+    "deleteAccount": "Delete Account",
+    "announcement": "Your feedback matters to us!",
+    "announcement1": "While we are currently organizing the first championship, our team is working on exciting new features and improvements for Season 2.",
+    "announcement2": "Stay tuned, Season 2 launches on September 1st!"
   },
   "drafting": {
     "drafting": "Drafting",

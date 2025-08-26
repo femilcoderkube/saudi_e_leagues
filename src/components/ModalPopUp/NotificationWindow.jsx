@@ -12,7 +12,7 @@ function NotificationWindow() {
   if (!notificationWindow) return null;
 
   const handleQueueClick = () => {
-    if (doNotShowAgain) localStorage.setItem("skipQueueConfirmation", "true");
+    if (doNotShowAgain) localStorage.setItem("skipAnnouncement", "true");
     dispatch(setNotificationwindow(false));
   };
 
@@ -36,12 +36,13 @@ function NotificationWindow() {
         <div className="text-left">
           <div className="flex items-center gap-3 md:mb-8 mb-5">
             <h2 className="sm:text-xl text-lg !font-extrabold">
-              {t("confirmation.matchmaking")}
+              {t("confirmation.announcement")}
             </h2>
           </div>
 
-          <div className="sm:text-xl text-lg text-white md:mb-8 mb-5">
-            <p>{t("confirmation.matchmakingmsg1")}</p>
+          <div className="sm:text-xl text-lg text-white md:mb-8 mb-10">
+            <p className="sm:mb-5">{t("confirmation.announcement1")}</p>
+            <p className="sm:mb-2">{t("confirmation.announcement2")}</p>
           </div>
 
           <div className="flex gap-5 justify-between items-center flex-wrap">
@@ -55,13 +56,14 @@ function NotificationWindow() {
               {t("confirmation.donotshow")}
             </label>
             <div className="game_status--tab rounded-xl">
-            <button
-              className={` py-2 px-4 text-xl font-black transition-all sd_after sd_before relative hover:opacity-50 duration-300 active-tab polygon_border
+              <button
+                className={` py-2 px-4 text-xl font-black transition-all sd_after sd_before relative hover:opacity-50 duration-300 active-tab polygon_border
                 }`}
                 style={{ width: "10rem", height: "4rem" }}
-            >
-              {t("auth.continue")}
-            </button>
+                onClick={handleQueueClick}
+              >
+                {t("auth.continue")}
+              </button>
             </div>
           </div>
         </div>
