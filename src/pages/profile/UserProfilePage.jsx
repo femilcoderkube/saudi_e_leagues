@@ -1,14 +1,23 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useScreenSize from "../../utils/screenUtils";
 import { useEffect } from "react";
-import { setActiveTabIndex, setConfirmationPopUp, setProfileVisible } from "../../app/slices/constState/constStateSlice";
+import {
+  setActiveTabIndex,
+  setConfirmationPopUp,
+  setProfileVisible,
+} from "../../app/slices/constState/constStateSlice";
 import { useDispatch, useSelector } from "react-redux";
 import mobile_menu_icon_user from "../../assets/images/LoginPersone.png";
 import logOut from "../../assets/images/logOut.png";
 import deleteIcon from "../../assets/images/delete-account-icon.png";
 import { getServerURL } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
-import { clearDeleteAccountState, deleteAccount, deleteFcmToken, logout } from "../../app/slices/auth/authSlice";
+import {
+  clearDeleteAccountState,
+  deleteAccount,
+  deleteFcmToken,
+  logout,
+} from "../../app/slices/auth/authSlice";
 import ConfirmationPopUp from "../../components/ModalPopUp/confirmationPopUp";
 import { getUpdateToken } from "../../app/socket/socket";
 
@@ -38,14 +47,22 @@ const UserProfilePage = () => {
       dispatch(clearDeleteAccountState());
       dispatch(setActiveTabIndex(0));
       navigate(`/${id}/lobby`);
+      let type = localStorage.getItem("deviceType");
+      if (type == "mobile") {
+        window.AndroidInterface?.androidLogoutCallbackHandler("success");
+        window.webkit?.messageHandlers?.iosLogoutCallbackHandler?.postMessage(
+          "success"
+        );
+        localStorage.removeItem("deviceType");
+      }
     } catch (error) {
-      console.error('Failed to delete account:', error);
+      console.error("Failed to delete account:", error);
     }
   };
 
   const handleLogout = () => {
     try {
-      dispatch(deleteFcmToken())
+      dispatch(deleteFcmToken());
       getUpdateToken("");
       dispatch(setConfirmationPopUp(0));
       dispatch(logout());
@@ -78,31 +95,37 @@ const UserProfilePage = () => {
       </div>
       <div className="flex-col gap-2">
         <ul className="flex flex-col gap-6 pt-8 ltr:pl-5 rtl:pr-5">
-          <li className="text-lg purple_col flex gap-2 cursor-pointer"
+          <li
+            className="text-lg purple_col flex gap-2 cursor-pointer"
             onClick={() => {
               dispatch(setProfileVisible(true));
             }}
           >
             <img className="w-6 h-6" src={mobile_menu_icon_user} alt="user" />
-            {t("auth.edit_profile")}</li>
+            {t("auth.edit_profile")}
+          </li>
 
-          {deviceType == 'mobile' && (
-            <li className="text-lg purple_col flex gap-2 cursor-pointer"
+          {deviceType == "mobile" && (
+            <li
+              className="text-lg purple_col flex gap-2 cursor-pointer"
               onClick={() => {
                 dispatch(setConfirmationPopUp(4));
-              }}>
+              }}
+            >
               <img className="w-6 h-6" src={deleteIcon} alt="user" />
-              {t("auth.delete_account")}</li>
+              {t("auth.delete_account")}
+            </li>
           )}
-          
-          <li className="text-lg purple_col flex gap-2 cursor-pointer"
+
+          <li
+            className="text-lg purple_col flex gap-2 cursor-pointer"
             onClick={() => {
               dispatch(setConfirmationPopUp(1));
-            }}>
+            }}
+          >
             <img className="w-6 h-6" src={logOut} alt="user" />
-            {t("auth.logout")}</li>
-
-
+            {t("auth.logout")}
+          </li>
 
           <ConfirmationPopUp
             onDeleteAccount={handleDeleteAccount}
