@@ -23,7 +23,7 @@ function NotificationWindow() {
         onClick={() => dispatch(setNotificationwindow(false))}
       ></div>
       <motion.div
-        className="relative text-white rounded-2xl shadow-xl w-[100%] max-w-xl md:px-8 md:py-10 p-5 z-50 border border-[#FFFFFF33]"
+        className="relative text-white rounded-2xl shadow-xl sm:w-[100%] max-w-xl w-[calc(100%-30px)] md:px-8 md:py-10 p-5 z-50 border border-[#FFFFFF33]"
         style={{
           background:
             "linear-gradient(180deg, rgba(23, 26, 67, 90%) 0%, rgba(9, 11, 44, 100%) 100%",
@@ -35,16 +35,16 @@ function NotificationWindow() {
       >
         <div className="text-left">
           <div className="flex items-center gap-3 md:mb-8 mb-5">
-            <h2 className="text-xl !font-extrabold">
+            <h2 className="sm:text-xl text-lg !font-extrabold">
               {t("confirmation.matchmaking")}
             </h2>
           </div>
 
-          <div className="text-xl text-white md:mb-8 mb-5">
+          <div className="sm:text-xl text-lg text-white md:mb-8 mb-5">
             <p>{t("confirmation.matchmakingmsg1")}</p>
           </div>
 
-          <div className="flex gap-4 justify-between items-center flex-wrap">
+          <div className="flex gap-5 justify-between items-center flex-wrap">
             <label className="flex items-center gap-2 text-[#A2A2A2] cursor-pointer">
               <input
                 type="checkbox"
