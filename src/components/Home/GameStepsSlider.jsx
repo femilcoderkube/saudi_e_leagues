@@ -194,7 +194,7 @@ const GameStepsSlider = ({
 
       {/* Mobile Pagination */}
       <div
-        className={`custom-pagination-${sliderId} flex justify-end mt-4 gap-3 sm:hidden absolute ltr:right-0 rtl:left-0 z-100`}
+        className={`custom-pagination-${sliderId} flex justify-end mt-4 gap-3 sm:hidden absolute ltr:right-0 rtl:left-0 z-10`}
       ></div>
 
       {/* Thumbs Swiper */}
