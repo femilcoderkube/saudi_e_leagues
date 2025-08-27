@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { setNotificationwindow } from "../../app/slices/constState/constStateSlice";
+import {
+  setIsPopUpShow,
+} from "../../app/slices/constState/constStateSlice";
 import { motion } from "framer-motion";
 function NotificationWindow() {
   const [doNotShowAgain, setDoNotShowAgain] = useState(false);
-  const { notificationWindow } = useSelector((state) => state.constState);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  if (!notificationWindow) return null;
-
   const handleQueueClick = () => {
     if (doNotShowAgain) localStorage.setItem("skipAnnouncement", "true");
-    dispatch(setNotificationwindow(false));
+    dispatch(setIsPopUpShow(false));
   };
 
   return (

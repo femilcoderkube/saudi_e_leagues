@@ -24,6 +24,8 @@ const initialState = {
   // New state for player selection confirmation
   selectedPlayerData: null,
   gameMatchLoader: false,
+  popupData :null,
+  isPopUpShow : false,
 
   countryOptions: countryData.map((country) => ({
     value: country.name,
@@ -39,6 +41,12 @@ const constStateSlice = createSlice({
   name: "constState",
   initialState,
   reducers: {
+    setIsPopUpShow: (state, action) => {
+      state.isPopUpShow = action.payload;
+    },
+    setPopupData: (state, action) => {
+      state.popupData = action.payload;
+    },
     setGameMatchLoader: (state, action) => {
       state.gameMatchLoader = action.payload;
     },
@@ -50,14 +58,22 @@ const constStateSlice = createSlice({
       state.showCalendar = action.payload;
     },
     setSelectedStartDate: (state, action) => {
-      state.selectedStartDate = action.payload ? action.payload.toISOString() : null;
+      state.selectedStartDate = action.payload
+        ? action.payload.toISOString()
+        : null;
     },
     setSelectedEndDate: (state, action) => {
-      state.selectedEndDate = action.payload ? action.payload.toISOString() : null;
+      state.selectedEndDate = action.payload
+        ? action.payload.toISOString()
+        : null;
     },
     setDateRange: (state, action) => {
-      state.selectedStartDate = action.payload.startDate ? action.payload.startDate.toISOString() : null;
-      state.selectedEndDate = action.payload.endDate ? action.payload.endDate.toISOString() : null;
+      state.selectedStartDate = action.payload.startDate
+        ? action.payload.startDate.toISOString()
+        : null;
+      state.selectedEndDate = action.payload.endDate
+        ? action.payload.endDate.toISOString()
+        : null;
     },
     setConfirmationPopUp: (state, action) => {
       state.confirmationPopUp = action.payload;
@@ -117,10 +133,36 @@ const constStateSlice = createSlice({
     setRegisteration: (state, action) => {
       // Accepts a boolean to set isRegisteration
       state.isRegisteration = !!action.payload;
-    }
+    },
   },
 });
 
-export const { setMatchPage, setTimeLineCard, setMatchLoader, setLogin, setShowCalendar, setRegisteration, setActiveTabIndex, setshowNotification, setGameMatchLoader, setProfileVisible, setSubmitModal, setViewModal, setPreviewImage, setIsMatctCreated, setNotificationTabIndex, setActiveTournamentTab, setConfirmationPopUp, setSelectedStartDate, setSelectedEndDate, setDateRange, setSelectedPlayerData, setQueueConfirmation, setNotificationwindow } = constStateSlice.actions;
+export const {
+  setPopupData,
+  setMatchPage,
+  setTimeLineCard,
+  setMatchLoader,
+  setLogin,
+  setShowCalendar,
+  setRegisteration,
+  setActiveTabIndex,
+  setshowNotification,
+  setGameMatchLoader,
+  setProfileVisible,
+  setSubmitModal,
+  setViewModal,
+  setPreviewImage,
+  setIsMatctCreated,
+  setNotificationTabIndex,
+  setActiveTournamentTab,
+  setConfirmationPopUp,
+  setSelectedStartDate,
+  setSelectedEndDate,
+  setDateRange,
+  setSelectedPlayerData,
+  setQueueConfirmation,
+  setNotificationwindow,
+  setIsPopUpShow,
+} = constStateSlice.actions;
 
 export default constStateSlice.reducer;
