@@ -36,9 +36,9 @@ const initialState = {
   IsSubmited: false,
   isShowChat: false,
   isEditScore: null,
-  showMobileChat : false,
-  showCancelBtn : false,
-  timeout : null,
+  showMobileChat: false,
+  showCancelBtn: false,
+  timeout: null,
   myPId: null,
   cancelMatchCount: "",
   isMatchCanceled: false,
@@ -46,28 +46,27 @@ const initialState = {
     teamOne: "-",
     teamTwo: "-",
   },
-  submitScoreLoading : false,
+  submitScoreLoading: false,
 };
 
 const matchDetailSlice = createSlice({
   name: "matchDetail",
   initialState,
   reducers: {
-    setShowCancelBtn :(state,action)=>{
+    setShowCancelBtn: (state, action) => {
       state.showCancelBtn = action.payload;
     },
-    setSubmitScoreLoading :(state,action)=>{
+    setSubmitScoreLoading: (state, action) => {
       state.submitScoreLoading = action.payload;
     },
-    setshowMobileChat :(state,action)=>{
+    setshowMobileChat: (state, action) => {
       state.showMobileChat = action.payload;
     },
     setmatchData: (state, action) => {
       const { match, user } = action.payload || {};
-      console.log("match", match);
       if (match) {
-        state.winnerScore.teamOne= "-";
-        state.winnerScore.teamTwo= "-";
+        state.winnerScore.teamOne = "-";
+        state.winnerScore.teamTwo = "-";
         state.cancelMatchCount = "";
         state.myPId = null;
         state.showCancelBtn = false;
@@ -90,8 +89,10 @@ const matchDetailSlice = createSlice({
         state.isTeamOne = team1UserIds.includes(userId);
         state.isMyMatch = state.isTeamOne || team2UserIds.includes(userId);
         state.myPId = state.isTeamOne
-          ? team1.find((p) => p.participant.userId._id  === userId)?.participant?._id
-          : team2.find((p) => p.participant.userId._id === userId)?.participant?._id;
+          ? team1.find((p) => p.participant.userId._id === userId)?.participant
+              ?._id
+          : team2.find((p) => p.participant.userId._id === userId)?.participant
+              ?._id;
         // Captain is first user in either team
         state.isCaptain =
           team1[0]?.participant?.userId?._id === userId ||
@@ -138,24 +139,28 @@ const matchDetailSlice = createSlice({
           state.IsSubmited = true;
         }
 
-        if(match.cancelMatchIds){
-          if(match.league.playersPerTeam ==1){
+        if (match.cancelMatchIds) {
+          if (match.league.playersPerTeam == 1) {
             state.cancelMatchCount = "";
-          }else{
-          state.cancelMatchCount = `${match.cancelMatchIds.length}/${match.league.playersPerTeam - 1}`;
+          } else {
+            state.cancelMatchCount = `${match.cancelMatchIds.length}/${
+              match.league.playersPerTeam - 1
+            }`;
           }
-          state.isMatchCanceled = match.cancelMatchIds.some(id => id.toString() == state.myPId.toString());
+          state.isMatchCanceled = match.cancelMatchIds.some(
+            (id) => id.toString() == state.myPId.toString()
+          );
         }
-        if(match.isCanceled){
+        if (match.isCanceled) {
           state.showCancelBtn = true;
-        }else{
+        } else {
           const createdAtTime = new Date(match.createdAt).getTime();
           const now = Date.now();
           const timeout = createdAtTime + 300000 - now;
-          if(timeout > 0 && (!match.IsSubmited || match.isEditScore != null)){
+          if (timeout > 0 && (!match.IsSubmited || match.isEditScore != null)) {
             state.showCancelBtn = true;
-          state.timeout = timeout;
-          }else{
+            state.timeout = timeout;
+          } else {
             state.showCancelBtn = false;
           }
         }
@@ -212,7 +217,7 @@ export const {
   clearFileUploadState,
   setshowMobileChat,
   setSubmitScoreLoading,
-  setShowCancelBtn
+  setShowCancelBtn,
 } = matchDetailSlice.actions;
 
 export default matchDetailSlice.reducer;

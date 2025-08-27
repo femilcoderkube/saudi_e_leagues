@@ -84,27 +84,27 @@ export default function Main() {
   // Pre-fill form values for editing
   const editInitialValues = user
     ? {
-      username: user.username || "",
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-      email: user.email || "",
-      dialCode:
-        dialCodeOptions.find(
-          (option) => option.value === (user?.phone?.split("-")[0] || "+966")
-        ) || defaultDialCode,
-      phoneNumber: user?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
-      favoriteGame: user?.favoriteGame
-        ? gameOptions?.find((option) => option.value === user?.favoriteGame)
-        : null,
-      profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
-    }
+        username: user.username || "",
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        email: user.email || "",
+        dialCode:
+          dialCodeOptions.find(
+            (option) => option.value === (user?.phone?.split("-")[0] || "+966")
+          ) || defaultDialCode,
+        phoneNumber: user?.phone?.split("-")[1] || "", // Split phone into dialCode and phoneNumber
+        favoriteGame: user?.favoriteGame
+          ? gameOptions?.find((option) => option.value === user?.favoriteGame)
+          : null,
+        profilePicture: user?.profilePicture ? user?.profilePicture : null, // Existing profile picture is handled separately
+      }
     : initialValues;
 
   const handleSubmit = async (values, isEdit = false) => {
     const fcmtoken = await genrateFCMToken();
     values = {
       ...values,
-      fcmToken: fcmtoken
+      fcmToken: fcmtoken,
     };
     try {
       setLoadingSubmit(true);
@@ -128,7 +128,6 @@ export default function Main() {
           updateUser({ id: user._id, user: formData })
         ).unwrap();
         if (res.success) {
-          console.log("res", res?.data);
           localStorage.setItem("user", JSON.stringify(res?.data));
           dispatch(fetchUserById(user?._id));
           dispatch(setProfileVisible(false));
@@ -145,7 +144,7 @@ export default function Main() {
         if (res.success) {
           toast.success(
             res?.message ||
-            "Registration successful! Please log in to continue."
+              "Registration successful! Please log in to continue."
           );
           dispatch(setRegisteration(false));
           if (window.location.pathname.includes("/lobby")) {
@@ -179,8 +178,7 @@ export default function Main() {
   return (
     <div
       className={`flex-1 flex flex-col sd_main-content md:ltr:ml-[-2.5rem] md:rtl:mr-[-2.5rem] relative bg-[#020326] ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20 
-        ${gameMatchLoader ? "!overflow-y-hidden" : ""
-        }
+        ${gameMatchLoader ? "!overflow-y-hidden" : ""}
         `}
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
@@ -190,10 +188,11 @@ export default function Main() {
     > */}
       <Header />
       <main
-        className={`flex-1 game_card_main--con sm:mt-0 mt-19  ${checkParams("finding-match") || checkParams("match")
-          ? ""
-          : "px-4 pt-3 md:px-[4.5rem] ltr:md:pr-[2rem] rtl:md:pl-[2rem]"
-          }`}
+        className={`flex-1 game_card_main--con sm:mt-0 mt-19  ${
+          checkParams("finding-match") || checkParams("match")
+            ? ""
+            : "px-4 pt-3 md:px-[4.5rem] ltr:md:pr-[2rem] rtl:md:pl-[2rem]"
+        }`}
       >
         {(isRegisteration || profileVisible) && (
           <>
@@ -201,10 +200,11 @@ export default function Main() {
             <div className="fixed inset-0 flex justify-center items-center z-50">
               <motion.div
                 className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative 
-    ${profileVisible
-                    ? "h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden match_reg--popup2 sm:overflow-y-auto"
-                    : "p-6 overflow-y-auto "
-                  }`} // Ensured vertical scrolling on smaller devices
+    ${
+      profileVisible
+        ? "h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden match_reg--popup2 sm:overflow-y-auto"
+        : "p-6 overflow-y-auto "
+    }`} // Ensured vertical scrolling on smaller devices
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 initial={{ scale: 0.5, opacity: 0, y: 50 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -253,8 +253,9 @@ export default function Main() {
                 ) : (
                   <>
                     <div
-                      className={` justify-between items-center mb-4 ${isRegisteration ? "flex" : "hidden sm:flex "
-                        }`}
+                      className={` justify-between items-center mb-4 ${
+                        isRegisteration ? "flex" : "hidden sm:flex "
+                      }`}
                     >
                       <h2 className="text-xl font-bold">
                         {isRegisteration

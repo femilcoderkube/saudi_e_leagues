@@ -68,6 +68,8 @@ export const SOCKET = {
   ONISBANUSER: "onIsBanUser",
   REMOVEDRAFTDATA: "removeDraftData",
   SETFCMTOKEN: "setFcmToken",
+  CHECKUSERQUEUE: "checkUserQueue",
+  GETUSERQUEUE: "getUserQueue",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range
@@ -346,8 +348,8 @@ export function getDigitList(num) {
     digits.length >= 8
       ? digits.slice(0, 8)
       : Array(8 - digits.length)
-        .fill(0)
-        .concat(digits);
+          .fill(0)
+          .concat(digits);
   return firstSix;
 }
 export const formatTime = (secs) => {
@@ -514,10 +516,10 @@ export const checkIsCurrentCaptainTurn = (
 
 export const getPopupData = async () => {
   try {
-    const response = await axiosInstance.get('/Popup');
+    const response = await axiosInstance.get("/Popup");
     return response.data;
   } catch (error) {
-    console.error('Error fetching popup data:', error);
+    console.error("Error fetching popup data:", error);
     throw error;
   }
 };
@@ -528,15 +530,15 @@ export const shouldDisplayPopup = (popupData) => {
   }
 
   const popup = popupData[0];
-  
-  if (popup.status == 'inactive') {    
+
+  if (popup.status == "inactive") {
     return false;
   }
 
   if (popup.expireDateTime) {
     const currentDate = new Date();
     const expireDate = new Date(popup.expireDateTime);
-    
+
     if (currentDate > expireDate) {
       return false;
     }

@@ -5,11 +5,12 @@ import { setQueueConfirmation } from "../../app/slices/constState/constStateSlic
 import { useNavigate, useParams } from "react-router-dom";
 import Que_btn from "../../assets/images/quebtn.png";
 import { motion } from "framer-motion";
+import { setUserInQueue } from "../../app/slices/leagueDetail/leagueDetailSlice";
 function QueueConfirmationPopUp() {
   const [doNotShowAgain, setDoNotShowAgain] = useState(false);
   const { id } = useParams();
   const { queueConfimation } = useSelector((state) => state.constState);
-  const { leagueData } = useSelector((state) => state.leagues);
+  const { leagueData, userInQueue } = useSelector((state) => state.leagues);
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function QueueConfirmationPopUp() {
     sessionStorage.setItem("canAccessFindingMatch", "true");
     navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
     dispatch(setQueueConfirmation(false));
+    dispatch(setUserInQueue(true));
   };
 
   return (
@@ -48,21 +50,39 @@ function QueueConfirmationPopUp() {
           </div>
 
           <div className="sm:text-xl text-lg text-white md:mb-8 mb-5">
-            <p className="sm:mb-2">{t("confirmation.matchmakingmsg1")}</p>
-            <p className="sm:mb-2">{t("confirmation.matchmakingmsg2")}</p>
-            <p>{t("confirmation.matchmakingmsg3")}</p>
+            {userInQueue ? (
+              <p className="sm:mb-2">{t("confirmation.inqueue")}</p>
+            ) : (
+              <>
+                <p className="sm:mb-2">{t("confirmation.matchmakingmsg1")}</p>
+                <p className="sm:mb-2">{t("confirmation.matchmakingmsg2")}</p>
+                <p>{t("confirmation.matchmakingmsg3")}</p>
+              </>
+            )}
           </div>
 
           <div className="flex gap-4 justify-between items-center flex-wrap">
-            <label className="flex items-center gap-2 text-[#A2A2A2] text-sm sm:text-base cursor-pointer">
-              <input
-                type="checkbox"
-                checked={doNotShowAgain}
-                onChange={(e) => setDoNotShowAgain(e.target.checked)}
-                className="w-4 h-4 accent-purple-600"
-              />
-              {t("confirmation.donotshow")}
-            </label>
+            {userInQueue ? (
+              <button
+                className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300`}
+                style={{ width: "10rem", height: "4rem" }}
+                onClick={(e) => {
+                  dispatch(setQueueConfirmation(false));
+                }}
+              >
+                {t("confirmation.cancel")}
+              </button>
+            ) : (
+              <label className="flex items-center gap-2 text-[#A2A2A2] text-sm sm:text-base cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={doNotShowAgain}
+                  onChange={(e) => setDoNotShowAgain(e.target.checked)}
+                  className="w-4 h-4 accent-purple-600"
+                />
+                {t("confirmation.donotshow")}
+              </label>
+            )}
             <div
               className="w-[52%] relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
               onClick={handleQueueClick}

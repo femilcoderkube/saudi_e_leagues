@@ -13,12 +13,16 @@ const initialState = {
   isQueueUser: null,
   isMatchJoind: null,
   starOfTheWeek: [],
+  userInQueue: false,
 };
 
 const leagueDetailSlice = createSlice({
   name: "leagueDetail",
   initialState,
   reducers: {
+    setUserInQueue: (state, action) => {
+      state.userInQueue = action.payload;
+    },
     setWeekOfStarUsers: (state, action) => {
       state.starOfTheWeek = action.payload;
     },
@@ -78,9 +82,14 @@ const leagueDetailSlice = createSlice({
         );
       }
 
-      if (action.payload && action.payload.isMatchJoind && action.payload?.userId) {
+      if (
+        action.payload &&
+        action.payload.isMatchJoind &&
+        action.payload?.userId
+      ) {
         state.isMatchJoind = action.payload.isMatchJoind.find(
-          (participant) => participant.userId?.toString() == action.payload.userId?.toString()
+          (participant) =>
+            participant.userId?.toString() == action.payload.userId?.toString()
         );
       }
     },
@@ -94,6 +103,7 @@ export const {
   setIsAgreedToJoin,
   removeFromQueue,
   setWeekOfStarUsers,
+  setUserInQueue,
 } = leagueDetailSlice.actions;
 
 export default leagueDetailSlice.reducer;

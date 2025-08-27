@@ -23,7 +23,11 @@ import RegistrationModel from "./RegustrationModel.jsx";
 import GetQueueButton from "./queueButton.jsx";
 import StarOfTheWeek from "./starOfTheWeek.jsx";
 import VerifiyOTPModel from "../../components/MainView/VerifiyOTPModel.jsx";
-import { leftToRight, rightToLeft, cardVariantsAni } from "../../components/Animation/animation.jsx";
+import {
+  leftToRight,
+  rightToLeft,
+  cardVariantsAni,
+} from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
 // import { setQueueConfirmation } from "../../app/slices/constState/constStateSlice.js";
 import QueueConfirmationPopUp from "../../components/ModalPopUp/queueConfirmationPopup.jsx";
@@ -34,16 +38,18 @@ const LeagueDetail = () => {
   const { user } = useSelector((state) => state.auth);
   const { queueConfimation } = useSelector((state) => state.constState);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { leagueData, registrationModal, verificationModal, verificationModule } = useSelector(
-    (state) => state.leagues
-  );
+  const {
+    leagueData,
+    registrationModal,
+    verificationModal,
+    verificationModule,
+  } = useSelector((state) => state.leagues);
   const { t, i18n } = useTranslation();
   const isMatctCreated = useSelector(
     (state) => state.constState.isMatctCreated
   );
   useEffect(() => {
     let res = startLeagueSocket({ lId, user, isSocketConnected });
-    console.log("res", res);
     return () => {
       stopLeagueSocket();
     };
@@ -64,8 +70,7 @@ const LeagueDetail = () => {
       ></div>
       {/* <Outlet /> */}
       {registrationModal && <RegistrationModel />}
-      {verificationModal && <VerifiyOTPModel module={verificationModule}
-      />}
+      {verificationModal && <VerifiyOTPModel module={verificationModule} />}
       {!leagueData ? (
         <GamingLoader />
       ) : isMatctCreated ? (
@@ -74,7 +79,8 @@ const LeagueDetail = () => {
         <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
           <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8 mb-10">
-            <motion.div className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1"
+            <motion.div
+              className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1"
               variants={leftToRight}
               custom={0}
               initial="hidden"
@@ -103,7 +109,8 @@ const LeagueDetail = () => {
                 </span>
               </div>
             </motion.div>
-            <motion.div className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2"
+            <motion.div
+              className="sd_content-right flex flex-col-reverse sm:flex-row items-center md:items-start order-1 md:order-2"
               variants={rightToLeft}
               custom={1}
               initial="hidden"
@@ -116,7 +123,7 @@ const LeagueDetail = () => {
                     className="absolute top-0 left-0 w-full h-full object-contain"
                     src={getServerURL(leagueData?.headerPhoto)}
                     alt=""
-                  // style={{ width: "41rem" }}
+                    // style={{ width: "41rem" }}
                   />
                 </div>
                 {/* <div className="player_one sd_before relative gradiant_bg con_center -left-7 sm:left-0">
@@ -146,7 +153,8 @@ const LeagueDetail = () => {
               </div>
             </motion.div>
           </div>
-          <motion.div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-start"
+          <motion.div
+            className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-start"
             initial="hidden"
             whileInView="visible"
             variants={cardVariantsAni}
@@ -154,10 +162,22 @@ const LeagueDetail = () => {
           >
             <div className="sd_content-left order-2 md:order-1">
               <div className="sd_game_info--wrap md:flex-row md:inline-flex hidden gap-3 md:gap-5 items-center justify-center md:justify-baseline w-full">
-             
-                <TournamentInfoBar title={t("league.game")} logo={leagueData?.game?.logo} name={leagueData?.game?.shortName}/>
-                <TournamentInfoBar title={t("league.platform")} logo={leagueData?.platform?.logo} name={leagueData?.platform?.name?.toUpperCase()}/>
-                <TournamentInfoBar title={t("league.team_size")} logo={teamSizeImage} name={leagueData.playersPerTeam} type={1}/>
+                <TournamentInfoBar
+                  title={t("league.game")}
+                  logo={leagueData?.game?.logo}
+                  name={leagueData?.game?.shortName}
+                />
+                <TournamentInfoBar
+                  title={t("league.platform")}
+                  logo={leagueData?.platform?.logo}
+                  name={leagueData?.platform?.name?.toUpperCase()}
+                />
+                <TournamentInfoBar
+                  title={t("league.team_size")}
+                  logo={teamSizeImage}
+                  name={leagueData.playersPerTeam}
+                  type={1}
+                />
               </div>
               <LeaderBoard />
             </div>
@@ -241,9 +261,7 @@ const LeagueDetail = () => {
           </motion.div>
         </div>
       )}
-      {queueConfimation && (
-        <QueueConfirmationPopUp />
-      )}
+      {queueConfimation && <QueueConfirmationPopUp />}
       <svg
         width="0"
         height="0"

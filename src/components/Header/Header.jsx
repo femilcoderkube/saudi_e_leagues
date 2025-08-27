@@ -549,7 +549,6 @@ const Header = () => {
     // Extract common data
     const isEnglish = i18n.language === "en";
     const isTournament = checkParams("tournament");
-    console.log("isTournament", isTournament)
 
     // Get title based on language and type
     const getTitle = () => {

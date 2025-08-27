@@ -11,6 +11,7 @@ import {
   removeFromQueue,
   setLeagueData,
   setRegistrationModal,
+  setUserInQueue,
   setWeekOfStarUsers,
 } from "../slices/leagueDetail/leagueDetailSlice";
 import { useSelector } from "react-redux";
@@ -168,8 +169,6 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
       if (window.location.pathname.includes(data?.data?._id?.toString())) {
         data.data.userId = user?._id;
-
-        console.log(" user?._id", user?._id);
         if (data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id) {
           store.dispatch(setLeagueData(data.data));
         } else {
@@ -185,7 +184,21 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       user: user,
       isSocketConnected: isSocketConnected,
     });
+    if (user?._id) {
+      startGetQueueUser(user?._id);
+    }
   }
+}
+export function startGetQueueUser(userId) {
+  socket.off(SOCKET.GETUSERQUEUE);
+  socket.on(SOCKET.GETUSERQUEUE, (data) => {
+    if (data.userQueue == true) {
+      store.dispatch(setUserInQueue(true));
+    } else {
+      store.dispatch(setUserInQueue(false));
+    }
+  });
+  socket.emit(SOCKET.CHECKUSERQUEUE, { userId });
 }
 export function stopLeagueSocket() {
   // Remove the league update listener
@@ -314,7 +327,6 @@ export function getMatchDetailTById({ mId, isSocketConnected, user }) {
   if (isSocketConnected) {
     stopMatchDetailTSocket();
     socket.on(SOCKET.ONMATCHT, (data) => {
-      console.log("Match Details T Data:", data);
       if (data.status) {
         if (data.isMatchUpdate == true) {
           store.dispatch(setmatchTData({ user: user, matchData: data.data }));

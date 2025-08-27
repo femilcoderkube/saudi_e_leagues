@@ -40,7 +40,7 @@ const MatchDetailTournament = () => {
   const { id, mId } = useParams();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { matchDataT  ,showMobileChat,isShowChat ,chatData ,winnerScore } = useSelector((state) => state.tournamentMatch);
-  console.log("Match Data:", matchDataT);
+
 
   const user = useSelector((state) => state.auth.user);
   const [messageInput, setMessageInput] = useState("");
@@ -179,7 +179,7 @@ const MatchDetailTournament = () => {
                     <div className="flex flex-col space-y-1">
                       {chatData?.map((chat, chatIdx) => {
                         if (chat.isSystemMsg) {
-                          // console.log("chat", chat?.randomMessages);
+                         
                         }
                         if (
                           chat.isSystemMsg &&
@@ -219,7 +219,7 @@ const MatchDetailTournament = () => {
                           Array.isArray(chat.randomMessages) &&
                           chat.randomMessages.length > 0
                         ) {
-                          // console.log("chat----", chat);
+                          
                           return chat.randomMessages
                             .filter((msg) => msg.randomText)
                             .map((msg, msgIdx) => (
@@ -356,7 +356,7 @@ const MatchDetailTournament = () => {
                     <div className="h-[100dvh] overflow-y-auto custom_scroll p-6 py-[6.5rem]">
 
                       {chatData?.map((chat, chatIdx) => {
-                        console.log("chat", chat?.senderId);
+                       
                         
                         if (
                           chat.isSystemMsg &&

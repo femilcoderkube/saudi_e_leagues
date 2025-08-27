@@ -63,6 +63,9 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
     if (confirmationPopUp == 4) {
       return t("confirmation.deleteAccountMessage");
     }
+     if (confirmationPopUp == 5) {
+       return t("confirmation.inqueue");
+     }
     return "";
   };
 
@@ -77,6 +80,7 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
     if (confirmationPopUp == 2) return t("confirmation.yes");
     if (confirmationPopUp == 3) return t("confirmation.selectplayer");
     if (confirmationPopUp == 4) return t("confirmation.deleteAccount");
+    if (confirmationPopUp == 5) return t("confirmation.ok");
     return "";
   };
 

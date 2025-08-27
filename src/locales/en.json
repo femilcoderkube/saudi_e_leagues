@@ -396,15 +396,13 @@
     "selectplayer": "Select Player",
     "matchmaking": "Matchmaking Confirmation",
     "matchmakingmsg1": "By clicking \"Queue\", you'll enter a real match against other real players",
-    "matchmakingmsg2" : "Leaving or not playing will count as a loss and may result in penalties including ban from the platform",
-    "matchmakingmsg3" : "Are you ready to play?",
-    "donotshow" : "Do not show again",
+    "matchmakingmsg2": "Leaving or not playing will count as a loss and may result in penalties including ban from the platform",
+    "matchmakingmsg3": "Are you ready to play?",
+    "donotshow": "Do not show again",
     "deleteAccountTitle": "Are you sure you want to delete your account?",
     "deleteAccountMessage": "Are you sure you want to delete your account?",
     "deleteAccount": "Delete Account",
-    "announcement": "Your feedback matters to us!",
-    "announcement1": "While we are currently organizing the first championship, our team is working on exciting new features and improvements for Season 2.",
-    "announcement2": "Stay tuned, Season 2 launches on September 1st!"
+    "inqueue": "You’re already queued in another game, cancel it and let’s find you a new match!"
   },
   "drafting": {
     "drafting": "Drafting",
@@ -423,15 +421,15 @@
     "group_standings": "Group Standings",
     "no_matchs_found": "No Matchs found",
     "no_data_found": "No Data found",
-    "place" : "Place",
-    "team" : "Team",
-    "points" : "Points",
-    "placement_points" : "Placement Points (PP)",
-    "kill_points" : "Kill Points (KP)",
-    "victory" : "Victory",
-    "group" : "Group",
-    "match" : "Match",
-    "pp" : "PP",
-    "kp" : "KP"
+    "place": "Place",
+    "team": "Team",
+    "points": "Points",
+    "placement_points": "Placement Points (PP)",
+    "kill_points": "Kill Points (KP)",
+    "victory": "Victory",
+    "group": "Group",
+    "match": "Match",
+    "pp": "PP",
+    "kp": "KP"
   }
 }
