@@ -125,7 +125,9 @@ export const updateUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message ? error.response?.data?.message : "Error updating user"
+        error.response?.data?.message
+          ? error.response?.data?.message
+          : "Error updating user"
       );
     }
   }
@@ -219,14 +221,11 @@ export const deleteAccount = createAsyncThunk(
         return rejectWithValue("User information not found");
       }
 
-      const response = await axiosInstance.delete(
-        `/users?id=${user._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axiosInstance.delete(`/users?id=${user._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -289,7 +288,8 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
       state.userDetail = null;
-      localStorage.clear();
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
     },
     // resetRegisterState from registerSlice
     resetRegisterState: (state) => {
@@ -501,6 +501,6 @@ export const {
   clearSendOtpState,
   clearVerifyOtpState,
   setIsBannedUser,
-  clearDeleteAccountState
+  clearDeleteAccountState,
 } = authSlice.actions;
 export default authSlice.reducer;
