@@ -79,6 +79,7 @@ export default function PrimeHome() {
         isSkip = false;
       }
       if (isSkip != "true" && isSameOrBefore && popups.status == "active") {
+        localStorage.setItem("popups", JSON.stringify(popups));
         dispatch(setIsPopUpShow(true));
       }
     } catch (error) {
