@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import "../../assets/css/Matchmaking.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { formatTime } from "../../utils/constant.js";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
+  startGetQueuePlayers,
   startLeagueSocket,
   startReadyToPlaySocket,
   stopReadyToPlaySocket,
@@ -12,20 +13,19 @@ import TimeOverPopup from "../../components/ModalPopUp/TimeOverPopup";
 import center_league from "../../assets/images/center_league.png";
 import cancel_btn from "../../assets/images/cancelbtn.png";
 import Sparkles from "./Sparkles.jsx";
-import { useTranslation } from 'react-i18next';
-
+import { useTranslation } from "react-i18next";
 
 const MatchMaking = () => {
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
+  const { queuePlayers } = useSelector((state) => state.leagues);
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef(null);
   const [showTimeOver, setShowTimeOver] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-  const { lId , id } = useParams();
+  const { lId, id } = useParams();
   const [timerActive, setTimerActive] = useState(true);
-  const { t ,i18n } = useTranslation();
-
+  const { t, i18n } = useTranslation();
 
   // Timer effect
   useEffect(() => {
@@ -51,15 +51,14 @@ const MatchMaking = () => {
     if (canAccess !== "true") {
       navigate(`/${id}/lobby/${lId}`); // or wherever you want to redirect
       return;
-    } 
-     
-    
+    }
+
     if (isSocketConnected && user?._id) {
       startLeagueSocket({ lId, user, isSocketConnected });
+      startGetQueuePlayers();
       startReadyToPlaySocket({ lId, user, isSocketConnected });
     }
-  
-  }, [isSocketConnected, lId, user?._id,]);
+  }, [isSocketConnected, lId, user?._id]);
 
   const handleCancel = () => {
     if (isSocketConnected && user?._id) {
@@ -83,7 +82,7 @@ const MatchMaking = () => {
     if (isSocketConnected && user?._id) {
       stopReadyToPlaySocket({ lId, user, isSocketConnected });
       navigate(-1);
-       sessionStorage.removeItem("canAccessFindingMatch");
+      sessionStorage.removeItem("canAccessFindingMatch");
     }
   };
 
@@ -104,9 +103,9 @@ const MatchMaking = () => {
                 <TimeOverPopup
                   onYes={handleTimeOverYes}
                   onNo={handleTimeOverNo}
-                  yesText={t('yes')}
-                  noText={t('no')}
-                  message={t('time_over')}
+                  yesText={t("yes")}
+                  noText={t("no")}
+                  message={t("time_over")}
                 />
               )}
               <div className="grediant"></div>
@@ -141,31 +140,35 @@ const MatchMaking = () => {
                 style={{ width: "11rem" }}
               />
               <div onClick={handleCancel}>
-              <div className="absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem]">
-                <img
-                  className="cancel-btn duration-400 cursor-pointer z-2"
-                  src={cancel_btn}
-                  alt={t('cancel')}
-                  style={{ width: "25rem" }}
-                />
-                 <span
+                <div className="absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem]">
+                  <img
+                    className="cancel-btn duration-400 cursor-pointer z-2"
+                    src={cancel_btn}
+                    alt={t("cancel")}
+                    style={{ width: "25rem" }}
+                  />
+                  <span
                     className="mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-lg sm:text-2xl cursor-pointer"
                     style={{
-                      fontFamily:i18n.language === 'ar' ? "Cairo" : "Yapari",
-                      fontWeight : "bold",
+                      fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
+                      fontWeight: "bold",
                       textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
                     }}
                   >
                     {t("images.cancel_button")}
                   </span>
-              </div>
+                </div>
                 <Sparkles />
               </div>
               <div className="player-search text-center pt-14">
                 <span className="md:text-[5.254rem] text-[3.75rem] font-bold grad_head--txt">
                   {formatTime(seconds)}
                 </span>
-                <h5 className="purple_col md:pt-5 pt-4 md:text-2xl text-base">{t('player_search')}</h5>
+                <h5 className="purple_col md:pt-5 pt-4 md:text-2xl text-base">
+                  {queuePlayers > 1
+                    ? `${queuePlayers} ${t("players_are_queue")}`
+                    : t("player_search")}
+                </h5>
               </div>
             </div>
           </div>

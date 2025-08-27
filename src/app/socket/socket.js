@@ -10,6 +10,7 @@ import {
 import {
   removeFromQueue,
   setLeagueData,
+  setQueuePlayers,
   setRegistrationModal,
   setUserInQueue,
   setWeekOfStarUsers,
@@ -199,6 +200,16 @@ export function startGetQueueUser(userId) {
     }
   });
   socket.emit(SOCKET.CHECKUSERQUEUE, { userId });
+}
+
+export function startGetQueuePlayers() {
+  socket.off(SOCKET.QUEUEPLAYER);
+  socket.on(SOCKET.QUEUEPLAYER, (data) => {
+    console.log("data.count--", data.count);
+    if (data.count) {
+      store.dispatch(setQueuePlayers(data.count));
+    }
+  });
 }
 export function stopLeagueSocket() {
   // Remove the league update listener

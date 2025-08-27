@@ -14,6 +14,7 @@ const initialState = {
   isMatchJoind: null,
   starOfTheWeek: [],
   userInQueue: false,
+  queuePlayers : 1
 };
 
 const leagueDetailSlice = createSlice({
@@ -22,6 +23,9 @@ const leagueDetailSlice = createSlice({
   reducers: {
     setUserInQueue: (state, action) => {
       state.userInQueue = action.payload;
+    },
+    setQueuePlayers: (state, action) => {
+      state.queuePlayers = action.payload;
     },
     setWeekOfStarUsers: (state, action) => {
       state.starOfTheWeek = action.payload;
@@ -104,6 +108,7 @@ export const {
   removeFromQueue,
   setWeekOfStarUsers,
   setUserInQueue,
+  setQueuePlayers,
 } = leagueDetailSlice.actions;
 
 export default leagueDetailSlice.reducer;

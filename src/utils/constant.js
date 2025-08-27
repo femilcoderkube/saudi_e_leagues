@@ -70,6 +70,7 @@ export const SOCKET = {
   SETFCMTOKEN: "setFcmToken",
   CHECKUSERQUEUE: "checkUserQueue",
   GETUSERQUEUE: "getUserQueue",
+  QUEUEPLAYER: "queuePlayer",
 };
 export function generateTailwindGradient(hexColor) {
   // Convert Hex to RGBA for a nice gradient range

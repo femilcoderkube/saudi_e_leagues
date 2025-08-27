@@ -11,6 +11,7 @@ import Open_btn from "../../assets/images/open.png";
 import Drafting_btn from "../../assets/images/drafting.png";
 import Cancel_btn from "../../assets/images/cancelbtn.png";
 import {
+  setQueuePlayers,
   setRegistrationModal,
   // setVerificationModal
 } from "../../app/slices/leagueDetail/leagueDetailSlice";
@@ -29,7 +30,7 @@ const GetQueueButton = () => {
   const now = new Date();
   const end = new Date(leagueData?.endDate);
   const { t, i18n } = useTranslation();
-  const navigate = useNavigate();
+  // dispatch(setQueuePlayers(1));
 
   if (user?._id == null || user?._id == undefined) {
     return (
@@ -209,6 +210,7 @@ const GetQueueButton = () => {
         <div
           className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
+            dispatch(setQueuePlayers(1));
             if (userInQueue) {
               dispatch(setQueueConfirmation(true));
             } else {
