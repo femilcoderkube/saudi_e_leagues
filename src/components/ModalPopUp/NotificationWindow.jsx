@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setIsPopUpShow,
-} from "../../app/slices/constState/constStateSlice";
+import { setIsPopUpShow } from "../../app/slices/constState/constStateSlice";
 import { motion } from "framer-motion";
 function NotificationWindow() {
   const [doNotShowAgain, setDoNotShowAgain] = useState(false);
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const handleQueueClick = () => {
     if (doNotShowAgain) localStorage.setItem("skipAnnouncement", "true");
     dispatch(setIsPopUpShow(false));
   };
-
+  let popUpdata = JSON.parse(localStorage.getItem("popups"));
+  if (!popUpdata) return;
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 overflow-auto">
       <div
@@ -35,13 +34,23 @@ function NotificationWindow() {
         <div className="ltr:text-left rtl:text-right">
           <div className="flex items-center gap-3 md:mb-8 mb-5">
             <h2 className="sm:text-xl text-lg !font-extrabold">
-              {t("confirmation.announcement")}
+              {i18n.language == "en" ? popUpdata?.titleEn : popUpdata?.titleAr}
             </h2>
           </div>
 
           <div className="sm:text-xl text-lg text-white md:mb-8 mb-10">
-            <p className="sm:mb-5">{t("confirmation.announcement1")}</p>
-            <p className="sm:mb-2">{t("confirmation.announcement2")}</p>
+            <div className="sm:mb-5">
+              {(i18n.language == "en"
+                ? popUpdata?.descriptionEn
+                : popUpdata?.descriptionAr
+              )
+                ?.split("\n")
+                .map((line, idx) => (
+                  <p key={idx} style={{ marginBottom: "1em" }}>
+                    {line}
+                  </p>
+                ))}
+            </div>
           </div>
 
           <div className="flex gap-5 justify-between items-center flex-wrap">
