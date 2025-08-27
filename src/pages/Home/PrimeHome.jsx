@@ -72,7 +72,7 @@ export default function PrimeHome() {
             (riyadhNow.getMonth() === expireDate.getMonth() &&
               riyadhNow.getDate() <= expireDate.getDate())));
 
-      if (popups.updatedAt != oldPopUp.updatedAt) {
+      if (popups?.updatedAt != oldPopUp?.updatedAt) {
         console.log("innnn");
         localStorage.setItem("skipAnnouncement", false);
         localStorage.setItem("popups", JSON.stringify(popups));
