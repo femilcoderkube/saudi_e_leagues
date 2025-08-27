@@ -27,6 +27,7 @@ const GetQueueButton = () => {
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const now = new Date();
   const end = new Date(leagueData?.endDate);
   const { t, i18n } = useTranslation();
