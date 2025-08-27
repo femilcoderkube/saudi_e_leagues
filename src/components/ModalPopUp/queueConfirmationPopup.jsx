@@ -65,7 +65,7 @@ function QueueConfirmationPopUp() {
             {userInQueue ? (
               <button
                 className={`py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300`}
-                style={{ width: "10rem", height: "4rem" }}
+                style={{ width: "100%", height: "4rem" }}
                 onClick={(e) => {
                   dispatch(setQueueConfirmation(false));
                 }}
@@ -83,28 +83,30 @@ function QueueConfirmationPopUp() {
                 {t("confirmation.donotshow")}
               </label>
             )}
-            <div
-              className="w-[52%] relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
-              onClick={handleQueueClick}
-            >
-              <span
-                // className="mob-common-btn absolute -top-1 w-full text-center md:text-lg text-base"
-                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center md:text-lg text-base"
-                style={{
-                  fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
-                  fontWeight: "bold",
-                  textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
-                }}
+            {!userInQueue && (
+              <div
+                className="w-[52%] relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
+                onClick={handleQueueClick}
               >
-                {t("images.queue")}
-              </span>
-              <img
-                className="mx-auto"
-                src={Que_btn}
-                alt=""
-                style={{ width: "100%" }}
-              />{" "}
-            </div>
+                <span
+                  // className="mob-common-btn absolute -top-1 w-full text-center md:text-lg text-base"
+                  className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center md:text-lg text-base"
+                  style={{
+                    fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
+                    fontWeight: "bold",
+                    textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  {t("images.queue")}
+                </span>
+                <img
+                  className="mx-auto"
+                  src={Que_btn}
+                  alt=""
+                  style={{ width: "100%" }}
+                />{" "}
+              </div>
+            )}
           </div>
         </div>
       </motion.div>
