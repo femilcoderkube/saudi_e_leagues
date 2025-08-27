@@ -40,7 +40,11 @@ import {
   setChatTData,
   setmatchTData,
 } from "../slices/MatchSlice/TournamentMatchDetailSlice";
-import { deleteFcmToken, logout, setIsBannedUser } from "../slices/auth/authSlice";
+import {
+  deleteFcmToken,
+  logout,
+  setIsBannedUser,
+} from "../slices/auth/authSlice";
 import { globalNavigate } from "../../navigationService";
 // import { requestFCMToken } from "../../firebase";
 
@@ -64,7 +68,6 @@ export const socket = io(SOCKET_URL, {
 socket.connect();
 socket.on("connect", () => {
   const user = JSON.parse(localStorage.getItem("user")) || null;
-  console.log("Socket connected:", socket.id);
   socket.emit(SOCKET.JOINUSEROOM, { userId: user?._id }); // Join a specific room or channel if needed
 
   // Remove any previous listener to avoid duplicate navigation
@@ -95,7 +98,7 @@ socket.on("connect", () => {
     if (isBanned) {
       store.dispatch(deleteFcmToken());
 
-      getUpdateToken("")
+      getUpdateToken("");
 
       store.dispatch(logout());
       // optional: window.location.href = "/";
@@ -253,7 +256,6 @@ export function startTournamentSocket({ tId, user, isSocketConnected }) {
   if (isSocketConnected) {
     stopTournamentSocket();
     socket.on(SOCKET.ONTOURNAMENTUPDATE, (data) => {
-      console.log("Tournament Update Data:", data);
       store.dispatch(setTournamentData(data.data));
     });
     socket.emit(SOCKET.GETTOURNAMENT, { tId: tId, userId: user?._id });
@@ -268,11 +270,9 @@ export function getTournamentStages({
   isSocketConnected,
   user,
 }) {
-  console.log("getTournamentStages", stageId, isSocketConnected, user);
   if (isSocketConnected) {
     stopTournamentStagesSocket();
     socket.on(SOCKET.ONTOURNAMENTSTAGESUPDATE, (data) => {
-      console.log("Tournament Stages Update Data:", data);
       store.dispatch(setTournamentStages(data));
     });
     socket.emit(SOCKET.GETTOURNAMENTSTAGES, {

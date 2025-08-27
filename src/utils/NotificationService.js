@@ -7,13 +7,11 @@ export async function requestPermission() {
   const deviceType = localStorage.getItem("deviceType");
 
   if (deviceType != "mobile") {
-    console.log("isSupported()", await isSupported());
     const permission = await Notification.requestPermission();
 
     if (permission === "granted") {
       const token = await genrateFCMToken();
       getUpdateToken(token);
-      console.log("tokeeenn ----", token);
     } else if (permission === "denied") {
       alert("You denied for the notification");
     }

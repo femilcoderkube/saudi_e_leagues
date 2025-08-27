@@ -23,7 +23,6 @@ export const fetchGames = createAsyncThunk(
   "lobby/fetchGames",
   async ({ searchTerm }, { rejectWithValue }) => {
     try {
-      console.log("Called");
       let params = {};
       if (searchTerm) {
         params.searchKey = searchTerm;
@@ -53,7 +52,6 @@ export const fetchLeagues = createAsyncThunk(
         params.filter = filter;
       }
       params.limit = 100;
-      console.log("tabs----", params);
       const response = await axiosInstance.get("/leagues/user", {
         params: params,
       });

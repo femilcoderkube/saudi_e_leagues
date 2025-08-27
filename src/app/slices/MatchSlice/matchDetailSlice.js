@@ -82,8 +82,7 @@ const matchDetailSlice = createSlice({
           match.matchScores.find((score) => score.submittedBy == "team2") || {};
         const winnerScore =
           match.matchScores.find((score) => score.isActive == true) || null;
-        console.log("datatatd  team1ScoreDetails", team1ScoreDetails);
-        console.log("datatatd  team2ScoreDetails", team2ScoreDetails);
+
         // Flatten userIds for quick lookup
         const team1UserIds = team1.map((p) => p?.participant?.userId?._id);
         const team2UserIds = team2.map((p) => p?.participant?.userId?._id);

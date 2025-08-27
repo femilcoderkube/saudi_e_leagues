@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 
-
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getServerURL, getTimeAgo } from "../../utils/constant";
@@ -8,7 +7,7 @@ import { setshowNotification } from "../../app/slices/constState/constStateSlice
 import { readNotificationSocket } from "../../app/socket/socket";
 
 const LeagueEndedNotification = ({ data }) => {
-  const {t , i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,17 +26,23 @@ const LeagueEndedNotification = ({ data }) => {
             .replace("{user rank}", data.extras.rank),
     body:
       i18n.language == "en"
-        ? data.notificationId.Body.toString() .replace("{user rank}", data.extras.rank)
-        : data.notificationId.BodyAr.toString() .replace("{user rank}", data.extras.rank),
+        ? data.notificationId.Body.toString().replace(
+            "{user rank}",
+            data.extras.rank
+          )
+        : data.notificationId.BodyAr.toString().replace(
+            "{user rank}",
+            data.extras.rank
+          ),
     isRead: data.isRead,
-    buttonText: i18n.language == "en" ? data.notificationId.ActionButton.toString(): data.notificationId.ActionButtonAr.toString(),
+    buttonText:
+      i18n.language == "en"
+        ? data.notificationId.ActionButton.toString()
+        : data.notificationId.ActionButtonAr.toString(),
   };
-  console.log("data", data._id);
   return (
     <div className="notification-box-wp relative polygon_border sd_before sd_after">
-      <div className={`notification-box ${
-    i18n.dir() === "rtl" ? "rtl" : ""
-  }`}>
+      <div className={`notification-box ${i18n.dir() === "rtl" ? "rtl" : ""}`}>
         <div className="notification-box-rotate h-[19rem] flex flex-col justify-between">
           <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
             <div className="notification-box-head flex items-center gap-4">
@@ -62,7 +67,9 @@ const LeagueEndedNotification = ({ data }) => {
             </div>
           </div>
           <div className="notification-box-content px-5 py-6 flex flex-col justify-between">
-            <h5 className="text-xl mb-3 line-clamp-1">{notificationData.subject}</h5>
+            <h5 className="text-xl mb-3 line-clamp-1">
+              {notificationData.subject}
+            </h5>
             <h6 className="text-lg sleading-6 purple_col line-clamp-2 mb-1.5">
               {notificationData.body}
             </h6>
