@@ -205,7 +205,7 @@ export function startGetQueueUser(userId) {
 export function startGetQueuePlayers() {
   socket.off(SOCKET.QUEUEPLAYER);
   socket.on(SOCKET.QUEUEPLAYER, (data) => {
-    console.log("data.count--", data.count);
+    console.log("data--", data);
     if (data.count) {
       store.dispatch(setQueuePlayers(data.count));
     }
