@@ -2,7 +2,7 @@ import teamSizeImage from "../../assets/images/teamSize.png";
 
 import center_league from "../../assets/images/center_league.png";
 import { useParams } from "react-router-dom";
-import { getServerURL, stageTypes } from "../../utils/constant.js";
+import { formatAmountWithCommas, getServerURL, stageTypes } from "../../utils/constant.js";
 
 import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
@@ -103,7 +103,7 @@ const TournamentDetail = () => {
                 </h1>
                 <h2 className="league_price text-2xl md:text-5xl !font-black font_oswald pt-5 sm:pt-3.5 md:pt-10 sm:pb-6 pb-3 yellow_grad-bg grad_text-clip">
                   <span className="icon-saudi_riyal !p-0"></span>
-                  {tournamentData?.prizepool}
+                  {formatAmountWithCommas(tournamentData?.prizepool)}
                 </h2>
                 <span className="block purple_col text-sm sm:text-xl">
                   {t("league.prize_pool")}
@@ -180,9 +180,8 @@ const TournamentDetail = () => {
                   {tournamentData?.stages?.map((item, index) => {
                     return (
                       <li
-                        className={`font-semibold  cursor-pointer md:border-b-0 border-b border-gray-200/20 ${
-                          index == activeStage ? "active" : ""
-                        }`}
+                        className={`font-semibold  cursor-pointer md:border-b-0 border-b border-gray-200/20 ${index == activeStage ? "active" : ""
+                          }`}
                       >
                         <div
                           id={`stage-${index}`}

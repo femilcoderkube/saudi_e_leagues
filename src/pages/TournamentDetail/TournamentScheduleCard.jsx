@@ -8,7 +8,6 @@ import { getServerURL } from "../../utils/constant";
 import { useNavigate, useParams } from "react-router-dom";
 const TournamentScheduleCard = ({ item }) => {
   const { id } = useParams();
-  
   const { tournamentData } = useSelector(
     (state) => state.tournament
   );
@@ -16,36 +15,39 @@ const TournamentScheduleCard = ({ item }) => {
   let data = {
     time: item?.startTime
       ? new Date(item.startTime)
-          .toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true,
-          })
-          .toLowerCase()
+        .toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        })
+        .toLowerCase()
       : "",
-      date: item?.startTime
-        ? new Date(item.startTime).toLocaleDateString("en-US", {
-            month: "short",
-            day: "2-digit",
-          })
-        : "",
+    date: item?.startTime
+      ? new Date(item.startTime).toLocaleDateString("en-US", {
+        month: "short",
+        day: "2-digit",
+      })
+      : "",
     team1: item?.opponent1.team || item?.opponent1.user,
     team2: item?.opponent2.team || item?.opponent2.user,
     acticeScore:
       item?.matchScores?.find((score) => score.isActive === true) || {},
+    teamlogo1: getServerURL(item?.opponent1.team.logoImage),
+    teamlogo2: getServerURL(item?.opponent2.team.logoImage),
   };
   const navigate = useNavigate();
 
   return (
     <div className="relative main-tournament-schedule-card-wrapper cursor-pointer"
-    onClick={() => {
-      navigate(`/${id}/tournament/match/${item._id}`)}}>
+      onClick={() => {
+        navigate(`/${id}/tournament/match/${item._id}`)
+      }}>
       {" "}
-      <div className="tournament-schedule-card-header-time absolute top-0 left-0 z-10 w-full flex items-center justify-center ">
+      <div className="tournament-schedule-card-header-time absolute top-0 left-0 z-10 w-full flex items-center justify-center " dir="ltr">
         <h2 className="text-base font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative" dir="ltr">
           {data?.date}&nbsp;&nbsp;
-          <span className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative">
-          {data?.time}
+          <span className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative" dir="ltr">
+            {data?.time}
           </span>
         </h2>
       </div>
@@ -57,10 +59,10 @@ const TournamentScheduleCard = ({ item }) => {
             className="w-full h-full object-cover absolute top-0 left-0 z-0 opacity-4 "
           />
           <div className="tournament-schedule-card-header-left flex items-center gap-4 md:gap-8 relative z-10">
-            <div className="sm:w-[5rem] sm:h-[5rem] w-[4rem] h-[4rem] rounded-lg overflow-hidden">
+            <div className="sm:w-[4.5rem] sm:h-[4.5rem] w-[3.5rem] h-[3.5rem] rounded-full overflow-hidden">
               <img
-                src={tournament_thumbnail}
-                alt="tournament-schedule"
+                src={data.teamlogo1}
+                alt={item?.opponent1.team.teamName || "tournament-schedule"}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -73,12 +75,12 @@ const TournamentScheduleCard = ({ item }) => {
           </div>
           <div className="tournament-schedule-card-header-right flex items-center gap-4 md:gap-8 relative z-10">
             <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
-              {data?.acticeScore?.opponent2Score?.toString()  || "-"}
+              {data?.acticeScore?.opponent2Score?.toString() || "-"}
             </h2>
-            <div className="sm:w-[5rem] sm:h-[5rem] w-[4rem] h-[4rem] rounded-lg overflow-hidden">
+            <div className="sm:w-[4.5rem] sm:h-[4.5rem] w-[3.5rem] h-[3.5rem] rounded-full overflow-hidden">
               <img
-                src={tournament_thumbnail}
-                alt="tournament-schedule"
+                src={data.teamlogo2}
+                alt={item?.opponent2.team.teamName || "tournament-schedule"}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -110,7 +112,7 @@ const TournamentScheduleCard = ({ item }) => {
           </div>
         </div>
 
-        {/* card bottom shape */}        
+        {/* card bottom shape */}
         <svg
           width={0}
           height={0}
