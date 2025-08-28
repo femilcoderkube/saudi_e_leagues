@@ -1697,11 +1697,6 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   background-color: #5e5fb899;
 }
 
-html[dir="rtl"] .tournament-schedule-card-header-time h2 span::before {
-  left: auto;
-  right: 0;
-}
-
 .tournament-schedule-card-footer-center {
   position: absolute;
   left: 50%;
