@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { motion } from "motion/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import GameStepsSlider from "./GameStepsSlider.jsx";
 import { leftToRight, rightToLeft } from "../../components/Animation/animation.jsx";
@@ -8,14 +8,18 @@ import { logout } from "../../app/slices/auth/authSlice.js";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
-const HowToPlaySection = React.memo(() => {
+const HowToPlaySection = React.memo(({ id }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const ANIMATION_VIEWPORT_CONFIG = { once: true, amount: 0.4 };
 
     const handleGoPlayNow = useCallback(() => {
+
+
         // dispatch(logout());
+        navigate(`/${id}/lobby`);
     }, [dispatch]);
 
     const howToPlayCards = useMemo(
@@ -100,12 +104,13 @@ const HowToPlaySection = React.memo(() => {
                 </h2>
                 <div className="btn_polygon--mask sm:inline-flex hidden max-w-[fit-content] justify-center my-6 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                     <div
-                        className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center"
+                        className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
                         onClick={handleGoPlayNow}
                     >
                         {t("homepage.go_play_now")}
                     </div>
                 </div>
+
                 {/* SVG for clip path */}
                 <svg
                     width="0"

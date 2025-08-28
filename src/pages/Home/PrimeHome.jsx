@@ -108,7 +108,7 @@ export default function PrimeHome() {
           <AboutRightSection onPlayVideo={handleVideoModalOpen} />
         </section>
 
-        <HowToPlaySection />
+        <HowToPlaySection id={id}/>
 
         <FaqSection />
       </div>

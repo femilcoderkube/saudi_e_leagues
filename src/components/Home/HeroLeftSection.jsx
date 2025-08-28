@@ -56,7 +56,7 @@ const HeroLeftSection = React.memo(({ id }) => {
             </p>
             <div
                 onClick={handleGetStartedClick}
-                className="ml-[-0.5rem] hover:opacity-70 duration-300"
+                className="ml-[-0.5rem] hover:opacity-70 duration-300 cursor-pointer"
             >
                 <img
                     className="hidden md:inline-block"
