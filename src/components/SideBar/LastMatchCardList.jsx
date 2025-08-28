@@ -28,6 +28,8 @@ const TournamentScheduleCard = ({ item }) => {
     <div className="main-card-duty-wp flex flex-col mt-5">
       {user &&
         lastMatchs?.map((match) => {
+          console.log("MATCH", match);
+          
           return (
             <div
               key={match.matchId}
@@ -35,7 +37,7 @@ const TournamentScheduleCard = ({ item }) => {
               onClick={() => navigate(`${id}/match/${match.matchId}`)}
             >
               <div className="tournament-schedule-card-header-time absolute bottom-0 left-0 z-10 w-full flex items-center justify-center ">
-                <h2 className="text-[0.7rem] font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative">
+                <h2 className="text-[0.7rem] font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative" dir="ltr">
                   {new Date(match.createdAt).toLocaleDateString("en-GB", {
                     day: "2-digit",
                     month: "short",
@@ -55,7 +57,7 @@ const TournamentScheduleCard = ({ item }) => {
                     src={getServerURL(match.game.logo)}
                     alt={match.game.name}
                   />
-                  <h2 className="text-sm grad_text-clip font-bold">Valorant</h2>
+                  <h2 className="text-sm grad_text-clip font-bold">{match.game.name}</h2>
                 </div>
                 <div className="tournament-schedule-card-footer-right text-right">
                   {/* <button className="common-process px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">
@@ -69,8 +71,8 @@ const TournamentScheduleCard = ({ item }) => {
                     <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
                       <img
                         src={
-                          match.teamOneLogo
-                            ? getServerURL(match.teamOneLogo)
+                          match.game.logo
+                            ? getServerURL(match.game.logo)
                             : "https://github.com/user-attachments/assets/457309ad-0905-48da-86a1-6e73ced7a07c"
                         }
                         alt="tournament-schedule"
@@ -95,8 +97,8 @@ const TournamentScheduleCard = ({ item }) => {
                     <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
                       <img
                         src={
-                          match.teamTwoLogo
-                            ? getServerURL(match.teamTwoLogo)
+                          match.game.logo
+                            ? getServerURL(match.game.logo)
                             : "https://github.com/user-attachments/assets/457309ad-0905-48da-86a1-6e73ced7a07c"
                         }
                         alt="tournament-schedule"
