@@ -236,6 +236,13 @@ export function stopReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user?._id });
   store.dispatch(removeFromQueue(user._id));
+
+  const handleQueueResponse = (data) => {
+    socket.off(SOCKET.GETUSERQUEUE, handleQueueResponse);
+  };
+
+  socket.on(SOCKET.GETUSERQUEUE, handleQueueResponse);
+  socket.emit(SOCKET.CHECKUSERQUEUE, { userId: user?._id });
 }
 export function joinLeagueSocket({ isSocketConnected, payload }) {
   if (!isSocketConnected) return;
