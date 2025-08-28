@@ -150,40 +150,40 @@ const Sidebar = ({ onItemClick }) => {
         {/* === Social Links Block Start === */}
         <div className="sd_social--block flex flex-col w-full pb-6">
           {/* call of duty sec start*/}
-         {/* <LastMatchCardList/> */}
+          <LastMatchCardList />
           {/* <span className="view-all w-[4.5rem] cursor-pointer relative mx-7.5 mb-5 text-[#BCC6E0] font-semibold">View All</span> */}
-        <div className="mt-auto">
-          <img
-            src={follwers}
-            alt={t("images.follow_us")}
-            className="h-7 max-w-max ltr:ml-10 rtl:mr-10 object-contain"
-          />
-          <ul className="sd_social--links flex gap-4 justify-center self-center flex-wrap ">
-            {social_links.map(({ name, path, Icon }) => (
-              <li key={name}>
-                <NavLink
-                  to={path}
-                  className="inline-block p-[0.375rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg"
-                  target="_blank"
-                >
-                  <Icon />
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-          <div className="flex items-center justify-center mt-4">
+          <div className="mt-auto">
             <img
-              className="h-16"
-              src={i18n.language == "en" ? SEF_ENG : SEF_AR}
-              alt=""
+              src={follwers}
+              alt={t("images.follow_us")}
+              className="h-7 max-w-max ltr:ml-10 rtl:mr-10 object-contain"
             />
-          </div>
-          </div>
+            <ul className="sd_social--links flex gap-4 justify-center self-center flex-wrap ">
+              {social_links.map(({ name, path, Icon }) => (
+                <li key={name}>
+                  <NavLink
+                    to={path}
+                    className="inline-block p-[0.375rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg"
+                    target="_blank"
+                  >
+                    <Icon />
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+            <div className="flex items-center justify-center mt-4">
+              <img
+                className="h-16"
+                src={i18n.language == "en" ? SEF_ENG : SEF_AR}
+                alt=""
+              />
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* === Collapse Menu Button Start === */}
-        {/* <div className="btn_polygon--mask flex justify-center my-8 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
+      {/* === Collapse Menu Button Start === */}
+      {/* <div className="btn_polygon--mask flex justify-center my-8 sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
           <Link
             to={"#"}
             className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center"
