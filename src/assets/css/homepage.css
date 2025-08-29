@@ -14,9 +14,9 @@
 }
 
 html[dir=rtl] .home_hero--sec::after {
-    background-image: url(/src/assets/images/prime_game_bg.png);
-    /* transform: rotateY(180deg); */
-    /* left: -8.4rem; */
+    /* background-image: url(/src/assets/images/prime_game_bg.png); */
+    transform: rotateY(180deg);
+    left: -8.4rem;
 }
 
 .home_hero_left-con {
