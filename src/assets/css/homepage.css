@@ -5,16 +5,18 @@
     left: -2.4rem;
     width: 110%;
     height: 100%;
-    background-image: url(/src/assets/images/prime_game_bg.png);
+    background-image: url(/src/assets/images/prime_game_bg3.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    opacity: 0.4;
     z-index: -1;
 }
 
 html[dir=rtl] .home_hero--sec::after {
-    transform: rotateY(180deg);
-    left: -8.4rem;
+    background-image: url(/src/assets/images/prime_game_bg2.png);
+    /* transform: rotateY(180deg); */
+    /* left: -8.4rem; */
 }
 
 .home_hero_left-con {
@@ -337,6 +339,7 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
 .htp_slider .custom-pagination-one {
     bottom: -3rem !important;
 }
+
 /* two slider css End */
 /* --------------------------------
     
@@ -531,8 +534,9 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
 ----------------------------------- */
 
 .home_faq--sec .faq_left--con {
-    background-image: url(../images/faqBG.png);
+    background-image: url(../images/faqBG2.png);
     background-repeat: no-repeat;
+    opacity: 0.9;
 }
 
 html[dir=rtl] .home_faq--sec .faq_left--con {
@@ -549,7 +553,7 @@ html[dir=rtl] .home_faq--sec .faq_left--con {
 }
 
 .faq_accordion.active_accordion {
-    background-image: url(../images/active_faqBG.png);
+    background-image: url(../images/active_faqBG2.png);
     background-size: 100% 100%;
     min-height: 9.5rem;
     height: 100%;
@@ -861,7 +865,7 @@ html[dir="rtl"] .home_faq--sec {
         padding-bottom: 0.2rem;
     }
 
-    .htp_slider  .custom-pagination-one {
+    .htp_slider .custom-pagination-one {
         max-width: calc(100% - 10rem);
         flex-wrap: wrap;
         margin-left: auto;

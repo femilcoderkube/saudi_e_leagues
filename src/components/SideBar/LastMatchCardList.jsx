@@ -110,7 +110,7 @@ const TournamentScheduleCard = ({ item }) => {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
+                    <h2 className="text-[1.75rem] grad_text-clip font-bold font_oswald text-white">
                       {match.teamOneScore}
                     </h2>
                   </div>
