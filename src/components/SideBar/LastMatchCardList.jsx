@@ -77,11 +77,10 @@ const TournamentScheduleCard = ({ item }) => {
                     </button>
                   ) : match?.userScore === 0 ? (
                     <div className="tournament-schedule-card-footer-right text-right">
-                      <button className="common-process px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">
-                        Score{" "}
-                        <span className="font-normal">
-                          ({match?.userScore})
-                        </span>
+                      <button className="common-green px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">
+                        {match?.status
+                          ?.replace("_", " ")
+                          .replace(/\b\w/g, (c) => c.toUpperCase())}
                       </button>
                     </div>
                   ) : match?.userScore > 0 ? (
