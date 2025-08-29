@@ -534,7 +534,7 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
 ----------------------------------- */
 
 .home_faq--sec .faq_left--con {
-    background-image: url(../images/faqBG2.png);
+    background-image: url(../images/faqBG.png);
     background-repeat: no-repeat;
     opacity: 0.9;
 }
