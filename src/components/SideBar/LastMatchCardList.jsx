@@ -26,14 +26,10 @@ const TournamentScheduleCard = ({ item }) => {
     }
   }, [user]);
 
-  console.log("lastMatchs", lastMatchs);
-
   return (
     <div className="main-card-duty-wp flex flex-col mt-5">
       {user &&
         lastMatchs?.map((match) => {
-          console.log("MATCH", match);
-
           return (
             <div
               key={match.matchId}

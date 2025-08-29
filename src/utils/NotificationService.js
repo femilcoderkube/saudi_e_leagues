@@ -32,6 +32,7 @@ export const setupMessageListener = () => {
 
   if (deviceType != "mobile") {
     onMessage(messaging, (payload) => {
+
       const { notification, data } = payload;
 
       if (notification) {

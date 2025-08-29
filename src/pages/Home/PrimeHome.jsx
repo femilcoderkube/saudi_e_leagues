@@ -35,7 +35,7 @@ const usePageLoading = (delay = 300) => {
 
 export default function PrimeHome() {
   const { id } = useParams();
-  const { notificationWindow, isPopUpShow } = useSelector(
+  const { isPopUpShow } = useSelector(
     (state) => state.constState
   );
   const [showVideoModal, setShowVideoModal] = useState(false);
