@@ -16,7 +16,7 @@
 html[dir=rtl] .home_hero--sec::after {
     background-image: url(/src/assets/images/prime_game_bg2.png);
     /* transform: rotateY(180deg); */
-    /* left: -8.4rem; */
+    left: -8.4rem;
 }
 
 .home_hero_left-con {
@@ -187,6 +187,11 @@ html[dir=rtl] .swiper-slide.swiper-slide-active {
     background-size: cover;
     background-position: right;
     background-repeat: no-repeat;
+}
+
+html[dir=rtl] .sd_play-link {
+    background-image: url(../images/home_about_bg_rtl.png);
+    background-position: left;
 }
 
 .sd_play-link:before {
@@ -536,12 +541,13 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
 .home_faq--sec .faq_left--con {
     background-image: url(../images/faqBG2.png);
     background-repeat: no-repeat;
-    opacity: 0.9;
+    opacity: 0.6 !important;
 }
 
 html[dir=rtl] .home_faq--sec .faq_left--con {
     background-position: center right;
     background-repeat: no-repeat;
+    background-image: url(../images/faqBG2_rtl.png);
 }
 
 .home_faq--sec .faq_left--con::before {
