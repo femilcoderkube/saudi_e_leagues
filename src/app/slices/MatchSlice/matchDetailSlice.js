@@ -156,19 +156,18 @@ const matchDetailSlice = createSlice({
         } else {
           const createdAtTime = new Date(match.createdAt).getTime();
           const now = Date.now();
-          const timeout = createdAtTime + 300000 - now;
-          if (timeout > 0 && (!match.IsSubmited || match.isEditScore != null)) {
+          const timeout = createdAtTime + 1000000 - now;
+          if (
+            timeout > 0 &&
+            (!match.IsSubmited || match.isEditScore != null) &&
+            match.league.playersPerTeam == 1
+              ? match.cancelMatchIds.length < 1
+              : match.cancelMatchIds.length < match.league.playersPerTeam - 1
+          ) {
             state.showCancelBtn = true;
             state.timeout = timeout;
           } else {
-            if (
-              match.cancelMatchIds.length >=
-              match.league.playersPerTeam - 1
-            ) {
-              state.showCancelBtn = true;
-            } else {
-              state.showCancelBtn = false;
-            }
+            state.showCancelBtn = false;
           }
         }
       }
