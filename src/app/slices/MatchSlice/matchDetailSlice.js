@@ -161,7 +161,14 @@ const matchDetailSlice = createSlice({
             state.showCancelBtn = true;
             state.timeout = timeout;
           } else {
-            state.showCancelBtn = false;
+            if (
+              match.cancelMatchIds.length >=
+              match.league.playersPerTeam - 1
+            ) {
+              state.showCancelBtn = true;
+            } else {
+              state.showCancelBtn = false;
+            }
           }
         }
       }
