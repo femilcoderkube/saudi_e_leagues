@@ -9,6 +9,7 @@ import {
 } from "../../utils/constant";
 import {
   removeFromQueue,
+  // setLeaderboardData,
   setLeagueData,
   setQueuePlayers,
   setRegistrationModal,
@@ -179,6 +180,23 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         store.dispatch(setIsMatctCreated(false));
       }
     });
+    // socket.on(SOCKET.LEADERBOARDUPDATE, (data) => {
+    //   // console.log("League Update Data:", data);
+    //   if (!data?.status) {
+    //     window.location.href = "/";
+    //     return;
+    //   }
+    //   if (window.location.pathname.includes(data?.data?._id?.toString())) {
+    //     data.data.userId = user?._id;
+    //     if (data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id) {
+    //       store.dispatch(setLeaderboardData(data.data));
+    //     } else {
+    //       delete data.data.leaderBoard.requestedUser;
+    //       store.dispatch(setLeaderboardData(data.data));
+    //     }
+    //     store.dispatch(setIsMatctCreated(false));
+    //   }
+    // });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
     startStarOfTheWeekSocket({
       lId: lId,

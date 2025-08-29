@@ -5,6 +5,7 @@ import { act } from "react";
 
 const initialState = {
   leagueData: null,
+  // leaderboard: null,
   registrationModal: false,
   verificationModal: false,
   verificationModule: null, // <-- Add this line
@@ -97,11 +98,20 @@ const leagueDetailSlice = createSlice({
         );
       }
     },
+  //   setLeaderboardData: (state, action) => {
+  //     state.leaderboard = action.payload;
+      
+  //     // If leagueData exists, also update it for backward compatibility
+  //     if (state.leagueData) {
+  //       state.leagueData.leaderBoard = action.payload;
+  //     }
+  //   },
   },
 });
 
 export const {
   setLeagueData,
+  // setLeaderboardData,
   setRegistrationModal,
   setVerificationModal,
   setIsAgreedToJoin,

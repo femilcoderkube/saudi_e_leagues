@@ -35,6 +35,7 @@ export const SOCKET = {
   JOINLEAGUE: "joinLeague",
   LEAVELEAGUE: "LeaveLeague",
   LEAGUEUPDATE: "leagueUpdate",
+  LEADERBOARDUPDATE: "leaderboardUpdate",
   LEAGUEJOIN: "leagueJoin",
   READYTOPLAY: "readyToPlay",
   NOTREADYTOPLAY: "notReadyToPlay",
@@ -349,8 +350,8 @@ export function getDigitList(num) {
     digits.length >= 8
       ? digits.slice(0, 8)
       : Array(8 - digits.length)
-          .fill(0)
-          .concat(digits);
+        .fill(0)
+        .concat(digits);
   return firstSix;
 }
 export const formatTime = (secs) => {

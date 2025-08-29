@@ -207,7 +207,8 @@ const MatchControls = ({ user, isCaptain, IsSubmited, isEditScore, showCancelBtn
       {isMyMatch && (!IsSubmited || isEditScore != null) && !matchData?.isCanceled && showCancelBtn && (
         <div
           className={`cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ${isMatchCanceled ? "!cursor-not-allowed" : "cursor-pointer"}`}
-          onClick={() => dispatch(setConfirmationPopUp(2))}
+          onClick={() => isMatchCanceled ? null :dispatch(setConfirmationPopUp(2))}
+          
         >
           <div className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
             {t("match.cancel_match")} {cancelMatchCount}
