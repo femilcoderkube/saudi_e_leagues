@@ -5,7 +5,7 @@
     left: -2.4rem;
     width: 110%;
     height: 100%;
-    background-image: url(/src/assets/images/prime_game_bg3.png);
+    background-image: url(/src/assets/images/prime_game_bg.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -14,7 +14,7 @@
 }
 
 html[dir=rtl] .home_hero--sec::after {
-    background-image: url(/src/assets/images/prime_game_bg2.png);
+    background-image: url(/src/assets/images/prime_game_bg.png);
     /* transform: rotateY(180deg); */
     /* left: -8.4rem; */
 }
@@ -553,7 +553,7 @@ html[dir=rtl] .home_faq--sec .faq_left--con {
 }
 
 .faq_accordion.active_accordion {
-    background-image: url(../images/active_faqBG2.png);
+    background-image: url(../images/active_faqBG.png);
     background-size: 100% 100%;
     min-height: 9.5rem;
     height: 100%;
