@@ -5,7 +5,7 @@
     left: -2.4rem;
     width: 110%;
     height: 100%;
-    background-image: url(/src/assets/images/prime_game_bg.png);
+    background-image: url(/src/assets/images/prime_game_bg3.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -14,9 +14,9 @@
 }
 
 html[dir=rtl] .home_hero--sec::after {
-    /* background-image: url(/src/assets/images/prime_game_bg.png); */
-    transform: rotateY(180deg);
-    left: -8.4rem;
+    background-image: url(/src/assets/images/prime_game_bg2.png);
+    /* transform: rotateY(180deg); */
+    /* left: -8.4rem; */
 }
 
 .home_hero_left-con {
@@ -534,7 +534,7 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
 ----------------------------------- */
 
 .home_faq--sec .faq_left--con {
-    background-image: url(../images/faqBG.png);
+    background-image: url(../images/faqBG2.png);
     background-repeat: no-repeat;
     opacity: 0.9;
 }
