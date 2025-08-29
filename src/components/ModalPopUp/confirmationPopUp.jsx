@@ -26,7 +26,7 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
     }
     if (confirmationPopUp == 2) {
       dispatch(setConfirmationPopUp(0));
-      cancelMatch({ matchId: matchData?._id, participantId: myPId });
+      cancelMatch({ matchId: matchData?._id, participantId: myPId, Lid: matchData?.league?._id });
     }
     if (confirmationPopUp == 3) {
       dispatch(setConfirmationPopUp(0));

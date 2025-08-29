@@ -40,10 +40,8 @@ import {
   setshowNotification,
   setSubmitModal,
 } from "../../app/slices/constState/constStateSlice.js";
-import ViewScoreBtn from "../Matchmakingcomp/viewScoreButton.jsx";
 import { useTranslation } from "react-i18next";
-import { cancelMatch, socket } from "../../app/socket/socket"; // <-- Make sure this path is correct
-import { SOCKET } from "../../utils/constant";    // <-- Make sure this path is correct
+    // <-- Make sure this path is correct
 
 {
   /* === BreadCrumb items array ==== */
