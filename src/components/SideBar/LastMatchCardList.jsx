@@ -1,17 +1,19 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getServerURL, items } from "../../utils/constant";
 import { useNavigate, useParams } from "react-router-dom";
 import { getLastMatchesSocket } from "../../app/socket/socket";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import tournament_thumbnail from "../../assets/images/large_prime.png";
 import tournament_vs_icon from "../../assets/images/tournament_vs_icon.png";
 import tournament_bg_img from "../../assets/images/tournament_bg_img.jpg";
 import leage_shape from "../../assets/images/leage_shape.png";
 import footer_card_icon from "../../assets/images/footer-card-icon.png";
 import vs_img from "../../assets/images/vs_img.png";
+import { setLastMatch } from "../../app/slices/notificationSlice/notificationSlice";
 
 const TournamentScheduleCard = ({ item }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { lastMatchs } = useSelector((state) => state.notification);
   const user = useSelector((state) => state.auth.user);
   const id = items[0].id;
@@ -19,6 +21,8 @@ const TournamentScheduleCard = ({ item }) => {
   useEffect(() => {
     if (user?._id) {
       getLastMatchesSocket(user?._id);
+    } else {
+      dispatch(setLastMatch([]));
     }
   }, [user]);
 
@@ -29,7 +33,7 @@ const TournamentScheduleCard = ({ item }) => {
       {user &&
         lastMatchs?.map((match) => {
           console.log("MATCH", match);
-          
+
           return (
             <div
               key={match.matchId}
@@ -37,7 +41,10 @@ const TournamentScheduleCard = ({ item }) => {
               onClick={() => navigate(`${id}/match/${match.matchId}`)}
             >
               <div className="tournament-schedule-card-header-time absolute bottom-0 left-0 z-10 w-full flex items-center justify-center ">
-                <h2 className="text-[0.7rem] font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative" dir="ltr">
+                <h2
+                  className="text-[0.7rem] font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative"
+                  dir="ltr"
+                >
                   {new Date(match.createdAt).toLocaleDateString("en-GB", {
                     day: "2-digit",
                     month: "short",
@@ -57,12 +64,41 @@ const TournamentScheduleCard = ({ item }) => {
                     src={getServerURL(match.game.logo)}
                     alt={match.game.name}
                   />
-                  <h2 className="text-sm grad_text-clip font-bold">{match.game.name}</h2>
+                  <h2 className="text-sm grad_text-clip font-bold">
+                    {match.game.name}
+                  </h2>
                 </div>
                 <div className="tournament-schedule-card-footer-right text-right">
-                  {/* <button className="common-process px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">
-                    Progress
-                  </button> */}
+                  {match?.status === "in_progress" ? (
+                    <button className="common-process px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">
+                      {match?.status
+                        ?.replace("_", " ")
+                        .replace(/\b\w/g, (c) => c.toUpperCase())}
+                    </button>
+                  ) : match?.userScore === 0 ? (
+                    <div className="tournament-schedule-card-footer-right text-right">
+                      <button className="common-process px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">
+                        Score{" "}
+                        <span className="font-normal">
+                          ({match?.userScore})
+                        </span>
+                      </button>
+                    </div>
+                  ) : match?.userScore > 0 ? (
+                    <div className="tournament-schedule-card-footer-right text-right">
+                      <button className="common-green px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">
+                        Win{" "}
+                        <span className="font-normal">
+                          ({match?.userScore})
+                        </span>
+                      </button>
+                    </div>
+                  ) : (
+                    <button className="common-red px-1.5 py-[0.2rem] cursor-pointer text-[0.75rem] font-bold">
+                      Lose{" "}
+                      <span className="font-normal">({match?.userScore})</span>
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="tournament-schedule-card-wrapper relative  p-2  md:px-3 ">
