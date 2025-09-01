@@ -60,11 +60,10 @@ export default function BattleRoyalStage() {
                   <button
                     onClick={() => handleActiveTournamentTab(1)}
                     class={`w-[10rem] h-[4rem] md:py-2 ltr:md:px-2.5 rtl:md:px-0.5 ltr:px-4 rtl:px-2 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
-                    ${
-                      activeTournamentTab === 1
+                    ${activeTournamentTab === 1
                         ? "active-tab hover:opacity-100 polygon_border"
                         : ""
-                    }`}
+                      }`}
                   >
                     {t("tournament.group_standings")}
                   </button>
@@ -72,11 +71,10 @@ export default function BattleRoyalStage() {
                   <button
                     onClick={() => handleActiveTournamentTab(2)}
                     class={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
-                    ${
-                      activeTournamentTab === 2
+                    ${activeTournamentTab === 2
                         ? "active-tab hover:opacity-100 polygon_border"
                         : ""
-                    }`}
+                      }`}
                   >
                     {t("tournament.schedule")}
                   </button>
@@ -92,20 +90,24 @@ export default function BattleRoyalStage() {
                   onClick={() => dispatch(setShowCalendar(!showCalendar))}
                 >
                   <span className="sm:text-lg text-base font-bold">
-                    <>
-                      {new Date(currentDate).toLocaleString("en-US", {
-                        day: "2-digit",
-                      })}{" "}
-                      -{" "}
-                      {new Date(nextDayDate).toLocaleString("en-US", {
-                        day: "2-digit",
-                      })}{" "}
-                      <span className="font-normal">
+                    {currentDate && nextDayDate ? (
+                      <>
                         {new Date(currentDate).toLocaleString("en-US", {
-                          month: "short",
-                        })}
-                      </span>
-                    </>
+                          day: "2-digit",
+                        })}{" "}
+                        -{" "}
+                        {new Date(nextDayDate).toLocaleString("en-US", {
+                          day: "2-digit",
+                        })}{" "}
+                        <span className="font-normal">
+                          {new Date(currentDate).toLocaleString("en-US", {
+                            month: "short",
+                          })}
+                        </span>
+                      </>
+                    ) : (
+                      "Select Date"
+                    )}
                   </span>
                   <img
                     className="w-3.5 h-2 object-cover object-center"
@@ -119,19 +121,18 @@ export default function BattleRoyalStage() {
               {showCalendar && activeTournamentTab === 2 && (
                 <div
                   id="calendar-popup"
-                  className={`open-cal absolute ltr:right-0 rtl:left-0 z-50 ${
-                    window.innerHeight -
-                      document
-                        .getElementById("calendar-popup-btn")
-                        ?.getBoundingClientRect().bottom <
+                  className={`open-cal absolute ltr:right-0 rtl:left-0 z-50 ${window.innerHeight -
+                    document
+                      .getElementById("calendar-popup-btn")
+                      ?.getBoundingClientRect().bottom <
                     300
-                      ? "bottom-[100%] mb-2"
-                      : "top-[100%] mt-2"
-                  }`}
+                    ? "bottom-[100%] mb-2"
+                    : "top-[100%] mt-2"
+                    }`}
                 >
                   <TournamentDatepiker
-                    startDate={new Date(currentDate)}
-                    endDate={new Date(nextDayDate)}
+                    startDate={currentDate ? new Date(currentDate) : null}
+                    endDate={nextDayDate ? new Date(nextDayDate) : null}
                   />
                 </div>
               )}

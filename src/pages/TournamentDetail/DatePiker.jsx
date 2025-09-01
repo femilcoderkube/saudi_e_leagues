@@ -5,14 +5,12 @@ import { setShowCalendar, setDateRange } from '../../app/slices/constState/const
 import { setcurrentDate, setnextDayDate } from '../../app/slices/tournamentSlice/tournamentSlice';
 
 const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate }) => {
-  const [currentDate, setCurrentDate] = useState(new Date(propStartDate));
-  const [startDate, setStartDate] = useState(propStartDate || null);
-  const [endDate, setEndDate] = useState(propEndDate || null);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(propStartDate ? new Date(propStartDate) : null);
+  const [endDate, setEndDate] = useState(propEndDate ? new Date(propEndDate) : null);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-    // Initialize with Redux state if available, otherwise use props
     if (propStartDate && propStartDate) {
       setStartDate(new Date(propStartDate));
       setEndDate(new Date(propEndDate));
@@ -20,7 +18,7 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
       setStartDate(propStartDate || null);
       setEndDate(propEndDate || null);
     }
-  }, [propStartDate, propEndDate ]);
+  }, [propStartDate, propEndDate]);
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -79,7 +77,7 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
     } else if (clickedDate < startDate) {
       setStartDate(clickedDate);
       setEndDate(null);
-    } else if(clickedDate != startDate ) {
+    } else if (clickedDate != startDate) {
       // setStartDate(clickedDate);
       setEndDate(clickedDate);
     }
@@ -109,10 +107,10 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
   const handleUpdate = () => {
     dispatch(setShowCalendar(false));
 
-    dispatch(setcurrentDate(startDate?.toString()));
-    dispatch(setnextDayDate(endDate?.toString() || new Date(startDate.getTime() + 86400000).toString()));
+    dispatch(setcurrentDate(startDate ? startDate.toString() : null));
+    dispatch(setnextDayDate(endDate ? endDate.toString() : null));
     // dispatch(setnextDayDate(endDate))
-    
+
     if (onUpdate) {
       onUpdate(startDate, endDate);
     }
@@ -134,13 +132,13 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
           {months[currentDate.getMonth()]}, {currentDate.getFullYear()}
         </h2>
         <div className="flex">
-          <button 
+          <button
             onClick={() => changeMonth(-1)}
             className="p-1 hover:bg-slate-700 rounded transition-colors"
           >
             <ChevronUp size={16} />
           </button>
-          <button 
+          <button
             onClick={() => changeMonth(1)}
             className="p-1 hover:bg-slate-700 rounded transition-colors"
           >
@@ -209,13 +207,13 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
       })}
       {/* Actions */}
       <div className="flex justify-end">
-        <button 
+        <button
           onClick={handleReset}
           className="px-8 py-3 text-[#9E9ECC] hover:text-white transition-colors text-base font-bold cursor-pointer"
         >
           Reset
         </button>
-        <button 
+        <button
           onClick={handleUpdate}
           className="update-btn px-[2.2rem] py-3 rounded-lg text-white text-base font-bold cursor-pointer"
         >

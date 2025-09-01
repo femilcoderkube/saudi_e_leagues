@@ -163,12 +163,12 @@ const HowToPlaySection = React.memo(({ id }) => {
             </motion.div>
 
             <div className="btn_polygon--mask how-to-play-mb-btn inline-flex sm:hidden  max-w-[fit-content] justify-center relative hover:opacity-70 duration-400">
-                <Link
-                    to={"#"}
-                    className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center"
+                <div
+                    onClick={handleGoPlayNow}
+                    className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center cursor-pointer"
                 >
                     {t("homepage.go_play_now")}
-                </Link>
+                </div>
             </div>
 
             <svg

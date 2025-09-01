@@ -6,10 +6,10 @@ const initialState = {
   tournamentStages: null,
   battleRoyalGroup: null,
   battleRoyalSchedule: null,
-  stageSettings : null,
-  loader :false,
+  stageSettings: null,
+  loader: false,
   activeStage: 0,
-    currentDate: Date.now(), // store timestamp
+  currentDate: null, // store timestamp
   nextDayDate: Date.now() + 86400000 // store timestamp
 
 };
@@ -18,25 +18,25 @@ const tournamentSlice = createSlice({
   name: "tournament",
   initialState,
   reducers: {
-    clearData:(state)=>{
+    clearData: (state) => {
       state.tournamentStages = null;
       state.battleRoyalGroup = null;
       state.battleRoyalSchedule = null;
-      state.stageSettings =null;
+      state.stageSettings = null;
       state.tournamentData = null;
     },
     setActiveStage: (state, action) => {
       state.tournamentStages = null;
       state.battleRoyalGroup = null;
       state.battleRoyalSchedule = null;
-      state.stageSettings= null;
-      state.loader =true
+      state.stageSettings = null;
+      state.loader = true
       state.activeStage = action.payload;
     },
-    setcurrentDate:(state, action) => {
+    setcurrentDate: (state, action) => {
       state.currentDate = action.payload;
     },
-    setnextDayDate:(state, action) => {
+    setnextDayDate: (state, action) => {
       state.nextDayDate = action.payload;
     },
     setTournamentData: (state, action) => {
@@ -51,20 +51,20 @@ const tournamentSlice = createSlice({
       } else {
         state.tournamentStages = action.payload.data || {};
       }
-      state.loader =false
+      state.loader = false
     },
   },
-   middleware: (getDefaultMiddleware) =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredPaths: ['tournament.currentDate', 'tournament.nextDayDate'],
         ignoredActionPaths: ['payload'], // optional
       },
     }),
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => { },
 });
 
-export const { setTournamentData, setActiveStage,clearData, setTournamentStages, setnextDayDate ,setcurrentDate } =
+export const { setTournamentData, setActiveStage, clearData, setTournamentStages, setnextDayDate, setcurrentDate } =
   tournamentSlice.actions;
 
 export default tournamentSlice.reducer;
