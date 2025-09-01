@@ -9,11 +9,12 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import LeaderBoardHeader from "./LeaderBoardHeader";
 import LeaderBoardRow from "./LeaderBoardRow";
+import center_league from "../../../assets/images/center_league.png";
 
 const LeaderBoard = () => {
   const { t } = useTranslation();
-  const { leagueData } = useSelector((state) => state.leagues);
-  let requestedUser = leagueData?.leaderBoard?.requestedUser || null;
+  const { leagueData, leaderBoard } = useSelector((state) => state.leagues);
+  let requestedUser = leaderBoard?.requestedUser || null;
   if (requestedUser) {
     let user = {
       username: requestedUser?.userId?.username,
@@ -44,7 +45,7 @@ const LeaderBoard = () => {
     requestedUser = user;
     // var index = requestedUser.rank - 1;
   }
-  if (leagueData?.leaderBoard?.topUsers?.length === 0 && !requestedUser) {
+  if (leaderBoard?.topUsers?.length === 0 && !requestedUser) {
     return (
       <div className="leaderboard-wrapper md:pt-8">
         <h2 className="text-center md:text-start text-2xl !font-bold">
@@ -55,6 +56,16 @@ const LeaderBoard = () => {
         </p>
       </div>
     );
+  }
+  if (!leaderBoard) {
+    return (<div className="flex justify-center items-center">
+      <img
+        className="center-league-loader ms-50 mt-30"
+        src={center_league}
+        alt=""
+        style={{ width: "11rem" }}
+      />
+    </div>);
   }
   return (
     <div className="leaderboard-wrapper md:pt-8">
@@ -68,7 +79,7 @@ const LeaderBoard = () => {
             playersPerTeam={leagueData.playersPerTeam}
           />
         )}
-        {leagueData?.leaderBoard?.topUsers?.map((data, index) => {
+        {leaderBoard?.topUsers?.map((data, index) => {
           let user = {
             username: data?.userId?.username,
             points: data?.totalLeaguesScore
@@ -97,7 +108,7 @@ const LeaderBoard = () => {
                     ? bronze_bedge
                     : blue_bedge,
             itsYou:
-              data?.userId?._id === leagueData?.leaderBoard?.requestedUser?.userId?._id,
+              data?.userId?._id === leaderBoard?.requestedUser?.userId?._id,
           };
           return (
             <LeaderBoardRow

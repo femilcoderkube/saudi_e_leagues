@@ -14,13 +14,17 @@ const initialState = {
   isMatchJoind: null,
   starOfTheWeek: [],
   userInQueue: false,
-  queuePlayers : 1
+  queuePlayers: 1,
+  leaderBoard:null
 };
 
 const leagueDetailSlice = createSlice({
   name: "leagueDetail",
   initialState,
   reducers: {
+    resetLeaderBoard: (state, action) => {
+      state.leaderBoard = null;
+    },
     setUserInQueue: (state, action) => {
       state.userInQueue = action.payload;
     },
@@ -55,8 +59,19 @@ const leagueDetailSlice = createSlice({
       }
       state.isQueueUser = false;
     },
+    setLeaderBoard: (state, action) => {
+      if (action.payload) {
+        if (
+          !action.payload.requestedUser &&
+          state.leaderBoard?.requestedUser
+        ) {
+          action.payload.requestedUser =
+            state.leaderBoard.requestedUser;
+        }
+      }
+      state.leaderBoard = action.payload;
+    },
     setLeagueData: (state, action) => {
-      // Fix: Avoid optional chaining on left-hand side and preserve requestedUser if missing
       if (action.payload?.leaderBoard) {
         if (
           !action.payload.leaderBoard.requestedUser &&
@@ -109,6 +124,8 @@ export const {
   setWeekOfStarUsers,
   setUserInQueue,
   setQueuePlayers,
+  resetLeaderBoard,
+  setLeaderBoard
 } = leagueDetailSlice.actions;
 
 export default leagueDetailSlice.reducer;

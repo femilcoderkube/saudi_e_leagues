@@ -42,6 +42,7 @@ const LeagueDetail = () => {
     leagueData,
     registrationModal,
     verificationModal,
+    leaderBoard,
     verificationModule,
   } = useSelector((state) => state.leagues);
   const { t, i18n } = useTranslation();
@@ -123,7 +124,7 @@ const LeagueDetail = () => {
                     className="absolute top-0 left-0 w-full h-full object-contain"
                     src={getServerURL(leagueData?.headerPhoto)}
                     alt=""
-                    // style={{ width: "41rem" }}
+                  // style={{ width: "41rem" }}
                   />
                 </div>
                 {/* <div className="player_one sd_before relative gradiant_bg con_center -left-7 sm:left-0">

@@ -9,6 +9,8 @@ import {
 } from "../../utils/constant";
 import {
   removeFromQueue,
+  resetLeaderBoard,
+  setLeaderBoard,
   setLeagueData,
   setQueuePlayers,
   setRegistrationModal,
@@ -161,6 +163,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
     // Remove any previous listener to prevent duplicate handlers
     stopLeagueSocket();
+    store.dispatch(resetLeaderBoard())
 
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
       // console.log("League Update Data:", data);
@@ -170,13 +173,19 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
       if (window.location.pathname.includes(data?.data?._id?.toString())) {
         data.data.userId = user?._id;
-        if (data.data?.leaderBoard?.requestedUser?.userId?._id == user?._id) {
-          store.dispatch(setLeagueData(data.data));
-        } else {
-          delete data.data.leaderBoard.requestedUser;
-          store.dispatch(setLeagueData(data.data));
-        }
+        store.dispatch(setLeagueData(data.data));
         store.dispatch(setIsMatctCreated(false));
+      }
+    });
+    socket.on(SOCKET.GETLEADERBOARD, (data) => {
+      if (window.location.pathname.includes(data?.Lid?.toString())) {
+        data.data.userId = user?._id;
+        if (data.data?.requestedUser?.userId?._id == user?._id) {
+          store.dispatch(setLeaderBoard(data.data));
+        } else {
+          delete data.data.requestedUser;
+          store.dispatch(setLeaderBoard(data.data));
+        }
       }
     });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });

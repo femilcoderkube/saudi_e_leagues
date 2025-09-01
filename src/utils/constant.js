@@ -61,7 +61,7 @@ export const SOCKET = {
   GETDRAFTDATA: "getDraftData",
   ONDRAFTDATAUPDATE: "onDraftDataUpdate",
   SETPICKEDDRAFTPLAYER: "setPickedDraftPlayer",
-
+  GETLEADERBOARD: "getLeaderBoard",
   GETMATCHT: "getMatchT",
   ONMATCHT: "onMatchT",
   ISBANUSER: "isBanUser",
