@@ -6,8 +6,8 @@ import { setcurrentDate, setnextDayDate } from '../../app/slices/tournamentSlice
 
 const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [startDate, setStartDate] = useState(propStartDate ? new Date(propStartDate) : null);
-  const [endDate, setEndDate] = useState(propEndDate ? new Date(propEndDate) : null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,8 +15,8 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
       setStartDate(new Date(propStartDate));
       setEndDate(new Date(propEndDate));
     } else {
-      setStartDate(propStartDate || null);
-      setEndDate(propEndDate || null);
+      setStartDate(null);
+      setEndDate( null);
     }
   }, [propStartDate, propEndDate]);
 

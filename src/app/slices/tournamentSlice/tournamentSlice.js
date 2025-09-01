@@ -24,6 +24,9 @@ const tournamentSlice = createSlice({
       state.battleRoyalSchedule = null;
       state.stageSettings = null;
       state.tournamentData = null;
+      state.currentDate= null;
+      state.nextDayDate= Date.now() + 86400000;
+
     },
     setActiveStage: (state, action) => {
       state.tournamentStages = null;
@@ -32,6 +35,8 @@ const tournamentSlice = createSlice({
       state.stageSettings = null;
       state.loader = true
       state.activeStage = action.payload;
+            state.currentDate= null;
+      state.nextDayDate= Date.now() + 86400000;
     },
     setcurrentDate: (state, action) => {
       state.currentDate = action.payload;
@@ -41,6 +46,8 @@ const tournamentSlice = createSlice({
     },
     setTournamentData: (state, action) => {
       state.tournamentData = action.payload;
+            state.currentDate= null;
+      state.nextDayDate= Date.now() + 86400000;
     },
     setTournamentStages: (state, action) => {
       if (action.payload.stageType == stageTypes.BattleRoyal) {
@@ -53,6 +60,10 @@ const tournamentSlice = createSlice({
       }
       state.loader = false
     },
+    resetDateFilter: (state) => {
+           state.currentDate= null;
+      state.nextDayDate= Date.now() + 86400000;
+    }
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
