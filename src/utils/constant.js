@@ -35,7 +35,6 @@ export const SOCKET = {
   JOINLEAGUE: "joinLeague",
   LEAVELEAGUE: "LeaveLeague",
   LEAGUEUPDATE: "leagueUpdate",
-  LEADERBOARDUPDATE: "leaderboardUpdate",
   LEAGUEJOIN: "leagueJoin",
   READYTOPLAY: "readyToPlay",
   NOTREADYTOPLAY: "notReadyToPlay",
