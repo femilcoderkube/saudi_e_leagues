@@ -41,7 +41,7 @@ import {
   setSubmitModal,
 } from "../../app/slices/constState/constStateSlice.js";
 import { useTranslation } from "react-i18next";
-    // <-- Make sure this path is correct
+// <-- Make sure this path is correct
 
 {
   /* === BreadCrumb items array ==== */
@@ -55,12 +55,13 @@ const LanguageToggle = () => {
     const newLang = i18n.language === "en" ? "ar" : "en";
     i18n.changeLanguage(newLang);
     localStorage.setItem("lang", newLang);
-    let type = localStorage.getItem("deviceType")
+    let type = localStorage.getItem("deviceType");
     if (type == "mobile") {
       window.AndroidInterface?.languageCallbackHandler(`${newLang}`);
-      window.webkit?.messageHandlers?.languageCallbackHandler?.postMessage(`${newLang}`);
+      window.webkit?.messageHandlers?.languageCallbackHandler?.postMessage(
+        `${newLang}`
+      );
     }
-
   };
 
   return (
@@ -87,7 +88,9 @@ const LanguageToggle = () => {
 const NotificationIcon = ({ user }) => {
   const dispatch = useDispatch();
   const { showNotification } = useSelector((state) => state.constState);
-  const { unReadNotificationCount } = useSelector((state) => state.notification);
+  const { unReadNotificationCount } = useSelector(
+    (state) => state.notification
+  );
 
   const handleNotificationToggle = () => {
     dispatch(setshowNotification(!showNotification));
@@ -120,10 +123,14 @@ const AuthButtons = ({ isMobile = false }) => {
         className="sm:hidden flex ltr:ml-3 rtl:mr-3"
         onClick={(e) => {
           e.preventDefault();
-          let type = localStorage.getItem("deviceType")
+          let type = localStorage.getItem("deviceType");
           if (type == "mobile") {
-            window.AndroidInterface?.signInCallbackHandler(`${window.location.href}`);
-            window.webkit?.messageHandlers?.signInCallbackHandler?.postMessage(`${window.location.href}`);
+            window.AndroidInterface?.signInCallbackHandler(
+              `${window.location.href}`
+            );
+            window.webkit?.messageHandlers?.signInCallbackHandler?.postMessage(
+              `${window.location.href}`
+            );
           } else {
             dispatch(setLogin(true));
           }
@@ -196,7 +203,17 @@ const BackButton = ({ onClick, className = "" }) => {
 };
 
 // Match Controls Component
-const MatchControls = ({ user, isCaptain, IsSubmited, isEditScore, showCancelBtn, cancelMatchCount, isMatchCanceled, matchData, isMyMatch }) => {
+const MatchControls = ({
+  user,
+  isCaptain,
+  IsSubmited,
+  isEditScore,
+  showCancelBtn,
+  cancelMatchCount,
+  isMatchCanceled,
+  matchData,
+  isMyMatch,
+}) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -204,46 +221,69 @@ const MatchControls = ({ user, isCaptain, IsSubmited, isEditScore, showCancelBtn
 
   return (
     <div className="flex items-center gap-3">
-      {isMyMatch && (!IsSubmited || isEditScore != null) && !matchData?.isCanceled && showCancelBtn && (
-        <div
-          className={`cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ${isMatchCanceled ? "!cursor-not-allowed" : "cursor-pointer"}`}
-          onClick={() => isMatchCanceled ? null :dispatch(setConfirmationPopUp(2))}
-        >
-          <div className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
-            {t("match.cancel_match")} {cancelMatchCount}
+      {isMyMatch &&
+        (!IsSubmited || isEditScore != null) &&
+        !matchData?.isCanceled &&
+        showCancelBtn && (
+          <div
+            className={`cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ${
+              isMatchCanceled ? "!cursor-not-allowed" : "cursor-pointer"
+            }`}
+            onClick={() =>
+              isMatchCanceled ? null : dispatch(setConfirmationPopUp(2))
+            }
+          >
+            <div className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
+              {t("match.cancel_match")} {cancelMatchCount}
+            </div>
+            <svg
+              width="0"
+              height="0"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ position: "absolute" }}
+            >
+              <defs>
+                <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
+                  <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
+                </clipPath>
+              </defs>
+            </svg>
           </div>
-          <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute" }}>
-            <defs>
-              <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
-                <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
-              </clipPath>
-            </defs>
-          </svg>
-        </div>
-      )}
-      {isCaptain && (!IsSubmited || isEditScore != null) && !matchData?.isCanceled && (
-        <div
-          className="submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
-          onClick={() => dispatch(setSubmitModal(true))}
-        >
-          <Link className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
-            {IsSubmited ? t("auth.view_score") : t("auth.submit_score")}
-          </Link>
-          <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute" }}>
-            <defs>
-              <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
-                <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
-              </clipPath>
-            </defs>
-          </svg>
-        </div>
-      )}
+        )}
+      {isCaptain &&
+        (!IsSubmited || isEditScore != null) &&
+        !matchData?.isCanceled && (
+          <div
+            className="submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
+            onClick={() => dispatch(setSubmitModal(true))}
+          >
+            <Link className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
+              {IsSubmited ? t("auth.view_score") : t("auth.submit_score")}
+            </Link>
+            <svg
+              width="0"
+              height="0"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ position: "absolute" }}
+            >
+              <defs>
+                <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
+                  <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+        )}
     </div>
   );
 };
 
 // Breadcrumb Component
-const BreadcrumbNavigation = ({ breadcrumbItems, mainItem, profileVisible }) => {
+const BreadcrumbNavigation = ({
+  breadcrumbItems,
+  mainItem,
+  profileVisible,
+}) => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigator = useNavigate();
@@ -255,11 +295,16 @@ const BreadcrumbNavigation = ({ breadcrumbItems, mainItem, profileVisible }) => 
       <nav className="breadcrumb flex-grow-1 lg:flex hidden">
         <ul className="breadcrumb-links flex items-center gap-2.5 md:gap-5">
           {breadcrumbItems.map((item, index) => (
-            <li key={index} className="sm:flex hidden items-center gap-2 sm:gap-4 md:gap-7">
+            <li
+              key={index}
+              className="sm:flex hidden items-center gap-2 sm:gap-4 md:gap-7"
+            >
               <div className="breadcrumb-box flex items-center gap-2">
                 <Link
                   to={item.path}
-                  className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${item.active ? "sky_col font-semibold" : ""}`}
+                  className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
+                    item.active ? "sky_col font-semibold" : ""
+                  }`}
                 >
                   {item.label && (
                     <item.icon IsActive={item.active} className="text-white" />
@@ -322,9 +367,16 @@ const BreadcrumbNavigation = ({ breadcrumbItems, mainItem, profileVisible }) => 
                 >
                   {mainItem.label &&
                     (mainItem.label !== t("navigation.home") ? (
-                      <mainItem.icon IsActive={mainItem.active} className="text-white" />
+                      <mainItem.icon
+                        IsActive={mainItem.active}
+                        className="text-white"
+                      />
                     ) : (
-                      <img src={primeIcon} alt="prime" className="text-white w-8 h-8" />
+                      <img
+                        src={primeIcon}
+                        alt="prime"
+                        className="text-white w-8 h-8"
+                      />
                     ))}
                   {mainItem.label !== t("navigation.home")
                     ? mainItem.label
@@ -384,15 +436,18 @@ const MobileNavigation = ({ user, isActiveTab, breadcrumbItems }) => {
 
   return (
     <div
-      className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${breadcrumbItems?.length == 3 ? "hidden " : ""
-        }${user ? "" : "nav-condition"}`}
+      className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${
+        breadcrumbItems?.length == 3 ? "hidden " : ""
+      }${user ? "" : "nav-condition"}`}
     >
       <div className="sq__main-wrap h-full">
         <ul className="listWrap h-full flex justify-around items-center">
           {navigationItems.map((item) => (
             <li
               key={item.id}
-              className={`list flex-1 ${isActiveTab == item.id ? "active" : ""}`}
+              className={`list flex-1 ${
+                isActiveTab == item.id ? "active" : ""
+              }`}
               onClick={() => handleNavClick(item)}
             >
               <a
@@ -400,7 +455,11 @@ const MobileNavigation = ({ user, isActiveTab, breadcrumbItems }) => {
                 className="flex flex-wrap gap-1 justify-center items-center"
               >
                 <i className="icon inline text-center">
-                  <img className="w-[2rem] h-[2rem]" src={item.icon} alt={item.label} />
+                  <img
+                    className="w-[2rem] h-[2rem]"
+                    src={item.icon}
+                    alt={item.label}
+                  />
                 </i>
                 <span className="text purple_col w-full text-center">
                   {item.label}
@@ -430,15 +489,22 @@ const Header = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { matchData, isCaptain, IsSubmited, isEditScore, myPId, showCancelBtn, cancelMatchCount, isMyMatch, isMatchCanceled } = useSelector(
-    (state) => state.matchs
-  );
+  const {
+    matchData,
+    isCaptain,
+    IsSubmited,
+    isEditScore,
+    myPId,
+    showCancelBtn,
+    cancelMatchCount,
+    isMyMatch,
+    isMatchCanceled,
+  } = useSelector((state) => state.matchs);
   const { matchDataT } = useSelector((state) => state.tournamentMatch);
-
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
-  useEffect(() => { }, [matchData, matchDataT, user, location]);
+  useEffect(() => {}, [matchData, matchDataT, user, location]);
   const userUpdate = useSelector((state) => state.auth.user);
 
   const { i18n, t } = useTranslation();
@@ -492,7 +558,10 @@ const Header = () => {
       breadcrumbItems.pop();
     }
     let item = {
-      label: i18n.language === "en" ? tournamentData?.title : tournamentData?.titleAr,
+      label:
+        i18n.language === "en"
+          ? tournamentData?.title
+          : tournamentData?.titleAr,
       path: `/${params.id}/lobby/tournament/${params.tId}`,
       icon: Champions,
       active: true,
@@ -509,7 +578,10 @@ const Header = () => {
       breadcrumbItems.pop();
     }
     let item = {
-      label: i18n.language === "en" ? draftData?.leagueId?.title : draftData?.leagueId?.titleAr,
+      label:
+        i18n.language === "en"
+          ? draftData?.leagueId?.title
+          : draftData?.leagueId?.titleAr,
       path: `/${params.id}/lobby/${draftData?.leagueId?._id}`,
       icon: Champions,
       active: false,
@@ -551,14 +623,17 @@ const Header = () => {
     // Get title based on language and type
     const getTitle = () => {
       if (isTournament) {
-        return isEnglish ? matchDataT?.tournament?.title : matchDataT?.tournament?.titleAr;
+        return isEnglish
+          ? matchDataT?.tournament?.title
+          : matchDataT?.tournament?.titleAr;
       }
       return isEnglish ? matchData?.league?.title : matchData?.league?.titleAr;
     };
 
     // Get match ID
     const getMatchId = () => {
-      if (isTournament && matchDataT?.config?.id) return `#${matchDataT?.config?.id}`;
+      if (isTournament && matchDataT?.config?.id != null)
+        return `#${matchDataT?.config?.id + 1}`;
       return matchData?.matchTempId || "#";
     };
 
@@ -575,10 +650,12 @@ const Header = () => {
 
     // Common header styles
     const headerStyles = {
-      background: "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
+      background:
+        "linear-gradient(180deg,rgba(94, 95, 184, 0.25) 0%, rgba(94, 95, 184, 0) 120%)",
     };
 
-    const baseHeaderClass = "header_teture--bg text-white flex items-center sd_before before:w-full before:h-full relative";
+    const baseHeaderClass =
+      "header_teture--bg text-white flex items-center sd_before before:w-full before:h-full relative";
 
     // Render match header (when params.mId exists)
     if (params.mId) {
@@ -596,13 +673,13 @@ const Header = () => {
                   navigator(pathId);
                 } else {
                   navigator(-1);
-                 
                 }
                 dispatch(setGameMatchLoader(false));
               }}
             />
             <h2 className="lg:text-[2rem] text-[1.25rem] !font-black uppercase block ltr:ml-12 rtl:mr-12">
-              {title || t("match.finding_matchmaking")} - {t("match.match")} {matchId}
+              {title || t("match.finding_matchmaking")} - {t("match.match")}{" "}
+              {matchId}
             </h2>
           </div>
 
@@ -643,12 +720,14 @@ const Header = () => {
         <BackButton
           className="absolute ltr:left-[5rem] rtl:right-[5rem]"
           onClick={() => {
-            navigator(-1)
+            navigator(-1);
             dispatch(setGameMatchLoader(false));
           }}
         />
         <h2 className="sm:text-[2rem] text-lg !font-black uppercase text-center block">
-          {isEnglish ? leagueData?.title : leagueData?.titleAr || t("match.finding_matchmaking")}
+          {isEnglish
+            ? leagueData?.title
+            : leagueData?.titleAr || t("match.finding_matchmaking")}
         </h2>
         <MobileNavigation
           user={user}
