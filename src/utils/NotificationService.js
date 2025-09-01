@@ -13,7 +13,7 @@ export async function requestPermission() {
       const token = await genrateFCMToken();
       getUpdateToken(token);
     } else if (permission === "denied") {
-      alert("You denied for the notification");
+      // alert("You denied for the notification");
     }
   }
 }

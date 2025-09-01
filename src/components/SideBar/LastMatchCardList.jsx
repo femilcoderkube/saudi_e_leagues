@@ -49,6 +49,7 @@ const TournamentScheduleCard = ({ item }) => {
                     {new Date(match.createdAt).toLocaleTimeString("en-GB", {
                       hour: "2-digit",
                       minute: "2-digit",
+                      hour12: true
                     })}
                   </span>
                 </h2>
@@ -99,7 +100,7 @@ const TournamentScheduleCard = ({ item }) => {
               <div className="tournament-schedule-card-wrapper relative  p-2  md:px-3 ">
                 <div className="tournament-schedule-card-header flex justify-between items-center relative gap-6 mt-4">
                   <div className="tournament-schedule-card-header-left flex items-center gap-3 md:gap-4 relative z-10">
-                    <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
+                    {/* <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
                       <img
                         src={
                           match.game.logo
@@ -109,7 +110,7 @@ const TournamentScheduleCard = ({ item }) => {
                         alt="tournament-schedule"
                         className="w-full h-full object-cover"
                       />
-                    </div>
+                    </div> */}
                     <h2 className="text-[1.75rem] grad_text-clip font-bold font_oswald text-white">
                       {match?.teamOneScore || "-"}
                     </h2>
@@ -125,7 +126,7 @@ const TournamentScheduleCard = ({ item }) => {
                     <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
                       {match?.teamTwoScore  || "-"}
                     </h2>
-                    <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
+                    {/* <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
                       <img
                         src={
                           match.game.logo
@@ -135,7 +136,7 @@ const TournamentScheduleCard = ({ item }) => {
                         alt="tournament-schedule"
                         className="w-full h-full object-cover"
                       />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 

@@ -187,7 +187,7 @@
     "chat": "Chat",
     "match_chat": "MATCH CHAT",
     "match": "Match",
-    "cancel_match": "Cancel Match"
+    "cancel_match": "Request Admin"
   },
   "rules": {
     "rules_and_regulations": "Rules and Regulations",
@@ -388,7 +388,7 @@
     "logoutMessage": "You will be logged out of your account. Any unsaved changes will be lost.",
     "logoutConfirm": "Logout",
     "cancel": "Cancel",
-    "cancelMatchTitle": "Are you sure you want to cancel the match?",
+    "cancelMatchTitle": "Are you sure you want to request an admin to join the match?",
     "yes": "Yes",
     "no": "No",
     "confirmplayerselection": "Confirm Player Selection",
