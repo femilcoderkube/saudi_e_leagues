@@ -72,15 +72,15 @@ const leagueDetailSlice = createSlice({
       state.leaderBoard = action.payload;
     },
     setLeagueData: (state, action) => {
-      if (action.payload?.leaderBoard) {
-        if (
-          !action.payload.leaderBoard.requestedUser &&
-          state.leagueData?.leaderBoard?.requestedUser
-        ) {
-          action.payload.leaderBoard.requestedUser =
-            state.leagueData.leaderBoard.requestedUser;
-        }
-      }
+      // if (action.payload?.leaderBoard) {
+      //   if (
+      //     !action.payload.leaderBoard.requestedUser &&
+      //     state.leagueData?.leaderBoard?.requestedUser
+      //   ) {
+      //     action.payload.leaderBoard.requestedUser =
+      //       state.leagueData.leaderBoard.requestedUser;
+      //   }
+      // }
       state.leagueData = action.payload;
       state.isMatchJoind = null;
       state.isQueueUser = null;
