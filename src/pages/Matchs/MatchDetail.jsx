@@ -3,11 +3,10 @@ import "../../assets/css/Matchmaking.css";
 import MatchMakingBG from "../../assets/images/matchmakingBG.png";
 import ChatIcon from "../../assets/images/chat_icon.png";
 import ChatArr from "../../assets/images/chat_arr.png";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   getPartnerById,
   getRandomColor,
-  getServerURL,
 } from "../../utils/constant";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +31,6 @@ import {
 import {
   leftToRight,
   rightToLeft,
-  cardVariantsAni,
 } from "../../components/Animation/animation.jsx";
 import { AnimatePresence, motion } from "framer-motion";
 const MatchDetail = () => {
@@ -51,7 +49,6 @@ const MatchDetail = () => {
     showCancelBtn,
     timeout,
     isMyMatch,
-    isMatchCanceled,
     cancelMatchCount,
   } = useSelector((state) => state.matchs);
   const { gameMatchLoader } = useSelector((state) => state.constState);
@@ -106,7 +103,6 @@ const MatchDetail = () => {
   };
   const scrollAnchorRef = useRef(null);
   useEffect(() => {
-    // Scroll to the invisible anchor (which is at the top due to flex-col-reverse)
     if (scrollAnchorRef.current && !showMobileChat) {
       scrollAnchorRef.current.scrollIntoView({ behavior: "smooth" });
     } else if (scrollAnchorRef.current && showMobileChat) {
@@ -293,7 +289,7 @@ const MatchDetail = () => {
                 <div className="chat_block--con pt-[1rem] h-[25rem] sd_before relative flex flex-col max-w-lg mx-auto">
                   <div
                     className="flex-1 flex flex-col-reverse mx-h-[20rem] chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4"
-                    // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
+                  // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
                   >
                     <div ref={scrollAnchorRef}></div>
                     <div className="flex flex-col space-y-1">
@@ -372,11 +368,10 @@ const MatchDetail = () => {
                         }
                         return (
                           <div
-                            className={`block ${
-                              user?._id == chat.senderId?._id
+                            className={`block ${user?._id == chat.senderId?._id
                                 ? "send_msg-con"
                                 : "reply_msg-con"
-                            }`}
+                              }`}
                           >
                             <div className="px-2 py-1 rounded-lg">
                               <p className="text-white text-lg font-light">
@@ -484,7 +479,6 @@ const MatchDetail = () => {
                             Array.isArray(chat.messages) &&
                             chat.messages.length > 0
                           ) {
-                            // Render each system message as a separate div
                             return chat.messages
                               .filter((msg) => msg)
                               .map((msg, msgIdx) => (
@@ -494,7 +488,7 @@ const MatchDetail = () => {
                                       <span
                                         className="!font-bold"
                                         style={{
-                                          color: "red", // Apply random color based on senderId
+                                          color: "red",
                                         }}
                                       >
                                         {t("match.system")}
@@ -529,7 +523,7 @@ const MatchDetail = () => {
                                       <span
                                         className="!font-bold"
                                         style={{
-                                          color: "red", // Apply random color based on senderId
+                                          color: "red",
                                         }}
                                       >
                                         {t("match.system")}
@@ -550,115 +544,30 @@ const MatchDetail = () => {
                           }
                           return (
                             <div className="flex items-center gap-4 pb-6">
-                              <div
-                                className={`w-10 h-10 rounded-full flex items-center justify-cente flex-shrink-0`}
-                              >
-                                <span className="text-lg  rounded-full">
-                                  {chat?.isAdmin ? (
-                                    <div
-                                      style={{
-                                        width: "2.5rem",
-                                        height: "2.5rem",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        background: "#181b45",
-                                        color: "red",
-                                        fontWeight: "bold",
-                                        fontSize: "1.5rem",
-                                        borderRadius: "50%",
-                                      }}
-                                    >
-                                      {"A"}
-                                    </div>
-                                  ) : (
-                                    <img
-                                      src={getServerURL(
-                                        chat?.senderId?.profilePicture
-                                      )}
-                                      alt=""
-                                      className="w-10 h-10 rounded-full object-cover"
-                                    />
-                                  )}
-                                </span>
-                              </div>
+
                               <div className="min-w-0">
                                 <div
                                   className="font-bold text-base"
                                   style={{
                                     color: chat?.isAdmin
                                       ? "red"
-                                      : getRandomColor(chat?.senderId?._id), // Apply random color based on senderId
+                                      : getRandomColor(chat?.senderId?._id),
                                   }}
                                 >
                                   {chat?.isAdmin
                                     ? t("match.admin")
                                     : chat?.senderId?.username}
                                 </div>
-                                <div className="text-white text-sm leading-relaxed break-words">
+                                <div className="text-white text-sm leading-relaxed break-words text-center">
                                   {chat.msg}
                                 </div>
                               </div>
                             </div>
-
-                            // <div
-                            //   className={`block ${
-                            //     user?._id == chat.senderId?._id
-                            //       ? "send_msg-con"
-                            //       : "reply_msg-con"
-                            //   }`}
-                            // >
-                            //   <div className="px-2 py-1 rounded-lg">
-                            //     <p className="text-white text-lg font-light">
-                            //       {!chat.isMsg && (
-                            //         <span
-                            //           className="!font-bold"
-                            //           style={{
-                            //             color: chat?.isAdmin
-                            //               ? "red"
-                            //               : getRandomColor(chat?.senderId?._id), // Apply random color based on senderId
-                            //           }}
-                            //         >
-                            //           {chat?.isAdmin
-                            //             ? t("match.admin")
-                            //             : chat?.senderId?.username}{" "}
-                            //           :{" "}
-                            //         </span>
-                            //       )}
-                            //       {chat.isMsg === true ? (
-                            //         <span className="flex justify-center w-full">
-                            //           {chat.msg}
-                            //         </span>
-                            //       ) : (
-                            //         chat.msg
-                            //       )}
-                            //     </p>
-                            //   </div>
-                            // </div>
                           );
                         })}
                         <div ref={scrollAnchorRef}></div>
                       </div>
-                      {/* Messages Container */}
-                      {/* <div className="flex flex-col gap-6 p-6 overflow-y-auto custom_scroll h-[43.3rem]">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-cente flex-shrink-0`}
-                    >
-                      <span className="text-lg">
-                        <img src={ProfileMsg} alt="" />
-                      </span>
-                    </div>
-                    <div className="min-w-0">
-                      <div className="font-bold text-base text-[#F8D372]">
-                        Elon Plush
-                      </div>
-                      <div className="text-white text-sm leading-relaxed break-words">
-                        GG HF
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
+
                     </div>
                     <div className="mob-chat-box p-6 flex items-center">
                       <input
