@@ -1,8 +1,5 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import rules_icon from "../../assets/images/rules_icon.png";
-import match_reg from "../../assets/images/match_reg.png";
-import { Link } from "react-router-dom";
 import { Popup_btn } from "../ui/svg/index.jsx";
 import CustomFileUpload from "../ui/svg/UploadFile.jsx";
 import { useEffect, useState } from "react";
@@ -14,10 +11,10 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 
 function SubmitPopUp({ handleClose }) {
-  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
+  const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
   const dispatch = useDispatch();
-  const { fileUploadLoading, submitScoreLoading } = useSelector((state) => state.matchs);
+  const { submitScoreLoading } = useSelector((state) => state.matchs);
   const { matchData, isEditScore } = useSelector((state) => state.matchs);
   const initialAttachments = isEditScore?.attachment || [];
   const [previewImages, setPreviewImages] = useState(
@@ -44,7 +41,7 @@ function SubmitPopUp({ handleClose }) {
       description: isEditScore?.description || "",
       scoreProofs:
         initialAttachments.length > 0
-          ? [...initialAttachments] // Preserve nulls from the array
+          ? [...initialAttachments]
           : [null],
     },
     validationSchema: Yup.object({
@@ -64,7 +61,23 @@ function SubmitPopUp({ handleClose }) {
           "At least one score proof is required",
           (value) => value.some((file) => file !== null)
         ),
-    }),
+    })
+      .test(
+        "no-draw-scores",
+        "Draw results are not allowed",
+        function (values) {
+          const { yourScore, opponentScore } = values;
+          if (yourScore !== "" && opponentScore !== "" &&
+            !isNaN(yourScore) && !isNaN(opponentScore) &&
+            Number(yourScore) === Number(opponentScore)) {
+            return this.createError({
+              path: 'drawScore',
+              message: 'Draw results are not allowed'
+            });
+          }
+          return true;
+        }
+      ),
     onSubmit: async (values) => {
       if (Number(values.yourScore) === Number(values.opponentScore)) {
         setDrawScoreError("Draw results are not allowed");
@@ -159,8 +172,6 @@ function SubmitPopUp({ handleClose }) {
       .replace(/(\..*)\./g, "$1");
     e.target.value = value;
     formik.handleChange(e);
-
-    setDrawScoreError(null);
   };
 
   const handlePointKeyDown = (e) => {
@@ -318,10 +329,10 @@ function SubmitPopUp({ handleClose }) {
                 </svg>
               </div>
 
-              {drawScoreError && (
+              {formik.errors.drawScore && (
                 <div className="w-full text-center">
-                  <p className="text-red-500 text-sm mt-1 bg-red-100 border border-red-400 rounded px-3 py-2">
-                    {drawScoreError}
+                  <p className="text-red-500 text-sm mt-1 text-left ml-8">
+                    {formik.errors.drawScore}
                   </p>
                 </div>
               )}
