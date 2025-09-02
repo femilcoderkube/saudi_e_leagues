@@ -15,7 +15,7 @@ import { motion } from "framer-motion";
 
 function SubmitPopUp({ handleClose }) {
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
- 
+
   const dispatch = useDispatch();
   const { fileUploadLoading, submitScoreLoading } = useSelector((state) => state.matchs);
   const { matchData, isEditScore } = useSelector((state) => state.matchs);
@@ -23,12 +23,13 @@ function SubmitPopUp({ handleClose }) {
   const [previewImages, setPreviewImages] = useState(
     initialAttachments.length > 0
       ? initialAttachments.map((attachment) =>
-          attachment ? getServerURL(attachment) : null
-        )
+        attachment ? getServerURL(attachment) : null
+      )
       : [null]
   );
   const [fileError, setFileError] = useState(null);
- 
+  const [drawScoreError, setDrawScoreError] = useState(null);
+
   const [uploadCount, setUploadCount] = useState(
     initialAttachments.filter((attachment) => attachment !== null).length
   ); // Count only non-null attachments
@@ -65,6 +66,10 @@ function SubmitPopUp({ handleClose }) {
         ),
     }),
     onSubmit: async (values) => {
+      if (Number(values.yourScore) === Number(values.opponentScore)) {
+        setDrawScoreError("Draw results are not allowed");
+        return;
+      }
       try {
         dispatch(setSubmitScoreLoading(true));
         const uploadPromises = values.scoreProofs.map((file, index) =>
@@ -88,6 +93,7 @@ function SubmitPopUp({ handleClose }) {
         formik.resetForm();
         setPreviewImages([null]);
         setUploadCount(0);
+        setDrawScoreError(null);
         handleClose();
         dispatch(setSubmitScoreLoading(false));
       } catch (error) {
@@ -101,15 +107,14 @@ function SubmitPopUp({ handleClose }) {
       (f) => f !== null
     ).length;
 
-      // Validate file size
-      if (file && file.size > MAX_FILE_SIZE) {
-        setFileError(t("upload.too_large", { limit: "10MB" }));
-        return;
-      }
-      // Clear file error if validation passes
-      setFileError(null);
+    if (file && file.size > MAX_FILE_SIZE) {
+      setFileError(t("upload.too_large", { limit: "10MB" }));
+      return;
+    }
+
+    setFileError(null);
     if (uploadCount >= 5 && file && formik.values.scoreProofs[index] === null) {
-      return; // Prevent new uploads beyond 5, but allow replacements
+      return;
     }
 
     const newScoreProofs = [...formik.values.scoreProofs];
@@ -117,7 +122,7 @@ function SubmitPopUp({ handleClose }) {
 
     if (file) {
       if (newScoreProofs[index] === null) {
-        setUploadCount((prev) => prev + 1); // Increment only for new uploads in null slots
+        setUploadCount((prev) => prev + 1);
       }
       newScoreProofs[index] = file;
       const reader = new FileReader();
@@ -144,7 +149,7 @@ function SubmitPopUp({ handleClose }) {
     newPreviewImages[index] = null;
     setPreviewImages(newPreviewImages);
     if (formik.values.scoreProofs[index] !== null) {
-      setUploadCount((prev) => prev - 1); // Decrement uploadCount only if removing a non-null file
+      setUploadCount((prev) => prev - 1);
     }
   };
 
@@ -154,6 +159,8 @@ function SubmitPopUp({ handleClose }) {
       .replace(/(\..*)\./g, "$1");
     e.target.value = value;
     formik.handleChange(e);
+
+    setDrawScoreError(null);
   };
 
   const handlePointKeyDown = (e) => {
@@ -199,10 +206,10 @@ function SubmitPopUp({ handleClose }) {
 
       <div className="fixed modal_popup-con inset-0 flex justify-center items-center z-50">
         <motion.div className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60"
-        initial={{ scale: 0.5, opacity: 0, y: 50 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.5, opacity: 0, y: 50 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
+          initial={{ scale: 0.5, opacity: 0, y: 50 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.5, opacity: 0, y: 50 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-auto text-white 
     h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden sm:overflow-y-auto">
@@ -311,6 +318,14 @@ function SubmitPopUp({ handleClose }) {
                 </svg>
               </div>
 
+              {drawScoreError && (
+                <div className="w-full text-center">
+                  <p className="text-red-500 text-sm mt-1 bg-red-100 border border-red-400 rounded px-3 py-2">
+                    {drawScoreError}
+                  </p>
+                </div>
+              )}
+
               <div className="text-center w-full">
                 <textarea
                   id="description"
@@ -378,9 +393,8 @@ function SubmitPopUp({ handleClose }) {
                 type="submit"
                 onClick={formik.handleSubmit}
                 disabled={isSubmitDisabled}
-                className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 flex items-center justify-center ${
-                  isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+                className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 flex items-center justify-center ${isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
               >
                 {submitScoreLoading ? (
                   <svg
@@ -407,8 +421,8 @@ function SubmitPopUp({ handleClose }) {
                 {submitScoreLoading
                   ? t("common.uploading")
                   : isEditScore?.yourScore
-                  ? t("auth.update")
-                  : t("auth.submit_score")}
+                    ? t("auth.update")
+                    : t("auth.submit_score")}
               </button>
               <Popup_btn />
             </div>
