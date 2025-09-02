@@ -75,9 +75,9 @@ const Sidebar = ({ onItemClick }) => {
           className="max-w-[11rem] h-auto pl-5 w-full rtl:hidden"
         />
 
-        <span className="text-xl font-bold text-black ltr:ml-[16px] rtl:mr-[16px] bg-[#3ECCF3] px-3 rounded-[10px] min-h-[1.75rem] min-w-[4.063rem]">
+        {/* <span className="text-xl font-bold text-black ltr:ml-[16px] rtl:mr-[16px] bg-[#3ECCF3] px-3 rounded-[10px] min-h-[1.75rem] min-w-[4.063rem]">
           {t("common.beta")}
-        </span>
+        </span> */}
       </Link>
 
       <div className="aside_bottom-block custom_scroll flex w-[calc(100%-40px)]">

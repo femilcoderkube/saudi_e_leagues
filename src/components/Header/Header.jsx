@@ -381,11 +381,11 @@ const BreadcrumbNavigation = ({
                   {mainItem.label !== t("navigation.home")
                     ? mainItem.label
                     : t("navigation.prime")}
-                  {mainItem.label == t("navigation.home") && (
+                  {/* {mainItem.label == t("navigation.home") && (
                     <span className="text-[1.25rem] font-bold text-black ltr:ml-[12px] rtl:mr-[12px] bg-[#3ECCF3] px-3 rounded-[10px] min-h-[1.75rem] min-w-[4.063rem]">
                       {t("common.beta")}
                     </span>
-                  )}
+                  )} */}
                 </Link>
               </div>
             </li>
