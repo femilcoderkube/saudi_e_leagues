@@ -111,7 +111,7 @@ const TournamentScheduleCard = ({ item }) => {
                         className="w-full h-full object-cover"
                       />
                     </div> */}
-                    <h2 className="text-[1.75rem] grad_text-clip font-bold font_oswald text-white">
+                    <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
                       {match?.teamOneScore || "-"}
                     </h2>
                   </div>
@@ -123,7 +123,7 @@ const TournamentScheduleCard = ({ item }) => {
                     />
                   </div>
                   <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
-                    <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
+                    <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
                       {match?.teamTwoScore  || "-"}
                     </h2>
                     {/* <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
