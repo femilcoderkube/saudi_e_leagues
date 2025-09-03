@@ -16,7 +16,7 @@ const TournamentScheduleCard = ({ item }) => {
     time: item?.startTime
       ? new Date(item.startTime)
         .toLocaleTimeString("en-US", {
-          hour: "2-digit",
+          hour: "numeric",
           minute: "2-digit",
           hour12: true,
         })

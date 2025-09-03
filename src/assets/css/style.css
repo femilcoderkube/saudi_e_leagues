@@ -1586,6 +1586,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   backdrop-filter: blur(1.5rem);
   padding: 0.5rem;
   padding-right: 2rem;
+  padding-left: 1rem;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   position: relative;
