@@ -200,14 +200,7 @@ const TournamentDetail = () => {
                 </motion.ul>
 
                 {loader ? (
-                  <div className="flex justify-center items-center">
-                    <img
-                      className="center-league-loader  left-1/2 mt-20"
-                      src={center_league}
-                      alt=""
-                      style={{ width: "11rem" }}
-                    />
-                  </div>
+                 <GamingLoader/>
                 ) : tournamentData?.stages[activeStage]?.stageType ==
                   stageTypes.BattleRoyal ? (
                   <BattleRoyalStage />
