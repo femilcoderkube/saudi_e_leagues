@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import LeaderBoardHeader from "./LeaderBoardHeader";
 import LeaderBoardRow from "./LeaderBoardRow";
 import center_league from "../../../assets/images/center_league.png";
+import GamingLoader from "../../Loader/loader";
 
 const LeaderBoard = () => {
   const { t } = useTranslation();
@@ -58,14 +59,7 @@ const LeaderBoard = () => {
     );
   }
   if (!leaderBoard) {
-    return (<div className="flex justify-center items-center">
-      <img
-        className="center-league-loader ms-50 mt-30"
-        src={center_league}
-        alt=""
-        style={{ width: "11rem" }}
-      />
-    </div>);
+    return (<GamingLoader/>);
   }
   return (
     <div className="leaderboard-wrapper md:pt-8">

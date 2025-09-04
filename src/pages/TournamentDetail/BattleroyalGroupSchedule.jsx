@@ -130,7 +130,7 @@ export default function BattleRoyalSChedule() {
                       <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
                         <div className="battle-shape-text flex items-center md:gap-6 gap-3 w-[21rem]">
                           <img
-                            className="md:w-12 md:h-[7.5] sm:w-10 sm:h-[5.5] w-8 h-[3.5]"
+                            className="md:w-12 sm:w-10 w-8"
                             src={getServerURL(tournamentData?.game?.logo)}
                             alt=""
                           />
