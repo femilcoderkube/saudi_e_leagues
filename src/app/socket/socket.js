@@ -72,9 +72,9 @@ export const socket = io(SOCKET_URL, {
 socket.connect();
 socket.on("connect", () => {
   const user = JSON.parse(localStorage.getItem("user")) || null;
-  socket.emit(SOCKET.JOINUSEROOM, { userId: user?._id }); // Join a specific room or channel if needed
+  // socket.emit(SOCKET.JOINUSEROOM, { userId: user?._id });
+  joinUserRoom();
 
-  // Remove any previous listener to avoid duplicate navigation
   socket.off(SOCKET.JOINMATCH);
 
   socket.on(SOCKET.JOINMATCH, (data) => {
@@ -105,7 +105,6 @@ socket.on("connect", () => {
       getUpdateToken("");
 
       store.dispatch(logout());
-      // optional: window.location.href = "/";
     }
   });
 
@@ -372,4 +371,15 @@ export const getUpdateToken = (fcmToken) => {
     userId: user?._id,
     fcmToken: fcmToken,
   });
+};
+
+export const joinUserRoom = () => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user")) || null;
+    
+    socket.emit(SOCKET.JOINUSEROOM, { userId: user?._id });
+
+  } catch (error) {
+    console.error("Error parsing user from localStorage:", error);
+  }
 };
