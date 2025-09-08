@@ -339,7 +339,11 @@ export function GetTimeString(date, t) {
 }
 
 export function getServerURL(path) {
-  return `${baseURL}/api/v1/${path}`;
+  if (!path?.startsWith(`${baseURL}/api/v1/`)) {
+    return `${baseURL}/api/v1/${path}`;
+  } else {
+    return path;
+  }
 }
 export function getDigitList(num) {
   if (num == null) return Array(8).fill(0);
@@ -349,8 +353,8 @@ export function getDigitList(num) {
     digits.length >= 8
       ? digits.slice(0, 8)
       : Array(8 - digits.length)
-        .fill(0)
-        .concat(digits);
+          .fill(0)
+          .concat(digits);
   return firstSix;
 }
 export const formatTime = (secs) => {
