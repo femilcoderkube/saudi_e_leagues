@@ -156,7 +156,7 @@ const matchDetailSlice = createSlice({
         } else {
           const createdAtTime = new Date(match.createdAt).getTime();
           const now = Date.now();
-          const timeout = createdAtTime + 1000000 - now;
+          const timeout = createdAtTime + 60000 - now;
           if (
             timeout > 0 &&
             (!match.IsSubmited || match.isEditScore != null) &&
