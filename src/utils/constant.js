@@ -3,7 +3,7 @@ import prime_hover from "../assets/images/prime_hover.png";
 import LargePrime from "../assets/images/prime_hover.png";
 import axiosInstance, { baseURL } from "./axios";
 import moment from "moment-timezone";
-import { Prime } from "../components/UIComponents/index";
+import { Prime } from "../components/UIComponents/index.jsx";
 
 export const items = [
   {
