@@ -10,7 +10,6 @@ import activeslideBG from "../../assets/images/activeslideBG.png";
 import sliderBG from "../../assets/images/sliderBG.png";
 import { useTranslation } from "react-i18next";
 
-
 const GameStepCardLarge = ({ item }) => {
 
   const { t } = useTranslation();

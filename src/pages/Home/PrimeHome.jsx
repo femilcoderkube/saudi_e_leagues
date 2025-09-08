@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
-
 import "../../assets/css/homepage.css";
-
 import VideoModal from "../../components/ModalPopUp/VideoModal.jsx";
 import HeroLeftSection from "../../components/Home/HeroLeftSection.jsx";
 import HeroRightSection from "../../components/Home/HeroRightSection.jsx";
