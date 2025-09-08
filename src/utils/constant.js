@@ -1,9 +1,9 @@
 import prime_icon from "../assets/images/prime_icon.svg";
 import prime_hover from "../assets/images/prime_hover.png";
-import { Prime } from "../components/UIComponents";
 import LargePrime from "../assets/images/prime_hover.png";
 import axiosInstance, { baseURL } from "./axios";
 import moment from "moment-timezone";
+import { Prime } from "../components/UIComponents/index";
 
 export const items = [
   {
