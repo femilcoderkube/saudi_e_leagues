@@ -158,22 +158,25 @@ export function getQueueText(leagueData, t) {
 
   const { alwaysOn, schedule } = leagueData.queueSettings;
 
-  const saTz = "Asia/Riyadh";
-  const nowRiyadh = moment.tz(new Date(), saTz);
-  const serverTime = nowRiyadh.toDate();
-
+  // If alwaysOn at the root, use startDate logic
   if (alwaysOn) {
+    const now = new Date();
     const start = new Date(leagueData.startDate);
-    if (start > serverTime) {
+    if (start > now) {
       return (
-        t("images.starts_in") + " " + GetTimeString(leagueData.startDate, t, serverTime)
+        t("images.starts_in") + " " + GetTimeString(leagueData.startDate, t)
       );
     } else {
       return t("images.queue");
     }
   }
 
+  // New schedule.days structure
   if (schedule && Array.isArray(schedule.days) && schedule.days.length > 0) {
+    // Get current time in Saudi Riyadh timezone
+    const saTz = "Asia/Riyadh";
+    const nowRiyadh = moment.tz(new Date(), saTz);
+
     // Get today's day name in Riyadh timezone
     const daysOfWeek = [
       "sunday",
@@ -186,100 +189,67 @@ export function getQueueText(leagueData, t) {
     ];
     const todayNameRiyadh = daysOfWeek[nowRiyadh.day()];
 
+    // Find today's schedule object based on Riyadh timezone
     const todaySchedule = schedule.days.find(
       (d) => d.day && d.day.toLowerCase() === todayNameRiyadh
     );
 
+    // If today is a queue day
     if (todaySchedule) {
+      // If alwaysOn for today, queue is always open
       if (todaySchedule.alwaysOn) {
         return t("images.queue");
       }
 
+      // If there are time slots for today
       if (Array.isArray(todaySchedule.time) && todaySchedule.time.length > 0) {
-        const currentMoment = nowRiyadh.clone();
+        // Get current time in HH:mm format (Riyadh time)
+        const currentTimeStr = nowRiyadh.format("HH:mm");
 
+        // Find the current or next slot
         let foundOpen = false;
         let nextOpenTime = null;
 
-        // for (let slot of todaySchedule.time) {
-        //   const startTime = slot.startTime; // "HH:mm" format
-        //   const endTime = slot.endTime; // "HH:mm" format
-
-        //   // Compare time strings directly
-        //   if (currentTimeStr < startTime) {
-        //     // Next slot not started yet
-        //     if (!nextOpenTime || startTime < nextOpenTime) {
-        //       nextOpenTime = startTime;
-        //     }
-        //   } else if (currentTimeStr >= startTime && currentTimeStr <= endTime) {
-        //     // Currently in a slot
-        //     foundOpen = true;
-        //     break;
-        //   }
-        // }
         for (let slot of todaySchedule.time) {
-          const startMoment = moment.tz(
-            `${nowRiyadh.format("YYYY-MM-DD")} ${slot.startTime}`,
-            "YYYY-MM-DD HH:mm",
-            saTz
-          );
-          const endMoment = moment.tz(
-            `${nowRiyadh.format("YYYY-MM-DD")} ${slot.endTime}`,
-            "YYYY-MM-DD HH:mm",
-            saTz
-          );
+          const startTime = slot.startTime; // "HH:mm" format
+          const endTime = slot.endTime; // "HH:mm" format
 
-          if (endMoment.isBefore(startMoment)) {
-            endMoment.add(1, 'day');
-          }
-
-          if (currentMoment.isSameOrAfter(startMoment) && currentMoment.isSameOrBefore(endMoment)) {
+          // Compare time strings directly
+          if (currentTimeStr < startTime) {
+            // Next slot not started yet
+            if (!nextOpenTime || startTime < nextOpenTime) {
+              nextOpenTime = startTime;
+            }
+          } else if (currentTimeStr >= startTime && currentTimeStr <= endTime) {
+            // Currently in a slot
             foundOpen = true;
             break;
           }
-
-          if (currentMoment.isBefore(startMoment)) {
-            if (!nextOpenTime || startMoment.isBefore(nextOpenTime)) {
-              nextOpenTime = startMoment.clone();
-            }
-          }
         }
-
-        //     if (foundOpen) {
-        //       return t("images.queue");
-        //     } else if (nextOpenTime) {
-        //       // Create a date object for today with the next open time (in Riyadh timezone)
-        //       const nextOpenDateTime = moment.tz(
-        //         `${nowRiyadh.format("YYYY-MM-DD")} ${nextOpenTime}`,
-        //         "YYYY-MM-DD HH:mm",
-        //         saTz
-        //       );
-        //       return (
-        //         t("images.opens_in") +
-        //         " " +
-        //         GetTimeString(nextOpenDateTime.toDate(), t)
-        //       );
-        //     }
-        //     // If no more slots today, look for next available day
-        //   }
-        //   // If no time slots, treat as closed for today unless alwaysOn
-        // }
 
         if (foundOpen) {
           return t("images.queue");
         } else if (nextOpenTime) {
+          // Create a date object for today with the next open time (in Riyadh timezone)
+          const nextOpenDateTime = moment.tz(
+            `${nowRiyadh.format("YYYY-MM-DD")} ${nextOpenTime}`,
+            "YYYY-MM-DD HH:mm",
+            saTz
+          );
           return (
             t("images.opens_in") +
             " " +
-            GetTimeString(nextOpenTime.toDate(), t, serverTime)
+            GetTimeString(nextOpenDateTime.toDate(), t)
           );
         }
+        // If no more slots today, look for next available day
       }
+      // If no time slots, treat as closed for today unless alwaysOn
     }
 
-    // let soonestDay = null;
-    // let soonestTime = null;
-    let soonestDateTime = null;
+    // Find the next available day with alwaysOn or a time slot
+    let soonestDay = null;
+    let soonestTime = null;
 
     for (let i = 1; i <= 7; i++) {
       const nextDayRiyadh = nowRiyadh.clone().add(i, "days");
@@ -289,17 +259,15 @@ export function getQueueText(leagueData, t) {
       );
 
       if (nextDayObj) {
+        // If alwaysOn for that day, that's the soonest
         if (nextDayObj.alwaysOn) {
-          // soonestDay = i;
-          // soonestTime = null;
-          // break;
-          const midnightNext = nextDayRiyadh.clone().startOf("day");
-          if (!soonestDateTime || midnightNext.isBefore(soonestDateTime)) {
-            soonestDateTime = midnightNext;
-          }
+          soonestDay = i;
+          soonestTime = null;
+          break;
         }
-
+        // If there are time slots, pick the earliest slot
         if (Array.isArray(nextDayObj.time) && nextDayObj.time.length > 0) {
+          // Find earliest slot
           let earliestSlot = nextDayObj.time[0];
           for (let slot of nextDayObj.time) {
             if (slot.startTime < earliestSlot.startTime) {
@@ -307,45 +275,35 @@ export function getQueueText(leagueData, t) {
             }
           }
 
-          const earliestSlotTime = moment.tz(
+          const slotStart = moment.tz(
             `${nextDayRiyadh.format("YYYY-MM-DD")} ${earliestSlot.startTime}`,
             "YYYY-MM-DD HH:mm",
             saTz
           );
 
-          if (!soonestDateTime || earliestSlotTime.isBefore(soonestDateTime)) {
-            soonestDateTime = earliestSlotTime;
+          if (soonestTime === null || slotStart.isBefore(soonestTime)) {
+            soonestDay = i;
+            soonestTime = slotStart;
           }
         }
       }
     }
 
-    //     if (soonestDay !== null) {
-    //       if (soonestTime) {
-    //         return (
-    //           t("images.opens_in") + " " + GetTimeString(soonestTime.toDate(), t)
-    //         );
-    //       } else {
-    //         // Next day is alwaysOn, so opens at midnight (Riyadh time)
-    //         const nextOpenDate = nowRiyadh
-    //           .clone()
-    //           .add(soonestDay, "days")
-    //           .startOf("day");
-    //         return (
-    //           t("images.opens_in") + " " + GetTimeString(nextOpenDate.toDate(), t)
-    //         );
-    //       }
-    //     }
-
-    //     return t("images.queue_closed");
-    //   }
-
-    //   return t("images.queue_closed");
-    // }
-    if (soonestDateTime) {
-      return (
-        t("images.opens_in") + " " + GetTimeString(soonestDateTime.toDate(), t, serverTime)
-      );
+    if (soonestDay !== null) {
+      if (soonestTime) {
+        return (
+          t("images.opens_in") + " " + GetTimeString(soonestTime.toDate(), t)
+        );
+      } else {
+        // Next day is alwaysOn, so opens at midnight (Riyadh time)
+        const nextOpenDate = nowRiyadh
+          .clone()
+          .add(soonestDay, "days")
+          .startOf("day");
+        return (
+          t("images.opens_in") + " " + GetTimeString(nextOpenDate.toDate(), t)
+        );
+      }
     }
 
     return t("images.queue_closed");
@@ -353,9 +311,9 @@ export function getQueueText(leagueData, t) {
 
   return t("images.queue_closed");
 }
-export function GetTimeString(date, t, serverTime = null) {
+export function GetTimeString(date, t) {
   if (!date) return "";
-  const now = serverTime ? new Date(serverTime) : new Date();
+  const now = new Date();
   const target = new Date(date);
   let diff = Math.max(0, target - now); // in ms
 

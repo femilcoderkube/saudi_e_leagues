@@ -17,7 +17,6 @@ import { getQueueText } from "../../utils/constant";
 import { stopReadyToPlaySocket } from "../../app/socket/socket";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import moment from "moment-timezone";
 
 const GetQueueButton = () => {
   const { id } = useParams();
@@ -27,12 +26,9 @@ const GetQueueButton = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
-
-  // Use server time (Saudi Arabia timezone) for all time comparisons
-  const saTz = "Asia/Riyadh";
-  const nowServer = moment.tz(new Date(), saTz).toDate();
+  const now = new Date();
   const end = new Date(leagueData?.endDate);
+  const { t, i18n } = useTranslation();
 
   if (user?._id == null || user?._id == undefined) {
     return (
@@ -71,7 +67,7 @@ const GetQueueButton = () => {
         />{" "}
       </div>
     );
-  } else if (end < nowServer) {
+  } else if (end < now) {
     // if (leagueData?.draft?.isPublished && leagueData?.draft?.startTime && new Date(leagueData?.draft?.startTime) > now) {
     if (
       leagueData?.draft?.isPublished &&
