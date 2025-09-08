@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setConfirmationPopUp,
   setLogin,
   setQueueConfirmation,
 } from "../../app/slices/constState/constStateSlice";
@@ -13,12 +12,12 @@ import Cancel_btn from "../../assets/images/cancelbtn.png";
 import {
   setQueuePlayers,
   setRegistrationModal,
-  // setVerificationModal
 } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { getQueueText } from "../../utils/constant";
 import { stopReadyToPlaySocket } from "../../app/socket/socket";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import moment from "moment-timezone";
 
 const GetQueueButton = () => {
   const { id } = useParams();
@@ -28,10 +27,12 @@ const GetQueueButton = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const now = new Date();
-  const end = new Date(leagueData?.endDate);
   const { t, i18n } = useTranslation();
-  // dispatch(setQueuePlayers(1));
+
+  // Use server time (Saudi Arabia timezone) for all time comparisons
+  const saTz = "Asia/Riyadh";
+  const nowServer = moment.tz(new Date(), saTz).toDate();
+  const end = new Date(leagueData?.endDate);
 
   if (user?._id == null || user?._id == undefined) {
     return (
@@ -70,7 +71,7 @@ const GetQueueButton = () => {
         />{" "}
       </div>
     );
-  } else if (end < now) {
+  } else if (end < nowServer) {
     // if (leagueData?.draft?.isPublished && leagueData?.draft?.startTime && new Date(leagueData?.draft?.startTime) > now) {
     if (
       leagueData?.draft?.isPublished &&
@@ -222,13 +223,6 @@ const GetQueueButton = () => {
                 dispatch(setQueueConfirmation(true));
               }
             }
-            // if (user?.isVerified) {
-            // sessionStorage.setItem("canAccessFindingMatch", "true");
-            // navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
-            // } else {
-            // console.log("User is not verified");
-            // dispatch(setVerificationModal({ open: true, module: "queue" }));
-            // }
           }}
         >
           <span
@@ -262,7 +256,6 @@ const GetQueueButton = () => {
           >
             {text}
           </span>
-          {/* <img src={Que_btn} alt="" style={{ width: "30.5rem" }} />{" "} */}
           <img
             className="mx-auto"
             src={text.includes(t("images.opens_in")) ? Open_btn : Que_btn}
