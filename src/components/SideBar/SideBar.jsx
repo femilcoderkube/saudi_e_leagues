@@ -62,7 +62,7 @@ const Sidebar = ({ onItemClick }) => {
     >
       <Link
         to={"/"}
-        className="sd_logo flex items-center h-[7.438rem] ltr:justify-start rtl:justify-end rtl:pl-16 bg-[url(./assets/images/logo-background.svg)] bg-cover bg-no-repeat object-center"
+        className="sd_logo flex items-center h-[7.438rem] ltr:justify-start rtl:justify-end rtl:pl-45 bg-[url(./assets/images/logo-background.svg)] bg-cover bg-no-repeat object-center"
       >
         <img
           src={asideLogo_rtl}
