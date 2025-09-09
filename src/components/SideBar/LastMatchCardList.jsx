@@ -49,7 +49,7 @@ const TournamentScheduleCard = ({ item }) => {
                     {new Date(match.createdAt).toLocaleTimeString("en-GB", {
                       hour: "2-digit",
                       minute: "2-digit",
-                      hour12: true
+                      hour12: true,
                     })}
                   </span>
                 </h2>
@@ -112,7 +112,10 @@ const TournamentScheduleCard = ({ item }) => {
                       />
                     </div> */}
                     <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
-                      {match?.teamOneScore || "-"}
+                      {match?.teamOneScore == null ||
+                      match?.teamOneScore == undefined
+                        ? "-"
+                        : match?.teamOneScore}
                     </h2>
                   </div>
                   <div className="tournament-schedule-card-header-center shrink-0">
@@ -124,7 +127,10 @@ const TournamentScheduleCard = ({ item }) => {
                   </div>
                   <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
                     <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
-                      {match?.teamTwoScore  || "-"}
+                      {match?.teamTwoScore == null ||
+                      match?.teamTwoScore == undefined
+                        ? "-"
+                        : match?.teamTwoScore}
                     </h2>
                     {/* <div className="sm:w-[2.5rem] sm:h-[2.5rem] w-[2rem] h-[2rem] rounded-lg overflow-hidden">
                       <img
