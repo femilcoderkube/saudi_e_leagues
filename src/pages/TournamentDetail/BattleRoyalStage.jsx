@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import TournamentDatepiker from "./DatePiker.jsx";
+import DatePiker from "../../components/Cards/TournamentDetail/DatePiker.jsx";
 import cal_arrow from "../../assets/images/cal_arrow.png";
 import {
   setActiveTournamentTab,
@@ -10,8 +10,6 @@ import BattleRoyalStanding from "./BattleroyalGroupStandings.jsx";
 import BattleRoyalSChedule from "./BattleroyalGroupSchedule.jsx";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import {
-  leftToRight,
-  rightToLeft,
   cardVariantsAni,
 } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
@@ -130,7 +128,7 @@ export default function BattleRoyalStage() {
                     : "top-[100%] mt-2"
                     }`}
                 >
-                  <TournamentDatepiker
+                  <DatePiker
                     startDate={currentDate ? new Date(currentDate) : null}
                     endDate={nextDayDate ? new Date(nextDayDate) : null}
                   />

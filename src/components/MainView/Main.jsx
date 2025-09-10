@@ -24,7 +24,7 @@ import { useTranslation } from "react-i18next";
 import NotificationSidebar from "../Notification/NotificationSidebar";
 import ConfirmationPopUp from "../Overlays/ConfirmationPopUp";
 import { motion } from "framer-motion";
-import { genrateFCMToken } from "../Notification/Services/NotificationService";
+import { genrateFCMToken } from "../../Services/NotificationService";
 
 export default function Main() {
   const dispatch = useDispatch();

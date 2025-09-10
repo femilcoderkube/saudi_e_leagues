@@ -1,7 +1,7 @@
 import { getToken, onMessage } from "firebase/messaging";
-import { getUpdateToken } from "../../../app/socket/socket.js";
-import sound from "../../../assets/mp3/game-level-complete-143022.mp3";
+import sound from "../assets/mp3/game-level-complete-143022.mp3";
 import { messaging } from "./firebase.js";
+import { getUpdateToken } from "../app/socket/socket.js";
 
 export async function requestPermission() {
   const deviceType = localStorage.getItem("deviceType");

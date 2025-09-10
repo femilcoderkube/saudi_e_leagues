@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setShowCalendar, setDateRange } from '../../app/slices/constState/constStateSlice';
-import { setcurrentDate, setnextDayDate } from '../../app/slices/tournamentSlice/tournamentSlice';
+import { useDispatch } from 'react-redux';
+import { setShowCalendar } from '../../../app/slices/constState/constStateSlice';
+import { setcurrentDate, setnextDayDate } from '../../../app/slices/tournamentSlice/tournamentSlice';
 
-const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate }) => {
+const DatePiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -224,4 +224,4 @@ const TournamentDatepiker = ({ startDate: propStartDate, endDate: propEndDate, o
   );
 };
 
-export default TournamentDatepiker;
+export default DatePiker;

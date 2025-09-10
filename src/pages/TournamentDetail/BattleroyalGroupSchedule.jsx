@@ -1,8 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import "../../assets/css/homepage.css";
-import team_falcons from "../../assets/images/team-falcons.png";
 import date_icon from "../../assets/images/date_icon.png";
-import pubg_icon from "../../assets/images/pubg_icon.png";
 import schdule_down from "../../assets/images/schdule_down.png";
 import battale_sahpe_img from "../../assets/images/battale-sahpe-img.png";
 import { useSelector } from "react-redux";

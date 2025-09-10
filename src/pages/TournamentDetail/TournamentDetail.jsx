@@ -181,6 +181,7 @@ const TournamentDetail = () => {
                       <li
                         className={`font-semibold  cursor-pointer md:border-b-0 border-b border-gray-200/20 ${index == activeStage ? "active" : ""
                           }`}
+                          key={index}
                       >
                         <div
                           id={`stage-${index}`}

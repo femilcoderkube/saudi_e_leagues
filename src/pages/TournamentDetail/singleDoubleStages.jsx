@@ -4,18 +4,15 @@ import {
   setActiveTournamentTab,
   setShowCalendar,
 } from "../../app/slices/constState/constStateSlice.js";
-import TournamentScheduleCard from "./TournamentScheduleCard.jsx";
-import TournamentDatepiker from "./DatePiker.jsx";
+import ScheduleCard from "../../components/Cards/TournamentDetail/ScheduleCard.jsx";
+import DatePiker from "../../components/Cards/TournamentDetail/DatePiker.jsx";
 import cal_arrow from "../../assets/images/cal_arrow.png";
-import center_league from "../../assets/images/center_league.png";
 import full_screen from "../../assets/images/full-screen.png";
 import exit_screen from "../../assets/images/exit-screen.png";
 import { getServerURL } from "../../utils/constant.js";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import { useTranslation } from "react-i18next";
 import {
-  leftToRight,
-  rightToLeft,
   cardVariantsAni,
 } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
@@ -258,7 +255,7 @@ const SingleDoubleStages = () => {
                     : "top-[100%] mt-2"
                     }`}
                 >
-                  <TournamentDatepiker
+                  <DatePiker
                     startDate={currentDate ? new Date(currentDate) : null}
                     endDate={nextDayDate ? new Date(nextDayDate) : null}
                   />
@@ -314,7 +311,7 @@ const SingleDoubleStages = () => {
                       )
                       .map((item, index) => {
                         return (
-                          <TournamentScheduleCard key={index} item={item} />
+                          <ScheduleCard key={index} item={item} />
                         );
                       })}
                   </div>

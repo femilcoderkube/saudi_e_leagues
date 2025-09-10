@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../assets/css/homepage.css";
-import team_falcons from "../../assets/images/team-falcons.png";
-import pubg_icon from "../../assets/images/pubg_icon.png";
 import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";
-import { leftToRight, rightToLeft, cardVariantsAni } from "../../components/Animation/animation.jsx";
+import { cardVariantsAni } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 
@@ -12,7 +10,6 @@ export default function BattleRoyalStanding() {
 
   const { t } = useTranslation();
 
-  // ✅ Move this data OUTSIDE return
   const { battleRoyalGroup } = useSelector(
     (state) => state.tournament
   );

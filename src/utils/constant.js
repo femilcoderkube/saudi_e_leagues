@@ -31,49 +31,7 @@ export function getMonthAbbreviation(dateString) {
   const date = new Date(dateString);
   return date.toLocaleString("en-US", { month: "short" }).toUpperCase();
 }
-export const SOCKET = {
-  JOINLEAGUE: "joinLeague",
-  LEAVELEAGUE: "LeaveLeague",
-  LEAGUEUPDATE: "leagueUpdate",
-  LEAGUEJOIN: "leagueJoin",
-  READYTOPLAY: "readyToPlay",
-  NOTREADYTOPLAY: "notReadyToPlay",
-  JOINMATCH: "joinMatch",
-  MATCHUPDATE: "matchUpdate",
-  STARTMATCH: "startMatch",
-  ONMESSAGE: "onMessage",
-  ONSUBMIT: "onSubmit",
-  JOINUSEROOM: "joinUserRoom",
-  GIVEREPUTATION: "giveReputation",
-  NOTIFICATION: "notification",
-  ONNOTIFICATION: "onNotification",
-  READNOTIFICATION: "readNotification",
-  GETLASTMATCHS: "getLastMatchs",
-  LASTMATCHUPDATE: "lastMatchUpdate",
-  GETWEEKOFSTAR: "getWeekOfStar",
-  ONWEEKOFSTARUSERS: "onWeekOfStarUsers",
-  CANCELMATCH: "cancelMatch",
-  GETTOURNAMENT: "getTournament",
-  ONTOURNAMENTUPDATE: "onTournamentUpdate",
-  GETTOURNAMENTSTAGES: "getTournamentStages",
-  ONTOURNAMENTSTAGESUPDATE: "onTournamentStagesUpdate",
-  // DRAFTING PHASE
-  GETDRAFTDATA: "getDraftData",
-  ONDRAFTDATAUPDATE: "onDraftDataUpdate",
-  SETPICKEDDRAFTPLAYER: "setPickedDraftPlayer",
-  GETLEADERBOARD: "getLeaderBoard",
-  GETMATCHT: "getMatchT",
-  ONMATCHT: "onMatchT",
-  ISBANUSER: "isBanUser",
-  ONISBANUSER: "onIsBanUser",
-  REMOVEDRAFTDATA: "removeDraftData",
-  SETFCMTOKEN: "setFcmToken",
-  CHECKUSERQUEUE: "checkUserQueue",
-  GETUSERQUEUE: "getUserQueue",
-  QUEUEPLAYER: "queuePlayer",
-};
 export function generateTailwindGradient(hexColor) {
-  // Convert Hex to RGBA for a nice gradient range
   const toRGBA = (hex, alpha = 1) => {
     const bigint = parseInt(hex.replace("#", ""), 16);
     const r = (bigint >> 16) & 255;
@@ -85,11 +43,9 @@ export function generateTailwindGradient(hexColor) {
   const darkShade = "rgba(55, 16, 31, 1)";
   const midShade = toRGBA(hexColor);
 
-  // Return Tailwind-compatible inline background string
   const gradient = `linear-gradient(141deg, ${darkShade} 0%, ${midShade} 100%)`;
   return `bg-[${gradient}]`;
 }
-// Animation variants for the card wrapper
 export const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -107,13 +63,11 @@ export const containerVariants = {
   },
 };
 
-// Animation variants for individual cards
 export const cardVariants = {
   hidden: { opacity: 0, scale: 0.8, y: 20 },
   visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.3 } },
   exit: { opacity: 0, scale: 0.8, y: -20, transition: { duration: 0.3 } },
 };
-// Output: bg-[linear-gradient(141deg, rgba(55, 16, 31, 1) 0%, rgba(157, 45, 58, 1) 100%)]
 export function formatDateToMonthDay(dateStr) {
   const date = new Date(dateStr);
   const months = [
@@ -152,7 +106,6 @@ export function canJoinQueue(leagueData, t) {
   const text = getQueueText(leagueData, t);
   return text === t("images.queue");
 }
-
 export function getQueueText(leagueData, t) {
   if (!leagueData || !leagueData.queueSettings) return "";
 
@@ -337,7 +290,6 @@ export function GetTimeString(date, t) {
   if (parts.length === 0) parts.push(t("images.0_sec"));
   return parts.join(" ");
 }
-
 export function getServerURL(path) {
   if (!path?.startsWith(`${baseURL}/api/v1/`)) {
     return `${baseURL}/api/v1/${path}`;
@@ -362,21 +314,14 @@ export const formatTime = (secs) => {
   const s = String(secs % 60).padStart(2, "0");
   return `${m}:${s}`;
 };
-// Utility function to check for a specific path segment
 export function checkParams(param) {
   const pathSegments = window.location.pathname.split("/").filter(Boolean);
   return pathSegments.includes(param);
 }
-
-// Example usage
-// const isFindingMatch = checkParams('finding-match');
-// console.log(isFindingMatch); // true if 'finding-match' is in the path
-
 export function formatAmountWithCommas(amount) {
   if (amount == null) return "";
   return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
 export const getRandomColor = (senderId) => {
   // Simple hash function to generate consistent color for the same senderId
   let hash = 0;
@@ -417,7 +362,7 @@ export const buttonType = {
 export function getTimeAgo(dateString) {
   const now = new Date();
   const date = new Date(dateString);
-  const diff = Math.floor((now - date) / 1000); // difference in seconds
+  const diff = Math.floor((now - date) / 1000);
 
   if (diff < 60) return `${diff}s ago`;
   if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
@@ -431,32 +376,26 @@ export function getIntervalCountdown(
   const now = new Date();
   const intervalStartTime = new Date(currentIntervalStartTime);
 
-  // If interval hasn't started yet, return "00:00"
   if (intervalStartTime.getTime() > now.getTime()) {
     return "00:00";
   }
 
-  const intervalTimeMs = intervalTimeMinutes * 1000; // Convert to milliseconds
+  const intervalTimeMs = intervalTimeMinutes * 1000;
 
-  // Calculate when current interval should end
   const currentIntervalEndTime = new Date(
     intervalStartTime.getTime() + intervalTimeMs
   );
 
-  // Calculate remaining time in milliseconds
   const remainingMs = currentIntervalEndTime.getTime() - now.getTime();
 
-  // If interval has ended, return "00:00"
   if (remainingMs <= 0) {
     return "00:00";
   }
 
-  // Convert to minutes and seconds
   const remainingSeconds = Math.ceil(remainingMs / 1000);
   const minutes = Math.floor(remainingSeconds / 60);
   const seconds = remainingSeconds % 60;
 
-  // Format as MM:SS
   return `${minutes.toString().padStart(2, "0")}:${seconds
     .toString()
     .padStart(2, "0")}`;
@@ -480,7 +419,6 @@ export const calculateSnakeDraftPosition = (interval, totalTeams) => {
   const round = Math.floor((interval - 1) / totalTeams);
   const positionInRound = (interval - 1) % totalTeams;
 
-  // Even rounds go forward (0,1,2...), odd rounds go backward
   return round % 2 === 0 ? positionInRound : totalTeams - 1 - positionInRound;
 };
 

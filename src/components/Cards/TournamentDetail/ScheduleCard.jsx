@@ -1,12 +1,10 @@
-import tournament_thumbnail from "../../assets/images/large_prime.png";
-import tournament_vs_icon from "../../assets/images/tournament_vs_icon.png";
-import tournament_bg_img from "../../assets/images/tournament_bg_img.jpg";
-import leage_shape from "../../assets/images/leage_shape.png";
-import footer_card_icon from "../../assets/images/footer-card-icon.png";
+import tournament_vs_icon from "../../../assets/images/tournament_vs_icon.png";
+import tournament_bg_img from "../../../assets/images/tournament_bg_img.jpg";
+import footer_card_icon from "../../../assets/images/footer-card-icon.png";
 import { useSelector } from "react-redux";
-import { getServerURL } from "../../utils/constant";
+import { getServerURL } from "../../../utils/constant";
 import { useNavigate, useParams } from "react-router-dom";
-const TournamentScheduleCard = ({ item }) => {
+const ScheduleCard = ({ item }) => {
   const { id } = useParams();
   const { tournamentData } = useSelector(
     (state) => state.tournament
@@ -171,4 +169,4 @@ const TournamentScheduleCard = ({ item }) => {
   );
 };
 
-export default TournamentScheduleCard;
+export default ScheduleCard;

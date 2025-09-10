@@ -1,11 +1,8 @@
-import { io, Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 import { store } from "../slices/store";
 import { setSocketConnected, setSocketId } from "../slices/socket/socketSlice";
 import {
   getPartnerByDocId,
-  getPartnerById,
-  items,
-  SOCKET,
 } from "../../utils/constant";
 import {
   removeFromQueue,
@@ -17,8 +14,6 @@ import {
   setUserInQueue,
   setWeekOfStarUsers,
 } from "../slices/leagueDetail/leagueDetailSlice";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {
   setChatData,
   setmatchData,
@@ -34,12 +29,7 @@ import {
 } from "../slices/tournamentSlice/tournamentSlice";
 import {
   setDraftData,
-  setDraftCaptain,
-  setDraftPlayers,
-  setDraftStatus,
-  clearData,
 } from "../slices/draft/draftSlice";
-import { useEffect, useRef } from "react";
 import {
   setChatTData,
   setmatchTData,
@@ -50,9 +40,7 @@ import {
   setIsBannedUser,
 } from "../slices/auth/authSlice";
 import { globalNavigate } from "../../navigationService";
-// import { requestFCMToken } from "../../firebase";
 
-// const SOCKET_URL = "/";
 const SOCKET_URL =
   import.meta.env.VITE_SOCKET_URL || "https://staging-backend.primeeleague.com";
 // const SOCKET_URL =
@@ -63,31 +51,61 @@ export const socket = io(SOCKET_URL, {
   autoConnect: false,
 });
 
-// // Store navigate function globally
-// let globalNavigate = null;
+export const SOCKET = {
+  JOINLEAGUE: "joinLeague",
+  LEAVELEAGUE: "LeaveLeague",
+  LEAGUEUPDATE: "leagueUpdate",
+  LEAGUEJOIN: "leagueJoin",
+  READYTOPLAY: "readyToPlay",
+  NOTREADYTOPLAY: "notReadyToPlay",
+  JOINMATCH: "joinMatch",
+  MATCHUPDATE: "matchUpdate",
+  STARTMATCH: "startMatch",
+  ONMESSAGE: "onMessage",
+  ONSUBMIT: "onSubmit",
+  JOINUSEROOM: "joinUserRoom",
+  GIVEREPUTATION: "giveReputation",
+  NOTIFICATION: "notification",
+  ONNOTIFICATION: "onNotification",
+  READNOTIFICATION: "readNotification",
+  GETLASTMATCHS: "getLastMatchs",
+  LASTMATCHUPDATE: "lastMatchUpdate",
+  GETWEEKOFSTAR: "getWeekOfStar",
+  ONWEEKOFSTARUSERS: "onWeekOfStarUsers",
+  CANCELMATCH: "cancelMatch",
+  GETTOURNAMENT: "getTournament",
+  ONTOURNAMENTUPDATE: "onTournamentUpdate",
+  GETTOURNAMENTSTAGES: "getTournamentStages",
+  ONTOURNAMENTSTAGESUPDATE: "onTournamentStagesUpdate",
+  // DRAFTING PHASE
+  GETDRAFTDATA: "getDraftData",
+  ONDRAFTDATAUPDATE: "onDraftDataUpdate",
+  SETPICKEDDRAFTPLAYER: "setPickedDraftPlayer",
+  GETLEADERBOARD: "getLeaderBoard",
+  GETMATCHT: "getMatchT",
+  ONMATCHT: "onMatchT",
+  ISBANUSER: "isBanUser",
+  ONISBANUSER: "onIsBanUser",
+  REMOVEDRAFTDATA: "removeDraftData",
+  SETFCMTOKEN: "setFcmToken",
+  CHECKUSERQUEUE: "checkUserQueue",
+  GETUSERQUEUE: "getUserQueue",
+  QUEUEPLAYER: "queuePlayer",
+};
 
-// export const setGlobalNavigate = (navigate) => {
-//   globalNavigate = navigate;
-// };
 socket.connect();
 socket.on("connect", () => {
   const user = JSON.parse(localStorage.getItem("user")) || null;
-  // socket.emit(SOCKET.JOINUSEROOM, { userId: user?._id });
   joinUserRoom();
 
   socket.off(SOCKET.JOINMATCH);
 
   socket.on(SOCKET.JOINMATCH, (data) => {
-    // Use window.location for navigation since hooks can't be used here
     if (data?.matchId && data?.partner) {
       store.dispatch(setIsMatctCreated(true));
-      // If already on a /match/ page, do nothing
       if (window.location.pathname.includes("/match/")) return;
       let pId = getPartnerByDocId(data.partner).id;
-      // globalNavigate(`/${pId}/match/${data.matchId}`);
-      //  window.location.href = `/${pId}/match/${data.matchId}`;
       globalNavigate(`/${pId}/match/${data.matchId}`);
-      // window.location.href = ;
       sessionStorage.removeItem("canAccessFindingMatch");
     }
   });
@@ -109,11 +127,9 @@ socket.on("connect", () => {
   });
 
   socket.on(SOCKET.ONNOTIFICATION, (data) => {
-    // console.log("Notification Data:", data);
     store.dispatch(setNotification(data));
   });
   socket.on(SOCKET.LASTMATCHUPDATE, (data) => {
-    // console.log("Last Match Update Data:", data);
     store.dispatch(setLastMatch(data));
   });
   if (user?._id) {
@@ -121,7 +137,6 @@ socket.on("connect", () => {
     startNotificationSocket({ userId: user?._id, isRead: false });
     getLastMatchesSocket(user?._id);
   }
-  // socket.emit(SOCKET.NOTIFICATION, { userId: user?._id , isRead: false});
   store.dispatch(setSocketConnected(true));
   store.dispatch(setSocketId(socket.id));
 });
@@ -147,7 +162,6 @@ export function checkIsUserBanned({ userId }) {
   }
 }
 export function startNotificationSocket({ userId, isRead }) {
-  // console.log("startNotificationSocket", userId, isRead);
   if (userId) {
     socket.emit(SOCKET.NOTIFICATION, { userId: userId, isRead: isRead });
   }
@@ -160,12 +174,10 @@ export function getLastMatchesSocket(userId) {
 }
 export function startLeagueSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
-    // Remove any previous listener to prevent duplicate handlers
     stopLeagueSocket();
     store.dispatch(resetLeaderBoard())
 
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
-      // console.log("League Update Data:", data);
       if (!data?.status) {
         window.location.href = "/";
         return;
@@ -220,7 +232,6 @@ export function startGetQueuePlayers() {
   });
 }
 export function stopLeagueSocket() {
-  // Remove the league update listener
   socket.off(SOCKET.LEAGUEUPDATE);
 }
 export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
@@ -228,7 +239,6 @@ export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
     socket.off(SOCKET.ONWEEKOFSTARUSERS);
     socket.on(SOCKET.ONWEEKOFSTARUSERS, (data) => {
       if (data?.status) {
-        // console.log("Week of Star Users Data:", data?.data);
         store.dispatch(setWeekOfStarUsers(data?.data));
       }
     });
@@ -274,7 +284,6 @@ export function startMatchUpdate(mId, user) {
       store.dispatch(setChatData(data.data?.reverse()));
     }
   });
-  // Emit JOINLEAGUE once
   socket.emit(SOCKET.STARTMATCH, { matchId: mId });
 }
 
@@ -291,7 +300,6 @@ export function cancelMatch(data) {
   socket.emit(SOCKET.CANCELMATCH, data);
 }
 export function startTournamentSocket({ tId, user, isSocketConnected }) {
-  // console.log("startTournamentSocket", tId, user, isSocketConnected);
   if (isSocketConnected) {
     stopTournamentSocket();
     socket.on(SOCKET.ONTOURNAMENTUPDATE, (data) => {
@@ -335,7 +343,6 @@ export function getDraftById({ draftId, isSocketConnected, user }) {
       console.log("Draft Update Data:", data);
       data.user = user;
 
-      // Saving entire data
       store.dispatch(setDraftData(data));
     });
     socket.emit(SOCKET.GETDRAFTDATA, { draftId });

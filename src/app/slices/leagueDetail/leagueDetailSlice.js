@@ -1,7 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { socket } from "../../socket/socket";
-import { SOCKET } from "../../../utils/constant";
-import { act } from "react";
 
 const initialState = {
   leagueData: null,

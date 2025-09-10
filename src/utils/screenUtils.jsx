@@ -11,11 +11,10 @@ const useScreenSize = () => {
 
     window.addEventListener('resize', handleResize);
 
-    // Cleanup: remove event listener when component unmounts
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []); // Empty dependency array ensures effect runs only once on mount
+  }, []);
 
   return screenWidth;
 };
