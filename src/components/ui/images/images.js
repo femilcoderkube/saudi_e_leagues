@@ -82,20 +82,20 @@ import MatchMakingBG from "../../../assets/images/matchmakingBG.png";
 import ChatIcon from "../../../assets/images/chat_icon.png";
 import ChatArr from "../../../assets/images/chat_arr.png";
 
-import cancel_btn from "../../assets/images/cancelbtn.png";
+import cancel_btn from "../../../assets/images/cancelbtn.png";
 
-import date_icon from "../../assets/images/date_icon.png";
-import schdule_down from "../../assets/images/schdule_down.png";
-import battale_sahpe_img from "../../assets/images/battale-sahpe-img.png";
+import date_icon from "../../../assets/images/date_icon.png";
+import schdule_down from "../../../assets/images/schdule_down.png";
+import battale_sahpe_img from "../../../assets/images/battale-sahpe-img.png";
 
-import cal_arrow from "../../assets/images/cal_arrow.png";
-import full_screen from "../../assets/images/full-screen.png";
-import exit_screen from "../../assets/images/exit-screen.png";
+import cal_arrow from "../../../assets/images/cal_arrow.png";
+import full_screen from "../../../assets/images/full-screen.png";
+import exit_screen from "../../../assets/images/exit-screen.png";
 
 export const IMAGES = {
-    full_screen,
-    exit_screen,
-    cal_arrow,
+  full_screen,
+  exit_screen,
+  cal_arrow,
   battale_sahpe_img,
   schdule_down,
   date_icon,
