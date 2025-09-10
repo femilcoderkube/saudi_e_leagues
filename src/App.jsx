@@ -4,38 +4,34 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
-  useLocation,
-  // useNavigate,
+  useNavigate
 } from "react-router-dom";
 import Sidebar from "./components/SideBar/SideBar";
 import Main from "./components/MainView/Main";
 
-// import MainView from "./components/MainView/MainView";
-// import MainView from "./components/MainView/SelectGame.jsx";
-// import Main from "./components/MainView/WizardForm.jsx";
-
 import "./App.css";
 import Lobby from "./pages/Lobby/Lobby.jsx";
 import PrimeHome from "./pages/Home/PrimeHome.jsx";
-import LeagueDetail from "./pages/LeagueDetail/LeagueDetail.jsx";
+import LeagueDetail from "./pages/League/LeagueDetail.jsx";
 import MatchMaking from "./pages/Matchs/MatchMacking.jsx";
-import MatchDetail from "./pages/Matchs/MatchDetail.jsx";
+import LeagueMatchDetail from "./pages/Matchs/LeagueMatchDetail.jsx";
 import "./i18n";
 import { useTranslation } from "react-i18next";
 import UserProfilePage from "./pages/profile/UserProfilePage.jsx";
 import ResetPasswordPage from "./pages/profile/resetPassword.jsx";
 import { items } from "./utils/constant.js";
 import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";
-import DraftingDetail from "./pages/DraftingDetail/DraftingDetail.jsx";
-import MatchDetailTournament from "./pages/Matchs/MatchDetailTournament.jsx";
-// import Notification from "./components/Notification/Notification.jsx";
+import DraftingDetail from "./pages/DraftingPhase/DraftingDetail.jsx";
+import TournamentMatchDetail from "./pages/Matchs/TournamentMatchDetail.jsx";
 import { setNavigator } from "./navigationService.js";
 import { useSelector } from "react-redux";
 import {
   requestPermission,
   setupMessageListener,
-} from "./utils/NotificationService.js";
+} from "./components/Notification/Services/NotificationService.js";
+import ROUTESPATH from "./Routes/paths.js";
+import MobileEvent from "./hooks/mobileevents.js";
+import { joinUserRoom } from "./app/socket/socket.js";
 
 function NavigatorSetter() {
   const navigate = useNavigate();
@@ -60,30 +56,17 @@ function App() {
   );
 
   useEffect(() => {
-    // Update DOM direction
     document.documentElement.setAttribute("dir", dir);
     document.body.setAttribute("dir", dir);
-
-    // Notify native (only for mobile)
-    const type = localStorage.getItem("deviceType");
-    if (type === "mobile") {
-      window.AndroidInterface?.languageCallbackHandler(newLang);
-      window.webkit?.messageHandlers?.languageCallbackHandler?.postMessage(
-        newLang
-      );
-    }
+    MobileEvent.onLanguageChange(newLang);
   }, [dir, newLang]);
 
   useEffect(() => {
     requestPermission();
     setupMessageListener();
+    joinUserRoom();
   }, [user]);
 
-  const [selectedItem, setSelectedItem] = useState("PrimeHome");
-
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
-  };
   const firstItem = items[0];
 
   return (
@@ -91,42 +74,37 @@ function App() {
       <Router>
         <NavigatorSetter />
         <div className="flex">
-          <Sidebar onItemClick={handleItemClick} selectedItem={selectedItem} />
+          <Sidebar />
           <Routes>
-            <Route path="reset-password" element={<ResetPasswordPage />} />
-            {/* <Route index element={<MainView selectedItem={selectedItem} />} /> */}
-            <Route path="/" element={<Navigate to={`/${firstItem.id}`} />} />
-            {/* Redirect "/:id" to "/:id/lobby" */}
-            {/* <Route path="/:id" element={<Navigate to={`/${window.location.pathname.split('/')[1]}/lobby`} replace />} /> */}
-            <Route path="/:id" element={<Main selectedItem={selectedItem} />}>
+            <Route path={ROUTESPATH.RESETPASSWORD} element={<ResetPasswordPage />} />
+            <Route path={ROUTESPATH.ROOT} element={<Navigate to={`/${firstItem.id}`} />} />
+            <Route path={ROUTESPATH.HOME} element={<Main />}>
               <Route index element={<PrimeHome />} />
-              <Route path="match/:mId" element={<MatchDetail />} />
+              <Route path={ROUTESPATH.MATCHDETAIL} element={<LeagueMatchDetail />} />
               <Route
-                path="tournament/match/:mId"
-                element={<MatchDetailTournament />}
+                path={ROUTESPATH.MATCHDETAIL_TOURNAMENT}
+                element={<TournamentMatchDetail />}
               />
-              <Route path="lobby" element={<Lobby />} />
+              <Route path={ROUTESPATH.LOBBY} element={<Lobby />} />
               <Route
-                path="lobby/drafting/:draftId"
+                path={ROUTESPATH.DRAFTING_DETAIL}
                 element={<DraftingDetail />}
               />
               <Route
-                path="lobby/tournament/:tId"
+                path={ROUTESPATH.TOURNAMENT_DETAIL}
                 element={<TournamentDetail />}
               />
-              <Route path="lobby/:lId" element={<LeagueDetail />} />
+              <Route path={ROUTESPATH.LEAGUE_DETAIL} element={<LeagueDetail />} />
               <Route
-                path="lobby/:lId/finding-match"
+                path={ROUTESPATH.FINDING_MATCH}
                 element={<MatchMaking />}
               />
-              <Route path="profile" element={<UserProfilePage />} />
-              {/* Add more routes as needed */}
+              <Route path={ROUTESPATH.PROFILE} element={<UserProfilePage />} />
             </Route>
             <Route path="*" element={<Navigate to={`/${firstItem.id}`} />} />
           </Routes>
         </div>
       </Router>
-      {/* <Notification /> */}
     </>
   );
 }

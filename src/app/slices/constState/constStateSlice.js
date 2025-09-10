@@ -17,7 +17,7 @@ const initialState = {
   activeTournamentTab: 1,
   confirmationPopUp: 0,
   queueConfimation: false,
-  notificationWindow: false,
+  announcementBanner: false,
   showCalendar: false,
   selectedStartDate: null,
   selectedEndDate: null,
@@ -85,8 +85,8 @@ const constStateSlice = createSlice({
     setQueueConfirmation: (state, action) => {
       state.queueConfimation = action.payload;
     },
-    setNotificationwindow: (state, action) => {
-      state.notificationWindow = action.payload;
+    setAnnouncementBanner: (state, action) => {
+      state.announcementBanner = action.payload;
     },
     setActiveTournamentTab: (state, action) => {
       state.activeTournamentTab = action.payload;
@@ -161,7 +161,7 @@ export const {
   setDateRange,
   setSelectedPlayerData,
   setQueueConfirmation,
-  setNotificationwindow,
+  setAnnouncementBanner,
   setIsPopUpShow,
 } = constStateSlice.actions;
 

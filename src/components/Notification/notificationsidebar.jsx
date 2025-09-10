@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setshowNotification } from "../../app/slices/constState/constStateSlice.js";
 import { notificationType } from "../../utils/constant.js";
 import NotificationTab from "./NotificationTab.jsx";
-import LeaguesJoinNotification from "./LeagueJoinNotificatioCard.jsx";
-import UserRegistrationNotification from "./UserRegistrationNotification.jsx";
-import LeagueEndedNotification from "./LeagueEndedNotification.jsx";
-import MatchFindNotification from "./MatchFindNotification.jsx";
+import LeagueJoin from "./Notifications/LeagueJoin.jsx";
+import UserRegistration from "./Notifications/UserRegistration.jsx";
+import LeagueEnded from "./Notifications/LeagueEnded.jsx";
+import MatchFound from "./Notifications/MatchFound.jsx";
 import left_arrow from "../../assets/images/left-arrow.png";
 import { useTranslation } from "react-i18next";
 import { refreshNotificationCounts } from "../../app/slices/notificationSlice/notificationSlice.js";
 
-const Notification_Sidebar = () => {
+const NotificationSidebar = () => {
   const { NotificationTabIndex } = useSelector((state) => state.constState);
   const { UnreadNotification, ReadNotification, unReadNotificationCount, notificationCount } = useSelector((state) => state.notification);
 
@@ -48,18 +48,18 @@ const Notification_Sidebar = () => {
     switch (type) {
       case notificationType.JOINING_PRIME_LEAGUE:
       case notificationType.QUEUE_OPENED:
-        return <LeaguesJoinNotification key={`${type}-${index}`} data={item} />;
+        return <LeagueJoin key={`${type}-${index}`} data={item} />;
       case notificationType.ACCOUNT_CREATION:
-        return <UserRegistrationNotification key={`${type}-${index}`} data={item} />;
+        return <UserRegistration key={`${type}-${index}`} data={item} />;
       case notificationType.LEAGUE_ENDED:
-        return <LeagueEndedNotification key={`${type}-${index}`} data={item} />;
+        return <LeagueEnded key={`${type}-${index}`} data={item} />;
       case notificationType.MATCHMAKING_FOUND:
       case notificationType.SCORESUBMITTED:
       case notificationType.MATCH_IN_DISPUTE:
       case notificationType.CONFLICT_RESOLVED:
       case notificationType.FIRST_MATCH_WIN:
       case notificationType.FIRST_MATCH_LOSS:
-        return <MatchFindNotification key={`${type}-${index}`} data={item} />;
+        return <MatchFound key={`${type}-${index}`} data={item} />;
       default:
         return null;
     }
@@ -101,18 +101,18 @@ const Notification_Sidebar = () => {
               switch (type) {
                 case notificationType.JOINING_PRIME_LEAGUE:
                 case notificationType.QUEUE_OPENED:
-                  return <LeaguesJoinNotification key={index} data={item} />;
+                  return <LeagueJoin key={index} data={item} />;
                 case notificationType.ACCOUNT_CREATION:
-                  return <UserRegistrationNotification key={index} data={item} />;
+                  return <UserRegistration key={index} data={item} />;
                 case notificationType.LEAGUE_ENDED:
-                  return <LeagueEndedNotification key={index} data={item} />;
+                  return <LeagueEnded key={index} data={item} />;
                 case notificationType.MATCHMAKING_FOUND:
                 case notificationType.SCORESUBMITTED:
                 case notificationType.MATCH_IN_DISPUTE:
                 case notificationType.CONFLICT_RESOLVED:
                 case notificationType.FIRST_MATCH_WIN:
                 case notificationType.FIRST_MATCH_LOSS:
-                  return <MatchFindNotification key={index} data={item} />;
+                  return <MatchFound key={index} data={item} />;
                 default:
                   return null;
               }
@@ -135,4 +135,4 @@ const Notification_Sidebar = () => {
   );
 };
 
-export default Notification_Sidebar;
+export default NotificationSidebar;

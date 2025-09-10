@@ -73,7 +73,7 @@ const CustomFileUpload = ({
           </div>
         )}
       </div>
-      <style jsx>{`
+      <style jsx="true">{`
         .relative:hover .absolute {
           opacity: 1 !important;
         }

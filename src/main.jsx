@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import "swiper/css";
@@ -10,34 +9,13 @@ import { Provider } from "react-redux";
 import { setAxiosStore } from "./utils/axios.js";
 import { store } from "./app/slices/store.js";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Don't forget to import the CSS!
+import "react-toastify/dist/ReactToastify.css";
 import "@emran-alhaddad/saudi-riyal-font/index.css";
+import MobileEvent from "./hooks/mobileevents.js";
 
 setAxiosStore(store);
-
-// Define the function globally
-window.appLoginData = function (authToken, language, userData, deviceType) {
-  console.log("Callback from App:", authToken, language, userData, deviceType);
-  // Store values in localStorage or state management
-  if (authToken) {
-    localStorage.setItem("token", authToken);
-  }
-  if (deviceType) {
-    localStorage.setItem("deviceType", deviceType);
-  }
-  if (language) {
-    localStorage.setItem("lang", language);
-  }
-  if (userData) {
-    localStorage.setItem("user", userData);
-  }
-
-  // (Optional) trigger a custom event so React components can update
-  window.dispatchEvent(new Event("appLoginDataReceived"));
-};
-
+MobileEvent.onLogin();
 createRoot(document.getElementById("root")).render(
-  // <StrictMode> // StrictMode is often helpful for development, consider re-enabling
   <Provider store={store}>
     <ToastContainer
       position="top-right" // Common position
@@ -69,5 +47,4 @@ createRoot(document.getElementById("root")).render(
     </svg>
     <App />
   </Provider>
-  // </StrictMode>
 );

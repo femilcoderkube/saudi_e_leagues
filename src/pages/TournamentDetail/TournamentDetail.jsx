@@ -1,11 +1,9 @@
-import teamSizeImage from "../../assets/images/teamSize.png";
 
-import center_league from "../../assets/images/center_league.png";
 import { useParams } from "react-router-dom";
 import { formatAmountWithCommas, getServerURL, stageTypes } from "../../utils/constant.js";
 
 import { useTranslation } from "react-i18next";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import GamingLoader from "../../components/Loader/loader.jsx";
@@ -25,7 +23,8 @@ import {
   cardVariantsAni,
 } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
-import TournamentInfoBar from "../../components/TournamentInfoBar/TournamentInfoBar.jsx";
+import DetailItem from "../../components/Details/DetailItem.jsx";
+import images from "../../components/ui/images/images.js";
 
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
@@ -138,25 +137,25 @@ const TournamentDetail = () => {
                 variants={cardVariantsAni}
                 viewport={{ once: true, amount: 0.3 }}
               >
-                <TournamentInfoBar
+                <DetailItem
                   title={t("league.game")}
                   logo={tournamentData?.game?.logo}
                   name={tournamentData?.game?.shortName}
                 />
-                <TournamentInfoBar
+                <DetailItem
                   title={t("league.platform")}
                   logo={tournamentData?.platform?.logo}
                   name={tournamentData?.platform?.name?.toUpperCase()}
                 />
-                <TournamentInfoBar
+                <DetailItem
                   title={t("league.team_size")}
-                  logo={teamSizeImage}
+                  logo={images.teamSizeImage}
                   name={tournamentData.maxPlayersPerTeam}
                   type={1}
                 />
-                <TournamentInfoBar
+                <DetailItem
                   title={t("league.participants")}
-                  logo={teamSizeImage}
+                  logo={images.teamSizeImage}
                   name={`${tournamentData?.totalRegistrations}/
                   ${tournamentData?.maxParticipants}`}
                   type={2}

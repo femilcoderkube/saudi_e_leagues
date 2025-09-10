@@ -1,4 +1,3 @@
-// navigationService.js
 let navigateFn;
 
 export const setNavigator = (navigate) => {

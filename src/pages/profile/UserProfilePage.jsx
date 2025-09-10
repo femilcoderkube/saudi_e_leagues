@@ -18,7 +18,7 @@ import {
   deleteFcmToken,
   logout,
 } from "../../app/slices/auth/authSlice";
-import ConfirmationPopUp from "../../components/ModalPopUp/confirmationPopUp";
+import ConfirmationPopUp from "../../components/Overlays/ConfirmationPopUp";
 import { getUpdateToken } from "../../app/socket/socket";
 
 const UserProfilePage = () => {

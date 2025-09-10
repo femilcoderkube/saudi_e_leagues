@@ -2,26 +2,20 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 import * as Yup from "yup";
-import { RoleOptions } from "../ui/svg/SelectMenu.jsx";
 import CustomFileUpload from "../ui/svg/UploadFile.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchGames,
-  resetGamesState,
 } from "../../app/slices/game/gamesSlice.js";
 import {
   checkUsersExists,
-  // fetchUserById,
   sendOtp,
-  // verifyOtp,
 } from "../../app/slices/auth/authSlice.js";
 import { debounce } from "lodash";
 import { countryData } from "../../utils/CountryCodes.js";
-import { baseURL } from "../../utils/axios.js";
 import { getServerURL } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "react-tooltip";
-import { setProfileVisible, setRegisteration } from "../../app/slices/constState/constStateSlice.js";
 import VerifiyOTPModel from "./VerifiyOTPModel.jsx";
 import { setVerificationModal } from "../../app/slices/leagueDetail/leagueDetailSlice.js";
 import { toast } from "react-toastify";
@@ -42,11 +36,6 @@ const WizardSteps = ({
   const { verificationModal, verificationModule } = useSelector((state) => state.leagues);
   const [showPassword, setShowPassword] = useState(false);
   const createdAt = localStorage.getItem("OTPCreated");
-  // const [showOtpPopup, setShowOtpPopup] = useState(false);
-  // const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  // const [otpError, setOtpError] = useState("");
-  // const { isRegisteration } = useSelector((state) => state.constState);
-  // const { user } = useSelector((state) => state.auth);
 
   const [previewImage, setPreviewImage] = useState(() => {
     const pic = initialValues?.profilePicture || null;

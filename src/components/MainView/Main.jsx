@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import WizardSteps from "./WizardSteps";
 import { useDispatch, useSelector } from "react-redux";
-import LoginModal from "../Modal/LoginModal";
+import Login from "../Overlays/Login";
 import { toast } from "react-toastify";
-import SubmitPopUp from "../ModalPopUp/SubmitScorePopUp";
+import SubmitPopUp from "../Overlays/SubmitScorePopUp";
 import {
   setActiveTabIndex,
   setPreviewImage,
@@ -13,21 +13,18 @@ import {
   setRegisteration,
   setSubmitModal,
 } from "../../app/slices/constState/constStateSlice";
-import { countryData } from "../../utils/CountryCodes";
 import { checkParams } from "../../utils/constant";
 import {
   checkBannedUser,
   fetchUserById,
   updateUser,
 } from "../../app/slices/auth/authSlice";
-import { baseURL } from "../../utils/axios";
 import { registerUser } from "../../app/slices/auth/authSlice";
 import { useTranslation } from "react-i18next";
-import Notification_sidebar from "../Notification/notificationsidebar";
-import ConfirmationPopUp from "../ModalPopUp/confirmationPopUp";
+import NotificationSidebar from "../Notification/NotificationSidebar";
+import ConfirmationPopUp from "../Overlays/ConfirmationPopUp";
 import { motion } from "framer-motion";
-import { getUpdateToken } from "../../app/socket/socket";
-import { genrateFCMToken } from "../../utils/NotificationService";
+import { genrateFCMToken } from "../Notification/Services/NotificationService";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -36,7 +33,6 @@ export default function Main() {
   const {
     profileVisible,
     submitModal,
-    viewModal,
     countryOptions,
     dialCodeOptions,
     isLogin,
@@ -50,8 +46,6 @@ export default function Main() {
   const [profileLoading, setProfileLoading] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { t } = useTranslation();
-
-  //  dispatch(checkBannedUser());
 
   const defaultNationality = countryOptions.find(
     (option) => option.value === "Saudi Arabia"
@@ -168,13 +162,6 @@ export default function Main() {
     dispatch(checkBannedUser());
   }, [location]);
 
-  // useEffect(() => {
-  //   if (profileVisible && user?._id) {
-  //     setProfileLoading(true);
-  //     dispatch(fetchUserById(user?._id)).finally(() => setProfileLoading(false));
-  //   }
-  // }, [profileVisible, dispatch]);
-
   return (
     <div
       className={`flex-1 flex flex-col sd_main-content md:ltr:ml-[-2.5rem] md:rtl:mr-[-2.5rem] relative bg-[#020326] ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20 
@@ -182,10 +169,6 @@ export default function Main() {
         `}
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
-      {/* <div
-      className="flex-1 flex flex-col sd_main-content md:ml-[-2.5rem] relative bg-[#020326] rounded-l-[2.5rem] z-20"
-      style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-    > */}
       <Header />
       <main
         className={`flex-1 game_card_main--con sm:mt-0 mt-19  ${
@@ -211,7 +194,7 @@ export default function Main() {
                 exit={{ scale: 0.5, opacity: 0, y: 50 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
               >
-                <style jsx>{`
+                <style jsx="true">{`
                   /* Custom scrollbar styling for smaller devices */
                   @media (max-width: 767px) {
                     .match_reg--popup::-webkit-scrollbar {
@@ -326,14 +309,14 @@ export default function Main() {
             </svg>
           </>
         )}
-        {isLogin && <LoginModal />}
+        {isLogin && <Login />}
         {submitModal && (
           <SubmitPopUp handleClose={() => dispatch(setSubmitModal(false))} />
         )}
         {confirmationPopUp != 0 && <ConfirmationPopUp />}
         <Outlet />
 
-        {showNotification && <Notification_sidebar />}
+        {showNotification && <NotificationSidebar />}
       </main>
     </div>
   );

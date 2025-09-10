@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import "../../assets/css/homepage.css";
-import VideoModal from "../../components/ModalPopUp/VideoModal.jsx";
-import HeroLeftSection from "../../components/Home/HeroLeftSection.jsx";
-import HeroRightSection from "../../components/Home/HeroRightSection.jsx";
-import AboutLeftSection from "../../components/Home/AboutLeftSection.jsx";
-import AboutRightSection from "../../components/Home/AboutRightSection.jsx";
-import HowToPlaySection from "../../components/Home/HowToPlaySection.jsx";
-import FaqSection from "../../components/Home/FaqSection.jsx";
-import NotificationWindow from "../../components/ModalPopUp/NotificationWindow.jsx";
+
+import VideoPlayer from "../../components/Overlays/Prime/VideoPlayer.jsx";
+import Hero from "../../components/Home/Prime/Hero.jsx";
+import GameSlider from "../../components/Home/Prime/GameSlider.jsx";
+import About from "../../components/Home/Prime/About.jsx";
+import Video from "../../components/Home/Prime/Video.jsx";
+import HowToPlay from "../../components/Home/Prime/HowToPlay.jsx";
+import Faqs from "../../components/Home/Prime/Faqs.jsx";
+import AnnouncementBanner from "../../components/Overlays/Prime/AnnouncementBanner.jsx";
 import {
   setIsPopUpShow,
-  setNotificationwindow,
+  setAnnouncementBanner,
 } from "../../app/slices/constState/constStateSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { getPopupData, shouldDisplayPopup } from "../../utils/constant.js";
+import { getPopupData } from "../../utils/constant.js";
 
 const usePageLoading = (delay = 300) => {
   useEffect(() => {
@@ -71,7 +72,6 @@ export default function PrimeHome() {
               riyadhNow.getDate() <= expireDate.getDate())));
 
       if (popups?.updatedAt != oldPopUp?.updatedAt) {
-        console.log("innnn");
         localStorage.setItem("skipAnnouncement", false);
         localStorage.setItem("popups", JSON.stringify(popups));
         isSkip = false;
@@ -97,25 +97,25 @@ export default function PrimeHome() {
 
       <div className="sd_home-wrapper">
         <section className="home_hero--sec relative flex lg:pt-[21.125rem] md:pt-[13rem] pt-[10rem] justify-between items-end">
-          <HeroLeftSection id={id} />
-          <HeroRightSection />
+          <Hero id={id} />
+          <GameSlider />
         </section>
 
         <section className="home_about--sec relative lg:pt-[7.5rem] pt-[2rem] lg:pb-[6rem] pb-[1rem] flex overflow-hidden">
-          <AboutLeftSection />
-          <AboutRightSection onPlayVideo={handleVideoModalOpen} />
+          <About />
+          <Video onPlayVideo={handleVideoModalOpen} />
         </section>
 
-        <HowToPlaySection id={id}/>
+        <HowToPlay id={id}/>
 
-        <FaqSection />
+        <Faqs />
       </div>
 
       {showVideoModal && (
-        <VideoModal onClose={() => setShowVideoModal(false)} />
+        <VideoPlayer onClose={() => setShowVideoModal(false)} />
       )}
       {isPopUpShow && (
-        <NotificationWindow onClose={() => setNotificationwindow(false)} />
+        <AnnouncementBanner onClose={() => setAnnouncementBanner(false)} />
       )}
     </main>
   );

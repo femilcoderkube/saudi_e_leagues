@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // Import framer-motion
-import GameDropDown from "../../components/LoddyPageComponents/GameDropDown";
-import { FolderIcon, ListIcon } from "../../components/ui/svg";
+import { motion, AnimatePresence } from "framer-motion";
+import GameDropDown from "../../components/Loddy/GameDropDown.jsx";
+import { FolderIcon, ListIcon } from "../../components/ui/svg/index.jsx";
 import { useParams } from "react-router-dom";
 import {
   fetchLeagues,
@@ -9,33 +9,30 @@ import {
   setIsListView,
 } from "../../app/slices/lobby/lobbySlice";
 import { useDispatch, useSelector } from "react-redux";
-import GameCardListView from "../../components/LoddyPageComponents/GameCardListView";
-import GameCardGridView from "../../components/LoddyPageComponents/GameCardGridView";
+import GameListView from "../../components/Cards/Lobby/GameListView.jsx";
+import GameGridView from "../../components/Cards/Lobby/GameGridView.jsx";
 import { getPartnerById } from "../../utils/constant";
 import GamingLoader from "../../components/Loader/loader";
 import { setLeagueData } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { useTranslation } from "react-i18next";
 import { setTournamentData } from "../../app/slices/tournamentSlice/tournamentSlice";
 import {
-  leftToRight,
-  rightToLeft,
   cardVariantsAni,
 } from "../../components/Animation/animation.jsx";
 
-// Animation variants for the card wrapper
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1, // Stagger the animation of children
+      staggerChildren: 0.1,
     },
   },
   exit: {
     opacity: 0,
     transition: {
       staggerChildren: 0.05,
-      staggerDirection: -1, // Exit in reverse order
+      staggerDirection: -1,
     },
   },
 };
@@ -135,9 +132,9 @@ const Lobby = () => {
                 className="game_card--wrapper"
               >
                 {isListView ? (
-                  <GameCardListView leagues={leagues} />
+                  <GameListView leagues={leagues} />
                 ) : (
-                  <GameCardGridView leagues={leagues} />
+                  <GameGridView leagues={leagues} />
                 )}
               </motion.div>
             </AnimatePresence>

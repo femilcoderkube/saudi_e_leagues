@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Link,
-  NavLink,
   useLocation,
   useNavigate,
   useParams,
@@ -26,10 +25,9 @@ import homeIcon from "../../assets/images/mobile_menu_icon_logo.svg";
 import logo_ltr from "../../assets/images/logo-lrt.svg";
 import lobyIcon from "../../assets/images/mobile_menu_icon_star.svg";
 import mobile_menu_icon_user from "../../assets/images/LoginPersone.png";
-import Dropdown from "../LobbyPageComp/User_menu.jsx";
-import { checkParams, items } from "../../utils/constant.js";
+import Dropdown from "../LeagueDetail/User_menu.jsx";
+import { checkParams } from "../../utils/constant.js";
 import { useDispatch, useSelector } from "react-redux";
-import SubmitScoreBtn from "../Matchmakingcomp/submitScoreButton.jsx";
 import {
   setActiveTabIndex,
   setConfirmationPopUp,
@@ -41,13 +39,7 @@ import {
   setSubmitModal,
 } from "../../app/slices/constState/constStateSlice.js";
 import { useTranslation } from "react-i18next";
-// <-- Make sure this path is correct
 
-{
-  /* === BreadCrumb items array ==== */
-}
-
-// Language Toggle Component
 const LanguageToggle = () => {
   const { i18n } = useTranslation();
 

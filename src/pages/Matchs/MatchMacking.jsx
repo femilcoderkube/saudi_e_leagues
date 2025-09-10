@@ -9,7 +9,7 @@ import {
   startReadyToPlaySocket,
   stopReadyToPlaySocket,
 } from "../../app/socket/socket.js";
-import TimeOverPopup from "../../components/ModalPopUp/TimeOverPopup";
+import TimeOverPopup from "../../components/Overlays/TimeOverPopup.jsx";
 import center_league from "../../assets/images/center_league.png";
 import cancel_btn from "../../assets/images/cancelbtn.png";
 import Sparkles from "./Sparkles.jsx";
