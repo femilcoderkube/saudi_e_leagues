@@ -3,8 +3,8 @@ import { getServerURL, items } from "../../utils/constant";
 import { useNavigate } from "react-router-dom";
 import { getLastMatchesSocket } from "../../app/socket/socket";
 import { useEffect } from "react";
-import vs_img from "../../assets/images/vs_img.png";
 import { setLastMatch } from "../../app/slices/notificationSlice/notificationSlice";
+import { IMAGES } from "../ui/images/images";
 
 const RecentMatches = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const RecentMatches = () => {
                     {new Date(match.createdAt).toLocaleTimeString("en-GB", {
                       hour: "2-digit",
                       minute: "2-digit",
-                      hour12: true
+                      hour12: true,
                     })}
                   </span>
                 </h2>
@@ -107,7 +107,7 @@ const RecentMatches = () => {
                       />
                     </div> */}
                     <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
-                        {match?.teamOneScore == null ||
+                      {match?.teamOneScore == null ||
                       match?.teamOneScore == undefined
                         ? "-"
                         : match?.teamOneScore}
@@ -116,13 +116,13 @@ const RecentMatches = () => {
                   <div className="tournament-schedule-card-header-center shrink-0">
                     <img
                       className="w-7 h-20 object-contain"
-                      src={vs_img}
+                      src={IMAGES.vs_img}
                       alt=""
                     />
                   </div>
                   <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
                     <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
-                        {match?.teamTwoScore == null ||
+                      {match?.teamTwoScore == null ||
                       match?.teamTwoScore == undefined
                         ? "-"
                         : match?.teamTwoScore}

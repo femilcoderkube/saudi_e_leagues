@@ -1,9 +1,8 @@
-import tournament_vs_icon from "../../../assets/images/tournament_vs_icon.png";
-import tournament_bg_img from "../../../assets/images/tournament_bg_img.jpg";
-import footer_card_icon from "../../../assets/images/footer-card-icon.png";
+
 import { useSelector } from "react-redux";
 import { getServerURL } from "../../../utils/constant";
 import { useNavigate, useParams } from "react-router-dom";
+import { IMAGES } from "../../ui/images/images";
 const ScheduleCard = ({ item }) => {
   const { id } = useParams();
   const { tournamentData } = useSelector(
@@ -52,7 +51,7 @@ const ScheduleCard = ({ item }) => {
       <div className="tournament-schedule-card-wrapper relative">
         <div className="tournament-schedule-card-header flex justify-between items-center p-4 md:pt-10 pt-6 md:pb-6 md:px-8 relative">
           <img
-            src={tournament_bg_img}
+            src={IMAGES.tournament_bg_img}
             alt="tournament-schedule"
             className="w-full h-full object-cover absolute top-0 left-0 z-0 opacity-4 "
           />
@@ -92,7 +91,7 @@ const ScheduleCard = ({ item }) => {
           </div>
           <div className="tournament-schedule-card-footer-center w-[2rem] md:w-[3rem]">
             <img
-              src={tournament_vs_icon}
+              src={IMAGES.tournament_vs_icon}
               alt="tournament-schedule"
               className="mix-blend-luminosity"
             />
@@ -106,7 +105,7 @@ const ScheduleCard = ({ item }) => {
         <div className="tournament-schedule-card-footer tournament-schedule-card-footer-hover flex justify-center items-center h-[3rem] md:h-[4rem] px-4 md:px-8 md:pb-6 py-4 overflow-hidden relative">
           <div className="tournament-schedule-card-footer-left flex gap-2 items-center justify-center">
             <h2 className="text-base md:text-xl font-semibold text-[#3ECCF3]">Match Page</h2>
-            <img src={footer_card_icon} alt="" />
+            <img src={IMAGES.footer_card_icon} alt="" />
           </div>
         </div>
 

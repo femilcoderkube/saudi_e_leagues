@@ -1,8 +1,8 @@
-import match_reg from "../../assets/images/match_making.png";
-import match_reg_ar from "../../assets/images/match_making_ar.png";
+
 import { Popup_btn } from "../ui/svg/index.jsx";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { IMAGES } from "../ui/images/images.js";
 function TimeOverPopup({
   onYes,
   onNo,
@@ -38,7 +38,7 @@ function TimeOverPopup({
           >
             <div className="popup_header px-8 pt-8 pb-5 flex items-start justify-between mt-3 text-center sm:mt-0 sm:text-left">
               <img
-               src={i18n.language === "ar" ? match_reg_ar : match_reg}
+               src={i18n.language === "ar" ? IMAGES.match_reg_ar :IMAGES.match_reg}
                 alt={t("images.match_registration")}
                 style={{ width: "10rem" }}
               />

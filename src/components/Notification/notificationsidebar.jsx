@@ -7,13 +7,18 @@ import LeagueJoin from "./Notifications/LeagueJoin.jsx";
 import UserRegistration from "./Notifications/UserRegistration.jsx";
 import LeagueEnded from "./Notifications/LeagueEnded.jsx";
 import MatchFound from "./Notifications/MatchFound.jsx";
-import left_arrow from "../../assets/images/left-arrow.png";
 import { useTranslation } from "react-i18next";
 import { refreshNotificationCounts } from "../../app/slices/notificationSlice/notificationSlice.js";
+import { IMAGES } from "../ui/images/images.js";
 
 const NotificationSidebar = () => {
   const { NotificationTabIndex } = useSelector((state) => state.constState);
-  const { UnreadNotification, ReadNotification, unReadNotificationCount, notificationCount } = useSelector((state) => state.notification);
+  const {
+    UnreadNotification,
+    ReadNotification,
+    unReadNotificationCount,
+    notificationCount,
+  } = useSelector((state) => state.notification);
 
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -32,9 +37,14 @@ const NotificationSidebar = () => {
       // return unReadNotificationCount + notificationCount;
     }
   };
-  const animationClass = i18n.language === "ar"
-    ? isClosing ? "slide-out-left" : "slide-in-left"
-    : isClosing ? "slide-out-right" : "slide-in-right";
+  const animationClass =
+    i18n.language === "ar"
+      ? isClosing
+        ? "slide-out-left"
+        : "slide-in-left"
+      : isClosing
+      ? "slide-out-right"
+      : "slide-in-right";
 
   const handleClose = () => {
     setIsClosing(true);
@@ -76,7 +86,8 @@ const NotificationSidebar = () => {
   const currentNotifications = getCurrentNotifications();
 
   return (
-    <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"
+    <div
+      className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"
       onClick={handleClose}
     >
       <div
@@ -84,10 +95,14 @@ const NotificationSidebar = () => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="notification-head-wp fixed t-0 z-101 w-full bg-[#0d0f3b] px-5 pt-9">
-          <div className="notification-head flex items-center gap-5" onClick={handleClose}>
-            <img src={left_arrow} alt="" />
+          <div
+            className="notification-head flex items-center gap-5"
+            onClick={handleClose}
+          >
+            <img src={IMAGES.left_arrow} alt="" />
             <h5 className="uppercase text-2xl tracking-wide">
-              {t("images.notifications")} <span className="purple_col">({getTotalCount()})</span>
+              {t("images.notifications")}{" "}
+              <span className="purple_col">({getTotalCount()})</span>
             </h5>
           </div>
           <div className="pt-8">
@@ -126,7 +141,11 @@ const NotificationSidebar = () => {
             currentNotifications.map(renderNotification)
           ) : (
             <div className="text-center text-gray-400 mt-10">
-              <p>{NotificationTabIndex === 0 ? 'No unread notifications' : 'No notifications'}</p>
+              <p>
+                {NotificationTabIndex === 0
+                  ? "No unread notifications"
+                  : "No notifications"}
+              </p>
             </div>
           )}
         </div>

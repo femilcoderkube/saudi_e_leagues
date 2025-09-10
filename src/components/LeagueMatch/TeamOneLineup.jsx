@@ -3,11 +3,8 @@ import { getCards, getMobileCards } from "../Cards/MatchDetail/matchCards";
 import { giveReputation } from "../../app/socket/socket";
 import { useSelector } from "react-redux";
 import { getServerURL } from "../../utils/constant";
-import LikeIcon from "../../assets/images/like_icon.png";
-import DisLikeIcon from "../../assets/images/dislike_icon.png";
-import GoldCrown from "../../assets/images/gold_crown.png";
-import Dummy_Profile from "../../assets/images/Dummy_Profile.png";
 import { useTranslation } from "react-i18next";
+import { IMAGES } from "../ui/images/images";
 export const TeamOneLineup = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const user = useSelector((state) => state.auth.user);
@@ -43,9 +40,9 @@ export const TeamOneLineup = () => {
           username: player?.participant?.userId?.username || "",
           gameID: player?.participant?.gameId || "",
           rep: player?.participant?.raputations?.wilsonScore || 0,
-          profilePic: player?.participant?.userId?.profilePicture ? getServerURL(
-            player?.participant?.userId?.profilePicture 
-          ) : Dummy_Profile,
+          profilePic: player?.participant?.userId?.profilePicture
+            ? getServerURL(player?.participant?.userId?.profilePicture)
+            : IMAGES.Dummy_Profile,
           score: Math.round(player?.leaguesScore || 0),
         };
 
@@ -65,7 +62,7 @@ export const TeamOneLineup = () => {
           >
             {index === 0 && (
               <span className="gold_crown absolute top-[-3rem] right-8 z-10">
-                <img src={GoldCrown} alt="Gold Crown" className="h-10" />
+                <img src={IMAGES.GoldCrown} alt="Gold Crown" className="h-10" />
               </span>
             )}
             <Card player={data} />
@@ -93,7 +90,7 @@ export const TeamOneLineup = () => {
                     }`}
                   >
                     <img
-                      src={LikeIcon}
+                      src={IMAGES.LikeIcon}
                       alt={t("match.like")}
                       style={{ width: "2.625rem" }}
                     />
@@ -111,7 +108,7 @@ export const TeamOneLineup = () => {
                     }`}
                   >
                     <img
-                      src={DisLikeIcon}
+                      src={IMAGES.DisLikeIcon}
                       alt={t("match.dislike")}
                       style={{ width: "2.625rem" }}
                     />
@@ -129,9 +126,9 @@ export const TeamOneLineup = () => {
           username: player?.participant?.userId?.username || "",
           gameID: player?.participant?.gameId || "",
           rep: player?.participant?.raputations?.wilsonScore || 0,
-          profilePic: player?.participant?.userId?.profilePicture ? getServerURL(
-            player?.participant?.userId?.profilePicture 
-          ) : Dummy_Profile,
+          profilePic: player?.participant?.userId?.profilePicture
+            ? getServerURL(player?.participant?.userId?.profilePicture)
+            : IMAGES.Dummy_Profile,
           score: Math.round(player?.leaguesScore || 0),
         };
 
@@ -151,7 +148,7 @@ export const TeamOneLineup = () => {
           >
             {index === 0 && (
               <span className="gold_crown absolute top-[-3rem] right-8 z-10">
-                <img src={GoldCrown} alt="Gold Crown" className="h-10" />
+                <img src={IMAGES.GoldCrown} alt="Gold Crown" className="h-10" />
               </span>
             )}
             <Card player={data} />
@@ -179,7 +176,7 @@ export const TeamOneLineup = () => {
                     }`}
                   >
                     <img
-                      src={LikeIcon}
+                      src={IMAGES.LikeIcon}
                       alt={t("match.like")}
                       style={{ width: "2.625rem" }}
                     />
@@ -197,7 +194,7 @@ export const TeamOneLineup = () => {
                     }`}
                   >
                     <img
-                      src={DisLikeIcon}
+                      src={IMAGES.DisLikeIcon}
                       alt={t("match.dislike")}
                       style={{ width: "2.625rem" }}
                     />

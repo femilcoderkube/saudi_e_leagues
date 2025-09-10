@@ -6,16 +6,12 @@ import {
 } from "../../app/slices/constState/constStateSlice.js";
 import ScheduleCard from "../../components/Cards/TournamentDetail/ScheduleCard.jsx";
 import DatePiker from "../../components/Cards/TournamentDetail/DatePiker.jsx";
-import cal_arrow from "../../assets/images/cal_arrow.png";
-import full_screen from "../../assets/images/full-screen.png";
-import exit_screen from "../../assets/images/exit-screen.png";
 import { getServerURL } from "../../utils/constant.js";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import { useTranslation } from "react-i18next";
-import {
-  cardVariantsAni,
-} from "../../components/Animation/animation.jsx";
+import { cardVariantsAni } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
+import { IMAGES } from "../../components/ui/images/images.js";
 
 const SingleDoubleStages = () => {
   const { t } = useTranslation();
@@ -162,27 +158,30 @@ const SingleDoubleStages = () => {
       <div id="tournament-tab-contents" className="mt-7">
         <div id="first" className="py-4 active">
           <div
-            className={`tab-btn-wp flex justify-between items-center gap-5 ${activeTournamentTab === 1 ? "bracket-btn" : ""
-              }`}
+            className={`tab-btn-wp flex justify-between items-center gap-5 ${
+              activeTournamentTab === 1 ? "bracket-btn" : ""
+            }`}
           >
             <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
               <div className="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] sm:top-1 top-0 inline-flex justify-center sm:justify-start">
                 <button
                   onClick={() => handleActiveTournamentTab(1)}
-                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${activeTournamentTab === 1
-                    ? "active-tab hover:opacity-100 polygon_border"
-                    : ""
-                    }`}
+                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
+                    activeTournamentTab === 1
+                      ? "active-tab hover:opacity-100 polygon_border"
+                      : ""
+                  }`}
                 >
                   {t("tournament.brackets")}
                 </button>
 
                 <button
                   onClick={() => handleActiveTournamentTab(2)}
-                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${activeTournamentTab === 2
-                    ? "active-tab hover:opacity-100 polygon_border"
-                    : ""
-                    }`}
+                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
+                    activeTournamentTab === 2
+                      ? "active-tab hover:opacity-100 polygon_border"
+                      : ""
+                  }`}
                 >
                   {t("tournament.schedule")}
                 </button>
@@ -197,14 +196,22 @@ const SingleDoubleStages = () => {
                       className="full-screen p-3 w-12 h-12 flex items-center justify-center"
                       onClick={() => openFullscreen()}
                     >
-                      <img className="w-6 h-6" src={full_screen} alt="" />
+                      <img
+                        className="w-6 h-6"
+                        src={IMAGES.full_screen}
+                        alt=""
+                      />
                     </div>
                   ) : (
                     <div
                       className="full-screen p-3 w-12 h-12 flex items-center justify-center"
                       onClick={() => closeFullscreen()}
                     >
-                      <img className="w-6 h-6" src={exit_screen} alt="" />
+                      <img
+                        className="w-6 h-6"
+                        src={IMAGES.exit_screen}
+                        alt=""
+                      />
                     </div>
                   )}
                 </div>
@@ -238,7 +245,7 @@ const SingleDoubleStages = () => {
                   </span>
                   <img
                     className="w-3.5 h-2 object-cover object-center"
-                    src={cal_arrow}
+                    src={IMAGES.cal_arrow}
                     alt=""
                   />
                 </button>
@@ -246,14 +253,15 @@ const SingleDoubleStages = () => {
               {showCalendar && activeTournamentTab === 2 && (
                 <div
                   id="calendar-popup"
-                  className={`open-cal absolute ltr:right-0 rtl:left-0 z-50 ${window.innerHeight -
-                    document
-                      .getElementById("calendar-popup-btn")
-                      ?.getBoundingClientRect().bottom <
+                  className={`open-cal absolute ltr:right-0 rtl:left-0 z-50 ${
+                    window.innerHeight -
+                      document
+                        .getElementById("calendar-popup-btn")
+                        ?.getBoundingClientRect().bottom <
                     300
-                    ? "bottom-[100%] mb-2"
-                    : "top-[100%] mt-2"
-                    }`}
+                      ? "bottom-[100%] mb-2"
+                      : "top-[100%] mt-2"
+                  }`}
                 >
                   <DatePiker
                     startDate={currentDate ? new Date(currentDate) : null}
@@ -284,7 +292,7 @@ const SingleDoubleStages = () => {
                         onClick={() => closeFullscreen()}
                         title="Exit Fullscreen"
                       >
-                        <img src={exit_screen} alt="Exit Fullscreen" />
+                        <img src={IMAGES.exit_screen} alt="Exit Fullscreen" />
                       </button>
                     </div>
                   )}
@@ -305,14 +313,12 @@ const SingleDoubleStages = () => {
                       ?.filter(
                         (item) =>
                           new Date(item.startTime).setHours(0, 0, 0, 0) >=
-                          new Date(currentDate).setHours(0, 0, 0, 0) &&
+                            new Date(currentDate).setHours(0, 0, 0, 0) &&
                           new Date(item.startTime).setHours(0, 0, 0, 0) <
-                          new Date(nextDayDate).setHours(23, 59, 59, 999)
+                            new Date(nextDayDate).setHours(23, 59, 59, 999)
                       )
                       .map((item, index) => {
-                        return (
-                          <ScheduleCard key={index} item={item} />
-                        );
+                        return <ScheduleCard key={index} item={item} />;
                       })}
                   </div>
                 ) : (

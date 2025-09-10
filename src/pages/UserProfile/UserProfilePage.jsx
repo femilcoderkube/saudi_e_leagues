@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useScreenSize from "../../utils/screenUtils";
 import { useEffect } from "react";
 import {
@@ -7,9 +7,6 @@ import {
   setProfileVisible,
 } from "../../app/slices/constState/constStateSlice";
 import { useDispatch, useSelector } from "react-redux";
-import mobile_menu_icon_user from "../../assets/images/LoginPersone.png";
-import logOut from "../../assets/images/logOut.png";
-import deleteIcon from "../../assets/images/delete-account-icon.png";
 import { getServerURL } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
 import {
@@ -20,6 +17,7 @@ import {
 } from "../../app/slices/auth/authSlice";
 import ConfirmationPopUp from "../../components/Overlays/ConfirmationPopUp";
 import { getUpdateToken } from "../../app/socket/socket";
+import { IMAGES } from "../../components/ui/images/images";
 
 const UserProfilePage = () => {
   const { id } = useParams();
@@ -34,7 +32,6 @@ const UserProfilePage = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    console.log("azsdfasfas-------", screenSize);
     if (screenSize > 768) {
       navigate(`/${id}/lobby`);
       dispatch(setActiveTabIndex(0));
@@ -101,7 +98,11 @@ const UserProfilePage = () => {
               dispatch(setProfileVisible(true));
             }}
           >
-            <img className="w-6 h-6" src={mobile_menu_icon_user} alt="user" />
+            <img
+              className="w-6 h-6"
+              src={IMAGES.mobile_menu_icon_user}
+              alt="user"
+            />
             {t("auth.edit_profile")}
           </li>
 
@@ -112,7 +113,7 @@ const UserProfilePage = () => {
                 dispatch(setConfirmationPopUp(4));
               }}
             >
-              <img className="w-6 h-6" src={deleteIcon} alt="user" />
+              <img className="w-6 h-6" src={IMAGES.deleteIcon} alt="user" />
               {t("auth.delete_account")}
             </li>
           )}
@@ -123,7 +124,7 @@ const UserProfilePage = () => {
               dispatch(setConfirmationPopUp(1));
             }}
           >
-            <img className="w-6 h-6" src={logOut} alt="user" />
+            <img className="w-6 h-6" src={IMAGES.logOut} alt="user" />
             {t("auth.logout")}
           </li>
 

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { getServerURL, getTimeAgo } from "../../../utils/constant";
 import { setshowNotification } from "../../../app/slices/constState/constStateSlice";
 import { readNotificationSocket } from "../../../app/socket/socket";
-import defaultImg from "../../../assets/images/bydefault.png";
+import { IMAGES } from "../../ui/images/images";
 
 const MatchFound = ({ data }) => {
   const { t, i18n } = useTranslation();
@@ -68,7 +68,7 @@ const MatchFound = ({ data }) => {
           <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
             <div className="notification-box-head flex items-center gap-4">
               <img
-                src={notificationData.image || defaultImg}
+                src={notificationData.image || IMAGES.defaultImg}
                 alt=""
                 style={{
                   width: "2.51rem",

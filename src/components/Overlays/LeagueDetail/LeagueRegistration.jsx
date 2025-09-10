@@ -1,8 +1,6 @@
 import { useMemo } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import match_reg from "../../../assets/images/match_reg.png";
-import match_reg_ar from "../../../assets/images/match_reg_ar.png";
 import { Popup_btn } from "../../ui/svg/index.jsx";
 import { joinLeagueSocket, socket } from "../../../app/socket/socket.js";
 import {
@@ -13,13 +11,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { baseURL } from "../../../utils/axios.js";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { IMAGES } from "../../ui/images/images.js";
 
 const LeagueRegistration = () => {
   const { isAgreedToJoin, leagueData } = useSelector((state) => state.leagues);
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const user = useSelector((state) => state.auth.user);
-  const { t  , i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const customFields = Array.isArray(leagueData?.customRegistrationFields)
     ? leagueData.customRegistrationFields
@@ -105,15 +104,20 @@ const LeagueRegistration = () => {
 
         <div className="fixed  inset-0 overflow-y-auto flex justify-center items-center">
           <div className="popup-wrap inline-flex justify-center  items-center h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60 ">
-            <motion.div className="match_reg--popup relative sd_before sd_after"
-             initial={{ scale: 0.5, opacity: 0, y: 50 }}
-             animate={{ scale: 1, opacity: 1, y: 0 }}
-             exit={{ scale: 0.5, opacity: 0, y: 50 }}
-             transition={{ duration: 0.5, ease: "easeInOut" }}
+            <motion.div
+              className="match_reg--popup relative sd_before sd_after"
+              initial={{ scale: 0.5, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.5, opacity: 0, y: 50 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               <div className="popup_header px-8 pt-8 pb-5 flex items-start justify-between mt-3 text-center sm:mt-0 sm:text-left">
                 <img
-                  src={i18n.language === "ar" ? match_reg_ar : match_reg}
+                  src={
+                    i18n.language === "ar"
+                      ? IMAGES.match_reg_ar
+                      : IMAGES.match_reg
+                  }
                   alt={t("images.match_registration")}
                   style={{
                     width: i18n.language === "ar" ? "7rem" : "10rem",

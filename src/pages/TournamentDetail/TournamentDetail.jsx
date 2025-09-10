@@ -1,6 +1,9 @@
-
 import { useParams } from "react-router-dom";
-import { formatAmountWithCommas, getServerURL, stageTypes } from "../../utils/constant.js";
+import {
+  formatAmountWithCommas,
+  getServerURL,
+  stageTypes,
+} from "../../utils/constant.js";
 
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
@@ -24,7 +27,7 @@ import {
 } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
 import DetailItem from "../../components/Details/DetailItem.jsx";
-import images from "../../components/ui/images/images.js";
+import { IMAGES } from "../../components/ui/images/images.js";
 
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
@@ -149,13 +152,13 @@ const TournamentDetail = () => {
                 />
                 <DetailItem
                   title={t("league.team_size")}
-                  logo={images.teamSizeImage}
+                  logo={IMAGES.teamSizeImage}
                   name={tournamentData.maxPlayersPerTeam}
                   type={1}
                 />
                 <DetailItem
                   title={t("league.participants")}
-                  logo={images.teamSizeImage}
+                  logo={IMAGES.teamSizeImage}
                   name={`${tournamentData?.totalRegistrations}/
                   ${tournamentData?.maxParticipants}`}
                   type={2}
@@ -200,7 +203,7 @@ const TournamentDetail = () => {
                 </motion.ul>
 
                 {loader ? (
-                 <GamingLoader/>
+                  <GamingLoader />
                 ) : tournamentData?.stages[activeStage]?.stageType ==
                   stageTypes.BattleRoyal ? (
                   <BattleRoyalStage />

@@ -3,12 +3,6 @@ import {
   setLogin,
   setQueueConfirmation,
 } from "../../../app/slices/constState/constStateSlice";
-import join_btn from "../../../assets/images/join_btn.png";
-import need_btn from "../../../assets/images/needToLogin.png";
-import Que_btn from "../../../assets/images/quebtn.png";
-import Open_btn from "../../../assets/images/open.png";
-import Drafting_btn from "../../../assets/images/drafting.png";
-import Cancel_btn from "../../../assets/images/cancelbtn.png";
 import {
   setQueuePlayers,
   setRegistrationModal,
@@ -17,6 +11,7 @@ import { getQueueText } from "../../../utils/constant";
 import { stopReadyToPlaySocket } from "../../../app/socket/socket";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { IMAGES } from "../../ui/images/images";
 
 const GetQueueButton = () => {
   const { id } = useParams();
@@ -61,7 +56,7 @@ const GetQueueButton = () => {
           {t("images.need_login")}
         </span>
         <img
-          src={need_btn}
+          src={IMAGES.need_btn}
           alt={t("images.need_login")}
           style={{ width: "100%" }}
         />{" "}
@@ -92,7 +87,7 @@ const GetQueueButton = () => {
           </span>
           <img
             className="mx-auto"
-            src={Drafting_btn}
+            src={IMAGES.Drafting_btn}
             alt=""
             style={{ width: "100%" }}
           />{" "}
@@ -113,7 +108,7 @@ const GetQueueButton = () => {
           </span>
           <img
             className="mx-auto"
-            src={Que_btn}
+            src={IMAGES.Que_btn}
             alt=""
             style={{ width: "100%" }}
           />{" "}
@@ -138,7 +133,7 @@ const GetQueueButton = () => {
         </span>
         <img
           className="mx-auto"
-          src={join_btn}
+          src={IMAGES.join_btn}
           alt=""
           style={{ width: "100%" }}
         />
@@ -168,7 +163,7 @@ const GetQueueButton = () => {
         </span>
         <img
           className="mx-auto"
-          src={Cancel_btn}
+          src={IMAGES.Cancel_btn}
           alt=""
           style={{ width: "100%" }}
         />{" "}
@@ -197,7 +192,7 @@ const GetQueueButton = () => {
           </span>
           <img
             className="mx-auto"
-            src={Que_btn}
+            src={IMAGES.Que_btn}
             alt=""
             style={{ width: "100%" }}
           />{" "}
@@ -233,7 +228,7 @@ const GetQueueButton = () => {
           </span>
           <img
             className="mx-auto"
-            src={Que_btn}
+            src={IMAGES.Que_btn}
             alt=""
             style={{ width: "100%" }}
           />{" "}
@@ -254,7 +249,11 @@ const GetQueueButton = () => {
           </span>
           <img
             className="mx-auto"
-            src={text.includes(t("images.opens_in")) ? Open_btn : Que_btn}
+            src={
+              text.includes(t("images.opens_in"))
+                ? IMAGES.Open_btn
+                : IMAGES.Que_btn
+            }
             alt=""
             style={{ width: "100%" }}
           />{" "}

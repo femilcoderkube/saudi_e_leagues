@@ -4,8 +4,6 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import GameCard from "./GameCard";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchOngoingLeaguesAndTournaments } from "../../../app/slices/game/gamesSlice";
 
 
 const SliderCardDetails = [

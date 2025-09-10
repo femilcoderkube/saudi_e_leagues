@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import "../../assets/css/Matchmaking.css";
-
-import MatchMakingBG from "../../assets/images/matchmakingBG.png";
-import ChatIcon from "../../assets/images/chat_icon.png";
-import ChatArr from "../../assets/images/chat_arr.png";
 import { useParams } from "react-router-dom";
 import {
   getPartnerById,
@@ -30,11 +26,13 @@ import {
   rightToLeft,
 } from "../../components/Animation/animation.jsx";
 import { AnimatePresence, motion } from "framer-motion";
+import { IMAGES } from "../../components/ui/images/images.js";
 
 const TournamentMatchDetail = () => {
   const { id, mId } = useParams();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { matchDataT, showMobileChat, isShowChat, chatData, winnerScore } = useSelector((state) => state.tournamentMatch);
+  const { matchDataT, showMobileChat, isShowChat, chatData, winnerScore } =
+    useSelector((state) => state.tournamentMatch);
 
   const user = useSelector((state) => state.auth.user);
   const [messageInput, setMessageInput] = useState("");
@@ -83,8 +81,7 @@ const TournamentMatchDetail = () => {
     // Scroll to the invisible anchor (which is at the top due to flex-col-reverse)
     if (scrollAnchorRef.current && !showMobileChat) {
       scrollAnchorRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-    else if (scrollAnchorRef.current && showMobileChat) {
+    } else if (scrollAnchorRef.current && showMobileChat) {
       scrollAnchorRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
@@ -104,12 +101,16 @@ const TournamentMatchDetail = () => {
   return (
     <main
       className="flex-1 pt-[0.5rem] match_page--wrapper h-full "
-      style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
+      style={{
+        background: `url(${IMAGES.MatchMakingBG})`,
+        backgroundSize: "100%",
+      }}
     >
       <section className="match_team--wrap flex pt-[5rem] justify-between items-end sm:pl-[7.5rem] sm:pr-[7.5rem] pl-[3rem] pr-[3rem]  pb-[5.25rem] sm:pb-0">
         <div className="team_score--con flex xl:flex-row flex-col justify-between w-full gap-10 items-center xl:items-start">
           {/* Team 1 */}
-          <motion.div className="team_score--wrap max-w-[24.625rem] order-2 xl:order-1"
+          <motion.div
+            className="team_score--wrap max-w-[24.625rem] order-2 xl:order-1"
             variants={leftToRight}
             custom={0}
             initial="hidden"
@@ -122,7 +123,8 @@ const TournamentMatchDetail = () => {
             <TeamOneLineup />
           </motion.div>
           {/* Score */}
-          <motion.div className="match_center-con flex-1 order-1 xl:order-2"
+          <motion.div
+            className="match_center-con flex-1 order-1 xl:order-2"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: 0.4 }}
@@ -148,11 +150,11 @@ const TournamentMatchDetail = () => {
                     className="inline-flex gap-4 items-center justify-center chat-btn w-[9.95rem] h-[3.5rem] cursor-pointer"
                     onClick={() => dispatch(setshowMobileChatT(true))}
                   >
-                    <img src={ChatIcon} alt="" />
+                    <img src={IMAGES.ChatIcon} alt="" />
                     <span className="purple_col text-base font-bold">
                       {t("match.chat")} <span className="text-[#BABDFF]"></span>
                     </span>
-                    <img src={ChatArr} alt="" />
+                    <img src={IMAGES.ChatArr} alt="" />
                   </div>
                 </div>
               )}
@@ -162,13 +164,12 @@ const TournamentMatchDetail = () => {
                 <div className="chat_block--con pt-[1rem] h-[25rem] sd_before relative flex flex-col max-w-lg mx-auto">
                   <div
                     className="flex-1 flex flex-col-reverse mx-h-[20rem] chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4"
-                  // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
+                    // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
                   >
                     <div ref={scrollAnchorRef}></div>
                     <div className="flex flex-col space-y-1">
                       {chatData?.map((chat, chatIdx) => {
                         if (chat.isSystemMsg) {
-
                         }
                         if (
                           chat.isSystemMsg &&
@@ -208,7 +209,6 @@ const TournamentMatchDetail = () => {
                           Array.isArray(chat.randomMessages) &&
                           chat.randomMessages.length > 0
                         ) {
-
                           return chat.randomMessages
                             .filter((msg) => msg.randomText)
                             .map((msg, msgIdx) => (
@@ -243,10 +243,11 @@ const TournamentMatchDetail = () => {
                         }
                         return (
                           <div
-                            className={`block ${user?._id == chat.senderId?._id
+                            className={`block ${
+                              user?._id == chat.senderId?._id
                                 ? "send_msg-con"
                                 : "reply_msg-con"
-                              }`}
+                            }`}
                           >
                             <div className="px-2 py-1 rounded-lg">
                               <p className="text-white text-lg font-light">
@@ -322,9 +323,9 @@ const TournamentMatchDetail = () => {
                   <motion.div
                     className="mob-chat-wp sm:hidden w-full max-w-[19rem] fixed top-0 ltr:right-0 rtl:left-0 z-11 bg-slate-900 text-white  flex flex-col justify-between"
                     onClick={(e) => e.stopPropagation()}
-                    initial={{ x: "100%" }}   // start from right
-                    animate={{ x: 0 }}        // slide in
-                    exit={{ x: "100%" }}      // slide out
+                    initial={{ x: "100%" }} // start from right
+                    animate={{ x: 0 }} // slide in
+                    exit={{ x: "100%" }} // slide out
                     transition={{ type: "tween", duration: 0.35 }}
                   >
                     {/* Header */}
@@ -334,7 +335,11 @@ const TournamentMatchDetail = () => {
                         onClick={() => dispatch(setshowMobileChatT(false))}
                       >
                         <div className="flex gap-4 items-center">
-                          <img className="cursor-pointer" src={ChatArr} alt="" />
+                          <img
+                            className="cursor-pointer"
+                            src={IMAGES.ChatArr}
+                            alt=""
+                          />
                           <h1 className="text-lg font-extrabold text-white tracking-wide">
                             {t("match.match_chat")}
                           </h1>
@@ -342,7 +347,6 @@ const TournamentMatchDetail = () => {
                       </div>
                       {/* Chat Functionlity */}
                       <div className="h-[100dvh] overflow-y-auto custom_scroll p-6 py-[6.5rem]">
-
                         {chatData?.map((chat, chatIdx) => {
                           if (
                             chat.isSystemMsg &&
@@ -469,7 +473,6 @@ const TournamentMatchDetail = () => {
                         })}
                         <div ref={scrollAnchorRef}></div>
                       </div>
-
                     </div>
                     <div className="mob-chat-box p-6 flex items-center">
                       <input
@@ -508,17 +511,18 @@ const TournamentMatchDetail = () => {
           </motion.div>
 
           {/* Team 2 */}
-          <motion.div className="team_score--wrap max-w-[24.625rem] order-3 xl:order-3"
+          <motion.div
+            className="team_score--wrap max-w-[24.625rem] order-3 xl:order-3"
             variants={rightToLeft}
             custom={0}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}>
+            viewport={{ once: true, amount: 0.4 }}
+          >
             <h2 className="grad_head--txt max-w-full ltr:md:text-[4rem] rtl:md:text-[3.75rem] text-[2.5rem] sm:pr-[2rem] pl-[2rem] grad_text-clip font_oswald tracking-wide !font-medium xl:text-right text-left leading-none uppercase">
               {t("match.team_two")}
             </h2>
             <TeamTwoLineup />
-
           </motion.div>
         </div>
       </section>

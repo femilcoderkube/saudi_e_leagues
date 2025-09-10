@@ -17,14 +17,6 @@ import {
   NextArrow3,
   DraftingIcon,
 } from "../ui/svg/index.jsx";
-import country_us from "../../assets/images/country_us.png";
-import country_ar from "../../assets/images/ar_lang.png";
-import primeIcon from "../../assets/images/prime_hover.png";
-import menuActiveIcon from "../../assets/images/menu_active_shape.svg";
-import homeIcon from "../../assets/images/mobile_menu_icon_logo.svg";
-import logo_ltr from "../../assets/images/logo-lrt.svg";
-import lobyIcon from "../../assets/images/mobile_menu_icon_star.svg";
-import mobile_menu_icon_user from "../../assets/images/LoginPersone.png";
 import Dropdown from "../LeagueDetail/User_menu.jsx";
 import { checkParams } from "../../utils/constant.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,6 +31,7 @@ import {
   setSubmitModal,
 } from "../../app/slices/constState/constStateSlice.js";
 import { useTranslation } from "react-i18next";
+import { IMAGES } from "../ui/images/images.js";
 
 const LanguageToggle = () => {
   const { i18n } = useTranslation();
@@ -63,7 +56,7 @@ const LanguageToggle = () => {
       className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before"
     >
       <img
-        src={i18n.language === "ar" ? country_ar : country_us}
+        src={i18n.language === "ar" ? IMAGES.country_ar : IMAGES.country_us}
         alt="lang"
         style={{
           width: "1.5rem",
@@ -128,7 +121,7 @@ const AuthButtons = ({ isMobile = false }) => {
           }
         }}
       >
-        <img className="h-full" src={mobile_menu_icon_user} alt="user" />
+        <img className="h-full" src={IMAGES.mobile_menu_icon_user} alt="user" />
       </div>
     );
   }
@@ -365,7 +358,7 @@ const BreadcrumbNavigation = ({
                       />
                     ) : (
                       <img
-                        src={primeIcon}
+                        src={IMAGES.primeIcon}
                         alt="prime"
                         className="text-white w-8 h-8"
                       />
@@ -399,13 +392,13 @@ const MobileNavigation = ({ user, isActiveTab, breadcrumbItems }) => {
     {
       id: 0,
       label: t("navigation.lobby"),
-      icon: lobyIcon,
+      icon: IMAGES.lobyIcon,
       path: `/${params.id}/lobby`,
     },
     {
       id: 1,
       label: t("navigation.home"),
-      icon: homeIcon,
+      icon: IMAGES.homeIcon,
       path: `/${params.id}`,
     },
   ];
@@ -414,7 +407,7 @@ const MobileNavigation = ({ user, isActiveTab, breadcrumbItems }) => {
     navigationItems.push({
       id: 2,
       label: t("navigation.profile"),
-      icon: lobyIcon,
+      icon: IMAGES.lobyIcon,
       path: `/${params.id}/profile`,
     });
   }
@@ -460,7 +453,11 @@ const MobileNavigation = ({ user, isActiveTab, breadcrumbItems }) => {
             </li>
           ))}
           <li className="m_menu__indicator">
-            <img src={menuActiveIcon} alt="indicator" style={{ width: "" }} />
+            <img
+              src={IMAGES.menuActiveIcon}
+              alt="indicator"
+              style={{ width: "" }}
+            />
           </li>
           <div className="sq__shape-wrap"></div>
         </ul>
@@ -697,7 +694,7 @@ const Header = () => {
           </div>
 
           <div className="mob-logo sm:hidden block">
-            <img className="w-18 h-auto" src={logo_ltr} alt="" />
+            <img className="w-18 h-auto" src={IMAGES.logo_ltr} alt="" />
           </div>
         </header>
       );

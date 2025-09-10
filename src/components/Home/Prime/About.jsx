@@ -1,9 +1,9 @@
 import React from "react";
 import { motion } from "motion/react";
 
-import Primetxt from "../../../assets/images/Prime.png";
 import { leftToRight } from "../../Animation/animation.jsx";
 import { useTranslation } from "react-i18next";
+import { IMAGES } from "../../ui/images/images.js";
 
 const About = React.memo(() => {
     const { t } = useTranslation();
@@ -23,7 +23,7 @@ const About = React.memo(() => {
                 {t("homepage.about")}
             </h3>
             <img
-                src={Primetxt}
+                src={IMAGES.Primetxt}
                 alt={t("images.prime_logo")}
                 style={{ width: "42.5rem" }}
             />

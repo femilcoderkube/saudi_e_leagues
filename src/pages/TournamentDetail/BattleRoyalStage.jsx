@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DatePiker from "../../components/Cards/TournamentDetail/DatePiker.jsx";
-import cal_arrow from "../../assets/images/cal_arrow.png";
 import {
   setActiveTournamentTab,
   setShowCalendar,
@@ -14,6 +13,7 @@ import {
 } from "../../components/Animation/animation.jsx";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
+import { IMAGES } from "../../components/ui/images/images.js";
 
 export default function BattleRoyalStage() {
   const { t } = useTranslation();
@@ -109,7 +109,7 @@ export default function BattleRoyalStage() {
                   </span>
                   <img
                     className="w-3.5 h-2 object-cover object-center"
-                    src={cal_arrow}
+                    src={IMAGES. cal_arrow}
                     alt=""
                   />
                 </button>

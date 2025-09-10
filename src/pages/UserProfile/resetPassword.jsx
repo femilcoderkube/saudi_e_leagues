@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { motion } from "framer-motion";
-import center_league from "../../assets/images/center_league.png";
 import {
   clearUpdatePasswordState,
   updatePassword,
 } from "../../app/slices/auth/authSlice";
+import { IMAGES } from "../../components/ui/images/images";
 
 function getTokenFromQuery(search) {
   const params = new URLSearchParams(search);
@@ -94,25 +94,25 @@ const ResetPasswordPage = () => {
           <div className="match-makingwp overflow-hidden">
             <img
               className="left-league absolute -top-60 left-14 opacity-[8%]"
-              src={center_league}
+              src={IMAGES.center_league}
               alt=""
               style={{ width: "20rem" }}
             />
             <img
               className="left-bottom-league absolute xl:bottom-25 xl:left-80 md:bottom-15 md:left-60 opacity-[8%]"
-              src={center_league}
+              src={IMAGES.center_league}
               alt=""
               style={{ width: "5.5rem" }}
             />
             <img
               className="right-league absolute xl:top-20 xl:right-60 md:top-10 md:right-40 opacity-[8%]"
-              src={center_league}
+              src={IMAGES.center_league}
               alt=""
               style={{ width: "9.5rem" }}
             />
             <img
               className="right-bottom-league absolute bottom-[-8.5rem] right-[-6.3rem] opacity-[8%]"
-              src={center_league}
+              src={IMAGES.center_league}
               alt=""
               style={{ width: "20rem" }}
             />

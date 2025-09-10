@@ -1,7 +1,7 @@
 import { useState } from "react";
-import rules_icon from "../../../assets/images/rules_icon.png";
 import PDFViewer from "./PDFViewer";
 import { useTranslation } from "react-i18next";
+import { IMAGES } from "../../ui/images/images";
 
 function PDFPopup() {
   const [showModal, setShowModal] = useState(false);
@@ -20,7 +20,7 @@ function PDFPopup() {
           className="timeline-card__header w-full md:mt-5 flex items-center gap-3 rounded-xl cursor-pointer relative sd_before sd_after px-4 py-[1.4rem] bg-white hover:bg-gray-100 transition-colors"
         >
           <img
-            src={rules_icon}
+            src={IMAGES.rules_icon}
             alt={t("images.rules_icon")}
             style={{ width: "1.75rem" }}
           />

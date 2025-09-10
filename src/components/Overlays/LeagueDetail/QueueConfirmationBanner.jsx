@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setQueueConfirmation } from "../../../app/slices/constState/constStateSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import Que_btn from "../../../assets/images/quebtn.png";
 import { motion } from "framer-motion";
 import { setUserInQueue } from "../../../app/slices/leagueDetail/leagueDetailSlice";
+import { IMAGES } from "../../ui/images/images";
 function QueueConfirmationBanner() {
   const [doNotShowAgain, setDoNotShowAgain] = useState(false);
   const { id } = useParams();
@@ -100,7 +100,7 @@ function QueueConfirmationBanner() {
                 </span>
                 <img
                   className="mx-auto"
-                  src={Que_btn}
+                  src={IMAGES.Que_btn}
                   alt=""
                   style={{ width: "100%" }}
                 />{" "}

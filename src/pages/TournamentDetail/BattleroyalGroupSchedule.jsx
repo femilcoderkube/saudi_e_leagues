@@ -1,12 +1,11 @@
 import React, { useState, useRef } from "react";
 import "../../assets/css/homepage.css";
-import date_icon from "../../assets/images/date_icon.png";
-import schdule_down from "../../assets/images/schdule_down.png";
-import battale_sahpe_img from "../../assets/images/battale-sahpe-img.png";
+
 import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import { IMAGES } from "../../components/ui/images/images";
 
 export default function BattleRoyalSChedule() {
   const { t } = useTranslation();
@@ -54,7 +53,7 @@ export default function BattleRoyalSChedule() {
           return (
             <div key={`date-${index}`}>
               <div className="schedule-date-wp pb-8 pt-5 flex items-center gap-5">
-                <img className="w-5 h-6" src={date_icon} alt="" />
+                <img className="w-5 h-6" src={IMAGES.date_icon} alt="" />
                 <div className="schdule-date">
                   <span className="grad_text-clip sm:text-2xl text-lg font-bold inline-block ltr:pr-5 rtl:pl-5 ltr:mr-5 rtl:ml-5 ltr:border-r rtl:border-l border-[rgb(40,55,66,0.8)]">
                     {itemObj.dateweekday}
@@ -72,7 +71,6 @@ export default function BattleRoyalSChedule() {
                 const ExtraTeams =
                   scores.length > 3 ? scores.slice(3).length : 0;
                 const accordionKey = `S${idx}a${index}`;
-
 
                 return (
                   <div
@@ -98,7 +96,7 @@ export default function BattleRoyalSChedule() {
                                 stageSettings.maps[item?.matchNumber - 1]
                                   ?.photo || ""
                               )
-                            : battale_sahpe_img
+                            : IMAGES.battale_sahpe_img
                         }
                         alt=""
                       />
@@ -213,7 +211,7 @@ export default function BattleRoyalSChedule() {
                         >
                           <img
                             className={`sm:w-5 sm:h-3 w-4 h-2`}
-                            src={schdule_down}
+                            src={IMAGES.schdule_down}
                             alt=""
                           />
                         </div>

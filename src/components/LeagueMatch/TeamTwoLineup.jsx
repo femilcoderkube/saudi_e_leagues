@@ -3,11 +3,8 @@ import { getCards, getMobileCards } from "../Cards/MatchDetail/matchCards";
 import { giveReputation } from "../../app/socket/socket";
 import { useSelector } from "react-redux";
 import { getServerURL } from "../../utils/constant";
-import LikeIcon from "../../assets/images/like_icon.png";
-import DisLikeIcon from "../../assets/images/dislike_icon.png";
-import GoldCrown from "../../assets/images/gold_crown.png";
-import Dummy_Profile from "../../assets/images/Dummy_Profile.png";
 import { useTranslation } from "react-i18next";
+import { IMAGES } from "../ui/images/images";
 export const TeamTwoLineup = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const user = useSelector((state) => state.auth.user);
@@ -43,9 +40,9 @@ export const TeamTwoLineup = () => {
             username: player?.participant?.userId?.username || "",
             gameID: player?.participant?.gameId || "",
             rep: player?.participant?.raputations?.wilsonScore || 0,
-            profilePic: player?.participant?.userId?.profilePicture ? getServerURL(
-              player?.participant?.userId?.profilePicture
-            ) : Dummy_Profile,
+            profilePic: player?.participant?.userId?.profilePicture
+              ? getServerURL(player?.participant?.userId?.profilePicture)
+              : IMAGES.Dummy_Profile,
             score: Math.round(player?.leaguesScore || 0),
           };
           let IsReputationGived = matchData?.givedReputations?.find(
@@ -57,14 +54,19 @@ export const TeamTwoLineup = () => {
           return (
             <li
               key={index}
-              className={`team_score--card relative ${index === 0 ? "gold_rank" : ""
-                }`}
+              className={`team_score--card relative ${
+                index === 0 ? "gold_rank" : ""
+              }`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
               {index === 0 && (
                 <span className="gold_crown absolute top-[-3rem] left-8 z-10">
-                  <img src={GoldCrown} alt="Gold Crown" className="h-10" />
+                  <img
+                    src={IMAGES.GoldCrown}
+                    alt="Gold Crown"
+                    className="h-10"
+                  />
                 </span>
               )}
               <Card player={data} />
@@ -73,10 +75,11 @@ export const TeamTwoLineup = () => {
                 winnerScore?.teamTwo == "-" &&
                 player?.participant?.userId?._id != user?._id && (
                   <div
-                    className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${hoveredIndex === index
+                    className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
+                      hoveredIndex === index
                         ? "opacity-100 visible"
                         : "opacity-0 invisible"
-                      }`}
+                    }`}
                   >
                     <div
                       onClick={() =>
@@ -84,13 +87,14 @@ export const TeamTwoLineup = () => {
                           ? submitUpVote(player)
                           : null
                       }
-                      className={`like_icon duration-400 ${IsReputationGived?.reputation == 1
+                      className={`like_icon duration-400 ${
+                        IsReputationGived?.reputation == 1
                           ? "opacity-50 visible"
                           : "hover:opacity-70"
-                        }`}
+                      }`}
                     >
                       <img
-                        src={LikeIcon}
+                        src={IMAGES.LikeIcon}
                         alt={t("match.like")}
                         style={{ width: "2.625rem" }}
                       />
@@ -101,13 +105,14 @@ export const TeamTwoLineup = () => {
                           ? submitDownVote(player)
                           : null
                       }
-                      className={`like_icon duration-400 ${IsReputationGived?.reputation == -1
+                      className={`like_icon duration-400 ${
+                        IsReputationGived?.reputation == -1
                           ? "opacity-50 visible"
                           : "hover:opacity-70"
-                        }`}
+                      }`}
                     >
                       <img
-                        src={DisLikeIcon}
+                        src={IMAGES.DisLikeIcon}
                         alt={t("match.dislike")}
                         style={{ width: "2.625rem" }}
                       />
@@ -125,9 +130,9 @@ export const TeamTwoLineup = () => {
             username: player?.participant?.userId?.username || "",
             gameID: player?.participant?.gameId || "",
             rep: player?.participant?.raputations?.wilsonScore || 0,
-            profilePic: player?.participant?.userId?.profilePicture ? getServerURL(
-              player?.participant?.userId?.profilePicture
-            ) : Dummy_Profile,
+            profilePic: player?.participant?.userId?.profilePicture
+              ? getServerURL(player?.participant?.userId?.profilePicture)
+              : IMAGES.Dummy_Profile,
             score: Math.round(player?.leaguesScore || 0),
           };
           let IsReputationGived = matchData?.givedReputations?.find(
@@ -139,14 +144,19 @@ export const TeamTwoLineup = () => {
           return (
             <li
               key={index}
-              className={`team_score--card relative ${index === 0 ? "gold_rank" : ""
-                }`}
+              className={`team_score--card relative ${
+                index === 0 ? "gold_rank" : ""
+              }`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
               {index === 0 && (
                 <span className="gold_crown absolute top-[-3rem] sm:left-8 right-8 z-10">
-                  <img src={GoldCrown} alt="Gold Crown" className="h-10" />
+                  <img
+                    src={IMAGES.GoldCrown}
+                    alt="Gold Crown"
+                    className="h-10"
+                  />
                 </span>
               )}
               <Card player={data} />
@@ -155,10 +165,11 @@ export const TeamTwoLineup = () => {
                 winnerScore?.teamTwo == "-" &&
                 player?.participant?.userId?._id != user?._id && (
                   <div
-                    className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${hoveredIndex === index
+                    className={`review_score--con sd_before absolute top-[0rem] right-[-3.5rem] flex gap-3 flex-col transition-opacity duration-300 ease-in-out ${
+                      hoveredIndex === index
                         ? "opacity-100 visible"
                         : "opacity-0 invisible"
-                      }`}
+                    }`}
                   >
                     <div
                       onClick={() =>
@@ -166,13 +177,14 @@ export const TeamTwoLineup = () => {
                           ? submitUpVote(player)
                           : null
                       }
-                      className={`like_icon duration-400 ${IsReputationGived?.reputation == 1
+                      className={`like_icon duration-400 ${
+                        IsReputationGived?.reputation == 1
                           ? "opacity-50 visible"
                           : "hover:opacity-70"
-                        }`}
+                      }`}
                     >
                       <img
-                        src={LikeIcon}
+                        src={IMAGES.LikeIcon}
                         alt={t("match.like")}
                         style={{ width: "2.625rem" }}
                       />
@@ -183,13 +195,14 @@ export const TeamTwoLineup = () => {
                           ? submitDownVote(player)
                           : null
                       }
-                      className={`like_icon duration-400 ${IsReputationGived?.reputation == -1
+                      className={`like_icon duration-400 ${
+                        IsReputationGived?.reputation == -1
                           ? "opacity-50 visible"
                           : "hover:opacity-70"
-                        }`}
+                      }`}
                     >
                       <img
-                        src={DisLikeIcon}
+                        src={IMAGES.DisLikeIcon}
                         alt={t("match.dislike")}
                         style={{ width: "2.625rem" }}
                       />

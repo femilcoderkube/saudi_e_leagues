@@ -1,14 +1,10 @@
 import React from "react";
-import blue_bedge from "../../../assets/images/blue.png";
-import gold_bedge from "../../../assets/images/gold.png";
-import silver_bedge from "../../../assets/images/silver.png";
-import bronze_bedge from "../../../assets/images/bronze.png";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
-import center_league from "../../../assets/images/center_league.png";
 import GamingLoader from "../../Loader/loader";
+import { IMAGES } from "../../ui/images/images";
 
 const Table = () => {
   const { t } = useTranslation();
@@ -18,7 +14,9 @@ const Table = () => {
     let user = {
       username: requestedUser?.userId?.username,
       points: requestedUser?.totalLeaguesScore
-        ? Math.round(requestedUser?.totalLeaguesScore) >= 0 ? Math.round(requestedUser?.totalLeaguesScore) : 0
+        ? Math.round(requestedUser?.totalLeaguesScore) >= 0
+          ? Math.round(requestedUser?.totalLeaguesScore)
+          : 0
         : 0,
       wins: requestedUser?.totalWins,
       losses: requestedUser?.totalLosses,
@@ -30,16 +28,16 @@ const Table = () => {
 
     if (requestedUser?.rank === 1) {
       user.badgeColor = "gold";
-      user.bedgesrc = gold_bedge;
+      user.bedgesrc = IMAGES.gold_bedge;
     } else if (requestedUser?.rank === 2) {
       user.badgeColor = "silver";
-      user.bedgesrc = silver_bedge;
+      user.bedgesrc = IMAGES.silver_bedge;
     } else if (requestedUser?.rank === 3) {
       user.badgeColor = "bronze";
-      user.bedgesrc = bronze_bedge;
+      user.bedgesrc = IMAGES.bronze_bedge;
     } else {
       user.badgeColor = "blue";
-      user.bedgesrc = blue_bedge;
+      user.bedgesrc = IMAGES.blue_bedge;
     }
     requestedUser = user;
     // var index = requestedUser.rank - 1;
@@ -57,11 +55,13 @@ const Table = () => {
     );
   }
   if (!leaderBoard) {
-    return (<GamingLoader/>);
+    return <GamingLoader />;
   }
   return (
     <div className="leaderboard-wrapper md:pt-8">
-      <h2 className="text-xl sm:text-2xl !font-bold">{t("lobby.leaderboard")}</h2>
+      <h2 className="text-xl sm:text-2xl !font-bold">
+        {t("lobby.leaderboard")}
+      </h2>
       <table className="leaderboard-table" style={{ width: "100%" }}>
         <TableHeader />
         {requestedUser && requestedUser.rank > 3 && (
@@ -87,18 +87,18 @@ const Table = () => {
               index === 0
                 ? "gold mob-leader-board"
                 : index === 1
-                  ? "silver mob-leader-board"
-                  : index === 2
-                    ? "bronze mob-leader-board"
-                    : "blue",
+                ? "silver mob-leader-board"
+                : index === 2
+                ? "bronze mob-leader-board"
+                : "blue",
             bedgesrc:
               index === 0
-                ? gold_bedge
+                ? IMAGES.gold_bedge
                 : index === 1
-                  ? silver_bedge
-                  : index === 2
-                    ? bronze_bedge
-                    : blue_bedge,
+                ? IMAGES.silver_bedge
+                : index === 2
+                ? IMAGES.bronze_bedge
+                : IMAGES.blue_bedge,
             itsYou:
               data?.userId?._id === leaderBoard?.requestedUser?.userId?._id,
           };

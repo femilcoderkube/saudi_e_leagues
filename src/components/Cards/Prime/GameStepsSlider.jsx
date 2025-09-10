@@ -4,21 +4,18 @@ import { Navigation, FreeMode, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import playgameBG from "../../../assets/images/playgameBG.png";
-import sliderBG_opp from "../../../assets/images/sliderBG_opp.png";
-import activeslideBG from "../../../assets/images/activeslideBG.png";
-import sliderBG from "../../../assets/images/sliderBG.png";
+
 import { useTranslation } from "react-i18next";
+import { IMAGES } from "../../ui/images/images";
 
 const GameStepCardLarge = ({ item }) => {
-
   const { t } = useTranslation();
 
   return (
     <div className="game_card_wrap--link relative inline-flex flex-col justify-end self-end">
       <div
         className="htp_card--body inline-block relative !m-0 p-5 w-[37.5rem] !h-[12.01rem] !bg-[unset] !bg-[length:100%] !bg-no-repeat"
-        style={{ backgroundImage: `url(${activeslideBG})` }}
+        style={{ backgroundImage: `url(${IMAGES.activeslideBG})` }}
       >
         <div className="game_mask--con pt-3 sm:pb-0 pb-5 relative h-full flex flex-col justify-end w-full">
           <h3 className="game_label !mb-0 md:text-[1.75rem] text-lg !font-bold  purple_light leading-tight sm:pb-6 pb-3 sm:pl-3 pl-1">
@@ -32,7 +29,7 @@ const GameStepCardLarge = ({ item }) => {
         <div className="game_card--footer !m-0 flex justify-between items-center">
           <div
             className="match_date flex flex-col justify-center absolute ltr:right-[0] rtl:left-0 rtl:right-auto bottom-[0.3rem] h-[7.75rem] bg-[length:100%] !bg-no-repeat"
-            style={{ backgroundImage: `url(${sliderBG})` }}
+            style={{ backgroundImage: `url(${IMAGES.sliderBG})` }}
           >
             <h2 className="sm:text-[3.25rem] text-[1.75rem] match_date-con pt-1 pb-1 text-center !font-bold grad_text-clip">
               {item.Step}
@@ -44,18 +41,17 @@ const GameStepCardLarge = ({ item }) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 const GameStepCardSmall = ({ item }) => {
-
   const { t } = useTranslation();
 
   return (
     <div className="game_card_wrap--link relative inline-flex flex-col justify-end self-end">
       <div
         className="htp_card--body inline-block relative !m-0 p-5 w-[17.5rem] !h-[12.01rem] !bg-[unset] opacity-70 !bg-[length:100%] !bg-no-repeat"
-        style={{ backgroundImage: `url(${playgameBG})` }}
+        style={{ backgroundImage: `url(${IMAGES.playgameBG})` }}
       >
         <div className="game_mask--con pt-3 relative h-full flex flex-col justify-end w-full">
           <h3 className="game_label !mb-0 md:text-[1.75rem] text-lg !font-bold purple_light leading-tight pb-0 sm:pl-3 pl-1">
@@ -65,7 +61,7 @@ const GameStepCardSmall = ({ item }) => {
         <div className="game_card--footer !m-0 flex justify-between items-center">
           <div
             className="match_date flex flex-col justify-center absolute ltr:right-[0] rtl:left-0 rtl:right-auto top-[1.5rem] !bg-no-repeat"
-            style={{ backgroundImage: `url(${sliderBG_opp})` }}
+            style={{ backgroundImage: `url(${IMAGES.sliderBG_opp})` }}
           >
             <h2 className="sm:text-[3.25rem] text-[1.75rem] match_date-con pt-1 pb-1 text-center !font-bold grad_text-clip">
               {item.Step}
@@ -77,8 +73,8 @@ const GameStepCardSmall = ({ item }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const GameStepsSlider = ({
   mainSteps,
@@ -116,10 +112,7 @@ const GameStepsSlider = ({
 
   const handleMainSlideChange = (swiper) => {
     if (thumbsSwiperRef.current && thumbsSwiperRef.current.swiper) {
-      const nextSlideIndex = Math.min(
-        swiper.activeIndex,
-        mainSteps.length
-      );
+      const nextSlideIndex = Math.min(swiper.activeIndex, mainSteps.length);
       thumbsSwiperRef.current.swiper.slideTo(nextSlideIndex, 600);
     }
   };

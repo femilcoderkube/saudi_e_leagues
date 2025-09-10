@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
-import center_league from "../../../assets/images/center_league.png";
+import { IMAGES } from "../../ui/images/images";
 
 function VideoPlayer({ onClose }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -76,7 +76,7 @@ function VideoPlayer({ onClose }) {
                 <div className="flex flex-col items-center">
                   <img
                     className="center-league-loader animate-pulse ml-8 w-10"
-                    src={center_league}
+                    src={IMAGES.center_league}
                     alt="Loading..."
                   />
                   <p className="text-white text-lg mt-4 animate-pulse">

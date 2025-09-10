@@ -1,7 +1,6 @@
 import { getColor, getSmile } from "../matchCards";
 
 export const FirstPosCard_Opp_gold = ({ player }) => (
-  console.log("-----------------", player),
   (
     <svg
       width="25.563rem"

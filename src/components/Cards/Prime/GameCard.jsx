@@ -1,9 +1,9 @@
 import React from "react";
-import CardTopLeftShap from "../../../assets/images/card_top_left-shap.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { setActiveTabIndex } from "../../../app/slices/constState/constStateSlice";
 import { useDispatch } from "react-redux";
+import { IMAGES } from "../../ui/images/images";
 
 const GameCard = ({ item }) => {
   const { t } = useTranslation();
@@ -11,13 +11,16 @@ const GameCard = ({ item }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
-    <div className="game_card--con slider_card p-3" onClick={()=>{
-      navigate(`/${params.id}/lobby`);
-      dispatch(setActiveTabIndex(0));
-    }}>
+    <div
+      className="game_card--con slider_card p-3"
+      onClick={() => {
+        navigate(`/${params.id}/lobby`);
+        dispatch(setActiveTabIndex(0));
+      }}
+    >
       <div className="card_top_left-shap absolute bottom-2 ltr:left-0 rtl:right-0">
         <img
-          src={CardTopLeftShap}
+          src={IMAGES.CardTopLeftShap}
           alt={t("images.card_top_left_shape")}
           style={{ width: "11.25rem" }}
         />
@@ -26,7 +29,7 @@ const GameCard = ({ item }) => {
         <div className="game_img--mask relative sd_after sd_before mask-border">
           <div
             className="game_image mask_img-border flex sd_before before:w-full before:h-full  relative"
-            style={{  width: "100%", height: "auto" }}
+            style={{ width: "100%", height: "auto" }}
           >
             <img
               src={item.imgsrc}
@@ -114,12 +117,12 @@ const GameCard = ({ item }) => {
         </div>
       </div>
       <div className="game_card--footer absolute bottom-2 ltr:right-0 rtl:left-0 !m-0 flex justify-between items-center ">
-      <img
-              src={item.gameLogo}
-              alt={t("images.game_image")}
-              style={{ objectFit: "contain", width: "2.5rem", height: "2.5rem" }}
-              className="w-full h-full"
-            />
+        <img
+          src={item.gameLogo}
+          alt={t("images.game_image")}
+          style={{ objectFit: "contain", width: "2.5rem", height: "2.5rem" }}
+          className="w-full h-full"
+        />
       </div>
     </div>
   );

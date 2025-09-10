@@ -10,10 +10,10 @@ import {
   stopReadyToPlaySocket,
 } from "../../app/socket/socket.js";
 import TimeOverPopup from "../../components/Overlays/TimeOverPopup.jsx";
-import center_league from "../../assets/images/center_league.png";
-import cancel_btn from "../../assets/images/cancelbtn.png";
+
 import Sparkles from "./Sparkles.jsx";
 import { useTranslation } from "react-i18next";
+import { IMAGES } from "../../components/ui/images/images.js";
 
 const MatchMaking = () => {
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -111,31 +111,31 @@ const MatchMaking = () => {
               <div className="grediant"></div>
               <img
                 className="left-league absolute -top-60 left-14 opacity-[8%]"
-                src={center_league}
+                src={IMAGES.center_league}
                 alt=""
                 style={{ width: "20rem" }}
               />
               <img
                 className="left-bottom-league absolute xl:bottom-25 xl:left-80 md:bottom-15 md:left-60 opacity-[8%]"
-                src={center_league}
+                src={IMAGES.center_league}
                 alt=""
                 style={{ width: "5.5rem" }}
               />
               <img
                 className="right-league absolute xl:top-20 xl:right-60 md:top-10 md:right-40 opacity-[8%]"
-                src={center_league}
+                src={IMAGES.center_league}
                 alt=""
                 style={{ width: "9.5rem" }}
               />
               <img
                 className="right-bottom-league absolute bottom-[-8.5rem] right-[-6.3rem] opacity-[8%]"
-                src={center_league}
+                src={IMAGES.center_league}
                 alt=""
                 style={{ width: "20rem" }}
               />
               <img
                 className="center-league absolute left-1/2 top-[19rem]"
-                src={center_league}
+                src={IMAGES.center_league}
                 alt=""
                 style={{ width: "11rem" }}
               />
@@ -143,7 +143,7 @@ const MatchMaking = () => {
                 <div className="absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem]">
                   <img
                     className="cancel-btn duration-400 cursor-pointer z-2"
-                    src={cancel_btn}
+                    src={IMAGES.cancel_btn}
                     alt={t("cancel")}
                     style={{ width: "25rem" }}
                   />

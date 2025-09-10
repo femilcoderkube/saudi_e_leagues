@@ -1,8 +1,7 @@
 import { getCards, getMobileCards } from "../Cards/MatchDetail/matchCards";
 import { useSelector } from "react-redux";
 import { getServerURL } from "../../utils/constant";
-import GoldCrown from "../../assets/images/gold_crown.png";
-import Dummy_Profile from "../../assets/images/Dummy_Profile.png";
+import { IMAGES } from "../ui/images/images";
 
 export const TeamTwoLineup = () => {
   const { opponent2 } = useSelector((state) => state.tournamentMatch);
@@ -20,22 +19,30 @@ export const TeamTwoLineup = () => {
           let data = {
             index: player?.user?.userId?._id,
             username: player?.user?.userId?.username || "",
-            gameID: player?.user?.userId?.firstName + " " + player?.user?.userId?.lastName || "",
+            gameID:
+              player?.user?.userId?.firstName +
+                " " +
+                player?.user?.userId?.lastName || "",
             rep: player?.user?.wilsonScore || 0,
-            profilePic: player?.user?.userId?.profilePicture ? getServerURL(
-              player?.user?.userId?.profilePicture
-            ) : Dummy_Profile,
+            profilePic: player?.user?.userId?.profilePicture
+              ? getServerURL(player?.user?.userId?.profilePicture)
+              : IMAGES.Dummy_Profile,
             score: "",
           };
           return (
             <li
               key={index}
-              className={`team_score--card relative ${index === 0 ? "gold_rank" : ""
-                }`}
+              className={`team_score--card relative ${
+                index === 0 ? "gold_rank" : ""
+              }`}
             >
               {index === 0 && (
                 <span className="gold_crown absolute top-[-3rem] sm:left-8 right-8 z-10">
-                  <img src={GoldCrown} alt="Gold Crown" className="h-10" />
+                  <img
+                    src={IMAGES.GoldCrown}
+                    alt="Gold Crown"
+                    className="h-10"
+                  />
                 </span>
               )}
               <Card player={data} />
@@ -49,27 +56,34 @@ export const TeamTwoLineup = () => {
           let data = {
             index: player?.user?.userId?._id,
             username: player?.user?.userId?.username || "",
-            gameID: player?.user?.userId?.firstName + " " + player?.user?.userId?.lastName || "",
+            gameID:
+              player?.user?.userId?.firstName +
+                " " +
+                player?.user?.userId?.lastName || "",
             rep: player?.user?.wilsonScore || 0,
-            profilePic: player?.user?.userId?.profilePicture ? getServerURL(
-              player?.user?.userId?.profilePicture
-            ) : Dummy_Profile,
+            profilePic: player?.user?.userId?.profilePicture
+              ? getServerURL(player?.user?.userId?.profilePicture)
+              : IMAGES.Dummy_Profile,
             score: "",
           };
 
           return (
             <li
               key={index}
-              className={`team_score--card relative ${index === 0 ? "gold_rank" : ""
-                }`}
+              className={`team_score--card relative ${
+                index === 0 ? "gold_rank" : ""
+              }`}
             >
               {index === 0 && (
                 <span className="gold_crown absolute top-[-3rem] right-8 z-10">
-                  <img src={GoldCrown} alt="Gold Crown" className="h-10" />
+                  <img
+                    src={IMAGES.GoldCrown}
+                    alt="Gold Crown"
+                    className="h-10"
+                  />
                 </span>
               )}
               <Card player={data} />
-
             </li>
           );
         })}

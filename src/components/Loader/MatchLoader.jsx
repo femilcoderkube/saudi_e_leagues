@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import "../../assets/css/Matchmaking.css";
-import one_vs_one from "../../assets/images/1-vs-1.png";
-import blue_right from "../../assets/images/blue_right_bg.png";
-import pink_left from "../../assets/images/pink_left_bg.png";
-import vs_animate from "../../assets/images/vs_animate.png";
+
 import { motion, useAnimation } from "motion/react";
+import { IMAGES } from "../ui/images/images";
 
 const MatchLoader = () => {
   const controls = useAnimation();
@@ -42,7 +40,7 @@ const MatchLoader = () => {
           {/* Pink background */}
           <motion.img
             className="pink-left absolute left-0 top-0 w-full h-full"
-            src={pink_left}
+            src={IMAGES.pink_left}
             alt=""
             initial={{ x: "-100%", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -52,7 +50,7 @@ const MatchLoader = () => {
           {/* Blue background */}
           <motion.img
             className="blue-right absolute right-0 top-0 w-[67%] h-full"
-            src={blue_right}
+            src={IMAGES.blue_right}
             alt=""
             initial={{ x: "100%", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -62,7 +60,7 @@ const MatchLoader = () => {
           {/* VS image */}
           <motion.img
             className="vs-in relative md:-left-3 one-vs-one h-[15.5rem] sm:h-[18rem] md:h-[20rem] lg:h-[22rem] z-100"
-            src={one_vs_one}
+            src={IMAGES.one_vs_one}
             alt=""
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -77,7 +75,7 @@ const MatchLoader = () => {
           {/* Smooth glow without blink */}
           <motion.img
             className="animate-vs absolute left-0 top-0 w-full h-full pointer-events-none"
-            src={vs_animate}
+            src={IMAGES.vs_animate}
             alt=""
             initial={{ opacity: 0, scale: 0.7 }}
             animate={controls}

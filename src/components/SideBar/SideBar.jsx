@@ -1,15 +1,12 @@
 import { NavLink, useLocation } from "react-router-dom";
 import "../../assets/css/aside.css";
-import asideLogo_rtl from "../../assets/images/logo-rtl.svg";
-import asideLogo_ltr from "../../assets/images/logo-lrt.svg";
-import SEF_ENG from "../../assets/images/SEF_ENG.svg";
-import SEF_AR from "../../assets/images/SEF_AR.svg";
-import follwers from "../../assets/images/Follow_Us.png";
+
 import { Link } from "react-router-dom";
 import { Twitter, Instagram, discord, Tiktok } from "../ui/svg/index.jsx";
 import { items } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
 import RecentMatches from "./RecentMatches.jsx";
+import { IMAGES } from "../ui/images/images.js";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -51,20 +48,21 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`w-[22.5rem] text-white ${resetpassword ? "hidden" : "hidden md:block"
-        }`}
+      className={`w-[22.5rem] text-white ${
+        resetpassword ? "hidden" : "hidden md:block"
+      }`}
     >
       <Link
         to={"/"}
         className="sd_logo flex items-center h-[7.438rem] ltr:justify-start rtl:justify-end rtl:pl-45 bg-[url(./assets/images/logo-background.svg)] bg-cover bg-no-repeat object-center"
       >
         <img
-          src={asideLogo_rtl}
+          src={IMAGES.asideLogo_rtl}
           alt={t("images.prime_logo")}
           className="max-w-[11rem] w-full pr-5 h-auto ltr:hidden"
         />
         <img
-          src={asideLogo_ltr}
+          src={IMAGES.asideLogo_ltr}
           alt={t("images.prime_logo")}
           className="max-w-[11rem] h-auto pl-5 w-full rtl:hidden"
         />
@@ -72,12 +70,11 @@ const Sidebar = () => {
 
       <div className="aside_bottom-block custom_scroll flex w-[calc(100%-40px)]">
         <div className="sd_social--block flex flex-col w-full pb-6">
-
           <RecentMatches />
 
           <div className="mt-auto">
             <img
-              src={follwers}
+              src={IMAGES.follwers}
               alt={t("images.follow_us")}
               className="h-7 max-w-max ltr:ml-10 rtl:mr-10 object-contain"
             />
@@ -97,7 +94,7 @@ const Sidebar = () => {
             <div className="flex items-center justify-center mt-4">
               <img
                 className="h-16"
-                src={i18n.language == "en" ? SEF_ENG : SEF_AR}
+                src={i18n.language == "en" ? IMAGES.SEF_ENG : IMAGES.SEF_AR}
                 alt=""
               />
             </div>

@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../assets/css/Matchmaking.css";
-import MatchMakingBG from "../../assets/images/matchmakingBG.png";
-import ChatIcon from "../../assets/images/chat_icon.png";
-import ChatArr from "../../assets/images/chat_arr.png";
+
 import { useParams } from "react-router-dom";
 import {
   getPartnerById,
@@ -33,6 +31,7 @@ import {
   rightToLeft,
 } from "../../components/Animation/animation.jsx";
 import { AnimatePresence, motion } from "framer-motion";
+import { IMAGES } from "../../components/ui/images/images.js";
 const LeagueMatchDetail = () => {
   const { id, mId } = useParams();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -124,7 +123,7 @@ const LeagueMatchDetail = () => {
   return (
     <main
       className="flex-1 pt-[0.5rem] match_page--wrapper h-full"
-      style={{ background: `url(${MatchMakingBG})`, backgroundSize: "100%" }}
+      style={{ background: `url(${IMAGES.MatchMakingBG})`, backgroundSize: "100%" }}
     >
       <section className="match_team--wrap flex pt-[5rem] justify-between items-end sm:pl-[7.5rem] sm:pr-[7.5rem] pl-[3rem] pr-[3rem]  pb-[5.25rem] sm:pb-0">
         <div className="team_score--con flex xl:flex-row flex-col justify-between w-full gap-10 items-center xl:items-start">
@@ -275,11 +274,11 @@ const LeagueMatchDetail = () => {
                     className="inline-flex gap-4 items-center justify-center chat-btn w-[9.95rem] h-[3.5rem] cursor-pointer"
                     onClick={() => dispatch(setshowMobileChat(true))}
                   >
-                    <img src={ChatIcon} alt="" />
+                    <img src={IMAGES.ChatIcon} alt="" />
                     <span className="purple_col text-base font-bold">
                       {t("match.chat")} <span className="text-[#BABDFF]"></span>
                     </span>
-                    <img src={ChatArr} alt="" />
+                    <img src={IMAGES.ChatArr} alt="" />
                   </div>
                 </div>
               )}
@@ -461,7 +460,7 @@ const LeagueMatchDetail = () => {
                         <div className="flex gap-4 items-center">
                           <img
                             className="cursor-pointer"
-                            src={ChatArr}
+                            src={IMAGES.ChatArr}
                             alt=""
                           />
                           <h1 className="text-lg font-extrabold text-white tracking-wide">

@@ -1,4 +1,4 @@
-import teamSizeImage from "../../assets/images/teamSize.png";
+
 import TimelinePanel from "../../components/Cards/LeagueDetail/TimelinePanel.jsx";
 import { Link, useParams } from "react-router-dom";
 import PDFPopup from "../../components/Overlays/LeagueDetail/PDFPopup.jsx";
@@ -27,6 +27,7 @@ import QueueConfirmationBanner from "../../components/Overlays/LeagueDetail/Queu
 import DetailItem from "../../components/Details/DetailItem.jsx";
 import Table from "../../components/Loddy/LeaderBoard/table.jsx";
 import GetQueueButton from "../../components/Cards/LeagueDetail/QueueButton.jsx";
+import { IMAGES } from "../../components/ui/images/images.js";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
@@ -161,7 +162,7 @@ const LeagueDetail = () => {
                 />
                 <DetailItem
                   title={t("league.team_size")}
-                  logo={teamSizeImage}
+                  logo={IMAGES.teamSizeImage}
                   name={leagueData.playersPerTeam}
                   type={1}
                 />
@@ -219,7 +220,7 @@ const LeagueDetail = () => {
                     className="game_polygon-link justify-center items-center flex relative sd_before sd_after vertical_center"
                   >
                     <img
-                      src={teamSizeImage}
+                      src={IMAGES.teamSizeImage}
                       alt=""
                       className="absolute left-8"
                       style={{ width: "3rem" }}

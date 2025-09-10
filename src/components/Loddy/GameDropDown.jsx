@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import Sel_game from "../../assets/images/sel_game.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,6 +11,7 @@ import {
 import { getServerURL } from "../../utils/constant";
 import { useTranslation } from "react-i18next";
 import { motion,AnimatePresence} from "framer-motion";
+import { IMAGES } from "../ui/images/images";
 const GameDropDown = () => {
   const { filteredGames, selectedGame, isGameDropDownOpen, gameSearchTerm } =
     useSelector((state) => state.lobby);
@@ -47,7 +47,7 @@ const GameDropDown = () => {
         >
           <img
             src={
-              selectedGame?.logo ? getServerURL(selectedGame.logo) : Sel_game
+              selectedGame?.logo ? getServerURL(selectedGame.logo) : IMAGES.Sel_game
             }
             alt={t("games.select_game")}
             className="game-logo-svg"

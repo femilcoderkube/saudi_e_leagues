@@ -1,20 +1,28 @@
-import asideLogo_ltr from "../../assets/images/logo-lrt.svg";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setConfirmationPopUp } from "../../app/slices/constState/constStateSlice";
 import { cancelMatch, getUpdateToken } from "../../app/socket/socket";
 import { motion } from "framer-motion";
 import { deleteFcmToken, logout } from "../../app/slices/auth/authSlice";
+import { IMAGES } from "../ui/images/images";
 
-function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDeleteAccount, onLogout }) {
-  const { confirmationPopUp, selectedPlayerData } = useSelector((state) => state.constState);
+function ConfirmationPopUp({
+  onPlayerSelect,
+  draftId,
+  isSocketConnected,
+  onDeleteAccount,
+  onLogout,
+}) {
+  const { confirmationPopUp, selectedPlayerData } = useSelector(
+    (state) => state.constState
+  );
   const { matchData, myPId } = useSelector((state) => state.matchs);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const handleOnClick = () => {
     if (confirmationPopUp == 1) {
-      dispatch(deleteFcmToken())
+      dispatch(deleteFcmToken());
       getUpdateToken("");
       dispatch(setConfirmationPopUp(0));
       dispatch(logout());
@@ -26,7 +34,11 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
     }
     if (confirmationPopUp == 2) {
       dispatch(setConfirmationPopUp(0));
-      cancelMatch({ matchId: matchData?._id, participantId: myPId, Lid: matchData?.league?._id });
+      cancelMatch({
+        matchId: matchData?._id,
+        participantId: myPId,
+        Lid: matchData?.league?._id,
+      });
     }
     if (confirmationPopUp == 3) {
       dispatch(setConfirmationPopUp(0));
@@ -34,13 +46,13 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
         onPlayerSelect({
           draftId,
           Playerdata: selectedPlayerData,
-          isSocketConnected
+          isSocketConnected,
         });
       }
     }
     if (confirmationPopUp == 4) {
-      dispatch(deleteFcmToken())
-      getUpdateToken("")
+      dispatch(deleteFcmToken());
+      getUpdateToken("");
       dispatch(setConfirmationPopUp(0));
       if (onDeleteAccount) {
         onDeleteAccount();
@@ -58,19 +70,26 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
 
   const getConfirmationMessage = () => {
     if (confirmationPopUp == 3 && selectedPlayerData) {
-      return `${t("confirmation.confirmplayerselectionMessage")} ${selectedPlayerData?.username || t("confirmation.thisplayer")}?`;
+      return `${t("confirmation.confirmplayerselectionMessage")} ${
+        selectedPlayerData?.username || t("confirmation.thisplayer")
+      }?`;
     }
     if (confirmationPopUp == 4) {
       return t("confirmation.deleteAccountMessage");
     }
-     if (confirmationPopUp == 5) {
-       return t("confirmation.inqueue");
-     }
+    if (confirmationPopUp == 5) {
+      return t("confirmation.inqueue");
+    }
     return "";
   };
 
   const getCancelText = () => {
-    if (confirmationPopUp == 1 || confirmationPopUp == 3 || confirmationPopUp == 4) return t("confirmation.cancel");
+    if (
+      confirmationPopUp == 1 ||
+      confirmationPopUp == 3 ||
+      confirmationPopUp == 4
+    )
+      return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
     return "";
   };
@@ -101,7 +120,8 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
       ></div>
 
       <div className="fixed modal_popup-con inset-0 overflow-y-auto flex justify-center items-center z-50">
-        <motion.div className="popup-wrap inline-flex  relative"
+        <motion.div
+          className="popup-wrap inline-flex  relative"
           initial={{ scale: 0.5, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
@@ -110,9 +130,17 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
           <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after ">
             <div className="popup_header px-8 pt-4 flex items-start ltr:justify-end mt-3 text-center sm:mt-0 sm:text-left rtl:justify-start rtl:text-right">
               <div className="flex items-center gap-2 h-8 absolute left-1/2 translate-x-[-50%] top-10">
-                <img src={asideLogo_ltr} alt="rules_icon" className=" h-10" />
+                <img
+                  src={IMAGES.asideLogo_ltr}
+                  alt="rules_icon"
+                  className=" h-10"
+                />
               </div>
-              <button type="button" className="pt-2 cursor-pointer" onClick={() => dispatch(setConfirmationPopUp(0))}>
+              <button
+                type="button"
+                className="pt-2 cursor-pointer"
+                onClick={() => dispatch(setConfirmationPopUp(0))}
+              >
                 <svg
                   width="1.125rem"
                   height="1.125rem"
@@ -137,7 +165,9 @@ function ConfirmationPopUp({ onPlayerSelect, draftId, isSocketConnected, onDelet
 
               {confirmationPopUp == 3 && selectedPlayerData && (
                 <div className="mb-4 text-center ">
-                  <p className="text-lg text-gray-300 mb-3">{getConfirmationMessage()}</p>
+                  <p className="text-lg text-gray-300 mb-3">
+                    {getConfirmationMessage()}
+                  </p>
                 </div>
               )}
 

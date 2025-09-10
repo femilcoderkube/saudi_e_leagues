@@ -1,7 +1,11 @@
-import GreenSmile from "../../../assets/images/green_smile.png";
-import RedSmile from "../../../assets/images/red_smile.png";
-import YellowSmile from "../../../assets/images/yellow_smile.png";
-import { mobileViewCard_Last_even, mobileViewCard_Last_odd, mobileViewCard_one, mobileViewCard_three, mobileViewCard_two } from "./mobileCards";
+import { IMAGES } from "../../ui/images/images";
+import {
+  mobileViewCard_Last_even,
+  mobileViewCard_Last_odd,
+  mobileViewCard_one,
+  mobileViewCard_three,
+  mobileViewCard_two,
+} from "./mobileCards";
 import {
   FifthPosCard,
   FirstPosCard_gold,
@@ -29,7 +33,7 @@ export function getCards(position, isOpponent = false) {
     ? [
         undefined,
         SecondPosCard_Opp,
-        ThirdPosCard_Opp, 
+        ThirdPosCard_Opp,
         ForthPosCard_Opp,
         FifthPosCard_Opp,
       ]
@@ -60,11 +64,11 @@ export function getCards(position, isOpponent = false) {
   }
 }
 
-
 export function getMobileCards(position) {
   // Determine first and last card types
   let firstCard = position === 1 ? mobileViewCard_three : mobileViewCard_one;
-  let lastCard = position % 2 === 0 ? mobileViewCard_Last_even : mobileViewCard_Last_odd;
+  let lastCard =
+    position % 2 === 0 ? mobileViewCard_Last_even : mobileViewCard_Last_odd;
   let cards = [mobileViewCard_two, mobileViewCard_three];
 
   if (position <= 0) return [];
@@ -95,13 +99,13 @@ export function getMobileCards(position) {
 export function getSmile(rep) {
   if (rep >= 70) {
     // 70% – 100% Positive
-    return GreenSmile;
+    return IMAGES.GreenSmile;
   } else if (rep >= 40) {
     // 40% – 69% Neutral
-    return YellowSmile;
+    return IMAGES.YellowSmile;
   } else {
     // 0% – 39% Needs Improve
-    return RedSmile;
+    return IMAGES.RedSmile;
   }
 }
 
