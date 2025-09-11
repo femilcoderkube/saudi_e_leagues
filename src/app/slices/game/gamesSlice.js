@@ -7,7 +7,6 @@ const initialState = {
   loading: false,
   error: null,
 };
-console.log("ongoingLeaguesAndTournaments", initialState.ongoingLeaguesAndTournaments);
 
 export const fetchGames = createAsyncThunk(
   "games/fetchGames",
@@ -28,7 +27,6 @@ export const fetchOngoingLeaguesAndTournaments = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/Leagues/ongoingGames");
-      console.log("response", response);
       return response.data;
     } catch (error) {
       return rejectWithValue(

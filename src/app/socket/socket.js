@@ -225,7 +225,6 @@ export function startGetQueueUser(userId) {
 export function startGetQueuePlayers() {
   socket.off(SOCKET.QUEUEPLAYER);
   socket.on(SOCKET.QUEUEPLAYER, (data) => {
-    console.log("data--", data);
     if (data.count) {
       store.dispatch(setQueuePlayers(data.count));
     }
@@ -340,7 +339,6 @@ export function getDraftById({ draftId, isSocketConnected, user }) {
   if (isSocketConnected) {
     stopDraftSocket({ draftId });
     socket.on(SOCKET.ONDRAFTDATAUPDATE, (data) => {
-      console.log("Draft Update Data:", data);
       data.user = user;
 
       store.dispatch(setDraftData(data));

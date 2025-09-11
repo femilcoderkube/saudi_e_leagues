@@ -35,12 +35,9 @@ export const checkBannedUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem("token");
-      // console.log("token", token);
-      // API call to login with /admin/login
       if (!token) {
         return rejectWithValue("Token not found");
       }
-      // console.log(token);
       const response = await axiosInstance.get("/BannedUsers/check", {
         headers: {
           Authorization: `Bearer ${token}`,
