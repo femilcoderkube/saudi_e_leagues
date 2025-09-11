@@ -21,7 +21,7 @@ import {
 } from "../../app/slices/auth/authSlice";
 import { registerUser } from "../../app/slices/auth/authSlice";
 import { useTranslation } from "react-i18next";
-import NotificationSidebar from "../Notification/NotificationSidebar";
+import NotificationSidebar from "../Notification/Sidebar";
 import ConfirmationPopUp from "../Overlays/ConfirmationPopUp";
 import { motion } from "framer-motion";
 import { genrateFCMToken } from "../../Services/NotificationService";
