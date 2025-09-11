@@ -25,7 +25,7 @@ import {
 import { motion } from "motion/react";
 import QueueConfirmationBanner from "../../components/Overlays/LeagueDetail/QueueConfirmationBanner.jsx";
 import DetailItem from "../../components/Details/DetailItem.jsx";
-import Table from "../../components/Loddy/LeaderBoard/table.jsx";
+import Table from "../../components/Loddy/LeaderBoard/Table";
 import GetQueueButton from "../../components/Cards/LeagueDetail/QueueButton.jsx";
 import { IMAGES } from "../../components/ui/images/images.js";
 
