@@ -23,7 +23,7 @@ import { items } from "./utils/constant.js";
 import TournamentDetail from "./pages/TournamentDetail/TournamentDetail.jsx";
 import DraftingDetail from "./pages/DraftingPhase/DraftingDetail.jsx";
 import TournamentMatchDetail from "./pages/Matches/TournamentMatchDetail.jsx";
-import { setNavigator } from "./navigationService.js";
+import { setNavigator } from "./Services/navigationService.js";
 import { useSelector } from "react-redux";
 import { requestPermission, setupMessageListener } from "./Services/NotificationService.js";
 import ROUTESPATH from "./Routes/paths.js";

@@ -39,7 +39,7 @@ import {
   logout,
   setIsBannedUser,
 } from "../slices/auth/authSlice";
-import { globalNavigate } from "../../navigationService";
+import { globalNavigate } from "../../Services/navigationService";
 
 const SOCKET_URL =
   import.meta.env.VITE_SOCKET_URL || "https://staging-backend.primeeleague.com";

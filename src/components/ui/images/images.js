@@ -92,7 +92,10 @@ import cal_arrow from "../../../assets/images/cal_arrow.png";
 import full_screen from "../../../assets/images/full-screen.png";
 import exit_screen from "../../../assets/images/exit-screen.png";
 
+import prime_icon from "../../../assets/images/prime_icon.svg";
+
 export const IMAGES = {
+  prime_icon,
   full_screen,
   exit_screen,
   cal_arrow,

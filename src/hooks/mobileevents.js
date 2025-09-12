@@ -1,3 +1,5 @@
+import { setLogin } from "../app/slices/constState/constStateSlice";
+
 class MobileEvent {
     static onLogin() {
         window.appLoginData = function (authToken, language, userData, deviceType) {
@@ -25,6 +27,15 @@ class MobileEvent {
             window.webkit?.messageHandlers?.languageCallbackHandler?.postMessage(
                 newLang
             );
+        }
+    }
+    static onLoginClick(currentUrl, dispatch) {
+        const type = localStorage.getItem("deviceType");
+        if (type === "mobile") {
+            window.AndroidInterface?.signInCallbackHandler(currentUrl);
+            window.webkit?.messageHandlers?.signInCallbackHandler?.postMessage(currentUrl);
+        } else {
+            dispatch(setLogin(true));
         }
     }
 }

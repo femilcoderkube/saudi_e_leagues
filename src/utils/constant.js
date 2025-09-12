@@ -1,17 +1,15 @@
-import prime_icon from "../assets/images/prime_icon.svg";
-import prime_hover from "../assets/images/prime_hover.png";
-import LargePrime from "../assets/images/prime_hover.png";
 import axiosInstance, { baseURL } from "./axios";
 import moment from "moment-timezone";
 import { Prime } from "../components/ui/svg/index.jsx";
+import { IMAGES } from "../components/ui/images/images.js";
 
 export const items = [
   {
     name: "Prime",
     path: "/:id",
-    src: prime_icon,
-    hoverSrc: prime_hover,
-    logo: LargePrime,
+    src: IMAGES.prime_icon,
+    hoverSrc: IMAGES.primeIcon,
+    logo: IMAGES.primeIcon,
     docId: "68466ecb6e8d3444d55e85f1",
     id: "prime",
     headerIcon: Prime,
