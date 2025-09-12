@@ -196,7 +196,6 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         return;
       }
       store.dispatch(setQueueData(data.data));
-      store.dispatch(setIsMatctCreated(false));
     });
     socket.on(SOCKET.GETLEADERBOARD, (data) => {
       if (window.location.pathname.includes(data?.Lid?.toString())) {

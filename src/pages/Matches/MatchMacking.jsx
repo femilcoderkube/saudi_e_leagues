@@ -21,6 +21,7 @@ const MatchMaking = () => {
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef(null);
   const [showTimeOver, setShowTimeOver] = useState(false);
+  const [isDisable, setisDisable] = useState(true);
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const { lId, id } = useParams();
@@ -59,6 +60,14 @@ const MatchMaking = () => {
       startReadyToPlaySocket({ lId, user, isSocketConnected });
     }
   }, [isSocketConnected, lId, user?._id]);
+
+  useEffect(() => {
+    if (seconds <= 2) {
+      setisDisable(true);
+    } else {
+      setisDisable(false);
+    }
+  }, [seconds]);
 
   const handleCancel = () => {
     if (seconds <= 2) return;
@@ -141,7 +150,7 @@ const MatchMaking = () => {
                 style={{ width: "11rem" }}
               />
               <div onClick={handleCancel}>
-                <div className="absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem]">
+                <div className={`absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem] ${isDisable && ('opacity-50') }`}>
                   <img
                     className="cancel-btn duration-400 cursor-pointer z-2"
                     src={IMAGES.cancel_btn}
@@ -149,7 +158,7 @@ const MatchMaking = () => {
                     style={{ width: "25rem" }}
                   />
                   <span
-                    className="mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-lg sm:text-2xl cursor-pointer"
+                    className={`mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-lg sm:text-2xl ${isDisable ? 'cursor-not-allowed' : 'cursor-pointer'} `}
                     style={{
                       fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
                       fontWeight: "bold",
