@@ -68,44 +68,37 @@ const leagueDetailSlice = createSlice({
       }
       state.leaderBoard = action.payload;
     },
-    setLeagueData: (state, action) => {
-      // if (action.payload?.leaderBoard) {
-      //   if (
-      //     !action.payload.leaderBoard.requestedUser &&
-      //     state.leagueData?.leaderBoard?.requestedUser
-      //   ) {
-      //     action.payload.leaderBoard.requestedUser =
-      //       state.leagueData.leaderBoard.requestedUser;
-      //   }
-      // }
+    setLeagueData: (state, action) => {      
       state.leagueData = action.payload;
+    },
+    setQueueData: (state, action) => {
       state.isMatchJoind = null;
       state.isQueueUser = null;
       state.isJoinedUser = null;
       if (
         action.payload &&
         action.payload.joinedUsers &&
-        action.payload?.userId
+        state.leagueData.userId
       ) {
         state.isJoinedUser = action.payload.joinedUsers.some(
-          (participant) => participant == action.payload.userId
+          (participant) => participant == state.leagueData.userId
         );
       }
 
-      if (action.payload && action.payload.inQueue && action.payload?.userId) {
+      if (action.payload && action.payload.inQueue && state.leagueData?.userId) {
         state.isQueueUser = action.payload.inQueue.some(
-          (participant) => participant == action.payload.userId
+          (participant) => participant == state.leagueData.userId
         );
       }
 
       if (
         action.payload &&
         action.payload.isMatchJoind &&
-        action.payload?.userId
+        state.leagueData?.userId
       ) {
         state.isMatchJoind = action.payload.isMatchJoind.find(
           (participant) =>
-            participant.userId?.toString() == action.payload.userId?.toString()
+            participant.userId?.toString() == state.leagueData.userId?.toString()
         );
       }
     },
@@ -114,6 +107,7 @@ const leagueDetailSlice = createSlice({
 
 export const {
   setLeagueData,
+  setQueueData,
   setRegistrationModal,
   setVerificationModal,
   setIsAgreedToJoin,

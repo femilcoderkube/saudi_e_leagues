@@ -9,6 +9,7 @@ import {
   resetLeaderBoard,
   setLeaderBoard,
   setLeagueData,
+  setQueueData,
   setQueuePlayers,
   setRegistrationModal,
   setUserInQueue,
@@ -91,6 +92,7 @@ export const SOCKET = {
   CHECKUSERQUEUE: "checkUserQueue",
   GETUSERQUEUE: "getUserQueue",
   QUEUEPLAYER: "queuePlayer",
+  PREPAREQUEUEDATA: "prepareQueueData"
 };
 
 socket.connect();
@@ -188,6 +190,14 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         store.dispatch(setIsMatctCreated(false));
       }
     });
+    socket.on(SOCKET.PREPAREQUEUEDATA, (data) => {
+      if (!data?.status) {
+        window.location.href = "/";
+        return;
+      }
+      store.dispatch(setQueueData(data.data));
+      store.dispatch(setIsMatctCreated(false));
+    });
     socket.on(SOCKET.GETLEADERBOARD, (data) => {
       if (window.location.pathname.includes(data?.Lid?.toString())) {
         data.data.userId = user?._id;
@@ -232,6 +242,8 @@ export function startGetQueuePlayers() {
 }
 export function stopLeagueSocket() {
   socket.off(SOCKET.LEAGUEUPDATE);
+  socket.off(SOCKET.PREPAREQUEUEDATA);
+  socket.off(SOCKET.GETLEADERBOARD);
 }
 export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
@@ -248,6 +260,9 @@ export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
 export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user?._id });
+  setTimeout(() => {
+    startLeagueSocket(lId, user, isSocketConnected)
+  }, 2000)
 }
 export function stopReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
@@ -381,7 +396,7 @@ export const getUpdateToken = (fcmToken) => {
 export const joinUserRoom = () => {
   try {
     const user = JSON.parse(localStorage.getItem("user")) || null;
-    
+
     socket.emit(SOCKET.JOINUSEROOM, { userId: user?._id });
 
   } catch (error) {
