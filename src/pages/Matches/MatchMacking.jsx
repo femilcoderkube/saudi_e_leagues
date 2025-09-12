@@ -61,6 +61,7 @@ const MatchMaking = () => {
   }, [isSocketConnected, lId, user?._id]);
 
   const handleCancel = () => {
+    if (seconds <= 2) return;
     if (isSocketConnected && user?._id) {
       stopReadyToPlaySocket({ lId, user, isSocketConnected });
       sessionStorage.removeItem("canAccessFindingMatch");
