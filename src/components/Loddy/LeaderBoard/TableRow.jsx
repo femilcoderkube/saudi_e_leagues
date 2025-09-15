@@ -10,14 +10,16 @@ const TableRow = ({ user, isYou, playersPerTeam }) => {
       <tr key={user.rank} className={`${user.badgeColor} overflow-hidden`}>
         {/* Rank + Badge */}
         <td
-          className={`py-4 px-4 ${user.bedgeBG || ""} ${String(user.rank).length === 1 ? "one_digit" : "two_digit"
-            }`}
+          className={`py-4 px-4 ${user.bedgeBG || ""} ${
+            String(user.rank).length === 1 ? "one_digit" : "two_digit"
+          }`}
         >
           <img
             className="bedge_bg"
             src={user.bedgesrc}
             alt={t(`badges.${user.badgeColor}`)}
             style={{ width: "3rem" }}
+            loading="lazy"
           />
           <div
             className="badge text-lg text-center pl-1 md:pt-0 pt-[0.3rem] font-bold"
@@ -36,6 +38,7 @@ const TableRow = ({ user, isYou, playersPerTeam }) => {
                   src={getServerURL(user.profilePic)}
                   alt={user.username}
                   style={{ width: "2.5rem", height: "2.5rem" }}
+                  loading="lazy"
                 />
               ) : (
                 <div
@@ -56,9 +59,13 @@ const TableRow = ({ user, isYou, playersPerTeam }) => {
                 </div>
               )}
             </div>
-            <span className="text-base sm:text-lg !font-bold">{user.username}</span>
+            <span className="text-base sm:text-lg !font-bold">
+              {user.username}
+            </span>
             {isYou && (
-              <span className="text-base purple_col font-medium">{t("lobby.you")}</span>
+              <span className="text-base purple_col font-medium">
+                {t("lobby.you")}
+              </span>
             )}
           </div>
         </td>
@@ -85,7 +92,12 @@ const TableRow = ({ user, isYou, playersPerTeam }) => {
           <td data-title="Rep" className="pb-11 md:pb-4 py-4 px-4">
             <div className="flex items-center justify-center">
               <div className="avtar_frame rounded-[2.5rem] flex-shrink-0 overflow-hidden">
-                <img src={getSmile(user.rep)} alt={user.rep} style={{ width: "1.5rem" }} />
+                <img
+                  src={getSmile(user.rep)}
+                  alt={user.rep}
+                  style={{ width: "1.5rem" }}
+                  loading="lazy"
+                />
               </div>
             </div>
           </td>
@@ -94,8 +106,9 @@ const TableRow = ({ user, isYou, playersPerTeam }) => {
         {/* Win Rate */}
         <td
           data-title="Win rate"
-          className={`pb-11 md:pb-4 py-4 px-4 text-center text-lg ${playersPerTeam === 1 ? "" : "leaderboard-right"
-            }`}
+          className={`pb-11 md:pb-4 py-4 px-4 text-center text-lg ${
+            playersPerTeam === 1 ? "" : "leaderboard-right"
+          }`}
         >
           <div className="leaderboard-center">{user.winRate}</div>
         </td>
@@ -109,6 +122,7 @@ const TableRow = ({ user, isYou, playersPerTeam }) => {
                   src={getSmile(user.rep)}
                   alt={user.rep}
                   style={{ width: "1.5rem", visibility: "hidden" }}
+                  loading="lazy"
                 />
               </div>
             </div>
