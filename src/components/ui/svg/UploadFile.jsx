@@ -99,7 +99,7 @@ const CustomFileUpload = ({
         )}
       </div>
       {error && (
-        <p className="text-red-500 text-sm mt-2">{error}</p> // Display error message
+        <p className="text-red-500 text-base mt-2">{error}</p> // Display error message
       )}
       <style jsx="true">{`
         .relative:hover .absolute {
