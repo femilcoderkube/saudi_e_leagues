@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import TableHeader from "./TableHeader";
@@ -9,6 +9,8 @@ import { IMAGES } from "../../ui/images/images";
 const Table = () => {
   const { t } = useTranslation();
   const { leagueData, leaderBoard } = useSelector((state) => state.leagues);
+  const [visibleCount, setVisibleCount] = useState(20);
+
   let requestedUser = leaderBoard?.requestedUser || null;
   if (requestedUser) {
     let user = {
@@ -57,6 +59,13 @@ const Table = () => {
   if (!leaderBoard) {
     return <GamingLoader />;
   }
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 20);
+  };
+
+  const hasMoreData = visibleCount < leaderBoard?.topUsers?.length;
+
   return (
     <div className="leaderboard-wrapper md:pt-8">
       <h2 className="text-xl sm:text-2xl !font-bold">
@@ -71,7 +80,7 @@ const Table = () => {
             playersPerTeam={leagueData.playersPerTeam}
           />
         )}
-        {leaderBoard?.topUsers?.map((data, index) => {
+        {leaderBoard?.topUsers?.slice(0, visibleCount).map((data, index) => {
           let user = {
             username: data?.userId?.username,
             points: data?.totalLeaguesScore
@@ -112,6 +121,17 @@ const Table = () => {
           );
         })}
       </table>
+
+      {hasMoreData && (
+        <div className="flex justify-center my-6 ">
+         <button
+            onClick={handleLoadMore}
+            className="px-8 py-3 text-white font-semibold rounded-lg transition-all blue hover:opacity-80 "
+          >
+            {t("lobby.load_more")}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

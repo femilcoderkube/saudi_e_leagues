@@ -157,7 +157,8 @@
       "upcoming": "Upcoming",
       "ongoing": "Ongoing",
       "finished": "Finished"
-    }
+    },
+    "load_more": "Load More"
   },
   "league": {
     "league_title": "League Title",
