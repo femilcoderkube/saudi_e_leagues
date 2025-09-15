@@ -79,36 +79,34 @@ const leagueDetailSlice = createSlice({
       if (
         action.payload &&
         action.payload.joinedUsers &&
-        state.leagueData.userId
+        action.payload.userId
       ) {
         state.isJoinedUser = action.payload.joinedUsers.some(
-          (participant) => participant == state.leagueData.userId
+          (participant) => participant == action.payload.userId
         );
       }
 
-      if (action.payload && action.payload.inQueue && state.leagueData?.userId) {
+      if (action.payload && action.payload.inQueue && action.payload.userId) {
         state.isQueueUser = action.payload.inQueue.some(
-          (participant) => participant == state.leagueData.userId
+          (participant) => participant == action.payload.userId
         );
       }
 
       if (
         action.payload &&
         action.payload.isMatchJoind &&
-        state.leagueData?.userId
+        action.payload.userId
       ) {
         state.isMatchJoind = action.payload.isMatchJoind.find(
           (participant) =>
-            participant.userId?.toString() == state.leagueData.userId?.toString()
+            participant.userId?.toString() == action.payload.userId?.toString()
         );
       }
 
       if (
-        action.payload &&
-        action.payload.activeUsers &&
-        state.leagueData?.userId
+        action.payload       
       ) {
-        state.activeUsers = action.payload.activeUsers;
+        state.activeUsers = action.payload.activeUsers?.toString() || "0";
       }
     },
   },

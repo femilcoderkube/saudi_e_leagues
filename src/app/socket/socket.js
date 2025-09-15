@@ -195,6 +195,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         window.location.href = "/";
         return;
       }
+      data.data.userId = user?._id;
       store.dispatch(setQueueData(data.data));
     });
     socket.on(SOCKET.GETLEADERBOARD, (data) => {
