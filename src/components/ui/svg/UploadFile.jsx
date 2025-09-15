@@ -9,12 +9,34 @@ const CustomFileUpload = ({
 }) => {
   const fileInputRef = useRef(null);
   const [fileName, setFileName] = useState("");
+  const [error, setError] = useState(null); // State to manage validation errors
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFileName(file.name);
-      onFileChange(file);
+      // Basic validation: check if the file is an image
+      if (file.type.startsWith("image/")) {
+        setFileName(file.name);
+        setError(null); // Clear any previous error
+        onFileChange(file); // Pass the valid file to the parent component
+      } else {
+        // Validation failed: not an image
+        setFileName("");
+        setError("Please upload an image file (e.g., JPG, PNG, GIF)."); // Set error message
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ""; // Clear the input field
+        }
+        // Do not call onFileChange with an invalid file.
+        // The parent component should only receive valid files.
+      }
+    } else {
+      // No file selected (e.g., user cancelled the file picker)
+      setFileName("");
+      setError(null); // Clear error if no file is selected
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      onFileChange(null); // Notify parent that the file has been cleared or no file was selected
     }
   };
 
@@ -26,7 +48,10 @@ const CustomFileUpload = ({
 
   const handleRemove = (e) => {
     setFileName("");
-    fileInputRef.current.value = "";
+    setError(null); // Clear error on file removal
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
     onRemove();
     e.stopPropagation();
   };
@@ -73,6 +98,9 @@ const CustomFileUpload = ({
           </div>
         )}
       </div>
+      {error && (
+        <p className="text-red-500 text-sm mt-2">{error}</p> // Display error message
+      )}
       <style jsx="true">{`
         .relative:hover .absolute {
           opacity: 1 !important;

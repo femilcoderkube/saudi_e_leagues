@@ -12,7 +12,8 @@ const initialState = {
   starOfTheWeek: [],
   userInQueue: false,
   queuePlayers: 1,
-  leaderBoard:null
+  leaderBoard:null,
+  activeUsers: 0
 };
 
 const leagueDetailSlice = createSlice({
@@ -100,6 +101,14 @@ const leagueDetailSlice = createSlice({
           (participant) =>
             participant.userId?.toString() == state.leagueData.userId?.toString()
         );
+      }
+
+      if (
+        action.payload &&
+        action.payload.activeUsers &&
+        state.leagueData?.userId
+      ) {
+        state.activeUsers = action.payload.activeUsers;
       }
     },
   },

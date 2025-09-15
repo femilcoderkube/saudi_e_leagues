@@ -36,6 +36,7 @@ const LeagueDetail = () => {
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const {
     leagueData,
+    activeUsers,
     registrationModal,
     verificationModal,
     verificationModule,
@@ -127,7 +128,7 @@ const LeagueDetail = () => {
                     {t("league.online_users")}
                   </h3>
                   <span className="sm:text-2xl text-lg font-bold order-1 md:order-2">
-                    {leagueData?.activeUsers || 0}
+                    {activeUsers || 0}
                   </span>
                 </div>
                 <div className="participants md:p-4 px-5 py-1 ltr:text-right rtl:text-left w-full pt-0 relative md:top-[-2.45rem] ">
