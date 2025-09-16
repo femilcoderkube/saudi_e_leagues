@@ -15,7 +15,6 @@ import {
 } from "../../app/slices/constState/constStateSlice";
 import { checkParams } from "../../utils/constant";
 import {
-  checkBannedUser,
   fetchUserById,
   updateUser,
 } from "../../app/slices/auth/authSlice";
@@ -158,9 +157,6 @@ export default function Main() {
       setLoadingSubmit(false);
     }
   };
-  useEffect(() => {
-    dispatch(checkBannedUser());
-  }, [location]);
 
   return (
     <div

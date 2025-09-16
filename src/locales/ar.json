@@ -174,7 +174,8 @@
     "drafting_phase": "مرحلة الدرافت",
     "queue": "البحث عن مباراة",
     "open": "مفتوح",
-    "ends": "ينتهي في:"
+    "ends": "ينتهي في:",
+    "checkingBan": "جاري التحقق..."
   },
   "match": {
     "finding_matchmaking": "البحث عن لاعبين",

@@ -12,6 +12,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../ui/images/images";
 import MobileEvent from "../../../hooks/mobileevents.js"
+import { useState } from "react";
+import { checkBannedUser } from "../../../app/slices/auth/authSlice.js";
 
 const GetQueueButton = () => {
   const { id } = useParams();
@@ -24,10 +26,38 @@ const GetQueueButton = () => {
   const now = new Date();
   const end = new Date(leagueData?.endDate);
   const { t, i18n } = useTranslation();
+  const [isCheckingBan, setIsCheckingBan] = useState(false);
 
   const handleLoginClick = () => {
     const currentUrl = window.location.href;
     MobileEvent.onLoginClick(currentUrl, dispatch);
+  };
+
+  const handleQueueClick = async () => {
+    try {
+      setIsCheckingBan(true);
+
+      const banCheckResult = await dispatch(checkBannedUser()).unwrap();
+      if (banCheckResult?.data.banMessage) {
+        setIsCheckingBan(false);
+        return;
+      }
+
+      dispatch(setQueuePlayers(1));
+      if (userInQueue) {
+        dispatch(setQueueConfirmation(true));
+      } else {
+        if (localStorage.getItem("skipQueueConfirmation")) {
+          sessionStorage.setItem("canAccessFindingMatch", "true");
+          navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+        } else {
+          dispatch(setQueueConfirmation(true));
+        }
+      }
+      setIsCheckingBan(false);
+    } catch (error) {
+      setIsCheckingBan(false);
+    }
   };
 
   if (user?._id == null || user?._id == undefined) {
@@ -193,20 +223,8 @@ const GetQueueButton = () => {
     } else if (text == t("images.queue")) {
       return (
         <div
-          className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
-          onClick={() => {
-            dispatch(setQueuePlayers(1));
-            if (userInQueue) {
-              dispatch(setQueueConfirmation(true));
-            } else {
-              if (localStorage.getItem("skipQueueConfirmation")) {
-                sessionStorage.setItem("canAccessFindingMatch", "true");
-                navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
-              } else {
-                dispatch(setQueueConfirmation(true));
-              }
-            }
-          }}
+          className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${isCheckingBan ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+          onClick={isCheckingBan ? undefined : handleQueueClick}
         >
           <span
             className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
@@ -216,7 +234,7 @@ const GetQueueButton = () => {
               textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
             }}
           >
-            {t("images.queue")}
+            {isCheckingBan ? t("league.checkingBan") : t("images.queue")}
           </span>
           <img
             className="mx-auto"
