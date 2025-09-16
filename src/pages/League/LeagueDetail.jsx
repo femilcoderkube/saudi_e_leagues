@@ -48,7 +48,7 @@ const LeagueDetail = () => {
   useEffect(() => {
     let res = startLeagueSocket({ lId, user, isSocketConnected });
     return () => {
-      stopLeagueSocket();
+      stopLeagueSocket(lId);
     };
   }, [isSocketConnected, lId, user, window.location.pathname, isMatctCreated]);
 

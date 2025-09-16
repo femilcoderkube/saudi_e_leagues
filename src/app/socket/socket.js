@@ -237,10 +237,11 @@ export function startGetQueuePlayers() {
     }
   });
 }
-export function stopLeagueSocket() {
+export function stopLeagueSocket(lId) {
   socket.off(SOCKET.LEAGUEUPDATE);
   socket.off(SOCKET.PREPAREQUEUEDATA);
   socket.off(SOCKET.GETLEADERBOARD);
+  socket.emit(SOCKET.LEAVELEAGUE, { Lid: lId })
 }
 export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
