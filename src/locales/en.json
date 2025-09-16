@@ -173,8 +173,7 @@
     "drafting_phase": "DRAFTING PHASE",
     "queue": "QUEUE",
     "open": "OPEN",
-    "ends": "Ends:",
-    "checkingBan": "Checking..."
+    "ends": "Ends:"
   },
   "match": {
     "finding_matchmaking": "Finding Matchmaking",

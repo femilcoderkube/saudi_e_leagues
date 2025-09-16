@@ -36,6 +36,7 @@ const GameCard = ({ item }) => {
               alt={t("images.game_image")}
               style={{ objectFit: "cover" }}
               className="w-full"
+              loading="lazy"
             />
           </div>
           <div className="game_mask--con pt-3 absolute bottom-3 z-40 w-full">
@@ -122,6 +123,7 @@ const GameCard = ({ item }) => {
           alt={t("images.game_image")}
           style={{ objectFit: "contain", width: "2.5rem", height: "2.5rem" }}
           className="w-full h-full"
+          loading="lazy"
         />
       </div>
     </div>

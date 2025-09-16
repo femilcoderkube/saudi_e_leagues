@@ -12,8 +12,8 @@ const initialState = {
   starOfTheWeek: [],
   userInQueue: false,
   queuePlayers: 1,
-  leaderBoard:null,
-  activeUsers: 0
+  leaderBoard: null,
+  activeUsers: 0,
 };
 
 const leagueDetailSlice = createSlice({
@@ -59,17 +59,13 @@ const leagueDetailSlice = createSlice({
     },
     setLeaderBoard: (state, action) => {
       if (action.payload) {
-        if (
-          !action.payload.requestedUser &&
-          state.leaderBoard?.requestedUser
-        ) {
-          action.payload.requestedUser =
-            state.leaderBoard.requestedUser;
+        if (!action.payload.requestedUser && state.leaderBoard?.requestedUser) {
+          action.payload.requestedUser = state.leaderBoard.requestedUser;
         }
       }
       state.leaderBoard = action.payload;
     },
-    setLeagueData: (state, action) => {      
+    setLeagueData: (state, action) => {
       state.leagueData = action.payload;
     },
     setQueueData: (state, action) => {
@@ -86,7 +82,7 @@ const leagueDetailSlice = createSlice({
         );
       }
 
-      if (action.payload && action.payload.inQueue && action.payload.userId) {
+      if (action.payload && action.payload.inQueue && action.payload?.userId) {
         state.isQueueUser = action.payload.inQueue.some(
           (participant) => participant == action.payload.userId
         );
@@ -95,18 +91,19 @@ const leagueDetailSlice = createSlice({
       if (
         action.payload &&
         action.payload.isMatchJoind &&
-        action.payload.userId
+        action.payload?.userId
       ) {
         state.isMatchJoind = action.payload.isMatchJoind.find(
           (participant) =>
             participant.userId?.toString() == action.payload.userId?.toString()
         );
       }
-
-      if (
-        action.payload       
-      ) {
-        state.activeUsers = action.payload.activeUsers?.toString() || "0";
+      if (action.payload?.totalRegistrations) {
+        state.leagueData.totalRegistrations =
+          action.payload?.totalRegistrations;
+      }
+      if (action.payload) {
+        state.activeUsers = action.payload?.activeUsers.toString() || "0";
       }
     },
   },
@@ -123,7 +120,7 @@ export const {
   setUserInQueue,
   setQueuePlayers,
   resetLeaderBoard,
-  setLeaderBoard
+  setLeaderBoard,
 } = leagueDetailSlice.actions;
 
 export default leagueDetailSlice.reducer;

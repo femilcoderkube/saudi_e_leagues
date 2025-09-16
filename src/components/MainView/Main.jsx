@@ -15,6 +15,7 @@ import {
 } from "../../app/slices/constState/constStateSlice";
 import { checkParams } from "../../utils/constant";
 import {
+  checkBannedUser,
   fetchUserById,
   updateUser,
 } from "../../app/slices/auth/authSlice";

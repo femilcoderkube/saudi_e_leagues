@@ -87,6 +87,7 @@ const StarOfTheWeek = () => {
                             alt=""
                             className="rounded-[3rem]"
                             style={{ width: "3rem", height: "3rem" }}
+                            loading="lazy"
                           />
                         ) : (
                           <div

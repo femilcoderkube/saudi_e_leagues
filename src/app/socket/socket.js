@@ -1,9 +1,7 @@
 import { io } from "socket.io-client";
 import { store } from "../slices/store";
 import { setSocketConnected, setSocketId } from "../slices/socket/socketSlice";
-import {
-  getPartnerByDocId,
-} from "../../utils/constant";
+import { getPartnerByDocId } from "../../utils/constant";
 import {
   removeFromQueue,
   resetLeaderBoard,
@@ -28,9 +26,7 @@ import {
   setTournamentData,
   setTournamentStages,
 } from "../slices/tournamentSlice/tournamentSlice";
-import {
-  setDraftData,
-} from "../slices/draft/draftSlice";
+import { setDraftData } from "../slices/draft/draftSlice";
 import {
   setChatTData,
   setmatchTData,
@@ -92,7 +88,7 @@ export const SOCKET = {
   CHECKUSERQUEUE: "checkUserQueue",
   GETUSERQUEUE: "getUserQueue",
   QUEUEPLAYER: "queuePlayer",
-  PREPAREQUEUEDATA: "prepareQueueData"
+  PREPAREQUEUEDATA: "prepareQueueData",
 };
 
 socket.connect();
@@ -177,13 +173,13 @@ export function getLastMatchesSocket(userId) {
 export function startLeagueSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
     stopLeagueSocket();
-    store.dispatch(resetLeaderBoard())
+    store.dispatch(resetLeaderBoard());
 
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
-      if (!data?.status) {
-        window.location.href = "/";
-        return;
-      }
+      // if (!data?.status) {
+      //   window.location.href = "/";
+      //   return;
+      // }
       if (window.location.pathname.includes(data?.data?._id?.toString())) {
         data.data.userId = user?._id;
         store.dispatch(setLeagueData(data.data));
@@ -191,12 +187,15 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
     });
     socket.on(SOCKET.PREPAREQUEUEDATA, (data) => {
-      if (!data?.status) {
-        window.location.href = "/";
-        return;
+      // if (!data?.status) {
+      //   window.location.href = "/";
+      //   return;
+      // }
+      if (window.location.pathname.includes(data?.data?.Lid?.toString())) {
+        // console.log("New Updates ");
+        data.data.userId = user?._id;
+        store.dispatch(setQueueData(data.data));
       }
-      data.data.userId = user?._id;
-      store.dispatch(setQueueData(data.data));
     });
     socket.on(SOCKET.GETLEADERBOARD, (data) => {
       if (window.location.pathname.includes(data?.Lid?.toString())) {
@@ -261,8 +260,8 @@ export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user?._id });
   setTimeout(() => {
-    startLeagueSocket(lId, user, isSocketConnected)
-  }, 2000)
+    startLeagueSocket(lId, user, isSocketConnected);
+  }, 2000);
 }
 export function stopReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
@@ -398,7 +397,6 @@ export const joinUserRoom = () => {
     const user = JSON.parse(localStorage.getItem("user")) || null;
 
     socket.emit(SOCKET.JOINUSEROOM, { userId: user?._id });
-
   } catch (error) {
     console.error("Error parsing user from localStorage:", error);
   }

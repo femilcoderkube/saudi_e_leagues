@@ -55,6 +55,7 @@ const RecentMatches = () => {
                     className="w-5 h-5"
                     src={getServerURL(match.game.logo)}
                     alt={match.game.name}
+                    loading="lazy"
                   />
                   <h2 className="text-sm grad_text-clip font-bold">
                     {match.game.name}

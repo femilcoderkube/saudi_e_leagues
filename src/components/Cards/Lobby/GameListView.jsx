@@ -31,6 +31,7 @@ const GameListView = ({ leagues }) => {
                   src={getServerURL(item.logo)}
                   alt={t("images.game_logo")}
                   className="w-[10rem] md:w-[13rem] h-[16.26rem] object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="game_mask--con pt-3 relative h-full flex flex-col justify-between">
@@ -50,6 +51,7 @@ const GameListView = ({ leagues }) => {
                       src={getServerURL(item.game.logo)}
                       alt={t("images.game_logo")}
                       style={{ width: "2.5rem", height: "2.5rem" }}
+                      loading="lazy"
                     />
                     <div className="game_intro-con">
                       <p className="text-xs purple_light font-medium">

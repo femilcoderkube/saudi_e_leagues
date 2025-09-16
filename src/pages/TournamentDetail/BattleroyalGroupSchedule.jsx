@@ -99,6 +99,7 @@ export default function BattleRoyalSChedule() {
                             : IMAGES.battale_sahpe_img
                         }
                         alt=""
+                        loading="lazy"
                       />
 
                       {/* SVG ClipPath (kept as-is) */}

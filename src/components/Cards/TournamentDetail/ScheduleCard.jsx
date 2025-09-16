@@ -1,29 +1,26 @@
-
 import { useSelector } from "react-redux";
 import { getServerURL } from "../../../utils/constant";
 import { useNavigate, useParams } from "react-router-dom";
 import { IMAGES } from "../../ui/images/images";
 const ScheduleCard = ({ item }) => {
   const { id } = useParams();
-  const { tournamentData } = useSelector(
-    (state) => state.tournament
-  );
+  const { tournamentData } = useSelector((state) => state.tournament);
 
   let data = {
     time: item?.startTime
       ? new Date(item.startTime)
-        .toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "2-digit",
-          hour12: true,
-        })
-        .toLowerCase()
+          .toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+          })
+          .toLowerCase()
       : "",
     date: item?.startTime
       ? new Date(item.startTime).toLocaleDateString("en-US", {
-        month: "short",
-        day: "2-digit",
-      })
+          month: "short",
+          day: "2-digit",
+        })
       : "",
     team1: item?.opponent1.team || item?.opponent1.user,
     team2: item?.opponent2.team || item?.opponent2.user,
@@ -35,15 +32,26 @@ const ScheduleCard = ({ item }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative main-tournament-schedule-card-wrapper cursor-pointer"
+    <div
+      className="relative main-tournament-schedule-card-wrapper cursor-pointer"
       onClick={() => {
-        navigate(`/${id}/tournament/match/${item._id}`)
-      }}>
+        navigate(`/${id}/tournament/match/${item._id}`);
+      }}
+    >
       {" "}
-      <div className="tournament-schedule-card-header-time absolute top-0 left-0 z-10 w-full flex items-center justify-center " dir="ltr">
-        <h2 className="text-base font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative" dir="ltr">
+      <div
+        className="tournament-schedule-card-header-time absolute top-0 left-0 z-10 w-full flex items-center justify-center "
+        dir="ltr"
+      >
+        <h2
+          className="text-base font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative"
+          dir="ltr"
+        >
           {data?.date}&nbsp;&nbsp;
-          <span className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative" dir="ltr">
+          <span
+            className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative"
+            dir="ltr"
+          >
             {data?.time}
           </span>
         </h2>
@@ -68,7 +76,12 @@ const ScheduleCard = ({ item }) => {
             </h2>
           </div>
           <div className="tournament-schedule-card-header-center">
-            <img className="w-11.5 h-11.5" src={getServerURL(tournamentData.game.logo)} alt="" />
+            <img
+              className="w-11.5 h-11.5"
+              src={getServerURL(tournamentData.game.logo)}
+              alt=""
+              loading="lazy"
+            />
           </div>
           <div className="tournament-schedule-card-header-right flex items-center gap-4 md:gap-8 relative z-10">
             <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
@@ -104,7 +117,9 @@ const ScheduleCard = ({ item }) => {
         </div>
         <div className="tournament-schedule-card-footer tournament-schedule-card-footer-hover flex justify-center items-center h-[3rem] md:h-[4rem] px-4 md:px-8 md:pb-6 py-4 overflow-hidden relative">
           <div className="tournament-schedule-card-footer-left flex gap-2 items-center justify-center">
-            <h2 className="text-base md:text-xl font-semibold text-[#3ECCF3]">Match Page</h2>
+            <h2 className="text-base md:text-xl font-semibold text-[#3ECCF3]">
+              Match Page
+            </h2>
             <img src={IMAGES.footer_card_icon} alt="" />
           </div>
         </div>

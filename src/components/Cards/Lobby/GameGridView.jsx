@@ -68,6 +68,7 @@ const GameGridView = ({ leagues }) => {
                       src={getServerURL(item.logo)}
                       alt={t("images.game_logo")}
                       className="w-64 h-60 md:w-[18.5rem] md:h-[22.5rem] object-cover"
+                      loading="lazy"
                     />
                   </motion.div>
                   <div className="game_mask--con absolute bottom-0 h-full flex flex-col justify-between">
@@ -122,6 +123,7 @@ const GameGridView = ({ leagues }) => {
                       src={getServerURL(item.game.logo)}
                       alt={t("images.game_logo")}
                       style={{ width: "2.5rem", height: "2.5rem" }}
+                      loading="lazy"
                     />
                     <div className="game_intro-con">
                       <p className="text-sm purple_light font-medium">
