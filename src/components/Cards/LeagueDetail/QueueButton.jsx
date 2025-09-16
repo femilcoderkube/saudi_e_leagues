@@ -39,9 +39,7 @@ const GetQueueButton = () => {
 
       const banCheckResult = await dispatch(checkBannedUser()).unwrap();
       if (banCheckResult?.data.banMessage) {
-        setTimeout(() => {
-          setIsCheckingBan(false);
-        }, 1000)
+        setIsCheckingBan(false);
         return;
       }
 
@@ -56,9 +54,7 @@ const GetQueueButton = () => {
           dispatch(setQueueConfirmation(true));
         }
       }
-      setTimeout(() => {
-        setIsCheckingBan(false);
-      }, 1000)
+      setIsCheckingBan(false);
     } catch (error) {
       setIsCheckingBan(false);
     }
