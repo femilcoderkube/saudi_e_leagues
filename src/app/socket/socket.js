@@ -192,7 +192,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       //   return;
       // }
       if (window.location.pathname.includes(data?.data?.Lid?.toString())) {
-        // console.log("New Updates ");
+        console.log("New Updates ");
         data.data.userId = user?._id;
         store.dispatch(setQueueData(data.data));
       }
