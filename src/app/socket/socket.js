@@ -174,7 +174,14 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
     stopLeagueSocket();
     store.dispatch(resetLeaderBoard());
-
+    socket.on(SOCKET.PREPAREQUEUEDATA, (data) => {
+      console.log("New Updates out ");
+      if (window.location.pathname.includes(data?.data?.Lid?.toString())) {
+        console.log("New Updates ");
+        data.data.userId = user?._id;
+        store.dispatch(setQueueData(data.data));
+      }
+    });
     socket.on(SOCKET.LEAGUEUPDATE, (data) => {
       // if (!data?.status) {
       //   window.location.href = "/";
@@ -186,16 +193,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         store.dispatch(setIsMatctCreated(false));
       }
     });
-    setTimeout(() => {
-      socket.on(SOCKET.PREPAREQUEUEDATA, (data) => {
-        console.log("New Updates out ");
-        if (window.location.pathname.includes(data?.data?.Lid?.toString())) {
-          console.log("New Updates ");
-          data.data.userId = user?._id;
-          store.dispatch(setQueueData(data.data));
-        }
-      });
-    }, 500);
+
     socket.on(SOCKET.GETLEADERBOARD, (data) => {
       if (window.location.pathname.includes(data?.Lid?.toString())) {
         data.data.userId = user?._id;
