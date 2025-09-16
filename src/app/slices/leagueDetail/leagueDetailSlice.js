@@ -103,7 +103,7 @@ const leagueDetailSlice = createSlice({
           action.payload?.totalRegistrations;
       }
       if (action.payload) {
-        state.activeUsers = action.payload?.activeUsers.toString() || "0";
+        state.activeUsers = action.payload?.activeUsersCount.toString() || "0";
       }
     },
   },
