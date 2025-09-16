@@ -191,6 +191,8 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       //   window.location.href = "/";
       //   return;
       // }
+
+      console.log("New Updates out ");
       if (window.location.pathname.includes(data?.data?.Lid?.toString())) {
         console.log("New Updates ");
         data.data.userId = user?._id;
