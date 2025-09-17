@@ -13,7 +13,7 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
         onClick={() => setShowPartyQueuePopup(false)}
       ></div>
       <motion.div
-        className="relative text-white rounded-2xl shadow-xl sm:w-[100%] max-w-4xl w-[calc(100%-30px)] md:px-8 md:py-10 p-5 z-50 border border-[#FFFFFF33]"
+        className="relative text-white rounded-2xl shadow-xl sm:w-[100%] max-w-md w-[calc(100%-30px)] md:px-8 md:py-10 p-5 z-50 border border-[#FFFFFF33]"
         style={{
           background:
             "linear-gradient(180deg, rgba(23, 26, 67, 90%) 0%, rgba(9, 11, 44, 100%) 100%",
@@ -56,12 +56,64 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
         </div>
 
         {/* Content Area - Currently blank as requested */}
+        <div className="flex flex-col justify-start items-center gap-4 max-h-[20rem] custom_scroll overflow-y-auto">
         <div className="party-card h-full">
-          <div className="flex gap-3 items-center h-full p-5">
-            <img className="w-12 h-12 rounded-full" src={IMAGES.defaultImg} alt="" />
+          <div className="flex gap-3 items-center justify-center h-full p-5">
+            <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" />
             <span className="sm:text-lg text-base">Raj</span>
-          </div>
-          <svg
+          </div>             
+        </div>
+        <div className="party-card h-full">
+          <div className="flex gap-3 items-center justify-center h-full p-5">
+            {/* <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" /> */}
+            <span className="sm:text-lg text-base">Pic 2</span>
+          </div>             
+        </div>
+        <div className="party-card h-full">
+          <div className="flex gap-3 items-center justify-center h-full p-5">
+            {/* <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" /> */}
+            <span className="sm:text-lg text-base">Pic 3</span>
+          </div>             
+        </div>
+        <div className="party-card h-full">
+          <div className="flex gap-3 items-center justify-center h-full p-5">
+            {/* <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" /> */}
+            <span className="sm:text-lg text-base">Pic 4</span>
+          </div>             
+        </div>
+        <div className="party-card h-full">
+          <div className="flex gap-3 items-center justify-center h-full p-5">
+            {/* <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" /> */}
+            <span className="sm:text-lg text-base">Pic 5</span>
+          </div>             
+        </div>
+        <div className="party-card h-full">
+          <div className="flex gap-3 items-center justify-center h-full p-5">
+            {/* <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" /> */}
+            <span className="sm:text-lg text-base">Pic 6</span>
+          </div>             
+        </div>
+        <div className="party-card h-full">
+          <div className="flex gap-3 items-center justify-center h-full p-5">
+            {/* <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" /> */}
+            <span className="sm:text-lg text-base">Pic 7</span>
+          </div>             
+        </div>
+        <div className="party-card h-full">
+          <div className="flex gap-3 items-center justify-center h-full p-5">
+            {/* <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" /> */}
+            <span className="sm:text-lg text-base">Pic 8</span>
+          </div>             
+        </div>
+        <div className="party-card h-full">
+          <div className="flex gap-3 items-center justify-center h-full p-5">
+            {/* <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" /> */}
+            <span className="sm:text-lg text-base">Pic 9</span>
+          </div>             
+        </div>
+        </div>
+     
+        <svg
             width={0}
             height={0}
             viewBox="0 0 220 96"
@@ -77,8 +129,6 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
               />
             </clipPath>
           </svg>
-        </div>
-
         {/* Footer with action button */}
         <div className="flex justify-center mt-6">
           <div className="game_status_tab--wrap">

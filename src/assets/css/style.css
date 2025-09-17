@@ -1008,8 +1008,8 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 .party-card{
   background: linear-gradient(0deg, rgba(34, 35, 86, 20%) 0%, rgba(94, 95, 184, 20%) 100%);
   clip-path: url(#custom-party-shape);
-  width: 12rem;
-  height: 5rem;
+  width: 10rem;
+  height:4.5rem;
   box-shadow: inset 0 5px 6px 0px rgb(94 95 184 / 12%);
 }
 @media (min-width: 1280px) {
