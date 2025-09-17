@@ -1,0 +1,101 @@
+import { motion } from "framer-motion";
+import { IMAGES } from "../../ui/images/images";
+import { useTranslation } from "react-i18next";
+
+function PartyQueuePopup({ setShowPartyQueuePopup }) {
+  const { t } = useTranslation();
+  console.log("setShowPartyQueuePopup");
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-auto">
+      <div
+        className="absolute inset-0 bg-[#010221]/60 backdrop-blur-sm"
+        onClick={() => setShowPartyQueuePopup(false)}
+      ></div>
+      <motion.div
+        className="relative text-white rounded-2xl shadow-xl sm:w-[100%] max-w-4xl w-[calc(100%-30px)] md:px-8 md:py-10 p-5 z-50 border border-[#FFFFFF33]"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(23, 26, 67, 90%) 0%, rgba(9, 11, 44, 100%) 100%",
+          minHeight: "500px"
+        }}
+        initial={{ scale: 0.5, opacity: 0, y: 50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.5, opacity: 0, y: 50 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      >
+        <div className="flex items-start justify-between mb-6">
+          <div>
+            <img
+              src={IMAGES.asideLogo_ltr}
+              alt="logo"
+              className="h-10"
+            />
+          </div>
+          <button
+            type="button"
+            className="pt-2 cursor-pointer hover:opacity-70 transition-opacity"
+            onClick={() => setShowPartyQueuePopup(false)}
+          >
+            <svg
+              width="1.125rem"
+              height="1.125rem"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 17L17 1M17 17L1 1"
+                stroke="#7B7ED0"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Content Area - Currently blank as requested */}
+        <div className="party-card h-full">
+          <div className="flex gap-3 items-center h-full p-5">
+            <img className="w-12 h-12 rounded-full" src={IMAGES.defaultImg} alt="" />
+            <span className="sm:text-lg text-base">Raj</span>
+          </div>
+          <svg
+            width={0}
+            height={0}
+            viewBox="0 0 220 96"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{
+              position: "absolute",
+            }}
+          >
+            <clipPath id="custom-party-shape" clipPathUnits="objectBoundingBox">
+              <path
+                d="M92 8H208L220 20V84L208 96H12L0 84V0H84L92 8Z"
+                transform="scale(0.004545,0.010417)"
+              />
+            </clipPath>
+          </svg>
+        </div>
+
+        {/* Footer with action button */}
+        <div className="flex justify-center mt-6">
+          <div className="game_status_tab--wrap">
+            <div className="game_status--tab rounded-xl">
+              <button
+                className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300 active-tab polygon_border"
+                style={{ width: "10rem", height: "4rem" }}
+                onClick={() => setShowPartyQueuePopup(false)}
+              >
+                {t("confirmation.cancel") || "Close"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+export default PartyQueuePopup;
