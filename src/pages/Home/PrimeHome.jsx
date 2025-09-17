@@ -16,6 +16,7 @@ import {
 } from "../../app/slices/constState/constStateSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { getPopupData } from "../../utils/constant.js";
+import TimelineCard_1 from "../../components/Home/Prime/MainTimelineCard.jsx";
 
 const usePageLoading = (delay = 300) => {
   useEffect(() => {
@@ -34,9 +35,7 @@ const usePageLoading = (delay = 300) => {
 
 export default function PrimeHome() {
   const { id } = useParams();
-  const { isPopUpShow } = useSelector(
-    (state) => state.constState
-  );
+  const { isPopUpShow } = useSelector((state) => state.constState);
   const [showVideoModal, setShowVideoModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -106,8 +105,14 @@ export default function PrimeHome() {
           <Video onPlayVideo={handleVideoModalOpen} />
         </section>
 
-        <HowToPlay id={id}/>
-
+        <HowToPlay id={id} />
+         {/* === Timelines Split Card Section HTML block Start === */}
+         {/* <section className="sd_timeline--sec pt-[6rem] pb-[1rem] relative">
+                <h2 className="text-[4rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none uppercase items-center tracking-wider !font-black pb-10">
+                  Timelines                 
+                </h2>
+                <TimelineCard_1/>               
+            </section> */}
         <Faqs />
       </div>
 
