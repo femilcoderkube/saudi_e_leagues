@@ -91,11 +91,17 @@ import battale_sahpe_img from "../../../assets/images/battale-sahpe-img.png";
 import cal_arrow from "../../../assets/images/cal_arrow.png";
 import full_screen from "../../../assets/images/full-screen.png";
 import exit_screen from "../../../assets/images/exit-screen.png";
+import discord_arrow from "../../../assets/images/discord-arrow.png";
+import youtube from "../../../assets/images/youtube.png";
+import discord_mark from "../../../assets/images/discord_mark.png";
 
 export const IMAGES = {
   full_screen,
+  discord_arrow,
   exit_screen,
   cal_arrow,
+  youtube,
+  discord_mark,
   battale_sahpe_img,
   schdule_down,
   date_icon,

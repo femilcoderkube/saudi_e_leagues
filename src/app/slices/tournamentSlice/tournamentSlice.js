@@ -8,7 +8,7 @@ const initialState = {
   battleRoyalSchedule: null,
   stageSettings: null,
   loader: false,
-  activeStage: 0,
+  activeStage: -1,
   currentDate: null, // store timestamp
   nextDayDate: Date.now() + 86400000 // store timestamp
 

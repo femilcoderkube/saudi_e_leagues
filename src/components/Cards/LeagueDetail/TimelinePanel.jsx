@@ -7,9 +7,18 @@ import { IMAGES } from "../../ui/images/images";
 
 const TimelinePanel = () => {
   const { leagueData } = useSelector((state) => state.leagues);
-  const { timeLineCard} = useSelector((state)=> state.constState )
+  const { tournamentData } = useSelector((state) => state.tournament);
+  const { timeLineCard } = useSelector((state) => state.constState);
   const dispatch = useDispatch();
-  const { t ,i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  // Determine which data to use based on the path
+  let timelineSource;
+  if (typeof window !== "undefined" && window.location.pathname.toLowerCase().includes("tournament")) {
+    timelineSource = tournamentData?.timeLine;
+  } else {
+    timelineSource = leagueData?.timeLine;
+  }
 
   return (
     <div className="timeline-card rounded-xl overflow-hidden bg-[#0E123A] text-white md:order-3 order-1">
@@ -37,7 +46,7 @@ const TimelinePanel = () => {
           <div
             className={`timeline-card__steps p-4 ltr:pr-18 rtl:pl-18 flex flex-col gap-4 sd_before relative`}
           >
-            {leagueData?.timeLine?.map((step, index) => {
+            {timelineSource?.map((step, index) => {
               let isActive = new Date(step.startDate) < new Date();
               return (
                 <div
