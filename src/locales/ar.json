@@ -434,6 +434,8 @@
     "group": "المجموعة",
     "match": "المباراة",
     "pp": "(PP)",
-    "kp": "(KP)"
+    "kp": "(KP)",
+    "overview":"",
+    "overview_desc":""
   }
 }
