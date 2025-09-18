@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { IMAGES } from "../../ui/images/images";
 import { useTranslation } from "react-i18next";
@@ -5,6 +6,7 @@ import { useTranslation } from "react-i18next";
 function PartyQueuePopup({ setShowPartyQueuePopup }) {
   const { t } = useTranslation();
   console.log("setShowPartyQueuePopup");
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 overflow-auto">
@@ -63,12 +65,39 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
             <span className="sm:text-lg text-base">Raj</span>
           </div>             
         </div>
-        <div className="party-card h-full">
-          <div className="flex gap-3 items-center justify-center h-full p-5">
-            {/* <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" /> */}
-            <span className="sm:text-lg text-base">Pic 2</span>
-          </div>             
+        <div
+        className="party-card h-full cursor-pointer"
+        onClick={() => setShowSearchBar(true)}
+      >
+        <div className="flex gap-3 items-center justify-center h-full p-5">
+          <span className="sm:text-lg text-base">Pic 2</span>
         </div>
+      </div>
+
+      {/* Search Bar (opens when card is clicked) */}
+      {showSearchBar && (
+        <div className="mt-4 p-4 border border-[#FFFFFF33] rounded-lg bg-[linear-gradient(0deg,rgba(34,35,86,0.2)_0%,rgba(94,95,184,0.2)_100%)]">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-full px-3 py-2 border border-[#FFFFFF33] rounded"
+          />
+          <div className="flex items-center gap-2">
+          <button
+            className="mt-2 px-4 py-2 blue border border-[#FFFFFF33] text-white rounded cursor-pointer"
+            onClick={() => setShowSearchBar(false)}
+          >
+            Close
+          </button>
+          <button
+            className="mt-2 px-4 py-2 blue border border-[#FFFFFF33] text-white rounded cursor-pointer"
+            onClick={() => setShowSearchBar(false)}
+          >
+            Invite
+          </button>
+          </div>
+        </div>
+      )}
         <div className="party-card h-full">
           <div className="flex gap-3 items-center justify-center h-full p-5">
             {/* <img className="w-10 h-10 rounded-full" src={IMAGES.defaultImg} alt="" /> */}
@@ -134,7 +163,7 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
           <div className="game_status_tab--wrap">
             <div className="game_status--tab rounded-xl">
               <button
-                className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300 active-tab polygon_border"
+                className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-50 duration-300 active-tab polygon_border cursor-pointer"
                 style={{ width: "10rem", height: "4rem" }}
                 onClick={() => setShowPartyQueuePopup(false)}
               >
