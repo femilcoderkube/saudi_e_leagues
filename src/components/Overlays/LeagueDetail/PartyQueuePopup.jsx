@@ -96,7 +96,7 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
         </div>
       </div>
       <button
-        className="ml-2 px-2 py-1 text-xs bg-[#7B7ED0] hover:bg-[#6B6EC0] rounded text-white !pointer-events-auto"
+        className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] !pointer-events-auto cursor-pointer"
         onClick={(e) => {
           e.stopPropagation(); // prevent dropdown from auto-selecting
           handleInvite(option);
@@ -155,8 +155,8 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
                 menuPortalTarget={
                   typeof document !== "undefined" ? document.body : null
                 }
-                // menuIsOpen={true}
-                // menuPosition="fixed"
+                menuIsOpen={true}
+                menuPosition="fixed"
                 styles={{
                   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                   control: (base) => ({

@@ -923,6 +923,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 
 /* call-duty-card End*/
 
+/* Prty card popup start */
 .party-card {
   background: linear-gradient(0deg, rgba(34, 35, 86, 20%) 0%, rgba(94, 95, 184, 20%) 100%);
   clip-path: url(#custom-party-shape);
@@ -950,7 +951,8 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 .react-select__menu-list.css-qr46ko {
-  padding: 2px !important;
+  padding:0.125rem !important;
+  pointer-events: none !important;
 }
 
 .css-1nmdiq5-menu {
@@ -964,6 +966,11 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
       rgba(16, 19, 63, 1) 100%) !important;
       pointer-events: none !important;
 }
+
+.party-btn{
+  clip-path: polygon(16% 0, 100% 1%, 100% 1%, 100% 82%, 85% 100%, 0 100%, 0 100%, 0 15%);
+}
+/* Prty card popup End */
 
 @media (min-width: 1280px) {
   .brackt_fullscreen {
