@@ -109,11 +109,9 @@ html[lang="en"][dir="rtl"] .font_oswald {
 }
 
 .sd_radial-bg {
-  background: linear-gradient(
-    180deg,
-    rgba(45, 46, 109, 1) 0%,
-    rgba(34, 35, 86, 1) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(45, 46, 109, 1) 0%,
+      rgba(34, 35, 86, 1) 100%);
   box-shadow: inset 0px 1px 4px rgb(87 89 195 / 20%);
 }
 
@@ -128,11 +126,9 @@ html[lang="en"][dir="rtl"] .font_oswald {
 .notification-icon {
   width: 1.6rem;
   height: 1.6rem;
-  background: linear-gradient(
-    0deg,
-    rgba(1, 2, 29, 1) 0%,
-    rgba(2, 3, 41, 1) 100%
-  );
+  background: linear-gradient(0deg,
+      rgba(1, 2, 29, 1) 0%,
+      rgba(2, 3, 41, 1) 100%);
   z-index: 1;
   top: -0.8rem;
   right: -0.5rem;
@@ -149,13 +145,11 @@ html[lang="en"][dir="rtl"] .font_oswald {
 }
 
 .yellow_grad-bg {
-  background: -webkit-linear-gradient(
-    270deg,
-    rgba(255, 200, 112, 1) 0%,
-    rgba(255, 178, 55, 1) 27%,
-    rgba(255, 169, 32, 1) 63%,
-    rgb(255 119 61) 100%
-  );
+  background: -webkit-linear-gradient(270deg,
+      rgba(255, 200, 112, 1) 0%,
+      rgba(255, 178, 55, 1) 27%,
+      rgba(255, 169, 32, 1) 63%,
+      rgb(255 119 61) 100%);
 }
 
 .grad_text-clip {
@@ -167,11 +161,9 @@ html[lang="en"][dir="rtl"] .font_oswald {
 /* ==== Common CSS Start ==== */
 
 body {
-  background: linear-gradient(
-    0deg,
-    rgba(1, 2, 29, 1) 0%,
-    rgba(2, 3, 41, 1) 100%
-  );
+  background: linear-gradient(0deg,
+      rgba(1, 2, 29, 1) 0%,
+      rgba(2, 3, 41, 1) 100%);
   transition: 0.2s ease;
   color: #fff !important;
   font-family: "Cairo", sans-serif;
@@ -187,11 +179,9 @@ html[lang="ar"] body {
 }
 
 .grad_head--txt {
-  background: -webkit-linear-gradient(
-    270deg,
-    rgba(123, 126, 208, 0.4) 0%,
-    rgba(123, 126, 208, 0) 80%
-  );
+  background: -webkit-linear-gradient(270deg,
+      rgba(123, 126, 208, 0.4) 0%,
+      rgba(123, 126, 208, 0) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1;
@@ -241,11 +231,9 @@ html[lang="ar"] body {
 .submit_score-btn .btn_polygon-link,
 .submit_score-btn.polygon_border:before,
 .submit_score-btn.polygon_border:after {
-  background: linear-gradient(
-    3deg,
-    rgba(67, 75, 233, 1) 0%,
-    rgba(70, 181, 249, 1) 110%
-  );
+  background: linear-gradient(3deg,
+      rgba(67, 75, 233, 1) 0%,
+      rgba(70, 181, 249, 1) 110%);
 }
 
 .submit_score-btn.cancel-score-btn.polygon_border:before,
@@ -366,11 +354,9 @@ li.list {
 }
 
 li.list.active {
-  background: radial-gradient(
-    25.07% 245.65% at 50.54% 0%,
-    rgba(68, 130, 241, 0.24) 0%,
-    rgba(68, 130, 241, 0) 100%
-  );
+  background: radial-gradient(25.07% 245.65% at 50.54% 0%,
+      rgba(68, 130, 241, 0.24) 0%,
+      rgba(68, 130, 241, 0) 100%);
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -393,33 +379,30 @@ li.list.active span {
   color: var(--color-white);
 }
 
-.navigation .listWrap li:nth-child(2).active ~ .m_menu__indicator {
+.navigation .listWrap li:nth-child(2).active~.m_menu__indicator {
   left: calc((100% / 3) * (2 - 1) + (100% / 6) - 48px);
   transition: 0.5s;
 }
 
-.navigation.nav-condition
-  .listWrap
-  li:nth-child(2).active
-  ~ .m_menu__indicator {
+.navigation.nav-condition .listWrap li:nth-child(2).active~.m_menu__indicator {
   left: calc((100% / 2) * (2 - 1) + (100% / 4) - 48px);
 }
 
-.navigation .listWrap li:nth-child(3).active ~ .m_menu__indicator {
+.navigation .listWrap li:nth-child(3).active~.m_menu__indicator {
   left: calc((100% / 3) * (3 - 1) + (100% / 6) - 49px);
   transition: 0.5s;
 }
 
-.navigation .listWrap li:nth-child(2).active ~ .sq__shape-wrap {
+.navigation .listWrap li:nth-child(2).active~.sq__shape-wrap {
   mask-position: calc((100% / 3) * (2 - 1) + (100% / 6) - 0px) -2px, 0;
   transition: 0.5s;
 }
 
-.navigation.nav-condition .listWrap li:nth-child(2).active ~ .sq__shape-wrap {
+.navigation.nav-condition .listWrap li:nth-child(2).active~.sq__shape-wrap {
   mask-position: calc((100% / 2) * (2 - 1) + (100% / 4) - -25px) -2px, 0;
 }
 
-.navigation .listWrap li:nth-child(3).active ~ .sq__shape-wrap {
+.navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
   mask-position: calc((100% / 3) * (3 - 1) + (100% / 6) + 34px) -2px, 0;
   transition: 0.5s;
 }
@@ -434,11 +417,7 @@ html[dir="rtl"] .navigation.nav-condition .sq__shape-wrap {
   mask-position: calc((100% / 2) * (2 - 1) + (100% / 4) + 25px) -2px, 0;
 }
 
-html[dir="rtl"]
-  .navigation.nav-condition
-  .listWrap
-  li:nth-child(2).active
-  ~ .sq__shape-wrap {
+html[dir="rtl"] .navigation.nav-condition .listWrap li:nth-child(2).active~.sq__shape-wrap {
   mask-position: calc((100% / 2) * (1 - 1) + (100% / 4) - 25px) -2px, 0;
 }
 
@@ -452,33 +431,21 @@ html[dir="rtl"] .navigation.nav-condition .m_menu__indicator {
   right: calc((100% / 2) * (1 - 1) + (100% / 4) - 47px);
 }
 
-html[dir="rtl"]
-  .navigation
-  .listWrap
-  li:nth-child(2).active
-  ~ .m_menu__indicator {
+html[dir="rtl"] .navigation .listWrap li:nth-child(2).active~.m_menu__indicator {
   right: calc((100% / 3) * (2 - 1) + (100% / 6) - 48px);
   left: auto;
 }
 
-html[dir="rtl"]
-  .navigation.nav-condition
-  .listWrap
-  li:nth-child(2).active
-  ~ .m_menu__indicator {
+html[dir="rtl"] .navigation.nav-condition .listWrap li:nth-child(2).active~.m_menu__indicator {
   right: calc((100% / 2) * (2 - 1) + (100% / 4) - 48px);
 }
 
-html[dir="rtl"]
-  .navigation
-  .listWrap
-  li:nth-child(3).active
-  ~ .m_menu__indicator {
+html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.m_menu__indicator {
   right: calc((100% / 3) * (3 - 1) + (100% / 6) - 49px);
   left: auto;
 }
 
-html[dir="rtl"] .navigation .listWrap li:nth-child(3).active ~ .sq__shape-wrap {
+html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
   mask-position: calc((100% / 3) * (1 - 1) + (100% / 6) - 34px) -2px, 0;
 }
 
@@ -508,18 +475,15 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active ~ .sq__shape-wrap {
 }
 
 .call-duty-btn button.lose-btn {
-  background: linear-gradient(
-      270deg,
+  background: linear-gradient(270deg,
       rgba(238, 37, 40, 0.16) 0%,
-      rgba(221, 39, 42, 0.4) 100%
-    ),
+      rgba(221, 39, 42, 0.4) 100%),
     linear-gradient(180deg, rgba(126, 9, 11, 0) 0%, rgba(126, 9, 11, 0.2) 100%),
-    radial-gradient(
-        100% 378.13% at 0% 100%,
-        rgba(238, 37, 40, 0.12) 0%,
-        rgba(238, 37, 40, 0) 72.36%
-      )
-      /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    radial-gradient(100% 378.13% at 0% 100%,
+      rgba(238, 37, 40, 0.12) 0%,
+      rgba(238, 37, 40, 0) 72.36%)
+    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
+  ;
   box-shadow: 0px 2px 2px 0px #5e9ab83d inset;
   backdrop-filter: blur(48px);
 }
@@ -566,13 +530,11 @@ html[dir="rtl"] .view-all::after {
   overflow: hidden;
   border-left-width: 0.4rem;
   border-left-color: #d7d8ff;
-  background: linear-gradient(
-    90deg,
-    rgba(121, 69, 243) 0%,
-    rgba(121, 69, 243) 20%,
-    rgba(94, 95, 184) 72%,
-    rgb(105, 107, 255) 100%
-  ) !important;
+  background: linear-gradient(90deg,
+      rgba(121, 69, 243) 0%,
+      rgba(121, 69, 243) 20%,
+      rgba(94, 95, 184) 72%,
+      rgb(105, 107, 255) 100%) !important;
   color: #d7d8ff !important;
 }
 
@@ -633,11 +595,9 @@ html[dir="rtl"] .view-all::after {
 
 /* battle royal start */
 .battle-body-wp {
-  background: linear-gradient(
-    180deg,
-    rgba(54, 73, 87, 0.12) 0%,
-    rgba(40, 55, 66, 0.12) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(54, 73, 87, 0.12) 0%,
+      rgba(40, 55, 66, 0.12) 100%);
   box-shadow: 0px 4px 4px 0px #5472880a inset;
   backdrop-filter: blur(24px);
   border-radius: 0.5rem;
@@ -661,16 +621,12 @@ html[dir="rtl"] .battle-body-wp div:first-child {
 }
 
 .battle-common {
-  background: linear-gradient(
-    180deg,
-    rgba(245, 190, 1, 0.24) 0%,
-    rgba(132, 103, 0, 0.24) 100%
-  );
-  background: linear-gradient(
-    180deg,
-    rgba(54, 73, 87, 0.24) 0%,
-    rgba(40, 55, 66, 0.24) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(245, 190, 1, 0.24) 0%,
+      rgba(132, 103, 0, 0.24) 100%);
+  background: linear-gradient(180deg,
+      rgba(54, 73, 87, 0.24) 0%,
+      rgba(40, 55, 66, 0.24) 100%);
 }
 
 .battle-common p {
@@ -678,11 +634,9 @@ html[dir="rtl"] .battle-body-wp div:first-child {
 }
 
 .battle-body-wp:first-child .battle-common {
-  background: linear-gradient(
-    180deg,
-    rgba(245, 190, 1, 0.24) 0%,
-    rgba(132, 103, 0, 0.24) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(245, 190, 1, 0.24) 0%,
+      rgba(132, 103, 0, 0.24) 100%);
 }
 
 .battle-body-wp:first-child .battle-common p {
@@ -690,11 +644,9 @@ html[dir="rtl"] .battle-body-wp div:first-child {
 }
 
 .battle-body-wp:nth-child(2) .battle-common {
-  background: linear-gradient(
-    180deg,
-    rgba(186, 214, 224, 0.24) 0%,
-    rgba(99, 116, 121, 0.24) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(186, 214, 224, 0.24) 0%,
+      rgba(99, 116, 121, 0.24) 100%);
 }
 
 .battle-body-wp:nth-child(2) .battle-common p {
@@ -702,11 +654,9 @@ html[dir="rtl"] .battle-body-wp div:first-child {
 }
 
 .battle-body-wp:nth-child(3) .battle-common {
-  background: linear-gradient(
-    180deg,
-    rgba(226, 136, 79, 0.24) 0%,
-    rgba(114, 70, 42, 0.24) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(226, 136, 79, 0.24) 0%,
+      rgba(114, 70, 42, 0.24) 100%);
 }
 
 .battle-body-wp:nth-child(3) .battle-common p {
@@ -728,51 +678,39 @@ html[dir="rtl"] .battle-body-wp div:first-child {
 }
 
 .schdule-accordion-body:first-child {
-  background: linear-gradient(
-    90deg,
-    rgba(230, 178, 1, 0.15) 0%,
-    rgba(197, 152, 0, 0) 12%
-  );
+  background: linear-gradient(90deg,
+      rgba(230, 178, 1, 0.15) 0%,
+      rgba(197, 152, 0, 0) 12%);
 }
 
 html[dir="rtl"] .schdule-accordion-body:first-child {
-  background: linear-gradient(
-    270deg,
-    rgba(230, 178, 1, 0.15) 0%,
-    rgba(197, 152, 0, 0) 12%
-  );
+  background: linear-gradient(270deg,
+      rgba(230, 178, 1, 0.15) 0%,
+      rgba(197, 152, 0, 0) 12%);
 }
 
 .schdule-accordion-body:nth-child(2) {
-  background: linear-gradient(
-    90deg,
-    rgba(186, 214, 224, 0.15) 0%,
-    rgba(130, 153, 161, 0) 12%
-  );
+  background: linear-gradient(90deg,
+      rgba(186, 214, 224, 0.15) 0%,
+      rgba(130, 153, 161, 0) 12%);
 }
 
 html[dir="rtl"] .schdule-accordion-body:nth-child(2) {
-  background: linear-gradient(
-    270deg,
-    rgba(186, 214, 224, 0.15) 0%,
-    rgba(130, 153, 161, 0) 12%
-  );
+  background: linear-gradient(270deg,
+      rgba(186, 214, 224, 0.15) 0%,
+      rgba(130, 153, 161, 0) 12%);
 }
 
 .schdule-accordion-body:nth-child(3) {
-  background: linear-gradient(
-    90deg,
-    rgba(215, 129, 74, 0.15) 0%,
-    rgba(191, 113, 64, 0) 12%
-  );
+  background: linear-gradient(90deg,
+      rgba(215, 129, 74, 0.15) 0%,
+      rgba(191, 113, 64, 0) 12%);
 }
 
 html[dir="rtl"] .schdule-accordion-body:nth-child(3) {
-  background: linear-gradient(
-    270deg,
-    rgba(215, 129, 74, 0.15) 0%,
-    rgba(191, 113, 64, 0) 12%
-  );
+  background: linear-gradient(270deg,
+      rgba(215, 129, 74, 0.15) 0%,
+      rgba(191, 113, 64, 0) 12%);
 }
 
 .schdule-accordion-body:nth-child(2) .schdule-common p {
@@ -792,11 +730,9 @@ html[dir="rtl"] .schdule-accordion-body:nth-child(3) {
 }
 
 .schdule-accordion-header {
-  background: linear-gradient(
-    180deg,
-    rgba(54, 73, 87, 0.12) 0%,
-    rgba(40, 55, 66, 0.12) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(54, 73, 87, 0.12) 0%,
+      rgba(40, 55, 66, 0.12) 100%);
   box-shadow: 0px 4px 4px 0px rgba(84, 114, 136, 0.04) inset;
   backdrop-filter: blur(1.5rem);
   border-radius: 0.75rem;
@@ -804,37 +740,29 @@ html[dir="rtl"] .schdule-accordion-body:nth-child(3) {
 }
 
 .round-gold {
-  background: linear-gradient(
-    180deg,
-    rgba(216, 167, 1, 0.6) 0%,
-    rgba(40, 55, 66, 0.6) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(216, 167, 1, 0.6) 0%,
+      rgba(40, 55, 66, 0.6) 100%);
   box-shadow: 0px 4px 4px 0px rgba(84, 114, 136, 0.04) inset;
   backdrop-filter: blur(1.5rem);
 }
 
 .round-gray {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(40, 55, 66, 0.5) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(40, 55, 66, 0.5) 100%);
 }
 
 .round-red {
-  background: linear-gradient(
-    180deg,
-    rgba(201, 120, 68, 0.6) 0%,
-    rgba(40, 55, 66, 0.6) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(201, 120, 68, 0.6) 0%,
+      rgba(40, 55, 66, 0.6) 100%);
 }
 
 .round-common {
-  background: linear-gradient(
-    180deg,
-    rgba(54, 73, 87, 0.4) 0%,
-    rgba(40, 55, 66, 0.4) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(54, 73, 87, 0.4) 0%,
+      rgba(40, 55, 66, 0.4) 100%);
 }
 
 .schdule-icon {
@@ -869,11 +797,9 @@ html[dir="rtl"] .schdule-icon {
 }
 
 .schdule-accordion-card.active-accordation .schdule-icon {
-  background: linear-gradient(
-    180deg,
-    rgba(54, 73, 87, 0.4) 0%,
-    rgba(40, 55, 66, 0.4) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(54, 73, 87, 0.4) 0%,
+      rgba(40, 55, 66, 0.4) 100%);
   border-bottom-right-radius: 0;
 }
 
@@ -906,45 +832,37 @@ html[dir="rtl"] .battle-shape {
 }
 
 .full-screen-wp {
-  background: linear-gradient(
-    180deg,
-    rgba(94, 95, 184, 0.2) 0%,
-    rgba(34, 35, 86, 0.2) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(94, 95, 184, 0.2) 0%,
+      rgba(34, 35, 86, 0.2) 100%);
   backdrop-filter: blur(1.5rem);
   box-shadow: 0px 2px 2px 0px #5e5fb81f inset;
-  clip-path: polygon(
-    91% 0,
-    100% 11%,
-    100% 35%,
-    100% 70%,
-    100% 89%,
-    91% 100%,
-    10% 100%,
-    0 89%,
-    0 11%,
-    11% 0
-  );
+  clip-path: polygon(91% 0,
+      100% 11%,
+      100% 35%,
+      100% 70%,
+      100% 89%,
+      91% 100%,
+      10% 100%,
+      0 89%,
+      0 11%,
+      11% 0);
 }
 
 .full-screen {
-  clip-path: polygon(
-    91% 0,
-    100% 11%,
-    100% 35%,
-    100% 70%,
-    100% 89%,
-    91% 100%,
-    10% 100%,
-    0 89%,
-    0 11%,
-    11% 0
-  );
-  background: linear-gradient(
-    180deg,
-    rgba(188, 82, 37, 0.8464) 0%,
-    rgba(244, 149, 40, 0.92) 107.14%
-  );
+  clip-path: polygon(91% 0,
+      100% 11%,
+      100% 35%,
+      100% 70%,
+      100% 89%,
+      91% 100%,
+      10% 100%,
+      0 89%,
+      0 11%,
+      11% 0);
+  background: linear-gradient(180deg,
+      rgba(188, 82, 37, 0.8464) 0%,
+      rgba(244, 149, 40, 0.92) 107.14%);
   box-shadow: 0px -2px 12px 0px #e26936 inset, 0px 4px 12px 0px #e2693666 inset,
     0px 4px 12px 0px #f465281f inset;
 }
@@ -1005,21 +923,48 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 
 /* call-duty-card End*/
 
-.party-card{
+.party-card {
   background: linear-gradient(0deg, rgba(34, 35, 86, 20%) 0%, rgba(94, 95, 184, 20%) 100%);
   clip-path: url(#custom-party-shape);
   width: 10rem;
-  height:4.5rem;
+  height: 4.5rem;
   box-shadow: inset 0 5px 6px 0px rgb(94 95 184 / 12%);
 }
 
-.manage-popup .sd_custom-input{
+.manage-popup .sd_custom-input {
   height: 4rem;
 }
 
-.manage-popup .game_status--tab button{
+.manage-popup .game_status--tab button {
   background: unset;
 }
+
+.manage-popup .notification-box,
+.manage-popup .react-select__control {
+  background: radial-gradient(circle, rgba(45, 46, 109, 0.8) 0%, rgba(34, 35, 86, 0.8) 100%);
+  box-shadow: 0 4px 24px 0 rgba(34, 35, 86, 0.25), 0 1.5px 6px 0 rgba(94, 95, 184, 0.10) inset;
+}
+
+.manage-popup .react-select__control {
+  min-height: 3rem;
+}
+
+.react-select__menu-list.css-qr46ko {
+  padding: 2px !important;
+}
+
+.css-1nmdiq5-menu {
+  background: radial-gradient(circle, rgba(45, 46, 109, 1) 0%, rgba(34, 35, 86, 1) 100%) !important;
+  box-shadow: 0 4px 24px 0 rgba(34, 35, 86, 0.5), 0 1.5px 6px 0 rgba(94, 95, 184, 0.5) inset !important;
+}
+
+.css-d7l1ni-option {
+  background: linear-gradient(180deg,
+      rgba(31, 34, 90, 1) 0%,
+      rgba(16, 19, 63, 1) 100%) !important;
+      pointer-events: none !important;
+}
+
 @media (min-width: 1280px) {
   .brackt_fullscreen {
     display: flex !important;
@@ -1044,7 +989,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     width: 100% !important;
   }
 
-  .common-width .mob-common-btn + img {
+  .common-width .mob-common-btn+img {
     width: auto !important;
   }
 }
@@ -1072,9 +1017,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     margin-left: 16.3rem;
   }
 
-  html[dir="rtl"]
-    .schdule-accordion-header.active-schdule-accordion-header
-    .mob-match-gp {
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 16.3rem;
   }
@@ -1126,9 +1069,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     margin-left: 13rem;
   }
 
-  html[dir="rtl"]
-    .schdule-accordion-header.active-schdule-accordion-header
-    .mob-match-gp {
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 13rem;
   }
@@ -1219,8 +1160,8 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     height: 3.5rem;
   }
 
-  .battle-common + p,
-  .battle-common + div {
+  .battle-common+p,
+  .battle-common+div {
     max-width: 38%;
   }
 
@@ -1267,8 +1208,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 @media (max-width: 575px) {
-  .battle-common + p,
-  .battle-common + div {
+
+  .battle-common+p,
+  .battle-common+div {
     max-width: 36%;
     gap: 0.4rem;
   }
@@ -1296,9 +1238,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     margin-left: 7rem;
   }
 
-  html[dir="rtl"]
-    .schdule-accordion-header.active-schdule-accordion-header
-    .mob-match-gp {
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 7rem;
   }
@@ -1319,6 +1259,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 @media (max-width: 425px) {
+
   .battle-body-wp div:nth-child(4),
   .battle-head P:nth-child(4) {
     min-width: 11%;
@@ -1383,7 +1324,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     min-width: 34%;
   }
 
-  .battle-common + div {
+  .battle-common+div {
     gap: 0.25rem;
   }
 
@@ -1403,7 +1344,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     width: calc(100vw - 1.25rem);
   }
 
-  .mob-match-gp > div {
+  .mob-match-gp>div {
     gap: 0.35rem;
   }
 
@@ -1419,9 +1360,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     margin-left: 6rem;
   }
 
-  html[dir="rtl"]
-    .schdule-accordion-header.active-schdule-accordion-header
-    .mob-match-gp {
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 6rem;
   }
@@ -1461,11 +1400,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 .brackets-viewer h3 {
-  background: linear-gradient(
-    180deg,
-    rgba(54, 73, 87, 0.12) 0%,
-    rgba(40, 55, 66, 0.12) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(54, 73, 87, 0.12) 0%,
+      rgba(40, 55, 66, 0.12) 100%);
   color: #fff;
   font-size: 1rem;
   padding: 0.9rem 1rem;
@@ -1515,11 +1452,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   display: flex;
   align-items: center;
   color: #fff;
-  background: linear-gradient(
-    180deg,
-    rgba(94, 95, 184, 0.2) 0%,
-    rgba(34, 35, 86, 0.2) 125%
-  );
+  background: linear-gradient(180deg,
+      rgba(94, 95, 184, 0.2) 0%,
+      rgba(34, 35, 86, 0.2) 125%);
   backdrop-filter: blur(0.75rem);
   font-weight: 600;
 }
@@ -1531,11 +1466,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 .brackets-viewer .participant .result {
   justify-content: center;
   width: 3rem;
-  background: linear-gradient(
-    180deg,
-    rgba(94, 95, 184, 0.2) 0%,
-    rgba(34, 35, 86, 0.2) 125%
-  );
+  background: linear-gradient(180deg,
+      rgba(94, 95, 184, 0.2) 0%,
+      rgba(34, 35, 86, 0.2) 125%);
   box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
   backdrop-filter: blur(0.75rem);
 }
@@ -1638,38 +1571,30 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 .tournament-schedule-card-wrapper {
-  background: linear-gradient(
-    183.7deg,
-    rgba(94, 95, 184, 0.2) 3.03%,
-    rgba(34, 35, 86, 0.2) 97.05%
-  );
+  background: linear-gradient(183.7deg,
+      rgba(94, 95, 184, 0.2) 3.03%,
+      rgba(34, 35, 86, 0.2) 97.05%);
   box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
   backdrop-filter: blur(0.75rem);
   clip-path: url(#scalableClipPath1);
 }
 
 .tournament-schedule-card-footer {
-  background: radial-gradient(
-    100% 100% at 50% 0%,
-    rgba(45, 46, 109, 0.4416) 0%,
-    rgba(34, 35, 86, 0.384) 100%
-  );
+  background: radial-gradient(100% 100% at 50% 0%,
+      rgba(45, 46, 109, 0.4416) 0%,
+      rgba(34, 35, 86, 0.384) 100%);
   box-shadow: 0px 2px 4px 0px rgba(87, 89, 195, 0.08) inset;
   clip-path: url(#clipPathBanner);
   transition: 0.3s;
 }
 
 .main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-wrapper {
-  background: linear-gradient(
-      183.7deg,
+  background: linear-gradient(183.7deg,
       rgba(94, 95, 184, 0.2) 3.03%,
-      rgba(34, 35, 86, 0.2) 97.05%
-    ),
-    linear-gradient(
-      180deg,
+      rgba(34, 35, 86, 0.2) 97.05%),
+    linear-gradient(180deg,
       rgba(0, 0, 0, 0) 44.23%,
-      rgba(68, 127, 241, 0.5) 100%
-    );
+      rgba(68, 127, 241, 0.5) 100%);
   box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
   backdrop-filter: blur(0.75rem);
 }
@@ -1687,11 +1612,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 .tournament-schedule-card-header-time h2 {
-  background: linear-gradient(
-    180deg,
-    rgba(94, 95, 184, 0.2) 0%,
-    rgba(34, 35, 86, 0.2) 111.11%
-  );
+  background: linear-gradient(180deg,
+      rgba(94, 95, 184, 0.2) 0%,
+      rgba(34, 35, 86, 0.2) 111.11%);
   box-shadow: 0px 2px 2px 0px #5e5fb81f inset;
   clip-path: url(#scalable-clip);
   position: relative;
@@ -1731,8 +1654,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   transition: 0.3s;
 }
 
-.main-tournament-schedule-card-wrapper:hover
-  .tournament-schedule-card-footer-hover.tournament-schedule-card-footer {
+.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-footer-hover.tournament-schedule-card-footer {
   opacity: 1;
   visibility: visible;
   display: block;
@@ -1757,11 +1679,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 .datepiker-wp {
-  background: linear-gradient(
-    180deg,
-    rgba(38, 39, 98, 0.32) 0%,
-    rgba(27, 27, 75, 0.32) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(38, 39, 98, 0.32) 0%,
+      rgba(27, 27, 75, 0.32) 100%);
   box-shadow: 0px 4px 4px 0px #5472880a inset;
   backdrop-filter: blur(1.5rem);
 }
@@ -1782,23 +1702,21 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   content: "";
   width: 100%;
   height: 0.065rem;
-  background: linear-gradient(
-    90deg,
-    rgba(27, 28, 76, 0.8) 0%,
-    rgba(19, 21, 59, 0.8) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(27, 28, 76, 0.8) 0%,
+      rgba(19, 21, 59, 0.8) 100%);
   left: 0;
   bottom: 0;
 }
 
 .brackt_fullscreen {
-  background: linear-gradient(
-    0deg,
-    rgba(1, 2, 29, 1) 0%,
-    rgba(2, 3, 41, 1) 100%
-  ) !important;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  background: linear-gradient(0deg,
+      rgba(1, 2, 29, 1) 0%,
+      rgba(2, 3, 41, 1) 100%) !important;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .brackt_fullscreen .bracket {
@@ -1814,11 +1732,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 .fullscreen-close-btn button {
-  background: linear-gradient(
-    180deg,
-    rgba(188, 82, 37, 0.8464) 0%,
-    rgba(244, 149, 40, 0.92) 107.14%
-  ) !important;
+  background: linear-gradient(180deg,
+      rgba(188, 82, 37, 0.8464) 0%,
+      rgba(244, 149, 40, 0.92) 107.14%) !important;
   border: 2px solid rgba(255, 255, 255, 0.3) !important;
   border-radius: 50% !important;
   padding: 12px !important;
@@ -1846,54 +1762,40 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 .card-duty-wp .tournament-schedule-card-footer-right button.common-process {
-  background: linear-gradient(
-      270deg,
+  background: linear-gradient(270deg,
       rgba(237, 237, 237, 0.16) 0%,
-      rgba(230, 230, 230, 0.4) 100%
-    ),
-    linear-gradient(
-      180deg,
+      rgba(230, 230, 230, 0.4) 100%),
+    linear-gradient(180deg,
       rgba(145, 145, 145, 0) 0%,
-      rgba(129, 129, 129, 0.2) 100%
-    ),
-    radial-gradient(
-      100% 378.13% at 0% 100%,
+      rgba(129, 129, 129, 0.2) 100%),
+    radial-gradient(100% 378.13% at 0% 100%,
       rgba(225, 225, 225, 0.12) 0%,
-      rgba(220, 220, 220, 0) 72.36%
-    );
+      rgba(220, 220, 220, 0) 72.36%);
   box-shadow: 0px 2px 2px 0px rgba(255, 255, 255, 0.24) inset;
   backdrop-filter: blur(48px);
 }
 
 .card-duty-wp .tournament-schedule-card-footer-right button.common-green {
-  background: linear-gradient(
-      270deg,
+  background: linear-gradient(270deg,
       rgba(37, 238, 114, 0.16) 0%,
-      rgba(39, 221, 115, 0.4) 100%
-    ),
+      rgba(39, 221, 115, 0.4) 100%),
     linear-gradient(180deg, rgba(9, 126, 54, 0) 0%, rgba(9, 126, 54, 0.2) 100%),
-    radial-gradient(
-      100% 378.13% at 0% 100%,
+    radial-gradient(100% 378.13% at 0% 100%,
       rgba(37, 238, 114, 0.12) 0%,
-      rgba(37, 238, 114, 0) 72.36%
-    );
+      rgba(37, 238, 114, 0) 72.36%);
   box-shadow: 0px 2px 2px 0px rgba(94, 154, 184, 0.24) inset;
   backdrop-filter: blur(48px);
   box-shadow: 0px -2px 12px 0px rgba(29, 197, 150, 0.24) inset;
 }
 
 .card-duty-wp .tournament-schedule-card-footer-right button.common-red {
-  background: linear-gradient(
-      270deg,
+  background: linear-gradient(270deg,
       rgba(238, 37, 40, 0.16) 0%,
-      rgba(221, 39, 42, 0.4) 100%
-    ),
+      rgba(221, 39, 42, 0.4) 100%),
     linear-gradient(180deg, rgba(126, 9, 11, 0) 0%, rgba(126, 9, 11, 0.2) 100%),
-    radial-gradient(
-      100% 378.13% at 0% 100%,
+    radial-gradient(100% 378.13% at 0% 100%,
       rgba(238, 37, 40, 0.12) 0%,
-      rgba(238, 37, 40, 0) 72.36%
-    );
+      rgba(238, 37, 40, 0) 72.36%);
   box-shadow: 0px 2px 2px 0px rgba(184, 94, 96, 0.24) inset;
   backdrop-filter: blur(48px);
   box-shadow: 0px -2px 12px 0px rgba(255, 0, 4, 0.24) inset;
@@ -1917,13 +1819,10 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   margin: 0 1.75rem;
 }
 
-.card-duty-wp.main-tournament-schedule-card-wrapper:hover
-  .tournament-schedule-card-wrapper {
-  background: linear-gradient(
-    183.7deg,
-    rgba(94, 95, 184, 0.2) 3.03%,
-    rgba(34, 35, 86, 0.2) 97.05%
-  );
+.card-duty-wp.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-wrapper {
+  background: linear-gradient(183.7deg,
+      rgba(94, 95, 184, 0.2) 3.03%,
+      rgba(34, 35, 86, 0.2) 97.05%);
   box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
   backdrop-filter: blur(0.75rem);
 }
@@ -1934,23 +1833,21 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 
 .card-duty-wp .tournament-schedule-card-header-time h2 {
   clip-path: url(#duty_bottom1);
-  background: linear-gradient(
-    180deg,
-    rgba(94, 95, 184, 0.2) -20%,
-    rgba(34, 35, 86, 0.2) 180%
-  );
+  background: linear-gradient(180deg,
+      rgba(94, 95, 184, 0.2) -20%,
+      rgba(34, 35, 86, 0.2) 180%);
   box-shadow: 0px 2px 2px 0px rgba(94, 95, 184, 0.12) inset;
   backdrop-filter: blur(12px);
   height: 1.34rem;
   width: 52%;
 }
 
-.card-duty-wp.main-tournament-schedule-card-wrapper:hover
-  .tournament-schedule-card-footer {
+.card-duty-wp.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-footer {
   display: flex;
 }
 
 @media (max-width: 767px) {
+
   .sd_tournament-content .polygon_border:before,
   .sd_tournament-content .polygon_border:after {
     width: 4.5rem;
@@ -2039,11 +1936,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 /* drafting page css */
 
 .drafting__title-bg {
-  background: linear-gradient(
-    180deg,
-    rgba(123, 126, 208, 0.95) 0%,
-    rgba(123, 126, 208, 0) 80%
-  );
+  background: linear-gradient(180deg,
+      rgba(123, 126, 208, 0.95) 0%,
+      rgba(123, 126, 208, 0) 80%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
