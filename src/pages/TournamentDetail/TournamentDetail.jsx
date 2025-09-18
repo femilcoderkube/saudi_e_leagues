@@ -7,7 +7,7 @@ import {
 } from "../../utils/constant.js";
 
 import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import GamingLoader from "../../components/Loader/loader.jsx";
@@ -30,6 +30,7 @@ import { motion } from "motion/react";
 import DetailItem from "../../components/Details/DetailItem.jsx";
 import { IMAGES } from "../../components/ui/images/images.js";
 import { Images } from "lucide-react";
+import ManageTeamModal from "../../components/ManageTeam/ManageTeamModal.jsx";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
   const { tournamentData, activeStage, loader } = useSelector(
@@ -40,6 +41,7 @@ const TournamentDetail = () => {
   const { user } = useSelector((state) => state.auth);
   const { tId } = useParams();
   const dispatch = useDispatch();
+  const [isManageOpen, setIsManageOpen] = useState(false);
 
   useEffect(() => {
     if (isSocketConnected) {
@@ -271,16 +273,20 @@ const TournamentDetail = () => {
                                 ))}
                               </div>
                               <div className="flex items-center md:gap-10 gap-4">
-                                <button className="text-[#fff] font-bold cursor-pointer">
-                                  {t("Manage Team")}
+                                <button
+                                  className="text-[#fff] font-bold cursor-pointer manage-team"
+                                  onClick={() => setIsManageOpen(true)} // open modal
+                                >
+                                  Manage Team
                                 </button>
+
                                 <button className="cursor-pointer px-6.5 py-2.5 md:text-lg text-base font-bold rounded-xl text-[#fff] bg-[linear-gradient(3deg,rgba(67,75,233,1)_0%,rgba(70,181,249,1)_110%)]">
                                   {t("Register")}
                                 </button>
                               </div>
                             </div>
                           </div>
-                        <div className="about-tournament-card">
+                          <div className="about-tournament-card">
                             <h3 className="sm:text-[2rem] text-2xl grad_text-clip !font-black sm:mb-8 mb-6 tracking-wide uppercase bg-[linear-gradient(180deg,rgb(244_247_255)_0%,rgba(186,189,255,1)_36%,rgba(123,126,208,1)_66%)]">
                               {t("About Tournament")}
                             </h3>
@@ -293,7 +299,7 @@ const TournamentDetail = () => {
                               {t(
                                 "Don't miss your chance!! join now and showcase your skills!"
                               )}
-                            </p>                         
+                            </p>
                             <div className="flex flex-col sm:flex-row sm:gap-8 gap-5 sm:mt-12 mt-8">
                               <a
                                 href="https://discord.com/"
@@ -301,20 +307,28 @@ const TournamentDetail = () => {
                                 rel="noopener noreferrer"
                                 className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[#F4F7FF] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]"
                               >
-                                <span className="icon-discord flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]"><img src={IMAGES.youtube}/></span>
+                                <span className="icon-discord flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
+                                  <img src={IMAGES.youtube} />
+                                </span>
                                 {t("Discord Support")}
-                                <span className="ml-auto icon-arrow-right text-[#A6B6C6]"><img src={IMAGES.discord_arrow} alt="" /></span>
+                                <span className="ml-auto icon-arrow-right text-[#A6B6C6]">
+                                  <img src={IMAGES.discord_arrow} alt="" />
+                                </span>
                               </a>
                               <a
                                 href="#"
                                 className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[#F4F7FF] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]"
                               >
-                                <span className="icon-shield flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]"><img src={IMAGES.discord_mark} alt="" /></span>
+                                <span className="icon-shield flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
+                                  <img src={IMAGES.discord_mark} alt="" />
+                                </span>
                                 {t("Rules & Regulations")}
-                                <span className="ml-auto icon-arrow-right text-[#A6B6C6]"><img src={IMAGES.discord_arrow} alt="" /></span>
+                                <span className="ml-auto icon-arrow-right text-[#A6B6C6]">
+                                  <img src={IMAGES.discord_arrow} alt="" />
+                                </span>
                               </a>
                             </div>
-                        </div>
+                          </div>
                         </div>
                         <div className="sd_content-right w-full order-0 xl:order-1">
                           {/* --- Timeline-card HTML Block Start --- */}
@@ -336,6 +350,12 @@ const TournamentDetail = () => {
           </div>
         </div>
       )}
+
+      {/* Popup */}
+      <ManageTeamModal
+        isOpen={isManageOpen}
+        onClose={() => setIsManageOpen(false)}
+      />
       <svg
         width="0"
         height="0"

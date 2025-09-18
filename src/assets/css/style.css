@@ -1012,6 +1012,14 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   height:4.5rem;
   box-shadow: inset 0 5px 6px 0px rgb(94 95 184 / 12%);
 }
+
+.manage-popup .sd_custom-input{
+  height: 4rem;
+}
+
+.manage-popup .game_status--tab button{
+  background: unset;
+}
 @media (min-width: 1280px) {
   .brackt_fullscreen {
     display: flex !important;
