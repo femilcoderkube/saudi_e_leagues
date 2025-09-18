@@ -24,8 +24,8 @@ const initialState = {
   // New state for player selection confirmation
   selectedPlayerData: null,
   gameMatchLoader: false,
-  popupData :null,
-  isPopUpShow : false,
+  popupData: null,
+  isPopUpShow: false,
 
   countryOptions: countryData.map((country) => ({
     value: country.name,
@@ -34,13 +34,55 @@ const initialState = {
   dialCodeOptions: countryData.map((country) => ({
     value: country.dial_code,
     label: `${country.dial_code} (${country.code})`,
-  }))
+  })),
+
+  //PARTY QUEUE
+  invitedPlayers: [], // list of invited players
+   allPlayers: [
+    { id: 1, firstName: "Lionel", lastName: "Messi", username: "messi", avatar: "#" },
+    { id: 2, firstName: "Cristiano", lastName: "Ronaldo", username: "ronaldo", avatar: "#" },
+    { id: 3, firstName: "Neymar", lastName: "Jr", username: "neymar", avatar: "#" },
+    { id: 4, firstName: "Kylian", lastName: "Mbappe", username: "mbappe", avatar: "#" },
+    { id: 5, firstName: "Kevin", lastName: "De Bruyne", username: "kdb", avatar: "#" },
+    { id: 6, firstName: "Luka", lastName: "Modric", username: "modric", avatar: "#" },
+    { id: 7, firstName: "Robert", lastName: "Lewandowski", username: "lewa", avatar: "#" },
+    { id: 8, firstName: "Harry", lastName: "Kane", username: "kane", avatar: "#" },
+    { id: 9, firstName: "Karim", lastName: "Benzema", username: "benzema", avatar: "#" },
+    { id: 10, firstName: "Mohamed", lastName: "Salah", username: "salah", avatar: "#" },
+    { id: 11, firstName: "Sadio", lastName: "Mane", username: "mane", avatar: "#" },
+    { id: 12, firstName: "Virgil", lastName: "van Dijk", username: "vandijk", avatar: "#" },
+    { id: 13, firstName: "Erling", lastName: "Haaland", username: "haaland", avatar: "#" },
+    { id: 14, firstName: "Sergio", lastName: "Ramos", username: "ramos", avatar: "#" },
+    { id: 15, firstName: "Paul", lastName: "Pogba", username: "pogba", avatar: "#" },
+    { id: 16, firstName: "Eden", lastName: "Hazard", username: "hazard", avatar: "#" },
+    { id: 17, firstName: "Antoine", lastName: "Griezmann", username: "griezmann", avatar: "#" },
+    { id: 18, firstName: "Raheem", lastName: "Sterling", username: "sterling", avatar: "#" },
+    { id: 19, firstName: "Vinicius", lastName: "Jr", username: "vinijr", avatar: "#" },
+    { id: 20, firstName: "Alisson", lastName: "Becker", username: "alisson", avatar: "#" },
+  ],
 };
 
 const constStateSlice = createSlice({
   name: "constState",
   initialState,
   reducers: {
+        setAllPlayers: (state, action) => {
+      state.allPlayers = action.payload;
+    },
+    invitePlayer: (state, action) => {
+      // prevent duplicates
+      if (!state.invitedPlayers.find(p => p.id === action.payload.id)) {
+        state.invitedPlayers.push(action.payload);
+      }
+    },
+    removeInvitedPlayer: (state, action) => {
+      state.invitedPlayers = state.invitedPlayers.filter(
+        (p) => p.id !== action.payload
+      );
+    }
+  
+
+  ,
     setIsPopUpShow: (state, action) => {
       state.isPopUpShow = action.payload;
     },
@@ -163,6 +205,9 @@ export const {
   setQueueConfirmation,
   setAnnouncementBanner,
   setIsPopUpShow,
+  setAllPlayers,
+  invitePlayer,
+  removeInvitedPlayer,
 } = constStateSlice.actions;
 
 export default constStateSlice.reducer;

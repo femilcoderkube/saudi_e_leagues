@@ -29,6 +29,7 @@ const GetQueueButton = () => {
   const { t, i18n } = useTranslation();
   const [isCheckingBan, setIsCheckingBan] = useState(false);
   const [showPartyQueuePopup, setShowPartyQueuePopup] = useState(false);
+console.log("leagueData", leagueData);
 
   const handleLoginClick = () => {
     const currentUrl = window.location.href;
@@ -37,13 +38,13 @@ const GetQueueButton = () => {
 
   const handleQueueClick = async () => {
     try {
-      setIsCheckingBan(true);
+      // setIsCheckingBan(true);
 
-      const banCheckResult = await dispatch(checkBannedUser()).unwrap();
-      if (banCheckResult?.data.banMessage) {
-        setIsCheckingBan(false);
-        return;
-      }
+      // const banCheckResult = await dispatch(checkBannedUser()).unwrap();
+      // if (banCheckResult?.data.banMessage) {
+      //   setIsCheckingBan(false);
+      //   return;
+      // }
 
       if (leagueData?.format == "party queue") {
         setShowPartyQueuePopup(true);
@@ -51,18 +52,18 @@ const GetQueueButton = () => {
         return;
       }
 
-      dispatch(setQueuePlayers(1));
-      if (userInQueue) {
-        dispatch(setQueueConfirmation(true));
-      } else {
-        if (localStorage.getItem("skipQueueConfirmation")) {
-          sessionStorage.setItem("canAccessFindingMatch", "true");
-          navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
-        } else {
-          dispatch(setQueueConfirmation(true));
-        }
-      }
-      setIsCheckingBan(false);
+      // dispatch(setQueuePlayers(1));
+      // if (userInQueue) {
+      //   dispatch(setQueueConfirmation(true));
+      // } else {
+      //   if (localStorage.getItem("skipQueueConfirmation")) {
+      //     sessionStorage.setItem("canAccessFindingMatch", "true");
+      //     navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+      //   } else {
+      //     dispatch(setQueueConfirmation(true));
+      //   }
+      // }
+      // setIsCheckingBan(false);
     } catch (error) {
       setIsCheckingBan(false);
     }
@@ -288,7 +289,7 @@ const GetQueueButton = () => {
     <>
       {renderButton()}
       {showPartyQueuePopup && (
-        <PartyQueuePopup setShowPartyQueuePopup={setShowPartyQueuePopup} />
+        <PartyQueuePopup setShowPartyQueuePopup={setShowPartyQueuePopup} user={user} leagueData={leagueData}/>
       )}
     </>
   );
