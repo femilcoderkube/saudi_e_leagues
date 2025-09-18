@@ -155,8 +155,8 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
                 menuPortalTarget={
                   typeof document !== "undefined" ? document.body : null
                 }
-                menuIsOpen={true}
-                menuPosition="fixed"
+                // menuIsOpen={true}
+                // menuPosition="fixed"
                 styles={{
                   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                   control: (base) => ({
