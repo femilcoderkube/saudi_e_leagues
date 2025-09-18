@@ -7,6 +7,7 @@ const ROUTESPATH = {
   LOBBY: "lobby",
   DRAFTING_DETAIL: "lobby/drafting/:draftId",
   TOURNAMENT_DETAIL: "lobby/tournament/:tId",
+  TOURNAMENT_REGISTER: "lobby/tournament/:tId/register",
   LEAGUE_DETAIL: "lobby/:lId",
   FINDING_MATCH: "lobby/:lId/finding-match",
   PROFILE: "profile",

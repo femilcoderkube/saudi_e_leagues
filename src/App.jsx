@@ -4,7 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate
+  useNavigate,
 } from "react-router-dom";
 import Sidebar from "./components/SideBar/SideBar";
 import Main from "./components/MainView/Main";
@@ -25,10 +25,14 @@ import DraftingDetail from "./pages/DraftingPhase/DraftingDetail.jsx";
 import TournamentMatchDetail from "./pages/Matches/TournamentMatchDetail.jsx";
 import { setNavigator } from "./Services/navigationService.js";
 import { useSelector } from "react-redux";
-import { requestPermission, setupMessageListener } from "./Services/NotificationService.js";
+import {
+  requestPermission,
+  setupMessageListener,
+} from "./Services/NotificationService.js";
 import ROUTESPATH from "./Routes/paths.js";
 import MobileEvent from "./hooks/mobileevents.js";
 import { joinUserRoom } from "./app/socket/socket.js";
+import Register from "./pages/TournamentDetail/Register.jsx";
 
 function NavigatorSetter() {
   const navigate = useNavigate();
@@ -73,11 +77,20 @@ function App() {
         <div className="flex">
           <Sidebar />
           <Routes>
-            <Route path={ROUTESPATH.RESETPASSWORD} element={<ResetPasswordPage />} />
-            <Route path={ROUTESPATH.ROOT} element={<Navigate to={`/${firstItem.id}`} />} />
+            <Route
+              path={ROUTESPATH.RESETPASSWORD}
+              element={<ResetPasswordPage />}
+            />
+            <Route
+              path={ROUTESPATH.ROOT}
+              element={<Navigate to={`/${firstItem.id}`} />}
+            />
             <Route path={ROUTESPATH.HOME} element={<Main />}>
               <Route index element={<PrimeHome />} />
-              <Route path={ROUTESPATH.MATCHDETAIL} element={<LeagueMatchDetail />} />
+              <Route
+                path={ROUTESPATH.MATCHDETAIL}
+                element={<LeagueMatchDetail />}
+              />
               <Route
                 path={ROUTESPATH.MATCHDETAIL_TOURNAMENT}
                 element={<TournamentMatchDetail />}
@@ -91,7 +104,14 @@ function App() {
                 path={ROUTESPATH.TOURNAMENT_DETAIL}
                 element={<TournamentDetail />}
               />
-              <Route path={ROUTESPATH.LEAGUE_DETAIL} element={<LeagueDetail />} />
+              <Route
+                path={ROUTESPATH.TOURNAMENT_REGISTER}
+                element={<Register />}
+              />
+              <Route
+                path={ROUTESPATH.LEAGUE_DETAIL}
+                element={<LeagueDetail />}
+              />
               <Route
                 path={ROUTESPATH.FINDING_MATCH}
                 element={<MatchMaking />}

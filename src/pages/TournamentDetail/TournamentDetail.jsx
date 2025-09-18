@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TimelinePanel from "../../components/Cards/LeagueDetail/TimelinePanel.jsx";
 import {
   formatAmountWithCommas,
@@ -45,8 +45,9 @@ const TournamentDetail = () => {
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { user } = useSelector((state) => state.auth);
-  const { tId } = useParams();
+  const { id, tId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isManageOpen, setIsManageOpen] = useState(false);
 
   useEffect(() => {
@@ -290,7 +291,15 @@ const TournamentDetail = () => {
                                   {t("tournament.manageteam")}
                                 </button>
 
-                                <button className="cursor-pointer px-6.5 py-2.5 md:text-lg text-base font-bold rounded-xl text-[#fff] bg-[linear-gradient(3deg,rgba(67,75,233,1)_0%,rgba(70,181,249,1)_110%)]">
+                                <button
+                                  className="cursor-pointer px-6.5 py-2.5 md:text-lg text-base font-bold rounded-xl text-[#fff] bg-[linear-gradient(3deg,rgba(67,75,233,1)_0%,rgba(70,181,249,1)_110%)]"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    navigate(
+                                      `/${id}/lobby/tournament/${tId}/register`
+                                    );
+                                  }}
+                                >
                                   {t("tournament.Register")}
                                 </button>
                               </div>
