@@ -29,7 +29,7 @@ const GetQueueButton = () => {
   const { t, i18n } = useTranslation();
   const [isCheckingBan, setIsCheckingBan] = useState(false);
   const [showPartyQueuePopup, setShowPartyQueuePopup] = useState(false);
-console.log("leagueData", leagueData);
+// console.log("leagueData", leagueData);
 
   const handleLoginClick = () => {
     const currentUrl = window.location.href;

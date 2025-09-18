@@ -1,34 +1,53 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import Select from "react-select";
 import { IMAGES } from "../../ui/images/images";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getServerURL } from "../../../utils/constant";
 import { toast } from "react-toastify";
+import { fetchLeagueParticipants } from "../../../app/slices/constState/constStateSlice";
 
 function PartyQueuePopup({ setShowPartyQueuePopup }) {
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.auth.user);
   const allPlayers = useSelector((state) => state.constState.allPlayers);
-  const invitedFromStore = useSelector(
-    (state) => state.constState.invitedPlayers
-  );
-  const leagueData = useSelector((state) => state.league);
+  const invitedFromStore = useSelector((state) => state.constState.invitedPlayers);
+  const leagueData = useSelector((state) => state.leagues);
+  const leagueId = leagueData?.leagueData?._id;
+  const invitedPlayers = useSelector((state) => state.constState.invitedPlayers);
+  const loading = useSelector((state) => state.constState.loading);
 
   const [invited, setInvited] = useState(invitedFromStore || []);
   const maxPlayers = leagueData?.playersPerTeam || 10;
+  console.log("ALL PLAYERS", allPlayers);
+  
+  useEffect(() => {
+    console.log("PartyQueuePopup useEffect triggered");
+    console.log("leagueId:", leagueId);
+    console.log("leagueData:", leagueData);
 
+    // Check if leagueId exists before making API call
+    if (leagueId) {
+      console.log("Dispatching fetchLeagueParticipants with leagueId:", leagueId);
+      dispatch(fetchLeagueParticipants({ leagueId, userId: user._id }));
+    } else {
+      console.error("leagueId is undefined or null");
+      console.log("Full leagueData object:", leagueData);
+    }
+  }, [dispatch, leagueId]);
   // compute available options
   const availableOptions = useMemo(() => {
     return allPlayers
-      .filter((p) => !invited.some((inv) => String(inv.value) === String(p.id)))
-      .filter((p) => String(p.id) !== String(user?.id))
+      .filter((p) => !invited.some((inv) => String(inv.value) === String(p.userId._id)))
+      // .filter((p) => String(p.userId._id) !== String(user?._id))
       .map((p) => ({
-        value: p.id,
-        label: `${p.firstName} ${p.lastName}`,
-        username: p.username,
-        avatar: p.avatar,
+        value: p.userId._id,
+        label: `${p.userId.firstName} ${p.userId.lastName}`,
+        username: p.userId.username,
+        avatar: p.userId.profilePicture,
       }));
-  }, [allPlayers, invited, user]);
+  }, [allPlayers, user]);
 
   // invite handler
   const handleInvite = (option) => {
