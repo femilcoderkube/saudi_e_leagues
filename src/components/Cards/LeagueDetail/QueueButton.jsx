@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
+  createPartyQueue,
   setQueueConfirmation,
+  setShowPartyQueuePopup,
 } from "../../../app/slices/constState/constStateSlice";
 import {
   setQueuePlayers,
@@ -13,13 +15,14 @@ import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../ui/images/images";
 import MobileEvent from "../../../hooks/mobileevents.js"
 import { useState } from "react";
-import { checkBannedUser } from "../../../app/slices/auth/authSlice.js";
 import PartyQueuePopup from "../../Overlays/LeagueDetail/PartyQueuePopup.jsx";
 
 const GetQueueButton = () => {
   const { id } = useParams();
   const { leagueData, isJoinedUser, isQueueUser, isMatchJoind, userInQueue } =
     useSelector((state) => state.leagues);
+      const { showPartyQueuePopup } = useSelector((state) => state.constState);
+    
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
@@ -28,8 +31,6 @@ const GetQueueButton = () => {
   const end = new Date(leagueData?.endDate);
   const { t, i18n } = useTranslation();
   const [isCheckingBan, setIsCheckingBan] = useState(false);
-  const [showPartyQueuePopup, setShowPartyQueuePopup] = useState(false);
-// console.log("leagueData", leagueData);
 
   const handleLoginClick = () => {
     const currentUrl = window.location.href;
@@ -47,7 +48,7 @@ const GetQueueButton = () => {
       // }
 
       if (leagueData?.format == "party queue") {
-        setShowPartyQueuePopup(true);
+        dispatch(setShowPartyQueuePopup(true));
         setIsCheckingBan(false);
         return;
       }
@@ -289,7 +290,7 @@ const GetQueueButton = () => {
     <>
       {renderButton()}
       {showPartyQueuePopup && (
-        <PartyQueuePopup setShowPartyQueuePopup={setShowPartyQueuePopup} user={user} leagueData={leagueData}/>
+        <PartyQueuePopup />
       )}
     </>
   );

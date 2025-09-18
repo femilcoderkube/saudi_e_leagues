@@ -10,6 +10,7 @@ import MatchFound from "./Notifications/MatchFound.jsx";
 import { useTranslation } from "react-i18next";
 import { refreshNotificationCounts } from "../../app/slices/notificationSlice/notificationSlice.js";
 import { IMAGES } from "../ui/images/images.js";
+import PartyQueue from "./Notifications/PartyQueue.jsx";
 
 const NotificationSidebar = () => {
   const { NotificationTabIndex } = useSelector((state) => state.constState);
@@ -43,8 +44,8 @@ const NotificationSidebar = () => {
         ? "slide-out-left"
         : "slide-in-left"
       : isClosing
-      ? "slide-out-right"
-      : "slide-in-right";
+        ? "slide-out-right"
+        : "slide-in-right";
 
   const handleClose = () => {
     setIsClosing(true);
@@ -63,6 +64,8 @@ const NotificationSidebar = () => {
         return <UserRegistration key={`${type}-${index}`} data={item} />;
       case notificationType.LEAGUE_ENDED:
         return <LeagueEnded key={`${type}-${index}`} data={item} />;
+      case notificationType.PLAYER_INVITATION:
+        return <PartyQueue key={`${type}-${index}`} data={item} />;
       case notificationType.MATCHMAKING_FOUND:
       case notificationType.SCORESUBMITTED:
       case notificationType.MATCH_IN_DISPUTE:

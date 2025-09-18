@@ -38,28 +38,74 @@ const initialState = {
   })),
 
   //PARTY QUEUE
-  invitedPlayers: [], // list of invited players
-  allPlayers: [
-    // { id: 1, firstName: "John", lastName: "Doe", username: "johndoe", avatar: "" },
-  ],
+  showPartyQueuePopup: false,
+  invitedPlayers: [],
+  allPlayers: [],
+  partyQueueTeam: null,
 };
+
+export const createPartyQueue = createAsyncThunk(
+  "const/createPartyQueue",
+  async ({ userId, leagueid }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/LeagueTempTeams", {
+        userId, leagueid,
+      });      
+      return response.data?.data || response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Failed to create Party queue");
+    }
+  }
+);
 
 export const fetchLeagueParticipants = createAsyncThunk(
   "const/fetchLeagueParticipants",
   async ({ leagueId, userId, page = 1, limit = 20 }, { rejectWithValue }) => {
     try {
-      console.log("API Call - leagueId:", leagueId, "page:", page, "limit:", limit);
-      
-      // Updated endpoint to match your new API
       const response = await axiosInstance.get("/LeaguesParticipants/party", {
         params: { leagueId, userId, page, limit },
       });
-      
-      console.log("API Response:", response.data);
       return response.data.data;
     } catch (error) {
-      console.error("API Error:", error);
       return rejectWithValue(error.response?.data?.message || "Failed to fetch participants");
+    }
+  }
+);
+
+export const sendInvite = createAsyncThunk(
+  "const/sendInvite",
+  async ({ userId, name, leagueName, teamId, leagueId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/LeagueTempTeams/sendInvite", {
+        userId,
+        name,
+        leagueName,
+        teamId,
+        leagueId,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Send invite error:", error);
+      return rejectWithValue(error.response?.data?.message || "Failed to send invite");
+    }
+  }
+);
+
+export const acceptInvite = createAsyncThunk(
+  "const/acceptInvite",
+  async ({ userId, leagueId, teamId}, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/LeagueTempTeams/acceptInvite", {
+        userId,
+        leagueId,
+        teamId,
+      });
+      console.log("ACCEPT invite response:", response);
+      
+      return response.data;
+    } catch (error) {
+      console.error("Accept invite error:", error);
+      return rejectWithValue(error.response?.data?.message || "Failed to Accept invite");
     }
   }
 );
@@ -76,7 +122,7 @@ const constStateSlice = createSlice({
     //     state.invitedPlayers.push(action.payload);
     //   }
     // },
-     invitePlayer: (state, action) => {
+    invitePlayer: (state, action) => {
       const player = action.payload;
       if (!state.invitedPlayers.find((p) => p.userId._id === player.userId._id)) {
         state.invitedPlayers.push(player);
@@ -90,13 +136,16 @@ const constStateSlice = createSlice({
     //     (p) => p.id !== action.payload
     //   );
     // },
-     removeInvitedPlayer: (state, action) => {
+    removeInvitedPlayer: (state, action) => {
       const playerId = action.payload;
       const player = state.invitedPlayers.find((p) => p.userId._id === playerId);
       if (player) {
         state.invitedPlayers = state.invitedPlayers.filter((p) => p.userId._id !== playerId);
         state.allPlayers.push(player);
       }
+    },
+    setShowPartyQueuePopup: (state, action) => {
+      state.showPartyQueuePopup = !state.showPartyQueuePopup;
     },
     setIsPopUpShow: (state, action) => {
       state.isPopUpShow = action.payload;
@@ -194,6 +243,24 @@ const constStateSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+     .addCase(createPartyQueue.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createPartyQueue.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log("action.payloadWWWWWW", action.payload);
+        
+        state.partyQueueTeam = action.payload;
+        // toast.success("Party queue created successfully");
+      })
+      .addCase(createPartyQueue.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        console.log("action.payload", action.payload);
+        
+        // toast.error(action.payload || "Failed to create party queue");
+      })
       .addCase(fetchLeagueParticipants.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -203,7 +270,7 @@ const constStateSlice = createSlice({
         // ⚡ Only set allPlayers if not already filled (avoid reset on reopen)
         if (state.allPlayers.length === 0) {
           console.log("action.payload", action.payload);
-          
+
           state.allPlayers = action.payload.result || [];
           state.totalPages = action.payload.totalPages;
           state.totalItems = action.payload.totalItem;
@@ -212,7 +279,23 @@ const constStateSlice = createSlice({
       .addCase(fetchLeagueParticipants.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+       .addCase(sendInvite.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        // state.inviteStatus = null;
+      })
+      .addCase(sendInvite.fulfilled, (state, action) => {
+        state.loading = false;
+        // state.inviteStatus = "success";
+        // toast can be called in component
+      })
+      .addCase(sendInvite.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        // state.inviteStatus = "error";
       });
+
   },
 });
 
@@ -245,6 +328,7 @@ export const {
   setAllPlayers,
   invitePlayer,
   removeInvitedPlayer,
+  setShowPartyQueuePopup
 } = constStateSlice.actions;
 
 export default constStateSlice.reducer;

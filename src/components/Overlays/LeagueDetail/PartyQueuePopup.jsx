@@ -5,45 +5,32 @@ import { IMAGES } from "../../ui/images/images";
 import { useDispatch, useSelector } from "react-redux";
 import { getServerURL } from "../../../utils/constant";
 import { toast } from "react-toastify";
-import { fetchLeagueParticipants } from "../../../app/slices/constState/constStateSlice";
+import { createPartyQueue, fetchLeagueParticipants, sendInvite, setShowPartyQueuePopup } from "../../../app/slices/constState/constStateSlice";
 
-function PartyQueuePopup({ setShowPartyQueuePopup }) {
+function PartyQueuePopup() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
-  const allPlayers = useSelector((state) => state.constState.allPlayers);
-  const invitedFromStore = useSelector(
-    (state) => state.constState.invitedPlayers
-  );
+  const { allPlayers, invitedPlayers, partyQueueTeam, loading } = useSelector((state) => state.constState);
+
   const leagueData = useSelector((state) => state.leagues);
   const leagueId = leagueData?.leagueData?._id;
-  const invitedPlayers = useSelector(
-    (state) => state.constState.invitedPlayers
-  );
-  const loading = useSelector((state) => state.constState.loading);
 
-  const [invited, setInvited] = useState(invitedFromStore || []);
+
+  const [invited, setInvited] = useState(invitedPlayers || []);
   const maxPlayers = leagueData?.playersPerTeam || 10;
-  console.log("ALL PLAYERS", allPlayers);
+  
+  useEffect(() => {
+    dispatch(createPartyQueue({ userId: user._id, leagueid: leagueId }));
+  }, [dispatch, leagueId, user]);
 
   useEffect(() => {
-    console.log("PartyQueuePopup useEffect triggered");
-    console.log("leagueId:", leagueId);
-    console.log("leagueData:", leagueData);
-
-    // Check if leagueId exists before making API call
     if (leagueId) {
-      console.log(
-        "Dispatching fetchLeagueParticipants with leagueId:",
-        leagueId
-      );
+      console.log("Dispatching fetchLeagueParticipants with leagueId:", leagueId);
       dispatch(fetchLeagueParticipants({ leagueId, userId: user._id }));
-    } else {
-      console.error("leagueId is undefined or null");
-      console.log("Full leagueData object:", leagueData);
     }
   }, [dispatch, leagueId]);
-  // compute available options
+
   const availableOptions = useMemo(() => {
     return (
       allPlayers
@@ -70,6 +57,15 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
       return;
     }
     setInvited((prev) => [...prev, option]);
+    dispatch(
+      sendInvite({
+        userId: option.value,
+        name: user.username,
+        leagueName: leagueData.leagueData?.title,
+        teamId: partyQueueTeam._id,
+        leagueId: leagueData.leagueData?._id,
+      })
+    );
     toast.success(`${option.label} invited`);
   };
 
@@ -107,67 +103,69 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
     </div>
   );
 
+  if(loading) {
+    
+  }
   return (
     <>
-      <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"></div>
-      <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full">
-        {/* popup */}
-        <motion.div
-          initial={{ scale: 0.5, opacity: 0, y: 50 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.5, opacity: 0, y: 50 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="bg-[#121331] manage-popup match_reg--popup h-full sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[85vh] py-[3rem] overflow-x-hidden sm:p-6 px-4 overflow-y-auto custom_scroll"
-          style={{
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-          }}
-        >
-          <style jsx="true">{`
-            .custom_scroll::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
-          {/* header */}
-          <div className="flex justify-between items-center pb-5">
-            <h2 className="text-xl font-bold">Manage Queue</h2>
-            <button
-              type="button"
-              className="absolute right-2 text-gray-300 hover:text-white cursor-pointer"
-              onClick={() => setShowPartyQueuePopup(false)}
-            >
-              <svg width="18" height="18" fill="none" stroke="#7B7ED0">
-                <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />
-              </svg>
-            </button>
-          </div>
+    <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"></div>
+    <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full">
+      {/* popup */}
+      <motion.div
+        initial={{ scale: 0.5, opacity: 0, y: 50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.5, opacity: 0, y: 50 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="bg-[#121331] manage-popup match_reg--popup h-full sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[85vh] py-[3rem] overflow-x-hidden sm:p-6 px-4 overflow-y-auto custom_scroll"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
+        <style jsx="true">{`
+          .custom_scroll::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+        {/* header */}
+        <div className="flex justify-between items-center pb-5">
+          <h2 className="text-xl font-bold">Manage Queue</h2>
+          <button
+            type="button"
+            className="absolute right-2 text-gray-300 hover:text-white cursor-pointer"
+            onClick={() => dispatch(setShowPartyQueuePopup(false))}
+          >
+            <svg width="18" height="18" fill="none" stroke="#7B7ED0">
+              <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />
+            </svg>
+          </button>
+        </div>
 
-          {/* Invite select */}
-          {invited.length < Math.max(0, maxPlayers - 1) && (
-            <div className="mb-3 ">
-              <Select
-                options={availableOptions}
-                isSearchable
-                isClearable
-                placeholder="Search players..."
-                classNamePrefix="react-select"
-                formatOptionLabel={formatOptionLabel}
-                menuPortalTarget={
-                  typeof document !== "undefined" ? document.body : null
-                }
-                // menuIsOpen={true}
-                // menuPosition="fixed"
-                styles={{
-                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                  control: (base) => ({
-                    ...base,
-                    background: "rgba(255,255,255,0.06)",
-                    borderColor: "rgba(255,255,255,0.08)",
-                  }),
-                }}
-              />
-            </div>
-          )}
+        {/* Invite select */}
+        {invited.length < Math.max(0, maxPlayers - 1) && (
+          <div className="mb-3 ">
+            <Select
+              options={availableOptions}
+              isSearchable
+              isClearable
+              placeholder="Search players..."
+              classNamePrefix="react-select"
+              formatOptionLabel={formatOptionLabel}
+              menuPortalTarget={
+                typeof document !== "undefined" ? document.body : null
+              }
+              menuPosition="fixed"
+              styles={{
+                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                control: (base) => ({
+                  ...base,
+                  background: "rgba(255,255,255,0.06)",
+                  borderColor: "rgba(255,255,255,0.08)",
+                }),
+              }}
+            />
+          </div>
+        )}
 
           {/* players container */}
           <div className="flex-1 overflow-y-auto custom_scroll mb-3">
@@ -248,7 +246,7 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
               <button
                 className="py-2 px-4 text-xl font-medium transition-all relative font_oswald hover:opacity-50 duration-300 cursor-pointer"
                 style={{ width: "8rem", height: "4rem" }}
-                onClick={() => setShowPartyQueuePopup(false)}
+                onClick={() => dispatch(setShowPartyQueuePopup(false))}
               >
                 Cancel
               </button>
@@ -257,7 +255,7 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
                 style={{ width: "8rem", height: "4rem" }}
                 onClick={() => {
                   // save to redux if needed
-                  setShowPartyQueuePopup(false);
+                  dispatch(setShowPartyQueuePopup(false));
                 }}
               >
                 Continue

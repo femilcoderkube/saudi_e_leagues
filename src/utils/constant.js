@@ -303,8 +303,8 @@ export function getDigitList(num) {
     digits.length >= 8
       ? digits.slice(0, 8)
       : Array(8 - digits.length)
-          .fill(0)
-          .concat(digits);
+        .fill(0)
+        .concat(digits);
   return firstSix;
 }
 export const formatTime = (secs) => {
@@ -350,6 +350,7 @@ export const notificationType = {
   QUEUE_OPENED: 9,
   FIRST_MATCH_WIN: 10,
   FIRST_MATCH_LOSS: 11,
+  PLAYER_INVITATION: 12,
 };
 export const buttonType = {
   NONE: 0,
