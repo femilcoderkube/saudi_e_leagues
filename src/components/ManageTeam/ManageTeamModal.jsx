@@ -94,33 +94,32 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   const renderDropdown = (section) => (
     <div className="mb-8">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-[#BABBFF] capitalize tracking-wide">
-          {t(`tournament.${section}_title`)}
-        </h3>
+        <div className="flex items-center gap-2">
+          <h3 className="text-lg font-semibold text-[#BABBFF] capitalize tracking-wide">
+            {t(`tournament.${section}_title`)}
+          </h3>
+          <button
+            onClick={() => toggleDropdown(section)}
+            className="text-[#BABBFF] hover:text-white transition-colors duration-200"
+          >
+            <svg
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeWidth="2"
+                strokeLinecap="round"
+                d="M12 5v14m-7-7h14"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <div className="relative w-full dropdown">
-        {/* Enhanced Dropdown Trigger */}
-        <div
-          className={`flex items-center justify-between bg-gradient-to-r from-[#1a1b3a] to-[#1e1f42] border-2 rounded-xl px-5 py-4 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-[#5759c7]/20 ${
-            dropdownOpen[section]
-              ? "border-[#5759c7] bg-gradient-to-r from-[#1e1f42] to-[#242556]"
-              : "border-[#393B7A] hover:border-[#5759c7]"
-          }`}
-          onClick={() => toggleDropdown(section)}
-        >
-          <span className="text-[#BABBFF] font-medium">
-            {t(`tournament.select_${section}`)}
-          </span>
-          <img
-            className={`w-4 h-4 transition-transform duration-300 ${
-              dropdownOpen[section] ? "rotate-180" : ""
-            }`}
-            src={IMAGES.schdule_down}
-            alt="dropdown"
-          />
-        </div>
-
         {/* Enhanced Dropdown Menu */}
         {dropdownOpen[section] && (
           <motion.ul
