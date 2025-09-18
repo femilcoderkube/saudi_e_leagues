@@ -9,7 +9,9 @@ import { toast } from "react-toastify";
 function PartyQueuePopup({ setShowPartyQueuePopup }) {
   const user = useSelector((state) => state.auth.user);
   const allPlayers = useSelector((state) => state.constState.allPlayers);
-  const invitedFromStore = useSelector((state) => state.constState.invitedPlayers);
+  const invitedFromStore = useSelector(
+    (state) => state.constState.invitedPlayers
+  );
   const leagueData = useSelector((state) => state.league);
 
   const [invited, setInvited] = useState(invitedFromStore || []);
@@ -51,7 +53,9 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
     <div className="flex items-center justify-between w-full">
       <div className="flex items-center gap-3">
         <img
-          src={getServerURL(option.avatar) || option.avatar || IMAGES.defaultImg}
+          src={
+            getServerURL(option.avatar) || option.avatar || IMAGES.defaultImg
+          }
           alt={option.label}
           className="w-8 h-8 rounded-full object-cover"
         />
@@ -73,36 +77,43 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
   );
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-auto">
-      {/* overlay */}
-      <div
-        className="absolute inset-0 bg-[#010221]/60 backdrop-blur-sm"
-        onClick={() => setShowPartyQueuePopup(false)}
-      ></div>
-
+    <>
+    <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"></div>
+    <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full">
       {/* popup */}
       <motion.div
-        className="relative text-white rounded-2xl shadow-xl sm:w-[95%] md:w-[80%] lg:w-[40rem] w-[calc(100%-30px)] p-4 z-50 border border-[#FFFFFF33] flex flex-col max-h-[80vh] bg-gradient-to-b from-[#171A43]/90 to-[#090B2C]"
         initial={{ scale: 0.5, opacity: 0, y: 50 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.5, opacity: 0, y: 50 }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="bg-[#121331] manage-popup match_reg--popup h-full sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[80vh] py-[3rem] overflow-x-hidden sm:p-6 px-4 overflow-y-auto custom_scroll"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
       >
+        <style jsx="true">{`
+          .custom_scroll::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
         {/* header */}
-        <div className="flex items-center justify-center mb-3 relative p-2">
-          <h2 className="text-xl font-semibold">Manage Queue</h2>
+        <div className="flex justify-between items-center pb-5">
+          <h2 className="text-xl font-bold">Manage Queue</h2>
           <button
             type="button"
-            className="absolute right-2 text-gray-300 hover:text-white"
+            className="absolute right-2 text-gray-300 hover:text-white cursor-pointer"
             onClick={() => setShowPartyQueuePopup(false)}
           >
-            ✕
+            <svg width="18" height="18" fill="none" stroke="#7B7ED0">
+              <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />
+            </svg>
           </button>
         </div>
 
         {/* Invite select */}
         {invited.length < Math.max(0, maxPlayers - 1) && (
-          <div className="mb-3">
+          <div className="mb-3 ">
             <Select
               options={availableOptions}
               isSearchable
@@ -110,7 +121,9 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
               placeholder="Search players..."
               classNamePrefix="react-select"
               formatOptionLabel={formatOptionLabel}
-              menuPortalTarget={typeof document !== "undefined" ? document.body : null}
+              menuPortalTarget={
+                typeof document !== "undefined" ? document.body : null
+              }
               menuPosition="fixed"
               styles={{
                 menuPortal: (base) => ({ ...base, zIndex: 9999 }),
@@ -130,9 +143,9 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
             Players ({invited.length + 1}/{maxPlayers})
           </h3>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {/* current user card */}
-            <div className="relative flex flex-col items-center p-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[#FFFFFF15]">
+            <div className="notification-box relative flex flex-col items-center p-3 rounded-lg">
               <img
                 src={getServerURL(user?.profilePicture) || IMAGES.defaultImg}
                 alt={`${user?.firstName || "You"}`}
@@ -142,7 +155,9 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
                 <p className="text-sm font-medium text-white truncate w-full">
                   {user?.firstName} {user?.lastName}
                 </p>
-                <p className="text-xs text-gray-400 truncate">@{user?.username}</p>
+                <p className="text-xs text-gray-400 truncate">
+                  @{user?.username}
+                </p>
               </div>
             </div>
 
@@ -161,7 +176,9 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
                   <p className="text-sm font-medium text-white truncate w-full">
                     {p.label}
                   </p>
-                  <p className="text-xs text-gray-400 truncate">@{p.username}</p>
+                  <p className="text-xs text-gray-400 truncate">
+                    @{p.username}
+                  </p>
                 </div>
 
                 <button
@@ -174,10 +191,12 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
             ))}
 
             {/* empty slots */}
-            {Array.from({ length: Math.max(0, maxPlayers - (invited.length + 1)) }).map((_, idx) => (
+            {Array.from({
+              length: Math.max(0, maxPlayers - (invited.length + 1)),
+            }).map((_, idx) => (
               <div
                 key={`slot-${idx}`}
-                className="flex flex-col items-center p-3 rounded-lg border border-dashed border-[#FFFFFF10] bg-[rgba(255,255,255,0.02)]"
+                className="notification-box flex flex-col items-center p-3"
               >
                 <div className="w-12 h-12 rounded-full mb-2 bg-[#ffffff10]" />
                 <div className="text-center">
@@ -190,25 +209,67 @@ function PartyQueuePopup({ setShowPartyQueuePopup }) {
         </div>
 
         {/* footer */}
-        <div className="flex justify-center gap-4 mt-auto pt-3 border-t border-[#FFFFFF15]">
-          <button
-            className="px-6 py-2 border border-[#FFFFFF33] text-white rounded-xl hover:bg-[rgba(255,255,255,0.1)]"
-            onClick={() => setShowPartyQueuePopup(false)}
-          >
-            Cancel
-          </button>
-          <button
-            className="px-6 py-2 bg-[#7B7ED0] hover:bg-[#6B6EC0] text-white rounded-xl"
-            onClick={() => {
-              // save to redux if needed
-              setShowPartyQueuePopup(false);
-            }}
-          >
-            Continue
-          </button>
+        <div className="wizard_step--btn gap-5 flex justify-end sm:mt-8 mt-6 mb-6">
+          <div className="game_status--tab wizard_btn flex justify-center gap-4">
+            <button
+              className="py-2 px-4 text-xl font-medium transition-all relative font_oswald hover:opacity-50 duration-300 cursor-pointer"
+              style={{ width: "8rem", height: "4rem" }}
+              onClick={() => setShowPartyQueuePopup(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border cursor-pointer"
+              style={{ width: "8rem", height: "4rem" }}
+              onClick={() => {
+                // save to redux if needed
+                setShowPartyQueuePopup(false);
+              }}
+            >
+              Continue
+            </button>
+          </div>
         </div>
       </motion.div>
+      <svg
+        width="0"
+        height="0"
+        viewBox="0 0 480 416"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ position: "absolute" }}
+      >
+        <defs>
+          <clipPath id="myClipPath" clipPathUnits="objectBoundingBox">
+            <path
+              transform="scale(0.00208333, 0.00240385)"
+              d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L24 0H480V100Z"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 360 332"
+            width="0%"
+            height="0%"
+          >
+            <defs>
+              <clipPath
+                id="blob-clip"
+                clipPathUnits="objectBoundingBox"
+                transform="scale(0.00278,0.00301)"
+              >
+                <path d="M132 12H228L240 0H340L360 20V120L348 132V200L360 212V320L348 332H12L0 320V12L12 0H120L132 12Z" />
+              </clipPath>
+            </defs>
+
+            <g filter="url(#inner-shadow)" clip-path="url(#blob-clip)">
+              <rect width="360" height="332" fill="url(#blob-grad)" />
+            </g>
+          </svg>
     </div>
+    </>
   );
 }
 
