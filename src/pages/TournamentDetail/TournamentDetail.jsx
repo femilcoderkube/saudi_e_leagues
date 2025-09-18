@@ -5,7 +5,7 @@ import {
   getServerURL,
   stageTypes,
 } from "../../utils/constant.js";
-
+import discordImg from "../../assets/images/discord.svg";
 import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,11 +31,17 @@ import DetailItem from "../../components/Details/DetailItem.jsx";
 import { IMAGES } from "../../components/ui/images/images.js";
 import { Images } from "lucide-react";
 import ManageTeamModal from "../../components/ManageTeam/ManageTeamModal.jsx";
+import PDFViewer from "../../components/Overlays/LeagueDetail/PDFViewer.jsx";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
   const { tournamentData, activeStage, loader } = useSelector(
     (state) => state.tournament
   );
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpen = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { user } = useSelector((state) => state.auth);
@@ -238,12 +244,12 @@ const TournamentDetail = () => {
                             <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
                               <div className="flex flex-wrap items-center sm:gap-4 gap-2">
                                 <span className="text-[#FFF] md:text-xl text-lg font-bold">
-                                  {t("Your Team")}
+                                  {t("league.yourteam")}
                                 </span>
                                 <span className="text-[#9d9d9d] md:text-lg text-base font-semibold">
-                                  {t(
-                                    "Invite at least 5 players to your team to participate"
-                                  )}
+                                  {t("tournament.invite_players_to_team", {
+                                    count: tournamentData?.maxPlayersPerTeam,
+                                  })}
                                 </span>
                               </div>
                               <div className="flex items-center gap-3">
@@ -263,7 +269,11 @@ const TournamentDetail = () => {
                                     className="w-full h-full object-cover"
                                   />
                                 </div>
-                                {[...Array(4)].map((_, idx) => (
+                                {[
+                                  ...Array(
+                                    tournamentData?.maxPlayersPerTeam - 1
+                                  ),
+                                ].map((_, idx) => (
                                   <div
                                     key={idx}
                                     className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center opacity-40"
@@ -277,29 +287,37 @@ const TournamentDetail = () => {
                                   className="text-[#fff] font-bold cursor-pointer manage-team"
                                   onClick={() => setIsManageOpen(true)} // open modal
                                 >
-                                  Manage Team
+                                  {t("tournament.manageteam")}
                                 </button>
 
                                 <button className="cursor-pointer px-6.5 py-2.5 md:text-lg text-base font-bold rounded-xl text-[#fff] bg-[linear-gradient(3deg,rgba(67,75,233,1)_0%,rgba(70,181,249,1)_110%)]">
-                                  {t("Register")}
+                                  {t("tournament.Register")}
                                 </button>
                               </div>
                             </div>
                           </div>
                           <div className="about-tournament-card">
                             <h3 className="sm:text-[2rem] text-2xl grad_text-clip !font-black sm:mb-8 mb-6 tracking-wide uppercase bg-[linear-gradient(180deg,rgb(244_247_255)_0%,rgba(186,189,255,1)_36%,rgba(123,126,208,1)_66%)]">
-                              {t("About Tournament")}
+                              {t("league.about_tournament")}
                             </h3>
-                            <p className="text-[#9d9d9d] md:text-xl text-lg font-semibold sm:mb-6 mb-4">
-                              {t(
+                            <p
+                              className="text-[#9d9d9d] md:text-xl text-lg font-semibold sm:mb-6 mb-4"
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  i18n.language === "ar"
+                                    ? tournamentData?.descriptionAr
+                                    : tournamentData?.description,
+                              }}
+                            />
+                            {/* {t(
                                 "The open qualifiers kick off for just 4 days, followed by the 3-day online major packed with excitement! The competition peaks in the 2-day major finals full of action and challenges."
-                              )}
-                            </p>
-                            <p className="text-[#9d9d9d] md:text-xl text-lg font-semibold">
+                              )} */}
+
+                            {/* <p className="text-[#9d9d9d] md:text-xl text-lg font-semibold">
                               {t(
                                 "Don't miss your chance!! join now and showcase your skills!"
                               )}
-                            </p>
+                            </p> */}
                             <div className="flex flex-col sm:flex-row sm:gap-8 gap-5 sm:mt-12 mt-8">
                               <a
                                 href="https://discord.com/"
@@ -308,25 +326,25 @@ const TournamentDetail = () => {
                                 className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[#F4F7FF] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]"
                               >
                                 <span className="icon-discord flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
-                                  <img src={IMAGES.youtube} />
+                                  <img src={IMAGES.discord} />
                                 </span>
-                                {t("Discord Support")}
+                                {t("tournament.discordsupport")}
                                 <span className="ml-auto icon-arrow-right text-[#A6B6C6]">
                                   <img src={IMAGES.discord_arrow} alt="" />
                                 </span>
                               </a>
-                              <a
-                                href="#"
-                                className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[#F4F7FF] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]"
+                              <button
+                                className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[#F4F7FF] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)] cursor-pointer"
+                                onClick={handleOpen}
                               >
                                 <span className="icon-shield flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
-                                  <img src={IMAGES.discord_mark} alt="" />
+                                  <img src={IMAGES.rules_icon} alt="" />
                                 </span>
-                                {t("Rules & Regulations")}
+                                {t("tournament.Rules_Regulations")}
                                 <span className="ml-auto icon-arrow-right text-[#A6B6C6]">
                                   <img src={IMAGES.discord_arrow} alt="" />
                                 </span>
-                              </a>
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -389,6 +407,7 @@ const TournamentDetail = () => {
           </clipPath>
         </defs>
       </svg>
+      {showModal && <PDFViewer onClose={handleClose} />}
     </main>
   );
 };

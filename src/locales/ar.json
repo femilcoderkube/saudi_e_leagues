@@ -175,7 +175,9 @@
     "queue": "البحث عن مباراة",
     "open": "مفتوح",
     "ends": "ينتهي في:",
-    "checkingBan": "جاري التحقق..."
+    "checkingBan": "جاري التحقق...",
+    "yourteam": "فريقك",
+    "about_tournament": "حول البطولة"
   },
   "match": {
     "finding_matchmaking": "البحث عن لاعبين",
@@ -435,7 +437,23 @@
     "match": "المباراة",
     "pp": "(PP)",
     "kp": "(KP)",
-    "overview":"",
-    "overview_desc":""
+    "overview": "ملخص",
+    "overview_desc": "",
+    "invite_players_to_team": "ادعُ ما لا يقل عن {{count}} لاعبين إلى فريقك للمشاركة",
+    "manageteam": "إدارة الفريق",
+    "Register": "يسجل",
+    "discordsupport": "دعم الخلاف",
+    "Rules_Regulations": "القواعد واللوائح",
+    "select_captain": "اختر القائد",
+    "select_players": "اختر اللاعبين",
+    "select_substitutes": "اختر البدلاء",
+    "select_coach": "اختر المدرب",
+    "captain_title": "القائد",
+    "players_title": "اللاعبون",
+    "substitutes_title": "البدلاء",
+    "coach_title": "المدرب",
+    "remove": "يزيل",
+    "confirm": "يتأكد",
+    "cancel": "يلغي"
   }
 }

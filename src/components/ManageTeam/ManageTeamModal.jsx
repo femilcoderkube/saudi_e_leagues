@@ -1,226 +1,304 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../components/ui/images/images";
 
 const ManageTeamModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selected, setSelected] = useState({
-    img: IMAGES.defaultImg,
-    label: "SaulVIVTv",
+  const { t } = useTranslation();
+
+  // State for dropdown visibility and selected items for each section
+  const [dropdownOpen, setDropdownOpen] = useState({
+    captain: false,
+    players: false,
+    substitutes: false,
+    coach: false,
   });
 
-  const options = [
-    { img: IMAGES.defaultImg, label: "SaulVIVTv" },
-    { img: IMAGES.defaultImg, label: "John Doe" },
-    { img: IMAGES.defaultImg, label: "Jane Smith" },
-  ];
+  const [selectedItems, setSelectedItems] = useState({
+    captain: [],
+    players: [],
+    substitutes: [],
+    coach: [],
+  });
+
+  // Sample options for each section (can be fetched dynamically)
+  const options = {
+    captain: [
+      { img: IMAGES.defaultImg, label: "SaulVIVTv" },
+      { img: IMAGES.defaultImg, label: "John Doe" },
+      { img: IMAGES.defaultImg, label: "Jane Smith" },
+    ],
+    players: [
+      { img: IMAGES.defaultImg, label: "SaulVIVTv" },
+      { img: IMAGES.defaultImg, label: "John Doe" },
+      { img: IMAGES.defaultImg, label: "Jane Smith" },
+    ],
+    substitutes: [
+      { img: IMAGES.defaultImg, label: "Substitute 1" },
+      { img: IMAGES.defaultImg, label: "Substitute 2" },
+    ],
+    coach: [
+      { img: IMAGES.defaultImg, label: "Coach 1" },
+      { img: IMAGES.defaultImg, label: "Coach 2" },
+    ],
+  };
 
   // Close dropdown when clicking outside
-  React.useEffect(() => {
-    if (!dropdownOpen) return;
+  useEffect(() => {
     const handleClick = (e) => {
-      // Only close if click is outside the dropdown
-      if (!e.target.closest(".captain-dropdown")) {
-        setDropdownOpen(false);
+      if (!e.target.closest(".dropdown")) {
+        setDropdownOpen({
+          captain: false,
+          players: false,
+          substitutes: false,
+          coach: false,
+        });
       }
     };
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
-  }, [dropdownOpen]);
+  }, []);
+
+  // Toggle dropdown for a specific section
+  const toggleDropdown = (section) => {
+    setDropdownOpen((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
+  // Handle selection for multi-select
+  const handleSelect = (section, option) => {
+    setSelectedItems((prev) => {
+      const isSelected = prev[section].some(
+        (item) => item.label === option.label
+      );
+      if (isSelected) {
+        return {
+          ...prev,
+          [section]: prev[section].filter(
+            (item) => item.label !== option.label
+          ),
+        };
+      } else {
+        return {
+          ...prev,
+          [section]: [...prev[section], option],
+        };
+      }
+    });
+  };
+
+  // Render dropdown for each section
+  const renderDropdown = (section) => (
+    <div className="mb-8">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-semibold text-[#BABBFF] capitalize tracking-wide">
+          {t(`tournament.${section}_title`)}
+        </h3>
+      </div>
+
+      <div className="relative w-full dropdown">
+        {/* Enhanced Dropdown Trigger */}
+        <div
+          className={`flex items-center justify-between bg-gradient-to-r from-[#1a1b3a] to-[#1e1f42] border-2 rounded-xl px-5 py-4 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-[#5759c7]/20 ${
+            dropdownOpen[section]
+              ? "border-[#5759c7] bg-gradient-to-r from-[#1e1f42] to-[#242556]"
+              : "border-[#393B7A] hover:border-[#5759c7]"
+          }`}
+          onClick={() => toggleDropdown(section)}
+        >
+          <span className="text-[#BABBFF] font-medium">
+            {t(`tournament.select_${section}`)}
+          </span>
+          <img
+            className={`w-4 h-4 transition-transform duration-300 ${
+              dropdownOpen[section] ? "rotate-180" : ""
+            }`}
+            src={IMAGES.schdule_down}
+            alt="dropdown"
+          />
+        </div>
+
+        {/* Enhanced Dropdown Menu */}
+        {dropdownOpen[section] && (
+          <motion.ul
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="absolute z-50 w-full mt-2 bg-gradient-to-b from-[#09092d] to-[#0d0d35] border-2 border-[#393B7A] rounded-xl shadow-2xl shadow-black/50 overflow-hidden"
+          >
+            {options[section].map((opt, idx) => (
+              <li
+                key={idx}
+                onClick={() => handleSelect(section, opt)}
+                className={`flex items-center gap-4 px-5 py-4 cursor-pointer transition-all duration-200 hover:bg-gradient-to-r hover:from-[#2D2E6D] hover:to-[#34357a] text-[#BABBFF] border-b border-[#393B7A]/30 last:border-b-0 group ${
+                  selectedItems[section].some(
+                    (item) => item.label === opt.label
+                  )
+                    ? "bg-gradient-to-r from-[#2D2E6D] to-[#34357a]"
+                    : ""
+                }`}
+              >
+                <div className="relative">
+                  <img
+                    src={opt.img}
+                    alt={opt.label}
+                    className="w-10 h-10 rounded-full object-cover border-2 border-[#393B7A] group-hover:border-[#5759c7] transition-all duration-200"
+                  />
+                  {selectedItems[section].some(
+                    (item) => item.label === opt.label
+                  ) && (
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-[#5759c7] to-[#7b7ed0] rounded-full flex items-center justify-center border-2 border-[#09092d]">
+                      <svg width="10" height="8" fill="white">
+                        <path
+                          d="M8 2L4 6 2 4"
+                          stroke="white"
+                          strokeWidth="1.5"
+                          fill="none"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <span className="font-medium group-hover:text-white transition-colors duration-200">
+                  {opt.label}
+                </span>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </div>
+
+      {/* Enhanced Selected Items Display */}
+      {selectedItems[section].length > 0 && (
+        <div className="space-y-3 mt-6">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-1 h-6 bg-gradient-to-b from-[#5759c7] to-[#7b7ed0] rounded-full"></div>
+            <h4 className="text-sm font-semibold text-[#7B7ED0] uppercase tracking-widest">
+              Selected {section} ({selectedItems[section].length})
+            </h4>
+          </div>
+          {selectedItems[section].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: idx * 0.1 }}
+              className="flex justify-between items-center bg-gradient-to-r from-[#1a1b3a] to-[#1e1f42] border-2 border-[#393B7A] rounded-xl px-5 py-4 hover:border-[#5759c7] hover:shadow-lg hover:shadow-[#5759c7]/10 transition-all duration-300 group"
+            >
+              <span className="flex items-center gap-4 font-semibold">
+                <span className="flex justify-center items-center w-12 h-12 rounded-full bg-gradient-to-br from-[#2D2E6D] via-[#34357a] to-[#222456] shadow-lg border-2 border-[#393B7A] group-hover:border-[#5759c7] transition-all duration-300">
+                  <img
+                    className="rounded-full w-9 h-9 object-cover"
+                    src={item.img}
+                    alt={item.label}
+                  />
+                </span>
+                <span>
+                  <p className="text-base font-semibold text-[#BABBFF] group-hover:text-white transition-colors duration-200">
+                    {item.label}
+                  </p>
+                  <p className="text-xs text-[#7B7ED0] uppercase tracking-wide mt-1 capitalize">
+                    {section}
+                  </p>
+                </span>
+              </span>
+              <button
+                onClick={() => handleSelect(section, item)}
+                className="text-[#ff6b6b] hover:text-white hover:bg-[#ff6b6b] px-3 py-2 rounded-lg font-medium text-sm transition-all duration-200 border border-transparent hover:border-[#ff6b6b]"
+              >
+                {t("tournament.remove")}
+              </button>
+            </motion.div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <>
-      <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"></div>
-      <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full">
-        {/* Modal */}
+      <div className="fixed popup-overlay inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-40"></div>
+      <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full p-4">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          className="bg-[#121331] manage-popup match_reg--popup h-full sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[85vh] py-[3rem] overflow-x-hidden sm:p-6 px-4 overflow-y-auto custom_scroll"
-          style={{
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20 }}
+          transition={{
+            duration: 0.3,
+            type: "spring",
+            damping: 25,
+            stiffness: 300,
           }}
+          className="bg-gradient-to-br from-[#121331] via-[#151642] to-[#0f0f2a] manage-popup match_reg--popup h-full sd_before sd_after text-white rounded-2xl w-full max-w-2xl relative max-h-[90vh] py-8 overflow-x-hidden px-6 overflow-y-auto custom_scroll border-2 border-[#393B7A] shadow-2xl shadow-black/50"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           <style jsx="true">{`
             .custom_scroll::-webkit-scrollbar {
               display: none;
             }
           `}</style>
-          {/* Header */}
-          <div className="flex justify-between items-center pb-4">
-            <h2 className="text-xl font-bold">Manage Team</h2>
+
+          {/* Enhanced Header */}
+          <div className="flex justify-between items-center pb-8 border-b-2 border-[#393B7A] mb-8">
+            <div>
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-[#BABBFF] to-[#ffffff] bg-clip-text text-transparent">
+                {t("tournament.manageteam")}
+              </h2>
+              <p className="text-[#7B7ED0] mt-2 text-sm">
+                Configure your team members and roles
+              </p>
+            </div>
             <button
               onClick={onClose}
-              className="text-[#A6B6C6] hover:text-[#fff] text-2xl transition-colors duration-200 cursor-pointer"
+              className="text-[#A6B6C6] hover:text-[#fff] hover:bg-[#2D2E6D] p-3 rounded-xl transition-all duration-300 group"
               aria-label="Close"
             >
-              <svg width="18" height="18" fill="none" stroke="#7B7ED0">
-                <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />
+              <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                className="group-hover:rotate-90 transition-transform duration-300"
+              >
+                <path
+                  d="M1 19L19 1M19 19L1 1"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
           </div>
 
-          {/* Content */}
+          {/* Enhanced Content Area */}
           <div
-            className=" space-y-7 max-h-[70vh] overflow-y-auto"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
+            className="space-y-8 max-h-[60vh] overflow-y-auto custom_scroll pr-2"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            <style jsx="true">{`
-              /* Hide scrollbar for Chrome, Safari and Opera */
-              .manage-team-modal-scroll::-webkit-scrollbar {
-                display: none;
-              }
-            `}</style>
-            {/* Captain */}
-            <div>
-              <h3 className="text-base font-semibold mb-2 text-[#BABBFF]">
-                Captain
-              </h3>
-              <div className="relative w-full captain-dropdown">
-                {/* Selected value */}
-                <button
-                  type="button"
-                  onClick={() => setDropdownOpen((open) => !open)}
-                  className="drop-down flex items-center justify-between bg-white sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
-                >
-                  <div className="flex items-center gap-2">
-                    <img
-                      src={selected.img}
-                      alt={selected.label}
-                      className="w-6 h-6 rounded-full"
-                    />
-                    <span>{selected.label}</span>
-                  </div>
-                  <span className="">
-                    <img className="w-4.5 h-auto" src={IMAGES.schdule_down} alt="" />
-                  </span>
-                </button>
-
-                {/* Dropdown menu */}
-                {dropdownOpen && (
-                  <ul className="absolute z-50 w-full mt-1 bg-[#09092d] border border-[#393B7A] rounded-lg shadow-lg">
-                    {options.map((opt, idx) => (
-                      <li
-                        key={idx}
-                        onClick={() => {
-                          setSelected(opt);
-                          setDropdownOpen(false);
-                        }}
-                        className="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-[#2D2E6D] text-[#BABBFF]"
-                      >
-                        <img
-                          src={opt.img}
-                          alt={opt.label}
-                          className="w-6 h-6 rounded-full"
-                        />
-                        <span>{opt.label}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>              
-            </div>
-
-            {/* Players */}
-            <div>
-              <div className="flex items-center justify-between gap-1">
-                <h3 className="text-base font-semibold mb-2 text-[#BABBFF]">
-                  Players
-                </h3>
-                <button className="text-[#7b7ed0] cursor-pointer">Edit</button>
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between items-center sd_custom-input !w-full px-4 text-lg">
-                  <span className="flex items-center gap-2 font-semibold">
-                    <span className="flex justify-center items-center w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
-                      <img
-                        className="rounded-full w-8 h-8 object-cover"
-                        src={IMAGES.defaultImg}
-                        alt=""
-                      />
-                    </span>
-                    <span>
-                      <p className="text-sm">SaulVIVTv</p>
-                      <p className="text-sm text-red-500">SaulVIVTv</p>
-                    </span>
-                  </span>
-                  <span className="flex justify-center items-center w-9 h-9 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
-                    <img
-                      className="rounded-full w-7 h-7 object-cover"
-                      src={IMAGES.defaultImg}
-                      alt=""
-                    />
-                  </span>
-                </div>
-                <div className="flex justify-between items-center sd_custom-input !w-full px-4 text-lg">
-                  <span className="flex items-center gap-2 font-semibold">
-                    <span className="flex justify-center items-center w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
-                      <img
-                        className="rounded-full w-8 h-8 object-cover"
-                        src={IMAGES.defaultImg}
-                        alt=""
-                      />
-                    </span>
-                    <span>
-                      <p className="text-sm">SaulVIVTv</p>
-                      <p className="text-sm text-green-500">SaulVIVTv</p>
-                    </span>
-                  </span>
-                  <span className="flex justify-center items-center w-9 h-9 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
-                    <img
-                      className="rounded-full w-7 h-7 object-cover"
-                      src={IMAGES.defaultImg}
-                      alt=""
-                    />
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Substitutes */}
-            <div>
-              <div className="flex items-center justify-between gap-1">
-                <h3 className="text-base font-semibold mb-2 text-[#BABBFF]">
-                  Substitutes{" "}
-                </h3>
-                <button className="text-[#7b7ed0] cursor-pointer">Edit</button>
-              </div>
-              <div className="flex justify-between items-center sd_custom-input !w-full px-4 text-lg"></div>
-            </div>
-
-            {/* Coach */}
-            <div>
-              <div className="flex items-center justify-between gap-1">
-                <h3 className="text-base font-semibold mb-2 text-[#BABBFF]">
-                  Coach{" "}
-                </h3>
-                <button className="text-[#7b7ed0] cursor-pointer">Edit</button>
-              </div>
-              <div className="flex justify-between items-center sd_custom-input !w-full px-4 text-lg"></div>
-            </div>
+            {renderDropdown("captain")}
+            {renderDropdown("players")}
+            {renderDropdown("substitutes")}
+            {renderDropdown("coach")}
           </div>
 
-          {/* Footer */}
-          <div className="wizard_step--btn gap-5 flex justify-end sm:mt-8 mt-6 mb-6">
-            <div className="game_status--tab wizard_btn flex items-center sm:gap-3 gap-1.5">
+          {/* Enhanced Footer */}
+          <div className="wizard_step--btn gap-6 flex justify-end mt-8 pt-8 border-t-2 border-[#393B7A]">
+            <div className="game_status--tab wizard_btn flex items-center gap-4">
               <button
                 onClick={onClose}
-                className="py-2 px-4 text-xl font-medium transition-all relative font_oswald hover:opacity-50 duration-300 cursor-pointer"
-                style={{ width: "8rem", height: "4rem" }}
+                className="py-3 px-8 text-lg font-medium transition-all relative font_oswald hover:bg-[#2D2E6D] duration-300 cursor-pointer text-[#BABBFF] border-2 border-[#393B7A] rounded-xl hover:border-[#5759c7] hover:text-white"
+                style={{ minWidth: "120px", height: "50px" }}
               >
-                Cancel
+                {t("tournament.cancel")}
               </button>
               <button
-                className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border cursor-pointer"
-                style={{ width: "8rem", height: "4rem" }}
+                className="py-3 px-8 text-lg font-medium transition-all sd_after sd_before relative font_oswald hover:shadow-lg hover:shadow-[#5759c7]/30 active-tab duration-300 polygon_border cursor-pointer bg-gradient-to-r from-[#5759c7] to-[#7b7ed0] rounded-xl border-2 border-transparent hover:from-[#6b6bd4] hover:to-[#8a8ae0] text-white font-semibold"
+                style={{ minWidth: "120px", height: "50px" }}
               >
-                Confirm
+                {t("tournament.confirm")}
               </button>
             </div>
           </div>

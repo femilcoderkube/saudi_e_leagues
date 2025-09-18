@@ -16,12 +16,24 @@ function PDFViewer({ onClose }) {
   const [pageWidth, setPageWidth] = useState(null);
   const containerRef = useRef(null);
   const { leagueData } = useSelector((state) => state.leagues);
+  const { tournamentData } = useSelector((state) => state.tournament);
+
   const { t } = useTranslation();
   // Trigger animation on mount
   useEffect(() => {
     setIsOpen(true);
     return () => setIsOpen(false); // Cleanup on unmount
   }, []);
+
+  let ruleFile;
+  if (
+    typeof window !== "undefined" &&
+    window.location.pathname.toLowerCase().includes("tournament")
+  ) {
+    ruleFile = tournamentData;
+  } else {
+    ruleFile = leagueData;
+  }
 
   // Set page width to fit container (prevent horizontal scroll)
   useEffect(() => {
@@ -114,7 +126,7 @@ function PDFViewer({ onClose }) {
           style={hideScrollbarStyle}
         >
           <Document
-            file={getServerURL(leagueData?.rules)}
+            file={getServerURL(ruleFile?.rules)}
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={onDocumentLoadError}
             className="w-full rounded-lg scroll-hide"
@@ -132,7 +144,6 @@ function PDFViewer({ onClose }) {
                 renderAnnotationLayer={true}
                 width={pageWidth || undefined}
                 className="m-4 scroll-hide bg-transparent"
-                
               />
             ))}
           </Document>

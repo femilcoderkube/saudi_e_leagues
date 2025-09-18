@@ -93,18 +93,19 @@ import full_screen from "../../../assets/images/full-screen.png";
 import exit_screen from "../../../assets/images/exit-screen.png";
 import discord_arrow from "../../../assets/images/discord-arrow.png";
 import youtube from "../../../assets/images/youtube.png";
-import discord_mark from "../../../assets/images/discord_mark.png";
 
 import prime_icon from "../../../assets/images/prime_icon.svg";
+import discord from "../../../assets/images/discord.svg";
 
 export const IMAGES = {
   prime_icon,
   full_screen,
   discord_arrow,
+  discord,
   exit_screen,
   cal_arrow,
   youtube,
-  discord_mark,
+  rules_icon,
   battale_sahpe_img,
   schdule_down,
   date_icon,

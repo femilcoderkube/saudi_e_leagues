@@ -174,7 +174,9 @@
     "queue": "QUEUE",
     "open": "OPEN",
     "ends": "Ends:",
-    "checkingBan": "Checking..."
+    "checkingBan": "Checking...",
+    "yourteam": "Your Team",
+    "about_tournament": "About Tournament"
   },
   "match": {
     "finding_matchmaking": "Finding Matchmaking",
@@ -434,7 +436,23 @@
     "match": "Match",
     "pp": "PP",
     "kp": "KP",
-    "overview":"Overview",
-    "overview_desc":"Overview Desc"
+    "overview": "Overview",
+    "overview_desc": "Overview Desc",
+    "invite_players_to_team": "Invite at least {{count}} players to your team to participate",
+    "manageteam": "Manage Team",
+    "Register": "Register",
+    "discordsupport": "Discord Support",
+    "Rules_Regulations": "Rules & Regulations",
+    "select_captain": "Select Captain",
+    "select_players": "Select Players",
+    "select_substitutes": "Select Substitutes",
+    "select_coach": "Select Coach",
+    "captain_title": "Captain",
+    "players_title": "Players",
+    "substitutes_title": "Substitutes",
+    "coach_title": "Coach",
+    "remove": "Remove",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   }
 }
