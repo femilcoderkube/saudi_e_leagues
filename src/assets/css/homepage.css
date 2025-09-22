@@ -393,6 +393,10 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
     background: url('../images/spilit-shape.svg');
 }
 
+html[dir=rtl] .split_card-num::after,html[dir=rtl] .spilit-img {
+    transform: rotateY(180deg);
+}
+
 .split_card--wrap.polygon_border::before {
     left: -1.85rem;
     top: calc(50% + 2.501rem);

@@ -59,13 +59,13 @@ const TimelineCard_1 = () => {
                                 </defs>
                                 <rect width="100%" height="100%" fill="#88C6F3" clip-path="url(#customClip)" />
                                 </svg>
-                                <p className="flex items-center sm:gap-5 gap-3 sm:pl-10 pl-4">
+                                <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                                     <span className="sm:text-[7.35rem] text-[5rem] purple_grad-col grad_text-clip font-black">01</span>
                                     <span className="uppercase text-[#B0D0F1] sm:text-[2.501rem] text-[2rem] sm:-mt-4 -mt-2 font-black">Split</span>
                                 </p>
                             </div>
                             <div className="spilit_head-wp pb-3">
-                                <div className="split_head-con flex sm:justify-between gap-3 sm:pl-10 pl-4 border-b border-[#ffffff1f] pb-3">                        
+                                <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[#ffffff1f] pb-3">                        
                                     <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                                         <SparkIcon gradientColor="#D8DAFF" /><span className="text-[#C0DEFF] font-semibold">Division 5</span>
                                     </p>
@@ -73,7 +73,7 @@ const TimelineCard_1 = () => {
                                         <SparkIcon gradientColor="#D8DAFF" /><span className="text-[#C0DEFF] font-semibold">Championship 5</span>
                                     </p>
                                 </div>
-                                <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 sm:pl-10 pl-4">
+                                <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                                     <div className="split_date relative flex items-center">                        
                                         <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
                                             <span className="!font-black sm:text-2xl text-xl">6</span> Apr 
@@ -126,13 +126,13 @@ const TimelineCard_1 = () => {
                             </defs>
                             <rect width="100%" height="100%" fill="#88C6F3" clip-path="url(#customClip)" />
                             </svg>
-                            <p className="flex items-center sm:gap-5 gap-3 sm:pl-10 pl-4">
+                            <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                                 <span className="sm:text-[7.35rem] text-[5rem] purple_grad-col grad_text-clip font-black">01</span>
                                 <span className="uppercase text-[#C5B9F4] text-[2.501rem] -mt-4 font-black">Split</span>
                             </p>
                         </div>
                         <div className="spilit_head-wp pb-3">
-                            <div className="split_head-con flex sm:justify-between gap-3 sm:pl-10 pl-4 border-b border-[#ffffff1f] pb-3">                        
+                            <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[#ffffff1f] pb-3">                        
                                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                                     <SparkIcon gradientColor="#D8DAFF" /><span className="text-[#C0DEFF] font-semibold">Division 5</span>
                                 </p>
@@ -140,7 +140,7 @@ const TimelineCard_1 = () => {
                                     <SparkIcon gradientColor="#D8DAFF" /><span className="text-[#C0DEFF] font-semibold">Championship 5</span>
                                 </p>
                             </div>
-                            <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 sm:pl-10 pl-4">
+                            <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                                 <div className="split_date relative flex items-center">                        
                                     <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
                                         <span className="!font-black sm:text-2xl text-xl">6</span> Apr 
@@ -193,13 +193,13 @@ const TimelineCard_1 = () => {
                                 </defs>
                                 <rect width="100%" height="100%" fill="#88C6F3" clip-path="url(#customClip)" />
                                 </svg>
-                                <p className="flex items-center sm:gap-5 gap-3 sm:pl-10 pl-4">
+                                <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                                     <span className="sm:text-[7.35rem] text-[5rem] purple_grad-col grad_text-clip font-black">01</span>
                                     <span className="uppercase text-[#F1D3B0] text-[2.501rem] -mt-4 font-black">Split</span>
                                 </p>
                             </div>
                             <div className="spilit_head-wp pb-3">
-                                <div className="split_head-con flex sm:justify-between gap-3 sm:pl-10 pl-4 border-b border-[#ffffff1f] pb-3">                        
+                                <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[#ffffff1f] pb-3">                        
                                     <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                                         <SparkIcon gradientColor="#D8DAFF" /><span className="text-[#C0DEFF] font-semibold">Division 5</span>
                                     </p>
@@ -207,7 +207,7 @@ const TimelineCard_1 = () => {
                                         <SparkIcon gradientColor="#D8DAFF" /><span className="text-[#C0DEFF] font-semibold">Championship 5</span>
                                     </p>
                                 </div>
-                                <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 sm:pl-10 pl-4">
+                                <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                                     <div className="split_date relative flex items-center">                        
                                         <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
                                             <span className="!font-black sm:text-2xl text-xl">6</span> Apr 
@@ -260,13 +260,13 @@ const TimelineCard_1 = () => {
                                 </defs>
                                 <rect width="100%" height="100%" fill="#88C6F3" clip-path="url(#customClip)" />
                                 </svg>
-                                <p className="flex items-center sm:gap-5 gap-3 sm:pl-10 pl-4">
+                                <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                                     <span className="sm:text-[7.35rem] text-[5rem] purple_grad-col grad_text-clip font-black">01</span>
                                     <span className="uppercase text-[#F1B0BB] text-[2.501rem] -mt-4 font-black">Split</span>
                                 </p>
                             </div>
                             <div className="spilit_head-wp pb-3">
-                                <div className="split_head-con flex sm:justify-between gap-3 sm:pl-10 pl-4 border-b border-[#ffffff1f] pb-3">                        
+                                <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[#ffffff1f] pb-3">                        
                                     <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                                         <SparkIcon gradientColor="#D8DAFF" /><span className="text-[#C0DEFF] font-semibold">Division 5</span>
                                     </p>
@@ -274,7 +274,7 @@ const TimelineCard_1 = () => {
                                         <SparkIcon gradientColor="#D8DAFF" /><span className="text-[#C0DEFF] font-semibold">Championship 5</span>
                                     </p>
                                 </div>
-                                <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 sm:pl-10 pl-4">
+                                <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                                     <div className="split_date relative flex items-center">                        
                                         <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
                                             <span className="!font-black sm:text-2xl text-xl">6</span> Apr 
