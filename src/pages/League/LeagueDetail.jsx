@@ -28,6 +28,7 @@ import DetailItem from "../../components/Details/DetailItem.jsx";
 import Table from "../../components/Loddy/LeaderBoard/Table";
 import GetQueueButton from "../../components/Cards/LeagueDetail/QueueButton.jsx";
 import { IMAGES } from "../../components/ui/images/images.js";
+import PartyQueueBanner from "../../components/Cards/LeagueDetail/PartyQueueBanner.jsx";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
@@ -241,6 +242,7 @@ const LeagueDetail = () => {
               </div>
               {/* --- Timeline-card HTML Block Start --- */}
               <div className="flex flex-col gap-6 md:block">
+                <PartyQueueBanner />
                 <PDFPopup />
                 {/* Desktop version */}
                 {leagueData?.isWeekOfTheStar && <StarOfTheWeek />}

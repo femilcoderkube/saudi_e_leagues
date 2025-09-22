@@ -25,11 +25,10 @@ function PartyQueuePopup() {
       console.log("Dispatching fetchLeagueParticipants - popup opened");
       dispatch(fetchLeagueParticipants({ leagueId, userId: user._id }));
     }
-  }, [leagueId, allPlayers.length]);
+  }, [leagueId]);
   
   const handleClosePopup = () => {
     dispatch(setShowPartyQueuePopup(false));
-    dispatch(setAllPlayers([]));
   };
 
   const availableOptions = useMemo(() => {
