@@ -42,15 +42,17 @@ const initialState = {
   invitedPlayers: [],
   allPlayers: [],
   partyQueueTeam: null,
+  teamFromQueue: false
 };
 
 export const createPartyQueue = createAsyncThunk(
   "const/createPartyQueue",
-  async ({ userId, leagueid }, { rejectWithValue }) => {
+  async ({ userId, leagueid }, { rejectWithValue, dispatch, getState }) => {
     try {
       const response = await axiosInstance.post("/LeagueTempTeams", {
         userId, leagueid,
       });      
+      dispatch(setTeamFromQueue(false));
       return response.data?.data || response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Failed to create Party queue");
@@ -60,7 +62,7 @@ export const createPartyQueue = createAsyncThunk(
 
 export const fetchLeagueParticipants = createAsyncThunk(
   "const/fetchLeagueParticipants",
-  async ({ leagueId, userId, page = 1, limit = 20 }, { rejectWithValue }) => {
+  async ({ leagueId, userId, page = 1, limit = 10 }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/LeaguesParticipants/party", {
         params: { leagueId, userId, page, limit },
@@ -146,6 +148,9 @@ const constStateSlice = createSlice({
     },
     setShowPartyQueuePopup: (state, action) => {
       state.showPartyQueuePopup = !state.showPartyQueuePopup;
+    },
+    setTeamFromQueue: (state, action) => {
+      state.teamFromQueue = !state.teamFromQueue;
     },
     setIsPopUpShow: (state, action) => {
       state.isPopUpShow = action.payload;
@@ -268,13 +273,13 @@ const constStateSlice = createSlice({
       .addCase(fetchLeagueParticipants.fulfilled, (state, action) => {
         state.loading = false;
         // ⚡ Only set allPlayers if not already filled (avoid reset on reopen)
-        if (state.allPlayers.length === 0) {
+        // if (state.allPlayers.length === 0) {
           console.log("action.payload", action.payload);
 
           state.allPlayers = action.payload.result || [];
           state.totalPages = action.payload.totalPages;
           state.totalItems = action.payload.totalItem;
-        }
+        // }
       })
       .addCase(fetchLeagueParticipants.rejected, (state, action) => {
         state.loading = false;
@@ -328,7 +333,8 @@ export const {
   setAllPlayers,
   invitePlayer,
   removeInvitedPlayer,
-  setShowPartyQueuePopup
+  setShowPartyQueuePopup,
+  setTeamFromQueue
 } = constStateSlice.actions;
 
 export default constStateSlice.reducer;

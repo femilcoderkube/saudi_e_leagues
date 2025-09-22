@@ -5,31 +5,37 @@ import { IMAGES } from "../../ui/images/images";
 import { useDispatch, useSelector } from "react-redux";
 import { getServerURL } from "../../../utils/constant";
 import { toast } from "react-toastify";
-import { createPartyQueue, fetchLeagueParticipants, sendInvite, setShowPartyQueuePopup } from "../../../app/slices/constState/constStateSlice";
+import { createPartyQueue, fetchLeagueParticipants, sendInvite, setAllPlayers, setShowPartyQueuePopup } from "../../../app/slices/constState/constStateSlice";
 
 function PartyQueuePopup() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
-  const { allPlayers, invitedPlayers, partyQueueTeam, loading } = useSelector((state) => state.constState);
+  const { allPlayers, invitedPlayers, partyQueueTeam, loading, teamFromQueue } = useSelector((state) => state.constState);
 
   const leagueData = useSelector((state) => state.leagues);
   const leagueId = leagueData?.leagueData?._id;
-
 
   const [invited, setInvited] = useState(invitedPlayers || []);
   const maxPlayers = leagueData?.playersPerTeam || 10;
   
   useEffect(() => {
-    dispatch(createPartyQueue({ userId: user._id, leagueid: leagueId }));
+    if(teamFromQueue){
+      dispatch(createPartyQueue({ userId: user._id, leagueid: leagueId }));
+    }
   }, [dispatch, leagueId, user]);
 
   useEffect(() => {
-    if (leagueId) {
-      console.log("Dispatching fetchLeagueParticipants with leagueId:", leagueId);
+    if (leagueId && allPlayers.length === 0) {
+      console.log("Dispatching fetchLeagueParticipants - popup opened");
       dispatch(fetchLeagueParticipants({ leagueId, userId: user._id }));
     }
-  }, [dispatch, leagueId]);
+  }, [leagueId, allPlayers.length]);
+  
+  const handleClosePopup = () => {
+    dispatch(setShowPartyQueuePopup(false));
+    dispatch(setAllPlayers([]));
+  };
 
   const availableOptions = useMemo(() => {
     return (
@@ -133,7 +139,7 @@ function PartyQueuePopup() {
           <button
             type="button"
             className="absolute right-2 text-gray-300 hover:text-white cursor-pointer"
-            onClick={() => dispatch(setShowPartyQueuePopup(false))}
+            onClick={handleClosePopup}
           >
             <svg width="18" height="18" fill="none" stroke="#7B7ED0">
               <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />

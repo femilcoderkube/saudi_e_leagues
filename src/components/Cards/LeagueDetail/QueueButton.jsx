@@ -3,6 +3,7 @@ import {
   createPartyQueue,
   setQueueConfirmation,
   setShowPartyQueuePopup,
+  setTeamFromQueue,
 } from "../../../app/slices/constState/constStateSlice";
 import {
   setQueuePlayers,
@@ -49,6 +50,7 @@ const GetQueueButton = () => {
 
       if (leagueData?.format == "party queue") {
         dispatch(setShowPartyQueuePopup(true));
+        dispatch(setTeamFromQueue(true));
         setIsCheckingBan(false);
         return;
       }
