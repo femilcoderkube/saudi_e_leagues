@@ -27,7 +27,6 @@ function PartyQueuePopup() {
 
   useEffect(() => {
     if (leagueId && allPlayers.length === 0) {
-      console.log("Dispatching fetchLeagueParticipants - popup opened");
       dispatch(fetchLeagueParticipants({ leagueId, userId: user._id }));
     }
   }, [leagueId]);
@@ -67,7 +66,7 @@ function PartyQueuePopup() {
         userId: option.value,
         name: user.username,
         leagueName: leagueData.leagueData?.title,
-        teamId: partyQueueTeam._id,
+        teamId: partyQueueTeam.teamId,
         leagueId: leagueData.leagueData?._id,
       })
     );

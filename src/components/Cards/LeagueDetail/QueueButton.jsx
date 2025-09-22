@@ -1,9 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  createPartyQueue,
   setQueueConfirmation,
-  setShowPartyQueuePopup,
-  setTeamFromQueue,
 } from "../../../app/slices/constState/constStateSlice";
 import {
   setQueuePlayers,
@@ -22,8 +19,8 @@ const GetQueueButton = () => {
   const { id } = useParams();
   const { leagueData, isJoinedUser, isQueueUser, isMatchJoind, userInQueue } =
     useSelector((state) => state.leagues);
-      const { showPartyQueuePopup } = useSelector((state) => state.constState);
-    
+  const { showPartyQueuePopup } = useSelector((state) => state.constState);
+
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
@@ -40,33 +37,33 @@ const GetQueueButton = () => {
 
   const handleQueueClick = async () => {
     try {
-      // setIsCheckingBan(true);
+      setIsCheckingBan(true);
 
-      // const banCheckResult = await dispatch(checkBannedUser()).unwrap();
-      // if (banCheckResult?.data.banMessage) {
-      //   setIsCheckingBan(false);
-      //   return;
-      // }
-
-      if (leagueData?.format == "party queue") {
-        dispatch(setShowPartyQueuePopup(true));
-        dispatch(setTeamFromQueue(true));
+      const banCheckResult = await dispatch(checkBannedUser()).unwrap();
+      if (banCheckResult?.data.banMessage) {
         setIsCheckingBan(false);
         return;
       }
 
-      // dispatch(setQueuePlayers(1));
-      // if (userInQueue) {
-      //   dispatch(setQueueConfirmation(true));
-      // } else {
-      //   if (localStorage.getItem("skipQueueConfirmation")) {
-      //     sessionStorage.setItem("canAccessFindingMatch", "true");
-      //     navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
-      //   } else {
-      //     dispatch(setQueueConfirmation(true));
-      //   }
+      // if (leagueData?.format == "party queue") {
+      //   dispatch(setShowPartyQueuePopup(true));
+      //   dispatch(setTeamFromQueue(true));
+      //   setIsCheckingBan(false);
+      //   return;
       // }
-      // setIsCheckingBan(false);
+
+      dispatch(setQueuePlayers(1));
+      if (userInQueue) {
+        dispatch(setQueueConfirmation(true));
+      } else {
+        if (localStorage.getItem("skipQueueConfirmation")) {
+          sessionStorage.setItem("canAccessFindingMatch", "true");
+          navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+        } else {
+          dispatch(setQueueConfirmation(true));
+        }
+      }
+      setIsCheckingBan(false);
     } catch (error) {
       setIsCheckingBan(false);
     }

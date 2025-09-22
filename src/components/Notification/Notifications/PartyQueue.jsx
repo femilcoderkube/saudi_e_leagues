@@ -11,9 +11,7 @@ const PartyQueue = ({ data }) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    let subject, body;
-    console.log("Notification Data:", data);
-    
+    let subject, body;    
     subject =
         i18n.language == "en"
             ? data.notificationId.Subject.toString().replace(`{PlayerName}`, data.extras.name)
@@ -39,7 +37,6 @@ const PartyQueue = ({ data }) => {
                 : data.notificationId.ActionButtonAr.toString(),
         isRead: data.isRead,
     };
-console.log("extras.expiry", data.extras.expiry);
 
     return (
         <div className="notification-box-wp relative polygon_border sd_before sd_after">

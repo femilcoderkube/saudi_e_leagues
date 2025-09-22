@@ -245,9 +245,7 @@ const constStateSlice = createSlice({
       // Accepts a boolean to set isRegisteration
       state.isRegisteration = !!action.payload;
     },
-    setPartyQueueTeam: (state, action) => {
-      console.log("action", action.payload);
-      
+    setPartyQueueTeam: (state, action) => {      
       state.partyQueueTeam = action.payload.data;
     },
   },
