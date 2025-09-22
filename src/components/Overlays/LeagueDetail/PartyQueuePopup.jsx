@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getServerURL } from "../../../utils/constant";
 import { toast } from "react-toastify";
 import {
+  fetchEligiblePlayers,
   fetchLeagueParticipants,
+  fetchLeagueParticipants2,
   sendInvite,
   setAllPlayers,
   setShowPartyQueuePopup,
@@ -18,22 +20,31 @@ function PartyQueuePopup() {
   const user = useSelector((state) => state.auth.user);
   const { allPlayers, invitedPlayers, partyQueueTeam, loading, teamFromQueue } =
     useSelector((state) => state.constState);
+  console.log(allPlayers, "alllll");
 
   const leagueData = useSelector((state) => state.leagues);
   const leagueId = leagueData?.leagueData?._id;
+  const draftId = leagueData?.leagueData?.draft?._id;
+  console.log(draftId, "this is draft id");
 
   const [invited, setInvited] = useState(invitedPlayers || []);
-  const maxPlayers = leagueData?.playersPerTeam || 10;
+  const maxPlayers = leagueData?.playersPerTeam || 100;
 
   useEffect(() => {
     if (leagueId && allPlayers.length === 0) {
-      dispatch(fetchLeagueParticipants({ leagueId, userId: user._id }));
+      dispatch(fetchLeagueParticipants2({ leagueId, userId: user._id }));
     }
   }, [leagueId]);
-  
+
   const handleClosePopup = () => {
     dispatch(setShowPartyQueuePopup(false));
   };
+
+  // useEffect(() => {
+  //   if (draftId) {
+  //     dispatch(fetchEligiblePlayers({ draftId }));
+  //   }
+  // }, [draftId, dispatch]);
 
   const availableOptions = useMemo(() => {
     return (
@@ -132,7 +143,7 @@ function PartyQueuePopup() {
           `}</style>
           {/* header */}
           <div className="flex justify-between items-center pb-5">
-            <h2 className="text-xl font-bold">Manage Queue</h2>
+            <h2 className="text-xl font-bold">Invite Players</h2>
             <button
               type="button"
               className="absolute right-2 text-gray-300 hover:text-white cursor-pointer"
@@ -153,153 +164,87 @@ function PartyQueuePopup() {
                 className="w-full p-3 rounded-lg bg-[radial-gradient(circle,rgba(45,46,109,0.8)_0%,rgba(34,35,86,0.8)_100%)] 
             shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset] text-white focus:outline-none mb-2"
                 // You may want to add value/onChange handlers as needed
-              />             
+              />
             </div>
           )}
 
+          {/* players container */}
           {/* players container */}
           <div className="flex-1 overflow-y-auto custom_scroll mb-3">
             <h3 className="text-lg font-medium text-white mb-5">
               Players ({invited.length + 1}/{maxPlayers})
             </h3>
             <div className="space-y-3 custom_scroll overflow-y-auto max-h-[41rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
-              <div className="flex items-center justify-between sm:gap-3 gap-2">
-                {/* current user card */}
-                <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
-                  <img
-                    src={IMAGES.defaultImg}
-                    alt=""
-                    className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
-                  />
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-white truncate w-full">
-                      {user?.firstName} {user?.lastName}
-                    </p>
-                    <p className="text-xs text-gray-400 truncate">
-                      @{user?.username}
-                    </p>
+              {/* Current user card */}
+
+              {/* Dynamic player cards from API */}
+              {allPlayers
+                .filter(
+                  (p) =>
+                    !invited.some(
+                      (inv) => String(inv.value) === String(p.userId._id)
+                    )
+                )
+                .map((player) => (
+                  <div
+                    key={player.userId._id}
+                    className="flex items-center justify-between sm:gap-3 gap-2"
+                  >
+                    <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
+                      <img
+                        src={
+                          getServerURL(player.userId.profilePicture) ||
+                          player.userId.profilePicture ||
+                          IMAGES.defaultImg
+                        }
+                        alt={`${player.userId.firstName} ${player.userId.lastName}`}
+                        className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                      />
+                      <div className="text-left">
+                        <p className="text-sm font-medium text-white truncate w-full">
+                          {player.userId.firstName} {player.userId.lastName}
+                        </p>
+                        <p className="text-xs text-gray-400 truncate">
+                          @{player.userId.username}
+                        </p>
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer"
+                        onClick={() =>
+                          handleInvite({
+                            value: player.userId._id,
+                            label: `${player.userId.firstName} ${player.userId.lastName}`,
+                            username: player.userId.username,
+                            avatar: player.userId.profilePicture,
+                          })
+                        }
+                      >
+                        Invite
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <button className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer">
-                    invite
-                  </button>
-                </div>
-              </div>
-              <div className="flex items-center justify-between sm:gap-3 gap-2">
-                {/* current user card */}
-                <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
-                  <img
-                    src={IMAGES.defaultImg}
-                    alt=""
-                    className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
-                  />
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-white truncate w-full">
-                      {user?.firstName} {user?.lastName}
-                    </p>
-                    <p className="text-xs text-gray-400 truncate">
-                      @{user?.username}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <button className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer">
-                    invite
-                  </button>
-                </div>
-              </div>
-              <div className="flex items-center justify-between sm:gap-3 gap-2">
-                {/* current user card */}
-                <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
-                  <img
-                    src={IMAGES.defaultImg}
-                    alt=""
-                    className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
-                  />
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-white truncate w-full">
-                      {user?.firstName} {user?.lastName}
-                    </p>
-                    <p className="text-xs text-gray-400 truncate">
-                      @{user?.username}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <button className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer">
-                    invite
-                  </button>
-                </div>
-              </div>
-              <div className="flex items-center justify-between sm:gap-3 gap-2">
-                {/* current user card */}
-                <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
-                  <img
-                    src={IMAGES.defaultImg}
-                    alt=""
-                    className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
-                  />
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-white truncate w-full">
-                      {user?.firstName} {user?.lastName}
-                    </p>
-                    <p className="text-xs text-gray-400 truncate">
-                      @{user?.username}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <button className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer">
-                    invite
-                  </button>
-                </div>
-              </div>
-              <div className="flex items-center justify-between sm:gap-3 gap-2">
-                {/* current user card */}
-                <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
-                  <img
-                    src={IMAGES.defaultImg}
-                    alt=""
-                    className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
-                  />
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-white truncate w-full">
-                      {user?.firstName} {user?.lastName}
-                    </p>
-                    <p className="text-xs text-gray-400 truncate">
-                      @{user?.username}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <button className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer">
-                    invite
-                  </button>
-                </div>
-              </div>
+                ))}
             </div>
           </div>
 
           {/* footer */}
           <div className="wizard_step--btn gap-5 flex justify-end mt-auto mb-6">
             <div className="game_status--tab wizard_btn flex justify-center gap-4">
-              <button
+              {/* <button
                 className="py-2 px-4 text-xl font-medium transition-all relative font_oswald hover:opacity-50 duration-300 cursor-pointer"
                 style={{ width: "8rem", height: "4rem" }}
                 onClick={() => dispatch(setShowPartyQueuePopup(false))}
               >
                 Cancel
-              </button>
+              </button> */}
               <button
                 className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border cursor-pointer"
                 style={{ width: "8rem", height: "4rem" }}
-                onClick={() => {
-                  // save to redux if needed
-                  dispatch(setShowPartyQueuePopup(false));
-                }}
+                onClick={handleClosePopup}
               >
-                Continue
+                Close
               </button>
             </div>
           </div>
