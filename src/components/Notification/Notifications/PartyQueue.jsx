@@ -16,12 +16,12 @@ const PartyQueue = ({ data }) => {
     
     subject =
         i18n.language == "en"
-            ? data.notificationId.Subject.toString()
-            : data.notificationId.SubjectAr.toString();
+            ? data.notificationId.Subject.toString().replace(`{PlayerName}`, data.extras.name)
+            : data.notificationId.SubjectAr.toString().replace(`{PlayerName}`, data.extras.name);
     body =
         i18n.language == "en"
             ? data.notificationId.Body.toString().replace(`{PlayerName}`, data.extras.name).replace(`{LeagueName}`, data.extras.leagueName) 
-            : data.notificationId.BodyAr.toString();
+            : data.notificationId.BodyAr.toString().replace(`{PlayerName}`, data.extras.name).replace(`{LeagueName}`, data.extras.leagueName) ;
 
     let imageUrl =
         data?.notificationId?.notificationtype === 12
@@ -39,6 +39,7 @@ const PartyQueue = ({ data }) => {
                 : data.notificationId.ActionButtonAr.toString(),
         isRead: data.isRead,
     };
+console.log("extras.expiry", data.extras.expiry);
 
     return (
         <div className="notification-box-wp relative polygon_border sd_before sd_after">
@@ -83,19 +84,47 @@ const PartyQueue = ({ data }) => {
                                     {t("images.skip")}
                                 </button>
                             )}
-                            <button
-                                className={`relative overflow-hidden pl-0 go-btn uppercase flex items-center justify-center gap-3 active-tab text-lg z-10 sleading-6 font_oswald font-medium w-[9.8rem] h-12 hover:opacity-70 duration-300 ${data.isRead ? "singleButton" : ""
-                                    }`}
-                                onClick={() => {
-                                    navigate(`/${id}/lobby/${data.extras.leagueId}`);
-                                    dispatch(acceptInvite({ userId: data.userId._id, leagueId: data.extras.leagueId, teamId: data.extras.teamId }));
-                                    readNotificationSocket(data._id);
-                                    dispatch(setshowNotification(false));
-                                    dispatch(setShowPartyQueuePopup(true))
-                                }}
-                            >
-                                {notificationData.buttonText}
-                            </button>
+                            {(() => {
+                                const currentTime = new Date();
+                                const expiryTime = data.extras.expiry ? new Date(data.extras.expiry) : null;
+                                const isExpired = expiryTime && expiryTime < currentTime;
+
+                                const baseClasses = `relative overflow-hidden pl-0 go-btn uppercase flex items-center justify-center gap-3 text-lg z-10 sleading-6 font_oswald font-medium w-[9.8rem] h-12 duration-300`;
+                                let dynamicClasses = "";
+
+                                if (isExpired) {
+                                    dynamicClasses += ` bg-red-500 cursor-not-allowed`;
+                                } else {
+                                    dynamicClasses += ` active-tab hover:opacity-70`;
+                                }
+
+                                if (data.isRead) {
+                                    dynamicClasses += ` singleButton`;
+                                }
+
+                                const buttonClasses = `${baseClasses} ${dynamicClasses}`;
+                                const buttonText = isExpired ? t("Expired") : notificationData.buttonText;
+
+                                const handleAcceptInvite = () => {
+                                    if (!isExpired) {
+                                        navigate(`/${id}/lobby/${data.extras.leagueId}`);
+                                        dispatch(acceptInvite({ userId: data.userId._id, leagueId: data.extras.leagueId, teamId: data.extras.teamId }));
+                                        readNotificationSocket(data._id);
+                                        dispatch(setshowNotification(false));
+                                        dispatch(setShowPartyQueuePopup(true));
+                                    }
+                                };
+
+                                return (
+                                    <button
+                                        className={buttonClasses}
+                                        onClick={handleAcceptInvite}
+                                        disabled={isExpired}
+                                    >
+                                        {buttonText}
+                                    </button>
+                                );
+                            })()}
                         </div>
                     </div>
                     <svg

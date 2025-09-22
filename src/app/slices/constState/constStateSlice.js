@@ -245,6 +245,11 @@ const constStateSlice = createSlice({
       // Accepts a boolean to set isRegisteration
       state.isRegisteration = !!action.payload;
     },
+    setPartyQueueTeam: (state, action) => {
+      console.log("action", action.payload);
+      
+      state.partyQueueTeam = action.payload.data;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -274,7 +279,6 @@ const constStateSlice = createSlice({
         state.loading = false;
         // ⚡ Only set allPlayers if not already filled (avoid reset on reopen)
         // if (state.allPlayers.length === 0) {
-          console.log("action.payload", action.payload);
 
           state.allPlayers = action.payload.result || [];
           state.totalPages = action.payload.totalPages;
@@ -334,7 +338,8 @@ export const {
   invitePlayer,
   removeInvitedPlayer,
   setShowPartyQueuePopup,
-  setTeamFromQueue
+  setTeamFromQueue,
+  setPartyQueueTeam
 } = constStateSlice.actions;
 
 export default constStateSlice.reducer;

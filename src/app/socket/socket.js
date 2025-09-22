@@ -17,7 +17,7 @@ import {
   setChatData,
   setmatchData,
 } from "../slices/MatchSlice/matchDetailSlice";
-import { setIsMatctCreated } from "../slices/constState/constStateSlice";
+import { setIsMatctCreated, setPartyQueueTeam } from "../slices/constState/constStateSlice";
 import {
   setLastMatch,
   setNotification,
@@ -89,6 +89,7 @@ export const SOCKET = {
   GETUSERQUEUE: "getUserQueue",
   QUEUEPLAYER: "queuePlayer",
   PREPAREQUEUEDATA: "prepareQueueData",
+  CREATE_PARTY: "createParty"
 };
 
 socket.connect();
@@ -206,6 +207,10 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         store.dispatch(setQueueData(data.data));
       }
     });
+    socket.on(SOCKET.CREATE_PARTY, (data) => {
+      console.log("DATA", data);
+      store.dispatch(setPartyQueueTeam(data));
+    });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
     startStarOfTheWeekSocket({
       lId: lId,
@@ -242,6 +247,7 @@ export function stopLeagueSocket(lId) {
   socket.off(SOCKET.PREPAREQUEUEDATA);
   socket.off(SOCKET.GETLEADERBOARD);
   socket.emit(SOCKET.LEAVELEAGUE, { Lid: lId })
+  socket.off(SOCKET.CREATE_PARTY);
 }
 export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {

@@ -5,7 +5,7 @@ import { IMAGES } from "../../ui/images/images";
 import { useDispatch, useSelector } from "react-redux";
 import { getServerURL } from "../../../utils/constant";
 import { toast } from "react-toastify";
-import { createPartyQueue, fetchLeagueParticipants, sendInvite, setAllPlayers, setShowPartyQueuePopup } from "../../../app/slices/constState/constStateSlice";
+import { fetchLeagueParticipants, sendInvite, setAllPlayers, setShowPartyQueuePopup } from "../../../app/slices/constState/constStateSlice";
 
 function PartyQueuePopup() {
   const dispatch = useDispatch();
@@ -18,12 +18,7 @@ function PartyQueuePopup() {
 
   const [invited, setInvited] = useState(invitedPlayers || []);
   const maxPlayers = leagueData?.playersPerTeam || 10;
-  
-  useEffect(() => {
-    if(teamFromQueue){
-      dispatch(createPartyQueue({ userId: user._id, leagueid: leagueId }));
-    }
-  }, [dispatch, leagueId, user]);
+
 
   useEffect(() => {
     if (leagueId && allPlayers.length === 0) {
@@ -55,7 +50,7 @@ function PartyQueuePopup() {
   }, [allPlayers, user]);
 
   // invite handler
-  const handleInvite = (option) => {
+  const handleInvite = (option) => {    
     if (!option) return;
     if (invited.some((p) => String(p.value) === String(option.value))) return;
     if (invited.length >= Math.max(0, maxPlayers - 1)) {
@@ -157,7 +152,6 @@ function PartyQueuePopup() {
               placeholder="Search players..."
               classNamePrefix="react-select"
               formatOptionLabel={formatOptionLabel}
-              menuIsOpen={true}
               menuPortalTarget={
                 typeof document !== "undefined" ? document.body : null
               }
