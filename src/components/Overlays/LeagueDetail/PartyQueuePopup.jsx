@@ -120,7 +120,7 @@ function PartyQueuePopup() {
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="bg-[#121331] manage-popup match_reg--popup sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[98vh] h-auto py-[3rem] overflow-x-hidden sm:p-6 px-4 overflow-y-auto custom_scroll"
+          className="bg-[#121331] manage-popup match_reg--popup sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[80vh] h-auto py-[3rem] overflow-x-hidden sm:p-6 px-4 overflow-y-auto custom_scroll"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
