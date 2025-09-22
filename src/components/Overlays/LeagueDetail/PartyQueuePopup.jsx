@@ -5,13 +5,19 @@ import { IMAGES } from "../../ui/images/images";
 import { useDispatch, useSelector } from "react-redux";
 import { getServerURL } from "../../../utils/constant";
 import { toast } from "react-toastify";
-import { fetchLeagueParticipants, sendInvite, setAllPlayers, setShowPartyQueuePopup } from "../../../app/slices/constState/constStateSlice";
+import {
+  fetchLeagueParticipants,
+  sendInvite,
+  setAllPlayers,
+  setShowPartyQueuePopup,
+} from "../../../app/slices/constState/constStateSlice";
 
 function PartyQueuePopup() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
-  const { allPlayers, invitedPlayers, partyQueueTeam, loading, teamFromQueue } = useSelector((state) => state.constState);
+  const { allPlayers, invitedPlayers, partyQueueTeam, loading, teamFromQueue } =
+    useSelector((state) => state.constState);
 
   const leagueData = useSelector((state) => state.leagues);
   const leagueId = leagueData?.leagueData?._id;
@@ -19,14 +25,18 @@ function PartyQueuePopup() {
   const [invited, setInvited] = useState(invitedPlayers || []);
   const maxPlayers = leagueData?.playersPerTeam || 10;
 
-
   useEffect(() => {
     if (leagueId && allPlayers.length === 0) {
       console.log("Dispatching fetchLeagueParticipants - popup opened");
       dispatch(fetchLeagueParticipants({ leagueId, userId: user._id }));
     }
+<<<<<<< Updated upstream
   }, [leagueId]);
   
+=======
+  }, [leagueId, allPlayers.length]);
+
+>>>>>>> Stashed changes
   const handleClosePopup = () => {
     dispatch(setShowPartyQueuePopup(false));
   };
@@ -49,7 +59,7 @@ function PartyQueuePopup() {
   }, [allPlayers, user]);
 
   // invite handler
-  const handleInvite = (option) => {    
+  const handleInvite = (option) => {
     if (!option) return;
     if (invited.some((p) => String(p.value) === String(option.value))) return;
     if (invited.length >= Math.max(0, maxPlayers - 1)) {
@@ -103,140 +113,177 @@ function PartyQueuePopup() {
     </div>
   );
 
-  if(loading) {
-    
+  if (loading) {
   }
   return (
     <>
-    <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"></div>
-    <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full">
-      {/* popup */}
-      <motion.div
-        initial={{ scale: 0.5, opacity: 0, y: 50 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.5, opacity: 0, y: 50 }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="bg-[#121331] manage-popup match_reg--popup h-full sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[85vh] py-[3rem] overflow-x-hidden sm:p-6 px-4 overflow-y-auto custom_scroll"
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}
-      >
-        <style jsx="true">{`
-          .custom_scroll::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
-        {/* header */}
-        <div className="flex justify-between items-center pb-5">
-          <h2 className="text-xl font-bold">Manage Queue</h2>
-          <button
-            type="button"
-            className="absolute right-2 text-gray-300 hover:text-white cursor-pointer"
-            onClick={handleClosePopup}
-          >
-            <svg width="18" height="18" fill="none" stroke="#7B7ED0">
-              <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Invite select */}
-        {invited.length < Math.max(0, maxPlayers - 1) && (
-          <div className="mb-3 ">
-            <Select
-              options={availableOptions}
-              isSearchable
-              isClearable
-              placeholder="Search players..."
-              classNamePrefix="react-select"
-              formatOptionLabel={formatOptionLabel}
-              menuPortalTarget={
-                typeof document !== "undefined" ? document.body : null
-              }
-              menuPosition="fixed"
-              styles={{
-                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                control: (base) => ({
-                  ...base,
-                  background: "rgba(255,255,255,0.06)",
-                  borderColor: "rgba(255,255,255,0.08)",
-                }),
-              }}
-            />
+      <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"></div>
+      <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full">
+        {/* popup */}
+        <motion.div
+          initial={{ scale: 0.5, opacity: 0, y: 50 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.5, opacity: 0, y: 50 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="bg-[#121331] manage-popup match_reg--popup h-full sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[85vh] py-[3rem] overflow-x-hidden sm:p-6 px-4 overflow-y-auto custom_scroll"
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
+        >
+          <style jsx="true">{`
+            .custom_scroll::-webkit-scrollbar {
+              display: none;
+            }
+          `}</style>
+          {/* header */}
+          <div className="flex justify-between items-center pb-5">
+            <h2 className="text-xl font-bold">Manage Queue</h2>
+            <button
+              type="button"
+              className="absolute right-2 text-gray-300 hover:text-white cursor-pointer"
+              onClick={handleClosePopup}
+            >
+              <svg width="18" height="18" fill="none" stroke="#7B7ED0">
+                <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />
+              </svg>
+            </button>
           </div>
-        )}
+
+          {/* Invite select */}
+          {invited.length < Math.max(0, maxPlayers - 1) && (
+            <div className="mb-3 ">
+              <input
+                type="text"
+                placeholder="Search players..."
+                className="w-full p-3 rounded-lg bg-[radial-gradient(circle,rgba(45,46,109,0.8)_0%,rgba(34,35,86,0.8)_100%)] 
+            shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset] text-white focus:outline-none mb-2"
+                // You may want to add value/onChange handlers as needed
+              />             
+            </div>
+          )}
 
           {/* players container */}
           <div className="flex-1 overflow-y-auto custom_scroll mb-3">
-            <h3 className="text-lg font-medium text-white mb-3">
+            <h3 className="text-lg font-medium text-white mb-5">
               Players ({invited.length + 1}/{maxPlayers})
             </h3>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {/* current user card */}
-              <div className="notification-box relative flex flex-col items-center p-3 rounded-lg">
-                <img
-                  src={getServerURL(user?.profilePicture) || IMAGES.defaultImg}
-                  alt={`${user?.firstName || "You"}`}
-                  className="w-12 h-12 rounded-full mb-2 object-cover"
-                />
-                <div className="text-center">
-                  <p className="text-sm font-medium text-white truncate w-full">
-                    {user?.firstName} {user?.lastName}
-                  </p>
-                  <p className="text-xs text-gray-400 truncate">
-                    @{user?.username}
-                  </p>
-                </div>
-              </div>
-
-              {/* invited players */}
-              {invited.map((p) => (
-                <div
-                  key={p.value}
-                  className="notification-box relative flex flex-col items-center p-3"
-                >
+            <div className="space-y-4 custom_scroll overflow-y-auto max-h-[22rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
+              <div className="flex items-center justify-between sm:gap-3 gap-2">
+                {/* current user card */}
+                <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
                   <img
-                    src={
-                      getServerURL(p.avatar) || p.avatar || IMAGES.defaultImg
-                    }
-                    alt={p.label}
-                    className="w-12 h-12 rounded-full mb-2 object-cover"
+                    src={IMAGES.defaultImg}
+                    alt=""
+                    className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
                   />
-                  <div className="text-center">
+                  <div className="text-left">
                     <p className="text-sm font-medium text-white truncate w-full">
-                      {p.label}
+                      {user?.firstName} {user?.lastName}
                     </p>
                     <p className="text-xs text-gray-400 truncate">
-                      @{p.username}
+                      @{user?.username}
                     </p>
                   </div>
-
-                  <button
-                    onClick={() => removePlayer(p.value)}
-                    className="absolute top-1 right-1 text-red-400 hover:text-red-300 text-sm"
-                  >
-                    ✕
+                </div>
+                <div>
+                  <button className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer">
+                    invite
                   </button>
                 </div>
-              ))}
-
-              {/* empty slots */}
-              {Array.from({
-                length: Math.max(0, maxPlayers - (invited.length + 1)),
-              }).map((_, idx) => (
-                <div
-                  key={`slot-${idx}`}
-                  className="notification-box flex flex-col items-center p-3"
-                >
-                  <div className="w-12 h-12 rounded-full mb-2 bg-[#ffffff10]" />
-                  <div className="text-center">
-                    <p className="text-sm text-gray-400">Empty</p>
-                    <p className="text-xs text-gray-500">Slot</p>
+              </div>
+              <div className="flex items-center justify-between sm:gap-3 gap-2">
+                {/* current user card */}
+                <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
+                  <img
+                    src={IMAGES.defaultImg}
+                    alt=""
+                    className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                  />
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-white truncate w-full">
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                    <p className="text-xs text-gray-400 truncate">
+                      @{user?.username}
+                    </p>
                   </div>
                 </div>
-              ))}
+                <div>
+                  <button className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer">
+                    invite
+                  </button>
+                </div>
+              </div>
+              <div className="flex items-center justify-between sm:gap-3 gap-2">
+                {/* current user card */}
+                <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
+                  <img
+                    src={IMAGES.defaultImg}
+                    alt=""
+                    className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                  />
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-white truncate w-full">
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                    <p className="text-xs text-gray-400 truncate">
+                      @{user?.username}
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <button className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer">
+                    invite
+                  </button>
+                </div>
+              </div>
+              <div className="flex items-center justify-between sm:gap-3 gap-2">
+                {/* current user card */}
+                <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
+                  <img
+                    src={IMAGES.defaultImg}
+                    alt=""
+                    className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                  />
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-white truncate w-full">
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                    <p className="text-xs text-gray-400 truncate">
+                      @{user?.username}
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <button className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer">
+                    invite
+                  </button>
+                </div>
+              </div>
+              <div className="flex items-center justify-between sm:gap-3 gap-2">
+                {/* current user card */}
+                <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
+                  <img
+                    src={IMAGES.defaultImg}
+                    alt=""
+                    className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                  />
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-white truncate w-full">
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                    <p className="text-xs text-gray-400 truncate">
+                      @{user?.username}
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <button className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer">
+                    invite
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
