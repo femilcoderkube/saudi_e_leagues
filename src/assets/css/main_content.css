@@ -956,6 +956,17 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   padding-left: 0;
 }
 
+.notification-box-btn button.expire-btn{
+  background: url(../images/expire-btn.png);
+  color: #DDDDDD;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.notification-box-btn button.expire-btn:after{
+  content: none;
+}
+
 .go-btn::after {
   content: "";
   position: absolute;
