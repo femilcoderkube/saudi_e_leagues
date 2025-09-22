@@ -96,12 +96,20 @@ import youtube from "../../../assets/images/youtube.png";
 
 import prime_icon from "../../../assets/images/prime_icon.svg";
 import discord from "../../../assets/images/discord.svg";
+import party_user from "../../../assets/images/party-user.png";
+import party_logout from "../../../assets/images/party-logout.png";
+import party_imogi from "../../../assets/images/party-imogi.png";
+import party_winner from "../../../assets/images/party-winner.png";
 
 export const IMAGES = {
   prime_icon,
   full_screen,
   discord_arrow,
   discord,
+  party_user,
+  party_logout,
+  party_imogi,
+  party_winner,
   exit_screen,
   cal_arrow,
   youtube,

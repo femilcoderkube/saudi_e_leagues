@@ -1375,6 +1375,13 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     margin-left: 0;
     margin-right: 6rem;
   }
+  .party-card-wp{
+    max-width: 7rem;
+  }
+
+  .party-card-wp .username{
+    font-size: 14px;
+  }
 }
 
 .react-pdf__Page {
@@ -1909,6 +1916,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     transform: scale(0.9);
     transform-origin: left center;
     flex-direction: row;
+  }
+  .party_container .grid{
+    grid-template-columns: repeat(2,1fr);
   }
 }
 
