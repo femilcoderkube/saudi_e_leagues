@@ -157,6 +157,7 @@ function PartyQueuePopup() {
               placeholder="Search players..."
               classNamePrefix="react-select"
               formatOptionLabel={formatOptionLabel}
+              menuIsOpen={true}
               menuPortalTarget={
                 typeof document !== "undefined" ? document.body : null
               }

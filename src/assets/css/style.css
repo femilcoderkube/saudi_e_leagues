@@ -952,7 +952,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 
 .react-select__menu-list.css-qr46ko {
   padding:0.125rem !important;
-  pointer-events: none !important;
+  /* pointer-events: none !important; */
 }
 
 .css-1nmdiq5-menu {
@@ -960,15 +960,19 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   box-shadow: 0 4px 24px 0 rgba(34, 35, 86, 0.5), 0 1.5px 6px 0 rgba(94, 95, 184, 0.5) inset !important;
 }
 
-.css-d7l1ni-option {
+.css-d7l1ni-option,.react-select__option--is-selected {
   background: linear-gradient(180deg,
       rgba(31, 34, 90, 1) 0%,
       rgba(16, 19, 63, 1) 100%) !important;
-      pointer-events: none !important;
+      /* pointer-events: none !important; */
 }
 
 .party-btn{
   clip-path: polygon(16% 0, 100% 1%, 100% 1%, 100% 82%, 85% 100%, 0 100%, 0 100%, 0 15%);
+}
+
+.react-select__value-container--has-value .react-select__single-value{
+  display: none !important;
 }
 /* Prty card popup End */
 

@@ -380,7 +380,7 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
     clip-path: url(#customClip);
     background: linear-gradient(to left, #6DB0FF -100%, #247CE3 100%);
     height: 8rem;
-    width: 22.51rem;
+    width: 100%;
 }
 
 .split_card-num::after {
@@ -413,13 +413,13 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
 .spilit-card-polygon::after {
     content: '';
     position: absolute;
-    width: 32%;
+    width: 33%;
     height: 0.25rem;
     clip-path: polygon(2% 100%, 0% 0%, 98% 0%, 100% 100%, 5% 100%);
     background: #108BF0;
     left: 1rem;
     bottom: 0;
-    z-index: 100;
+    z-index: 90;
 }
 
 /* Second card Start*/
@@ -630,6 +630,19 @@ html[dir="rtl"] .home_faq--sec {
     .htp_slider-sec .mySwiper {
         display: none;
     }
+
+    .spilit-card-polygon::after {
+        left: 0.5rem;
+    }
+
+    .split_card-num {
+        background: linear-gradient(to left, rgb(109 176 255 / 40%) -100%, rgb(36 124 227 / 40%) 100%);
+    }
+
+    .split_card--wrap-purple .split_card-num {
+        background: linear-gradient(to bottom, rgb(87 53 216 / 40%) 0%, rgb(84 51 191 / 40%) 100%);
+    }
+
 }
 
 @media (max-width: 991px) {
@@ -724,6 +737,10 @@ html[dir="rtl"] .home_faq--sec {
         max-width: 100%;
         flex: 1;
     }
+
+    .home_timecard {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 767px) {
@@ -808,6 +825,24 @@ html[dir="rtl"] .home_faq--sec {
         height: 3.25rem;
         clip-path: url(#customClipPathmob);
         background: linear-gradient(67.61deg, #434BE9 14.48%, #46B5F9 117.4%);
+    }
+
+    .split_card--body {
+        height: 17rem;
+    }
+
+    .spilit-img {
+        height: 18.5rem;
+    }
+
+    .split_card--wrap.polygon_border::before {
+        top: calc(50% + 2.15rem);
+        left: -1.7rem;
+        width: 3.4rem;
+    }
+
+    .split_card--wrap.polygon_border::after {
+        top: calc(50% + 2.8rem);
     }
 }
 
