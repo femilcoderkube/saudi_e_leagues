@@ -115,7 +115,7 @@ function PartyQueuePopup() {
             <h2 className="text-xl font-bold">{t("league.invite_players")}</h2>
             <button
               type="button"
-              className="absolute right-2 text-gray-300 hover:text-white cursor-pointer"
+              className="absolute ltr:right-2 rtl:left-3 text-gray-300 hover:text-white cursor-pointer"
               onClick={handleClosePopup}
             >
               <svg width="18" height="18" fill="none" stroke="#7B7ED0">
