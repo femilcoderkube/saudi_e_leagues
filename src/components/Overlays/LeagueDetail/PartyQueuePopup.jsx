@@ -156,9 +156,8 @@ function PartyQueuePopup() {
                         ) : (
                           <>
                             <div
+                              className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
                               style={{
-                                width: "2.25rem",
-                                height: "2.25rem",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -166,7 +165,6 @@ function PartyQueuePopup() {
                                 color: "#fff",
                                 fontWeight: "bold",
                                 fontSize: "1.5rem",
-                                borderRadius: "50%",
                               }}
                             >
                               {inv.username?.charAt(0)?.toUpperCase() || "?"}
@@ -235,18 +233,16 @@ function PartyQueuePopup() {
                         ) : (
                           <>
                             <div
-                              style={{
-                                width: "2.5rem",
-                                height: "2.5rem",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                background: getRandomColor(player.userId.username),
-                                color: "#fff",
-                                fontWeight: "bold",
-                                fontSize: "1.5rem",
-                                borderRadius: "50%",
-                              }}
+                               className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                               style={{
+                                 display: "flex",
+                                 alignItems: "center",
+                                 justifyContent: "center",
+                                 background: getRandomColor(player.userId.username),
+                                 color: "#fff",
+                                 fontWeight: "bold",
+                                 fontSize: "1.5rem",
+                               }}
                             >
                               {player.userId.username?.charAt(0)?.toUpperCase() || "?"}
                             </div>
@@ -290,7 +286,7 @@ function PartyQueuePopup() {
               {filteredPlayers.length > displayedPlayers.length && (
                 <div className="flex justify-center ">
                   <button
-                    className="px-8 text-white font-semibold rounded-lg transition-all  hover:opacity-80 "
+                    className="px-8 text-white font-semibold rounded-lg transition-all  hover:opacity-80 cursor-pointer"
                     onClick={handleLoadMore}
                   >
                     {t("lobby.load_more")}
