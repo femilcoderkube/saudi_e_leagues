@@ -130,7 +130,7 @@ function PartyQueuePopup() {
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="bg-[#121331] manage-popup match_reg--popup sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[80vh] h-auto py-[3rem] overflow-x-hidden sm:p-6 px-4 overflow-y-auto custom_scroll"
+          className="bg-[#121331] manage-popup match_reg--popup sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[90vh] h-auto py-[3rem] overflow-x-hidden sm:p-6 px-4"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
@@ -174,7 +174,7 @@ function PartyQueuePopup() {
             <h3 className="text-lg font-medium text-white mb-5">
               Players ({invited.length + 1}/{maxPlayers})
             </h3>
-            <div className="space-y-3 custom_scroll overflow-y-auto max-h-[41rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
+            <div className="space-y-3 custom_scroll overflow-y-auto max-h-[19rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
               {/* Current user card */}
 
               {/* Dynamic player cards from API */}
