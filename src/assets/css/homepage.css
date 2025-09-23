@@ -364,6 +364,10 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
     height: 20.1rem;
 }
 
+html[dir=rtl] .split_card--body {
+    clip-path: url(#splitcardclip1);
+}
+
 .spilit-grad {
     position: absolute;
     right: 0;
@@ -383,6 +387,11 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
     width: 100%;
 }
 
+html[dir=rtl] .split_card-num,
+html[dir=rtl] .split_card-num p {
+    transform: rotateY(180deg);
+}
+
 .split_card-num::after {
     content: '';
     position: absolute;
@@ -393,7 +402,8 @@ html[dir=rtl] .big-card .swiper-slide.swiper-slide-active .game_card_wrap--link 
     background: url('../images/spilit-shape.svg');
 }
 
-html[dir=rtl] .split_card-num::after,html[dir=rtl] .spilit-img {
+html[dir=rtl] .split_card-num::after,
+html[dir=rtl] .spilit-img {
     transform: rotateY(180deg);
 }
 
@@ -405,6 +415,12 @@ html[dir=rtl] .split_card-num::after,html[dir=rtl] .spilit-img {
     width: 4rem;
 }
 
+html[dir=rtl] .split_card--wrap.polygon_border::before {
+    left: auto;
+    right: -1.85rem;
+    transform: translateY(-50%) rotate(90deg);
+}
+
 .split_card--wrap.polygon_border::after {
     right: -1.18rem;
     left: auto;
@@ -412,6 +428,12 @@ html[dir=rtl] .split_card-num::after,html[dir=rtl] .spilit-img {
     transform: translateY(-50%) rotate(-90deg);
     background: #6B88C9;
     width: 2.51rem;
+}
+
+html[dir=rtl] .split_card--wrap.polygon_border::after{
+    right: auto;
+    left: -1.18rem;
+    transform: translateY(-50%) rotate(90deg);
 }
 
 .spilit-card-polygon::after {
@@ -424,6 +446,12 @@ html[dir=rtl] .split_card-num::after,html[dir=rtl] .spilit-img {
     left: 1rem;
     bottom: 0;
     z-index: 90;
+}
+
+html[dir=rtl] .spilit-card-polygon::after {
+    left: auto;
+    right: 1rem;
+    transform: rotateY(180deg);
 }
 
 /* Second card Start*/
@@ -639,6 +667,11 @@ html[dir="rtl"] .home_faq--sec {
         left: 0.5rem;
     }
 
+    html[dir=rtl] .spilit-card-polygon::after {
+        left: auto;
+        right: 0.5rem;
+    }
+
     .split_card-num {
         background: linear-gradient(to left, rgb(109 176 255 / 40%) -100%, rgb(36 124 227 / 40%) 100%);
     }
@@ -843,6 +876,11 @@ html[dir="rtl"] .home_faq--sec {
         top: calc(50% + 2.15rem);
         left: -1.7rem;
         width: 3.4rem;
+    }
+
+    html[dir=rtl] .split_card--wrap.polygon_border::before {
+        left: auto;
+        right: -1.7rem;
     }
 
     .split_card--wrap.polygon_border::after {
