@@ -338,7 +338,7 @@ const TournamentDetail = () => {
                                   <img src={IMAGES.discord} />
                                 </span>
                                 {t("tournament.discordsupport")}
-                                <span className="ml-auto icon-arrow-right text-[#A6B6C6]">
+                                <span className="ltr:ml-auto rtl:mr-auto icon-arrow-right text-[#A6B6C6] rtl:[transform:rotateY(180deg)]">
                                   <img src={IMAGES.discord_arrow} alt="" />
                                 </span>
                               </a>
@@ -350,7 +350,7 @@ const TournamentDetail = () => {
                                   <img src={IMAGES.rules_icon} alt="" />
                                 </span>
                                 {t("tournament.Rules_Regulations")}
-                                <span className="ml-auto icon-arrow-right text-[#A6B6C6]">
+                                <span className="ltr:ml-auto rtl:mr-auto icon-arrow-right text-[#A6B6C6] rtl:[transform:rotateY(180deg)]">
                                   <img src={IMAGES.discord_arrow} alt="" />
                                 </span>
                               </button>

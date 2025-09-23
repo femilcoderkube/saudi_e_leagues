@@ -200,7 +200,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   <p className="text-base font-semibold text-[#BABBFF] group-hover:text-white transition-colors duration-200">
                     {item.label}
                   </p>
-                  <p className="text-xs text-[#7B7ED0] uppercase tracking-wide mt-1 capitalize">
+                  <p className="text-xs text-[#7B7ED0] uppercase tracking-wide mt-1">
                     {section}
                   </p>
                 </span>
@@ -232,7 +232,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             damping: 25,
             stiffness: 300,
           }}
-          className="bg-gradient-to-br from-[#121331] via-[#151642] to-[#0f0f2a] manage-popup match_reg--popup h-full sd_before sd_after text-white rounded-2xl w-full max-w-2xl relative max-h-[90vh] py-8 overflow-x-hidden px-6 overflow-y-auto custom_scroll border-2 border-[#393B7A] shadow-2xl shadow-black/50"
+          className="bg-gradient-to-br from-[#121331] via-[#151642] to-[#0f0f2a] manage-popup match_reg--popup h-auto sd_before sd_after text-white rounded-2xl w-full max-w-2xl relative max-h-[90vh] py-8 overflow-x-hidden px-6 overflow-y-auto custom_scroll border-2 border-[#393B7A] shadow-2xl shadow-black/50"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           <style jsx="true">{`
@@ -285,17 +285,17 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
           {/* Enhanced Footer */}
           <div className="wizard_step--btn gap-6 flex justify-end mt-8 pt-8 border-t-2 border-[#393B7A]">
-            <div className="game_status--tab wizard_btn flex items-center gap-4">
+            <div className="game_status--tab wizard_btn flex flex-wrap items-center gap-4">
               <button
                 onClick={onClose}
                 className="py-3 px-8 text-lg font-medium transition-all relative font_oswald hover:bg-[#2D2E6D] duration-300 cursor-pointer text-[#BABBFF] border-2 border-[#393B7A] rounded-xl hover:border-[#5759c7] hover:text-white"
-                style={{ minWidth: "120px", height: "50px" }}
+                style={{ minWidth: "8rem", height: "4rem" }}
               >
                 {t("tournament.cancel")}
               </button>
               <button
-                className="py-3 px-8 text-lg font-medium transition-all sd_after sd_before relative font_oswald hover:shadow-lg hover:shadow-[#5759c7]/30 active-tab duration-300 polygon_border cursor-pointer bg-gradient-to-r from-[#5759c7] to-[#7b7ed0] rounded-xl border-2 border-transparent hover:from-[#6b6bd4] hover:to-[#8a8ae0] text-white font-semibold"
-                style={{ minWidth: "120px", height: "50px" }}
+                className="py-3 px-8 text-lg font-medium transition-all sd_after sd_before relative font_oswald hover:shadow-lg hover:shadow-[#5759c7]/30 active-tab duration-300 polygon_border cursor-pointer bg-gradient-to-r from-[#5759c7] to-[#7b7ed0] rounded-xl border-2 border-transparent hover:from-[#6b6bd4] hover:to-[#8a8ae0] text-white"
+                style={{ minWidth: "8rem", height: "4rem" }}
               >
                 {t("tournament.confirm")}
               </button>
