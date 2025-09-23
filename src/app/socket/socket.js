@@ -89,7 +89,8 @@ export const SOCKET = {
   GETUSERQUEUE: "getUserQueue",
   QUEUEPLAYER: "queuePlayer",
   PREPAREQUEUEDATA: "prepareQueueData",
-  CREATE_PARTY: "createParty"
+  CREATE_PARTY: "createParty",
+  PARTYUPDATEDATA: "partyUpdateData"
 };
 
 socket.connect();
@@ -208,7 +209,6 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
     });
     socket.on(SOCKET.CREATE_PARTY, (data) => {
-      console.log("DATA", data);
       store.dispatch(setPartyQueueTeam(data));
     });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
@@ -241,6 +241,9 @@ export function startGetQueuePlayers() {
       store.dispatch(setQueuePlayers(data.count));
     }
   });
+}
+export function getPartyQueueUpdate(Lid, userId) {
+  socket.emit(SOCKET.PARTYUPDATEDATA, { Lid, userId });
 }
 export function stopLeagueSocket(lId) {
   socket.off(SOCKET.LEAGUEUPDATE);

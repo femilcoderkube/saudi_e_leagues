@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getServerURL, getTimeAgo } from "../../../utils/constant";
 import { acceptInvite, setshowNotification, setShowPartyQueuePopup } from "../../../app/slices/constState/constStateSlice";
-import { readNotificationSocket } from "../../../app/socket/socket";
+import { getPartyQueueUpdate, readNotificationSocket } from "../../../app/socket/socket";
 import { IMAGES } from "../../ui/images/images";
 
 const PartyQueue = ({ data }) => {
@@ -90,7 +90,7 @@ const PartyQueue = ({ data }) => {
                                 let dynamicClasses = "";
 
                                 if (isExpired) {
-                                    dynamicClasses += ` bg-red-500 cursor-not-allowed`;
+                                    dynamicClasses += `expire-btn cursor-not-allowed`;
                                 } else {
                                     dynamicClasses += ` active-tab hover:opacity-70`;
                                 }
@@ -108,7 +108,8 @@ const PartyQueue = ({ data }) => {
                                         dispatch(acceptInvite({ userId: data.userId._id, leagueId: data.extras.leagueId, teamId: data.extras.teamId }));
                                         readNotificationSocket(data._id);
                                         dispatch(setshowNotification(false));
-                                        dispatch(setShowPartyQueuePopup(true));
+                                        // dispatch(setShowPartyQueuePopup(true));
+                                        getPartyQueueUpdate({Lid: data.extras.leagueId, userId: data.userId._id})
                                     }
                                 };
 

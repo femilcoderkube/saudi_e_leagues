@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { IMAGES } from "../../ui/images/images";
 import { setShowPartyQueuePopup } from "../../../app/slices/constState/constStateSlice";
-import { useEffect } from "react";
+import { getServerURL } from "../../../utils/constant";
+import { getSmile } from "../MatchDetail/matchCards";
 
 const PartyQueueBanner = () => {
   const { leagueData } = useSelector((state) => state.leagues);
@@ -14,11 +15,9 @@ const PartyQueueBanner = () => {
       dispatch(setShowPartyQueuePopup(true));
     }
   }
-  console.log(partyQueueTeam, "partyQueueTeam");
   if (leagueData?.format != "party queue") {
     return;
   }
-  
   return (
     <>
       <div className="rounded-xl overflow-hidden bg-[linear-gradient(180deg,rgba(34,35,86,0.2)_0%,rgba(34,35,86,0.2)_100%)] text-white mb-10">
@@ -43,15 +42,15 @@ const PartyQueueBanner = () => {
               <div className="flex items-center gap-3 mb-2">
                 <div className="relative">
                   <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full bg-[#0a0c32]">
-                    <img className="w-4 h-4" src={IMAGES.party_imogi} alt="" />
+                    <img className="w-4 h-4" src={getSmile(partyQueueTeam?.creator?.wilsonScore || 0)} alt="" />
                   </sub>
                   <img
                     className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
-                    src={IMAGES.defaultImg}
+                    src={getServerURL(partyQueueTeam?.creator?.userId?.profilePicture || IMAGES.defaultImg)}                    
                     alt=""
                   />
                 </div>
-                <div className="text-xl font-bold text-white">150</div>
+                <div className="text-xl font-bold text-white">{partyQueueTeam?.creator?.totalLeaguesScore || 0}</div>
               </div>
               <div className="flex items-center gap-1 mb-1">
                 <img src={IMAGES.party_winner} alt="" />
@@ -59,82 +58,35 @@ const PartyQueueBanner = () => {
                   Prime Name
                 </span>
               </div>
-              <span className="text-sm font-medium text-[#FFD0AF]">
+              {/* <span className="text-sm font-medium text-[#FFD0AF]">
                 @ps5 ID
-              </span>
+              </span> */}
             </div>
-            <div className="party-card-wp mx-auto">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="relative">
-                  <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full bg-[#0a0c32]">
-                    <img className="w-4 h-4" src={IMAGES.party_imogi} alt="" />
-                  </sub>
-                  <img
-                    className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
-                    src={IMAGES.defaultImg}
-                    alt=""
-                  />
+            {partyQueueTeam?.players && partyQueueTeam?.players.map((player) => (
+              <div className="party-card-wp mx-auto" key={player.userId._id}>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="relative">
+                    <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full bg-[#0a0c32]">
+                      <img className="w-4 h-4" src={getSmile(player.wilsonScore || 0)} alt="" />
+                    </sub>
+                    <img
+                      className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
+                      src={getServerURL(player.userId.profilePicture || IMAGES.defaultImg)}
+                      alt={player.userId.username}
+                    />
+                  </div>
+                  <div className="text-xl font-bold text-white">{player.totalLeaguesScore || 0}</div>
                 </div>
-                <div className="text-xl font-bold text-white">150</div>
-              </div>
-              <div className="flex items-center gap-1 mb-1">
-                {/* <img src={IMAGES.party_winner} alt="" /> */}
-                <span className="username font-bold text-base text-[#F4F7FF]">
-                  Prime Name
-                </span>
-              </div>
-              <span className="text-sm font-medium text-[#FFD0AF]">
-                @ps5 ID
-              </span>
-            </div>
-            <div className="party-card-wp mx-auto">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="relative">
-                  <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full bg-[#0a0c32]">
-                    <img className="w-4 h-4" src={IMAGES.party_imogi} alt="" />
-                  </sub>
-                  <img
-                    className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
-                    src={IMAGES.defaultImg}
-                    alt=""
-                  />
+                <div className="flex items-center gap-1 mb-1">
+                  <span className="username font-bold text-base text-[#F4F7FF]">
+                    {player.userId.username}
+                  </span>
                 </div>
-                <div className="text-xl font-bold text-white">150</div>
+                {/* <span className="text-sm font-medium text-[#FFD0AF]">
+                  @{player.userId.username}
+                </span> */}
               </div>
-              <div className="flex items-center gap-1 mb-1">
-                {/* <img src={IMAGES.party_winner} alt="" /> */}
-                <span className="username font-bold text-base text-[#F4F7FF]">
-                  Prime Name
-                </span>
-              </div>
-              <span className="text-sm font-medium text-[#FFD0AF]">
-                @ps5 ID
-              </span>
-            </div>
-            <div className="party-card-wp mx-auto">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="relative">
-                  <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full bg-[#0a0c32]">
-                    <img className="w-4 h-4" src={IMAGES.party_imogi} alt="" />
-                  </sub>
-                  <img
-                    className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
-                    src={IMAGES.defaultImg}
-                    alt=""
-                  />
-                </div>
-                <div className="text-xl font-bold text-white">150</div>
-              </div>
-              <div className="flex items-center gap-1 mb-1">
-                {/* <img src={IMAGES.party_winner} alt="" /> */}
-                <span className="username font-bold text-base text-[#F4F7FF]">
-                  Prime Name
-                </span>
-              </div>
-              <span className="text-sm font-medium text-[#FFD0AF]">
-                @ps5 ID
-              </span>
-            </div>
+            ))}
             <div className="party-card-wp mx-auto">
               <div className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] bg-[linear-gradient(180deg,rgba(33,36,92,0.7)_0%,rgba(17,18,60,0.7)_100%)] shadow-[inset_0px_4px_4px_0px_#5472880A] backdrop-blur-[24px] cursor-pointer"
                 onClick={openPopup}>

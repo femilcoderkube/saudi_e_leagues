@@ -100,10 +100,10 @@ export const fetchLeagueParticipants = createAsyncThunk(
 
 export const fetchLeagueParticipants2 = createAsyncThunk(
   "const/fetchLeagueParticipants",
-  async ({ leagueId, userId }, { rejectWithValue }) => {
+  async ({ leagueId, userId, searchKey }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/LeaguesParticipants/party", {
-        params: { leagueId, userId },
+        params: { leagueId, userId, searchKey },
       });
       return response.data.data;
     } catch (error) {
@@ -150,11 +150,8 @@ export const acceptInvite = createAsyncThunk(
           teamId,
         }
       );
-      console.log("ACCEPT invite response:", response);
-
       return response.data;
     } catch (error) {
-      console.error("Accept invite error:", error);
       return rejectWithValue(
         error.response?.data?.message || "Failed to Accept invite"
       );
@@ -313,17 +310,11 @@ const constStateSlice = createSlice({
       })
       .addCase(createPartyQueue.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("action.payloadWWWWWW", action.payload);
-
         state.partyQueueTeam = action.payload;
-        // toast.success("Party queue created successfully");
       })
       .addCase(createPartyQueue.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        console.log("action.payload", action.payload);
-
-        // toast.error(action.payload || "Failed to create party queue");
       })
       .addCase(fetchLeagueParticipants.pending, (state) => {
         state.loading = true;
@@ -331,9 +322,7 @@ const constStateSlice = createSlice({
       })
       .addCase(fetchLeagueParticipants.fulfilled, (state, action) => {
         state.loading = false;
-        // ⚡ Only set allPlayers if not already filled (avoid reset on reopen)
         // if (state.allPlayers.length === 0) {
-
         state.allPlayers = action.payload.result || [];
         state.totalPages = action.payload.totalPages;
         state.totalItems = action.payload.totalItem;
@@ -346,17 +335,13 @@ const constStateSlice = createSlice({
       .addCase(sendInvite.pending, (state) => {
         state.loading = true;
         state.error = null;
-        // state.inviteStatus = null;
       })
       .addCase(sendInvite.fulfilled, (state, action) => {
         state.loading = false;
-        // state.inviteStatus = "success";
-        // toast can be called in component
       })
       .addCase(sendInvite.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        // state.inviteStatus = "error";
       })
       .addCase(fetchEligiblePlayers.pending, (state) => {
         state.loading = true;

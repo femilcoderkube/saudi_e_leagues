@@ -1,16 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import Select from "react-select";
-import { IMAGES } from "../../ui/images/images";
 import { useDispatch, useSelector } from "react-redux";
 import { getServerURL } from "../../../utils/constant";
 import { toast } from "react-toastify";
 import {
-  fetchEligiblePlayers,
-  fetchLeagueParticipants,
   fetchLeagueParticipants2,
   sendInvite,
-  setAllPlayers,
   setShowPartyQueuePopup,
 } from "../../../app/slices/constState/constStateSlice";
 
@@ -18,33 +13,31 @@ function PartyQueuePopup() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
-  const { allPlayers, invitedPlayers, partyQueueTeam, loading, teamFromQueue } =
-    useSelector((state) => state.constState);
-  console.log(allPlayers, "alllll");
-
+  const { allPlayers, invitedPlayers, partyQueueTeam } = useSelector((state) => state.constState);
   const leagueData = useSelector((state) => state.leagues);
-  const leagueId = leagueData?.leagueData?._id;
-  const draftId = leagueData?.leagueData?.draft?._id;
-  console.log(draftId, "this is draft id");
-
+  
   const [invited, setInvited] = useState(invitedPlayers || []);
-  const maxPlayers = leagueData?.playersPerTeam || 100;
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  const leagueId = leagueData?.leagueData?._id;
+  const maxPlayers = leagueData?.leagueData?.playersPerTeam || 100;
 
   useEffect(() => {
-    if (leagueId && allPlayers.length === 0) {
-      dispatch(fetchLeagueParticipants2({ leagueId, userId: user._id }));
+    if (leagueId) {
+      // Debounce the API call to prevent excessive requests on every keystroke
+      const handler = setTimeout(() => {
+        dispatch(fetchLeagueParticipants2({ leagueId, userId: user._id, searchKey: searchQuery}));
+      }, 300); // Adjust debounce time as needed (e.g., 300ms)
+
+      return () => {
+        clearTimeout(handler);
+      };
     }
-  }, [leagueId]);
+  }, [leagueId, searchQuery]);
 
   const handleClosePopup = () => {
     dispatch(setShowPartyQueuePopup(false));
   };
-
-  // useEffect(() => {
-  //   if (draftId) {
-  //     dispatch(fetchEligiblePlayers({ draftId }));
-  //   }
-  // }, [draftId, dispatch]);
 
   const availableOptions = useMemo(() => {
     return (
@@ -63,7 +56,6 @@ function PartyQueuePopup() {
     );
   }, [allPlayers, user]);
 
-  // invite handler
   const handleInvite = (option) => {
     if (!option) return;
     if (invited.some((p) => String(p.value) === String(option.value))) return;
@@ -90,36 +82,6 @@ function PartyQueuePopup() {
     toast.info("Player removed");
   };
 
-  // format dropdown option with Invite button
-  const formatOptionLabel = (option) => (
-    <div className="flex items-center justify-between w-full">
-      <div className="flex items-center gap-3">
-        <img
-          src={
-            getServerURL(option.avatar) || option.avatar || IMAGES.defaultImg
-          }
-          alt={option.label}
-          className="w-8 h-8 rounded-full object-cover"
-        />
-        <div className="leading-tight">
-          <div className="text-sm text-white">{option.label}</div>
-          <div className="text-xs text-gray-400">@{option.username}</div>
-        </div>
-      </div>
-      <button
-        className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] !pointer-events-auto cursor-pointer"
-        onClick={(e) => {
-          e.stopPropagation(); // prevent dropdown from auto-selecting
-          handleInvite(option);
-        }}
-      >
-        Invite
-      </button>
-    </div>
-  );
-
-  if (loading) {
-  }
   return (
     <>
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"></div>
@@ -163,7 +125,8 @@ function PartyQueuePopup() {
                 placeholder="Search players..."
                 className="w-full p-3 rounded-lg bg-[radial-gradient(circle,rgba(45,46,109,0.8)_0%,rgba(34,35,86,0.8)_100%)] 
             shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset] text-white focus:outline-none mb-2"
-                // You may want to add value/onChange handlers as needed
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           )}
@@ -172,7 +135,7 @@ function PartyQueuePopup() {
           {/* players container */}
           <div className="flex-1 overflow-y-auto custom_scroll mb-3">
             <h3 className="text-lg font-medium text-white mb-5">
-              Players ({invited.length + 1}/{maxPlayers})
+              Players ({partyQueueTeam?.players?.length + 1}/{maxPlayers})
             </h3>
             <div className="space-y-3 custom_scroll overflow-y-auto max-h-[19rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
               {/* Current user card */}
@@ -193,10 +156,7 @@ function PartyQueuePopup() {
                     <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
                       <img
                         src={
-                          getServerURL(player.userId.profilePicture) ||
-                          player.userId.profilePicture ||
-                          IMAGES.defaultImg
-                        }
+                          getServerURL(player?.userId?.profilePicture)}
                         alt={`${player.userId.firstName} ${player.userId.lastName}`}
                         className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
                       />
