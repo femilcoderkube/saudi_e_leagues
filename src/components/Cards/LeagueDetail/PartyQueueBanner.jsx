@@ -19,6 +19,7 @@ const PartyQueueBanner = () => {
       dispatch(setShowPartyQueuePopup(true));
     }
   };
+  console.log("partyQueueTeam", partyQueueTeam);
 
   const maxPlayers = leagueData?.playersPerTeam;
   if (leagueData?.format != "party queue" || !user || !partyQueueTeam) {
@@ -62,7 +63,7 @@ const PartyQueueBanner = () => {
                     className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
                     src={getServerURL(
                       partyQueueTeam?.creator?.userId?.profilePicture ||
-                        IMAGES.defaultImg
+                      IMAGES.defaultImg
                     )}
                     alt=""
                   />

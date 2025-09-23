@@ -1,10 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setConfirmationPopUp } from "../../app/slices/constState/constStateSlice";
-import { cancelMatch, getUpdateToken } from "../../app/socket/socket";
+import { cancelMatch, getUpdateToken, leavePartySocket } from "../../app/socket/socket";
 import { motion } from "framer-motion";
 import { deleteFcmToken, logout } from "../../app/slices/auth/authSlice";
 import { IMAGES } from "../ui/images/images";
+import { useParams } from "react-router-dom";
 
 function ConfirmationPopUp({
   onPlayerSelect,
@@ -16,9 +17,16 @@ function ConfirmationPopUp({
   const { confirmationPopUp, selectedPlayerData } = useSelector(
     (state) => state.constState
   );
+  const { lId } = useParams();
+  const { user } = useSelector((state) => state.auth);
   const { matchData, myPId } = useSelector((state) => state.matchs);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const payload = {
+    userId: user._id,
+    Lid: lId
+  }
 
   const handleOnClick = () => {
     if (confirmationPopUp == 1) {
@@ -58,6 +66,10 @@ function ConfirmationPopUp({
         onDeleteAccount();
       }
     }
+    if (confirmationPopUp == 5) {
+      dispatch(leavePartySocket({ payload }));
+      dispatch(setConfirmationPopUp(0));
+    }
   };
 
   const getConfirmationTitle = () => {
@@ -72,9 +84,8 @@ function ConfirmationPopUp({
 
   const getConfirmationMessage = () => {
     if (confirmationPopUp == 3 && selectedPlayerData) {
-      return `${t("confirmation.confirmplayerselectionMessage")} ${
-        selectedPlayerData?.username || t("confirmation.thisplayer")
-      }?`;
+      return `${t("confirmation.confirmplayerselectionMessage")} ${selectedPlayerData?.username || t("confirmation.thisplayer")
+        }?`;
     }
     if (confirmationPopUp == 4) {
       return t("confirmation.deleteAccountMessage");

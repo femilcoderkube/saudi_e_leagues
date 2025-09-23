@@ -90,7 +90,10 @@ export const SOCKET = {
   QUEUEPLAYER: "queuePlayer",
   PREPAREQUEUEDATA: "prepareQueueData",
   CREATE_PARTY: "createParty",
-  PARTYUPDATEDATA: "partyUpdateData"
+  PARTYUPDATEDATA: "partyUpdateData",
+  LEAVEPARTY: "leaveParty",
+  JOINTEAMROOM: "joinTeamRoom",
+  LEAVETEAMROOM: "leaveTeamRoom"
 };
 
 socket.connect();
@@ -209,6 +212,19 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
     });
     socket.on(SOCKET.CREATE_PARTY, (data) => {
+      // data shape: { status, data: { teamId, creator, players } | null }
+      try {
+        const teamData = data?.data;
+        if (teamData?.teamId) {
+          attachTeam(teamData.teamId);
+        } else {
+          // party cleared, leave any previous team room
+          if (currentTeamId) {
+            socket.emit(SOCKET.LEAVETEAMROOM, { teamId: currentTeamId });
+            currentTeamId = null;
+          }
+        }
+      } catch (_) { }
       store.dispatch(setPartyQueueTeam(data));
     });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
@@ -251,6 +267,11 @@ export function stopLeagueSocket(lId) {
   socket.off(SOCKET.GETLEADERBOARD);
   socket.emit(SOCKET.LEAVELEAGUE, { Lid: lId })
   socket.off(SOCKET.CREATE_PARTY);
+  // ensure we leave any active team room when leaving league context
+  if (currentTeamId) {
+    socket.emit(SOCKET.LEAVETEAMROOM, { teamId: currentTeamId });
+    currentTeamId = null;
+  }
 }
 export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
@@ -287,6 +308,9 @@ export function joinLeagueSocket({ isSocketConnected, payload }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.LEAGUEJOIN, payload);
   store.dispatch(setRegistrationModal(false));
+}
+export function leavePartySocket({ payload }) {
+  socket.emit(SOCKET.LEAVEPARTY, payload);
 }
 export function startMatchUpdate(mId, user) {
   socket.on(SOCKET.MATCHUPDATE, (data) => {
@@ -409,3 +433,19 @@ export const joinUserRoom = () => {
     console.error("Error parsing user from localStorage:", error);
   }
 };
+
+// team room membership handling
+let currentTeamId = null;
+export function attachTeam(teamId) {
+  try {
+    if (currentTeamId && currentTeamId !== teamId) {
+      socket.emit(SOCKET.LEAVETEAMROOM, { teamId: currentTeamId });
+    }
+    currentTeamId = teamId || null;
+    if (teamId) {
+      socket.emit(SOCKET.JOINTEAMROOM, { teamId });
+    }
+  } catch (error) {
+    console.error("attachTeam error:", error);
+  }
+}
