@@ -46,7 +46,7 @@ const PartyQueueBanner = () => {
                   </sub>
                   <img
                     className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
-                    src={getServerURL(partyQueueTeam?.creator?.userId?.profilePicture || IMAGES.defaultImg)}                    
+                    src={getServerURL(partyQueueTeam?.creator?.userId?.profilePicture || IMAGES.defaultImg)}
                     alt=""
                   />
                 </div>
@@ -55,7 +55,7 @@ const PartyQueueBanner = () => {
               <div className="flex items-center gap-1 mb-1">
                 <img src={IMAGES.party_winner} alt="" />
                 <span className="username font-bold text-base text-[#F4F7FF]">
-                  Prime Name
+                  {partyQueueTeam?.creator?.userId.username}
                 </span>
               </div>
               {/* <span className="text-sm font-medium text-[#FFD0AF]">

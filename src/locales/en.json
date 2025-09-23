@@ -176,7 +176,12 @@
     "ends": "Ends:",
     "checkingBan": "Checking...",
     "yourteam": "Your Team",
-    "about_tournament": "About Tournament"
+    "about_tournament": "About Tournament",
+    "invite_players": "Invite Players",
+    "search_players": "Search players by username...",
+    "recent_invites": "Recent invites",
+    "players": "Players",
+    "close": "Close"
   },
   "match": {
     "finding_matchmaking": "Finding Matchmaking",

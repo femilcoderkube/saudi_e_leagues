@@ -43,6 +43,7 @@ const initialState = {
   allPlayers: [],
   partyQueueTeam: null,
   teamFromQueue: false,
+  recentInvites: [],
 };
 
 export const createPartyQueue = createAsyncThunk(
@@ -84,26 +85,10 @@ export const fetchEligiblePlayers = createAsyncThunk(
 
 export const fetchLeagueParticipants = createAsyncThunk(
   "const/fetchLeagueParticipants",
-  async ({ leagueId, userId, page = 1, limit = 10 }, { rejectWithValue }) => {
+  async ({ leagueId, userId }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/LeaguesParticipants/party", {
-        params: { leagueId, userId, page, limit },
-      });
-      return response.data.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch participants"
-      );
-    }
-  }
-);
-
-export const fetchLeagueParticipants2 = createAsyncThunk(
-  "const/fetchLeagueParticipants",
-  async ({ leagueId, userId, searchKey }, { rejectWithValue }) => {
-    try {
-      const response = await axiosInstance.get("/LeaguesParticipants/party", {
-        params: { leagueId, userId, searchKey },
+        params: { leagueId, userId },
       });
       return response.data.data;
     } catch (error) {
@@ -165,12 +150,6 @@ const constStateSlice = createSlice({
     setAllPlayers: (state, action) => {
       state.allPlayers = action.payload;
     },
-    // invitePlayer: (state, action) => {
-    //   // prevent duplicates
-    //   if (!state.invitedPlayers.find(p => p.id === action.payload.id)) {
-    //     state.invitedPlayers.push(action.payload);
-    //   }
-    // },
     invitePlayer: (state, action) => {
       const player = action.payload;
       if (
@@ -182,11 +161,6 @@ const constStateSlice = createSlice({
         );
       }
     },
-    // removeInvitedPlayer: (state, action) => {
-    //   state.invitedPlayers = state.invitedPlayers.filter(
-    //     (p) => p.id !== action.payload
-    //   );
-    // },
     removeInvitedPlayer: (state, action) => {
       const playerId = action.payload;
       const player = state.invitedPlayers.find(
@@ -338,6 +312,33 @@ const constStateSlice = createSlice({
       })
       .addCase(sendInvite.fulfilled, (state, action) => {
         state.loading = false;
+        // Maintain a local list of the last 5 invites (in memory only)
+        const args = action.meta?.arg || {};
+        const invitedUserId = args.userId;
+        const invitedUser = state.allPlayers.find(
+          (p) => p?.userId?._id === invitedUserId
+        );
+
+        const inviteEntry = {
+          userId: invitedUserId,
+          label: invitedUser
+            ? `${invitedUser.userId.firstName} ${invitedUser.userId.lastName}`
+            : undefined,
+          username: invitedUser?.userId?.username,
+          avatar: invitedUser?.userId?.profilePicture,
+          invitedAt: Date.now(),
+        };
+
+        // Remove if already exists
+        state.recentInvites = state.recentInvites.filter(
+          (i) => i.userId !== invitedUserId
+        );
+        // Add to front
+        state.recentInvites.unshift(inviteEntry);
+        // Cap at 5
+        if (state.recentInvites.length > 5) {
+          state.recentInvites = state.recentInvites.slice(0, 5);
+        }
       })
       .addCase(sendInvite.rejected, (state, action) => {
         state.loading = false;

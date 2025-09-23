@@ -11,7 +11,7 @@ import {
   formatAmountWithCommas,
   getServerURL,
 } from "../../utils/constant.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import LeagueRegistration from "../../components/Overlays/LeagueDetail/LeagueRegistration.jsx";
@@ -29,6 +29,7 @@ import Table from "../../components/Loddy/LeaderBoard/Table";
 import GetQueueButton from "../../components/Cards/LeagueDetail/QueueButton.jsx";
 import { IMAGES } from "../../components/ui/images/images.js";
 import PartyQueueBanner from "../../components/Cards/LeagueDetail/PartyQueueBanner.jsx";
+import { fetchLeagueParticipants } from "../../app/slices/constState/constStateSlice.js";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
@@ -43,6 +44,7 @@ const LeagueDetail = () => {
     verificationModule,
   } = useSelector((state) => state.leagues);
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
   const isMatctCreated = useSelector(
     (state) => state.constState.isMatctCreated
   );
@@ -58,6 +60,12 @@ const LeagueDetail = () => {
       document.title = `Prime eLeague - ${leagueData?.title}`;
     }
   }, [leagueData]);
+
+    useEffect(()=>{
+      if (lId) {
+        dispatch(fetchLeagueParticipants({ leagueId: lId, userId: user._id }));
+      }
+    },[]);
 
   return (
     <main className="flex-1 lobby_page--wrapper  pb-[5.25rem] sm:pb-0">

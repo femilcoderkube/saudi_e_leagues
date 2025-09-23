@@ -177,7 +177,12 @@
     "ends": "ينتهي في:",
     "checkingBan": "جاري التحقق...",
     "yourteam": "فريقك",
-    "about_tournament": "حول البطولة"
+    "about_tournament": "حول البطولة",
+    "invite_players": "دعوة اللاعبين",
+    "search_players": "البحث عن لاعبين باسم المستخدم...",
+    "recent_invites": "الدعوات الأخيرة",
+    "players": "اللاعبون",
+    "close": "إغلاق"
   },
   "match": {
     "finding_matchmaking": "البحث عن لاعبين",

@@ -368,8 +368,8 @@ const LeagueMatchDetail = () => {
                         return (
                           <div
                             className={`block ${user?._id == chat.senderId?._id
-                                ? "send_msg-con"
-                                : "reply_msg-con"
+                              ? "send_msg-con"
+                              : "reply_msg-con"
                               }`}
                           >
                             <div className="px-2 py-1 rounded-lg">
