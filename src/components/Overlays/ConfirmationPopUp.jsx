@@ -65,6 +65,8 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 2) return t("confirmation.cancelMatchTitle");
     if (confirmationPopUp == 3) return t("confirmation.confirmplayerselection");
     if (confirmationPopUp == 4) return t("confirmation.deleteAccountTitle");
+    if (confirmationPopUp == 5) return t("confirmation.leavePartyTitle");
+
     return "";
   };
 
@@ -87,7 +89,8 @@ function ConfirmationPopUp({
     if (
       confirmationPopUp == 1 ||
       confirmationPopUp == 3 ||
-      confirmationPopUp == 4
+      confirmationPopUp == 4 ||
+      confirmationPopUp == 5
     )
       return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
@@ -99,7 +102,9 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 2) return t("confirmation.yes");
     if (confirmationPopUp == 3) return t("confirmation.selectplayer");
     if (confirmationPopUp == 4) return t("confirmation.deleteAccount");
-    if (confirmationPopUp == 5) return t("confirmation.ok");
+    if (confirmationPopUp == 5) return t("confirmation.leavePartyConfirm");
+    // if (confirmationPopUp == 6) return t("confirmation.leavePartyConfirm");
+
     return "";
   };
 

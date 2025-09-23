@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { IMAGES } from "../../ui/images/images";
-import { setShowPartyQueuePopup } from "../../../app/slices/constState/constStateSlice";
+import {
+  setShowPartyQueuePopup,
+  setConfirmationPopUp,
+} from "../../../app/slices/constState/constStateSlice";
 import { getServerURL } from "../../../utils/constant";
 import { getSmile } from "../MatchDetail/matchCards";
 
@@ -15,13 +18,13 @@ const PartyQueueBanner = () => {
     if (leagueData?.format == "party queue") {
       dispatch(setShowPartyQueuePopup(true));
     }
-  }
-  
+  };
+
   const maxPlayers = leagueData?.playersPerTeam;
   if (leagueData?.format != "party queue" || !user || !partyQueueTeam) {
     return;
   }
-  
+
   return (
     <>
       <div className="rounded-xl overflow-hidden bg-[linear-gradient(180deg,rgba(34,35,86,0.2)_0%,rgba(34,35,86,0.2)_100%)] text-white mb-10">
@@ -36,7 +39,10 @@ const PartyQueueBanner = () => {
               Party Queue
             </h3>
           </div>
-          <div>
+          <div
+            className="cursor-pointer"
+            onClick={() => dispatch(setConfirmationPopUp(5))}
+          >
             <img src={IMAGES.party_logout} alt="" />
           </div>
         </div>
@@ -46,15 +52,24 @@ const PartyQueueBanner = () => {
               <div className="flex items-center gap-3 mb-2">
                 <div className="relative">
                   <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full bg-[#0a0c32]">
-                    <img className="w-4 h-4" src={getSmile(partyQueueTeam?.creator?.wilsonScore || 0)} alt="" />
+                    <img
+                      className="w-4 h-4"
+                      src={getSmile(partyQueueTeam?.creator?.wilsonScore || 0)}
+                      alt=""
+                    />
                   </sub>
                   <img
                     className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
-                    src={getServerURL(partyQueueTeam?.creator?.userId?.profilePicture || IMAGES.defaultImg)}
+                    src={getServerURL(
+                      partyQueueTeam?.creator?.userId?.profilePicture ||
+                        IMAGES.defaultImg
+                    )}
                     alt=""
                   />
                 </div>
-                <div className="text-xl font-bold text-white">{partyQueueTeam?.creator?.totalLeaguesScore || 0}</div>
+                <div className="text-xl font-bold text-white">
+                  {partyQueueTeam?.creator?.totalLeaguesScore || 0}
+                </div>
               </div>
               <div className="flex items-center gap-1 mb-1">
                 <img src={IMAGES.party_winner} alt="" />
@@ -66,48 +81,61 @@ const PartyQueueBanner = () => {
                 @ps5 ID
               </span> */}
             </div>
-            {partyQueueTeam?.players && partyQueueTeam?.players.map((player) => (
-              <div className="party-card-wp mx-auto" key={player.userId._id}>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="relative">
-                    <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full bg-[#0a0c32]">
-                      <img className="w-4 h-4" src={getSmile(player.wilsonScore || 0)} alt="" />
-                    </sub>
-                    <img
-                      className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
-                      src={getServerURL(player.userId.profilePicture || IMAGES.defaultImg)}
-                      alt={player.userId.username}
-                    />
+            {partyQueueTeam?.players &&
+              partyQueueTeam?.players.map((player) => (
+                <div className="party-card-wp mx-auto" key={player.userId._id}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="relative">
+                      <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full bg-[#0a0c32]">
+                        <img
+                          className="w-4 h-4"
+                          src={getSmile(player.wilsonScore || 0)}
+                          alt=""
+                        />
+                      </sub>
+                      <img
+                        className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
+                        src={getServerURL(
+                          player.userId.profilePicture || IMAGES.defaultImg
+                        )}
+                        alt={player.userId.username}
+                      />
+                    </div>
+                    <div className="text-xl font-bold text-white">
+                      {player.totalLeaguesScore || 0}
+                    </div>
                   </div>
-                  <div className="text-xl font-bold text-white">{player.totalLeaguesScore || 0}</div>
-                </div>
-                <div className="flex items-center gap-1 mb-1">
-                  <span className="username font-bold text-base text-[#F4F7FF]">
-                    {player.userId.username}
-                  </span>
-                </div>
-                {/* <span className="text-sm font-medium text-[#FFD0AF]">
+                  <div className="flex items-center gap-1 mb-1">
+                    <span className="username font-bold text-base text-[#F4F7FF]">
+                      {player.userId.username}
+                    </span>
+                  </div>
+                  {/* <span className="text-sm font-medium text-[#FFD0AF]">
                   @{player.userId.username}
                 </span> */}
-              </div>
-            ))}
-            {partyQueueTeam && user && (
-              (partyQueueTeam.creator?.userId?._id === user._id &&
-              !partyQueueTeam.players.some(player => player.userId._id === user._id)) &&
-              ((partyQueueTeam.players.length || 0) + 1 < maxPlayers)
-            ) && (
-            <div className="party-card-wp mx-auto">
-              <div className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] bg-[linear-gradient(180deg,rgba(33,36,92,0.7)_0%,rgba(17,18,60,0.7)_100%)] shadow-[inset_0px_4px_4px_0px_#5472880A] backdrop-blur-[24px] cursor-pointer"
-                onClick={openPopup}>
-                <span className="text-white text-2xl font-medium">+</span>
-              </div>
-            </div>
-            )}
+                </div>
+              ))}
+            {partyQueueTeam &&
+              user &&
+              partyQueueTeam.creator?.userId?._id === user._id &&
+              !partyQueueTeam.players.some(
+                (player) => player.userId._id === user._id
+              ) &&
+              (partyQueueTeam.players.length || 0) + 1 < maxPlayers && (
+                <div className="party-card-wp mx-auto">
+                  <div
+                    className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] bg-[linear-gradient(180deg,rgba(33,36,92,0.7)_0%,rgba(17,18,60,0.7)_100%)] shadow-[inset_0px_4px_4px_0px_#5472880A] backdrop-blur-[24px] cursor-pointer"
+                    onClick={openPopup}
+                  >
+                    <span className="text-white text-2xl font-medium">+</span>
+                  </div>
+                </div>
+              )}
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default PartyQueueBanner;

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../../utils/constant";
@@ -14,7 +14,9 @@ function PartyQueuePopup() {
 
   const user = useSelector((state) => state.auth.user);
   const { leagueData } = useSelector((state) => state.leagues);
-  const { allPlayers, partyQueueTeam, recentInvites } = useSelector((state) => state.constState);
+  const { allPlayers, partyQueueTeam, recentInvites } = useSelector(
+    (state) => state.constState
+  );
 
   const [searchTerm, setSearchTerm] = useState("");
   const [playersToShow, setPlayersToShow] = useState(10); // Initially show 10 players
@@ -24,6 +26,16 @@ function PartyQueuePopup() {
   const handleClosePopup = () => {
     dispatch(setShowPartyQueuePopup(false));
   };
+
+  const scrollContainerRef = useRef(null);
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [playersToShow]);
 
   // Filter players based on search term (username only)
   const filteredPlayers = useMemo(() => {
@@ -140,10 +152,15 @@ function PartyQueuePopup() {
           <div className="flex-1 overflow-y-auto custom_scroll mb-3">
             {recentInvites?.length > 0 && (
               <div className="mb-6">
-                <h3 className="text-lg font-medium text-white mb-3">{t("league.recent_invites")}</h3>
+                <h3 className="text-lg font-medium text-white mb-3">
+                  {t("league.recent_invites")}
+                </h3>
                 <div className="space-y-3 custom_scroll overflow-y-auto max-h-[20rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
                   {recentInvites.map((inv) => (
-                    <div key={inv.userId} className="flex items-center justify-between sm:gap-3 gap-2">
+                    <div
+                      key={inv.userId}
+                      className="flex items-center justify-between sm:gap-3 gap-2"
+                    >
                       <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
                         {inv.avatar ? (
                           <>
@@ -176,7 +193,9 @@ function PartyQueuePopup() {
                             {inv.label || inv.username}
                           </p> */}
                           {inv.username && (
-                            <p className="text-md text-gray-400 truncate">@{inv.username}</p>
+                            <p className="text-md text-gray-400 truncate">
+                              @{inv.username}
+                            </p>
                           )}
                         </div>
                       </div>
@@ -201,9 +220,13 @@ function PartyQueuePopup() {
               </div>
             )}
             <h3 className="text-lg font-medium text-white mb-5">
-              {t("league.players")} ({partyQueueTeam?.players?.length + 1}/{maxPlayers})
+              {t("league.players")} ({partyQueueTeam?.players?.length + 1}/
+              {maxPlayers})
             </h3>
-            <div className="space-y-3 custom_scroll overflow-y-auto max-h-[38rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
+            <div
+              className="space-y-3 custom_scroll overflow-y-auto max-h-[38rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]"
+              ref={scrollContainerRef}
+            >
               {/* Current user card */}
 
               {/* Dynamic player cards from API */}
@@ -224,8 +247,7 @@ function PartyQueuePopup() {
                         {player?.userId?.profilePicture ? (
                           <>
                             <img
-                              src={
-                                getServerURL(player?.userId?.profilePicture)}
+                              src={getServerURL(player?.userId?.profilePicture)}
                               alt={`${player.userId.firstName} ${player.userId.lastName}`}
                               className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
                             />
@@ -233,18 +255,22 @@ function PartyQueuePopup() {
                         ) : (
                           <>
                             <div
-                               className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
-                               style={{
-                                 display: "flex",
-                                 alignItems: "center",
-                                 justifyContent: "center",
-                                 background: getRandomColor(player.userId.username),
-                                 color: "#fff",
-                                 fontWeight: "bold",
-                                 fontSize: "1.5rem",
-                               }}
+                              className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                background: getRandomColor(
+                                  player.userId.username
+                                ),
+                                color: "#fff",
+                                fontWeight: "bold",
+                                fontSize: "1.5rem",
+                              }}
                             >
-                              {player.userId.username?.charAt(0)?.toUpperCase() || "?"}
+                              {player.userId.username
+                                ?.charAt(0)
+                                ?.toUpperCase() || "?"}
                             </div>
                           </>
                         )}
@@ -275,14 +301,18 @@ function PartyQueuePopup() {
                     </div>
                   ))
               ) : (
-                <p className="text-center text-gray-400 py-4">No players found.</p>
+                <p className="text-center text-gray-400 py-4">
+                  No players found.
+                </p>
               )}
             </div>
           </div>
 
           {/* footer */}
           <div className="wizard_step--btn gap-5 flex justify-end mt-auto mb-6">
-            <div className="game_status--tab wizard_btn flex flex-col items-end gap-4"> {/* Changed to flex-col to stack buttons */}
+            <div className="game_status--tab wizard_btn flex flex-col items-end gap-4">
+              {" "}
+              {/* Changed to flex-col to stack buttons */}
               {filteredPlayers.length > displayedPlayers.length && (
                 <div className="flex justify-center ">
                   <button

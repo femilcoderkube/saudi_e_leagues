@@ -393,9 +393,11 @@
     "your_points": "Your Points"
   },
   "confirmation": {
+    "leavePartyTitle": "Are you sure you want to leave party?",
     "logoutTitle": "Are you sure you want to logout?",
     "logoutMessage": "You will be logged out of your account. Any unsaved changes will be lost.",
     "logoutConfirm": "Logout",
+    "leavePartyConfirm": "Leave",
     "cancel": "Cancel",
     "cancelMatchTitle": "Are you sure you want to request an admin to join the match?",
     "yes": "Yes",
