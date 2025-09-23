@@ -7,6 +7,7 @@ import { getSmile } from "../MatchDetail/matchCards";
 const PartyQueueBanner = () => {
   const { leagueData } = useSelector((state) => state.leagues);
   const { partyQueueTeam } = useSelector((state) => state.constState);
+  const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -15,9 +16,12 @@ const PartyQueueBanner = () => {
       dispatch(setShowPartyQueuePopup(true));
     }
   }
-  if (leagueData?.format != "party queue") {
+  
+  const maxPlayers = leagueData?.playersPerTeam;
+  if (leagueData?.format != "party queue" || !user || !partyQueueTeam) {
     return;
   }
+  
   return (
     <>
       <div className="rounded-xl overflow-hidden bg-[linear-gradient(180deg,rgba(34,35,86,0.2)_0%,rgba(34,35,86,0.2)_100%)] text-white mb-10">
@@ -55,7 +59,7 @@ const PartyQueueBanner = () => {
               <div className="flex items-center gap-1 mb-1">
                 <img src={IMAGES.party_winner} alt="" />
                 <span className="username font-bold text-base text-[#F4F7FF]">
-                  {partyQueueTeam?.creator?.userId.username}
+                  {partyQueueTeam?.creator?.userId?.username}
                 </span>
               </div>
               {/* <span className="text-sm font-medium text-[#FFD0AF]">
@@ -87,12 +91,18 @@ const PartyQueueBanner = () => {
                 </span> */}
               </div>
             ))}
+            {partyQueueTeam && user && (
+              (partyQueueTeam.creator?.userId?._id === user._id &&
+              !partyQueueTeam.players.some(player => player.userId._id === user._id)) &&
+              ((partyQueueTeam.players.length || 0) + 1 < maxPlayers)
+            ) && (
             <div className="party-card-wp mx-auto">
               <div className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] bg-[linear-gradient(180deg,rgba(33,36,92,0.7)_0%,rgba(17,18,60,0.7)_100%)] shadow-[inset_0px_4px_4px_0px_#5472880A] backdrop-blur-[24px] cursor-pointer"
                 onClick={openPopup}>
                 <span className="text-white text-2xl font-medium">+</span>
               </div>
             </div>
+            )}
           </div>
         </div>
       </div>

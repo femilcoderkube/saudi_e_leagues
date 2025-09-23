@@ -62,7 +62,7 @@ const LeagueDetail = () => {
   }, [leagueData]);
 
     useEffect(()=>{
-      if (lId) {
+      if (lId && user) {
         dispatch(fetchLeagueParticipants({ leagueId: lId, userId: user._id }));
       }
     },[]);

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { getServerURL } from "../../../utils/constant";
+import { getRandomColor, getServerURL } from "../../../utils/constant";
 import { toast } from "react-toastify";
 import {
   sendInvite,
@@ -13,13 +13,13 @@ function PartyQueuePopup() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
-  const leagueData = useSelector((state) => state.leagues);
+  const { leagueData } = useSelector((state) => state.leagues);
   const { allPlayers, partyQueueTeam, recentInvites } = useSelector((state) => state.constState);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [playersToShow, setPlayersToShow] = useState(10); // Initially show 10 players
 
-  const maxPlayers = leagueData?.leagueData?.playersPerTeam || 100;
+  const maxPlayers = leagueData?.playersPerTeam;
 
   const handleClosePopup = () => {
     dispatch(setShowPartyQueuePopup(false));
@@ -75,9 +75,9 @@ function PartyQueuePopup() {
       sendInvite({
         userId: option.value,
         name: user.username,
-        leagueName: leagueData.leagueData?.title,
+        leagueName: leagueData?.title,
         teamId: partyQueueTeam.teamId,
-        leagueId: leagueData.leagueData?._id,
+        leagueId: leagueData?._id,
       })
     );
     toast.success(`${option.label} invited`);
@@ -145,17 +145,40 @@ function PartyQueuePopup() {
                   {recentInvites.map((inv) => (
                     <div key={inv.userId} className="flex items-center justify-between sm:gap-3 gap-2">
                       <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
-                        <img
-                          src={getServerURL(inv.avatar)}
-                          alt={inv.label || inv.username}
-                          className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
-                        />
+                        {inv.avatar ? (
+                          <>
+                            <img
+                              src={getServerURL(inv.avatar)}
+                              alt={inv.label || inv.username}
+                              className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <div
+                              style={{
+                                width: "2.25rem",
+                                height: "2.25rem",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                background: getRandomColor(inv.username),
+                                color: "#fff",
+                                fontWeight: "bold",
+                                fontSize: "1.5rem",
+                                borderRadius: "50%",
+                              }}
+                            >
+                              {inv.username?.charAt(0)?.toUpperCase() || "?"}
+                            </div>
+                          </>
+                        )}
                         <div className="text-left">
-                          <p className="text-sm font-medium text-white truncate w-full">
+                          {/* <p className="text-sm font-medium text-white truncate w-full">
                             {inv.label || inv.username}
-                          </p>
+                          </p> */}
                           {inv.username && (
-                            <p className="text-xs text-gray-400 truncate">@{inv.username}</p>
+                            <p className="text-md text-gray-400 truncate">@{inv.username}</p>
                           )}
                         </div>
                       </div>
@@ -180,7 +203,7 @@ function PartyQueuePopup() {
               </div>
             )}
             <h3 className="text-lg font-medium text-white mb-5">
-            {t("league.players")} ({partyQueueTeam?.players?.length + 1}/{maxPlayers})
+              {t("league.players")} ({partyQueueTeam?.players?.length + 1}/{maxPlayers})
             </h3>
             <div className="space-y-3 custom_scroll overflow-y-auto max-h-[38rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
               {/* Current user card */}
@@ -200,17 +223,40 @@ function PartyQueuePopup() {
                       className="flex items-center justify-between sm:gap-3 gap-2"
                     >
                       <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
-                        <img
-                          src={
-                            getServerURL(player?.userId?.profilePicture)}
-                          alt={`${player.userId.firstName} ${player.userId.lastName}`}
-                          className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
-                        />
+                        {player?.userId?.profilePicture ? (
+                          <>
+                            <img
+                              src={
+                                getServerURL(player?.userId?.profilePicture)}
+                              alt={`${player.userId.firstName} ${player.userId.lastName}`}
+                              className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <div
+                              style={{
+                                width: "2.5rem",
+                                height: "2.5rem",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                background: getRandomColor(player.userId.username),
+                                color: "#fff",
+                                fontWeight: "bold",
+                                fontSize: "1.5rem",
+                                borderRadius: "50%",
+                              }}
+                            >
+                              {player.userId.username?.charAt(0)?.toUpperCase() || "?"}
+                            </div>
+                          </>
+                        )}
                         <div className="text-left">
-                          <p className="text-sm font-medium text-white truncate w-full">
+                          {/* <p className="text-sm font-medium text-white truncate w-full">
                             {player.userId.firstName} {player.userId.lastName}
-                          </p>
-                          <p className="text-xs text-gray-400 truncate">
+                          </p> */}
+                          <p className="text-md text-gray-400 truncate">
                             @{player.userId.username}
                           </p>
                         </div>
@@ -242,14 +288,14 @@ function PartyQueuePopup() {
           <div className="wizard_step--btn gap-5 flex justify-end mt-auto mb-6">
             <div className="game_status--tab wizard_btn flex flex-col items-end gap-4"> {/* Changed to flex-col to stack buttons */}
               {filteredPlayers.length > displayedPlayers.length && (
-              <div className="flex justify-center ">
-                <button
-                  className="px-8 text-white font-semibold rounded-lg transition-all  hover:opacity-80 "
-                  onClick={handleLoadMore}
-                >
-                  {t("lobby.load_more")}
-                </button>
-              </div>
+                <div className="flex justify-center ">
+                  <button
+                    className="px-8 text-white font-semibold rounded-lg transition-all  hover:opacity-80 "
+                    onClick={handleLoadMore}
+                  >
+                    {t("lobby.load_more")}
+                  </button>
+                </div>
               )}
               <button
                 className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border cursor-pointer"
