@@ -33,6 +33,7 @@ import ROUTESPATH from "./Routes/paths.js";
 import MobileEvent from "./hooks/mobileevents.js";
 import { joinUserRoom } from "./app/socket/socket.js";
 import Register from "./pages/TournamentDetail/Register.jsx";
+import PartyMatchMaking from "./pages/Matches/PartyMatchMaking.jsx";
 
 function NavigatorSetter() {
   const navigate = useNavigate();
@@ -115,6 +116,10 @@ function App() {
               <Route
                 path={ROUTESPATH.FINDING_MATCH}
                 element={<MatchMaking />}
+              />
+              <Route
+                path={ROUTESPATH.FINDING_PARTYMATCH}
+                element={<PartyMatchMaking />}
               />
               <Route path={ROUTESPATH.PROFILE} element={<UserProfilePage />} />
             </Route>

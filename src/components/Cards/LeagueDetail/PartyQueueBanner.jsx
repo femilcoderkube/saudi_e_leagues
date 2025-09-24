@@ -5,11 +5,11 @@ import {
   setConfirmationPopUp,
 } from "../../../app/slices/constState/constStateSlice";
 import { setPopupData } from "../../../app/slices/constState/constStateSlice";
-import { getServerURL } from "../../../utils/constant";
+import { getRandomColor, getServerURL } from "../../../utils/constant";
 import { getSmile } from "../MatchDetail/matchCards";
 
 const PartyQueueBanner = () => {
-  const { leagueData } = useSelector((state) => state.leagues);
+  const { leagueData, isMatchJoind } = useSelector((state) => state.leagues);
   const { partyQueueTeam } = useSelector((state) => state.constState);
   const { user } = useSelector((state) => state.auth);
 
@@ -21,8 +21,7 @@ const PartyQueueBanner = () => {
     }
   };
 
-  const maxPlayers = leagueData?.playersPerTeam;
-  if (leagueData?.format != "party queue" || !user) {
+  if (leagueData?.format != "party queue" || !user || !partyQueueTeam) {
     return;
   }
 
@@ -40,12 +39,14 @@ const PartyQueueBanner = () => {
               Party Queue
             </h3>
           </div>
-          <div
-            className="cursor-pointer"
-            onClick={() => dispatch(setConfirmationPopUp(5))}
-          >
-            <img src={IMAGES.party_logout} alt="" />
-          </div>
+          {partyQueueTeam?.Players.length >= 2 && !(isMatchJoind?.currentMatch) &&(
+            <div
+              className="cursor-pointer h-6 w-7"
+              onClick={() => dispatch(setConfirmationPopUp(5))}
+            >
+              <img src={IMAGES.party_logout} alt="" />
+            </div>
+          )}
         </div>
         <div className="party_container px-4 py-5">
           <div className="grid grid-cols-3 items-center gap-7 justify-between">
@@ -64,7 +65,9 @@ const PartyQueueBanner = () => {
                           );
                           dispatch(setConfirmationPopUp(6));
                         }}
-                        className="absolute top-[-10px] right-[-5px] flex items-center justify-center w-6 h-6 rounded-full bg-red-600 hover:bg-red-700 shadow-md transition-all duration-200"
+                        className="absolute top-[-0.3rem] right-0 flex items-center justify-center w-4 h-4 rounded-full bg-gradient-to-br from-[#ED1D4A] to-[#BC096B] border-2 border-[#fff2] hover:from-[#ff3b6e] hover:to-[#d81b60] shadow-[0_2px_8px_0_rgba(237,29,74,0.25)] transition-all duration-200 z-10 group"
+                        title="Remove Player"
+                        aria-label="Remove Player"
                       >
                         <span className="text-white text-sm font-bold leading-none">×</span>
                       </button>
@@ -78,13 +81,41 @@ const PartyQueueBanner = () => {
                           alt=""
                         />
                       </sub>
-                      <img
+                      {/* <img
                         className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
                         src={getServerURL(
                           player?.userId?.profilePicture
                         )}
                         alt={player.userId?.username}
-                      />
+                      /> */}
+                      {player?.userId?.profilePicture ? (
+                        <>
+                          <img
+                            className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]"
+                            src={getServerURL(
+                              player?.userId?.profilePicture
+                            )}
+                            alt={player.userId?.username}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]  object-cover"
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: getRandomColor(player.userId?.username),
+                              color: "#fff",
+                              fontWeight: "bold",
+                              fontSize: "1.5rem",
+                            }}
+                          >
+                            {player.userId?.username?.charAt(0)?.toUpperCase() || "?"}
+                          </div>
+                        </>
+                      )}
                     </div>
                     <div className="text-xl font-bold text-white">
                       {player?.totalLeaguesScore || 0}
@@ -108,16 +139,18 @@ const PartyQueueBanner = () => {
                 </span> */}
                 </div>
               ))}
-            {partyQueueTeam && partyQueueTeam?.Creator === user._id && (
-              <div className="party-card-wp mx-auto">
-                <div
-                  className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] bg-[linear-gradient(180deg,rgba(33,36,92,0.7)_0%,rgba(17,18,60,0.7)_100%)] shadow-[inset_0px_4px_4px_0px_#5472880A] backdrop-blur-[24px] cursor-pointer"
-                  onClick={openPopup}
-                >
-                  <span className="text-white text-2xl font-medium">+</span>
+            {partyQueueTeam &&
+              partyQueueTeam?.Creator === user._id &&
+              partyQueueTeam?.Players?.length < leagueData?.playersPerTeam && (
+                <div className="party-card-wp mx-auto">
+                  <div
+                    className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] bg-[linear-gradient(180deg,rgba(33,36,92,0.7)_0%,rgba(17,18,60,0.7)_100%)] shadow-[inset_0px_4px_4px_0px_#5472880A] backdrop-blur-[24px] cursor-pointer"
+                    onClick={openPopup}
+                  >
+                    <span className="text-white text-2xl font-medium">+</span>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         </div>
       </div>

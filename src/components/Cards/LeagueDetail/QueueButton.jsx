@@ -14,6 +14,7 @@ import { IMAGES } from "../../ui/images/images";
 import MobileEvent from "../../../hooks/mobileevents.js"
 import { useState } from "react";
 import PartyQueuePopup from "../../Overlays/LeagueDetail/PartyQueuePopup.jsx";
+import { checkBannedUser } from "../../../app/slices/auth/authSlice.js";
 
 const GetQueueButton = () => {
   const { id } = useParams();
@@ -29,6 +30,7 @@ const GetQueueButton = () => {
   const end = new Date(leagueData?.endDate);
   const { t, i18n } = useTranslation();
   const [isCheckingBan, setIsCheckingBan] = useState(false);
+  const { partyQueueTeam } = useSelector((state) => state.constState);
 
   const handleLoginClick = () => {
     const currentUrl = window.location.href;
@@ -45,12 +47,14 @@ const GetQueueButton = () => {
         return;
       }
 
-      // if (leagueData?.format == "party queue") {
-      //   dispatch(setShowPartyQueuePopup(true));
-      //   dispatch(setTeamFromQueue(true));
-      //   setIsCheckingBan(false);
-      //   return;
-      // }
+      if (leagueData?.format == "party queue") {
+        // dispatch(setShowPartyQueuePopup(true));
+        // dispatch(setTeamFromQueue(true));
+        // setIsCheckingBan(false);
+        sessionStorage.setItem("canAccessFindingMatch", "true");
+        navigate(`/${id}/lobby/${leagueData?._id}/finding-partymatch`);
+        return;
+      }
 
       dispatch(setQueuePlayers(1));
       if (userInQueue) {
@@ -235,8 +239,8 @@ const GetQueueButton = () => {
       } else if (text == t("images.queue")) {
         return (
           <div
-            className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${isCheckingBan ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
-            onClick={isCheckingBan ? undefined : handleQueueClick}
+            className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${isCheckingBan || (leagueData.format === "party queue" && partyQueueTeam?.Creator !== user?._id) ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+            onClick={isCheckingBan || (leagueData.format === "party queue" && partyQueueTeam?.Creator !== user?._id) ? undefined : handleQueueClick}
           >
             <span
               className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"

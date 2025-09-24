@@ -95,6 +95,7 @@ export const SOCKET = {
   JOINTEAMROOM: "joinTeamRoom",
   LEAVETEAMROOM: "leaveTeamRoom",
   ACCEPT_INVITATION: "ACCEPT_INVITATION",
+  READYTOPLAYPARTY : "readytoplayParty",
 };
 
 socket.connect();
@@ -267,6 +268,13 @@ export function getPartyQueueUpdate() {
 export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user?._id });
+  setTimeout(() => {
+    startLeagueSocket(lId, user, isSocketConnected);
+  }, 2000);
+}
+export function startReadyToPlayWithPartySocket({ lId, user, teamId, isSocketConnected }) {
+  if (!isSocketConnected) return;
+  socket.emit(SOCKET.READYTOPLAYPARTY, { Lid: lId, teamId, userId: user?._id });
   setTimeout(() => {
     startLeagueSocket(lId, user, isSocketConnected);
   }, 2000);
