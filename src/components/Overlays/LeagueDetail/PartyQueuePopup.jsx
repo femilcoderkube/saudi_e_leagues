@@ -191,7 +191,7 @@ function PartyQueuePopup() {
               </div>
             )}
             <h3 className="text-lg font-medium text-white mb-5">
-              {t("league.players")} ({partyQueueTeam?.players?.length + 1}/
+              {t("league.players")} ({partyQueueTeam?.Players?.length}/
               {maxPlayers})
             </h3>
             <div
