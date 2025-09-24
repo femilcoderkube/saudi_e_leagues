@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion ,AnimatePresence} from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../components/ui/images/images";
 
@@ -222,16 +222,12 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     <>
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-40"></div>
       <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full p-4">
+    <AnimatePresence>
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          transition={{
-            duration: 0.3,
-            type: "spring",
-            damping: 25,
-            stiffness: 300,
-          }}
+          initial={{ scale: 0.5, opacity: 0, y: 50 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.5, opacity: 0, y: 50 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           className="bg-gradient-to-br from-[#121331] via-[#151642] to-[#0f0f2a] manage-popup match_reg--popup h-auto sd_before sd_after text-white rounded-2xl w-full max-w-2xl relative max-h-[90vh] py-8 overflow-x-hidden px-6 overflow-y-auto custom_scroll border-2 border-[#393B7A] shadow-2xl shadow-black/50"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
@@ -302,6 +298,8 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             </div>
           </div>
         </motion.div>
+      </AnimatePresence>
+
         <svg
           width="0"
           height="0"

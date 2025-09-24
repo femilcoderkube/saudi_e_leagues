@@ -103,7 +103,7 @@ const TournamentDetail = () => {
               custom={0}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={{ once: true, amount: 0.3 }}
             >
               <div className="sd_com--logo cursor-hide w-[8.75rem] md:w-[18.5rem]">
                 <img
@@ -133,7 +133,7 @@ const TournamentDetail = () => {
               custom={1}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={{ once: true, amount: 0.3 }}
             >
               <div className="player_img flex flex-row items-center gap-2 sm:gap-5">
                 <div className="player_one sd_before relative gradiant_bg con_center w-[41.02rem] h-[27.33rem]">
@@ -236,11 +236,19 @@ const TournamentDetail = () => {
                 {loader ? (
                   <GamingLoader />
                 ) : activeStage === -1 ? (
-                  <div className="mt-8">
+                  <div
+                    className="mt-8">
                     {/* Overview content: static summary */}
                     <div className="">
                       <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-start sm:mb-16">
-                        <div className="sd_content-left order-2 md:order-1 shrink-0 xl:max-w-[57.5rem] w-full">
+                        <motion.div
+                          className="sd_content-left order-2 md:order-1 shrink-0 xl:max-w-[57.5rem] w-full"
+                          variants={leftToRight}
+                          custom={0}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true, amount: 0.1 }}
+                        >
                           <div className="your-team-card rounded-2xl md:mb-12 mb-9 bg-[linear-gradient(183.7deg,rgba(94,95,184,0.2)_3.03%,rgba(34,35,86,0.2)_97.05%)] shadow-[inset_0_2px_2px_0_rgba(94,95,184,0.12)] backdrop-blur-[0.75rem]">
                             <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
                               <div className="flex flex-wrap items-center sm:gap-4 gap-2">
@@ -305,7 +313,8 @@ const TournamentDetail = () => {
                               </div>
                             </div>
                           </div>
-                          <div className="about-tournament-card">
+                          <div
+                            className="about-tournament-card">
                             <h3 className="sm:text-[2rem] text-2xl grad_text-clip !font-black sm:mb-8 mb-6 tracking-wide uppercase bg-[linear-gradient(180deg,rgb(244_247_255)_0%,rgba(186,189,255,1)_36%,rgba(123,126,208,1)_66%)]">
                               {t("league.about_tournament")}
                             </h3>
@@ -356,13 +365,20 @@ const TournamentDetail = () => {
                               </button>
                             </div>
                           </div>
-                        </div>
-                        <div className="sd_content-right w-full order-0 xl:order-1">
+                        </motion.div>
+                        <motion.div
+                          className="sd_content-right w-full order-0 xl:order-1"
+                          variants={rightToLeft}
+                          custom={1}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true, amount: 0.2 }}
+                        >
                           {/* --- Timeline-card HTML Block Start --- */}
                           <div className="flex flex-col gap-6 md:block">
                             <TimelinePanel />
                           </div>
-                        </div>
+                        </motion.div>
                       </div>
                     </div>
                   </div>
