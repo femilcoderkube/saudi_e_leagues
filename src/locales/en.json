@@ -393,15 +393,14 @@
     "your_points": "Your Points"
   },
   "confirmation": {
-    "leavePartyTitle": "Are you sure you want to leave party?",
     "logoutTitle": "Are you sure you want to logout?",
     "logoutMessage": "You will be logged out of your account. Any unsaved changes will be lost.",
     "logoutConfirm": "Logout",
-    "leavePartyConfirm": "Leave",
     "cancel": "Cancel",
     "cancelMatchTitle": "Are you sure you want to request an admin to join the match?",
     "yes": "Yes",
     "no": "No",
+    "ok": "",
     "confirmplayerselection": "Confirm Player Selection",
     "confirmplayerselectionMessage": "Are you sure you want to select ",
     "thisplayer": "this player",
@@ -414,7 +413,12 @@
     "deleteAccountTitle": "Are you sure you want to delete your account?",
     "deleteAccountMessage": "Are you sure you want to delete your account?",
     "deleteAccount": "Delete Account",
-    "inqueue": "You’re already queued in another game, cancel it and let’s find you a new match!"
+    "inqueue": "You’re already queued in another game, cancel it and let’s find you a new match!",
+    "removePlayerTitle": "Remove Player",
+    "removePlayerMessage": "Are you sure you want to remove this player from the party?",
+    "removePlayerConfirm": "Remove",
+    "leavePartyConfirm": "Leave",
+    "leavePartyTitle": "Are you sure you want to leave party?"
   },
   "drafting": {
     "drafting": "Drafting",

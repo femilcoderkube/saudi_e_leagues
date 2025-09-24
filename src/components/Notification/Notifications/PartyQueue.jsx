@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getServerURL, getTimeAgo } from "../../../utils/constant";
 import { setshowNotification } from "../../../app/slices/constState/constStateSlice";
-import { readNotificationSocket } from "../../../app/socket/socket";
+import { acceptInvitation, readNotificationSocket } from "../../../app/socket/socket";
 import { IMAGES } from "../../ui/images/images";
 
 const PartyQueue = ({ data }) => {
@@ -11,15 +11,15 @@ const PartyQueue = ({ data }) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    let subject, body;    
+    let subject, body;
     subject =
         i18n.language == "en"
             ? data.notificationId.Subject.toString().replace(`{PlayerName}`, data.extras.name)
             : data.notificationId.SubjectAr.toString().replace(`{PlayerName}`, data.extras.name);
     body =
         i18n.language == "en"
-            ? data.notificationId.Body.toString().replace(`{PlayerName}`, data.extras.name).replace(`{LeagueName}`, data.extras.leagueName) 
-            : data.notificationId.BodyAr.toString().replace(`{PlayerName}`, data.extras.name).replace(`{LeagueName}`, data.extras.leagueName) ;
+            ? data.notificationId.Body.toString().replace(`{PlayerName}`, data.extras.name).replace(`{LeagueName}`, data.extras.leagueName)
+            : data.notificationId.BodyAr.toString().replace(`{PlayerName}`, data.extras.name).replace(`{LeagueName}`, data.extras.leagueName);
 
     let imageUrl =
         data?.notificationId?.notificationtype === 12
@@ -114,9 +114,14 @@ const PartyQueue = ({ data }) => {
                                 // };
                                 const handleAcceptInvite = () => {
                                     if (!isExpired) {
-                                        navigate(`/${id}/lobby/${data.extras.leagueId}`);                         
-                                        readNotificationSocket(data._id);                                      
-                                        dispatch(setshowNotification(false));                                     
+                                        acceptInvitation({
+                                            userId: data.userId._id,
+                                            Lid: data.extras.leagueId,
+                                            teamId: data.extras.teamId
+                                        });
+                                        navigate(`/${id}/lobby/${data.extras.leagueId}`);
+                                        readNotificationSocket(data._id);
+                                        dispatch(setshowNotification(false));
                                         // dispatch(setShowPartyQueuePopup(true));
                                     }
                                 };

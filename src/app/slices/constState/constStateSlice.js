@@ -273,7 +273,7 @@ const constStateSlice = createSlice({
       state.isRegisteration = !!action.payload;
     },
     setPartyQueueTeam: (state, action) => {
-      state.partyQueueTeam = action.payload.data;
+      state.partyQueueTeam = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -314,28 +314,18 @@ const constStateSlice = createSlice({
         state.loading = false;
         // Maintain a local list of the last 5 invites (in memory only)
         const args = action.meta?.arg || {};
-        const invitedUserId = args.userId;
-        const invitedUser = state.allPlayers.find(
-          (p) => p?.userId?._id === invitedUserId
-        );
-
-        const inviteEntry = {
-          userId: invitedUserId,
-          label: invitedUser
-            ? `${invitedUser.userId.firstName} ${invitedUser.userId.lastName}`
-            : undefined,
-          username: invitedUser?.userId?.username,
-          avatar: invitedUser?.userId?.profilePicture,
-          invitedAt: Date.now(),
+        const newInvite = {
+          userId: args.userId,                 
+          username: args.username || args.name, 
+          avatar: args.avatar || null,
         };
 
-        // Remove if already exists
         state.recentInvites = state.recentInvites.filter(
-          (i) => i.userId !== invitedUserId
+          invite => invite.userId !== newInvite.userId
         );
-        // Add to front
-        state.recentInvites.unshift(inviteEntry);
-        // Cap at 5
+
+        state.recentInvites.unshift(newInvite);
+
         if (state.recentInvites.length > 5) {
           state.recentInvites = state.recentInvites.slice(0, 5);
         }

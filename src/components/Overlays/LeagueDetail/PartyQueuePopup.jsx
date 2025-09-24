@@ -13,10 +13,8 @@ function PartyQueuePopup() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
-  const { leagueData } = useSelector((state) => state.leagues);
-  const { allPlayers, partyQueueTeam, recentInvites } = useSelector(
-    (state) => state.constState
-  );
+  const { leagueData, leaderBoard } = useSelector((state) => state.leagues);
+  const { partyQueueTeam, recentInvites } = useSelector((state) => state.constState);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [playersToShow, setPlayersToShow] = useState(10); // Initially show 10 players
@@ -26,6 +24,10 @@ function PartyQueuePopup() {
   const handleClosePopup = () => {
     dispatch(setShowPartyQueuePopup(false));
   };
+
+  const allPlayers = useMemo(() => {
+    return leaderBoard?.topUsers || [];
+  }, [leaderBoard?.topUsers]);
 
   const scrollContainerRef = useRef(null);
   useEffect(() => {
@@ -37,7 +39,6 @@ function PartyQueuePopup() {
     }
   }, [playersToShow]);
 
-  // Filter players based on search term (username only)
   const filteredPlayers = useMemo(() => {
     if (!searchTerm) {
       return allPlayers;
@@ -47,7 +48,6 @@ function PartyQueuePopup() {
     );
   }, [allPlayers, searchTerm]);
 
-  // Slice players for pagination
   const displayedPlayers = useMemo(() => {
     return filteredPlayers.slice(0, playersToShow);
   }, [filteredPlayers, playersToShow]);
@@ -56,49 +56,20 @@ function PartyQueuePopup() {
     setPlayersToShow((prev) => prev + 10);
   };
 
-  // This memo is not directly used for rendering the player list,
-  // but it's kept here as it might be used elsewhere or for future features.
-  const availableOptions = useMemo(() => {
-    return (
-      allPlayers
-        // .filter(
-        //   (p) =>
-        //     !invited.some((inv) => String(inv.value) === String(p.userId._id))
-        // )
-        // .filter((p) => String(p.userId._id) !== String(user?._id))
-        .map((p) => ({
-          value: p.userId._id,
-          label: `${p.userId.firstName} ${p.userId.lastName}`,
-          username: p.userId.username,
-          avatar: p.userId.profilePicture,
-        }))
-    );
-  }, [allPlayers, user]);
-
   const handleInvite = (option) => {
     if (!option) return;
-    // if (invited.some((p) => String(p.value) === String(option.value))) return;
-    // if (invited.length >= Math.max(0, maxPlayers - 1)) {
-    //   toast.error("Maximum players reached");
-    //   return;
-    // }
-    // setInvited((prev) => [...prev, option]);
     dispatch(
       sendInvite({
         userId: option.value,
         name: user.username,
         leagueName: leagueData?.title,
-        teamId: partyQueueTeam.teamId,
+        teamId: partyQueueTeam._id,
         leagueId: leagueData?._id,
+        username: option.username,
+        avatar: option.avatar,
       })
     );
-    toast.success(`${option.label} invited`);
-  };
-
-  // remove invited player (currently commented out)
-  const removePlayer = (value) => {
-    // setInvited((prev) => prev.filter((p) => String(p.value) !== String(value)));
-    toast.info("Player removed");
+    toast.success(`${option.username} invited`);
   };
 
   return (
@@ -156,9 +127,9 @@ function PartyQueuePopup() {
                   {t("league.recent_invites")}
                 </h3>
                 <div className="space-y-3 custom_scroll overflow-y-auto max-h-[20rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
-                  {recentInvites.map((inv) => (
+                  {recentInvites.map((inv, index) => (
                     <div
-                      key={inv.userId}
+                      key={index}
                       className="flex items-center justify-between sm:gap-3 gap-2"
                     >
                       <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
@@ -227,79 +198,69 @@ function PartyQueuePopup() {
               className="space-y-3 custom_scroll overflow-y-auto max-h-[38rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]"
               ref={scrollContainerRef}
             >
-              {/* Current user card */}
-
-              {/* Dynamic player cards from API */}
               {displayedPlayers.length > 0 ? (
-                displayedPlayers
-                  // .filter(
-                  //   (p) =>
-                  //     !invited.some(
-                  //       (inv) => String(inv.value) === String(p.userId._id)
-                  //     )
-                  // )
-                  .map((player) => (
-                    <div
-                      key={player.userId._id}
-                      className="flex items-center justify-between sm:gap-3 gap-2"
-                    >
-                      <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
-                        {player?.userId?.profilePicture ? (
-                          <>
-                            <img
-                              src={getServerURL(player?.userId?.profilePicture)}
-                              alt={`${player.userId.firstName} ${player.userId.lastName}`}
-                              className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
-                            />
-                          </>
-                        ) : (
-                          <>
-                            <div
-                              className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                background: getRandomColor(
-                                  player.userId.username
-                                ),
-                                color: "#fff",
-                                fontWeight: "bold",
-                                fontSize: "1.5rem",
-                              }}
-                            >
-                              {player.userId.username
-                                ?.charAt(0)
-                                ?.toUpperCase() || "?"}
-                            </div>
-                          </>
-                        )}
-                        <div className="text-left">
-                          {/* <p className="text-sm font-medium text-white truncate w-full">
+                displayedPlayers.map((player) => (
+                  <div
+                    key={player.userId._id}
+                    className="flex items-center justify-between sm:gap-3 gap-2"
+                  >
+                    <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
+                      {player?.userId?.profilePicture ? (
+                        <>
+                          <img
+                            src={getServerURL(player?.userId?.profilePicture)}
+                            alt={player.userId?.username}
+                            className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              background: getRandomColor(
+                                player.userId.username
+                              ),
+                              color: "#fff",
+                              fontWeight: "bold",
+                              fontSize: "1.5rem",
+                            }}
+                          >
+                            {player.userId.username
+                              ?.charAt(0)
+                              ?.toUpperCase() || "?"}
+                          </div>
+                        </>
+                      )}
+                      <div className="text-left">
+                        {/* <p className="text-sm font-medium text-white truncate w-full">
                             {player.userId.firstName} {player.userId.lastName}
                           </p> */}
-                          <p className="text-md text-gray-400 truncate">
-                            @{player.userId.username}
-                          </p>
-                        </div>
-                      </div>
-                      <div>
-                        <button
-                          className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer"
-                          onClick={() =>
-                            handleInvite({
-                              value: player.userId._id,
-                              label: `${player.userId.firstName} ${player.userId.lastName}`,
-                              username: player.userId.username,
-                              avatar: player.userId.profilePicture,
-                            })
-                          }
-                        >
-                          Invite
-                        </button>
+                        <p className="text-md text-gray-400 truncate">
+                          @{player.userId.username}
+                        </p>
                       </div>
                     </div>
-                  ))
+                    <div>
+                      <button
+                        className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer"
+                        onClick={() =>
+                          handleInvite({
+                            value: player.userId._id,
+                            label: `${player.userId.firstName} ${player.userId.lastName}`,
+                            username: player.userId.username,
+                            avatar: player.userId.profilePicture,
+                          })
+                        }
+                      >
+                        Invite
+                      </button>
+                    </div>
+                  </div>
+                ))
               ) : (
                 <p className="text-center text-gray-400 py-4">
                   No players found.

@@ -23,10 +23,19 @@ function ConfirmationPopUp({
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
+  const { partyQueueTeam, popupData } = useSelector((state) => state.constState);
   const payload = {
     userId: user._id,
-    Lid: lId
+    teamId: partyQueueTeam._id
   }
+  const removePlayerPayload = {
+    userId: popupData?.userId,
+    teamId: popupData?.teamId
+  }
+  const actionPayload = confirmationPopUp === 5 ? payload
+    : confirmationPopUp === 6 ? removePlayerPayload
+      : null;
+
 
   const handleOnClick = () => {
     if (confirmationPopUp == 1) {
@@ -66,8 +75,16 @@ function ConfirmationPopUp({
         onDeleteAccount();
       }
     }
-    if (confirmationPopUp == 5) {
-      dispatch(leavePartySocket({ payload }));
+    // if (confirmationPopUp == 5) {
+    //   dispatch(leavePartySocket(payload ));
+    //   dispatch(setConfirmationPopUp(0));
+    // }
+    // if (confirmationPopUp == 6) {
+    //   dispatch(leavePartySocket(RemovePlayerPayload ));
+    //   dispatch(setConfirmationPopUp(0));
+    // }
+    if (actionPayload) {
+      dispatch(leavePartySocket(actionPayload));
       dispatch(setConfirmationPopUp(0));
     }
   };
@@ -78,6 +95,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 3) return t("confirmation.confirmplayerselection");
     if (confirmationPopUp == 4) return t("confirmation.deleteAccountTitle");
     if (confirmationPopUp == 5) return t("confirmation.leavePartyTitle");
+    if (confirmationPopUp == 6) return t("confirmation.removePlayerMessage");
 
     return "";
   };
@@ -91,7 +109,10 @@ function ConfirmationPopUp({
       return t("confirmation.deleteAccountMessage");
     }
     if (confirmationPopUp == 5) {
-      return t("confirmation.inqueue");
+      return t("confirmation.leavePartyTitle");
+    }
+    if (confirmationPopUp == 6) {
+      return t("confirmation.removePlayerTitle");
     }
     return "";
   };
@@ -101,7 +122,8 @@ function ConfirmationPopUp({
       confirmationPopUp == 1 ||
       confirmationPopUp == 3 ||
       confirmationPopUp == 4 ||
-      confirmationPopUp == 5
+      confirmationPopUp == 5 ||
+      confirmationPopUp == 6
     )
       return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
@@ -114,7 +136,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 3) return t("confirmation.selectplayer");
     if (confirmationPopUp == 4) return t("confirmation.deleteAccount");
     if (confirmationPopUp == 5) return t("confirmation.leavePartyConfirm");
-    // if (confirmationPopUp == 6) return t("confirmation.leavePartyConfirm");
+    if (confirmationPopUp == 6) return t("confirmation.removePlayerConfirm");
 
     return "";
   };

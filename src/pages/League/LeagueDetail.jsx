@@ -29,7 +29,6 @@ import Table from "../../components/Loddy/LeaderBoard/Table";
 import GetQueueButton from "../../components/Cards/LeagueDetail/QueueButton.jsx";
 import { IMAGES } from "../../components/ui/images/images.js";
 import PartyQueueBanner from "../../components/Cards/LeagueDetail/PartyQueueBanner.jsx";
-import { fetchLeagueParticipants } from "../../app/slices/constState/constStateSlice.js";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
@@ -38,6 +37,7 @@ const LeagueDetail = () => {
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const {
     leagueData,
+    leaderBoard,
     activeUsers,
     registrationModal,
     verificationModal,
@@ -48,6 +48,7 @@ const LeagueDetail = () => {
   const isMatctCreated = useSelector(
     (state) => state.constState.isMatctCreated
   );
+
   useEffect(() => {
     let res = startLeagueSocket({ lId, user, isSocketConnected });
     return () => {
@@ -61,11 +62,11 @@ const LeagueDetail = () => {
     }
   }, [leagueData]);
 
-    useEffect(()=>{
-      if (lId && user) {
-        dispatch(fetchLeagueParticipants({ leagueId: lId, userId: user._id }));
-      }
-    },[]);
+    // useEffect(()=>{
+    //   if (lId && user) {
+    //     dispatch(fetchLeagueParticipants({ leagueId: lId, userId: user._id }));
+    //   }
+    // },[]);
 
   return (
     <main className="flex-1 lobby_page--wrapper  pb-[5.25rem] sm:pb-0">

@@ -205,15 +205,13 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
     });
     socket.on(SOCKET.PREPAREQUEUEDATA, (data) => {
-      console.log("New Updates out ");
       if (window.location.pathname.includes(data?.data?.Lid?.toString())) {
-        console.log("New Updates ");
         data.data.userId = user?._id;
         store.dispatch(setQueueData(data.data));
       }
     });
     socket.on(SOCKET.PARTYUPDATEDATA, (data) => {
-      console.log("data", data);
+      store.dispatch(setPartyQueueTeam(data.data));
     });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
     startStarOfTheWeekSocket({
@@ -289,9 +287,6 @@ export function joinLeagueSocket({ isSocketConnected, payload }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.LEAGUEJOIN, payload);
   store.dispatch(setRegistrationModal(false));
-}
-export function leavePartySocket({ payload }) {
-  // socket.emit(SOCKET.LEAVEPARTY, payload);
 }
 export function startMatchUpdate(mId, user) {
   socket.on(SOCKET.MATCHUPDATE, (data) => {
@@ -414,3 +409,9 @@ export const joinUserRoom = () => {
     console.error("Error parsing user from localStorage:", error);
   }
 };
+export const acceptInvitation = ( data ) => {
+  socket.emit(SOCKET.ACCEPT_INVITATION, data);
+};
+export function leavePartySocket( actionPayload ) {
+  socket.emit(SOCKET.LEAVEPARTY, actionPayload);
+}
