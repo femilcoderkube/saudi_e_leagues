@@ -19,10 +19,9 @@ const PartyQueueBanner = () => {
       dispatch(setShowPartyQueuePopup(true));
     }
   };
-  console.log("partyQueueTeam", partyQueueTeam);
 
   const maxPlayers = leagueData?.playersPerTeam;
-  if (leagueData?.format != "party queue" || !user || !partyQueueTeam) {
+  if (leagueData?.format != "party queue" || !user) {
     return;
   }
 
@@ -116,13 +115,14 @@ const PartyQueueBanner = () => {
                 </span> */}
                 </div>
               ))}
-            {partyQueueTeam &&
+            {/* {partyQueueTeam &&
               user &&
               partyQueueTeam.creator?.userId?._id === user._id &&
               !partyQueueTeam.players.some(
                 (player) => player.userId._id === user._id
               ) &&
-              (partyQueueTeam.players.length || 0) + 1 < maxPlayers && (
+              (
+                partyQueueTeam.players.length || 0) + 1 < maxPlayers && ( */}
                 <div className="party-card-wp mx-auto">
                   <div
                     className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] bg-[linear-gradient(180deg,rgba(33,36,92,0.7)_0%,rgba(17,18,60,0.7)_100%)] shadow-[inset_0px_4px_4px_0px_#5472880A] backdrop-blur-[24px] cursor-pointer"
@@ -131,7 +131,8 @@ const PartyQueueBanner = () => {
                     <span className="text-white text-2xl font-medium">+</span>
                   </div>
                 </div>
-              )}
+              {/* )
+              } */}
           </div>
         </div>
       </div>
