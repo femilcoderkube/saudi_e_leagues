@@ -2,8 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getServerURL, getTimeAgo } from "../../../utils/constant";
-import { acceptInvite, setshowNotification, setShowPartyQueuePopup } from "../../../app/slices/constState/constStateSlice";
-import { getPartyQueueUpdate, readNotificationSocket } from "../../../app/socket/socket";
+import { setshowNotification } from "../../../app/slices/constState/constStateSlice";
+import { readNotificationSocket } from "../../../app/socket/socket";
 import { IMAGES } from "../../ui/images/images";
 
 const PartyQueue = ({ data }) => {
@@ -102,14 +102,22 @@ const PartyQueue = ({ data }) => {
                                 const buttonClasses = `${baseClasses} ${dynamicClasses}`;
                                 const buttonText = isExpired ? t("Expired") : notificationData.buttonText;
 
+                                // const handleAcceptInvite = () => {
+                                //     if (!isExpired) {
+                                //         navigate(`/${id}/lobby/${data.extras.leagueId}`);
+                                //         dispatch(acceptInvite({ userId: data.userId._id, leagueId: data.extras.leagueId, teamId: data.extras.teamId }));
+                                //         readNotificationSocket(data._id);
+                                //         dispatch(setshowNotification(false));
+                                //         // dispatch(setShowPartyQueuePopup(true));
+                                //         getPartyQueueUpdate({Lid: data.extras.leagueId, userId: data.userId._id})
+                                //     }
+                                // };
                                 const handleAcceptInvite = () => {
                                     if (!isExpired) {
-                                        navigate(`/${id}/lobby/${data.extras.leagueId}`);
-                                        dispatch(acceptInvite({ userId: data.userId._id, leagueId: data.extras.leagueId, teamId: data.extras.teamId }));
-                                        readNotificationSocket(data._id);
-                                        dispatch(setshowNotification(false));
+                                        navigate(`/${id}/lobby/${data.extras.leagueId}`);                         
+                                        readNotificationSocket(data._id);                                      
+                                        dispatch(setshowNotification(false));                                     
                                         // dispatch(setShowPartyQueuePopup(true));
-                                        getPartyQueueUpdate({Lid: data.extras.leagueId, userId: data.userId._id})
                                     }
                                 };
 
