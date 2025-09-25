@@ -1,17 +1,17 @@
-import JSEncrypt from "jsencrypt";
+// import JSEncrypt from "jsencrypt";
 
-async function encryptWithPublicKey(publicKeyPem, data) {
-    const encoder = new TextEncoder();
-    const payload = JSON.stringify(data);
+// async function encryptWithPublicKey(publicKeyPem, data) {
+//     const encoder = new TextEncoder();
+//     const payload = JSON.stringify(data);
 
-    const encryptor = new JSEncrypt();
-    encryptor.setPublicKey(publicKeyPem);
-    return encryptor.encrypt(payload);
-}
+//     const encryptor = new JSEncrypt();
+//     encryptor.setPublicKey(publicKeyPem);
+//     return encryptor.encrypt(payload);
+// }
 
-export async function generateToken(publicKeyPem, apiData) {
-    return await encryptWithPublicKey(publicKeyPem, {
-        data: apiData,
-        time: Date.now(),
-    });
-}
+// export async function generateToken(publicKeyPem, apiData) {
+//     return await encryptWithPublicKey(publicKeyPem, {
+//         data: apiData,
+//         time: Date.now(),
+//     });
+// }

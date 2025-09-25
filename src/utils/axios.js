@@ -1,10 +1,10 @@
 import axios from "axios";
 import { logout } from "../app/slices/auth/authSlice";
 import i18n from '../i18n';
-import { generateToken } from "../Services/Security";
+// import { generateToken } from "../Services/Security";
 
 export const baseURL = import.meta.env.VITE_API_BASE_URL;
-const secret = import.meta.env.VITE_SECRET_KEY;
+// const secret = import.meta.env.VITE_SECRET_KEY;
 
 const axiosInstance = axios.create({
   baseURL: `${baseURL}/api/v1`,
@@ -19,7 +19,7 @@ export const setAxiosStore = (storeInstance) => {
 };
 
 axiosInstance.interceptors.request.use(
-  async (config) => {
+  (config) => {
     const token = localStorage.getItem("token");
     // const payload = { data: "SecurityPayload", time: Date.now() };
 
@@ -43,22 +43,22 @@ axiosInstance.interceptors.request.use(
 );
 
 // let isLoggingOut = false;
-// axiosInstance.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response && error.response.status === 401) {
-//       if (!isLoggingOut) {
-//         isLoggingOut = true;
-//         if (reduxStore) {
-//           reduxStore.dispatch(logout());
-//         }
-//         localStorage.removeItem("token");
-//         localStorage.removeItem("user");
-//         window.location.href = "/";
-//       }
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // if (!isLoggingOut) {
+      //   isLoggingOut = true;
+      //   if (reduxStore) {
+      //     reduxStore.dispatch(logout());
+      //   }
+      //   localStorage.removeItem("token");
+      //   localStorage.removeItem("user");
+      //   window.location.href = "/";
+      // }
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default axiosInstance;
