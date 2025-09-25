@@ -1,7 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { setConfirmationPopUp } from "../../app/slices/constState/constStateSlice";
-import { cancelMatch, getUpdateToken, leavePartySocket } from "../../app/socket/socket";
+import {
+  cancelMatch,
+  getUpdateToken,
+  leavePartySocket,
+} from "../../app/socket/socket";
 import { motion } from "framer-motion";
 import { deleteFcmToken, logout } from "../../app/slices/auth/authSlice";
 import { IMAGES } from "../ui/images/images";
@@ -23,19 +27,23 @@ function ConfirmationPopUp({
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { partyQueueTeam, popupData } = useSelector((state) => state.constState);
+  const { partyQueueTeam, popupData } = useSelector(
+    (state) => state.constState
+  );
   const payload = {
-    userId: user._id,
-    teamId: partyQueueTeam._id
-  }
+    userId: user?._id,
+    teamId: partyQueueTeam?._id,
+  };
   const removePlayerPayload = {
     userId: popupData?.userId,
-    teamId: popupData?.teamId
-  }
-  const actionPayload = confirmationPopUp === 5 ? payload
-    : confirmationPopUp === 6 ? removePlayerPayload
+    teamId: popupData?.teamId,
+  };
+  const actionPayload =
+    confirmationPopUp === 5
+      ? payload
+      : confirmationPopUp === 6
+      ? removePlayerPayload
       : null;
-
 
   const handleOnClick = () => {
     if (confirmationPopUp == 1) {
@@ -102,8 +110,9 @@ function ConfirmationPopUp({
 
   const getConfirmationMessage = () => {
     if (confirmationPopUp == 3 && selectedPlayerData) {
-      return `${t("confirmation.confirmplayerselectionMessage")} ${selectedPlayerData?.username || t("confirmation.thisplayer")
-        }?`;
+      return `${t("confirmation.confirmplayerselectionMessage")} ${
+        selectedPlayerData?.username || t("confirmation.thisplayer")
+      }?`;
     }
     if (confirmationPopUp == 4) {
       return t("confirmation.deleteAccountMessage");
