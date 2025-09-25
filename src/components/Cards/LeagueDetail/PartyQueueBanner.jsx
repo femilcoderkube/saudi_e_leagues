@@ -44,7 +44,7 @@ const PartyQueueBanner = () => {
               className="cursor-pointer h-6 w-7"
               onClick={() => dispatch(setConfirmationPopUp(5))}
             >
-              <img src={IMAGES.party_logout} alt="" />
+              <img src={IMAGES.party_logout} alt="" /> 
             </div>
           )}
         </div>

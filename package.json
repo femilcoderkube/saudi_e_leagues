@@ -21,6 +21,7 @@
     "formik": "^2.4.6",
     "framer-motion": "^12.23.0",
     "i18next": "^25.3.1",
+    "jsencrypt": "^3.5.4",
     "lodash": "^4.17.21",
     "lucide-react": "^0.536.0",
     "moment": "^2.30.1",

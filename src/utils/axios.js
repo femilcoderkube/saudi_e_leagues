@@ -1,8 +1,10 @@
 import axios from "axios";
 import { logout } from "../app/slices/auth/authSlice";
 import i18n from '../i18n';
+import { generateToken } from "../Services/Security";
 
 export const baseURL = import.meta.env.VITE_API_BASE_URL;
+const secret = import.meta.env.VITE_SECRET_KEY;
 
 const axiosInstance = axios.create({
   baseURL: `${baseURL}/api/v1`,
@@ -17,8 +19,14 @@ export const setAxiosStore = (storeInstance) => {
 };
 
 axiosInstance.interceptors.request.use(
-  (config) => {
+  async (config) => {
     const token = localStorage.getItem("token");
+    const payload = { data: "SecurityPayload", time: Date.now() };
+
+    if (secret) {
+      let secrets = await generateToken(secret, payload);
+      config.headers["X-Auth-Token"] = secrets;
+    }
 
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -34,18 +42,20 @@ axiosInstance.interceptors.request.use(
   }
 );
 
+let isLoggingOut = false;
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      console.log("401 detected, logging out...");
-      if (reduxStore) {
-        reduxStore.dispatch(logout());
+      if (!isLoggingOut) {
+        isLoggingOut = true;
+        if (reduxStore) {
+          reduxStore.dispatch(logout());
+        }
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/";
       }
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      // Optionally, force reload or redirect to login
-      window.location.href = "/";
     }
     return Promise.reject(error);
   }
