@@ -4,11 +4,12 @@ import CryptoJS from "crypto-js";
  * Crypto utilities for API data encryption/decryption
  * Compatible with Node.js backend crypto implementation
  */
+const secretEncryption = import.meta.env.VITE_SECRET_KEY_EN;
+
 class CryptoUtils {
   constructor() {
     // Use the same secret key from your environment
-    this.secretKey =
-      "oYE6BbY5AjZcJXgMtsHlsjYYrQ6Wc7N6fefcwOHBOgCOqypb9CTofLzXVEmhMT2f";
+    this.secretKey = secretEncryption;
     this.algorithm = "AES";
     this.mode = CryptoJS.mode.CBC;
     this.padding = CryptoJS.pad.Pkcs7;
@@ -39,8 +40,6 @@ class CryptoUtils {
       const iv = this.generateIV();
       const key = this.getKey();
 
-      console.log("Client encrypting data:", jsonString.substring(0, 100));
-
       const encrypted = CryptoJS.AES.encrypt(jsonString, key, {
         iv: iv,
         mode: this.mode,
@@ -55,8 +54,6 @@ class CryptoUtils {
       const combined = ivBytes.concat(cipherBytes);
 
       const result = CryptoJS.enc.Base64.stringify(combined);
-      console.log("Client encrypted result length:", result.length);
-
       return result;
     } catch (error) {
       console.error("Client encryption error:", error);
@@ -71,12 +68,6 @@ class CryptoUtils {
    */
   decrypt(encryptedData) {
     try {
-      console.log("Client decrypting data length:", encryptedData.length);
-      console.log(
-        "Client encrypted data preview:",
-        encryptedData.substring(0, 50)
-      );
-
       const key = this.getKey();
 
       // Convert from Base64 to WordArray
@@ -94,9 +85,6 @@ class CryptoUtils {
         ciphertextLength
       );
 
-      console.log("Client IV:", CryptoJS.enc.Hex.stringify(iv));
-      console.log("Client ciphertext length:", ciphertextLength);
-
       // Create cipher params object
       const cipherParams = CryptoJS.lib.CipherParams.create({
         ciphertext: ciphertext,
@@ -110,10 +98,6 @@ class CryptoUtils {
       });
 
       const decryptedString = decrypted.toString(CryptoJS.enc.Utf8);
-      console.log(
-        "Client decrypted string:",
-        decryptedString.substring(0, 100)
-      );
 
       if (!decryptedString) {
         throw new Error("Decryption resulted in empty string");
@@ -175,17 +159,11 @@ class CryptoUtils {
    */
   testCompatibility(testData = { test: "data", number: 123 }) {
     try {
-      console.log("Testing crypto compatibility...");
-      console.log("Original data:", testData);
-
       const encrypted = this.encrypt(testData);
-      console.log("Encrypted:", encrypted);
 
       const decrypted = this.decrypt(encrypted);
-      console.log("Decrypted:", decrypted);
 
       const isMatch = JSON.stringify(testData) === JSON.stringify(decrypted);
-      console.log("Test result:", isMatch ? "✅ PASS" : "❌ FAIL");
 
       return isMatch;
     } catch (error) {

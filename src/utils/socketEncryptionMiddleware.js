@@ -3,8 +3,10 @@
 import CryptoJS from "crypto-js";
 import { isBuffer } from "lodash";
 
+const Universalsecret = import.meta.env.VITE_UNIVERSAL_EN_SECRET_KEY;
+
 class UniversalSocketEncryption {
-  constructor(secretKey = "SSHN1MKXPOpdDtKW2jzwfN9Adhn7er3U") {
+  constructor(secretKey = Universalsecret) {
     // Derive a 32-byte key via SHA-256 (matches backend)
     this.key = CryptoJS.SHA256(String(secretKey));
     this.algorithm = "AES-256-CBC";
@@ -32,8 +34,8 @@ class UniversalSocketEncryption {
         __encrypted: true,
         data: encrypted.toString(), // base64 ciphertext
         iv: CryptoJS.enc.Base64.stringify(iv), // base64 IV (matches backend)
-        encoding: "base64",
-        alg: this.algorithm,
+        // encoding: "base64",
+        // alg: this.algorithm,
       };
     } catch (error) {
       console.error("Encryption error:", error);
