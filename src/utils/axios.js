@@ -74,8 +74,7 @@ axiosInstance.interceptors.response.use(
     console.log("Raw response data:", response.data);
 
     // Check for encrypted response (case-insensitive header check)
-    const isEncrypted = true;
-    console.log("isEncrypted", isEncrypted);
+
     if (response.data?.encryptedData) {
       console.log("innnini");
       try {
@@ -88,7 +87,7 @@ axiosInstance.interceptors.response.use(
         console.error("Encrypted data was:", response.data.encryptedData);
         // Return original response if decryption fails
       }
-    } else if (isEncrypted) {
+    } else {
       console.warn("Response marked as encrypted but no encryptedData found");
       console.log("Response data structure:", Object.keys(response.data || {}));
     }
