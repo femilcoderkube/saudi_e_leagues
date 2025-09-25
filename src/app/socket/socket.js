@@ -17,7 +17,10 @@ import {
   setChatData,
   setmatchData,
 } from "../slices/MatchSlice/matchDetailSlice";
-import { setIsMatctCreated, setPartyQueueTeam } from "../slices/constState/constStateSlice";
+import {
+  setIsMatctCreated,
+  setPartyQueueTeam,
+} from "../slices/constState/constStateSlice";
 import {
   setLastMatch,
   setNotification,
@@ -37,16 +40,12 @@ import {
   setIsBannedUser,
 } from "../slices/auth/authSlice";
 import { globalNavigate } from "../../Services/navigationService";
+import { wrapSocketWithEncryption } from "../../utils/socketEncryptionMiddleware";
 
 const SOCKET_URL =
   import.meta.env.VITE_SOCKET_URL || "https://staging-backend.primeeleague.com";
 // const SOCKET_URL =
 //   import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
-
-export const socket = io(SOCKET_URL, {
-  transports: ["websocket"],
-  autoConnect: false,
-});
 
 export const SOCKET = {
   JOINLEAGUE: "joinLeague",
@@ -95,9 +94,14 @@ export const SOCKET = {
   JOINTEAMROOM: "joinTeamRoom",
   LEAVETEAMROOM: "leaveTeamRoom",
   ACCEPT_INVITATION: "ACCEPT_INVITATION",
-  READYTOPLAYPARTY : "readytoplayParty",
+  READYTOPLAYPARTY: "readytoplayParty",
 };
-
+export const socket = wrapSocketWithEncryption(
+  io(SOCKET_URL, {
+    transports: ["websocket"],
+    autoConnect: false,
+  })
+);
 socket.connect();
 socket.on("connect", () => {
   const user = JSON.parse(localStorage.getItem("user")) || null;
@@ -249,7 +253,7 @@ export function stopLeagueSocket(lId) {
   socket.off(SOCKET.LEAGUEUPDATE);
   socket.off(SOCKET.PREPAREQUEUEDATA);
   socket.off(SOCKET.GETLEADERBOARD);
-  socket.emit(SOCKET.LEAVELEAGUE, { Lid: lId })
+  socket.emit(SOCKET.LEAVELEAGUE, { Lid: lId });
 }
 export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
   if (isSocketConnected) {
@@ -262,9 +266,7 @@ export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
     socket.emit(SOCKET.GETWEEKOFSTAR, { Lid: lId, userId: user?._id });
   }
 }
-export function getPartyQueueUpdate() {
-
-}
+export function getPartyQueueUpdate() {}
 export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user?._id });
@@ -272,7 +274,12 @@ export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {
     startLeagueSocket(lId, user, isSocketConnected);
   }, 2000);
 }
-export function startReadyToPlayWithPartySocket({ lId, user, teamId, isSocketConnected }) {
+export function startReadyToPlayWithPartySocket({
+  lId,
+  user,
+  teamId,
+  isSocketConnected,
+}) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.READYTOPLAYPARTY, { Lid: lId, teamId, userId: user?._id });
   setTimeout(() => {
@@ -417,9 +424,9 @@ export const joinUserRoom = () => {
     console.error("Error parsing user from localStorage:", error);
   }
 };
-export const acceptInvitation = ( data ) => {
+export const acceptInvitation = (data) => {
   socket.emit(SOCKET.ACCEPT_INVITATION, data);
 };
-export function leavePartySocket( actionPayload ) {
+export function leavePartySocket(actionPayload) {
   socket.emit(SOCKET.LEAVEPARTY, actionPayload);
 }
