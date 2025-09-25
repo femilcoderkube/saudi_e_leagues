@@ -21,12 +21,12 @@ export const setAxiosStore = (storeInstance) => {
 axiosInstance.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem("token");
-    const payload = { data: "SecurityPayload", time: Date.now() };
+    // const payload = { data: "SecurityPayload", time: Date.now() };
 
-    if (secret) {
-      let secrets = await generateToken(secret, payload);
-      config.headers["X-Auth-Token"] = secrets;
-    }
+    // if (secret) {
+    //   let secrets = await generateToken(secret, payload);
+    //   config.headers["X-Auth-Token"] = secrets;
+    // }
 
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -42,23 +42,23 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-let isLoggingOut = false;
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response && error.response.status === 401) {
-      if (!isLoggingOut) {
-        isLoggingOut = true;
-        if (reduxStore) {
-          reduxStore.dispatch(logout());
-        }
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        window.location.href = "/";
-      }
-    }
-    return Promise.reject(error);
-  }
-);
+// let isLoggingOut = false;
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response && error.response.status === 401) {
+//       if (!isLoggingOut) {
+//         isLoggingOut = true;
+//         if (reduxStore) {
+//           reduxStore.dispatch(logout());
+//         }
+//         localStorage.removeItem("token");
+//         localStorage.removeItem("user");
+//         window.location.href = "/";
+//       }
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default axiosInstance;
