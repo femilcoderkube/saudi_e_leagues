@@ -24,17 +24,7 @@ function ConfirmationPopUp({
   const { t } = useTranslation();
 
   const { partyQueueTeam, popupData } = useSelector((state) => state.constState);
-  const payload = {
-    userId: user._id,
-    teamId: partyQueueTeam._id
-  }
-  const removePlayerPayload = {
-    userId: popupData?.userId,
-    teamId: popupData?.teamId
-  }
-  const actionPayload = confirmationPopUp === 5 ? payload
-    : confirmationPopUp === 6 ? removePlayerPayload
-      : null;
+
 
 
   const handleOnClick = () => {
@@ -83,9 +73,23 @@ function ConfirmationPopUp({
     //   dispatch(leavePartySocket(RemovePlayerPayload ));
     //   dispatch(setConfirmationPopUp(0));
     // }
-    if (actionPayload) {
-      dispatch(leavePartySocket(actionPayload));
-      dispatch(setConfirmationPopUp(0));
+    if (confirmationPopUp == 5 || confirmationPopUp == 6) {
+      const payload = {
+        userId: user?._id,
+        teamId: partyQueueTeam?._id
+      }
+      const removePlayerPayload = {
+        userId: popupData?.userId,
+        teamId: popupData?.teamId
+      }
+      const actionPayload = confirmationPopUp === 5 ? payload
+        : confirmationPopUp === 6 ? removePlayerPayload
+          : null;
+          
+      if (actionPayload) {
+        dispatch(leavePartySocket(actionPayload));
+        dispatch(setConfirmationPopUp(0));
+      }
     }
   };
 
