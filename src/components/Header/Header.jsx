@@ -604,7 +604,11 @@ const Header = () => {
   let mainItem = breadcrumbItems[breadcrumbItems.length - 1];
 
   // Match page header
-  if (checkParams("finding-match") || checkParams("match")) {
+  if (
+    checkParams("finding-match") ||
+    checkParams("finding-partymatch") ||
+    checkParams("match")
+  ) {
     // Extract common data
     const isEnglish = i18n.language === "en";
     const isTournament = checkParams("tournament");

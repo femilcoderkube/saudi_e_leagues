@@ -216,7 +216,8 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
     });
     socket.on(SOCKET.PARTYUPDATEDATA, (data) => {
-      store.dispatch(setPartyQueueTeam(data));
+      if (window.location.pathname.includes(data?.data?.leagueId?.toString()))
+        store.dispatch(setPartyQueueTeam(data));
     });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
     startStarOfTheWeekSocket({
