@@ -8,6 +8,3 @@ Disallow: /dev-dist/
 Disallow: /node_modules/
 
 
-Sitemap: /sitemap.xml
-
-
