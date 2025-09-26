@@ -16,9 +16,8 @@ import GamingLoader from "../../components/Loader/loader";
 import { setLeagueData } from "../../app/slices/leagueDetail/leagueDetailSlice";
 import { useTranslation } from "react-i18next";
 import { setTournamentData } from "../../app/slices/tournamentSlice/tournamentSlice";
-import {
-  cardVariantsAni,
-} from "../../components/Animation/animation.jsx";
+import { cardVariantsAni } from "../../components/Animation/animation.jsx";
+import { setPartyQueueTeam } from "../../app/slices/constState/constStateSlice.js";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -63,7 +62,8 @@ const Lobby = () => {
       })
     );
     dispatch(setLeagueData(null));
-    dispatch(setTournamentData(null))
+    dispatch(setPartyQueueTeam(null));
+    dispatch(setTournamentData(null));
   }, [dispatch, activeIndex, selectedGame]);
 
   return (
@@ -72,29 +72,30 @@ const Lobby = () => {
         className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
         style={{ backgroundSize: "100%" }}
       ></div>
-      <motion.div className="sd_slect_game--wrapper relative md:mt-5 "
-      initial="hidden"
-      whileInView="visible"
-      variants={cardVariantsAni}
-      viewport={{ once: true, amount: 0.1 }}
+      <motion.div
+        className="sd_slect_game--wrapper relative md:mt-5 "
+        initial="hidden"
+        whileInView="visible"
+        variants={cardVariantsAni}
+        viewport={{ once: true, amount: 0.1 }}
       >
         <div className="w-full flex justify-center ">
-        <div className="game_status--tab rounded-xl overflow-hidden relative md:mt-0 mt-3 md:left-auto md:-translate-x-0 rtl:translate-x-[0] md:absolute top-1 md:ltr:right-32 rtl:right-75 inline-flex mb-8 md:mb-4">
-          {tabs.map((tab, index) => (
-            <button
-              key={index}
-              onClick={() => dispatch(setActiveIndex(index))}
-              className={`w-[6rem] sm:w-[10rem] sm:h-[4rem] md:py-2 md:px-2.5 px-7 py-6 pt-0 sm:text-lg font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
+          <div className="game_status--tab rounded-xl overflow-hidden relative md:mt-0 mt-3 md:left-auto md:-translate-x-0 rtl:translate-x-[0] md:absolute top-1 md:ltr:right-32 rtl:right-75 inline-flex mb-8 md:mb-4">
+            {tabs.map((tab, index) => (
+              <button
+                key={index}
+                onClick={() => dispatch(setActiveIndex(index))}
+                className={`w-[6rem] sm:w-[10rem] sm:h-[4rem] md:py-2 md:px-2.5 px-7 py-6 pt-0 sm:text-lg font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300
               ${
                 activeIndex === index
                   ? "active-tab hover:opacity-100 polygon_border"
                   : "inactive-tab"
               }`}
-            >
-              {t(`lobby.tabs.${tab}`)}
-            </button>
-          ))}
-        </div>
+              >
+                {t(`lobby.tabs.${tab}`)}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="select_game-header flex items-center gap-1 justify-between">
           <GameDropDown />
@@ -117,7 +118,7 @@ const Lobby = () => {
             </button>
           </div>
         </div>
-       
+
         <div className="sd_tab_cont--wrap pb-[5.25rem] sm:pb-10 ">
           {loading ? (
             <GamingLoader />
