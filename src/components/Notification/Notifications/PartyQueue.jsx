@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getServerURL, getTimeAgo } from "../../../utils/constant";
 import { setshowNotification } from "../../../app/slices/constState/constStateSlice";
@@ -11,6 +11,8 @@ const PartyQueue = ({ data }) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { isMatchJoind, isQueueUser } = useSelector((state) => state.leagues);
+
     let subject, body;
     subject =
         i18n.language == "en"
@@ -85,7 +87,7 @@ const PartyQueue = ({ data }) => {
                                 const currentTime = new Date();
                                 const expiryTime = data.extras.expiry ? new Date(data.extras.expiry) : null;
                                 const isExpired = expiryTime && expiryTime < currentTime;
-
+                                const inMatch = !isQueueUser && (isMatchJoind?.currentMatch == null || isMatchJoind?.currentMatch == undefined);
                                 const baseClasses = `relative overflow-hidden pl-0 go-btn uppercase flex items-center justify-center gap-3 text-lg z-10 sleading-6 font_oswald font-medium w-[9.8rem] h-12 duration-300`;
                                 let dynamicClasses = "";
 

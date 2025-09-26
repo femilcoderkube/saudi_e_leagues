@@ -20,7 +20,13 @@ function QueueConfirmationBanner() {
   const handleQueueClick = () => {
     if (doNotShowAgain) localStorage.setItem("skipQueueConfirmation", "true");
     sessionStorage.setItem("canAccessFindingMatch", "true");
-    navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+    if (leagueData.format == "party queue") {
+      navigate(`/${id}/lobby/${leagueData?._id}/finding-partymatch`);
+
+    }else{
+
+      navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+    }
     dispatch(setQueueConfirmation(false));
     dispatch(setUserInQueue(true));
   };

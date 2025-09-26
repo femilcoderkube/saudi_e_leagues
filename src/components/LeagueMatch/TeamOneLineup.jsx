@@ -30,12 +30,15 @@ export const TeamOneLineup = () => {
     });
   };
   const { t } = useTranslation();
+  console.log("matchData", matchData);
 
   return (
     <>
     <ul className="team_one--list  flex-col gap-5 mt-[-1rem] hidden xl:flex">
       {cards.map((Card, index) => {
+        
         let player = matchData?.team1[index];
+        console.log("player", player);
         let data = {
           username: player?.participant?.userId?.username || "",
           gameID: player?.participant?.gameId || "",

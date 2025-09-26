@@ -27,8 +27,10 @@ function PartyQueuePopup() {
     dispatch(setShowPartyQueuePopup(false));
   };
 
-  const allPlayers = useMemo(() => {
-    return leaderBoard?.topUsers || [];
+  const [allPlayers, setAllPlayers] = useState([]);
+
+  useEffect(() => {
+    setAllPlayers(leaderBoard?.topUsers || []);
   }, [leaderBoard?.topUsers]);
 
   const scrollContainerRef = useRef(null);

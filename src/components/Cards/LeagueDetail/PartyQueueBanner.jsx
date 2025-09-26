@@ -20,6 +20,7 @@ const PartyQueueBanner = () => {
       dispatch(setShowPartyQueuePopup(true));
     }
   };
+console.log("partyQueueTeam?.data",partyQueueTeam);
 
   return (
     <>
@@ -138,7 +139,10 @@ const PartyQueueBanner = () => {
               ))}
             {partyQueueTeam &&
               partyQueueTeam?.data?.Creator === user?._id &&
-              partyQueueTeam?.data?.Players?.length < leagueData?.playersPerTeam && (
+              partyQueueTeam?.data?.Players?.length < leagueData?.playersPerTeam && 
+              !isQueueUser && (isMatchJoind?.currentMatch == null ||
+                isMatchJoind?.currentMatch == undefined) && 
+              (
                 <div className="party-card-wp mx-auto">
                   <div
                     className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] bg-[linear-gradient(180deg,rgba(33,36,92,0.7)_0%,rgba(17,18,60,0.7)_100%)] shadow-[inset_0px_4px_4px_0px_#5472880A] backdrop-blur-[24px] cursor-pointer"
