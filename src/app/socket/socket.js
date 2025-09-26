@@ -287,9 +287,15 @@ export function startReadyToPlayWithPartySocket({
     startLeagueSocket(lId, user, isSocketConnected);
   }, 2000);
 }
-export function stopReadyToPlaySocket({ lId, user, isSocketConnected }) {
+export function stopReadyToPlaySocket({
+  lId,
+  user,
+  isSocketConnected,
+  isTeam = false,
+}) {
   if (!isSocketConnected) return;
-  socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user?._id });
+
+  socket.emit(SOCKET.NOTREADYTOPLAY, { Lid: lId, userId: user?._id, isTeam });
   store.dispatch(removeFromQueue(user._id));
 
   const handleQueueResponse = (data) => {

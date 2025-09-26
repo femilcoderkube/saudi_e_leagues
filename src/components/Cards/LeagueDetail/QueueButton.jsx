@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setQueueConfirmation,
-} from "../../../app/slices/constState/constStateSlice";
+import { setQueueConfirmation } from "../../../app/slices/constState/constStateSlice";
 import {
   setQueuePlayers,
   setRegistrationModal,
@@ -11,7 +9,7 @@ import { stopReadyToPlaySocket } from "../../../app/socket/socket";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../ui/images/images";
-import MobileEvent from "../../../hooks/mobileevents.js"
+import MobileEvent from "../../../hooks/mobileevents.js";
 import { useState } from "react";
 import PartyQueuePopup from "../../Overlays/LeagueDetail/PartyQueuePopup.jsx";
 import { checkBannedUser } from "../../../app/slices/auth/authSlice.js";
@@ -71,8 +69,8 @@ const GetQueueButton = () => {
     } catch (error) {
       setIsCheckingBan(false);
     }
-  };  
-  
+  };
+
   const renderButton = () => {
     if (user?._id == null || user?._id == undefined) {
       return (
@@ -182,11 +180,20 @@ const GetQueueButton = () => {
         <div
           className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
           onClick={() => {
-            stopReadyToPlaySocket({
-              lId: leagueData?._id,
-              user,
-              isSocketConnected,
-            });
+            if (leagueData?.format == "party queue") {
+              stopReadyToPlaySocket({
+                lId: leagueData?._id,
+                user,
+                isSocketConnected,
+                isTeam: partyQueueTeam?.data?._id,
+              });
+            } else {
+              stopReadyToPlaySocket({
+                lId: leagueData?._id,
+                user,
+                isSocketConnected,
+              });
+            }
           }}
         >
           <span
@@ -239,8 +246,20 @@ const GetQueueButton = () => {
       } else if (text == t("images.queue")) {
         return (
           <div
-            className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${isCheckingBan || (leagueData.format === "party queue" && partyQueueTeam?.data?.Creator !== user?._id) ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
-            onClick={isCheckingBan || (leagueData.format === "party queue" && partyQueueTeam?.data?.Creator !== user?._id) ? undefined : handleQueueClick}
+            className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${
+              isCheckingBan ||
+              (leagueData.format === "party queue" &&
+                partyQueueTeam?.data?.Creator !== user?._id)
+                ? "cursor-not-allowed opacity-50"
+                : "cursor-pointer"
+            }`}
+            onClick={
+              isCheckingBan ||
+              (leagueData.format === "party queue" &&
+                partyQueueTeam?.data?.Creator !== user?._id)
+                ? undefined
+                : handleQueueClick
+            }
           >
             <span
               className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"
@@ -292,9 +311,7 @@ const GetQueueButton = () => {
   return (
     <>
       {renderButton()}
-      {showPartyQueuePopup && (
-        <PartyQueuePopup />
-      )}
+      {showPartyQueuePopup && <PartyQueuePopup />}
     </>
   );
 };

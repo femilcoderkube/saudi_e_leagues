@@ -43,7 +43,7 @@ const PartyMatchMaking = () => {
   // Show time over popup if 5 min and not joined
   useEffect(() => {
     if (seconds >= 300) {
-      stopReadyToPlaySocket({ lId, user, isSocketConnected });
+      stopReadyToPlaySocket({ lId, user, isSocketConnected, isTeam: teamId });
       setShowTimeOver(true);
       setTimerActive(false);
     }
@@ -58,7 +58,7 @@ const PartyMatchMaking = () => {
     }
 
     if (isSocketConnected && user?._id) {
-       startLeagueSocket({ lId, user, isSocketConnected });
+      startLeagueSocket({ lId, user, isSocketConnected });
       // startGetQueuePlayers();
       startReadyToPlayWithPartySocket({ lId, user, teamId, isSocketConnected });
     }
@@ -75,7 +75,7 @@ const PartyMatchMaking = () => {
   const handleCancel = () => {
     if (seconds <= 2) return;
     if (isSocketConnected && user?._id) {
-      stopReadyToPlaySocket({ lId, user, isSocketConnected });
+      stopReadyToPlaySocket({ lId, user, isSocketConnected, isTeam: teamId });
       sessionStorage.removeItem("canAccessFindingMatch");
       navigate(-1);
     }
@@ -93,7 +93,7 @@ const PartyMatchMaking = () => {
   const handleTimeOverNo = () => {
     setShowTimeOver(false);
     if (isSocketConnected && user?._id) {
-      stopReadyToPlaySocket({ lId, user, isSocketConnected });
+      stopReadyToPlaySocket({ lId, user, isSocketConnected, isTeam: teamId });
       navigate(-1);
       sessionStorage.removeItem("canAccessFindingMatch");
     }
@@ -153,7 +153,11 @@ const PartyMatchMaking = () => {
                 style={{ width: "11rem" }}
               />
               <div onClick={handleCancel}>
-                <div className={`absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem] ${isDisable && ('opacity-50')}`}>
+                <div
+                  className={`absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem] ${
+                    isDisable && "opacity-50"
+                  }`}
+                >
                   <img
                     className="cancel-btn duration-400 cursor-pointer z-2"
                     src={IMAGES.cancel_btn}
@@ -161,7 +165,9 @@ const PartyMatchMaking = () => {
                     style={{ width: "25rem" }}
                   />
                   <span
-                    className={`mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-lg sm:text-2xl ${isDisable ? 'cursor-not-allowed' : 'cursor-pointer'} `}
+                    className={`mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-lg sm:text-2xl ${
+                      isDisable ? "cursor-not-allowed" : "cursor-pointer"
+                    } `}
                     style={{
                       fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
                       fontWeight: "bold",
