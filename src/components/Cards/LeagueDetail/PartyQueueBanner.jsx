@@ -55,7 +55,7 @@ const PartyQueueBanner = () => {
             {partyQueueTeam?.data?.Players &&
               partyQueueTeam?.data?.Players.map((player) => (
                 <div className="party-card-wp mx-auto relative" key={player.userId?._id}>
-                  {partyQueueTeam?.data.Creator === user._id &&
+                  {partyQueueTeam?.data.Creator === user?._id &&
                     player.userId?._id !== partyQueueTeam?.data.Creator && (
                       <button
                         onClick={() => {
@@ -142,7 +142,7 @@ const PartyQueueBanner = () => {
                 </div>
               ))}
             {partyQueueTeam &&
-              partyQueueTeam?.data?.Creator === user._id &&
+              partyQueueTeam?.data?.Creator === user?._id &&
               partyQueueTeam?.data?.Players?.length < leagueData?.playersPerTeam && (
                 <div className="party-card-wp mx-auto">
                   <div

@@ -71,9 +71,9 @@ const GetQueueButton = () => {
     } catch (error) {
       setIsCheckingBan(false);
     }
-  };
+  };  
+  
   const renderButton = () => {
-
     if (user?._id == null || user?._id == undefined) {
       return (
         <>
