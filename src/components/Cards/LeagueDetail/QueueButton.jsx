@@ -46,11 +46,17 @@ const GetQueueButton = () => {
       }
 
       if (leagueData?.format == "party queue") {
-        // dispatch(setShowPartyQueuePopup(true));
-        // dispatch(setTeamFromQueue(true));
-        // setIsCheckingBan(false);
-        sessionStorage.setItem("canAccessFindingMatch", "true");
-        navigate(`/${id}/lobby/${leagueData?._id}/finding-partymatch`);
+        if (userInQueue) {
+          dispatch(setQueueConfirmation(true));
+        } else {
+          if (localStorage.getItem("skipQueueConfirmation")) {
+            sessionStorage.setItem("canAccessFindingMatch", "true");
+            navigate(`/${id}/lobby/${leagueData?._id}/finding-partymatch`);
+          } else {
+            dispatch(setQueueConfirmation(true));
+          }
+        }
+        setIsCheckingBan(false);
         return;
       }
 

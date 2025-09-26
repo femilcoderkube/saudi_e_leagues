@@ -7,10 +7,9 @@ import {
 import { setPopupData } from "../../../app/slices/constState/constStateSlice";
 import { getRandomColor, getServerURL } from "../../../utils/constant";
 import { getSmile } from "../MatchDetail/matchCards";
-import { useEffect } from "react";
 
 const PartyQueueBanner = () => {
-  const { leagueData, isMatchJoind } = useSelector((state) => state.leagues);
+  const { leagueData, isMatchJoind, isQueueUser } = useSelector((state) => state.leagues);
   const { partyQueueTeam } = useSelector((state) => state.constState);
   const { user } = useSelector((state) => state.auth);
 
@@ -36,14 +35,15 @@ const PartyQueueBanner = () => {
               Party Queue
             </h3>
           </div>
-          {partyQueueTeam?.data?.Players.length >= 2 && !(isMatchJoind?.currentMatch) && (
-            <div
-              className="cursor-pointer h-6 w-7"
-              onClick={() => dispatch(setConfirmationPopUp(5))}
-            >
-              <img src={IMAGES.party_logout} alt="" />
-            </div>
-          )}
+          {(partyQueueTeam?.data?.Players.length >= 2 && !isQueueUser && (isMatchJoind?.currentMatch == null ||
+            isMatchJoind?.currentMatch == undefined)) && (
+              <div
+                className="cursor-pointer h-6 w-7"
+                onClick={() => dispatch(setConfirmationPopUp(5))}
+              >
+                <img src={IMAGES.party_logout} alt="" />
+              </div>
+            )}
         </div>
         <div className="party_container px-4 py-5">
           <div className="grid grid-cols-3 items-center gap-7 justify-between">
