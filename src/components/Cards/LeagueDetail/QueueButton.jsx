@@ -239,8 +239,8 @@ const GetQueueButton = () => {
       } else if (text == t("images.queue")) {
         return (
           <div
-            className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${isCheckingBan || (leagueData.format === "party queue" && partyQueueTeam?.Creator !== user?._id) ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
-            onClick={isCheckingBan || (leagueData.format === "party queue" && partyQueueTeam?.Creator !== user?._id) ? undefined : handleQueueClick}
+            className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${isCheckingBan || (leagueData.format === "party queue" && partyQueueTeam?.data?.Creator !== user?._id) ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+            onClick={isCheckingBan || (leagueData.format === "party queue" && partyQueueTeam?.data?.Creator !== user?._id) ? undefined : handleQueueClick}
           >
             <span
               className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-3xl"

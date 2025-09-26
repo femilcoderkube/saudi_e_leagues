@@ -7,6 +7,7 @@ import {
 import { setPopupData } from "../../../app/slices/constState/constStateSlice";
 import { getRandomColor, getServerURL } from "../../../utils/constant";
 import { getSmile } from "../MatchDetail/matchCards";
+import { useEffect } from "react";
 
 const PartyQueueBanner = () => {
   const { leagueData, isMatchJoind } = useSelector((state) => state.leagues);
@@ -20,10 +21,11 @@ const PartyQueueBanner = () => {
       dispatch(setShowPartyQueuePopup(true));
     }
   };
-
-  if (leagueData?.format != "party queue" || !user || !partyQueueTeam) {
-    return;
-  }
+  useEffect(()=>{
+    if (leagueData?.format != "party queue" || !user || !partyQueueTeam?.data) {
+      return;
+    }
+  },[leagueData?.format, user, partyQueueTeam])
 
   return (
     <>
@@ -39,7 +41,7 @@ const PartyQueueBanner = () => {
               Party Queue
             </h3>
           </div>
-          {partyQueueTeam?.Players.length >= 2 && !(isMatchJoind?.currentMatch) &&(
+          {partyQueueTeam?.data?.Players.length >= 2 && !(isMatchJoind?.currentMatch) &&(
             <div
               className="cursor-pointer h-6 w-7"
               onClick={() => dispatch(setConfirmationPopUp(5))}
@@ -50,17 +52,17 @@ const PartyQueueBanner = () => {
         </div>
         <div className="party_container px-4 py-5">
           <div className="grid grid-cols-3 items-center gap-7 justify-between">
-            {partyQueueTeam?.Players &&
-              partyQueueTeam?.Players.map((player) => (
+            {partyQueueTeam?.data?.Players &&
+              partyQueueTeam?.data?.Players.map((player) => (
                 <div className="party-card-wp mx-auto relative" key={player.userId?._id}>
-                  {partyQueueTeam.Creator === user._id &&
-                    player.userId?._id !== partyQueueTeam.Creator && (
+                  {partyQueueTeam?.data.Creator === user._id &&
+                    player.userId?._id !== partyQueueTeam?.data.Creator && (
                       <button
                         onClick={() => {
                           dispatch(
                             setPopupData({
                               userId: player.userId?._id,
-                              teamId: partyQueueTeam?._id,
+                              teamId: partyQueueTeam?.data?._id,
                             })
                           );
                           dispatch(setConfirmationPopUp(6));
@@ -122,7 +124,7 @@ const PartyQueueBanner = () => {
                     </div>
                   </div>
                   <div className="flex relative">
-                    {partyQueueTeam.Creator === player.userId?._id && (
+                    {partyQueueTeam?.data.Creator === player.userId?._id && (
                       <div className="flex items-center gap-1 mb-1 me-1">
                         <img src={IMAGES.party_winner} alt="" />
                       </div>
@@ -140,8 +142,8 @@ const PartyQueueBanner = () => {
                 </div>
               ))}
             {partyQueueTeam &&
-              partyQueueTeam?.Creator === user._id &&
-              partyQueueTeam?.Players?.length < leagueData?.playersPerTeam && (
+              partyQueueTeam?.data?.Creator === user._id &&
+              partyQueueTeam?.data?.Players?.length < leagueData?.playersPerTeam && (
                 <div className="party-card-wp mx-auto">
                   <div
                     className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] bg-[linear-gradient(180deg,rgba(33,36,92,0.7)_0%,rgba(17,18,60,0.7)_100%)] shadow-[inset_0px_4px_4px_0px_#5472880A] backdrop-blur-[24px] cursor-pointer"

@@ -79,7 +79,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 5 || confirmationPopUp == 6) {
       const payload = {
         userId: user?._id,
-        teamId: partyQueueTeam?._id
+        teamId: partyQueueTeam?.data?._id
       }
       const removePlayerPayload = {
         userId: popupData?.userId,

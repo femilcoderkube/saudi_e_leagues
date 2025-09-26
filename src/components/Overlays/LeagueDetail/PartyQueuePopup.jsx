@@ -63,7 +63,7 @@ function PartyQueuePopup() {
         userId: option.value,
         name: user.username,
         leagueName: leagueData?.title,
-        teamId: partyQueueTeam._id,
+        teamId: partyQueueTeam?.data._id,
         leagueId: leagueData?._id,
         username: option.username,
         avatar: option.avatar,
@@ -71,7 +71,7 @@ function PartyQueuePopup() {
     );
     toast.success(`${option.username} invited`);
   };
-
+  
   return (
     <>
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"></div>
@@ -191,7 +191,7 @@ function PartyQueuePopup() {
               </div>
             )}
             <h3 className="text-lg font-medium text-white mb-5">
-              {t("league.players")} ({partyQueueTeam?.Players?.length}/
+              {t("league.players")} ({partyQueueTeam?.data?.Players?.length}/
               {maxPlayers})
             </h3>
             <div
@@ -199,7 +199,7 @@ function PartyQueuePopup() {
               ref={scrollContainerRef}
             >
               {displayedPlayers.length > 0 ? (
-                displayedPlayers.map((player) => (
+                displayedPlayers.filter((p) => p.userId._id != user._id).map((player) => (
                   <div
                     key={player.userId._id}
                     className="flex items-center justify-between sm:gap-3 gap-2"

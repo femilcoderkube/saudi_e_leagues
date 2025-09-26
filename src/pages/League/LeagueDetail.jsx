@@ -29,11 +29,12 @@ import Table from "../../components/Loddy/LeaderBoard/Table";
 import GetQueueButton from "../../components/Cards/LeagueDetail/QueueButton.jsx";
 import { IMAGES } from "../../components/ui/images/images.js";
 import PartyQueueBanner from "../../components/Cards/LeagueDetail/PartyQueueBanner.jsx";
+import { toast } from "react-toastify";
 
 const LeagueDetail = () => {
   const { lId } = useParams();
   const { user } = useSelector((state) => state.auth);
-  const { queueConfimation } = useSelector((state) => state.constState);
+  const { queueConfimation, partyQueueTeam } = useSelector((state) => state.constState);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const {
     leagueData,
@@ -62,11 +63,15 @@ const LeagueDetail = () => {
     }
   }, [leagueData]);
 
-    // useEffect(()=>{
-    //   if (lId && user) {
-    //     dispatch(fetchLeagueParticipants({ leagueId: lId, userId: user._id }));
-    //   }
-    // },[]);
+  // useEffect(()=>{
+  //   if (lId && user) {
+  //     dispatch(fetchLeagueParticipants({ leagueId: lId, userId: user._id }));
+  //   }
+  // },[]);
+
+  useEffect(() => {
+    toast.error(partyQueueTeam?.message);
+  }, [partyQueueTeam?.message])
 
   return (
     <main className="flex-1 lobby_page--wrapper  pb-[5.25rem] sm:pb-0">

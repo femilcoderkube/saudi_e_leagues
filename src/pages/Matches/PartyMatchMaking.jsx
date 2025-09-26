@@ -29,7 +29,7 @@ const PartyMatchMaking = () => {
   const [timerActive, setTimerActive] = useState(true);
   const { t, i18n } = useTranslation();
   const { partyQueueTeam } = useSelector((state) => state.constState);
-  const teamId = partyQueueTeam?._id;
+  const teamId = partyQueueTeam?.data?._id;
 
   // Timer effect
   useEffect(() => {
@@ -58,7 +58,7 @@ const PartyMatchMaking = () => {
     }
 
     if (isSocketConnected && user?._id) {
-      // startLeagueSocket({ lId, user, isSocketConnected });
+        startLeagueSocket({ lId, user, isSocketConnected });
       // startGetQueuePlayers();
       startReadyToPlayWithPartySocket({ lId, user, teamId, isSocketConnected });
     }
