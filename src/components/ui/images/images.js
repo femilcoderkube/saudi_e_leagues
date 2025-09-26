@@ -35,7 +35,7 @@ import GetStartedBtnAr from "../../../assets/images/get_started_btn_ar.webp";
 import GetStartedBtnAr_1 from "../../../assets/images/mobile_get_start_ar.webp";
 import GetStartedBtn_1 from "../../../assets/images/mob_start_btn.webp";
 
-import Primetxt from "../../../assets/images/Prime.webp";
+import Primetxt from "../../../assets/images/prime.webp";
 
 import Playbtn from "../../../assets/images/playbtn.webp";
 
