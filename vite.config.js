@@ -73,4 +73,7 @@ export default defineConfig({
   commonjsOptions: {
     esmExternals: true,
   },
+  build: {
+    sourcemap: true, // ✅ Generate source maps for production build
+  },
 });
