@@ -43,7 +43,7 @@ const initialState = {
   allPlayers: [],
   partyQueueTeam: null,
   teamFromQueue: false,
-  recentInvites: [],
+  recentInvites: JSON.parse(localStorage.getItem("recentInvites")) || {},
 };
 
 export const createPartyQueue = createAsyncThunk(
@@ -314,21 +314,52 @@ const constStateSlice = createSlice({
         state.loading = false;
         // Maintain a local list of the last 5 invites (in memory only)
         const args = action.meta?.arg || {};
+        const leagueId = args.leagueId;
+
+        if (!leagueId) return;
+
         const newInvite = {
-          userId: args.userId,                 
-          username: args.username || args.name, 
+          userId: args.userId,
+          username: args.username || args.name,
           avatar: args.avatar || null,
         };
 
-        state.recentInvites = state.recentInvites.filter(
-          invite => invite.userId !== newInvite.userId
+        // Ensure league-specific array exists
+        if (!state.recentInvites[leagueId]) {
+          state.recentInvites[leagueId] = [];
+        }
+        // Ensure league-specific array exists
+        if (!state.recentInvites[leagueId]) {
+          state.recentInvites[leagueId] = [];
+        }
+
+        // Remove duplicate
+        state.recentInvites[leagueId] = state.recentInvites[leagueId].filter(
+          (invite) => invite.userId !== newInvite.userId
         );
 
-        state.recentInvites.unshift(newInvite);
+        // Add to front
+        state.recentInvites[leagueId].unshift(newInvite);
 
-        if (state.recentInvites.length > 5) {
-          state.recentInvites = state.recentInvites.slice(0, 5);
+        // Keep only last 5
+        if (state.recentInvites[leagueId].length > 5) {
+          state.recentInvites[leagueId] = state.recentInvites[leagueId].slice(0, 5);
         }
+
+        localStorage.setItem("recentInvites", JSON.stringify(state.recentInvites));
+        
+        // state.recentInvites = state.recentInvites.filter(
+        //   invite => invite.userId !== newInvite.userId
+        // );
+
+        // state.recentInvites.unshift(newInvite);
+
+        // if (state.recentInvites.length > 5) {
+        //   state.recentInvites = state.recentInvites.slice(0, 5);
+        // }
+
+        // localStorage.setItem("recentInvites", JSON.stringify(state.recentInvites));
+
       })
       .addCase(sendInvite.rejected, (state, action) => {
         state.loading = false;

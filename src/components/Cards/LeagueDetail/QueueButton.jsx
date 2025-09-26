@@ -178,15 +178,22 @@ const GetQueueButton = () => {
     } else if (isQueueUser) {
       return (
         <div
-          className="common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer"
+          className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer ${(leagueData.format === "party queue" &&
+                partyQueueTeam?.data?.Creator !== user?._id)
+              ? "cursor-not-allowed opacity-50"
+              : "cursor-pointer"
+            }`}
           onClick={() => {
-            if (leagueData?.format == "party queue") {
-              stopReadyToPlaySocket({
-                lId: leagueData?._id,
-                user,
-                isSocketConnected,
-                isTeam: partyQueueTeam?.data?._id,
-              });
+            if (leagueData?.format === "party queue") {
+              // Only the creator can stop the party queue socket
+              if (partyQueueTeam?.data?.Creator === user?._id) {
+                stopReadyToPlaySocket({
+                  lId: leagueData?._id,
+                  user,
+                  isSocketConnected,
+                  isTeam: partyQueueTeam?.data?._id,
+                });
+              }
             } else {
               stopReadyToPlaySocket({
                 lId: leagueData?._id,
@@ -246,17 +253,16 @@ const GetQueueButton = () => {
       } else if (text == t("images.queue")) {
         return (
           <div
-            className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${
-              isCheckingBan ||
-              (leagueData.format === "party queue" &&
-                partyQueueTeam?.data?.Creator !== user?._id)
+            className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${isCheckingBan ||
+                (leagueData.format === "party queue" &&
+                  partyQueueTeam?.data?.Creator !== user?._id)
                 ? "cursor-not-allowed opacity-50"
                 : "cursor-pointer"
-            }`}
+              }`}
             onClick={
               isCheckingBan ||
-              (leagueData.format === "party queue" &&
-                partyQueueTeam?.data?.Creator !== user?._id)
+                (leagueData.format === "party queue" &&
+                  partyQueueTeam?.data?.Creator !== user?._id)
                 ? undefined
                 : handleQueueClick
             }

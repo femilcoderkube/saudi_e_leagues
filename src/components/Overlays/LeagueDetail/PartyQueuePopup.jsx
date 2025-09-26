@@ -15,6 +15,8 @@ function PartyQueuePopup() {
   const user = useSelector((state) => state.auth.user);
   const { leagueData, leaderBoard } = useSelector((state) => state.leagues);
   const { partyQueueTeam, recentInvites } = useSelector((state) => state.constState);
+  const leagueId = leagueData?._id;
+  const leagueRecentInvites = recentInvites?.[leagueId] || [];
 
   const [searchTerm, setSearchTerm] = useState("");
   const [playersToShow, setPlayersToShow] = useState(10); // Initially show 10 players
@@ -121,13 +123,13 @@ function PartyQueuePopup() {
 
           {/* players container */}
           <div className="flex-1 overflow-y-auto custom_scroll mb-3">
-            {recentInvites?.length > 0 && (
+            {leagueRecentInvites?.length > 0 && (
               <div className="mb-6">
                 <h3 className="text-lg font-medium text-white mb-3">
                   {t("league.recent_invites")}
                 </h3>
                 <div className="space-y-3 custom_scroll overflow-y-auto max-h-[20rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
-                  {recentInvites.map((inv, index) => (
+                  {leagueRecentInvites.map((inv, index) => (
                     <div
                       key={index}
                       className="flex items-center justify-between sm:gap-3 gap-2"
