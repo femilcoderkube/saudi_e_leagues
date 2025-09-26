@@ -116,12 +116,12 @@ const PartyQueue = ({ data }) => {
                                 // };
                                 const handleAcceptInvite = () => {
                                     if (!isExpired) {
+                                        navigate(`/${id}/lobby/${data.extras.leagueId}`);
                                         acceptInvitation({
                                             userId: data.userId._id,
                                             Lid: data.extras.leagueId,
                                             teamId: data.extras.teamId
                                         });
-                                        navigate(`/${id}/lobby/${data.extras.leagueId}`);
                                         readNotificationSocket(data._id);
                                         dispatch(setshowNotification(false));
                                         // dispatch(setShowPartyQueuePopup(true));

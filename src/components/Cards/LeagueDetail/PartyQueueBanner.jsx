@@ -20,7 +20,7 @@ const PartyQueueBanner = () => {
       dispatch(setShowPartyQueuePopup(true));
     }
   };
-console.log("partyQueueTeam?.data",partyQueueTeam);
+
 
   return (
     <>

@@ -69,9 +69,7 @@ const LeagueDetail = () => {
   //   }
   // },[]);
 
-  useEffect(() => {
-    toast.error(partyQueueTeam?.message);
-  }, [partyQueueTeam?.message])
+
 
   return (
     <main className="flex-1 lobby_page--wrapper  pb-[5.25rem] sm:pb-0">

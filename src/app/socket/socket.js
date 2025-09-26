@@ -41,6 +41,7 @@ import {
 } from "../slices/auth/authSlice";
 import { globalNavigate } from "../../Services/navigationService";
 import { wrapSocketWithEncryption } from "../../utils/socketEncryptionMiddleware";
+import { toast } from "react-toastify";
 
 const SOCKET_URL =
   import.meta.env.VITE_SOCKET_URL || "https://staging-backend.primeeleague.com";
@@ -215,8 +216,12 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
         store.dispatch(setQueueData(data.data));
       }
     });
+    socket.off(SOCKET.PARTYUPDATEDATA);
     socket.on(SOCKET.PARTYUPDATEDATA, (data) => {
-      if (window.location.pathname.includes(data?.data?.leagueId?.toString()))
+      if(data?.message){
+        toast.error(data?.message);
+      }
+      else if(window.location.pathname.includes(data?.data?.leagueId?.toString()))
         store.dispatch(setPartyQueueTeam(data));
     });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
