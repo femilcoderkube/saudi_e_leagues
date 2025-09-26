@@ -12,7 +12,7 @@
     }
 
     .match_reg--popup:before,.popup_bg:before{
-        background-image: url('../images/pop_up_bg.png');
+        background-image: url('../images/pop_up_bg.webp');
         background-size: cover;
         width: 100%;
         height: 100%;
@@ -77,11 +77,11 @@
 ------------------------------------*/
 
 .game_status--tab.back_btn button.active-tab{
-    background: url(../images/back_btnBG.png);
+    background: url(../images/back_btnBG.webp);
 }
 
 .game_status--tab.submit_btn button.active-tab{
-    background: url(../images/submitBG.png);
+    background: url(../images/submitBG.webp);
 }
 
 .game_status--tab.wizard_btn button.active-tab {

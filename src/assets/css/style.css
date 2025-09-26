@@ -116,7 +116,7 @@ html[lang="en"][dir="rtl"] .font_oswald {
 }
 
 .sd_radial-bg.game_list--view {
-  background: url(/src/assets/images/list-grid-shape.png);
+  background: url(/src/assets/images/list-grid-shape.webp);
 }
 
 .sd_radial-bg.notification-icon-wp {
@@ -200,7 +200,7 @@ html[lang="ar"] body {
 }
 
 .header_teture--bg:before {
-  background-image: url(../images/headerBG.png);
+  background-image: url(../images/headerBG.webp);
   background-size: 100%;
   background-position: center;
   pointer-events: none;
@@ -213,7 +213,7 @@ html[lang="ar"] body {
 }
 
 .header_teture--bg:before {
-  background-image: url(../images/headerBG.png);
+  background-image: url(../images/headerBG.webp);
   background-size: 100%;
   background-position: center;
   pointer-events: none;
@@ -261,12 +261,12 @@ html[lang="ar"] body {
 }
 
 .submit_score-btn .btn_polygon-link:before {
-  background-image: url(../images/right_submit_bg.png);
+  background-image: url(../images/right_submit_bg.webp);
 }
 
 .submit_score-btn .btn_polygon-link:after {
   transform: scaleX(1);
-  background-image: url(../images/submit_bg.png);
+  background-image: url(../images/submit_bg.webp);
 }
 
 .submit_score-btn .btn_polygon-link {
@@ -326,7 +326,6 @@ html[dir="rtl"] .team_score--con {
   transition: 0.5s;
   z-index: -1;
 }
-
 .nav-condition .sq__shape-wrap {
   mask-position: calc((100% / 2) * (1 - 1) + (100% / 4) - 25px) -2px, 0;
 }
@@ -496,7 +495,7 @@ html[dir="rtl"] .navigation .listWrap li:nth-child(3).active~.sq__shape-wrap {
 .view-all::after {
   content: "";
   position: absolute;
-  background: url(../images/right-arrow.png);
+  background: url(../images/right-arrow.webp);
   background-repeat: no-repeat;
   background-size: contain;
   width: 0.8rem;
@@ -1117,7 +1116,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   }
 
   .chat-btn {
-    background: url(../images/chat-btn.png);
+    background: url(../images/chat-btn.webp);
   }
 
   .submit_score-btn.chat_score_btn {
@@ -1563,7 +1562,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 .bracket-date::after {
   position: absolute;
   content: "";
-  background: url(../images/double_arrow.png);
+  background: url(../images/double_arrow.webp);
   background-size: contain;
   background-repeat: no-repeat;
   right: 0.55rem;
@@ -1693,7 +1692,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 .calender-btn {
-  background-image: url(/src/assets/images/cal-btn-shape.png);
+  background-image: url(/src/assets/images/cal-btn-shape.webp);
 }
 
 .datepiker-wp {

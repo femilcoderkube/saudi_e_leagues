@@ -82,7 +82,7 @@ aside {
 
 .btn_polygon-link:before,
 .btn_polygon-link:after {
-    background-image: url(../images/collapse_right.png);
+    background-image: url(../images/collapse_right.webp);
     width: 4.75rem;
     height: 7rem;
     background-repeat: no-repeat;

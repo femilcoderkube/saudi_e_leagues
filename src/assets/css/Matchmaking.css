@@ -278,7 +278,7 @@
 
 .match_page--wrapper .main_con--bg,
 .match_loading--page .main_con--bg {
-  background-image: url("../images/matchmakingBG.png");
+  background-image: url("../images/matchmakingBG.webp");
   right: auto;
   width: 100%;
   background-position: center;

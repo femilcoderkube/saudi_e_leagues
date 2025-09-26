@@ -1,13 +1,13 @@
 import React from "react";
-import splitBGOne from "../../../assets/images/splitBG_1.png";
-import splitBGTwo from "../../../assets/images/spilit-purple-bg.png";
-import splitBGThree from "../../../assets/images/spilit-orange-bg.png";
-import splitBGFour from "../../../assets/images/spilit-pink-bg.png";
+import splitBGOne from "../../../assets/images/splitBG_1.webp";
+import splitBGTwo from "../../../assets/images/spilit-purple-bg.webp";
+import splitBGThree from "../../../assets/images/spilit-orange-bg.webp";
+import splitBGFour from "../../../assets/images/spilit-pink-bg.webp";
 import { SparkIcon } from "../../ui/svg";
-import spilit_1 from "../../../assets/images/spilit1.png";
-import spilit_2 from "../../../assets/images/spilit2.png";
-import spilit_3 from "../../../assets/images/spilit3.png";
-import spilit_4 from "../../../assets/images/spilit4.png";
+import spilit_1 from "../../../assets/images/spilit1.webp";
+import spilit_2 from "../../../assets/images/spilit2.webp";
+import spilit_3 from "../../../assets/images/spilit3.webp";
+import spilit_4 from "../../../assets/images/spilit4.webp";
 import { motion } from "motion/react";
 // card animation start
 const leftToRight = {

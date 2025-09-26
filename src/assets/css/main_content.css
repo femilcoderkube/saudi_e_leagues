@@ -33,11 +33,11 @@
   border-radius: 0.938rem;
 }
 
-.dropdown .user_img{
+.dropdown .user_img {
   width: 3rem;
 }
 
-.dropdown.prof-drop .user_img{
+.dropdown.prof-drop .user_img {
   width: auto;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .main_con--bg {
-  background-image: url("../images/main_con-bg.png");
+  background-image: url("../images/main_con-bg.webp");
   pointer-events: none;
   z-index: -1;
   width: calc(100% - 20rem);
@@ -82,14 +82,14 @@
     --------------------------------------- */
 
 .player_score {
-  background-image: url(../images/score_bg.png);
+  background-image: url(../images/score_bg.webp);
   background-size: 14.5rem;
   width: 14.5rem;
   background-repeat: no-repeat;
 }
 
 html[dir="rtl"] .player_score {
-  background-image: url(../images/rtl-score-bg.png);
+  background-image: url(../images/rtl-score-bg.webp);
 }
 
 .game_polygon-link {
@@ -102,7 +102,7 @@ html[dir="rtl"] .player_score {
   box-shadow: inset 0 5px 6px 0px rgb(94 95 184 / 12%);
 }
 
-.tournament_page--wrapper .game_polygon-link{
+.tournament_page--wrapper .game_polygon-link {
   width: 21.5rem;
 }
 
@@ -173,7 +173,7 @@ html[dir="rtl"] .player_score {
 --------------------------------------- */
 
 .sd_star_bedge--wrap {
-  background: url(../images/bedge_bg.png);
+  background: url(../images/bedge_bg.webp);
   background-size: 100% 100%;
 }
 
@@ -374,20 +374,20 @@ html[dir="rtl"] .leaderboard-table tr td:last-child {
 
 .timeline-step {
   position: relative;
-  background-image: url("../images/timeline_bg.png");
+  background-image: url("../images/timeline_bg.webp");
   background-size: 100% 100%;
 }
 
 html[dir="rtl"] .timeline-step {
-  background-image: url("../images/rtl-timeline-bg.png");
+  background-image: url("../images/rtl-timeline-bg.webp");
 }
 
 /* .timeline-card__steps.completed::before {
-  background-image: url("../images/completed.png");
+  background-image: url("../images/completed.webp");
 }
 
 .timeline-card__steps::before {
-  background-image: url("../images/disable.png");
+  background-image: url("../images/disable.webp");
   right: 1rem;
   top: 2.175rem;
   width: 2rem;
@@ -426,11 +426,11 @@ html[dir="rtl"] .timeline-step {
 } */
 
 .timeline_wrap.completed::before {
-  background-image: url("../images/completed.png");
+  background-image: url("../images/completed.webp");
 }
 
 .timeline_wrap::before {
-  background-image: url("../images/disable.png");
+  background-image: url("../images/disable.webp");
   right: -3rem;
   top: 1.175rem;
   width: 2rem;
@@ -536,7 +536,7 @@ html[dir="rtl"] .sd_rules--btn button:after {
 }
 
 .match_reg--popup:before {
-  background-image: url("../images/pop_up_bg.png");
+  background-image: url("../images/pop_up_bg.webp");
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -553,7 +553,7 @@ html[dir="rtl"] .sd_rules--btn button:after {
 }
 
 .match_reg2--popup:before {
-  background-image: url("../images/pop_up_bg.png");
+  background-image: url("../images/pop_up_bg.webp");
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -634,11 +634,11 @@ input[type="radio"]:checked+label .checkbox-inner:before {
 ------------------------------------*/
 
 .game_status--tab.back_btn button.active-tab {
-  background: url(../images/back_btnBG.png);
+  background: url(../images/back_btnBG.webp);
 }
 
 .game_status--tab.submit_btn button.active-tab {
-  background: url(../images/submitBG.png);
+  background: url(../images/submitBG.webp);
 }
 
 .game_status--tab.wizard_btn button.active-tab {
@@ -801,6 +801,7 @@ input[type="radio"]:checked+label .checkbox-inner:before {
     opacity: 1;
     transform: translateX(0);
   }
+
   100% {
     opacity: 0;
     transform: translateX(100%);
@@ -812,6 +813,7 @@ input[type="radio"]:checked+label .checkbox-inner:before {
     opacity: 1;
     transform: translateX(0);
   }
+
   100% {
     opacity: 0;
     transform: translateX(-100%);
@@ -833,12 +835,13 @@ input[type="radio"]:checked+label .checkbox-inner:before {
   height: 100%;
   top: 0;
   right: 0;
-  background-image: url("../images/notification-shape.png");
+  background-image: url("../images/notification-shape.webp");
   z-index: 102;
   background-repeat: no-repeat;
   pointer-events: none;
 }
-.notification-sidebar::before{
+
+.notification-sidebar::before {
   transform: rotateY(180deg);
 }
 
@@ -937,13 +940,13 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
 }
 
 .notification-box-btn button {
-  background: url(../images/deny-btn.png);
+  background: url(../images/deny-btn.webp);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .notification-box-btn button.active-tab {
-  background: url(../images/accept-btn.png);
+  background: url(../images/accept-btn.webp);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -956,14 +959,14 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   padding-left: 0;
 }
 
-.notification-box-btn button.expire-btn{
-  background: url(../images/expire-btn.png);
+.notification-box-btn button.expire-btn {
+  background: url(../images/expire-btn.webp);
   color: #DDDDDD;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.notification-box-btn button.expire-btn:after{
+.notification-box-btn button.expire-btn:after {
   content: none;
 }
 
@@ -972,7 +975,7 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   position: absolute;
   left: 0.5rem;
   top: 0.3rem;
-  background: url("../images/go-btn.png");
+  background: url("../images/go-btn.webp");
   background-repeat: no-repeat;
   background-size: contain;
   width: 3.76rem;
@@ -993,13 +996,15 @@ html[dir="rtl"] .notification-box-wp.polygon_border:after {
   height: 15.25rem;
 }
 
-.sd_bedge-lable .shining-star-arabic,html[dir=rtl] .sd_bedge-lable .shining-star{
+.sd_bedge-lable .shining-star-arabic,
+html[dir=rtl] .sd_bedge-lable .shining-star {
   display: none;
 }
 
-html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
+html[dir=rtl] .sd_bedge-lable .shining-star-arabic {
   display: block;
 }
+
 /* xl */
 @media (min-width: 1280px) {}
 
@@ -1066,7 +1071,8 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
     width: 100%;
   }
 
-  .game_polygon-link,.tournament_page--wrapper .game_polygon-link {
+  .game_polygon-link,
+  .tournament_page--wrapper .game_polygon-link {
     width: 100%;
   }
 
@@ -1079,14 +1085,14 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
   }
 
   .player_score {
-    background-image: url(/src/assets/images/mob_score_bg.png);
+    background-image: url(/src/assets/images/mob_score_bg.webp);
     background-size: 21rem;
     width: 21.38rem;
     height: 3.75rem;
   }
 
   html[dir="rtl"] .player_score {
-    background-image: url(/src/assets/images/mob_score_bg.png);
+    background-image: url(/src/assets/images/mob_score_bg.webp);
   }
 
   .game_polygon-link {
@@ -1275,7 +1281,7 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
   }
-  
+
   html[dir="rtl"] .leaderboard-table tr td:last-child {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -1303,6 +1309,7 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
     max-width: 100% !important;
     padding-block: 6rem;
   }
+
   .match_reg--popup2 {
     clip-path: unset;
     max-width: 100% !important;
@@ -1318,8 +1325,9 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
   .timeout-popup .match_reg--popup {
     max-width: 22rem;
   }
+
   .mob-star-week {
-    background: url(/src/assets/images/mob-star-week-shape-small.png);
+    background: url(/src/assets/images/mob-star-week-shape-small.webp);
     background-repeat: no-repeat;
     background-size: contain;
     width: 21.5rem;
@@ -1381,7 +1389,8 @@ html[dir=rtl] .sd_bedge-lable .shining-star-arabic{
     width: 16rem;
     height: 3.7rem;
   }
-  .sd_select--menu .select__control{
+
+  .sd_select--menu .select__control {
     height: 3.7rem;
   }
 }

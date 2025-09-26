@@ -7,7 +7,7 @@
 /* --- Select Game dropdown css start --- */
 
 .sel_game-menu .dropdown-header:before {
-  background-image: url(../images/sel_game-bg.png);
+  background-image: url(../images/sel_game-bg.webp);
   width: 16rem;
   height: 4.5rem;
 }
@@ -21,18 +21,18 @@
 .game_list--view button.active {
   /* background: linear-gradient(180deg,rgba(188, 82, 37, 0.92) 0%, rgba(244, 149, 40, 1) 100%);
     box-shadow: inset 0px 1px 4px #F38155; */
-  background: url(../images/list-grid-active.png);
+  background: url(../images/list-grid-active.webp);
   background-size: cover;
 }
 
 .game_status--tab button {
-  background: url(../images/game_tab-bg.png);
+  background: url(../images/game_tab-bg.webp);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .game_status--tab button.active-tab {
-  background: url(../images/active_game-tab.png);
+  background: url(../images/active_game-tab.webp);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -107,7 +107,7 @@ html[dir="rtl"] .slider_card .game_mask--con {
 }
 
 .card_participants {
-  background: url(../images/participant_num-bg.png);
+  background: url(../images/participant_num-bg.webp);
   padding: 1.875rem;
   background-size: 100% 100%;
   top: -0.625rem;
@@ -117,7 +117,7 @@ html[dir="rtl"] .slider_card .game_mask--con {
 html[dir="rtl"] .card_participants {
   right: auto;
   left: -0.9rem;
-  background: url(../images/rtl_participant_num-bg.png);
+  background: url(../images/rtl_participant_num-bg.webp);
 }
 
 .match_date-con {
@@ -129,7 +129,7 @@ html[dir="rtl"] .card_participants {
 }
 
 .game_intro {
-  background-image: url(../images/GameIntroBG.png);
+  background-image: url(../images/GameIntroBG.webp);
   width: 15.5rem;
   padding-block: 2rem;
   background-size: 100%;
@@ -137,13 +137,13 @@ html[dir="rtl"] .card_participants {
 }
 
 html[dir="rtl"] .game_intro {
-  background-image: url(../images/rtl_GameIntroBG.png);
+  background-image: url(../images/rtl_GameIntroBG.webp);
   padding-left: 0;
   padding-right: 1.3rem;
 }
 
 .match_date {
-  background-image: url(../images/match_dateBG.png);
+  background-image: url(../images/match_dateBG.webp);
   padding-top: 1.5rem;
   padding-bottom: 2.5rem;
   margin-top: -1.4rem;
@@ -152,7 +152,7 @@ html[dir="rtl"] .game_intro {
 }
 
 html[dir="rtl"] .match_date {
-  background-image: url(../images/match_dateBG_rtl.png);
+  background-image: url(../images/match_dateBG_rtl.webp);
 }
 
 .game_card--footer {
@@ -248,7 +248,7 @@ html[dir="rtl"] .game_img--mask svg {
 }
 
 .card_participants_v2 {
-  background: url(../images/participanBG_v2.png);
+  background: url(../images/participanBG_v2.webp);
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
   background-size: contain;
@@ -259,7 +259,7 @@ html[dir="rtl"] .game_img--mask svg {
 }
 
 html[dir="rtl"] .card_participants_v2 {
-  background: url(../images/rtl_participanBG_v2.png);
+  background: url(../images/rtl_participanBG_v2.webp);
   background-size: contain;
   background-repeat: no-repeat;
   margin-left: 0;
@@ -267,7 +267,7 @@ html[dir="rtl"] .card_participants_v2 {
 }
 
 .game_card--wrapv2 .game_card_wrap--link {
-  background-image: url("../images/game_cardBG_v2.png");
+  background-image: url("../images/game_cardBG_v2.webp");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   transition: 0.3s;
@@ -278,7 +278,7 @@ html[dir="rtl"] .card_participants_v2 {
 }
 
 html[dir="rtl"] .game_card--wrapv2 .game_card_wrap--link {
-  background-image: url("../images/rtl-gamecard-bg.png");
+  background-image: url("../images/rtl-gamecard-bg.webp");
 }
 
 .game_card--wrapv2.game_card--wrapper > a {
@@ -313,7 +313,7 @@ html[dir="rtl"] .game_card--wrapv2 .game_card_wrap--link {
 }
 
 .game_card--wrapv2 .match_date {
-  background-image: url(../images/card_v2_dateBG.png);
+  background-image: url(../images/card_v2_dateBG.webp);
   padding-top: 0.7rem;
   margin-top: -1.4rem;
   width: 4rem;
@@ -323,7 +323,7 @@ html[dir="rtl"] .game_card--wrapv2 .game_card_wrap--link {
 }
 
 html[dir="rtl"] .game_card--wrapv2 .match_date {
-  background-image: url(../images/rtl_card_v2_dateBG.png);
+  background-image: url(../images/rtl_card_v2_dateBG.webp);
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
