@@ -21,15 +21,10 @@ const PartyQueueBanner = () => {
       dispatch(setShowPartyQueuePopup(true));
     }
   };
-  useEffect(()=>{
-    if (leagueData?.format != "party queue" || !user || !partyQueueTeam?.data) {
-      return;
-    }
-  },[leagueData?.format, user, partyQueueTeam])
 
   return (
     <>
-      <div className="rounded-xl overflow-hidden bg-[linear-gradient(180deg,rgba(34,35,86,0.2)_0%,rgba(34,35,86,0.2)_100%)] text-white mb-10">
+      {(leagueData?.format == "party queue" && user && partyQueueTeam?.data) && <div className="rounded-xl overflow-hidden bg-[linear-gradient(180deg,rgba(34,35,86,0.2)_0%,rgba(34,35,86,0.2)_100%)] text-white mb-10">
         <div className="flex items-center justify-between ga-2 px-4 py-[1.25rem] bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_100%),linear-gradient(90deg,rgba(68,119,239,0)_0%,rgba(67,109,238,0.096)_100%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px]">
           <div className="flex items-center sm:gap-4 gap-3">
             <img
@@ -41,12 +36,12 @@ const PartyQueueBanner = () => {
               Party Queue
             </h3>
           </div>
-          {partyQueueTeam?.data?.Players.length >= 2 && !(isMatchJoind?.currentMatch) &&(
+          {partyQueueTeam?.data?.Players.length >= 2 && !(isMatchJoind?.currentMatch) && (
             <div
               className="cursor-pointer h-6 w-7"
               onClick={() => dispatch(setConfirmationPopUp(5))}
             >
-              <img src={IMAGES.party_logout} alt="" /> 
+              <img src={IMAGES.party_logout} alt="" />
             </div>
           )}
         </div>
@@ -155,7 +150,7 @@ const PartyQueueBanner = () => {
               )}
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 };
