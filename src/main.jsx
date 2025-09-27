@@ -15,7 +15,14 @@ import MobileEvent from "./hooks/mobileevents.js";
 
 setAxiosStore(store);
 MobileEvent.onLogin();
-createRoot(document.getElementById("root")).render(
+
+// Hide loading fallback and render app
+const rootElement = document.getElementById("root");
+const loadingFallback = document.getElementById("loading-fallback");
+
+// Render the app
+const root = createRoot(rootElement);
+root.render(
   <Provider store={store}>
     <ToastContainer
       position="top-right" // Common position
@@ -48,3 +55,15 @@ createRoot(document.getElementById("root")).render(
     <App />
   </Provider>
 );
+
+// Hide loading fallback after React app renders
+if (loadingFallback) {
+  // Small delay to ensure smooth transition
+  setTimeout(() => {
+    loadingFallback.style.opacity = "0";
+    loadingFallback.style.transition = "opacity 0.3s ease-out";
+    setTimeout(() => {
+      loadingFallback.style.display = "none";
+    }, 300);
+  }, 100);
+}
