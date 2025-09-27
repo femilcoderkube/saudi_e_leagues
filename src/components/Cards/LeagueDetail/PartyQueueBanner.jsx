@@ -51,29 +51,23 @@ const PartyQueueBanner = () => {
           <div className="grid grid-cols-3 items-center gap-7 justify-between">
             {partyQueueTeam?.data?.Players &&
               partyQueueTeam?.data?.Players.map((player) => (
-                <div className="party-card-wp mx-auto relative" key={player.userId?._id}>
-                  {partyQueueTeam?.data.Creator === user?._id &&
-                    player.userId?._id !== partyQueueTeam?.data.Creator &&
-                    !isQueueUser &&
-                    (isMatchJoind?.currentMatch == null ||
-                      isMatchJoind?.currentMatch == undefined) && (
-                      <button
-                        onClick={() => {
-                          dispatch(
-                            setPopupData({
-                              userId: player.userId?._id,
-                              teamId: partyQueueTeam?.data?._id,
-                            })
-                          );
-                          dispatch(setConfirmationPopUp(6));
-                        }}
-                        className="absolute top-[-0.3rem] right-0 flex items-center justify-center w-4 h-4 rounded-full bg-gradient-to-br from-[#ED1D4A] to-[#BC096B] border-2 border-[#fff2] hover:from-[#ff3b6e] hover:to-[#d81b60] shadow-[0_2px_8px_0_rgba(237,29,74,0.25)] transition-all duration-200 z-10 group"
-                        title="Remove Player"
-                        aria-label="Remove Player"
-                      >
-                        <span className="text-white text-sm font-bold leading-none">×</span>
-                      </button>
-                    )}
+                <div className="party-card-wp mx-auto relative" key={player.userId?._id}
+                  onClick={() => {
+                    if (partyQueueTeam?.data.Creator === user?._id &&
+                      player.userId?._id !== partyQueueTeam?.data.Creator &&
+                      !isQueueUser &&
+                      (isMatchJoind?.currentMatch == null ||
+                        isMatchJoind?.currentMatch == undefined)) {
+                      dispatch(
+                        setPopupData({
+                          userId: player.userId?._id,
+                          teamId: partyQueueTeam?.data?._id,
+                        })
+                      );
+                      dispatch(setConfirmationPopUp(6));
+                    }
+                  }}>
+
                   <div className="flex items-center gap-3 mb-2">
                     <div className="relative">
                       <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full bg-[#0a0c32]">
@@ -130,15 +124,15 @@ const PartyQueueBanner = () => {
                       </div>
                     )}
                     <div className="flex items-center gap-1 mb-1">
-                      <span className="username font-bold text-base text-[#F4F7FF]">
-                        @{player.userId?.username}
+                      <span className="username font-bold text-lg text-[#F4F7FF]">
+                        {player.userId?.username}
                       </span>
                     </div>
                     {/* Add remove icon if current user is creator and this player is not the creator */}
                   </div>
-                  {/* <span className="text-sm font-medium text-[#FFD0AF]">
-                  @{player.userId.username}
-                </span> */}
+                  <span className="text-sm font-medium text-[#FFD0AF]">
+                    @{player.userId.gameId} ID
+                  </span>
                 </div>
               ))}
             {partyQueueTeam &&
