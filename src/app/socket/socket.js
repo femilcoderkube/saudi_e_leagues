@@ -96,6 +96,7 @@ export const SOCKET = {
   LEAVETEAMROOM: "leaveTeamRoom",
   ACCEPT_INVITATION: "ACCEPT_INVITATION",
   READYTOPLAYPARTY: "readytoplayParty",
+  PARTY_QUEUE_STARTED: "PARTY_QUEUE_STARTED",
 };
 export const socket = wrapSocketWithEncryption(
   io(SOCKET_URL, {
@@ -118,6 +119,22 @@ socket.on("connect", () => {
       globalNavigate(`/${pId}/match/${data.matchId}`);
       sessionStorage.removeItem("canAccessFindingMatch");
     }
+  });
+
+
+
+  socket.on(SOCKET.PARTY_QUEUE_STARTED, (data) => {
+    const leagueId = data?.team?.leagueId?._id;
+    const isReady = data?.team?.isReady;
+    const players = data?.team?.Players;
+    if (data?.team?.Creator.toString() != user?._id.toString())
+      if (leagueId && isReady && Array.isArray(players)) {
+        const isMyTeam = players.some(player => player.userId === user?._id);
+        if (isMyTeam) {
+          sessionStorage.setItem("canAccessFindingMatch", "true");
+          globalNavigate(`/${id}/lobby/${leagueId}/finding-partymatch`);
+        }
+      }
   });
 
   if (user?._id) {
@@ -218,10 +235,10 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
     });
     socket.off(SOCKET.PARTYUPDATEDATA);
     socket.on(SOCKET.PARTYUPDATEDATA, (data) => {
-      if(data?.message){
+      if (data?.message) {
         toast.error(data?.message);
       }
-      else if(window.location.pathname.includes(data?.data?.leagueId?.toString()))
+      else if (window.location.pathname.includes(data?.data?.leagueId?.toString()))
         store.dispatch(setPartyQueueTeam(data));
     });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
@@ -272,7 +289,7 @@ export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
     socket.emit(SOCKET.GETWEEKOFSTAR, { Lid: lId, userId: user?._id });
   }
 }
-export function getPartyQueueUpdate() {}
+export function getPartyQueueUpdate() { }
 export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user?._id });

@@ -52,9 +52,6 @@ const PartyQueue = ({ data }) => {
     } else {
         dynamicClasses += " active-tab hover:opacity-70";
     }
-    if (data.isRead) {
-        dynamicClasses += " singleButton";
-    }
     const buttonClasses = `${baseClasses}${dynamicClasses}`;
     const buttonText = isExpired ? t("Expired") : notificationData.buttonText;
 
