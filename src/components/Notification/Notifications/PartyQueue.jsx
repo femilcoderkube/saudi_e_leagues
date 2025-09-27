@@ -115,7 +115,7 @@ const PartyQueue = ({ data }) => {
                                 //     }
                                 // };
                                 const handleAcceptInvite = () => {
-                                    if (!isExpired) {
+                                    if (!isExpired || inMatch) {
                                         navigate(`/${id}/lobby/${data.extras.leagueId}`);
                                         acceptInvitation({
                                             userId: data.userId._id,
