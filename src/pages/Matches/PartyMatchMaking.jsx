@@ -152,7 +152,7 @@ const PartyMatchMaking = () => {
                 alt=""
                 style={{ width: "11rem" }}
               />
-              <div onClick={handleCancel}>
+             {partyQueueTeam?.data?.Creator.toString() == user?._id.toString()  && <div onClick={handleCancel}>
                 <div
                   className={`absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem] ${
                     isDisable && "opacity-50"
@@ -178,7 +178,7 @@ const PartyMatchMaking = () => {
                   </span>
                 </div>
                 <Sparkles />
-              </div>
+              </div>}
               <div className="player-search text-center pt-14">
                 <span className="md:text-[5.254rem] text-[3.75rem] font-bold grad_head--txt">
                   {formatTime(seconds)}

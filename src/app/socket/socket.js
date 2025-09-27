@@ -121,20 +121,22 @@ socket.on("connect", () => {
     }
   });
 
-
-
-  socket.on(SOCKET.PARTY_QUEUE_STARTED, (data) => {
+  socket.on(SOCKET.PARTY_QUEUE_STARTED, (data) => {    
     const leagueId = data?.team?.leagueId?._id;
     const isReady = data?.team?.isReady;
     const players = data?.team?.Players;
-    if (data?.team?.Creator.toString() != user?._id.toString())
+    if (data?.team?.Creator.toString() != user?._id.toString()){
+      
       if (leagueId && isReady && Array.isArray(players)) {
+        
         const isMyTeam = players.some(player => player.userId === user?._id);
         if (isMyTeam) {
           sessionStorage.setItem("canAccessFindingMatch", "true");
-          globalNavigate(`/${id}/lobby/${leagueId}/finding-partymatch`);
+          let pId = getPartnerByDocId(data?.team?.leagueId?.partner).id;
+          globalNavigate(`/${pId}/lobby/${leagueId}/finding-partymatch`);
         }
       }
+    }
   });
 
   if (user?._id) {
