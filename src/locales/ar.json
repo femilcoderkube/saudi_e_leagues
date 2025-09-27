@@ -432,7 +432,8 @@
     "gold_crown": "التاج الذهبي"
   },
   "party": {
-    "party_queue": "طابور المجموعة"
+    "party_queue": "طابور المجموعة",
+    "validation_msg": "لا يمكنك قبول الدعوة أثناء وجودك في طابور أو في مباراة"
   },
   "tournament": {
     "schedule": "الجدول",

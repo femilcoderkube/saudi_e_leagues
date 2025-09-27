@@ -432,7 +432,8 @@
     "gold_crown": "Gold Crown"
   },
   "party": {
-    "party_queue": "Party Queue"
+    "party_queue": "Party Queue",
+    "validation_msg": "You cannot accept an invite while in queue or in a match"
   },
   "tournament": {
     "schedule": "Schedule",

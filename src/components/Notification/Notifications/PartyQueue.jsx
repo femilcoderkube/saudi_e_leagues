@@ -63,7 +63,7 @@ const PartyQueue = ({ data }) => {
             return;
         }
         if (isQueueUser || !(isMatchJoind?.currentMatch == null || isMatchJoind?.currentMatch == undefined)) {
-            toast.error("You cannot accept an invite while in queue or in a match");
+            toast.error(`${t("party.validation_msg")}`);
             return;
         }
         navigate(`/${id}/lobby/${extras.leagueId}`);

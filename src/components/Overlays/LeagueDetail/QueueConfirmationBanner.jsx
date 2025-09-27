@@ -22,9 +22,7 @@ function QueueConfirmationBanner() {
     sessionStorage.setItem("canAccessFindingMatch", "true");
     if (leagueData.format == "party queue") {
       navigate(`/${id}/lobby/${leagueData?._id}/finding-partymatch`);
-
     }else{
-
       navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
     }
     dispatch(setQueueConfirmation(false));
