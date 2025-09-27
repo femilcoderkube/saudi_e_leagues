@@ -127,13 +127,14 @@ socket.on("connect", () => {
     const players = data?.team?.Players;
 
     if (data?.team?.Creator.toString() != user?._id.toString()) {
-      if (leagueId && isReady && Array.isArray(players)) {
+      if (leagueId && Array.isArray(players)) {
         const isMyTeam = players.some(player => player.userId === user?._id);
         if (isMyTeam) {
           let pId = getPartnerByDocId(data?.team?.leagueId?.partner).id;
+          
           if (data?.cancel_queue == true) {
             globalNavigate(`/${pId}/lobby/${leagueId}`);
-          } else {
+          } else if (isReady) {
             sessionStorage.setItem("canAccessFindingMatch", "true");
             globalNavigate(`/${pId}/lobby/${leagueId}/finding-partymatch`);
           }
