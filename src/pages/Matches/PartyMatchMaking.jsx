@@ -86,7 +86,12 @@ const PartyMatchMaking = () => {
     setSeconds(0);
     setTimerActive(true);
     if (isSocketConnected && user?._id) {
-      startReadyToPlaySocket({ lId, user, isSocketConnected });
+      startReadyToPlayWithPartySocket({
+        lId,
+        user,
+        teamId,
+        isSocketConnected,
+      });
     }
   };
 
@@ -152,33 +157,36 @@ const PartyMatchMaking = () => {
                 alt=""
                 style={{ width: "11rem" }}
               />
-             {partyQueueTeam?.data?.Creator.toString() == user?._id.toString()  && <div onClick={handleCancel}>
-                <div
-                  className={`absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem] ${
-                    isDisable && "opacity-50"
-                  }`}
-                >
-                  <img
-                    className="cancel-btn duration-400 cursor-pointer z-2"
-                    src={IMAGES.cancel_btn}
-                    alt={t("cancel")}
-                    style={{ width: "25rem" }}
-                  />
-                  <span
-                    className={`mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-lg sm:text-2xl ${
-                      isDisable ? "cursor-not-allowed" : "cursor-pointer"
-                    } `}
-                    style={{
-                      fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
-                      fontWeight: "bold",
-                      textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
-                    }}
+              {partyQueueTeam?.data?.Creator.toString() ==
+                user?._id.toString() && (
+                <div onClick={handleCancel}>
+                  <div
+                    className={`absolute bottom-[2.5rem] sm:ltr:right-[2.5rem] sm:rtl:left-[4.5rem] ltr:right-[0.8rem] rtl:left-[0.8rem] ${
+                      isDisable && "opacity-50"
+                    }`}
                   >
-                    {t("images.cancel_button")}
-                  </span>
+                    <img
+                      className="cancel-btn duration-400 cursor-pointer z-2"
+                      src={IMAGES.cancel_btn}
+                      alt={t("cancel")}
+                      style={{ width: "25rem" }}
+                    />
+                    <span
+                      className={`mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-lg sm:text-2xl ${
+                        isDisable ? "cursor-not-allowed" : "cursor-pointer"
+                      } `}
+                      style={{
+                        fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
+                        fontWeight: "bold",
+                        textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+                      }}
+                    >
+                      {t("images.cancel_button")}
+                    </span>
+                  </div>
+                  <Sparkles />
                 </div>
-                <Sparkles />
-              </div>}
+              )}
               <div className="player-search text-center pt-14">
                 <span className="md:text-[5.254rem] text-[3.75rem] font-bold grad_head--txt">
                   {formatTime(seconds)}
