@@ -431,6 +431,9 @@
     "teams": "الفرق",
     "gold_crown": "التاج الذهبي"
   },
+  "party": {
+    "party_queue": "طابور المجموعة"
+  },
   "tournament": {
     "schedule": "الجدول",
     "brackets": "الأدوار الإقصائية",

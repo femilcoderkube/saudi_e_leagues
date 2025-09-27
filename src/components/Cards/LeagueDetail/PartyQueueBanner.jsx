@@ -7,6 +7,7 @@ import {
 import { setPopupData } from "../../../app/slices/constState/constStateSlice";
 import { getRandomColor, getServerURL } from "../../../utils/constant";
 import { getSmile } from "../MatchDetail/matchCards";
+import { t } from "i18next";
 
 const PartyQueueBanner = () => {
   const { leagueData, isMatchJoind, isQueueUser } = useSelector((state) => state.leagues);
@@ -33,7 +34,7 @@ const PartyQueueBanner = () => {
               alt="clock"
             />
             <h3 className="text-[#F4F7FF] text-base sm:text-xl font-medium font_oswald ">
-              Party Queue
+              {t("party.party_queue")}
             </h3>
           </div>
           {(partyQueueTeam?.data?.Players.length >= 2 && !isQueueUser && (isMatchJoind?.currentMatch == null ||

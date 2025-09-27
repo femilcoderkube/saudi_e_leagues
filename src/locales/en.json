@@ -431,6 +431,9 @@
     "teams": "Teams",
     "gold_crown": "Gold Crown"
   },
+  "party": {
+    "party_queue": "Party Queue"
+  },
   "tournament": {
     "schedule": "Schedule",
     "brackets": "Brackets",

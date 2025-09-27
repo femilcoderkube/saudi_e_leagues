@@ -5,6 +5,7 @@ import { getServerURL, getTimeAgo } from "../../../utils/constant";
 import { setshowNotification } from "../../../app/slices/constState/constStateSlice";
 import { acceptInvitation, readNotificationSocket } from "../../../app/socket/socket";
 import { IMAGES } from "../../ui/images/images";
+import { toast } from "react-toastify";
 
 const PartyQueue = ({ data }) => {
     const { t, i18n } = useTranslation();
@@ -13,31 +14,66 @@ const PartyQueue = ({ data }) => {
     const dispatch = useDispatch();
     const { isMatchJoind, isQueueUser } = useSelector((state) => state.leagues);
 
-    let subject, body;
-    subject =
-        i18n.language == "en"
-            ? data.notificationId.Subject.toString().replace(`{PlayerName}`, data.extras.name)
-            : data.notificationId.SubjectAr.toString().replace(`{PlayerName}`, data.extras.name);
-    body =
-        i18n.language == "en"
-            ? data.notificationId.Body.toString().replace(`{PlayerName}`, data.extras.name).replace(`{LeagueName}`, data.extras.leagueName)
-            : data.notificationId.BodyAr.toString().replace(`{PlayerName}`, data.extras.name).replace(`{LeagueName}`, data.extras.leagueName);
+    const langIsEn = i18n.language === "en";
+    const notificationId = data.notificationId;
+    const extras = data.extras;
 
-    let imageUrl =
-        data?.notificationId?.notificationtype === 12
-            ? data?.extras?.gameLogo
-            : "";
-    let notificationData = {
+    const subject = langIsEn
+        ? notificationId.Subject.toString().replace(`{PlayerName}`, extras.name)
+        : notificationId.SubjectAr.toString().replace(`{PlayerName}`, extras.name);
+
+    const body = langIsEn
+        ? notificationId.Body.toString().replace(`{PlayerName}`, extras.name).replace(`{LeagueName}`, extras.leagueName)
+        : notificationId.BodyAr.toString().replace(`{PlayerName}`, extras.name).replace(`{LeagueName}`, extras.leagueName);
+
+    const imageUrl = notificationId?.notificationtype === 12 ? extras?.gameLogo : "";
+    const notificationData = {
         image: imageUrl ? getServerURL(imageUrl) : null,
-        gameName: data.extras.gameName,
+        gameName: extras.gameName,
         createdAt: getTimeAgo(data.createdAt),
         subject,
         body,
-        buttonText:
-            i18n.language == "en"
-                ? data.notificationId.ActionButton.toString()
-                : data.notificationId.ActionButtonAr.toString(),
+        buttonText: langIsEn
+            ? notificationId.ActionButton.toString()
+            : notificationId.ActionButtonAr.toString(),
         isRead: data.isRead,
+    };
+
+    const expiryTime = extras.expiry ? new Date(extras.expiry) : null;
+    const currentTime = new Date();
+    const isExpired = expiryTime && expiryTime < currentTime;
+    
+
+    const baseClasses =
+        "relative overflow-hidden pl-0 go-btn uppercase flex items-center justify-center gap-3 text-lg z-10 sleading-6 font_oswald font-medium w-[9.8rem] h-12 duration-300";
+    let dynamicClasses = "";
+    if (isExpired) {
+        dynamicClasses += " expire-btn cursor-not-allowed";
+    } else {
+        dynamicClasses += " active-tab hover:opacity-70";
+    }
+    if (data.isRead) {
+        dynamicClasses += " singleButton";
+    }
+    const buttonClasses = `${baseClasses}${dynamicClasses}`;
+    const buttonText = isExpired ? t("Expired") : notificationData.buttonText;
+
+    const handleAcceptInvite = () => {
+        if (isExpired) {
+            return;
+        }
+        if (isQueueUser || !(isMatchJoind?.currentMatch == null || isMatchJoind?.currentMatch == undefined)) {
+            toast.error("You cannot accept an invite while in queue or in a match");
+            return;
+        }
+        navigate(`/${id}/lobby/${extras.leagueId}`);
+        acceptInvitation({
+            userId: data.userId._id,
+            Lid: extras.leagueId,
+            teamId: extras.teamId,
+        });
+        readNotificationSocket(data._id);
+        dispatch(setshowNotification(false));
     };
 
     return (
@@ -83,61 +119,13 @@ const PartyQueue = ({ data }) => {
                                     {t("images.skip")}
                                 </button>
                             )}
-                            {(() => {
-                                const currentTime = new Date();
-                                const expiryTime = data.extras.expiry ? new Date(data.extras.expiry) : null;
-                                const isExpired = expiryTime && expiryTime < currentTime;
-                                const inMatch = !isQueueUser && (isMatchJoind?.currentMatch == null || isMatchJoind?.currentMatch == undefined);
-                                const baseClasses = `relative overflow-hidden pl-0 go-btn uppercase flex items-center justify-center gap-3 text-lg z-10 sleading-6 font_oswald font-medium w-[9.8rem] h-12 duration-300`;
-                                let dynamicClasses = "";
-
-                                if (isExpired) {
-                                    dynamicClasses += `expire-btn cursor-not-allowed`;
-                                } else {
-                                    dynamicClasses += ` active-tab hover:opacity-70`;
-                                }
-
-                                if (data.isRead) {
-                                    dynamicClasses += ` singleButton`;
-                                }
-
-                                const buttonClasses = `${baseClasses} ${dynamicClasses}`;
-                                const buttonText = isExpired ? t("Expired") : notificationData.buttonText;
-
-                                // const handleAcceptInvite = () => {
-                                //     if (!isExpired) {
-                                //         navigate(`/${id}/lobby/${data.extras.leagueId}`);
-                                //         dispatch(acceptInvite({ userId: data.userId._id, leagueId: data.extras.leagueId, teamId: data.extras.teamId }));
-                                //         readNotificationSocket(data._id);
-                                //         dispatch(setshowNotification(false));
-                                //         // dispatch(setShowPartyQueuePopup(true));
-                                //         getPartyQueueUpdate({Lid: data.extras.leagueId, userId: data.userId._id})
-                                //     }
-                                // };
-                                const handleAcceptInvite = () => {
-                                    if (!isExpired || inMatch) {
-                                        navigate(`/${id}/lobby/${data.extras.leagueId}`);
-                                        acceptInvitation({
-                                            userId: data.userId._id,
-                                            Lid: data.extras.leagueId,
-                                            teamId: data.extras.teamId
-                                        });
-                                        readNotificationSocket(data._id);
-                                        dispatch(setshowNotification(false));
-                                        // dispatch(setShowPartyQueuePopup(true));
-                                    }
-                                };
-
-                                return (
-                                    <button
-                                        className={buttonClasses}
-                                        onClick={handleAcceptInvite}
-                                        disabled={isExpired}
-                                    >
-                                        {buttonText}
-                                    </button>
-                                );
-                            })()}
+                            <button
+                                className={buttonClasses}
+                                onClick={handleAcceptInvite}
+                                disabled={isExpired}
+                            >
+                                {buttonText}
+                            </button>
                         </div>
                     </div>
                     <svg
@@ -155,8 +143,7 @@ const PartyQueue = ({ data }) => {
                                 <path d="M132 12H228L240 0H340L360 20V120L348 132V200L360 212V320L348 332H12L0 320V12L12 0H120L132 12Z" />
                             </clipPath>
                         </defs>
-
-                        <g filter="url(#inner-shadow)" clip-path="url(#blob-clip)">
+                        <g filter="url(#inner-shadow)" clipPath="url(#blob-clip)">
                             <rect width="360" height="332" fill="url(#blob-grad)" />
                         </g>
                     </svg>
