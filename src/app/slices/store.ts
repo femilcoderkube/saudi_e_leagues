@@ -10,6 +10,7 @@ import notificationSlice from "./notificationSlice/notificationSlice";
 import tournamentSlice from "./tournamentSlice/tournamentSlice";
 import draftSlice from "./draft/draftSlice";
 import TournamentMatchDetailSlice from "./MatchSlice/TournamentMatchDetailSlice"
+import TournamentTeamSlice from "./TournamentTeam/TournamentTeamSlice"
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     notification: notificationSlice,
     tournament: tournamentSlice,
     draft: draftSlice,
+    tournamentTeam: TournamentTeamSlice
   },
 });
 

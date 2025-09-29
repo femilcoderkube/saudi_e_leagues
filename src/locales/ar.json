@@ -334,7 +334,12 @@
     "gender_required": "الجنس مطلوب",
     "favorite_game_required": "اللعبة المفضلة مطلوبة",
     "field_required": "حقل {{field}} مطلوب",
-    "otp_invalid": "يرجى إدخال رمز 6 أرقام صالح"
+    "otp_invalid": "يرجى إدخال رمز 6 أرقام صالح",
+    "team_name_required": "اسم الفريق مطلوب",
+    "team_short_name_required": "اختصار اسم الفريق مطلوب",
+    "team_short_name_max": "يجب ألا يزيد اختصار اسم الفريق عن 4 أحرف",
+    "team_logo_required": "شعار الفريق مطلوب",
+    "invalid_url": "رابط غير صالح"
   },
   "wizard": {
     "rules_and_regulations": "القواعد والأنظمة",
@@ -434,6 +439,22 @@
   "party": {
     "party_queue": "طابور المجموعة",
     "validation_msg": "لا يمكنك قبول الدعوة أثناء وجودك في طابور أو في مباراة"
+  },
+  "tourteam": {
+    "create_newteam": "إنشاء فريق جديد",
+    "create_team": "إنشاء فريق",
+    "team_name": "اسم الفريق",
+    "team_short_name": "اختصار الفريق (بحد أقصى 4 أحرف)",
+    "nationality": "الجنسية",
+    "select_nationality": "اختر الجنسية",
+    "social_media": "وسائل التواصل الاجتماعي",
+    "create": "إنشاء",
+    "twitter": "تويتر",
+    "instagram": "انستغرام",
+    "twitch": "تويتش",
+    "kick": "كيك",
+    "discord": "ديسكورد",
+    "tiktok": "تيك توك"
   },
   "tournament": {
     "schedule": "الجدول",

@@ -334,7 +334,12 @@
     "gender_required": "Gender is required",
     "favorite_game_required": "Favorite game is required",
     "field_required": "{{field}} is required",
-    "otp_invalid": "Please enter a valid 6-digit OTP"
+    "otp_invalid": "Please enter a valid 6-digit OTP",
+    "team_name_required": "Team name is required",
+    "team_short_name_required": "Team short name is required",
+    "team_short_name_max": "Team short name must be maximum 4 characters",
+    "team_logo_required": "Team logo is required",
+    "invalid_url": "Invalid URL"
   },
   "wizard": {
     "rules_and_regulations": "Rules and Regulations",
@@ -434,6 +439,22 @@
   "party": {
     "party_queue": "Party Queue",
     "validation_msg": "You cannot accept an invite while in queue or in a match"
+  },
+  "tourteam": {
+    "create_newteam": "Create New Team",
+    "create_team": "Create Team",
+    "team_name": "Team Name",
+    "team_short_name": "Team Short Name (Max 4)",
+    "nationality": "Nationality",
+    "select_nationality": "Select Nationality",
+    "social_media": "Social Media",
+    "create": "Create",
+    "twitter": "twitter",
+    "instagram":"instagram",
+    "twitch":"twitch",
+    "kick":"kick",
+    "discord":"discord",
+    "tiktok":"tiktok"
   },
   "tournament": {
     "schedule": "Schedule",
