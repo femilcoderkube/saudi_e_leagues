@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getServerURL } from "../../utils/constant";
 import { setProfileVisible } from "../../app/slices/constState/constStateSlice";
 import { useTranslation } from "react-i18next";
 import { setConfirmationPopUp } from "../../app/slices/constState/constStateSlice";
-import { motion,AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+
 const data = [
   { id: 0, label: "My Profile" },
+  { id: 2, label: "My Team" },
   { id: 1, label: "Logout" },
 ];
 
@@ -17,15 +18,22 @@ const Dropdown = ({ user }) => {
   const [isOpen, setOpen] = useState(false);
   const toggleDropdown = () => setOpen(!isOpen);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-  const handleItemClick = (id) => {
-    if (id == 1) {
+  const handleItemClick = (itemId) => {
+    if (itemId === 1) {
       dispatch(setConfirmationPopUp(1));
-      
-    } else if (id == 0) {
+      setOpen(false);
+    } else if (itemId === 0) {
       dispatch(setProfileVisible(true));
+      setOpen(false);
+    } else if (itemId === 2) {
+      if (id) {
+        navigate(`/${id}/lobby/team`);
+      }
+      setOpen(false);
     }
-    setOpen(false);
   };
 
   return (
@@ -64,26 +72,30 @@ const Dropdown = ({ user }) => {
         </svg>
       </div>
       <AnimatePresence>
-      {isOpen && (
-        <motion.div className="dropdown-body absolute rounded-lg mt-1 z-10 w-full sd_radial-bg overflow-hidden"
-        initial={{ scale: 0.8, opacity: 0, y: -50 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.8, opacity: 0, y: -50 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
-        >
-          {data.map((item) => (
-            <Link
-              key={item.id}
-              className="dropdown-item p-3 block hover:bg-[#0b0d32] duration-400  cursor-pointer"
-              onClick={() => handleItemClick(item.id)}
-            >
-              {item.id === 0
-                ? t("user_menu.my_profile")
-                : t("user_menu.logout")}
-            </Link>
-          ))}
-        </motion.div>
-      )}
+        {isOpen && (
+          <motion.div
+            className="dropdown-body absolute rounded-lg mt-1 z-10 w-full sd_radial-bg overflow-hidden"
+            initial={{ scale: 0.8, opacity: 0, y: -50 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.8, opacity: 0, y: -50 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+          >
+            {data.map((item) => (
+              <div
+                key={item.id}
+                className="dropdown-item p-3 block hover:bg-[#0b0d32] duration-400  cursor-pointer"
+                onClick={() => handleItemClick(item.id)}
+              >
+                {item.id === 0
+                  ? t("user_menu.my_profile")
+                  : item.id === 1
+                  ? t("user_menu.logout")
+                  : t("user_menu.my_team")
+                }
+              </div>
+            ))}
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );
