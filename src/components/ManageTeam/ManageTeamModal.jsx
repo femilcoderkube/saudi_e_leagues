@@ -307,20 +307,29 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               <span className="text-xs text-[#7B7ED0]">Optional</span>
             </div>
             <div className="bg-[#18193a] border border-[#393B7A] rounded-lg px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2D2E6D] via-[#34357a] to-[#222456] border-2 border-[#393B7A] flex items-center justify-center">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/32.jpg"
-                    alt="Julia Ber_01"
-                    className="w-7 h-7 rounded-full object-cover"
-                  />
-                </span>
-                <div>
-                  <p className="text-[#BABBFF] text-sm font-semibold leading-none">Julia Ber_01</p>
-                  <p className="text-xs text-[#7B7ED0] leading-none">@berinjer</p>
-                </div>
+              <div className="flex items-center justify-between gap-3 w-full">
+               
+                <label htmlFor="coach-checkbox" className="flex items-center gap-3 cursor-pointer">
+                  <span className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2D2E6D] via-[#34357a] to-[#222456] border-2 border-[#393B7A] flex items-center justify-center">
+                    <img
+                      src="https://randomuser.me/api/portraits/men/32.jpg"
+                      alt="Julia Ber_01"
+                      className="w-7 h-7 rounded-full object-cover"
+                    />
+                  </span>
+                  <div>
+                    <p className="text-[#BABBFF] text-sm font-semibold leading-none">Julia Ber_01</p>
+                    <p className="text-xs text-[#7B7ED0] leading-none">@berinjer</p>
+                  </div>
+                </label>
+                <input
+                  type="checkbox"
+                  id="coach-checkbox"
+                  className="form-checkbox h-5 w-5 text-[#5e5e69] accent-[#5e5e69] border-[#393B7A] focus:ring-0"
+                  style={{ minWidth: 20, minHeight: 20 }}
+                />
               </div>
-              </div>
+            </div>
               </div>
            
           </motion.div>
