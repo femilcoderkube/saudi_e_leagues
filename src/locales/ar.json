@@ -249,7 +249,8 @@
   },
   "user_menu": {
     "my_profile": "تعديل الملف الشخصي",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "my_team": "فريقي"
   },
   "language": {
     "english": "English",

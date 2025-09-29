@@ -123,7 +123,7 @@ function App() {
                 element={<PartyMatchMaking />}
               />
               <Route
-                path={ROUTESPATH.TOURNAMENTSTEAM}
+                path={ROUTESPATH.TEAM}
                 element={<TournamentsTeam />}
               />
               <Route path={ROUTESPATH.PROFILE} element={<UserProfilePage />} />

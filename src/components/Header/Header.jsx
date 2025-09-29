@@ -514,7 +514,7 @@ const Header = () => {
       label: t("navigation.lobby"),
       path: `/${params.id}/lobby`,
       icon: Lobby,
-      active: path ? true : false,
+      active: path && !checkParams("team") ? true : false,
     };
     if (
       breadcrumbItems.length === 0 ||

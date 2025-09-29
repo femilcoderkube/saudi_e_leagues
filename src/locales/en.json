@@ -248,7 +248,8 @@
   },
   "user_menu": {
     "my_profile": "My Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "my_team": "My Team"
   },
   "language": {
     "english": "English",
