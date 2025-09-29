@@ -1068,6 +1068,40 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   background: linear-gradient(55.02deg, #434BE9 -10.01%, #46B5F9 107.56%);
   clip-path:polygon(2% 0%, 0% 100%, 98% 100%, 100% 0%, 5% 0);
 }
+
+.edit-team-drop button{
+  clip-path: polygon(80% 0, 100% 19%, 100% 100%, 75% 100%, 23% 100%, 0 80%, 0 0);
+}
+.team-main-user .btn_polygon-link{
+  background: linear-gradient(3deg, rgba(67, 75, 233, 1) 0%, rgba(70, 181, 249, 1) 110%);
+}
+
+.team-main-user .polygon_border:before, .team-main-user .polygon_border:after {
+  background: linear-gradient(3deg, rgba(67, 75, 233, 1) 0%, rgba(70, 181, 249, 1) 110%);
+}
+
+.team-main-user .btn_polygon-link:before,.team-main-user .btn_polygon-link:after {
+  opacity: 0.8;
+  mix-blend-mode: plus-lighter;
+}
+
+/* Start 29-09-2025 */
+.game_card--roaster-main {
+  background-image: url(/src/assets/images/card_roaster.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* padding: 18.8px 21.7px 8px 14px; */
+  padding: 0 5px;
+  /* background-size: 100% 100%; */
+  width: 206px;
+  height: 186px;
+}
+
+.game_card--roaster-wrap {
+  padding: 18.8px 21.7px 8px 14px;
+}
+
+/* End 29-09-2025 */
 /* team page view End */
 
 @media (min-width: 1280px) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion ,AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../components/ui/images/images";
 
@@ -222,83 +222,140 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     <>
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-40"></div>
       <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full p-4">
-    <AnimatePresence>
-        <motion.div
-          initial={{ scale: 0.5, opacity: 0, y: 50 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.5, opacity: 0, y: 50 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="bg-gradient-to-br from-[#121331] via-[#151642] to-[#0f0f2a] manage-popup match_reg--popup h-auto sd_before sd_after text-white rounded-2xl w-full max-w-2xl relative max-h-[90vh] py-8 overflow-x-hidden px-6 overflow-y-auto custom_scroll border-2 border-[#393B7A] shadow-2xl shadow-black/50"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        >
-          <style jsx="true">{`
-            .custom_scroll::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
-
-          {/* Enhanced Header */}
-          <div className="flex justify-between items-center pb-8 border-b-2 border-[#393B7A] mb-8">
-            <div>
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-[#BABBFF] to-[#ffffff] bg-clip-text text-transparent">
-                {t("tournament.manageteam")}
-              </h2>
-              <p className="text-[#7B7ED0] mt-2 text-sm">
-                Configure your team members and roles
-              </p>
-            </div>
-            <button
-              onClick={onClose}
-              className="text-[#A6B6C6] hover:text-[#fff] hover:bg-[#2D2E6D] p-3 rounded-xl transition-all duration-300 group"
-              aria-label="Close"
-            >
-              <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                className="group-hover:rotate-90 transition-transform duration-300"
-              >
-                <path
-                  d="M1 19L19 1M19 19L1 1"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
-          </div>
-
-          {/* Enhanced Content Area */}
-          <div
-            className="space-y-8 max-h-[60vh] overflow-y-auto custom_scroll pr-2"
+        <AnimatePresence>
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0, y: 50 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.5, opacity: 0, y: 50 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="bg-gradient-to-br from-[#5e5e69] via-[#151642] to-[#0f0f2a] manage-popup match_reg--popup h-auto sd_before sd_after text-white rounded-2xl w-full max-w-2xl relative max-h-[90vh] py-8 overflow-x-hidden px-6 overflow-y-auto custom_scroll shadow-2xl shadow-black/50"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {renderDropdown("captain")}
-            {renderDropdown("players")}
-            {renderDropdown("substitutes")}
-            {renderDropdown("coach")}
-          </div>
-
-          {/* Enhanced Footer */}
-          <div className="wizard_step--btn gap-6 flex justify-end mt-8 pt-8 border-t-2 border-[#393B7A]">
-            <div className="game_status--tab wizard_btn flex flex-wrap items-center gap-4">
-              <button
-                onClick={onClose}
-                className="py-3 px-8 text-lg font-medium transition-all relative font_oswald hover:bg-[#2D2E6D] duration-300 cursor-pointer text-[#BABBFF] border-2 border-[#393B7A] rounded-xl hover:border-[#5759c7] hover:text-white"
-                style={{ minWidth: "8rem", height: "4rem" }}
-              >
-                {t("tournament.cancel")}
-              </button>
-              <button
-                className="py-3 px-8 text-lg font-medium transition-all sd_after sd_before relative font_oswald hover:shadow-lg hover:shadow-[#5759c7]/30 active-tab duration-300 polygon_border cursor-pointer bg-gradient-to-r from-[#5759c7] to-[#7b7ed0] rounded-xl border-2 border-transparent hover:from-[#6b6bd4] hover:to-[#8a8ae0] text-white"
-                style={{ minWidth: "8rem", height: "4rem" }}
-              >
-                {t("tournament.confirm")}
-              </button>
+            <style jsx="true">{`
+              .custom_scroll::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
+            {/* Header */}
+            <div className="flex flex-col gap-4 mb-8">
+              <div className="relative flex items-center justify-center mb-2">
+                <h2 className="text-2xl font-bold text-center text-white w-full">
+                  {t("tournament.manageteam")}
+                </h2>
+                <button
+                  type="button"
+                  aria-label="Close"
+                  onClick={onClose}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 p-2 rounded-full hover:bg-[#23244a] transition-colors"
+                  style={{ lineHeight: 0 }}
+                >
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <circle cx="11" cy="11" r="11" fill="#23244a" />
+                    <path
+                      d="M7.5 7.5L14.5 14.5M14.5 7.5L7.5 14.5"
+                      stroke="#BABBFF"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              {/* Invite Link */}
+              <div className="flex flex-col gap-2">
+                <label className="text-sm text-[#BABBFF] font-medium mb-1">
+                  {t("Here is a unique link to invite player for your team")}
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value="http://primeeleague.com/invite/rsdfh@z2decf"
+                    readOnly
+                    className="flex-1 bg-[#18194a] border border-[#393B7A] rounded-lg px-3 py-2 text-[#BABBFF] text-sm font-medium focus:outline-none"
+                  />
+                  <button
+                    className="bg-[#393B7A] hover:bg-[#5759c7] transition-colors px-3 py-2 rounded-lg text-white text-sm font-semibold flex items-center gap-1"
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        "http://primeeleague.com/invite/rsdfh@z2decf"
+                      );
+                    }}
+                  >
+                    <svg width="18" height="18" fill="none" viewBox="0 0 20 20">
+                      <rect
+                        x="5"
+                        y="5"
+                        width="10"
+                        height="10"
+                        rx="2"
+                        fill="#BABBFF"
+                      />
+                      <rect
+                        x="2"
+                        y="2"
+                        width="10"
+                        height="10"
+                        rx="2"
+                        stroke="#BABBFF"
+                        strokeWidth="1.5"
+                      />
+                    </svg>
+                  </button>
+                  <button className="bg-[#FF914D] hover:bg-[#ff6b6b] transition-colors px-3 py-2 rounded-lg text-white text-sm font-semibold">
+                    {t("Reset")}
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+
+            {/* Manager Section */}
+            <div className="mb-6">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[#BABBFF] font-semibold text-base">
+                  {t("Manager")} - 1 {t("Max")}
+                </span>
+                <span className="text-xs text-[#7B7ED0]">{t("Optional")}</span>
+              </div>
+              <p className="text-xs text-[#7B7ED0] mb-2">
+                {t(
+                  "Handles roster management, invites, and tournament registration."
+                )}
+              </p>
+              <div className="bg-[#18194a] border border-[#393B7A] rounded-lg px-4 py-3 text-[#7B7ED0] text-sm">
+                {t("There are no available managers for this roster")}
+              </div>
+            </div>
+
+            {/* Coach Section */}
+            <div className="mb-6">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[#BABBFF] font-semibold text-base">
+                  {t("Coach")} - 1 {t("Max")}
+                </span>
+                <span className="text-xs text-[#7B7ED0]">{t("Optional")}</span>
+              </div>
+              <p className="text-xs text-[#7B7ED0] mb-2">
+                {t("A non-playing support role with no special permissions.")}
+              </p>
+              <div className="flex items-center justify-between bg-gradient-to-r from-[#1a1b3a] to-[#1e1f42] border-2 border-[#393B7A] rounded-xl px-5 py-4 mb-2">
+                <span className="flex items-center gap-4 font-semibold">
+                  <span className="flex justify-center items-center w-12 h-12 rounded-full bg-gradient-to-br from-[#2D2E6D] via-[#34357a] to-[#222456] shadow-lg border-2 border-[#393B7A]">
+                    <img
+                      className="rounded-full w-9 h-9 object-cover"
+                      src={IMAGES.defaultImg}
+                      alt="Julia Ber_01"
+                    />
+                  </span>
+                  <span>
+                    <p className="text-base font-semibold text-[#BABBFF]">
+                      Julia Ber_01
+                    </p>
+                  </span>
+                </span>
+              </div>
+            </div>
+            {/* Players Section */}
+          </motion.div>
+        </AnimatePresence>
 
         <svg
           width="0"
