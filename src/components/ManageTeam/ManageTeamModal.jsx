@@ -3,6 +3,49 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../components/ui/images/images";
 
+// Custom checkbox component
+const CustomCheckbox = ({ checked, onChange, ariaLabel }) => {
+  return (
+    <label
+      aria-label={ariaLabel}
+      className="relative inline-flex items-center justify-center cursor-pointer select-none"
+      style={{ minWidth: 28, minHeight: 28 }}
+    >
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="absolute opacity-0 cursor-pointer"
+        aria-hidden="true"
+      />
+      <span
+        className={`w-[30px] h-[30px] shrink-0 rounded-[10px] transition-all duration-200 border border-[#51549B] flex items-center justify-center ${
+          checked
+            ? "bg-[linear-gradient(55.02deg,#434BE9_-10.01%,#46B5F9_107.56%)]"
+            : "bg-[#D9D9D91A]"
+        }`}
+      >
+        {checked && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="15"
+            viewBox="0 0 18 15"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M17.4233 0.747316C18.2257 1.70335 18.1859 3.20873 17.3344 4.10966L7.65385 14.3525C6.81218 15.2431 5.4898 15.2111 4.68311 14.2805L0.600388 9.57093C-0.215649 8.6296 -0.197561 7.12371 0.640794 6.20741C1.47914 5.29119 2.82029 5.31146 3.63633 6.25279L6.26525 9.28535L14.4288 0.64749C15.2803 -0.25341 16.621 -0.208714 17.4233 0.747316Z"
+              fill="white"
+            />
+          </svg>
+        )}
+      </span>
+    </label>
+  );
+};
+
 const ManageTeamModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
   const { t } = useTranslation();
@@ -59,6 +102,9 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
+
+  // Local selection state for coach example checkbox
+  const [isCoachSelected, setIsCoachSelected] = useState(false);
 
   // Toggle dropdown for a specific section
   const toggleDropdown = (section) => {
@@ -236,102 +282,153 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                 display: none;
               }
             `}</style>
-          {/* Modal Header */}
-          <div className="flex flex-col items-center mb-6 relative">
-            {/* Close Icon */}
-            <button
-              className="absolute top-0 right-0 mt-[-0.5rem] mr-[-0.5rem] p-2 rounded-full hover:bg-[#23244a] transition-colors"
-              aria-label="Close"
-              onClick={onClose}
-              type="button"
-            >
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <circle cx="11" cy="11" r="11" fill="#23244a"/>
-                <path d="M7.5 7.5L14.5 14.5" stroke="#BABBFF" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M14.5 7.5L7.5 14.5" stroke="#BABBFF" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </button>
-            <h2 className="text-2xl font-bold text-white mb-2">Manage Team</h2>
-          </div>
-
-          {/* Invite Link */}
-          <div className="mb-6">
-            <label className="block text-sm text-white mb-2 font-medium">
-              Here is a unique link to invite player for your team
-            </label>
-            <div className="flex items-center gap-2 bg-[#23244a] border border-[#393B7A] rounded-lg px-3 py-2">
-              <input
-                type="text"
-                value="http://primeleague.com/invite/sd5hl02dedf"
-                readOnly
-                className="flex-1 bg-transparent text-white text-sm outline-none"
-                style={{ minWidth: 0 }}
-              />
+            {/* Modal Header */}
+            <div className="flex flex-col items-center mb-6 relative">
+              {/* Close Icon */}
               <button
-                className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#393B7A] hover:bg-[#5759c7] transition-colors"
-                title="Copy"
-                onClick={() => {
-                  navigator.clipboard.writeText("http://primeleague.com/invite/sd5hl02dedf");
-                }}
+                className="absolute top-0 right-0 mt-[-0.5rem] mr-[-0.5rem] p-2 rounded-full hover:bg-[#23244a] transition-colors"
+                aria-label="Close"
+                onClick={onClose}
+                type="button"
               >
-                <svg width="18" height="18" fill="none" stroke="#BABBFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="9" y="9" width="8" height="8" rx="2" />
-                  <path d="M15 9V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <circle cx="11" cy="11" r="11" fill="#23244a" />
+                  <path
+                    d="M7.5 7.5L14.5 14.5"
+                    stroke="#BABBFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M14.5 7.5L7.5 14.5"
+                    stroke="#BABBFF"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </button>
-              <button
-                className="flex items-center justify-center w-14 h-9 rounded-lg bg-[#ffb86b] hover:bg-[#ff6b6b] text-[#23244a] font-semibold text-sm transition-colors"
-                style={{ marginLeft: 4 }}
-                title="Reset"
-              >
-                Reset
-              </button>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Manage Team
+              </h2>
             </div>
-          </div>
 
-          {/* Manager Section */}
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-[#BABBFF] font-semibold text-sm">Manager <span className="text-xs font-normal text-[#7B7ED0]">· 1 Max</span></span>
-              <span className="text-xs text-[#7B7ED0]">Optional</span>
+            {/* Invite Link */}
+            <div className="mb-6 ">
+              <label className="block text-base text-white mb-2 !font-bold">
+                Here is a unique link to invite player for your team
+              </label>
+              <div className="flex  w-full">
+                <div className="flex items-center gap-2 bg-[#05042C] h-[56px] border border-[#393B7A] rounded-lg w-full overflow-hidden pl-[15px]">
+                  <input
+                    type="text"
+                    value="http://primeleague.com/invite/sd5hl02dedf"
+                    readOnly
+                    className="flex-1 bg-transparent text-white text-sm outline-none"
+                    style={{ minWidth: 0 }}
+                  />
+                  <button
+                    className="flex items-center justify-center w-[58px] h-full transition-colors bg-[linear-gradient(59.17deg,#434BE9_22.83%,#46B5F9_151.01%)]"
+                    title="Copy"
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        "http://primeleague.com/invite/sd5hl02dedf"
+                      );
+                    }}
+                  >
+                    <svg
+                      width="24"
+                      height="30"
+                      viewBox="0 0 24 30"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M19.6475 27.6528C19.3338 28.3529 18.8283 28.9465 18.1911 29.3627C17.554 29.7789 16.8123 30.0002 16.0547 30H3.94481C3.42675 30.0001 2.91375 29.8965 2.43511 29.6953C1.95648 29.4941 1.52158 29.1992 1.15525 28.8274C0.788932 28.4556 0.498363 28.0141 0.300142 27.5283C0.101921 27.0425 -6.77401e-05 26.5218 6.54925e-07 25.9959V8.0642C-0.000435938 7.29509 0.217421 6.54213 0.627511 5.8954C1.0376 5.24866 1.62256 4.73554 2.31242 4.41739V24.4606C2.31228 24.8799 2.39353 25.2951 2.55152 25.6825C2.70951 26.0699 2.94115 26.422 3.2332 26.7185C3.52526 27.0151 3.87201 27.2503 4.25365 27.4108C4.63529 27.5713 5.04434 27.6539 5.45743 27.6539L19.6475 27.6528ZM14.1869 7.84803V0H7.94428C7.42605 -1.6501e-07 6.9129 0.10366 6.43415 0.305056C5.9554 0.506452 5.52045 0.801635 5.15415 1.17374C4.78785 1.54584 4.49738 1.98756 4.29934 2.47366C4.10131 2.95976 3.99959 3.48071 4 4.00673V23.1762C4.00041 23.9095 4.28767 24.6126 4.79863 25.1309C5.30959 25.6492 6.00242 25.9404 6.72481 25.9404H20.0547C20.5727 25.9404 21.0857 25.8368 21.5643 25.6356C22.0429 25.4344 22.4778 25.1395 22.8441 24.7676C23.2104 24.3958 23.501 23.9544 23.6992 23.4686C23.8974 22.9828 23.9995 22.4622 23.9995 21.9363V10.2634H16.5644C15.9337 10.2628 15.329 10.0081 14.8832 9.55519C14.4373 9.10229 14.1869 8.48826 14.1869 7.84803ZM15.5527 0L24 8.90983H16.7764C16.4518 8.90983 16.1406 8.77898 15.9111 8.54605C15.6816 8.31313 15.5527 7.99721 15.5527 7.66781V0Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <button
+                  className="flex items-center justify-center w-[56px] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
+                  style={{ marginLeft: 13 }}
+                  title="Reset"
+                >
+                  Reset
+                </button>
+              </div>
             </div>
-            <div className="bg-[#18193a] border border-[#393B7A] rounded-lg px-4 py-3 text-center text-[#7B7ED0] text-sm font-medium">
-              There are no available managers for this roster
-            </div>
-          </div>
-
-          {/* Coach Section */}
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-[#BABBFF] font-semibold text-sm">Coach <span className="text-xs font-normal text-[#7B7ED0]">· 1 Max</span></span>
-              <span className="text-xs text-[#7B7ED0]">Optional</span>
-            </div>
-            <div className="bg-[#18193a] border border-[#393B7A] rounded-lg px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center justify-between gap-3 w-full">
-               
-                <label htmlFor="coach-checkbox" className="flex items-center gap-3 cursor-pointer">
-                  <span className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2D2E6D] via-[#34357a] to-[#222456] border-2 border-[#393B7A] flex items-center justify-center">
-                    <img
-                      src="https://randomuser.me/api/portraits/men/32.jpg"
-                      alt="Julia Ber_01"
-                      className="w-7 h-7 rounded-full object-cover"
-                    />
+                  <hr className="border-[#51549B] pb-6"/>
+            {/* Manager Section */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-1">
+                <div>
+                  <span className="font-bold text-white  text-xl mb-1.5 block">
+                    Manager{" "}
+                    <span className="text-base font-normal text-white">
+                      · 1 Max
+                    </span>
                   </span>
-                  <div>
-                    <p className="text-[#BABBFF] text-sm font-semibold leading-none">Julia Ber_01</p>
-                    <p className="text-xs text-[#7B7ED0] leading-none">@berinjer</p>
-                  </div>
-                </label>
-                <input
-                  type="checkbox"
-                  id="coach-checkbox"
-                  className="form-checkbox h-5 w-5 text-[#5e5e69] accent-[#5e5e69] border-[#393B7A] focus:ring-0"
-                  style={{ minWidth: 20, minHeight: 20 }}
-                />
+                  <p className="block text-sm text-white mb-2">
+                    Handles roster management, invites, and tournament
+                    registration.
+                  </p>
+                </div>
+                <span className="text-base font-normal text-[#6A71E8]">
+                  Optional
+                </span>
+              </div>
+              <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-4 py-3 text-center text-[#7B7ED0] text-sm font-medium">
+                There are no available managers for this roster
               </div>
             </div>
+
+            {/* Coach Section */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-1">
+              <div>
+                  <span className="font-bold text-white  text-xl mb-1.5 block">
+                  Coach{" "}
+                    <span className="text-base font-normal text-white">
+                      · 1 Max
+                    </span>
+                  </span>
+                  <p className="block text-sm text-white mb-2">
+                  A non-playing support role with no special permissions.
+                  </p>
+                </div>
+                <span className="text-base font-normal text-[#6A71E8]">Required</span>
               </div>
-           
+              <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-4 py-3 flex items-center justify-between">
+                <div className="flex items-center justify-between gap-3 w-full">
+                  <label
+                    htmlFor="coach-checkbox"
+                    className="flex items-center gap-3 cursor-pointer"
+                  >
+                    <span className="w-10 h-10">
+                      <img
+                        src="https://randomuser.me/api/portraits/men/32.jpg"
+                        alt="Julia Ber_01"
+                        className="w-full h-full rounded-full object-cover"
+                      />
+                    </span>
+                    <div className="flex items-center gap-6">
+                      <p className="text-[#F4F7FF] text-xl !font-bold leading-none">
+                        Julia Ber_01
+                      </p>
+                      <p className="text-md text-[#8598F6] font-medium leading-none">
+                        @berinjer
+                      </p>
+                    </div>
+                  </label>
+                  <CustomCheckbox
+                    checked={isCoachSelected}
+                    onChange={() => setIsCoachSelected((prev) => !prev)}
+                    ariaLabel="Select coach"
+                  />
+                </div>
+              </div>
+            </div>
           </motion.div>
         </AnimatePresence>
 
