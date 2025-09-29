@@ -5,7 +5,10 @@ import {
   getServerURL,
   stageTypes,
 } from "../../utils/constant.js";
-import discordImg from "../../assets/images/discord.svg";
+import PDFPopup from "../../components/Overlays/LeagueDetail/PDFPopup.jsx";
+import DiscordPopup  from "../../components/Overlays/LeagueDetail/DiscordPopup.jsx";
+
+
 import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -366,6 +369,7 @@ const TournamentDetail = () => {
                             </div>
                           </div>
                         </motion.div>
+                        assss
                         <motion.div
                           className="sd_content-right w-full order-0 xl:order-1"
                           variants={rightToLeft}
@@ -375,9 +379,26 @@ const TournamentDetail = () => {
                           viewport={{ once: true, amount: 0.2 }}
                         >
                           {/* --- Timeline-card HTML Block Start --- */}
-                          <div className="flex flex-col gap-6 md:block">
+                          {/* <div className="flex flex-col gap-6 md:block"> */}
+                            <PDFPopup   />
+                            {/* <div>    */}
+                       
+                                {/* <span className="icon-discord flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
+                                  <img src={IMAGES.discord} />
+                                </span>
+                                {t("tournament.discordsupport")}
+                                <span className="ltr:ml-auto rtl:mr-auto icon-arrow-right text-[#A6B6C6] rtl:[transform:rotateY(180deg)]">
+                                  <img src={IMAGES.discord_arrow} alt="" />
+                                </span>
+                              </a>
+                              <button
+                                className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[#F4F7FF] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)] cursor-pointer"
+                                onClick={handleOpen}
+                              > */}
+                            <DiscordPopup/>
                             <TimelinePanel />
-                          </div>
+
+                          {/* </div> */}
                         </motion.div>
                       </div>
                     </div>

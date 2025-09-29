@@ -298,10 +298,26 @@
 //     </div>
 //   );
 // }
+import React, { useEffect, useState } from "react";
+import { getTeamData } from "../../utils/constant.js";
 
-import React from "react";
 import { IMAGES } from "../../components/ui/images/images.js";
 export default function TournamentsTeam() {
+  const [teamData, setTeamData] = useState(null);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    if (user?._id && token) {
+      getTeamData(user._id, token)
+        .then((data) => {
+          setTeamData(data);
+          console.log("Fetched team data:", data);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [user?._id, token]);
+
   return (
     <>
       <div className="team-page-wp flex md:gap-[3.813rem] gap-[2rem] w-full">

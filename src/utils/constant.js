@@ -465,6 +465,20 @@ export const getPopupData = async () => {
     throw error;
   }
 };
+export const getTeamData = async (id, token) => {
+  try {
+    const response = await axiosInstance.get(`/Team`, {
+      params: { id }, // becomes /Team?id=<id>
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching team data:", error);
+    throw error;
+  }
+};
 
 export const shouldDisplayPopup = (popupData) => {
   if (!popupData || !Array.isArray(popupData) || popupData.length === 0) {
