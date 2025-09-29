@@ -326,6 +326,7 @@ html[dir="rtl"] .team_score--con {
   transition: 0.5s;
   z-index: -1;
 }
+
 .nav-condition .sq__shape-wrap {
   mask-position: calc((100% / 2) * (1 - 1) + (100% / 4) - 25px) -2px, 0;
 }
@@ -950,7 +951,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 .react-select__menu-list.css-qr46ko {
-  padding:0.125rem !important;
+  padding: 0.125rem !important;
   /* pointer-events: none !important; */
 }
 
@@ -959,21 +960,113 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   box-shadow: 0 4px 24px 0 rgba(34, 35, 86, 0.5), 0 1.5px 6px 0 rgba(94, 95, 184, 0.5) inset !important;
 }
 
-.css-d7l1ni-option,.react-select__option--is-selected {
+.css-d7l1ni-option,
+.react-select__option--is-selected {
   background: linear-gradient(180deg,
       rgba(31, 34, 90, 1) 0%,
       rgba(16, 19, 63, 1) 100%) !important;
-      /* pointer-events: none !important; */
+  /* pointer-events: none !important; */
 }
 
-.party-btn{
+.party-btn {
   clip-path: polygon(16% 0, 100% 1%, 100% 1%, 100% 82%, 85% 100%, 0 100%, 0 100%, 0 15%);
 }
 
-.react-select__value-container--has-value .react-select__single-value{
+.react-select__value-container--has-value .react-select__single-value {
   display: none !important;
 }
+
 /* Prty card popup End */
+
+/* team page view start */
+.team_content-left {
+  clip-path: url(#clip0);
+}
+
+.team-content-left-wp::before,.team-content-left-wp::after{
+  content: '';
+  position: absolute;
+}
+
+.team-content-left-wp::before{
+  left: 0;
+  top: 46%;
+  transform: translate(0,-50%);
+  clip-path: polygon(0 0, 100% 11%, 100% 89%, 0 100%);
+  width: 0.5rem;
+  height: 6.25rem;
+  background: linear-gradient(59.17deg, #434BE9 22.83%, #46B5F9 151.01%);
+  z-index: 1;
+}
+
+.team-content-left-wp::after {
+  right: 0;
+  bottom: 0;
+  clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+  background: radial-gradient(100% 71.25% at 50% -14.46%, rgba(45, 46, 109, 0.4416) 0%, rgba(34, 35, 86, 0.384) 100%),
+    radial-gradient(100% 110.56% at 50% -14.46%, rgba(67, 109, 238, 0) 47.51%, rgba(67, 109, 238, 0.12) 100%);
+  width: 2rem;
+  height: 2rem;
+}
+
+.team-mange {
+  background: url(../images/team-center-shape.svg);
+  background-repeat: no-repeat;
+}
+
+.team-win {
+  color: #84B49F;
+}
+
+.team-loss {
+  color: #B48484;
+}
+
+.team-board::before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(270deg, rgba(47, 54, 74, 0.8) 0%, rgba(47, 54, 74, 0.48) 100%);
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 1;
+}
+
+.team-user-wp{
+  clip-path: url(#team-top);
+    background-image: url(/src/assets/images/team-top-vector.png), linear-gradient(180deg, rgba(0, 23, 140, 0.92) 0%, #2A54FF 107.14%);
+    background-repeat: no-repeat, no-repeat;
+    background-size: contain, contain;  
+}
+
+.team_content-left .polygon_border::before{
+  z-index: 1;
+  content: none;
+}
+
+.team-content-left-wp::after {
+  z-index: 1;
+  left: 43.5%;
+  width: 23.7%;
+  height: 0.25rem;
+  top: 0px;
+  transform: translateX(-50%);
+  clip-path: polygon(5% 100%, 0% 0%, 100% 0%, 95% 100%, 5% 100%);
+  background: linear-gradient(55.02deg, #434BE9 -10.01%, #46B5F9 107.56%);  
+}
+
+.team_content-left .polygon_border::after{
+  width: 48%;
+  left: auto;
+  transform: translateX(0%);
+  right:1rem;
+  bottom: 0.25rem;
+  background: linear-gradient(55.02deg, #434BE9 -10.01%, #46B5F9 107.56%);
+  clip-path:polygon(2% 0%, 0% 100%, 98% 100%, 100% 0%, 5% 0);
+}
+/* team page view End */
 
 @media (min-width: 1280px) {
   .brackt_fullscreen {
@@ -1374,11 +1467,12 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     margin-left: 0;
     margin-right: 6rem;
   }
-  .party-card-wp{
+
+  .party-card-wp {
     max-width: 7rem;
   }
 
-  .party-card-wp .username{
+  .party-card-wp .username {
     font-size: 14px;
   }
 }
@@ -1916,8 +2010,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
     transform-origin: left center;
     flex-direction: row;
   }
-  .party_container .grid{
-    grid-template-columns: repeat(2,1fr);
+
+  .party_container .grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

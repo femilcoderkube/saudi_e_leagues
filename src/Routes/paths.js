@@ -12,6 +12,7 @@ const ROUTESPATH = {
   FINDING_MATCH: "lobby/:lId/finding-match",
   FINDING_PARTYMATCH: "lobby/:lId/finding-partymatch",
   PROFILE: "profile",
+  TOURNAMENTSTEAM: "tournamenstteam",
 };
 
 export default ROUTESPATH;
