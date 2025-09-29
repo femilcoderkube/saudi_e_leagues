@@ -236,124 +236,93 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                 display: none;
               }
             `}</style>
-            {/* Header */}
-            <div className="flex flex-col gap-4 mb-8">
-              <div className="relative flex items-center justify-center mb-2">
-                <h2 className="text-2xl font-bold text-center text-white w-full">
-                  {t("tournament.manageteam")}
-                </h2>
-                <button
-                  type="button"
-                  aria-label="Close"
-                  onClick={onClose}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 p-2 rounded-full hover:bg-[#23244a] transition-colors"
-                  style={{ lineHeight: 0 }}
-                >
-                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                    <circle cx="11" cy="11" r="11" fill="#23244a" />
-                    <path
-                      d="M7.5 7.5L14.5 14.5M14.5 7.5L7.5 14.5"
-                      stroke="#BABBFF"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-              {/* Invite Link */}
-              <div className="flex flex-col gap-2">
-                <label className="text-sm text-[#BABBFF] font-medium mb-1">
-                  {t("Here is a unique link to invite player for your team")}
-                </label>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    value="http://primeeleague.com/invite/rsdfh@z2decf"
-                    readOnly
-                    className="flex-1 bg-[#18194a] border border-[#393B7A] rounded-lg px-3 py-2 text-[#BABBFF] text-sm font-medium focus:outline-none"
+          {/* Modal Header */}
+          <div className="flex flex-col items-center mb-6 relative">
+            {/* Close Icon */}
+            <button
+              className="absolute top-0 right-0 mt-[-0.5rem] mr-[-0.5rem] p-2 rounded-full hover:bg-[#23244a] transition-colors"
+              aria-label="Close"
+              onClick={onClose}
+              type="button"
+            >
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <circle cx="11" cy="11" r="11" fill="#23244a"/>
+                <path d="M7.5 7.5L14.5 14.5" stroke="#BABBFF" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M14.5 7.5L7.5 14.5" stroke="#BABBFF" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </button>
+            <h2 className="text-2xl font-bold text-white mb-2">Manage Team</h2>
+          </div>
+
+          {/* Invite Link */}
+          <div className="mb-6">
+            <label className="block text-sm text-white mb-2 font-medium">
+              Here is a unique link to invite player for your team
+            </label>
+            <div className="flex items-center gap-2 bg-[#23244a] border border-[#393B7A] rounded-lg px-3 py-2">
+              <input
+                type="text"
+                value="http://primeleague.com/invite/sd5hl02dedf"
+                readOnly
+                className="flex-1 bg-transparent text-white text-sm outline-none"
+                style={{ minWidth: 0 }}
+              />
+              <button
+                className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#393B7A] hover:bg-[#5759c7] transition-colors"
+                title="Copy"
+                onClick={() => {
+                  navigator.clipboard.writeText("http://primeleague.com/invite/sd5hl02dedf");
+                }}
+              >
+                <svg width="18" height="18" fill="none" stroke="#BABBFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="9" y="9" width="8" height="8" rx="2" />
+                  <path d="M15 9V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+                </svg>
+              </button>
+              <button
+                className="flex items-center justify-center w-14 h-9 rounded-lg bg-[#ffb86b] hover:bg-[#ff6b6b] text-[#23244a] font-semibold text-sm transition-colors"
+                style={{ marginLeft: 4 }}
+                title="Reset"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+
+          {/* Manager Section */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[#BABBFF] font-semibold text-sm">Manager <span className="text-xs font-normal text-[#7B7ED0]">· 1 Max</span></span>
+              <span className="text-xs text-[#7B7ED0]">Optional</span>
+            </div>
+            <div className="bg-[#18193a] border border-[#393B7A] rounded-lg px-4 py-3 text-center text-[#7B7ED0] text-sm font-medium">
+              There are no available managers for this roster
+            </div>
+          </div>
+
+          {/* Coach Section */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[#BABBFF] font-semibold text-sm">Coach <span className="text-xs font-normal text-[#7B7ED0]">· 1 Max</span></span>
+              <span className="text-xs text-[#7B7ED0]">Optional</span>
+            </div>
+            <div className="bg-[#18193a] border border-[#393B7A] rounded-lg px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2D2E6D] via-[#34357a] to-[#222456] border-2 border-[#393B7A] flex items-center justify-center">
+                  <img
+                    src="https://randomuser.me/api/portraits/men/32.jpg"
+                    alt="Julia Ber_01"
+                    className="w-7 h-7 rounded-full object-cover"
                   />
-                  <button
-                    className="bg-[#393B7A] hover:bg-[#5759c7] transition-colors px-3 py-2 rounded-lg text-white text-sm font-semibold flex items-center gap-1"
-                    onClick={() => {
-                      navigator.clipboard.writeText(
-                        "http://primeeleague.com/invite/rsdfh@z2decf"
-                      );
-                    }}
-                  >
-                    <svg width="18" height="18" fill="none" viewBox="0 0 20 20">
-                      <rect
-                        x="5"
-                        y="5"
-                        width="10"
-                        height="10"
-                        rx="2"
-                        fill="#BABBFF"
-                      />
-                      <rect
-                        x="2"
-                        y="2"
-                        width="10"
-                        height="10"
-                        rx="2"
-                        stroke="#BABBFF"
-                        strokeWidth="1.5"
-                      />
-                    </svg>
-                  </button>
-                  <button className="bg-[#FF914D] hover:bg-[#ff6b6b] transition-colors px-3 py-2 rounded-lg text-white text-sm font-semibold">
-                    {t("Reset")}
-                  </button>
+                </span>
+                <div>
+                  <p className="text-[#BABBFF] text-sm font-semibold leading-none">Julia Ber_01</p>
+                  <p className="text-xs text-[#7B7ED0] leading-none">@berinjer</p>
                 </div>
               </div>
-            </div>
-
-            {/* Manager Section */}
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[#BABBFF] font-semibold text-base">
-                  {t("Manager")} - 1 {t("Max")}
-                </span>
-                <span className="text-xs text-[#7B7ED0]">{t("Optional")}</span>
               </div>
-              <p className="text-xs text-[#7B7ED0] mb-2">
-                {t(
-                  "Handles roster management, invites, and tournament registration."
-                )}
-              </p>
-              <div className="bg-[#18194a] border border-[#393B7A] rounded-lg px-4 py-3 text-[#7B7ED0] text-sm">
-                {t("There are no available managers for this roster")}
               </div>
-            </div>
-
-            {/* Coach Section */}
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[#BABBFF] font-semibold text-base">
-                  {t("Coach")} - 1 {t("Max")}
-                </span>
-                <span className="text-xs text-[#7B7ED0]">{t("Optional")}</span>
-              </div>
-              <p className="text-xs text-[#7B7ED0] mb-2">
-                {t("A non-playing support role with no special permissions.")}
-              </p>
-              <div className="flex items-center justify-between bg-gradient-to-r from-[#1a1b3a] to-[#1e1f42] border-2 border-[#393B7A] rounded-xl px-5 py-4 mb-2">
-                <span className="flex items-center gap-4 font-semibold">
-                  <span className="flex justify-center items-center w-12 h-12 rounded-full bg-gradient-to-br from-[#2D2E6D] via-[#34357a] to-[#222456] shadow-lg border-2 border-[#393B7A]">
-                    <img
-                      className="rounded-full w-9 h-9 object-cover"
-                      src={IMAGES.defaultImg}
-                      alt="Julia Ber_01"
-                    />
-                  </span>
-                  <span>
-                    <p className="text-base font-semibold text-[#BABBFF]">
-                      Julia Ber_01
-                    </p>
-                  </span>
-                </span>
-              </div>
-            </div>
-            {/* Players Section */}
+           
           </motion.div>
         </AnimatePresence>
 
