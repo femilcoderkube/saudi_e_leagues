@@ -4,6 +4,7 @@ export default function TournamentsTeam() {
   return (
     <div className="team-page-wp flex md:gap-[3.813rem] gap-[2rem] w-full">
       <div className="relative team-content-left-wp">
+      <div className="relative team-content-left-wp-last">
       <div className="team_content-left max-w-[27.5rem] w-full h-[32.313rem] bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,0.4416)_0%,rgba(34,35,86,0.384)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.12)_100%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[48px] shrink-0">
         <div className="relative polygon_border sd_before sd_after">
         <div className="team-user-wp w-full h-[10.25rem] bg-[linear-gradient(180deg,rgba(94,95,184,0.2)_0%,rgba(34,35,86,0.2)_125%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[48px] flex items-center gap-[1.125rem] p-[2.188rem]">
@@ -180,6 +181,7 @@ export default function TournamentsTeam() {
             </h3>
           </div>
         </div>
+      </div>
       </div>
       </div>
       <div className="team_content-right w-full"></div>

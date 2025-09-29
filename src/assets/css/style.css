@@ -999,7 +999,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   z-index: 1;
 }
 
-.team-content-left-wp::after {
+.team-content-left-wp-last::after {
+  position: absolute;
+  content: '';
   right: 0;
   bottom: 0;
   clip-path: polygon(100% 0, 0% 100%, 100% 100%);
