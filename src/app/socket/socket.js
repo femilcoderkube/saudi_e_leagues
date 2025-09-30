@@ -48,11 +48,15 @@ const SOCKET_URL =
 // const SOCKET_URL =
 //   import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
 const encryptionEnabled = import.meta.env.VITE_ENCRYPTION_STATUS;
-console.log("encryptionEnabled====",encryptionEnabled);
-  
+console.log("encryptionEnabled====", encryptionEnabled);
+
 // Log encryption status in development
 if (import.meta.env.DEV) {
-  console.log(`🌐 Axios Encryption: ${encryptionEnabled == "true" ? "ENABLED" : "DISABLED"}`);
+  console.log(
+    `🌐 Axios Encryption: ${
+      encryptionEnabled == "true" ? "ENABLED" : "DISABLED"
+    }`
+  );
 }
 
 export const SOCKET = {
@@ -105,12 +109,12 @@ export const SOCKET = {
   READYTOPLAYPARTY: "readytoplayParty",
   PARTY_QUEUE_STARTED: "PARTY_QUEUE_STARTED",
   TEAM_DATA: "TeamData",
-  TEAM_UPDATEDDATA: "TeamUpdatedData"
+  TEAM_UPDATEDDATA: "TeamUpdatedData",
 };
 
 export let socket;
 
-if (encryptionEnabled=="true") {
+if (encryptionEnabled == "true") {
   socket = wrapSocketWithEncryption(
     io(SOCKET_URL, {
       transports: ["websocket"],
@@ -148,7 +152,7 @@ socket.on("connect", () => {
 
     if (data?.team?.Creator.toString() != user?._id.toString()) {
       if (leagueId && Array.isArray(players)) {
-        const isMyTeam = players.some(player => player.userId === user?._id);
+        const isMyTeam = players.some((player) => player.userId === user?._id);
         if (isMyTeam) {
           let pId = getPartnerByDocId(data?.team?.leagueId?.partner).id;
 
@@ -260,11 +264,12 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
     });
     socket.off(SOCKET.PARTYUPDATEDATA);
-    socket.on(SOCKET.PARTYUPDATEDATA, (data) => {      
+    socket.on(SOCKET.PARTYUPDATEDATA, (data) => {
       if (data?.message) {
         toast.error(data?.message);
-      }
-      else if (window.location.pathname.includes(data?.data?.leagueId?.toString()))
+      } else if (
+        window.location.pathname.includes(data?.data?.leagueId?.toString())
+      )
         store.dispatch(setPartyQueueTeam(data));
     });
     socket.emit(SOCKET.JOINLEAGUE, { Lid: lId, userId: user?._id });
@@ -290,17 +295,13 @@ export function startGetQueueUser(userId) {
   socket.emit(SOCKET.CHECKUSERQUEUE, { userId });
 }
 export function startTeamSocket({ isSocketConnected, userId }) {
-  
   // if (isSocketConnected) {
   //   console.log("INNNN");
-    
   //   socket.off(SOCKET.TEAM_UPDATEDDATA);
-  //   socket.on(SOCKET.TEAM_UPDATEDDATA, (data) => {      
+  //   socket.on(SOCKET.TEAM_UPDATEDDATA, (data) => {
   //     console.log("==========DATA===========", data);
   //   });
-
   //   socket.emit(SOCKET.TEAM_DATA, userId);
-
   // }
 }
 export function getOwnTeam(data) {
@@ -332,7 +333,7 @@ export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
     socket.emit(SOCKET.GETWEEKOFSTAR, { Lid: lId, userId: user?._id });
   }
 }
-export function getPartyQueueUpdate() { }
+export function getPartyQueueUpdate() {}
 export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user?._id });
@@ -411,6 +412,7 @@ export function startTournamentSocket({ tId, user, isSocketConnected }) {
   if (isSocketConnected) {
     stopTournamentSocket();
     socket.on(SOCKET.ONTOURNAMENTUPDATE, (data) => {
+      console.log("data", data);
       store.dispatch(setTournamentData(data.data));
     });
     socket.emit(SOCKET.GETTOURNAMENT, { tId: tId, userId: user?._id });

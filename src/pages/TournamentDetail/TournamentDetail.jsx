@@ -6,8 +6,7 @@ import {
   stageTypes,
 } from "../../utils/constant.js";
 import PDFPopup from "../../components/Overlays/LeagueDetail/PDFPopup.jsx";
-import DiscordPopup  from "../../components/Overlays/LeagueDetail/DiscordPopup.jsx";
-
+import DiscordPopup from "../../components/Overlays/LeagueDetail/DiscordPopup.jsx";
 
 import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
@@ -239,8 +238,7 @@ const TournamentDetail = () => {
                 {loader ? (
                   <GamingLoader />
                 ) : activeStage === -1 ? (
-                  <div
-                    className="mt-8">
+                  <div className="mt-8">
                     {/* Overview content: static summary */}
                     <div className="">
                       <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-start sm:mb-16">
@@ -316,8 +314,7 @@ const TournamentDetail = () => {
                               </div>
                             </div>
                           </div>
-                          <div
-                            className="about-tournament-card">
+                          <div className="about-tournament-card">
                             <h3 className="sm:text-[2rem] text-2xl grad_text-clip !font-black sm:mb-8 mb-6 tracking-wide uppercase bg-[linear-gradient(180deg,rgb(244_247_255)_0%,rgba(186,189,255,1)_36%,rgba(123,126,208,1)_66%)]">
                               {t("league.about_tournament")}
                             </h3>
@@ -339,7 +336,7 @@ const TournamentDetail = () => {
                                 "Don't miss your chance!! join now and showcase your skills!"
                               )}
                             </p> */}
-                            <div className="flex flex-col sm:flex-row sm:gap-8 gap-5 sm:mt-12 mt-8">
+                            {/* <div className="flex flex-col sm:flex-row sm:gap-8 gap-5 sm:mt-12 mt-8">
                               <a
                                 href="https://discord.com/"
                                 target="_blank"
@@ -366,7 +363,7 @@ const TournamentDetail = () => {
                                   <img src={IMAGES.discord_arrow} alt="" />
                                 </span>
                               </button>
-                            </div>
+                            </div> */}
                           </div>
                         </motion.div>
                         <motion.div
@@ -379,10 +376,10 @@ const TournamentDetail = () => {
                         >
                           {/* --- Timeline-card HTML Block Start --- */}
                           {/* <div className="flex flex-col gap-6 md:block"> */}
-                            <PDFPopup   />
-                            {/* <div>    */}
-                       
-                                {/* <span className="icon-discord flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
+                          <PDFPopup />
+                          {/* <div>    */}
+
+                          {/* <span className="icon-discord flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
                                   <img src={IMAGES.discord} />
                                 </span>
                                 {t("tournament.discordsupport")}
@@ -394,8 +391,8 @@ const TournamentDetail = () => {
                                 className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[#F4F7FF] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)] cursor-pointer"
                                 onClick={handleOpen}
                               > */}
-                            <DiscordPopup/>
-                            <TimelinePanel />
+                          <DiscordPopup />
+                          <TimelinePanel />
 
                           {/* </div> */}
                         </motion.div>

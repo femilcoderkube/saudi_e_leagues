@@ -223,7 +223,8 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
           <div className="flex items-center gap-2 mb-4">
             <div className="w-1 h-6 bg-gradient-to-b from-[#5759c7] to-[#7b7ed0] rounded-full"></div>
             <h4 className="text-sm font-semibold text-[#7B7ED0] uppercase tracking-widest">
-              Selected {section} ({selectedItems[section].length})
+              {t(`tournament.selected_${section}`)} (
+              {selectedItems[section].length})
             </h4>
           </div>
           {selectedItems[section].map((item, idx) => (
@@ -247,7 +248,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                     {item.label}
                   </p>
                   <p className="text-xs text-[#7B7ED0] uppercase tracking-wide mt-1">
-                    {section}
+                    {t(`tournament.${section}_title`)}
                   </p>
                 </span>
               </span>
@@ -283,14 +284,13 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               }
             `}</style>
             {/* Modal Header */}
-
             <div className="flex items-center justify-center mb-6 relative">
               <h2 className="text-2xl font-bold text-center text-white mb-2">
-                Manage Team
+                {t("tournament.manage_team_title")}
               </h2>
               {/* Close Icon */}
               <button
-                aria-label="Close"
+                aria-label={t("tournament.close_button_aria")}
                 onClick={onClose}
                 type="button"
                 className="cursor-pointer hover:opacity-70 duration-300 absolute right-0"
@@ -302,11 +302,11 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Invite Link */}
-            <div className="mb-6 ">
+            <div className="mb-6">
               <label className="block text-base text-white mb-2 !font-bold">
-                Here is a unique link to invite player for your team
+                {t("tournament.invite_link_label")}
               </label>
-              <div className="flex  w-full">
+              <div className="flex w-full">
                 <div className="flex items-center gap-2 bg-[#05042C] h-[56px] border border-[#393B7A] rounded-lg w-full overflow-hidden pl-[15px]">
                   <input
                     type="text"
@@ -317,7 +317,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   />
                   <button
                     className="flex items-center justify-center w-[58px] h-full transition-colors bg-[linear-gradient(59.17deg,#434BE9_22.83%,#46B5F9_151.01%)]"
-                    title="Copy"
+                    title={t("tournament.copy_button_title")}
                     onClick={() => {
                       navigator.clipboard.writeText(
                         "http://primeleague.com/invite/sd5hl02dedf"
@@ -341,9 +341,9 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                 <button
                   className="flex items-center justify-center w-[56px] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
                   style={{ marginLeft: 13 }}
-                  title="Reset"
+                  title={t("tournament.reset_button_title")}
                 >
-                  Reset
+                  {t("tournament.reset_button_title")}
                 </button>
               </div>
             </div>
@@ -352,23 +352,22 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             <div className="mb-4">
               <div className="flex items-center justify-between mb-1">
                 <div>
-                  <span className="font-bold text-white  text-xl mb-1.5 block">
-                    Manager{" "}
+                  <span className="font-bold text-white text-xl mb-1.5 block">
+                    {t("tournament.manager_title")}{" "}
                     <span className="text-base font-normal text-white">
-                      · 1 Max
+                      {t("tournament.manager_max")}
                     </span>
                   </span>
                   <p className="block text-sm text-white mb-2">
-                    Handles roster management, invites, and tournament
-                    registration.
+                    {t("tournament.manager_description")}
                   </p>
                 </div>
                 <span className="text-base font-normal text-[#6A71E8]">
-                  Optional
+                  {t("tournament.manager_optional")}
                 </span>
               </div>
               <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-4 py-3 text-center text-[#7B7ED0] text-sm font-medium">
-                There are no available managers for this roster
+                {t("tournament.no_managers_available")}
               </div>
             </div>
 
@@ -376,18 +375,18 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             <div className="mb-4">
               <div className="flex items-center justify-between mb-1">
                 <div>
-                  <span className="font-bold text-white  text-xl mb-1.5 block">
-                    Coach{" "}
+                  <span className="font-bold text-white text-xl mb-1.5 block">
+                    {t("tournament.coach_title")}{" "}
                     <span className="text-base font-normal text-white">
-                      · 1 Max
+                      {t("tournament.coach_max")}
                     </span>
                   </span>
                   <p className="block text-sm text-white mb-2">
-                    A non-playing support role with no special permissions.
+                    {t("tournament.coach_description")}
                   </p>
                 </div>
                 <span className="text-base font-normal text-[#6A71E8]">
-                  Optional
+                  {t("tournament.coach_optional")}
                 </span>
               </div>
               <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-4 py-3 flex items-center justify-between">
@@ -399,13 +398,13 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                     <span className="w-10 h-10">
                       <img
                         src="https://randomuser.me/api/portraits/men/32.jpg"
-                        alt="Julia Ber_01"
+                        alt={t("tournament.sample_coach_1")}
                         className="w-full h-full rounded-full object-cover"
                       />
                     </span>
                     <div className="flex items-center flex-wrap sm:gap-6 gap-1">
                       <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
-                        Julia Ber_01
+                        SaulVIVTv
                       </p>
                       <p className="text-md text-[#8598F6] font-medium leading-none">
                         @berinjer
@@ -415,118 +414,62 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   <CustomCheckbox
                     checked={isCoachSelected}
                     onChange={() => setIsCoachSelected((prev) => !prev)}
-                    ariaLabel="Select coach"
+                    ariaLabel={t("tournament.select_coach_aria")}
                   />
                 </div>
               </div>
             </div>
 
-            {/* players Section */}
+            {/* Players Section */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-1">
                 <div>
-                  <span className="font-bold text-white  text-xl mb-1.5 block">
-                    Players
+                  <span className="font-bold text-white text-xl mb-1.5 block">
+                    {t("tournament.players_title")}
                     <span className="text-base font-normal text-white ml-1">
-                      (2 Min - 3 Max)
+                      {t("tournament.players_min_max")}
                     </span>
                   </span>
                   <p className="block text-sm text-white mb-2">
-                    The Roster Players
+                    {t("tournament.players_description")}
                   </p>
                 </div>
                 <span className="text-base font-normal text-[#6A71E8]">
-                  Required
+                  {t("tournament.players_required")}
                 </span>
               </div>
               <div className="bg-[#05042C] border border-[#393B7A] rounded-lg p-3.5 space-y-5">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center justify-between gap-3 w-full">
-                    <label
-                      htmlFor="coach-checkbox"
-                      className="flex items-center gap-3 cursor-pointer"
-                    >
-                      <span className="w-10 h-10">
-                        <img
-                          src="https://randomuser.me/api/portraits/men/32.jpg"
-                          alt="Julia Ber_01"
-                          className="w-full h-full rounded-full object-cover"
-                        />
-                      </span>
-                      <div className="flex items-center flex-wrap sm:gap-6 gap-1">
-                        <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
-                          Julia Ber_01
-                        </p>
-                        <p className="text-md text-[#8598F6] font-medium leading-none">
-                          @berinjer
-                        </p>
-                      </div>
-                    </label>
-                    <CustomCheckbox
-                      checked={isCoachSelected}
-                      onChange={() => setIsCoachSelected((prev) => !prev)}
-                      ariaLabel="Select coach"
-                    />
+                {[1, 2, 3].map((_, idx) => (
+                  <div key={idx} className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-3 w-full">
+                      <label
+                        htmlFor={`player-checkbox-${idx}`}
+                        className="flex items-center gap-3 cursor-pointer"
+                      >
+                        <span className="w-10 h-10">
+                          <img
+                            src="https://randomuser.me/api/portraits/men/32.jpg"
+                            alt={t(`tournament.sample_player_${idx + 1}`)}
+                            className="w-full h-full rounded-full object-cover"
+                          />
+                        </span>
+                        <div className="flex items-center flex-wrap sm:gap-6 gap-1">
+                          <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
+                            SaulVIVTv
+                          </p>
+                          <p className="text-md text-[#8598F6] font-medium leading-none">
+                            @berinjer
+                          </p>
+                        </div>
+                      </label>
+                      <CustomCheckbox
+                        checked={isCoachSelected}
+                        onChange={() => setIsCoachSelected((prev) => !prev)}
+                        ariaLabel={t("tournament.select_player_aria")}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center justify-between gap-3 w-full">
-                    <label
-                      htmlFor="coach-checkbox"
-                      className="flex items-center gap-3 cursor-pointer"
-                    >
-                      <span className="w-10 h-10">
-                        <img
-                          src="https://randomuser.me/api/portraits/men/32.jpg"
-                          alt="Julia Ber_01"
-                          className="w-full h-full rounded-full object-cover"
-                        />
-                      </span>
-                      <div className="flex items-center flex-wrap sm:gap-6 gap-1">
-                        <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
-                          Julia Ber_01
-                        </p>
-                        <p className="text-md text-[#8598F6] font-medium leading-none">
-                          @berinjer
-                        </p>
-                      </div>
-                    </label>
-                    <CustomCheckbox
-                      checked={isCoachSelected}
-                      onChange={() => setIsCoachSelected((prev) => !prev)}
-                      ariaLabel="Select coach"
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center justify-between gap-3 w-full">
-                    <label
-                      htmlFor="coach-checkbox"
-                      className="flex items-center gap-3 cursor-pointer"
-                    >
-                      <span className="w-10 h-10">
-                        <img
-                          src="https://randomuser.me/api/portraits/men/32.jpg"
-                          alt="Julia Ber_01"
-                          className="w-full h-full rounded-full object-cover"
-                        />
-                      </span>
-                      <div className="flex items-center flex-wrap sm:gap-6 gap-1">
-                        <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
-                          Julia Ber_01
-                        </p>
-                        <p className="text-md text-[#8598F6] font-medium leading-none">
-                          @berinjer
-                        </p>
-                      </div>
-                    </label>
-                    <CustomCheckbox
-                      checked={isCoachSelected}
-                      onChange={() => setIsCoachSelected((prev) => !prev)}
-                      ariaLabel="Select coach"
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             <div className="manage-team-pop wizard_step--btn gap-5 flex justify-between sm:mt-14 mt-8 mb-8 mr-5 flex-wrap">
@@ -536,7 +479,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   className="py-2 px-4 text-[0.938rem] font-semibold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                   style={{ width: "8rem", height: "4rem" }}
                 >
-                  Withdraw Registration
+                  {t("tournament.withdraw_registration")}
                 </button>
               </div>
               <div className="game_status--tab wizard_btn next_btn">
@@ -545,7 +488,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-bold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                   style={{ width: "8rem", height: "4rem" }}
                 >
-                  Confirm
+                  {t("tournament.confirm")}
                 </button>
               </div>
             </div>
