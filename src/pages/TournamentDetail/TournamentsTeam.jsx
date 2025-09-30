@@ -302,21 +302,37 @@ import React, { useEffect, useState } from "react";
 import { getTeamData } from "../../utils/constant.js";
 
 import { IMAGES } from "../../components/ui/images/images.js";
+import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
+import { setCurrentTeam, setTeamRegistrationPopup } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { t } from "i18next";
+import { getOwnTeam, startTeamSocket } from "../../app/socket/socket.js";
 export default function TournamentsTeam() {
   const [teamData, setTeamData] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("accessToken");
+  const dispatch = useDispatch();
+  const isSocketConnected = useSelector((state) => state.socket.isConnected);
+
+  const { currentTeam } = useSelector((state) => state.tournamentTeam);
+
+  // Create new team
+  const handleCreateTeam = () => {
+    dispatch(setCurrentTeam(null));
+    dispatch(setTeamRegistrationPopup(true));
+  };
 
   useEffect(() => {
-    if (user?._id && token) {
-      getTeamData(user._id, token)
-        .then((data) => {
-          setTeamData(data);
-          console.log("Fetched team data:", data);
-        })
-        .catch((err) => console.error(err));
+    if (isSocketConnected) {
+      startTeamSocket({ isSocketConnected , userId: user?._id});
     }
-  }, [user?._id, token]);
+  }, [isSocketConnected, user]);
+
+  // useEffect(() => {
+  //   if (user?._id) {
+  //     getOwnTeam(user?._id)
+  //   }
+  // }, [user]);
 
   return (
     <>
@@ -896,6 +912,14 @@ export default function TournamentsTeam() {
           </defs>
         </svg>
       </div>
+
+      <div>
+        <button onClick={handleCreateTeam}>
+          {t("tourteam.create_newteam")}
+        </button>
+      </div>
+
+      <TeamRegistrationPopup isEdit={false} />
     </>
   );
 }

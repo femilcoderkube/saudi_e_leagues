@@ -76,19 +76,23 @@ function ConfirmationPopUp({
     //   dispatch(leavePartySocket(RemovePlayerPayload ));
     //   dispatch(setConfirmationPopUp(0));
     // }
-    if (confirmationPopUp == 5 || confirmationPopUp == 6) {
-      const payload = {
-        userId: user?._id,
-        teamId: partyQueueTeam?.data?._id
-      }
-      const removePlayerPayload = {
-        userId: popupData?.userId,
-        teamId: popupData?.teamId
-      }
-      const actionPayload = confirmationPopUp === 5 ? payload
-        : confirmationPopUp === 6 ? removePlayerPayload
-          : null;
-          
+    // if (confirmationPopUp == 5 || confirmationPopUp == 6) {
+    //   const payload = {
+    //     userId: user?._id,
+    //     teamId: partyQueueTeam?.data?._id
+    //   }
+    //   const removePlayerPayload = {
+    //     userId: popupData?.userId,
+    //     teamId: popupData?.teamId
+    //   }
+    //   const actionPayload = confirmationPopUp === 5 ? payload
+    //     : confirmationPopUp === 6 ? removePlayerPayload
+    //       : null;
+    if (confirmationPopUp === 5 || confirmationPopUp === 6) {
+      const actionPayload = confirmationPopUp === 5
+        ? { userId: user?._id, teamId: partyQueueTeam?.data?._id }
+        : { userId: popupData?.userId, teamId: popupData?.teamId };
+    
       if (actionPayload) {
         dispatch(leavePartySocket(actionPayload));
         dispatch(setConfirmationPopUp(0));

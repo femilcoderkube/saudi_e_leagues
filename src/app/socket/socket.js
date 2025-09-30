@@ -104,6 +104,8 @@ export const SOCKET = {
   ACCEPT_INVITATION: "ACCEPT_INVITATION",
   READYTOPLAYPARTY: "readytoplayParty",
   PARTY_QUEUE_STARTED: "PARTY_QUEUE_STARTED",
+  TEAM_DATA: "TeamData",
+  TEAM_UPDATEDDATA: "TeamUpdatedData"
 };
 
 export let socket;
@@ -258,7 +260,7 @@ export function startLeagueSocket({ lId, user, isSocketConnected }) {
       }
     });
     socket.off(SOCKET.PARTYUPDATEDATA);
-    socket.on(SOCKET.PARTYUPDATEDATA, (data) => {
+    socket.on(SOCKET.PARTYUPDATEDATA, (data) => {      
       if (data?.message) {
         toast.error(data?.message);
       }
@@ -286,6 +288,23 @@ export function startGetQueueUser(userId) {
     }
   });
   socket.emit(SOCKET.CHECKUSERQUEUE, { userId });
+}
+export function startTeamSocket({ isSocketConnected, userId }) {
+  
+  if (isSocketConnected) {
+    console.log("INNNN");
+    
+    socket.off(SOCKET.TEAM_UPDATEDDATA);
+    socket.on(SOCKET.TEAM_UPDATEDDATA, (data) => {      
+      console.log("==========DATA===========", data);
+    });
+
+    socket.emit(SOCKET.TEAM_DATA, userId);
+
+  }
+}
+export function getOwnTeam(data) {
+  socket.emit(SOCKET.TEAM_DATA, data);
 }
 
 export function startGetQueuePlayers() {
