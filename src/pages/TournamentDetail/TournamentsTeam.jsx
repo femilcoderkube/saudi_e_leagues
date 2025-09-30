@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getServerURL, } from "../../utils/constant.js";
+import { getServerURL } from "../../utils/constant.js";
 
 import { IMAGES } from "../../components/ui/images/images.js";
 import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
@@ -18,16 +18,19 @@ export default function TournamentsTeam() {
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
 
-  const { showTeamRegistrationPopup, showTeamEditPopup, currentTeam, error } = useSelector(
-    (state) => state.tournamentTeam
-  );
+  const { showTeamRegistrationPopup, showTeamEditPopup, currentTeam, error } =
+    useSelector((state) => state.tournamentTeam);
 
   const isPresident = !!currentTeam?.data?.members?.some((member) => {
-    const memberUserId = member?.user?._id || member?.userId || member?.user?._id;
-    const role = typeof member?.role === "string" ? member.role.toLowerCase() : "";
+    const memberUserId =
+      member?.user?._id || member?.userId || member?.user?._id;
+    const role =
+      typeof member?.role === "string" ? member.role.toLowerCase() : "";
     return memberUserId === user?._id && role === "president";
   });
 
+
+  console.log(currentTeam,"ccacacacc");
   const handleCreateTeam = () => {
     console.log("showTeamRegistrationPopup", showTeamRegistrationPopup);
 
@@ -69,7 +72,7 @@ export default function TournamentsTeam() {
 
   useEffect(() => {
     if (user?._id) {
-      dispatch(getTeamData(user._id))
+      dispatch(getTeamData(user._id));
     }
   }, [user?._id]);
 
@@ -101,7 +104,6 @@ export default function TournamentsTeam() {
       <div className="team-page-wp flex xl:items-start items-center md:gap-[3.813rem] gap-[2rem] flex-col xl:flex-row w-full">
         <div className="relative team-content-left-wp sm:w-[27.5rem] sm:h-[32.313rem]">
           <div className="relative team-content-left-wp-last">
-
             {isPresident && (
               <div className="absolute top-0 right-0 z-20">
                 <div className="edit-team-drop group relative flex flex-col items-center">
@@ -190,7 +192,10 @@ export default function TournamentsTeam() {
               </div>
               <ul className="team-social flex items-center justify-between sm:gap-4 gap-2 px-9 sm:pt-8.5 pt-6">
                 <li>
-                  <a href={currentTeam?.social?.twitterId} className="p-2 inline-block">
+                  <a
+                    href={currentTeam?.social?.twitterId}
+                    className="p-2 inline-block"
+                  >
                     <svg
                       width="24"
                       height="24"
@@ -206,7 +211,10 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href={currentTeam?.social?.instagramId} className="p-2 inline-block">
+                  <a
+                    href={currentTeam?.social?.instagramId}
+                    className="p-2 inline-block"
+                  >
                     <svg
                       width="24"
                       height="24"
@@ -222,7 +230,10 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href={currentTeam?.social?.twitchId} className="p-2 inline-block">
+                  <a
+                    href={currentTeam?.social?.twitchId}
+                    className="p-2 inline-block"
+                  >
                     <svg
                       width="22"
                       height="24"
@@ -246,7 +257,10 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href={currentTeam?.social?.kickId} className="p-2 inline-block">
+                  <a
+                    href={currentTeam?.social?.kickId}
+                    className="p-2 inline-block"
+                  >
                     <svg
                       width="20"
                       height="22"
@@ -264,7 +278,10 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href={currentTeam?.social?.discordId} className="p-2 inline-block">
+                  <a
+                    href={currentTeam?.social?.discordId}
+                    className="p-2 inline-block"
+                  >
                     <svg
                       width="24"
                       height="20"
@@ -280,7 +297,10 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href={currentTeam?.social?.facebookId} className="p-2 inline-block">
+                  <a
+                    href={currentTeam?.social?.facebookId}
+                    className="p-2 inline-block"
+                  >
                     <svg
                       width="12"
                       height="24"
@@ -296,7 +316,10 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href={currentTeam?.social?.tiktokId} className="p-2 inline-block">
+                  <a
+                    href={currentTeam?.social?.tiktokId}
+                    className="p-2 inline-block"
+                  >
                     <svg
                       width="22"
                       height="24"
@@ -834,61 +857,77 @@ export default function TournamentsTeam() {
           </div>
         </div>
         <div className="flex gap-8 flex-wrap lg:justify-start justify-center items-end">
-          <div className="flex flex-col max-w-max align-center justify-center">
-            <div className=" flex-shrink-0 flex mx-auto relative z-20">
-              <img
-                className="w-18 h-18 rounded-full "
-                src={IMAGES.defaultImg}
-                alt=""
-              />{" "}
-            </div>
-            <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
-              <div className="game_card--roaster-wrap">
-                <div className="relative group flex flex-col items-center">
-                  <div className="flex justify-end w-full">
+          {currentTeam?.members?.length ? (
+            currentTeam.members.map((member) => {
+              const displayName =
+                member?.user?.username ||
+                `${member?.user?.firstName || ""} ${member?.user?.lastName || ""}`.trim() ||
+                "Unknown";
+              const avatar = member?.user?.profilePicture
+                ? getServerURL(member.user.profilePicture)
+                : IMAGES.defaultImg;
+              return (
+                <div
+                  key={member?._id || `${member?.user?._id}-${member?.role}`}
+                  className="flex flex-col max-w-max align-center justify-center"
+                >
+                  <div className=" flex-shrink-0 flex mx-auto relative z-20">
                     <img
-                      className="w-[0.313rem] h-[1.188rem]"
-                      src="/src/assets/images/menu_roaster.svg"
-                      alt=""
-                    />
+                      className="w-18 h-18 rounded-full "
+                      src={avatar}
+                      alt={displayName}
+                    />{" "}
                   </div>
-                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                    <span className="text-white text-sm font-medium">
-                      Make President of the Club
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Manager
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Coach
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from Overwatch Roster
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from the Team
-                    </span>
+                  <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
+                    <div className="game_card--roaster-wrap">
+                      <div className="relative group flex flex-col items-center">
+                        <div className="flex justify-end w-full">
+                          <img
+                            className="w-[0.313rem] h-[1.188rem]"
+                            src="/src/assets/images/menu_roaster.svg"
+                            alt=""
+                          />
+                        </div>
+                        <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
+                          <span className="text-white text-sm font-medium">
+                            Make President of the Club
+                          </span>
+                          <span className="text-white text-sm font-medium">
+                            Assign Overwatch Roster Manager
+                          </span>
+                          <span className="text-white text-sm font-medium">
+                            Assign Overwatch Roster Coach
+                          </span>
+                          <span className="text-white text-sm font-medium">
+                            Remove Player from Overwatch Roster
+                          </span>
+                          <span className="text-white text-sm font-medium">
+                            Remove Player from the Team
+                          </span>
+                        </div>
+                      </div>
+                      <h6 className="text-center text-lg !font-bold mt-3">
+                        {displayName}
+                      </h6>
+                      <p className="text-center mt-3 text-[#8492B4] text-base font-semibold">
+                        {member?.gameId || "Game ID"}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
+                      <p className="text-[#6368B5] text-base font-semibold">
+                        {member?.role || "Member"}
+                      </p>
+                      <img
+                        className="w-[1.063rem] h-[1.188rem]"
+                        src="/src/assets/images/roaster-arrow.svg"
+                        alt=""
+                      />
+                    </div>
                   </div>
                 </div>
-                <h6 className="text-center text-lg !font-bold mt-3">
-                  Prime User
-                </h6>
-                <p className="text-center mt-3 text-[#8492B4] text-base font-semibold">
-                  Game ID
-                </p>
-              </div>
-              <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
-                <p className="text-[#6368B5] text-base font-semibold">
-                  Manager
-                </p>
-                <img
-                  className="w-[1.063rem] h-[1.188rem]"
-                  src="/src/assets/images/roaster-arrow.svg"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
+              );
+            })
+          ) : null}
         </div>
         {/* SVG for clip path */}
         <svg
