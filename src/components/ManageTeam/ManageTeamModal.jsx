@@ -274,7 +274,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.5, opacity: 0, y: 50 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="bg-gradient-to-br from-[#5e5e69] via-[#151642] to-[#0f0f2a] manage-popup match_reg--popup h-auto sd_before sd_after text-white rounded-2xl w-full max-w-2xl relative max-h-[90vh] py-8 overflow-x-hidden px-6 overflow-y-auto custom_scroll shadow-2xl shadow-black/50"
+            className="bg-gradient-to-br from-[#5e5e69] via-[#151642] to-[#0f0f2a] manage-popup match_reg--popup h-auto sd_before sd_after text-white rounded-2xl w-full max-w-2xl relative max-h-[85vh] py-8 overflow-x-hidden px-6 overflow-y-auto custom_scroll shadow-2xl shadow-black/50"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             <style jsx="true">{`
@@ -283,33 +283,22 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               }
             `}</style>
             {/* Modal Header */}
-            <div className="flex flex-col items-center mb-6 relative">
+
+            <div className="flex items-center justify-center mb-6 relative">
+              <h2 className="text-2xl font-bold text-center text-white mb-2">
+                Manage Team
+              </h2>
               {/* Close Icon */}
               <button
-                className="absolute top-0 right-0 mt-[-0.5rem] mr-[-0.5rem] p-2 rounded-full hover:bg-[#23244a] transition-colors"
                 aria-label="Close"
                 onClick={onClose}
                 type="button"
+                className="cursor-pointer hover:opacity-70 duration-300 absolute right-0"
               >
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                  <circle cx="11" cy="11" r="11" fill="#23244a" />
-                  <path
-                    d="M7.5 7.5L14.5 14.5"
-                    stroke="#BABBFF"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M14.5 7.5L7.5 14.5"
-                    stroke="#BABBFF"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
+                <svg width="18" height="18" fill="none" stroke="#7B7ED0">
+                  <path d="M1 17L17 1M17 17L1 1" strokeWidth="1.5" />
                 </svg>
               </button>
-              <h2 className="text-2xl font-bold text-white mb-2">
-                Manage Team
-              </h2>
             </div>
 
             {/* Invite Link */}
@@ -358,7 +347,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                 </button>
               </div>
             </div>
-                  <hr className="border-[#51549B] pb-6"/>
+            <hr className="border-[#51549B] pb-6" />
             {/* Manager Section */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-1">
@@ -386,18 +375,20 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             {/* Coach Section */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-1">
-              <div>
+                <div>
                   <span className="font-bold text-white  text-xl mb-1.5 block">
-                  Coach{" "}
+                    Coach{" "}
                     <span className="text-base font-normal text-white">
                       · 1 Max
                     </span>
                   </span>
                   <p className="block text-sm text-white mb-2">
-                  A non-playing support role with no special permissions.
+                    A non-playing support role with no special permissions.
                   </p>
                 </div>
-                <span className="text-base font-normal text-[#6A71E8]">Required</span>
+                <span className="text-base font-normal text-[#6A71E8]">
+                  Optional
+                </span>
               </div>
               <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-4 py-3 flex items-center justify-between">
                 <div className="flex items-center justify-between gap-3 w-full">
@@ -412,8 +403,8 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                         className="w-full h-full rounded-full object-cover"
                       />
                     </span>
-                    <div className="flex items-center gap-6">
-                      <p className="text-[#F4F7FF] text-xl !font-bold leading-none">
+                    <div className="flex items-center flex-wrap sm:gap-6 gap-1">
+                      <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
                         Julia Ber_01
                       </p>
                       <p className="text-md text-[#8598F6] font-medium leading-none">
@@ -427,6 +418,135 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                     ariaLabel="Select coach"
                   />
                 </div>
+              </div>
+            </div>
+
+            {/* players Section */}
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-1">
+                <div>
+                  <span className="font-bold text-white  text-xl mb-1.5 block">
+                    Players
+                    <span className="text-base font-normal text-white ml-1">
+                      (2 Min - 3 Max)
+                    </span>
+                  </span>
+                  <p className="block text-sm text-white mb-2">
+                    The Roster Players
+                  </p>
+                </div>
+                <span className="text-base font-normal text-[#6A71E8]">
+                  Required
+                </span>
+              </div>
+              <div className="bg-[#05042C] border border-[#393B7A] rounded-lg p-3.5 space-y-5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-3 w-full">
+                    <label
+                      htmlFor="coach-checkbox"
+                      className="flex items-center gap-3 cursor-pointer"
+                    >
+                      <span className="w-10 h-10">
+                        <img
+                          src="https://randomuser.me/api/portraits/men/32.jpg"
+                          alt="Julia Ber_01"
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      </span>
+                      <div className="flex items-center flex-wrap sm:gap-6 gap-1">
+                        <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
+                          Julia Ber_01
+                        </p>
+                        <p className="text-md text-[#8598F6] font-medium leading-none">
+                          @berinjer
+                        </p>
+                      </div>
+                    </label>
+                    <CustomCheckbox
+                      checked={isCoachSelected}
+                      onChange={() => setIsCoachSelected((prev) => !prev)}
+                      ariaLabel="Select coach"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-3 w-full">
+                    <label
+                      htmlFor="coach-checkbox"
+                      className="flex items-center gap-3 cursor-pointer"
+                    >
+                      <span className="w-10 h-10">
+                        <img
+                          src="https://randomuser.me/api/portraits/men/32.jpg"
+                          alt="Julia Ber_01"
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      </span>
+                      <div className="flex items-center flex-wrap sm:gap-6 gap-1">
+                        <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
+                          Julia Ber_01
+                        </p>
+                        <p className="text-md text-[#8598F6] font-medium leading-none">
+                          @berinjer
+                        </p>
+                      </div>
+                    </label>
+                    <CustomCheckbox
+                      checked={isCoachSelected}
+                      onChange={() => setIsCoachSelected((prev) => !prev)}
+                      ariaLabel="Select coach"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-3 w-full">
+                    <label
+                      htmlFor="coach-checkbox"
+                      className="flex items-center gap-3 cursor-pointer"
+                    >
+                      <span className="w-10 h-10">
+                        <img
+                          src="https://randomuser.me/api/portraits/men/32.jpg"
+                          alt="Julia Ber_01"
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      </span>
+                      <div className="flex items-center flex-wrap sm:gap-6 gap-1">
+                        <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
+                          Julia Ber_01
+                        </p>
+                        <p className="text-md text-[#8598F6] font-medium leading-none">
+                          @berinjer
+                        </p>
+                      </div>
+                    </label>
+                    <CustomCheckbox
+                      checked={isCoachSelected}
+                      onChange={() => setIsCoachSelected((prev) => !prev)}
+                      ariaLabel="Select coach"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="manage-team-pop wizard_step--btn gap-5 flex justify-between sm:mt-14 mt-8 mb-8 mr-5 flex-wrap">
+              <div className="game_status--tab wizard_btn back_btn">
+                <button
+                  type="button"
+                  className="py-2 px-4 text-[0.938rem] font-semibold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                  style={{ width: "8rem", height: "4rem" }}
+                >
+                  Withdraw Registration
+                </button>
+              </div>
+              <div className="game_status--tab wizard_btn next_btn">
+                <button
+                  type="submit"
+                  className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-bold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                  style={{ width: "8rem", height: "4rem" }}
+                >
+                  Confirm
+                </button>
               </div>
             </div>
           </motion.div>

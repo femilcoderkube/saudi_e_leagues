@@ -369,7 +369,6 @@ const TournamentDetail = () => {
                             </div>
                           </div>
                         </motion.div>
-                        assss
                         <motion.div
                           className="sd_content-right w-full order-0 xl:order-1"
                           variants={rightToLeft}

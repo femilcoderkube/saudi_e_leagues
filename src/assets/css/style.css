@@ -1085,6 +1085,15 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   mix-blend-mode: plus-lighter;
 }
 
+.manage-team-pop .game_status--tab.back_btn button.active-tab {
+  background: url(/src/assets/images/withdraw-btn.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.manage-team-pop .game_status--tab.back_btn button.active-tab::before,.manage-team-pop .game_status--tab.back_btn button.active-tab::after{
+  content: none;
+}
 /* Start 29-09-2025 */
 .game_card--roaster-main {
   background-image: url(/src/assets/images/card_roaster.svg);
