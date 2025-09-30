@@ -29,8 +29,7 @@ export default function TournamentsTeam() {
     return memberUserId === user?._id && role === "president";
   });
 
-
-  console.log(currentTeam,"ccacacacc");
+  console.log(currentTeam, "ccacacacc");
   const handleCreateTeam = () => {
     console.log("showTeamRegistrationPopup", showTeamRegistrationPopup);
 
@@ -38,6 +37,11 @@ export default function TournamentsTeam() {
     dispatch(setTeamRegistrationPopup(true));
   };
 
+  const myTeamMember = (currentTeam?.members || []).find(
+    (m) => (m?.user?._id || m?.userId) === user?._id
+  );
+  const myRoleLower = String(myTeamMember?.role || "").toLowerCase();
+  
   // Edit existing team
   const handleEditTeam = () => {
     // TODO: Fetch team data first
@@ -57,7 +61,7 @@ export default function TournamentsTeam() {
           kickId: "",
           discordId: "",
           facebookId: "",
-          tiktokId: ""
+          tiktokId: "",
         },
       })
     );
@@ -75,6 +79,37 @@ export default function TournamentsTeam() {
       dispatch(getTeamData(user._id));
     }
   }, [user?._id]);
+
+  // Two static members to show alongside API members
+  const staticMembers = [
+    {
+      _id: "static-player",
+      role: "Player",
+      gameId: "",
+      user: {
+        _id: "static-user-player",
+        username: "Player User",
+        firstName: "",
+        lastName: "",
+        profilePicture: "",
+      },
+    },
+    {
+      _id: "static-manager",
+      role: "Manager",
+      gameId: "",
+      user: {
+        _id: "static-user-manager",
+        username: "Manager User",
+        firstName: "",
+        lastName: "",
+        profilePicture: "",
+      },
+    },
+  ];
+
+   const combinedMembers = [...(currentTeam?.members || []), ...staticMembers];
+  //  const combinedMembers = currentTeam?.members ;
 
   if (error?.status)
     return (
@@ -537,7 +572,7 @@ export default function TournamentsTeam() {
               <div
                 key={match.matchId}
                 className="card-duty-wp relative main-tournament-schedule-card-wrapper cursor-pointer w-full"
-              // onClick={() => navigate(`${id}/match/${match.matchId}`)}
+                // onClick={() => navigate(`${id}/match/${match.matchId}`)}
               >
                 <div className="tournament-schedule-card-header-time absolute bottom-0 left-0 z-10 w-full flex items-center justify-center ">
                   <h2
@@ -619,7 +654,7 @@ export default function TournamentsTeam() {
                     </div> */}
                       <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
                         {match?.teamOneScore == null ||
-                          match?.teamOneScore == undefined
+                        match?.teamOneScore == undefined
                           ? "-"
                           : match?.teamOneScore}
                       </h2>
@@ -634,7 +669,7 @@ export default function TournamentsTeam() {
                     <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
                       <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
                         {match?.teamTwoScore == null ||
-                          match?.teamTwoScore == undefined
+                        match?.teamTwoScore == undefined
                           ? "-"
                           : match?.teamTwoScore}
                       </h2>
@@ -857,77 +892,112 @@ export default function TournamentsTeam() {
           </div>
         </div>
         <div className="flex gap-8 flex-wrap lg:justify-start justify-center items-end">
-          {currentTeam?.members?.length ? (
-            currentTeam.members.map((member) => {
-              const displayName =
-                member?.user?.username ||
-                `${member?.user?.firstName || ""} ${member?.user?.lastName || ""}`.trim() ||
-                "Unknown";
-              const avatar = member?.user?.profilePicture
-                ? getServerURL(member.user.profilePicture)
-                : IMAGES.defaultImg;
-              return (
-                <div
-                  key={member?._id || `${member?.user?._id}-${member?.role}`}
-                  className="flex flex-col max-w-max align-center justify-center"
-                >
-                  <div className=" flex-shrink-0 flex mx-auto relative z-20">
-                    <img
-                      className="w-18 h-18 rounded-full "
-                      src={avatar}
-                      alt={displayName}
-                    />{" "}
-                  </div>
-                  <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
-                    <div className="game_card--roaster-wrap">
-                      <div className="relative group flex flex-col items-center">
-                        <div className="flex justify-end w-full">
-                          <img
-                            className="w-[0.313rem] h-[1.188rem]"
-                            src="/src/assets/images/menu_roaster.svg"
-                            alt=""
-                          />
-                        </div>
-                        <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                          <span className="text-white text-sm font-medium">
-                            Make President of the Club
-                          </span>
-                          <span className="text-white text-sm font-medium">
-                            Assign Overwatch Roster Manager
-                          </span>
-                          <span className="text-white text-sm font-medium">
-                            Assign Overwatch Roster Coach
-                          </span>
-                          <span className="text-white text-sm font-medium">
-                            Remove Player from Overwatch Roster
-                          </span>
-                          <span className="text-white text-sm font-medium">
-                            Remove Player from the Team
-                          </span>
-                        </div>
+          {combinedMembers.length
+            ? combinedMembers.map((member) => {
+                const displayName =
+                  member?.user?.username ||
+                  `${member?.user?.firstName || ""} ${
+                    member?.user?.lastName || ""
+                  }`.trim() ||
+                  "Unknown";
+                const avatar = member?.user?.profilePicture
+                  ? getServerURL(member.user.profilePicture)
+                  : IMAGES.defaultImg;
+                const roleLower = String(member?.role || "").toLowerCase();
+                const memberUserId = member?.user?._id || member?.userId;
+                const isSelf = memberUserId === user?._id;
+                return (
+                  <div
+                    key={member?._id || `${member?.user?._id}-${member?.role}`}
+                    className="flex flex-col max-w-max align-center justify-center"
+                  >
+                    {roleLower === "president" && !isSelf && (
+                      <div className="w-[1.188rem] h-auto flex items-center justify-center mx-auto mb-1.5">
+                        <img
+                          src="/src/assets/images/roaster-king.png"
+                          alt="President crown"
+                          className="w-full h-full"
+                        />
                       </div>
-                      <h6 className="text-center text-lg !font-bold mt-3">
-                        {displayName}
-                      </h6>
-                      <p className="text-center mt-3 text-[#8492B4] text-base font-semibold">
-                        {member?.gameId || "Game ID"}
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
-                      <p className="text-[#6368B5] text-base font-semibold">
-                        {member?.role || "Member"}
-                      </p>
+                    )}
+                    <div className=" flex-shrink-0 flex mx-auto relative z-20">
                       <img
-                        className="w-[1.063rem] h-[1.188rem]"
-                        src="/src/assets/images/roaster-arrow.svg"
-                        alt=""
-                      />
+                        className="w-18 h-18 rounded-full "
+                        src={avatar}
+                        alt={displayName}
+                      />{" "}
+                    </div>
+
+                    <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
+                      <div className="game_card--roaster-wrap">
+                        {myRoleLower === "manager" && !isSelf && roleLower === "player" && (
+                          <div className="relative group flex flex-col items-center">
+                            <div className="flex justify-end w-full">
+                              <img
+                                className="w-[0.313rem] h-[1.188rem]"
+                                src="/src/assets/images/menu_roaster.svg"
+                                alt=""
+                              />
+                            </div>
+                            <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
+                              <span className="text-white text-sm font-medium">Make President of the Club</span>
+                              <span className="text-white text-sm font-medium">Assign Overwatch Roster Manager</span>
+                              <span className="text-white text-sm font-medium">Assign Overwatch Roster Coach</span>
+                              <span className="text-white text-sm font-medium">Remove Player from Overwatch Roster</span>
+                              <span className="text-white text-sm font-medium">Remove Player from the Team</span>
+                            </div>
+                          </div>
+                        )}
+                        {myRoleLower === "president" && !isSelf && roleLower === "player" && (
+                          <div className="relative group flex flex-col items-center">
+                            <div className="flex justify-end w-full">
+                              <img
+                                className="w-[0.313rem] h-[1.188rem]"
+                                src="/src/assets/images/menu_roaster.svg"
+                                alt=""
+                              />
+                            </div>
+                            <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
+                              <span className="text-white text-sm font-medium">
+                                Make President of the Club
+                              </span>
+                              <span className="text-white text-sm font-medium">
+                                Assign Overwatch Roster Manager
+                              </span>
+                              <span className="text-white text-sm font-medium">
+                                Assign Overwatch Roster Coach
+                              </span>
+                              <span className="text-white text-sm font-medium">
+                                Remove Player from Overwatch Roster
+                              </span>
+                              <span className="text-white text-sm font-medium">
+                                Remove Player from the Team
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                        <h6 className="text-center text-lg !font-bold mt-3">
+                          {displayName}
+                        </h6>
+                        <p className="text-center mt-3 text-[#8492B4] text-base font-semibold">
+                          {member?.gameId || "Game ID"}
+                        </p>
+                      </div>
+                      <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
+                        <p className="text-[#6368B5] text-base font-semibold">
+                          {member?.role || "Member"}
+                        </p>
+                        <img
+                          className="w-[1.063rem] h-[1.188rem]"
+                          src="/src/assets/images/roaster-arrow.svg"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })
-          ) : null}
+                );
+              })
+            : null}
         </div>
         {/* SVG for clip path */}
         <svg
