@@ -48,10 +48,11 @@ const SOCKET_URL =
 // const SOCKET_URL =
 //   import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
 const encryptionEnabled = import.meta.env.VITE_ENCRYPTION_STATUS;
-
+console.log("encryptionEnabled====",encryptionEnabled);
+  
 // Log encryption status in development
 if (import.meta.env.DEV) {
-  console.log(`🌐 Axios Encryption: ${encryptionEnabled === "true" ? "ENABLED" : "DISABLED"}`);
+  console.log(`🌐 Axios Encryption: ${encryptionEnabled == "true" ? "ENABLED" : "DISABLED"}`);
 }
 
 export const SOCKET = {
@@ -107,7 +108,7 @@ export const SOCKET = {
 
 export let socket;
 
-if (encryptionEnabled) {
+if (encryptionEnabled=="true") {
   socket = wrapSocketWithEncryption(
     io(SOCKET_URL, {
       transports: ["websocket"],
