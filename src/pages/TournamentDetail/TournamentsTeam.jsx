@@ -3,7 +3,7 @@ import { getTeamData } from "../../utils/constant.js";
 
 import { IMAGES } from "../../components/ui/images/images.js";
 import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
-import { setCurrentTeam, setTeamRegistrationPopup } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
+import { setCurrentTeam, setTeamRegistrationPopup, setTeamEditPopup } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { t } from "i18next";
 import { getOwnTeam, startTeamSocket } from "../../app/socket/socket.js";
@@ -13,13 +13,35 @@ export default function TournamentsTeam() {
   const token = localStorage.getItem("accessToken");
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
+  const { showTeamRegistrationPopup, showTeamEditPopup } = useSelector(
+    (state) => state.tournamentTeam
+  );
 
-  const { currentTeam } = useSelector((state) => state.tournamentTeam);
-
-  // Create new team
   const handleCreateTeam = () => {
-    dispatch(setCurrentTeam(null));
+    dispatch(setCurrentTeam(null)); // Clear current team
     dispatch(setTeamRegistrationPopup(true));
+  };
+
+  // Edit existing team
+  const handleEditTeam = () => {
+    // TODO: Fetch team data first
+    // For now, set dummy data or fetch from API
+    dispatch(setCurrentTeam({
+      _id: "team123",
+      teamName: "Team Falcons",
+      teamShortName: "FLCN",
+      region: "Saudi Arabia",
+      maxParticipants: 5,
+      logoImage: "uploads/team-logo.png",
+      social: {
+        twitterId: "https://twitter.com/teamfalcons",
+        facebookId: "",
+        youtubeChannelId: "",
+        discordId: "",
+        twitchId: "",
+      }
+    }));
+    dispatch(setTeamEditPopup(true));
   };
 
   useEffect(() => {
@@ -61,7 +83,7 @@ export default function TournamentsTeam() {
                   </svg>
                 </button>
                 <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
-                  <span className="text-white text-lg font-medium">
+                  <span className="text-white text-lg font-medium" onClick={handleEditTeam}>
                     Edit Team
                   </span>
                   <span className="text-white text-lg font-medium">
@@ -1088,13 +1110,15 @@ export default function TournamentsTeam() {
         </svg>
       </div>
 
-      <div>
+      {/* <div>
         <button onClick={handleCreateTeam}>
           {t("tourteam.create_newteam")}
         </button>
-      </div>
+      </div> */}
 
-      <TeamRegistrationPopup isEdit={false} />
+      {/* <TeamRegistrationPopup isEdit={true} /> */}
+      {showTeamRegistrationPopup && <TeamRegistrationPopup isEdit={false} />}
+      {showTeamEditPopup && <TeamRegistrationPopup isEdit={true} />}
     </>
   );
 }

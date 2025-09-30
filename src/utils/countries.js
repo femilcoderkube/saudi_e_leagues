@@ -416,8 +416,8 @@ export const countries = [
     label: "Indonesia"
   },
   {
-    value: "Iran, Islamic Republic of",
-    label: "Iran, Islamic Republic of"
+    value: "Iran",
+    label: "Iran"
   },
   {
     value: "Iraq",

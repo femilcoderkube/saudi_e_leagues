@@ -495,7 +495,7 @@ export const countryData = [
     code: "ID",
   },
   {
-    name: "Iran, Islamic Republic of Persian Gulf",
+    name: "Iran",
     dial_code: "+98",
     code: "IR",
   },

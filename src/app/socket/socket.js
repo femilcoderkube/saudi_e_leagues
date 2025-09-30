@@ -291,20 +291,20 @@ export function startGetQueueUser(userId) {
 }
 export function startTeamSocket({ isSocketConnected, userId }) {
   
-  if (isSocketConnected) {
-    console.log("INNNN");
+  // if (isSocketConnected) {
+  //   console.log("INNNN");
     
-    socket.off(SOCKET.TEAM_UPDATEDDATA);
-    socket.on(SOCKET.TEAM_UPDATEDDATA, (data) => {      
-      console.log("==========DATA===========", data);
-    });
+  //   socket.off(SOCKET.TEAM_UPDATEDDATA);
+  //   socket.on(SOCKET.TEAM_UPDATEDDATA, (data) => {      
+  //     console.log("==========DATA===========", data);
+  //   });
 
-    socket.emit(SOCKET.TEAM_DATA, userId);
+  //   socket.emit(SOCKET.TEAM_DATA, userId);
 
-  }
+  // }
 }
 export function getOwnTeam(data) {
-  socket.emit(SOCKET.TEAM_DATA, data);
+  // socket.emit(SOCKET.TEAM_DATA, data);
 }
 
 export function startGetQueuePlayers() {

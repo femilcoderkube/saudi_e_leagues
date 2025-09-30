@@ -35,7 +35,7 @@ export const updateTournamentTeam = createAsyncThunk(
     "tournamentTeam/updateTeam",
     async ({ id, formData }, { rejectWithValue }) => {
         try {
-            const response = await axiosInstance.put(`/Team/${id}`, formData, {
+            const response = await axiosInstance.put(`/Team?id=${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
