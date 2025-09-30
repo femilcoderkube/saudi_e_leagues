@@ -105,6 +105,7 @@ import ragister_og from "../../../assets/images/register_og.png";
 import about_down from "../../../assets/images/about-down.png";
 import list_partycip from "../../../assets/images/list_partycip.png";
 import team_falcons from "../../../assets/images/team-falcons.webp";
+import maskgroup from "../../../assets/images/maskgroup.webp";
 
 export const IMAGES = {
   prime_icon,
@@ -193,4 +194,5 @@ export const IMAGES = {
   mobile_menu_icon_user,
   logOut,
   deleteIcon,
+  maskgroup,
 };
