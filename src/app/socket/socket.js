@@ -47,6 +47,13 @@ const SOCKET_URL =
   import.meta.env.VITE_SOCKET_URL || "https://staging-backend.primeeleague.com";
 // const SOCKET_URL =
 //   import.meta.env.VITE_SOCKET_URL || "https://backend.primeeleague.com";
+const encryptionEnabled = import.meta.env.VITE_ENCRYPTION_STATUS;
+console.log("encryptionEnabled====",encryptionEnabled);
+  
+// Log encryption status in development
+if (import.meta.env.DEV) {
+  console.log(`🌐 Axios Encryption: ${encryptionEnabled == "true" ? "ENABLED" : "DISABLED"}`);
+}
 
 export const SOCKET = {
   JOINLEAGUE: "joinLeague",
@@ -98,12 +105,23 @@ export const SOCKET = {
   READYTOPLAYPARTY: "readytoplayParty",
   PARTY_QUEUE_STARTED: "PARTY_QUEUE_STARTED",
 };
-export const socket = wrapSocketWithEncryption(
-  io(SOCKET_URL, {
+
+export let socket;
+
+if (encryptionEnabled=="true") {
+  socket = wrapSocketWithEncryption(
+    io(SOCKET_URL, {
+      transports: ["websocket"],
+      autoConnect: false,
+    })
+  );
+} else {
+  socket = io(SOCKET_URL, {
     transports: ["websocket"],
     autoConnect: false,
-  })
-);
+  });
+}
+
 socket.connect();
 socket.on("connect", () => {
   const user = JSON.parse(localStorage.getItem("user")) || null;
@@ -131,7 +149,7 @@ socket.on("connect", () => {
         const isMyTeam = players.some(player => player.userId === user?._id);
         if (isMyTeam) {
           let pId = getPartnerByDocId(data?.team?.leagueId?.partner).id;
-          
+
           if (data?.cancel_queue == true) {
             globalNavigate(`/${pId}/lobby/${leagueId}`);
           } else if (isReady) {

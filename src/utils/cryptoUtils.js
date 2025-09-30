@@ -179,6 +179,10 @@ const cryptoUtils = new CryptoUtils();
 // Run compatibility test on load (only in development)
 if (import.meta.env.DEV) {
   cryptoUtils.testCompatibility();
+  
+  // Test conditional encryption status
+  const encryptionStatus = import.meta.env.VITE_ENCRYPTION_STATUS;
+  console.log(`🔐 Encryption Status: ${encryptionStatus === "true" ? "ENABLED" : "DISABLED"}`);
 }
 
 export default cryptoUtils;
