@@ -340,7 +340,8 @@
     "team_short_name_required": "اختصار اسم الفريق مطلوب",
     "team_short_name_max": "يجب ألا يزيد اختصار اسم الفريق عن 4 أحرف",
     "team_logo_required": "شعار الفريق مطلوب",
-    "invalid_url": "رابط غير صالح"
+    "invalid_url": "رابط غير صالح",
+    "region_required": "المنطقة مطلوبة"
   },
   "wizard": {
     "rules_and_regulations": "القواعد والأنظمة",
@@ -464,10 +465,15 @@
     "max_participants": "الحد الأقصى للمشاركين",
     "optional": "اختياري",
     "twitterId": "معرّف تويتر",
+    "instagramId": "معرف الانستقرام",
+    "kickId": "معرف الركلة",
+    "tiktokId": "معرف تيك توك",
     "facebookId": "معرّف فيسبوك",
     "youtubeChannelId": "معرّف قناة يوتيوب",
     "discordId": "معرّف ديسكورد",
-    "twitchId": "معرّف تويتش"
+    "twitchId": "معرّف تويتش",
+    "no_team_title": "قم بإنشاء فريقك الخاص",
+    "no_team_desc": "أنت لستَ عضوًا في أي فريق بعد. ابدأ رحلتك بإنشاء فريقك الخاص!"
   },
   "tournament": {
     "schedule": "الجدول",

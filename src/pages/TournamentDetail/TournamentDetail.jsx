@@ -34,6 +34,7 @@ import { IMAGES } from "../../components/ui/images/images.js";
 import { Images } from "lucide-react";
 import ManageTeamModal from "../../components/ManageTeam/ManageTeamModal.jsx";
 import PDFViewer from "../../components/Overlays/LeagueDetail/PDFViewer.jsx";
+import { getTeamData } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
   const { tournamentData, activeStage, loader } = useSelector(
@@ -41,7 +42,7 @@ const TournamentDetail = () => {
   );
 
   const [showModal, setShowModal] = useState(false);
-
+  const { currentTeam } = useSelector((state) => state.tournamentTeam);
   const handleOpen = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
@@ -51,6 +52,12 @@ const TournamentDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isManageOpen, setIsManageOpen] = useState(false);
+
+  useEffect(() => {
+    if (user?._id) {
+      dispatch(getTeamData(user._id));
+    }
+  }, [user?._id]);
 
   useEffect(() => {
     if (isSocketConnected) {
@@ -84,6 +91,8 @@ const TournamentDetail = () => {
       });
     }
   }, [tournamentData?.stages, activeStage, isSocketConnected]);
+
+  console.log("currentTeam", currentTeam);
 
   // Empty dependency array means this runs once after mount
   return (
@@ -313,7 +322,7 @@ const TournamentDetail = () => {
                                   {t("tournament.manageteam")}
                                 </button>
 
-                                <button
+                                {/* <button
                                   className="cursor-pointer px-6.5 py-2.5 md:text-lg text-base font-bold rounded-xl text-[#fff] bg-[linear-gradient(3deg,rgba(67,75,233,1)_0%,rgba(70,181,249,1)_110%)]"
                                   onClick={(e) => {
                                     e.preventDefault();
@@ -323,7 +332,7 @@ const TournamentDetail = () => {
                                   }}
                                 >
                                   {t("tournament.Register")}
-                                </button>
+                                </button> */}
                               </div>
                             </div>
                           </div>

@@ -341,7 +341,8 @@
     "team_short_name_required": "Team short name is required",
     "team_short_name_max": "Team short name must be maximum 4 characters",
     "team_logo_required": "Team logo is required",
-    "invalid_url": "Invalid URL"
+    "invalid_url": "Invalid URL",
+    "region_required": "Region required"
   },
   "wizard": {
     "rules_and_regulations": "Rules and Regulations",
@@ -466,6 +467,9 @@
     "optional": "Optional",
     "twitterId": "Twitter ID",
     "facebookId": "Facebook ID",
+    "instagramId": "Instagram ID",
+    "tiktokId": "Tiktok ID",
+    "kickId": "Kick Id",
     "youtubeChannelId": "YouTube Channel ID",
     "discordId": "Discord ID",
     "twitchId": "Twitch ID",

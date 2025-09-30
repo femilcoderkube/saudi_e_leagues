@@ -12,6 +12,7 @@ import {
   setTeamEditPopup,
   createTournamentTeam,
   updateTournamentTeam,
+  getTeamData,
 } from "../../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import CustomFileUpload from "../../ui/svg/UploadFile.jsx";
 import { getServerURL } from "../../../utils/constant.js";
@@ -20,7 +21,8 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { showTeamRegistrationPopup, showTeamEditPopup, currentTeam } = useSelector((state) => state.tournamentTeam);
+  const { showTeamRegistrationPopup, showTeamEditPopup, currentTeam } =
+    useSelector((state) => state.tournamentTeam);
 
   const [previewLogo, setPreviewLogo] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -58,38 +60,42 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       kickId: "",
       discordId: "",
       facebookId: "",
-      tiktokId: ""
+      tiktokId: "",
     },
   };
 
   // Pre-fill form values for editing
   const editInitialValues = currentTeam
     ? {
-      teamName: currentTeam.teamName || "",
-      teamShortName: currentTeam.teamShortName || "",
-      teamLogo: currentTeam.logoImage || null,
-      region: currentTeam.region
-        ? countryOptions.find((option) => option.value === currentTeam.region)
-        : null,
-      maxParticipants: currentTeam.maxParticipants || 5,
-      social: {
-        twitterId: currentTeam.social?.twitterId || "",
-        instagramId: currentTeam.social?.instagramId || "",
-        twitchId: currentTeam.social?.twitchId || "",
-        kickId: currentTeam.social?.kickId || "",
-        discordId: currentTeam.social?.discordId || "",
-        facebookId: currentTeam.social?.facebookId || "",
-        tiktokId: currentTeam.social?.tiktokId || ""
-      },
-    }
+        teamName: currentTeam.teamName || "",
+        teamShortName: currentTeam.teamShortName || "",
+        teamLogo: currentTeam.logoImage || null,
+        region: currentTeam.region
+          ? countryOptions.find((option) => option.value === currentTeam.region)
+          : null,
+        maxParticipants: currentTeam.maxParticipants || 5,
+        social: {
+          twitterId: currentTeam.social?.twitterId || "",
+          instagramId: currentTeam.social?.instagramId || "",
+          twitchId: currentTeam.social?.twitchId || "",
+          kickId: currentTeam.social?.kickId || "",
+          discordId: currentTeam.social?.discordId || "",
+          facebookId: currentTeam.social?.facebookId || "",
+          tiktokId: currentTeam.social?.tiktokId || "",
+        },
+      }
     : initialValues;
 
   const step1ValidationSchema = Yup.object({
-    teamName: Yup.string().required(t("validation_messages.team_name_required")),
+    teamName: Yup.string().required(
+      t("validation_messages.team_name_required")
+    ),
     teamShortName: Yup.string()
       .required(t("validation_messages.team_short_name_required"))
       .max(4, t("validation_messages.team_short_name_max")),
-    teamLogo: isEdit ? Yup.mixed().nullable() : Yup.mixed().required(t("validation_messages.team_logo_required")),
+    teamLogo: isEdit
+      ? Yup.mixed().nullable()
+      : Yup.mixed().required(t("validation_messages.team_logo_required")),
     region: Yup.object()
       .shape({
         value: Yup.string().required(),
@@ -110,7 +116,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       kickId: Yup.string(),
       discordId: Yup.string(),
       facebookId: Yup.string(),
-      tiktokId: Yup.string()
+      tiktokId: Yup.string(),
     }),
   });
 
@@ -169,7 +175,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       if (res.success) {
         toast.success(
           res?.message ||
-          t(isEdit ? "tourteam.team_updated" : "tourteam.team_created")
+            t(isEdit ? "tourteam.team_updated" : "tourteam.team_created")
         );
         handleClose();
       }
@@ -177,14 +183,14 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       console.error(`${isEdit ? "Update" : "Create"} team failed:`, error);
       toast.error(
         error?.message ||
-        t(
-          isEdit
-            ? "tourteam.update_team_error"
-            : "tourteam.create_team_error"
-        )
+          t(
+            isEdit ? "tourteam.update_team_error" : "tourteam.create_team_error"
+          )
       );
     } finally {
       setLoadingSubmit(false);
+      handleClose();
+      dispatch(getTeamData(user._id));
       setStep(1);
     }
   };
@@ -312,23 +318,29 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
               <h3 className="text-[#7B7ED0] mb-3">
                 {t("tourteam.social_media")} ({t("tourteam.optional")})
               </h3>
-              {["twitterId", "instagramId", "twitchId", "kickId", "discordId","facebookId","tiktokId"].map(
-                (platform) => (
-                  <div key={platform} className="mb-3">
-                    <Field
-                      type="text"
-                      name={`social.${platform}`}
-                      className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
-                      placeholder={t(`tourteam.${platform}`) || platform}
-                    />
-                    <ErrorMessage
-                      name={`social.${platform}`}
-                      component="div"
-                      className="text-red-500 text-sm"
-                    />
-                  </div>
-                )
-              )}
+              {[
+                "twitterId",
+                "instagramId",
+                "twitchId",
+                "kickId",
+                "discordId",
+                "facebookId",
+                "tiktokId",
+              ].map((platform) => (
+                <div key={platform} className="mb-3">
+                  <Field
+                    type="text"
+                    name={`social.${platform}`}
+                    className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                    placeholder={t(`tourteam.${platform}`) || platform}
+                  />
+                  <ErrorMessage
+                    name={`social.${platform}`}
+                    component="div"
+                    className="text-red-500 text-sm"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         );
