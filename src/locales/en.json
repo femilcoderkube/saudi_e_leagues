@@ -532,6 +532,15 @@
     "selected_captain": "Selected Captain",
     "selected_players": "Selected Players",
     "selected_substitutes": "Selected Substitutes",
-    "selected_coach": "Selected Coach"
+    "selected_coach": "Selected Coach",
+    "invite_player_model": "Invite Player",
+  "invite_link_label1": "Invitation Link",
+  "copy_button_title1": "Copy Link",
+  "reset_button_title1": "Reset Link",
+  "invite_link_fetch_failed": "Failed to fetch invite link",
+  "invite_link_reset_success": "Invite link reset successfully",
+  "invite_link_reset_failed": "Failed to reset invite link",
+  "copy_success": "Copied to clipboard"
+
   }
 }

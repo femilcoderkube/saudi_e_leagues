@@ -16,6 +16,7 @@ import { t } from "i18next";
 import GamingLoader from "../../components/Loader/loader.jsx";
 export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
+  const [openInviteModel, setOpenInviteModel] = useState(false);
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
 
@@ -1035,6 +1036,9 @@ export default function TournamentsTeam() {
       {/* <TeamRegistrationPopup isEdit={true} /> */}
       {showTeamEditPopup && <TeamRegistrationPopup isEdit={true} />}
       {showTeamRegistrationPopup && <TeamRegistrationPopup isEdit={false} />}
+      {openInviteModel && (
+        <InvitePlayerModel close={() => setOpenInviteModel(false)} />
+      )}
     </>
   );
 }
