@@ -100,6 +100,7 @@ import party_user from "../../../assets/images/party-user.webp";
 import party_logout from "../../../assets/images/party-logout.webp";
 import party_imogi from "../../../assets/images/party-imogi.webp";
 import party_winner from "../../../assets/images/party-winner.webp";
+import maskgroup from "../../../assets/images/maskgroup.webp";
 
 export const IMAGES = {
   prime_icon,
@@ -183,4 +184,5 @@ export const IMAGES = {
   mobile_menu_icon_user,
   logOut,
   deleteIcon,
+  maskgroup,
 };

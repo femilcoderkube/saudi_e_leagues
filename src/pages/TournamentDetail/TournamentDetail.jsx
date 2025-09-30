@@ -190,14 +190,14 @@ const TournamentDetail = () => {
                 {/* <!-- Tabs --> */}
                 <motion.ul
                   id="tournament-tabs"
-                  className="sa__tournament-tabs inline-flex md:flex-row flex-col pt-2 w-full md:border-b md:border-gray-200/20"
+                  className="sa__tournament-tabs inline-flex md:flex-row flex-col pt-2 w-full"
                   initial="hidden"
                   whileInView="visible"
                   variants={cardVariantsAni}
                   viewport={{ once: true, amount: 0.3 }}
                 >
                   <li
-                    className={`font-semibold  cursor-pointer md:border-b-0 border-b border-gray-200/20 ${
+                    className={`font-semibold cursor-pointer md:border-r  border-gray-200/20 ${
                       activeStage === -1 ? "active" : ""
                     }`}
                   >
@@ -206,27 +206,40 @@ const TournamentDetail = () => {
                       onClick={() =>
                         activeStage !== -1 ? dispatch(setActiveStage(-1)) : null
                       }
-                      className="px-4 py-2 pl-0 flex items-center justify-center text-xl whitespace-nowrap"
+                      className={`px-4 py-2 pl-0 flex items-center justify-center text-xl whitespace-nowrap ${
+                        activeStage === -1
+                          ? "text-blue-500 font-bold"
+                          : "text-gray-700"
+                      }`}
                     >
+                      <img
+                        src={IMAGES.maskgroup}
+                        alt="Overview Icon"
+                        className="w-6 h-6 mr-2"
+                      />
                       {t("tournament.overview")}
                     </div>
                   </li>
                   {tournamentData?.stages?.map((item, index) => {
                     return (
                       <li
-                        className={`font-semibold  cursor-pointer md:border-b-0 border-b border-gray-200/20 ${
-                          index == activeStage ? "active" : ""
+                        className={`font-semibold cursor-pointer ${
+                          index === activeStage ? "active" : ""
                         }`}
                         key={index}
                       >
                         <div
                           id={`stage-${index}`}
                           onClick={() =>
-                            activeStage != index
+                            activeStage !== index
                               ? dispatch(setActiveStage(index))
                               : null
                           }
-                          className="px-4 py-2 pl-0 flex items-center justify-center text-xl whitespace-nowrap"
+                          className={`px-4 py-2 pl-0 flex items-center justify-center text-xl whitespace-nowrap ${
+                            index === activeStage
+                              ? "text-blue-500 font-bold"
+                              : "text-gray-700"
+                          }`}
                         >
                           {item?.stageName}
                         </div>
