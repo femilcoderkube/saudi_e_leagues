@@ -819,6 +819,11 @@ html[dir="rtl"] .schdule-accordion-card.active-accordation .schdule-icon {
   clip-path: url(#customClipPath);
 }
 
+.about-accordation .battle-shape{
+  opacity: 1;
+  clip-path: unset;
+}
+
 html[dir="rtl"] .battle-shape {
   transform: rotateY(180deg);
 }
@@ -906,6 +911,11 @@ html[dir="ltr"] .mob-match-gp div p:first-child {
   padding-right: 0.5rem;
 }
 
+html[dir="ltr"] .about-accordation .mob-match-gp div p:first-child{
+  border: 0;
+  padding-right: 0;
+}
+
 html[dir="ltr"] .mob-match-gp .royal-date-time p:first-child {
   border-right: 1px solid #5e5fb899;
 }
@@ -980,7 +990,11 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 
 /* team page view start */
 .team_content-left {
-  clip-path: url(#clip0);
+  /* clip-path: url('#bgblur_0_7021_461_clip_path'); */
+  background: url(../images/team_bg.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+
 }
 
 .team-content-left-wp::before,
@@ -1038,10 +1052,9 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 }
 
 .team-user-wp {
-  clip-path: url(#team-top);
-  background-image: url(/src/assets/images/team-top-vector.png), linear-gradient(180deg, rgba(0, 23, 140, 0.92) 0%, #2A54FF 107.14%);
-  background-repeat: no-repeat, no-repeat;
-  background-size: contain, contain;
+  background-image: url(/src/assets/images/team-top-shape.png);
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .team_content-left .polygon_border::before {
@@ -1053,6 +1066,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   transform: unset;
   clip-path: unset;
   background: url(/src/assets/images/team-curve-shape.png);
+  background-repeat: no-repeat;
 }
 
 
@@ -1116,6 +1130,10 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   background-image: url(/src/assets/images/team_game_card.png);
   max-width: 19rem;
   flex: 0 0 19rem;
+}
+
+html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
+  background-image: url(/src/assets/images/rtl-team_game_card.png);
 }
 
 .team_content-right .card-duty-wp.main-tournament-schedule-card-wrapper {

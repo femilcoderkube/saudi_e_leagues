@@ -51,6 +51,7 @@ const TournamentDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isManageOpen, setIsManageOpen] = useState(false);
+  const [condition] = useState("gn");
 
   useEffect(() => {
     if (isSocketConnected) {
@@ -148,10 +149,11 @@ const TournamentDetail = () => {
               </div>
             </motion.div>
           </div>
+          <div className="about-tornament flex xl:items-start items-center xl:flex-nowrap flex-wrap md:flex-row flex-col md:gap-[3rem] gap-5">
           <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-center ">
             <div className="sd_content-top order-2 flex-col xl:flex-row md:order-1 flex gap-5 justify-between w-full">
               <motion.div
-                className="sd_game_info--wrap md:flex-row flex-1 inline-flex gap-[2.063rem] flex-wrap w-full justify-center xl:justify-start"
+                className="sd_game_info--wrap md:flex-row lg:flex-nowrap flex-wrap flex-1 inline-flex gap-[2.063rem] w-full justify-center xl:justify-start"
                 initial="hidden"
                 whileInView="visible"
                 variants={cardVariantsAni}
@@ -182,8 +184,32 @@ const TournamentDetail = () => {
                 />
               </motion.div>
             </div>
+            
           </div>
+          <div
+      onClick={() => dispatch(setRegistrationModal(true))}
+      className="common-width join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
+    >
+      <span
+        className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
+        style={{
+          fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
+          fontWeight: "bold",
+          textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+        }}
+      >
+        {t("images.Registerog")}
+      </span>
 
+      <img
+        className="mx-auto"
+        src={condition === "og" ? IMAGES.ragister_og : IMAGES.ragister_gn}
+        alt=""
+        style={{ width: "100%" }}
+      />
+    </div>
+
+        </div>
           <div className="sd_tournament-wrapper">
             <div className="sd_tournament-content">
               <div className="mx-auto mt-4">
@@ -364,6 +390,99 @@ const TournamentDetail = () => {
                                 </span>
                               </button>
                             </div> */}
+                          </div>
+                          <div
+                            // Static accordion, no dynamic handlers or data
+                            className="about-accordation schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer mt-[5.5rem] active-schdule-accordion-header"
+                          >
+                            <img
+                              className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
+                              src={IMAGES.list_partycip}
+                              alt=""
+                              loading="lazy"
+                            />
+
+                            {/* SVG ClipPath (kept as-is) */}
+                            <svg
+                              className="absolute"
+                              width="0"
+                              height="0"
+                              viewBox="0 0 360 96"
+                              xmlns="http://www.w3.org/2000/svg"
+                              style={{ position: "absolute" }}
+                            >
+                              <defs>
+                                <clipPath
+                                  id="customClipPath"
+                                  clipPathUnits="objectBoundingBox"
+                                >
+                                  <path
+                                    transform="scale(0.00277778, 0.01041667)"
+                                    d="M360 0L339.6 56L330.6 48L312 96H0V0H360Z"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>                            
+
+                            <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
+                              <div className="battle-shape-text flex md:gap-6 gap-3 w-[21rem]">                               
+                                <span className="inline-block md:text-2xl sm:text-lg text-base font-bold">
+                                List of Participants
+                                </span>
+                              </div>
+                              <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
+                                {/* Static team icons */}
+                                <div className="round-gold rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9">
+                                  <img
+                                    src={IMAGES.team_falcons}
+                                    alt="Team 1"
+                                    className="md:w-6 md:h-6 rounded-full"
+                                  />
+                                </div>
+                                <div className="round-gold round-gray rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9">
+                                  <img
+                                    src={IMAGES.team_falcons}
+                                    alt="Team 2"
+                                    className="md:w-6 md:h-6 rounded-full"
+                                  />
+                                </div>
+                                <div className="round-gold round-red rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9">
+                                  <img
+                                    src={IMAGES.team_falcons}
+                                    alt="Team 3"
+                                    className="md:w-6 md:h-6 rounded-full"
+                                  />
+                                </div>
+                                <div className="round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center">
+                                <img
+                                    src={IMAGES.team_falcons}
+                                    alt="Team 3"
+                                    className="md:w-6 md:h-6 rounded-full"
+                                  />
+                                  {/* <span className="text-base font-semibold text-white">
+                                    +2
+                                  </span> */}
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Right section with dropdown toggle */}
+                            <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
+                              <div className="flex gap-2 items-center">
+                                <p className="md:text-2xl sm:text-lg text-base font-bold text-[#6D70BC]">
+                                +10
+                                </p>                               
+                              </div>                           
+                              <div
+                                className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer"
+                              >
+                                <img
+                                  className="sm:w-5 sm:h-3 w-4 h-2"
+                                  src={IMAGES.about_down}
+                                  alt=""
+                                />
+                              </div>
+                            </div>
                           </div>
                         </motion.div>
                         <motion.div

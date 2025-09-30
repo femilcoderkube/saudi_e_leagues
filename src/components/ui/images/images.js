@@ -100,6 +100,11 @@ import party_user from "../../../assets/images/party-user.webp";
 import party_logout from "../../../assets/images/party-logout.webp";
 import party_imogi from "../../../assets/images/party-imogi.webp";
 import party_winner from "../../../assets/images/party-winner.webp";
+import ragister_gn from "../../../assets/images/ragister_gn.png";
+import ragister_og from "../../../assets/images/register_og.png";
+import about_down from "../../../assets/images/about-down.png";
+import list_partycip from "../../../assets/images/list_partycip.png";
+import team_falcons from "../../../assets/images/team-falcons.webp";
 
 export const IMAGES = {
   prime_icon,
@@ -109,9 +114,14 @@ export const IMAGES = {
   party_user,
   party_logout,
   party_imogi,
+  ragister_og,
+  ragister_gn,
   party_winner,
+  team_falcons,
   exit_screen,
+  about_down,
   cal_arrow,
+  list_partycip,
   youtube,
   rules_icon,
   battale_sahpe_img,

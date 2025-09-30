@@ -112,6 +112,10 @@ html[dir="rtl"] .player_score {
   width: 21.5rem;
 }
 
+.about-tornament  .game_polygon-link{
+  width: 15.2rem;
+}
+
 .sd_game-con.polygon_border:before,
 .sd_game-con.polygon_border:after {
   width: 5.25rem;
@@ -1092,6 +1096,10 @@ html[dir="rtl"] .sd_bedge-lable .shining-star-arabic {
   .sd_bedge_left-con .sd_avtar-info {
     gap: 0.7rem;
   }
+
+  .about-tornament{
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 991px) {
@@ -1137,7 +1145,7 @@ html[dir="rtl"] .sd_bedge-lable .shining-star-arabic {
   }
 
   .game_polygon-link,
-  .tournament_page--wrapper .game_polygon-link {
+  .tournament_page--wrapper .game_polygon-link,.about-tornament .game_polygon-link {
     width: 100%;
   }
 }

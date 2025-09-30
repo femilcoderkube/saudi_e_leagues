@@ -356,6 +356,10 @@
     "large_prime": "Large Prime",
     "need_login": "YOU NEED TO LOG IN",
     "join_button": "JOIN",
+    "Registerog": "REGISTER",
+    "Registergn": "REGISTER",
+
+
     "queue_button": "Queue button",
     "open_button": "Open button",
     "cancel_button": "CANCEL QUEUE",

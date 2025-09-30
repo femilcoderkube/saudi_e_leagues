@@ -685,123 +685,26 @@ export default function TournamentsTeam() {
             ))}
           </div>
         </div>
-        {/* team-bg svg*/}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 440 513"
-          preserveAspectRatio="xMidYMid meet"
-          role="img"
-          aria-label="Decorative clipped shape"
-          width="0"
-          height="0"
-          style={{ position: "absolute" }}
-        >
-          <defs>
-            <clipPath id="clip0" clipPathUnits="userSpaceOnUse">
-              <path d="M140 12H244L256 0H352L364 12V64L376 76H428L440 88V172L420 192V284L440 304V465L392 513H198L188 503H24L0 479V304L20 284V192L0 172V32L32 0H128L140 12Z" />
-            </clipPath>
-            <filter
-              id="blurFilter"
-              x="-50%"
-              y="-50%"
-              width="200%"
-              height="200%"
-            >
-              <feGaussianBlur stdDeviation={12} result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-            <filter
-              id="softShadow"
-              x="-50%"
-              y="-50%"
-              width="200%"
-              height="200%"
-            >
-              <feDropShadow
-                dx={0}
-                dy={6}
-                stdDeviation={10}
-                floodOpacity={0.25}
-              />
-            </filter>
-          </defs>
-          <rect width="100%" height="100%" fill="transparent" />
-          <g clipPath="url(#clip0)">
-            <rect
-              x={0}
-              y={0}
-              width={440}
-              height={513}
-              filter="url(#blurFilter)"
-              fill="#000000"
-            />
-            <rect x={0} y={0} width={440} height={513} fill="#000" />
-          </g>
-          <path
-            d="M140 12H244L256 0H352L364 12V64L376 76H428L440 88V172L420 192V284L440 304V465L392 513H198L188 503H24L0 479V304L20 284V192L0 172V32L32 0H128L140 12Z"
-            fill="none"
-            stroke="#000"
-            strokeWidth={1}
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+       
         {/* team-top shape */}
         <svg
-          viewBox="0 0 440 160"
-          xmlns="http://www.w3.org/2000/svg"
-          width="0%"
-          height="0%"
-          style={{ position: "absolute" }}
-        >
-          <g clipPath="url(#clip0)">
-            <path
-              d="M140 12H244L256 0H352L364 12V64L376 76H428L440 88V136L428 148H212L200 160H32L0 128V32L32 0H128L140 12Z"
-              fill="url(#gradient0)"
-            />
-          </g>
-          <path
-            d="M140 12H244L256 0H352L364 12V64L376 76H428L440 88V136L428 148H212L200 160H32L0 128V32L32 0H128L140 12Z"
-            fill="black"
-            fillOpacity={0.2}
-          />
-          <defs>
-            <clipPath id="team-top">
-              <path d="M140 12H244L256 0H352L364 12V64L376 76H428L440 88V136L428 148H212L200 160H32L0 128V32L32 0H128L140 12Z" />
-            </clipPath>
-            <linearGradient
-              id="gradient0"
-              x1={92.6316}
-              y1={0}
-              x2={92.6316}
-              y2={171.429}
-              gradientUnits="userSpaceOnUse"
+              width="0"
+              height="0"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ position: "absolute" }}
             >
-              <stop stopColor="#00178C" stopOpacity={0.92} />
-              <stop offset={1} stopColor="#2A54FF" />
-            </linearGradient>
-            <filter
-              id="innerShadow"
-              x={0}
-              y={0}
-              width={440}
-              height={160}
-              filterUnits="userSpaceOnUse"
-            >
-              <feOffset dy={2} />
-              <feGaussianBlur stdDeviation={6} />
-              <feComposite
-                in2="SourceAlpha"
-                operator="arithmetic"
-                k2={-1}
-                k3={1}
-              />
-              <feColorMatrix
-                type="matrix"
-                values="0 0 0 0 0.115 0 0 0 0 0.774 0 0 0 0 0.587 0 0 0 0.24 0"
-              />
-            </filter>
-          </defs>
-        </svg>
+              
+  <defs>
+  
+    <path id="shapePath" d="M393.273 33.75H685.418L719.127 0H988.8L1022.51 33.75V180L1056.22 213.75H1202.29L1236 247.5V382.5L1202.29 416.25H595.527L561.818 450H89.8909L0 360V90L89.8909 0H359.564L393.273 33.75Z" />
+
+   
+    <clipPath id="myClip">
+      
+      <use href="#shapePath" />
+    </clipPath>
+  </defs>
+            </svg>
       </div>
       <div className="team-main-user mt-16">
         <div className="team-user-title flex items-center flex-wrap gap-5 justify-between mb-10">
@@ -811,7 +714,7 @@ export default function TournamentsTeam() {
           <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
             <div className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer">
               Invite Players{" "}
-              <span className="ml-2.5">
+              <span className="ltr:ml-2.5 rtl:mr-2.5">
                 <svg
                   width="9"
                   height="13"
