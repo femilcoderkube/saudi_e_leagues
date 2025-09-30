@@ -43,20 +43,20 @@ axiosInstance.interceptors.request.use(
     const lang = localStorage.getItem("lang") || i18n.language || "en";
     config.headers["Accept-Language"] = lang;
 
-    if (
-      encryptionEnabled &&
-      config.data &&
-      cryptoUtils.shouldEncrypt(config.data, config.headers["Content-Type"])
-    ) {      
-      try {
-        const encryptedData = cryptoUtils.encrypt(config.data);
-        config.data = { encryptedData };
-        config.headers["X-Encrypted"] = "true";
-        config.headers["X-Encryption-Method"] = "AES-256-CBC";
-      } catch (error) {
-        console.error("Failed to encrypt request data:", error);
-      }
-    }
+    // if (
+    //   encryptionEnabled &&
+    //   config.data &&
+    //   cryptoUtils.shouldEncrypt(config.data, config.headers["Content-Type"])
+    // ) {      
+    //   try {
+    //     const encryptedData = cryptoUtils.encrypt(config.data);
+    //     config.data = { encryptedData };
+    //     config.headers["X-Encrypted"] = "true";
+    //     config.headers["X-Encryption-Method"] = "AES-256-CBC";
+    //   } catch (error) {
+    //     console.error("Failed to encrypt request data:", error);
+    //   }
+    // }
 
     return config;
   },
