@@ -35,6 +35,7 @@ import { joinUserRoom } from "./app/socket/socket.js";
 import Register from "./pages/TournamentDetail/Register.jsx";
 import PartyMatchMaking from "./pages/Matches/PartyMatchMaking.jsx";
 import TournamentsTeam from "./pages/TournamentDetail/TournamentsTeam.jsx";
+import InviteLink from "./pages/UserProfile/InviteLink.jsx";
 
 function NavigatorSetter() {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ function App() {
         <div className="flex">
           <Sidebar />
           <Routes>
+            <Route path="/invite-link" element={<InviteLink />} />
             <Route
               path={ROUTESPATH.RESETPASSWORD}
               element={<ResetPasswordPage />}
