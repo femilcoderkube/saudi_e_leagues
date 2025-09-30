@@ -6,11 +6,7 @@ import javascriptObfuscator from "vite-plugin-javascript-obfuscator"
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
 
-  // Load environment variables
-  const env = loadEnv(mode, process.cwd(), '');
-
-  const isProduction = true;
-  const enableObfuscation = true;
+  const isProduction = mode === 'production';
   return {
     plugins: [
       react(),
@@ -66,18 +62,16 @@ export default defineConfig(({ mode }) => {
         },
       }),
       // Conditional obfuscation based on environment variable
-      enableObfuscation && isProduction && javascriptObfuscator({
+      isProduction && javascriptObfuscator({
         options: {
           stringArray: true,
           stringArrayEncoding: ['base64'],
-          stringArrayThreshold: 0.8,
-          controlFlowFlattening: true,
-          controlFlowFlatteningThreshold: 0.6,
-          splitStrings: true,
-          splitStringsChunkLength: 8,
-          selfDefending: true,
-          disableConsoleOutput: true,
-          debugProtection: true,
+          stringArrayThreshold: 0.2,
+          controlFlowFlattening: false,
+          splitStrings: false,
+          selfDefending: false,
+          disableConsoleOutput: false,
+          debugProtection: isProduction ? true : false,
           target: 'browser'
         },
         include: ['src/**/*.{js,jsx,ts,tsx}'],
