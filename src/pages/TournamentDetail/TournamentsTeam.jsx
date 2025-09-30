@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getTeamData } from "../../utils/constant.js";
+import { getServerURL,  } from "../../utils/constant.js";
 
 import { IMAGES } from "../../components/ui/images/images.js";
 import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
@@ -7,19 +7,25 @@ import {
   setCurrentTeam,
   setTeamRegistrationPopup,
   setTeamEditPopup,
+  getTeamData,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { t } from "i18next";
-import { getOwnTeam, startTeamSocket } from "../../app/socket/socket.js";
+
+import { startTeamSocket } from "../../app/socket/socket.js";
 export default function TournamentsTeam() {
-  const [teamData, setTeamData] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
-  const token = localStorage.getItem("accessToken");
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { showTeamRegistrationPopup, showTeamEditPopup } = useSelector(
+    
+  const { showTeamRegistrationPopup, showTeamEditPopup, currentTeam, error } = useSelector(
     (state) => state.tournamentTeam
   );
+
+  const isPresident = !!currentTeam?.data?.members?.some((member) => {
+    const memberUserId = member?.user?._id || member?.userId || member?.user?._id;
+    const role = typeof member?.role === "string" ? member.role.toLowerCase() : "";
+    return memberUserId === user?._id && role === "president";
+  });
 
   const handleCreateTeam = () => {
     dispatch(setCurrentTeam(null)); // Clear current team
@@ -37,7 +43,7 @@ export default function TournamentsTeam() {
         teamShortName: "FLCN",
         region: "Saudi Arabia",
         maxParticipants: 5,
-        logoImage: "uploads/team-logo.png",
+        logoImage: getServerURL(`uploads/team-logo.png`),
         social: {
           twitterId: "https://twitter.com/teamfalcons",
           facebookId: "",
@@ -58,78 +64,73 @@ export default function TournamentsTeam() {
 
   useEffect(() => {
     if (user?._id) {
-      getTeamData(user._id)
-        .then((data) => {
-          setTeamData(data);
-          console.log("Fetched team data:", data);
-        })
-        .catch((err) => console.error(err));
+      dispatch(getTeamData(user._id))
     }
   }, [user?._id]);
 
-  // useEffect(() => {
-  //   if (user?._id) {
-  //     getOwnTeam(user?._id)
-  //   }
-  // }, [user]);
-  // const userData=teamData.data.members
+  if(error) return null;
+  
   return (
     <>
       <div className="team-page-wp flex xl:items-start items-center md:gap-[3.813rem] gap-[2rem] flex-col xl:flex-row w-full">
         <div className="relative team-content-left-wp sm:w-[27.5rem] sm:h-[32.313rem]">
           <div className="relative team-content-left-wp-last">
-            <div className="absolute top-0 right-0 z-20">
-              <div className="edit-team-drop group relative flex flex-col items-center">
-                <button className="bg-[linear-gradient(180deg,rgba(188,82,37,0.8464)_0%,rgba(244,149,40,0.92)_107.14%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] w-16 h-16 rounded-[0.5rem_0_0.5rem_0] flex items-center justify-center hover:scale-102 transition-transform duration-150 cursor-pointer">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ width: "1.5rem", height: "1.5rem" }}
-                  >
-                    <path
-                      d="M21.9547 2.04843C19.2557 -0.647951 16.6124 -0.717445 13.8438 2.04843L12.1604 3.73019C12.0213 3.86917 11.9657 4.09156 12.0213 4.28614C13.0787 7.96933 16.0281 10.9159 19.7148 11.9722C19.7705 11.9861 19.8261 12 19.8818 12C20.0348 12 20.1739 11.9444 20.2852 11.8332L21.9547 10.1515C23.332 8.78937 23.9998 7.46898 23.9998 6.13469C24.0137 4.7587 23.3459 3.42441 21.9547 2.04843Z"
-                      fill="white"
-                    />
-                    <path
-                      d="M16.82 13.617C16.4174 13.4224 16.0287 13.2278 15.6539 13.0054C15.3485 12.8247 15.057 12.6301 14.7654 12.4216C14.5294 12.2687 14.2518 12.0463 13.988 11.8239C13.9603 11.81 13.8631 11.7266 13.752 11.6154C13.2939 11.2263 12.7803 10.7259 12.3222 10.1699C12.2805 10.1421 12.2111 10.0448 12.1139 9.91969C11.9751 9.7529 11.7391 9.4749 11.5309 9.15521C11.3643 8.94672 11.1699 8.64093 10.9895 8.33514C10.7673 7.95985 10.573 7.58456 10.3786 7.19537C10.328 7.08666 10.2801 6.97889 10.2346 6.87232C10.0628 6.46977 9.53989 6.35331 9.23058 6.663L1.17469 14.729C0.994218 14.9097 0.827631 15.2571 0.785984 15.4934L0.0363411 20.817C-0.102482 21.7622 0.161282 22.6517 0.744337 23.2494C1.2441 23.7359 1.93821 24 2.68785 24C2.85444 24 3.02103 23.9861 3.18762 23.9583L8.51841 23.2077C8.76829 23.166 9.11535 22.9992 9.28194 22.8185L17.3308 14.7597C17.6418 14.4482 17.524 13.9151 17.1182 13.7445C17.0207 13.7035 16.9216 13.6611 16.82 13.617Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-                <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
-                  <span
-                    className="text-white text-lg font-medium"
-                    onClick={handleEditTeam}
-                  >
-                    Edit Team
-                  </span>
-                  <span className="text-white text-lg font-medium">
-                    Manage Your Roasters
-                  </span>
+
+            {isPresident && (
+              <div className="absolute top-0 right-0 z-20">
+                <div className="edit-team-drop group relative flex flex-col items-center">
+                  <button className="bg-[linear-gradient(180deg,rgba(188,82,37,0.8464)_0%,rgba(244,149,40,0.92)_107.14%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] w-16 h-16 rounded-[0.5rem_0_0.5rem_0] flex items-center justify-center hover:scale-102 transition-transform duration-150 cursor-pointer">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: "1.5rem", height: "1.5rem" }}
+                    >
+                      <path
+                        d="M21.9547 2.04843C19.2557 -0.647951 16.6124 -0.717445 13.8438 2.04843L12.1604 3.73019C12.0213 3.86917 11.9657 4.09156 12.0213 4.28614C13.0787 7.96933 16.0281 10.9159 19.7148 11.9722C19.7705 11.9861 19.8261 12 19.8818 12C20.0348 12 20.1739 11.9444 20.2852 11.8332L21.9547 10.1515C23.332 8.78937 23.9998 7.46898 23.9998 6.13469C24.0137 4.7587 23.3459 3.42441 21.9547 2.04843Z"
+                        fill="white"
+                      />
+                      <path
+                        d="M16.82 13.617C16.4174 13.4224 16.0287 13.2278 15.6539 13.0054C15.3485 12.8247 15.057 12.6301 14.7654 12.4216C14.5294 12.2687 14.2518 12.0463 13.988 11.8239C13.9603 11.81 13.8631 11.7266 13.752 11.6154C13.2939 11.2263 12.7803 10.7259 12.3222 10.1699C12.2805 10.1421 12.2111 10.0448 12.1139 9.91969C11.9751 9.7529 11.7391 9.4749 11.5309 9.15521C11.3643 8.94672 11.1699 8.64093 10.9895 8.33514C10.7673 7.95985 10.573 7.58456 10.3786 7.19537C10.328 7.08666 10.2801 6.97889 10.2346 6.87232C10.0628 6.46977 9.53989 6.35331 9.23058 6.663L1.17469 14.729C0.994218 14.9097 0.827631 15.2571 0.785984 15.4934L0.0363411 20.817C-0.102482 21.7622 0.161282 22.6517 0.744337 23.2494C1.2441 23.7359 1.93821 24 2.68785 24C2.85444 24 3.02103 23.9861 3.18762 23.9583L8.51841 23.2077C8.76829 23.166 9.11535 22.9992 9.28194 22.8185L17.3308 14.7597C17.6418 14.4482 17.524 13.9151 17.1182 13.7445C17.0207 13.7035 16.9216 13.6611 16.82 13.617Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
+                    <span
+                      className="text-white text-lg font-medium"
+                      onClick={handleEditTeam}
+                    >
+                      Edit Team
+                    </span>
+                    <span className="text-white text-lg font-medium">
+                      Manage Your Roasters
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+            
             <div className="team_content-left w-[27.5rem] h-[32.313rem] bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,0.4416)_0%,rgba(34,35,86,0.384)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.12)_100%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[3rem] shrink-0">
               <div className="relative polygon_border sd_before sd_after">
                 <div className="team-user-wp w-[27.5rem] h-[10.25rem] bg-[linear-gradient(180deg,rgba(94,95,184,0.2)_0%,rgba(34,35,86,0.2)_125%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[3rem] flex items-center gap-[1.125rem] p-[2.188rem]">
                   <img
                     className="rounded-full md:w-[5.688rem] md:h-[5.688rem] w-[3rem] h-[3rem] shrink-0"
-                    src={teamData?.data?.logoImage}
+                    src={getServerURL(currentTeam?.logoImage)}
                     alt=""
                   />
                   <div className="sm:space-y-3 space-y-1 w-full">
                     <h3 className="md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
-                      {teamData?.data?.teamName}
+                      {currentTeam?.teamName}
                     </h3>
                     <span className="flex justify-between">
                       <h3 className="md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
-                        {teamData?.data?.teamShortName}
+                        {currentTeam?.teamShortName}
                       </h3>
                       <span className="self-end md:text-lg text-base font-semibold">
-                        {new Date(teamData?.data?.createdAt).toLocaleDateString(
+                        {new Date(currentTeam?.createdAt).toLocaleDateString(
                           "en-GB",
                           { day: "2-digit", month: "short", year: "numeric" }
                         )}
@@ -145,7 +146,7 @@ export default function TournamentsTeam() {
                   </span>
                   <div className="flex items-center gap-3 mt-2.5">
                     <span className="font-semibold md:text-lg text-base">
-                      {teamData?.data?.members?.length || 0}
+                      {currentTeam?.members?.length || 0}
                     </span>
                   </div>
                 </div>
@@ -154,16 +155,16 @@ export default function TournamentsTeam() {
                     Country
                   </span>
                   <div className="flex items-center gap-3 mt-2.5">
-                    <img className="" src={IMAGES.country_us} alt="" />
+                    {/* <img className="" src={IMAGES.country_us} alt="" /> */}
                     <span className="font-semibold md:text-lg text-base">
-                      {teamData?.data?.region}
+                      {currentTeam?.region}
                     </span>
                   </div>
                 </div>
               </div>
               <ul className="team-social flex items-center justify-between sm:gap-4 gap-2 px-9 sm:pt-8.5 pt-6">
                 <li>
-                  <a href="" className="p-2 inline-block">
+                  <a href={currentTeam?.social?.twitterId} className="p-2 inline-block">
                     <svg
                       width="24"
                       height="24"
@@ -179,7 +180,7 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href="" className="p-2 inline-block">
+                  <a href={currentTeam?.social?.instagramId} className="p-2 inline-block">
                     <svg
                       width="24"
                       height="24"
@@ -195,7 +196,7 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href="" className="p-2 inline-block">
+                  <a href={currentTeam?.social?.twitchId} className="p-2 inline-block">
                     <svg
                       width="22"
                       height="24"
@@ -219,7 +220,7 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href="" className="p-2 inline-block">
+                  <a href={currentTeam?.social?.kickId} className="p-2 inline-block">
                     <svg
                       width="20"
                       height="22"
@@ -237,7 +238,7 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href="" className="p-2 inline-block">
+                  <a href={currentTeam?.social?.discordId} className="p-2 inline-block">
                     <svg
                       width="24"
                       height="20"
@@ -253,7 +254,7 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href="" className="p-2 inline-block">
+                  <a href={currentTeam?.social?.facebookId} className="p-2 inline-block">
                     <svg
                       width="12"
                       height="24"
@@ -269,7 +270,7 @@ export default function TournamentsTeam() {
                   </a>
                 </li>
                 <li>
-                  <a href="" className="p-2 inline-block">
+                  <a href={currentTeam?.social?.tiktokId} className="p-2 inline-block">
                     <svg
                       width="22"
                       height="24"
@@ -288,12 +289,12 @@ export default function TournamentsTeam() {
               <div className="relative mt-7 team-board flex items-center justify-between max-w-[22.5rem] py-6 px-10 rounded-lg w-full mx-auto bg-[linear-gradient(180deg,rgba(48,53,72,0.4)_0%,rgba(48,53,72,0.16)_100%),linear-gradient(85.43deg,rgba(31,116,78,0.12)_3.99%,rgba(31,116,78,0)_32.05%),linear-gradient(85.43deg,rgba(188,50,37,0)_67.72%,rgba(188,50,37,0.12)_100%)] border-t border-[rgba(255,255,255,0.06)] shadow-[0px_4px_12px_0px_#090C1633]">
                 <div className="text-center">
                   <h3 className="text-[#F4F7FF] md:text-2xl sm:text-lg text-base font-bold">
-                    1,034 <span className="text-base team-win">Wins</span>
+                    0 <span className="text-base team-win">Wins</span>
                   </h3>
                 </div>
                 <div className="text-center">
                   <h3 className="text-[#F4F7FF] md:text-2xl sm:text-lg text-base font-bold">
-                    892 <span className="text-base team-loss">Losses</span>
+                    0 <span className="text-base team-loss">Losses</span>
                   </h3>
                 </div>
               </div>

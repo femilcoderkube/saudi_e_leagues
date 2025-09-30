@@ -53,10 +53,12 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
     maxParticipants: 5,
     social: {
       twitterId: "",
-      facebookId: "",
-      youtubeChannelId: "",
-      discordId: "",
+      instagramId: "",
       twitchId: "",
+      kickId: "",
+      discordId: "",
+      facebookId: "",
+      tiktokId: ""
     },
   };
 
@@ -72,10 +74,12 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       maxParticipants: currentTeam.maxParticipants || 5,
       social: {
         twitterId: currentTeam.social?.twitterId || "",
-        facebookId: currentTeam.social?.facebookId || "",
-        youtubeChannelId: currentTeam.social?.youtubeChannelId || "",
-        discordId: currentTeam.social?.discordId || "",
+        instagramId: currentTeam.social?.instagramId || "",
         twitchId: currentTeam.social?.twitchId || "",
+        kickId: currentTeam.social?.kickId || "",
+        discordId: currentTeam.social?.discordId || "",
+        facebookId: currentTeam.social?.facebookId || "",
+        tiktokId: currentTeam.social?.tiktokId || ""
       },
     }
     : initialValues;
@@ -101,10 +105,12 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
   const step2ValidationSchema = Yup.object({
     social: Yup.object({
       twitterId: Yup.string(),
-      facebookId: Yup.string(),
-      youtubeChannelId: Yup.string(),
-      discordId: Yup.string(),
+      instagramId: Yup.string(),
       twitchId: Yup.string(),
+      kickId: Yup.string(),
+      discordId: Yup.string(),
+      facebookId: Yup.string(),
+      tiktokId: Yup.string()
     }),
   });
 

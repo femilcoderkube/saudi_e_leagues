@@ -11,16 +11,13 @@ const initialState = {
 
 export const createTournamentTeam = createAsyncThunk(
     "tournamentTeam/createTeam",
-    async ( formData , { rejectWithValue }) => {
-        console.log("formData",formData);
-        
+    async (formData, { rejectWithValue }) => {
         try {
             const response = await axiosInstance.post("/Team", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log("CREATE TEAM ", response);
             return response.data;
         } catch (error) {
             return rejectWithValue(
@@ -64,6 +61,24 @@ export const fetchTeamById = createAsyncThunk(
     }
 );
 
+export const getTeamData = createAsyncThunk(
+    "tournamentTeam/getTeamData",
+    async ( userId , { rejectWithValue }) => {
+        try {
+            const response = await axiosInstance.get(`/Team`, {
+                params: { userId },
+            });
+            
+            console.log("RESPONSE", response);
+            return response;
+        } catch (error) {
+            console.error("Error fetching team data:", error);
+            return rejectWithValue(
+                error.response?.data?.message || "Failed to fetch team data"
+            );
+        }
+    }
+);
 
 const TournamentTeamSlice = createSlice({
     name: "tournamentTeam",
@@ -93,10 +108,23 @@ const TournamentTeamSlice = createSlice({
             .addCase(createTournamentTeam.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            })
+            .addCase(getTeamData.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getTeamData.fulfilled, (state, action) => {
+                state.loading = false;
+                
+                state.currentTeam = action.payload.data.data;
+            })
+            .addCase(getTeamData.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     },
 });
 
-export const { setTeamRegistrationPopup , setTeamEditPopup, setCurrentTeam } = TournamentTeamSlice.actions;
+export const { setTeamRegistrationPopup, setTeamEditPopup, setCurrentTeam, } = TournamentTeamSlice.actions;
 
 export default TournamentTeamSlice.reducer;
