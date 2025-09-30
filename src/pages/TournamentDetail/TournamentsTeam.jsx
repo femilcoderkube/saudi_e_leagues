@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getServerURL,  } from "../../utils/constant.js";
+import { getServerURL, } from "../../utils/constant.js";
 
 import { IMAGES } from "../../components/ui/images/images.js";
 import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
@@ -12,11 +12,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import { startTeamSocket } from "../../app/socket/socket.js";
+import { t } from "i18next";
 export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-    
+
   const { showTeamRegistrationPopup, showTeamEditPopup, currentTeam, error } = useSelector(
     (state) => state.tournamentTeam
   );
@@ -28,7 +29,9 @@ export default function TournamentsTeam() {
   });
 
   const handleCreateTeam = () => {
-    dispatch(setCurrentTeam(null)); // Clear current team
+    console.log("showTeamRegistrationPopup", showTeamRegistrationPopup);
+
+    dispatch(setCurrentTeam(null));
     dispatch(setTeamRegistrationPopup(true));
   };
 
@@ -45,11 +48,13 @@ export default function TournamentsTeam() {
         maxParticipants: 5,
         logoImage: getServerURL(`uploads/team-logo.png`),
         social: {
-          twitterId: "https://twitter.com/teamfalcons",
-          facebookId: "",
-          youtubeChannelId: "",
-          discordId: "",
+          twitterId: "",
+          instagramId: "",
           twitchId: "",
+          kickId: "",
+          discordId: "",
+          facebookId: "",
+          tiktokId: ""
         },
       })
     );
@@ -68,8 +73,29 @@ export default function TournamentsTeam() {
     }
   }, [user?._id]);
 
-  if(error) return null;
-  
+  if (error?.status)
+    return (
+      <>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] w-full">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-[#6368B5] mb-2">
+              {t("tourteam.no_team_title")}
+            </h2>
+            <p className="text-base text-[#8492B4]">
+              {t("tourteam.no_team_desc")}
+            </p>
+          </div>
+          <button
+            onClick={handleCreateTeam}
+            className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#BC5225] to-[#F49528] text-white font-semibold text-lg shadow-lg hover:scale-105 transition-transform duration-150"
+          >
+            {t("tourteam.create_newteam")}
+          </button>
+        </div>
+        {showTeamRegistrationPopup && <TeamRegistrationPopup isEdit={false} />}
+      </>
+    );
+
   return (
     <>
       <div className="team-page-wp flex xl:items-start items-center md:gap-[3.813rem] gap-[2rem] flex-col xl:flex-row w-full">
@@ -112,7 +138,7 @@ export default function TournamentsTeam() {
                 </div>
               </div>
             )}
-            
+
             <div className="team_content-left w-[27.5rem] h-[32.313rem] bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,0.4416)_0%,rgba(34,35,86,0.384)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.12)_100%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[3rem] shrink-0">
               <div className="relative polygon_border sd_before sd_after">
                 <div className="team-user-wp w-[27.5rem] h-[10.25rem] bg-[linear-gradient(180deg,rgba(94,95,184,0.2)_0%,rgba(34,35,86,0.2)_125%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[3rem] flex items-center gap-[1.125rem] p-[2.188rem]">
@@ -488,7 +514,7 @@ export default function TournamentsTeam() {
               <div
                 key={match.matchId}
                 className="card-duty-wp relative main-tournament-schedule-card-wrapper cursor-pointer w-full"
-                // onClick={() => navigate(`${id}/match/${match.matchId}`)}
+              // onClick={() => navigate(`${id}/match/${match.matchId}`)}
               >
                 <div className="tournament-schedule-card-header-time absolute bottom-0 left-0 z-10 w-full flex items-center justify-center ">
                   <h2
@@ -570,7 +596,7 @@ export default function TournamentsTeam() {
                     </div> */}
                       <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
                         {match?.teamOneScore == null ||
-                        match?.teamOneScore == undefined
+                          match?.teamOneScore == undefined
                           ? "-"
                           : match?.teamOneScore}
                       </h2>
@@ -585,7 +611,7 @@ export default function TournamentsTeam() {
                     <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
                       <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
                         {match?.teamTwoScore == null ||
-                        match?.teamTwoScore == undefined
+                          match?.teamTwoScore == undefined
                           ? "-"
                           : match?.teamTwoScore}
                       </h2>
@@ -900,14 +926,7 @@ export default function TournamentsTeam() {
         </svg>
       </div>
 
-      {/* <div>
-        <button onClick={handleCreateTeam}>
-          {t("tourteam.create_newteam")}
-        </button>
-      </div> */}
-
       {/* <TeamRegistrationPopup isEdit={true} /> */}
-      {showTeamRegistrationPopup && <TeamRegistrationPopup isEdit={false} />}
       {showTeamEditPopup && <TeamRegistrationPopup isEdit={true} />}
     </>
   );

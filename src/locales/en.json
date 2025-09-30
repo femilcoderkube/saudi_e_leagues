@@ -468,7 +468,9 @@
     "facebookId": "Facebook ID",
     "youtubeChannelId": "YouTube Channel ID",
     "discordId": "Discord ID",
-    "twitchId": "Twitch ID"
+    "twitchId": "Twitch ID",
+    "no_team_title": "Create Your Own Team",
+    "no_team_desc": "You are not part of any team yet. Start your journey by creating your own team!"
   },
   "tournament": {
     "schedule": "Schedule",

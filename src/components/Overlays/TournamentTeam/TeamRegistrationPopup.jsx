@@ -312,7 +312,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
               <h3 className="text-[#7B7ED0] mb-3">
                 {t("tourteam.social_media")} ({t("tourteam.optional")})
               </h3>
-              {["twitterId", "facebookId", "youtubeChannelId", "discordId", "twitchId"].map(
+              {["twitterId", "instagramId", "twitchId", "kickId", "discordId","facebookId","tiktokId"].map(
                 (platform) => (
                   <div key={platform} className="mb-3">
                     <Field

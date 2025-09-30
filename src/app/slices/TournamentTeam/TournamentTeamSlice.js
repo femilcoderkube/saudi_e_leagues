@@ -63,19 +63,18 @@ export const fetchTeamById = createAsyncThunk(
 
 export const getTeamData = createAsyncThunk(
     "tournamentTeam/getTeamData",
-    async ( userId , { rejectWithValue }) => {
+    async (userId, { rejectWithValue }) => {
         try {
-            const response = await axiosInstance.get(`/Team`, {
-                params: { userId },
-            });
-            
+            const response = await axiosInstance.get(`/Team`, { params: { userId } });
+
             console.log("RESPONSE", response);
             return response;
         } catch (error) {
             console.error("Error fetching team data:", error);
-            return rejectWithValue(
-                error.response?.data?.message || "Failed to fetch team data"
-            );
+            return rejectWithValue({
+                message: error.response?.data?.message || "Failed to fetch team data",
+                status: error.response?.status || 500,
+            });
         }
     }
 );
@@ -115,11 +114,11 @@ const TournamentTeamSlice = createSlice({
             })
             .addCase(getTeamData.fulfilled, (state, action) => {
                 state.loading = false;
-                
+
                 state.currentTeam = action.payload.data.data;
             })
             .addCase(getTeamData.rejected, (state, action) => {
-                state.loading = false;
+                state.loading = false;                
                 state.error = action.payload;
             });
     },
