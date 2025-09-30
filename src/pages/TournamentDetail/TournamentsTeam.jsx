@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { startTeamSocket } from "../../app/socket/socket.js";
 import { t } from "i18next";
 import GamingLoader from "../../components/Loader/loader.jsx";
+import InvitePlayerModel from "./InvitePlayerModel.jsx";
 export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
   const [openInviteModel, setOpenInviteModel] = useState(false);
@@ -832,7 +833,10 @@ export default function TournamentsTeam() {
                 Overwatch Roaster
               </h3>
               <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
-                <div className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer">
+                <div
+                  className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
+                  onClick={() => setOpenInviteModel(true)}
+                >
                   Invite Players{" "}
                   <span className="ml-2.5">
                     <svg
