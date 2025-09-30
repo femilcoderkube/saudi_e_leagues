@@ -303,8 +303,8 @@ export function getDigitList(num) {
     digits.length >= 8
       ? digits.slice(0, 8)
       : Array(8 - digits.length)
-        .fill(0)
-        .concat(digits);
+          .fill(0)
+          .concat(digits);
   return firstSix;
 }
 export const formatTime = (secs) => {
@@ -465,10 +465,10 @@ export const getPopupData = async () => {
     throw error;
   }
 };
-export const getTeamData = async (id, token) => {
+export const getTeamData = async (userId, token) => {
   try {
     const response = await axiosInstance.get(`/Team`, {
-      params: { id }, // becomes /Team?id=<id>
+      params: { userId }, // becomes /Team?userId=<userId>
       headers: {
         Authorization: `Bearer ${token}`,
       },

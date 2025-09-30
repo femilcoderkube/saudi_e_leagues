@@ -3,7 +3,11 @@ import { getTeamData } from "../../utils/constant.js";
 
 import { IMAGES } from "../../components/ui/images/images.js";
 import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
-import { setCurrentTeam, setTeamRegistrationPopup, setTeamEditPopup } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
+import {
+  setCurrentTeam,
+  setTeamRegistrationPopup,
+  setTeamEditPopup,
+} from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { t } from "i18next";
 import { getOwnTeam, startTeamSocket } from "../../app/socket/socket.js";
@@ -26,36 +30,49 @@ export default function TournamentsTeam() {
   const handleEditTeam = () => {
     // TODO: Fetch team data first
     // For now, set dummy data or fetch from API
-    dispatch(setCurrentTeam({
-      _id: "team123",
-      teamName: "Team Falcons",
-      teamShortName: "FLCN",
-      region: "Saudi Arabia",
-      maxParticipants: 5,
-      logoImage: "uploads/team-logo.png",
-      social: {
-        twitterId: "https://twitter.com/teamfalcons",
-        facebookId: "",
-        youtubeChannelId: "",
-        discordId: "",
-        twitchId: "",
-      }
-    }));
+    dispatch(
+      setCurrentTeam({
+        _id: "team123",
+        teamName: "Team Falcons",
+        teamShortName: "FLCN",
+        region: "Saudi Arabia",
+        maxParticipants: 5,
+        logoImage: "uploads/team-logo.png",
+        social: {
+          twitterId: "https://twitter.com/teamfalcons",
+          facebookId: "",
+          youtubeChannelId: "",
+          discordId: "",
+          twitchId: "",
+        },
+      })
+    );
     dispatch(setTeamEditPopup(true));
   };
 
   useEffect(() => {
     if (isSocketConnected) {
-      startTeamSocket({ isSocketConnected , userId: user?._id});
+      startTeamSocket({ isSocketConnected, userId: user?._id });
     }
   }, [isSocketConnected, user]);
+
+  useEffect(() => {
+    if (user?._id) {
+      getTeamData(user._id)
+        .then((data) => {
+          setTeamData(data);
+          console.log("Fetched team data:", data);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [user?._id]);
 
   // useEffect(() => {
   //   if (user?._id) {
   //     getOwnTeam(user?._id)
   //   }
   // }, [user]);
-
+  // const userData=teamData.data.members
   return (
     <>
       <div className="team-page-wp flex xl:items-start items-center md:gap-[3.813rem] gap-[2rem] flex-col xl:flex-row w-full">
@@ -70,7 +87,7 @@ export default function TournamentsTeam() {
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    style={{ width: "1.5rem",height: "1.5rem" }}
+                    style={{ width: "1.5rem", height: "1.5rem" }}
                   >
                     <path
                       d="M21.9547 2.04843C19.2557 -0.647951 16.6124 -0.717445 13.8438 2.04843L12.1604 3.73019C12.0213 3.86917 11.9657 4.09156 12.0213 4.28614C13.0787 7.96933 16.0281 10.9159 19.7148 11.9722C19.7705 11.9861 19.8261 12 19.8818 12C20.0348 12 20.1739 11.9444 20.2852 11.8332L21.9547 10.1515C23.332 8.78937 23.9998 7.46898 23.9998 6.13469C24.0137 4.7587 23.3459 3.42441 21.9547 2.04843Z"
@@ -83,7 +100,10 @@ export default function TournamentsTeam() {
                   </svg>
                 </button>
                 <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
-                  <span className="text-white text-lg font-medium" onClick={handleEditTeam}>
+                  <span
+                    className="text-white text-lg font-medium"
+                    onClick={handleEditTeam}
+                  >
                     Edit Team
                   </span>
                   <span className="text-white text-lg font-medium">
@@ -97,19 +117,22 @@ export default function TournamentsTeam() {
                 <div className="team-user-wp w-[27.5rem] h-[10.25rem] bg-[linear-gradient(180deg,rgba(94,95,184,0.2)_0%,rgba(34,35,86,0.2)_125%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[3rem] flex items-center gap-[1.125rem] p-[2.188rem]">
                   <img
                     className="rounded-full md:w-[5.688rem] md:h-[5.688rem] w-[3rem] h-[3rem] shrink-0"
-                    src={IMAGES.defaultImg}
+                    src={teamData?.data?.logoImage}
                     alt=""
                   />
                   <div className="sm:space-y-3 space-y-1 w-full">
                     <h3 className="md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
-                      Team Falcons
+                      {teamData?.data?.teamName}
                     </h3>
                     <span className="flex justify-between">
                       <h3 className="md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
-                        FLCN
+                        {teamData?.data?.teamShortName}
                       </h3>
                       <span className="self-end md:text-lg text-base font-semibold">
-                        04 Jan 2023
+                        {new Date(teamData?.data?.createdAt).toLocaleDateString(
+                          "en-GB",
+                          { day: "2-digit", month: "short", year: "numeric" }
+                        )}
                       </span>
                     </span>
                   </div>
@@ -122,7 +145,7 @@ export default function TournamentsTeam() {
                   </span>
                   <div className="flex items-center gap-3 mt-2.5">
                     <span className="font-semibold md:text-lg text-base">
-                      15
+                      {teamData?.data?.members?.length || 0}
                     </span>
                   </div>
                 </div>
@@ -133,7 +156,7 @@ export default function TournamentsTeam() {
                   <div className="flex items-center gap-3 mt-2.5">
                     <img className="" src={IMAGES.country_us} alt="" />
                     <span className="font-semibold md:text-lg text-base">
-                      Saudi Arabia
+                      {teamData?.data?.region}
                     </span>
                   </div>
                 </div>
@@ -785,60 +808,6 @@ export default function TournamentsTeam() {
         </div>
         <div className="flex gap-8 flex-wrap lg:justify-start justify-center items-end">
           <div className="flex flex-col max-w-max align-center justify-center">
-            <div className="w-[1.188rem] h-auto flex items-center justify-center mx-auto mb-1.5">
-              <img
-                src="/src/assets/images/roaster-king.png"
-                alt=""
-                className="w-full h-full"
-              />
-            </div>
-            <div className="flex-shrink-0 flex mx-auto relative z-20">
-              <img
-                className="w-18 h-18 rounded-full "
-                src={IMAGES.defaultImg}
-                alt=""
-              />{" "}
-            </div>
-            <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-1.563rem]">
-              <div className="game_card--roaster-wrap">
-                <div className="relative group flex flex-col items-center">
-                  <div className="flex justify-end w-full">
-                    <img className="w-[0.313rem] h-[1.188rem]" src="/src/assets/images/menu_roaster.svg" alt="" />
-                  </div>
-                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                    <span className="text-white text-sm font-medium">
-                      Make President of the Club
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Manager
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Coach
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from Overwatch Roster
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from the Team
-                    </span>
-                  </div>
-                </div>
-                <h6 className="text-center text-lg !font-bold mt-3">
-                  Prime User
-                </h6>
-                <p className="text-center mt-3 text-[#8492B4] text-base font-semibold">
-                  Game ID
-                </p>
-              </div>
-              <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
-                <p className="text-[#6368B5] text-base font-semibold">
-                  Manager
-                </p>
-                <img className="w-[1.063rem] h-[1.188rem]" src="/src/assets/images/roaster-arrow.svg" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col max-w-max align-center justify-center">
             <div className=" flex-shrink-0 flex mx-auto relative z-20">
               <img
                 className="w-18 h-18 rounded-full "
@@ -850,7 +819,11 @@ export default function TournamentsTeam() {
               <div className="game_card--roaster-wrap">
                 <div className="relative group flex flex-col items-center">
                   <div className="flex justify-end w-full">
-                    <img className="w-[0.313rem] h-[1.188rem]" src="/src/assets/images/menu_roaster.svg" alt="" />
+                    <img
+                      className="w-[0.313rem] h-[1.188rem]"
+                      src="/src/assets/images/menu_roaster.svg"
+                      alt=""
+                    />
                   </div>
                   <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
                     <span className="text-white text-sm font-medium">
@@ -881,195 +854,11 @@ export default function TournamentsTeam() {
                 <p className="text-[#6368B5] text-base font-semibold">
                   Manager
                 </p>
-                <img className="w-[1.063rem] h-[1.188rem]" src="/src/assets/images/roaster-arrow.svg" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col max-w-max align-center justify-center">
-            <div className=" flex-shrink-0 flex mx-auto relative z-20">
-              <img
-                className="w-18 h-18 rounded-full "
-                src={IMAGES.defaultImg}
-                alt=""
-              />{" "}
-            </div>
-            <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
-              <div className="game_card--roaster-wrap">
-                <div className="relative group flex flex-col items-center">
-                  <div className="flex justify-end w-full">
-                    <img className="w-[0.313rem] h-[1.188rem]" src="/src/assets/images/menu_roaster.svg" alt="" />
-                  </div>
-                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                    <span className="text-white text-sm font-medium">
-                      Make President of the Club
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Manager
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Coach
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from Overwatch Roster
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from the Team
-                    </span>
-                  </div>
-                </div>
-                <h6 className="text-center text-lg !font-bold mt-3">
-                  Prime User
-                </h6>
-                <p className="text-center mt-3 text-[#8492B4] text-base font-semibold">
-                  Game ID
-                </p>
-              </div>
-              <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
-                <p className="text-[#6368B5] text-base font-semibold">
-                  Manager
-                </p>
-                <img className="w-[1.063rem] h-[1.188rem]" src="/src/assets/images/roaster-arrow.svg" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col max-w-max align-center justify-center">
-            <div className=" flex-shrink-0 flex mx-auto relative z-20">
-              <img
-                className="w-18 h-18 rounded-full "
-                src={IMAGES.defaultImg}
-                alt=""
-              />{" "}
-            </div>
-            <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
-              <div className="game_card--roaster-wrap">
-                <div className="relative group flex flex-col items-center">
-                  <div className="flex justify-end w-full">
-                    <img className="w-[0.313rem] h-[1.188rem]" src="/src/assets/images/menu_roaster.svg" alt="" />
-                  </div>
-                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                    <span className="text-white text-sm font-medium">
-                      Make President of the Club
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Manager
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Coach
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from Overwatch Roster
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from the Team
-                    </span>
-                  </div>
-                </div>
-                <h6 className="text-center text-lg !font-bold mt-3">
-                  Prime User
-                </h6>
-                <p className="text-center mt-3 text-[#8492B4] text-base font-semibold">
-                  Game ID
-                </p>
-              </div>
-              <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
-                <p className="text-[#6368B5] text-base font-semibold">
-                  Manager
-                </p>
-                <img className="w-[1.063rem] h-[1.188rem]" src="/src/assets/images/roaster-arrow.svg" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col max-w-max align-center justify-center">
-            <div className=" flex-shrink-0 flex mx-auto relative z-20">
-              <img
-                className="w-18 h-18 rounded-full "
-                src={IMAGES.defaultImg}
-                alt=""
-              />{" "}
-            </div>
-            <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
-              <div className="game_card--roaster-wrap">
-                <div className="relative group flex flex-col items-center">
-                  <div className="flex justify-end w-full">
-                    <img className="w-[0.313rem] h-[1.188rem]" src="/src/assets/images/menu_roaster.svg" alt="" />
-                  </div>
-                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                    <span className="text-white text-sm font-medium">
-                      Make President of the Club
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Manager
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Coach
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from Overwatch Roster
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from the Team
-                    </span>
-                  </div>
-                </div>
-                <h6 className="text-center text-lg !font-bold mt-3">
-                  Prime User
-                </h6>
-                <p className="text-center mt-3 text-[#8492B4] text-base font-semibold">
-                  Game ID
-                </p>
-              </div>
-              <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
-                <p className="text-[#6368B5] text-base font-semibold">
-                  Manager
-                </p>
-                <img className="w-[1.063rem] h-[1.188rem]" src="/src/assets/images/roaster-arrow.svg" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col max-w-max align-center justify-center">
-            <div className=" flex-shrink-0 flex mx-auto relative z-20">
-              <img
-                className="w-18 h-18 rounded-full "
-                src={IMAGES.defaultImg}
-                alt=""
-              />{" "}
-            </div>
-            <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
-              <div className="game_card--roaster-wrap">
-                <div className="relative group flex flex-col items-center">
-                  <div className="flex justify-end w-full">
-                    <img className="w-[0.313rem] h-[1.188rem]" src="/src/assets/images/menu_roaster.svg" alt="" />
-                  </div>
-                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                    <span className="text-white text-sm font-medium">
-                      Make President of the Club
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Manager
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Assign Overwatch Roster Coach
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from Overwatch Roster
-                    </span>
-                    <span className="text-white text-sm font-medium">
-                      Remove Player from the Team
-                    </span>
-                  </div>
-                </div>
-                <h6 className="text-center text-lg !font-bold mt-3">
-                  Prime User
-                </h6>
-                <p className="text-center mt-3 text-[#8492B4] text-base font-semibold">
-                  Game ID
-                </p>
-              </div>
-              <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
-                <p className="text-[#6368B5] text-base font-semibold">
-                  Manager
-                </p>
-                <img className="w-[1.063rem] h-[1.188rem]" src="/src/assets/images/roaster-arrow.svg" alt="" />
+                <img
+                  className="w-[1.063rem] h-[1.188rem]"
+                  src="/src/assets/images/roaster-arrow.svg"
+                  alt=""
+                />
               </div>
             </div>
           </div>
