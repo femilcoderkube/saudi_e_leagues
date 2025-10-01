@@ -819,7 +819,7 @@ html[dir="rtl"] .schdule-accordion-card.active-accordation .schdule-icon {
   clip-path: url(#customClipPath);
 }
 
-.about-accordation .battle-shape{
+.about-accordation .battle-shape {
   opacity: 1;
   clip-path: unset;
 }
@@ -911,7 +911,7 @@ html[dir="ltr"] .mob-match-gp div p:first-child {
   padding-right: 0.5rem;
 }
 
-html[dir="ltr"] .about-accordation .mob-match-gp div p:first-child{
+html[dir="ltr"] .about-accordation .mob-match-gp div p:first-child {
   border: 0;
   padding-right: 0;
 }
@@ -990,7 +990,6 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 
 /* team page view start */
 .team_content-left {
-  /* clip-path: url('#bgblur_0_7021_461_clip_path'); */
   background: url(../images/team_bg.svg);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -1029,6 +1028,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
 .team-mange {
   background: url(../images/team-center-shape.svg);
   background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .team-win {
@@ -1067,6 +1067,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   clip-path: unset;
   background: url(/src/assets/images/team-curve-shape.png);
   background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 
@@ -1132,7 +1133,7 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   flex: 0 0 19rem;
 }
 
-html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
+html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link {
   background-image: url(/src/assets/images/rtl-team_game_card.png);
 }
 
@@ -1141,7 +1142,7 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
 }
 
 .team_content-right .card-duty-wp .tournament-schedule-card-wrapper {
-  height: 9.52rem;
+  height: 9.6rem;
 }
 
 .team_content-right .card-duty-wp .tournament-schedule-card-header-time h2 {
@@ -1161,6 +1162,7 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
 .team_content-right .htp_right-con .swiper {
   min-height: 13rem;
 }
+
 /* Start 29-09-2025 */
 .game_card--roaster-main {
   background-image: url(/src/assets/images/card_roaster.svg);
@@ -1211,7 +1213,7 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
   .team_content-right .game_card--wrapv2 .game_card_wrap--link {
     max-width: 18rem;
     flex: 0 0 18rem;
-}
+  }
 }
 
 @media (max-width: 991px) {
@@ -1493,6 +1495,73 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
   .mob-common-btn {
     transform: translate(0, calc(-50% + 3px));
   }
+
+  .team-user-wp {
+    width: 100%;
+    height: 8.25rem;
+    padding: 1.5rem;
+  }
+
+  .team_content-left {
+    width: calc(100% - 5rem);
+    height: 26.4rem;
+    margin: 0 auto;
+  }
+
+  .team_content-left .polygon_border::before {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .team-content-left-wp::after {
+    left: 44.8%;
+    width: 20%;
+  }
+
+  .team-content-left-wp::before {
+    left: 2.55rem;
+    height: 5.25rem;
+  }
+
+  .team-mange-wp {
+    margin-top: 1.25rem;
+  }
+
+  .team-social {
+    padding: 1.25rem 1rem 0 1rem;
+  }
+
+  .team-social a {
+    padding: 0;
+  }
+
+  .team-social a svg {
+    width: 1.2rem !important;
+    height: 1.2rem !important;
+  }
+
+  .team-board {
+    margin-inline: 1rem;
+    max-width: 90%;
+    margin-top: 1.25rem;
+    padding: 1.2rem;
+  }
+
+  .team-content-left-wp-last::after {
+    right: 2.55rem;
+  }
+
+  .team-mange {
+    padding-block: 0.5rem;
+  }
+
+  .team-mange div {
+    margin-top: 0.3rem;
+  }
+
+  .team-mange span {
+    font-size: 0.875rem;
+  }
 }
 
 @media (max-width: 425px) {
@@ -1609,6 +1678,45 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
   .party-card-wp .username {
     font-size: 14px;
   }
+
+}
+
+@media (max-width: 370px) {
+  .team_content-left {
+    width: calc(100% - 8rem);
+    height: 22.4rem;
+  }
+
+  .team-user-wp {
+    height: 7.25rem;
+  }
+
+  .team-content-left-wp::after {
+    left: 45.5%;
+    width: 17%;
+  }
+
+  .team_content-left .polygon_border::before {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .team-mange {
+    padding-block: 0.5rem;
+    height: 4.3rem;
+  }
+  .team-content-left-wp-last::after {  
+    right: 4rem;   
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.team-content-left-wp::before {
+  left: 4rem;
+  height: 4.25rem;
+}
+.team-board{
+  padding: 1rem;
+}
 }
 
 .react-pdf__Page {
@@ -1989,13 +2097,6 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* .fullscreen-close-btn button:hover {
-  background: rgba(0, 0, 0, 0.9) !important;
-  border-color: rgba(255, 255, 255, 0.6) !important;
-  transform: scale(1.1) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
-} */
-
 .fullscreen-close-btn img {
   width: 24px !important;
   height: 24px !important;
@@ -2046,20 +2147,6 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
   box-shadow: 0px -2px 12px 0px rgba(255, 0, 4, 0.24) inset;
 }
 
-.card-duty-wp .tournament-schedule-card-wrapper {
-  clip-path: url(#duty_main2);
-  height: 8.26rem;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
-
-.card-duty-wp .tournament-schedule-card-footer {
-  clip-path: url(#duty_top1);
-  background: radial-gradient(100% 100% at 50% 0%, #2d2e6d 0%, #222356 100%);
-  box-shadow: 0px 2px 4px 0px rgba(87, 89, 195, 0.24) inset;
-}
-
 .card-duty-wp.main-tournament-schedule-card-wrapper {
   margin: 0 1.75rem;
 }
@@ -2076,6 +2163,25 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
   transform: scale(1);
 }
 
+.card-duty-wp.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-footer {
+  display: flex;
+}
+
+.card-duty-wp .tournament-schedule-card-wrapper {
+  clip-path: url(#duty_main2);
+  height: 8.26rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  backdrop-filter: unset;
+}
+
+.card-duty-wp .tournament-schedule-card-footer {
+  clip-path: url(#duty_top1);
+  background: radial-gradient(100% 100% at 50% 0%, #2d2e6d 0%, #222356 100%);
+  box-shadow: 0px 2px 4px 0px rgba(87, 89, 195, 0.24) inset;
+}
+
 .card-duty-wp .tournament-schedule-card-header-time h2 {
   clip-path: url(#duty_bottom1);
   background: linear-gradient(180deg,
@@ -2085,10 +2191,6 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link{
   backdrop-filter: blur(12px);
   height: 1.34rem;
   width: 52%;
-}
-
-.card-duty-wp.main-tournament-schedule-card-wrapper:hover .tournament-schedule-card-footer {
-  display: flex;
 }
 
 @media (max-width: 767px) {
