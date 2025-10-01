@@ -357,7 +357,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
       <div className="fixed inset-0 flex justify-center items-center z-50">
         <motion.div
-          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative p-6 overflow-y-auto max-h-[90vh]"
+          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative p-6 overflow-y-auto max-h-[80vh]"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           initial={{ scale: 0.5, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -391,7 +391,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
                 {renderStepContent(values, setFieldValue)}
 
                 {/* Navigation Buttons */}
-                <div className="wizard_step--btn gap-5 flex justify-end sm:mt-14 mt-8 mb-8 mr-5">
+                <div className="wizard_step--btn sm:gap-5 gap-3 flex justify-end sm:mt-14 mt-8 mb-8 mr-5 flex-wrap">
                   {step > 1 && (
                     <div className="game_status--tab wizard_btn back_btn">
                       <button
@@ -450,6 +450,22 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
             )}
           </Formik>
         </motion.div>
+        <svg
+              width="0"
+              height="0"
+              viewBox="0 0 480 416"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ position: "absolute" }}
+            >
+              <defs>
+                <clipPath id="myClipPath" clipPathUnits="objectBoundingBox">
+                  <path
+                    transform="scale(0.00208333, 0.00240385)"
+                    d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L24 0H480V100Z"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
       </div>
     </>
   );
