@@ -15,6 +15,8 @@ import { startTeamSocket } from "../../app/socket/socket.js";
 import { t } from "i18next";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import InvitePlayerModel from "./InvitePlayerModel.jsx";
+import ConfirmationPopUp from "../../components/Overlays/ConfirmationPopUp.jsx";
+import { setConfirmationPopUp, setPopupData } from "../../app/slices/constState/constStateSlice.js";
 
 export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -37,7 +39,7 @@ export default function TournamentsTeam() {
     return memberUserId === user?._id && role == "President";
   });
 
-  const handleCreateTeam = (e) => {
+  const handleCreateTeam = () => {
     dispatch(setCurrentTeam(null));
     dispatch(setTeamRegistrationPopup(true));
   };
@@ -53,17 +55,24 @@ export default function TournamentsTeam() {
     dispatch(setTeamEditPopup(true));
   };
 
+  // Confirm callback after popup for making president
+  const handleMakePresident = (data) => {
+    // TODO: integrate API to transfer president role
+    // data contains: { userId, teamId }
+    console.log("Make President confirmed:", data);
+  };
+
   useEffect(() => {
     if (isSocketConnected) {
       startTeamSocket({ isSocketConnected, userId: user?._id });
     }
-  }, [isSocketConnected, user]);
+  }, [dispatch, isSocketConnected, user]);
 
   useEffect(() => {
     if (user?._id) {
       dispatch(getTeamData(user._id));
     }
-  }, [user?._id]);
+  }, [dispatch, user?._id]);
 
   return (
     <>
@@ -734,7 +743,7 @@ export default function TournamentsTeam() {
                 </div>
               </div>
             </div>
-            <div className="flex gap-8 flex-wrap lg:justify-start justify-center items-end">
+            <div className="flex gap-8 flex-wrap lg:justify-start justify-center items-end mb-5">
               {currentTeam?.members?.length
                 ? currentTeam?.members?.map((member) => {
                     const displayName =
@@ -824,7 +833,17 @@ export default function TournamentsTeam() {
                                     />
                                   </div>
                                   <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                                    <span className="text-white text-sm font-medium border-b border-[#5362A9] pb-2">
+                                    <span
+                                      className="text-white text-sm font-medium border-b border-[#5362A9] pb-2"
+                                      onClick={() => {
+                                        const targetUserId = member?.user?._id || member?.userId;
+                                        const teamId = currentTeam?._id;
+                                        if (targetUserId && teamId) {
+                                          dispatch(setPopupData({ userId: targetUserId, teamId }));
+                                          dispatch(setConfirmationPopUp(7));
+                                        }
+                                      }}
+                                    >
                                       Make President of the Club
                                     </span>
                                     <span className="text-white text-sm font-medium">
@@ -939,6 +958,8 @@ export default function TournamentsTeam() {
       {openInviteModel && (
         <InvitePlayerModel close={() => setOpenInviteModel(false)} />
       )}
+      <ConfirmationPopUp onMakePresident={handleMakePresident} />
+
     </>
   );
 }

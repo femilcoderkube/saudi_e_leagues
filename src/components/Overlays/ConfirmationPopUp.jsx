@@ -17,6 +17,7 @@ function ConfirmationPopUp({
   isSocketConnected,
   onDeleteAccount,
   onLogout,
+  onMakePresident,
 }) {
   const { confirmationPopUp, selectedPlayerData } = useSelector(
     (state) => state.constState
@@ -98,6 +99,13 @@ function ConfirmationPopUp({
         dispatch(setConfirmationPopUp(0));
       }
     }
+    if (confirmationPopUp === 7) {
+      // Make President of the Club confirmation
+      dispatch(setConfirmationPopUp(0));
+      if (onMakePresident) {
+        onMakePresident(popupData);
+      }
+    }
   };
 
   const getConfirmationTitle = () => {
@@ -107,6 +115,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 4) return t("confirmation.deleteAccountTitle");
     if (confirmationPopUp == 5) return t("confirmation.leavePartyTitle");
     if (confirmationPopUp == 6) return t("confirmation.removePlayerMessage");
+    if (confirmationPopUp == 7) return t("confirmation.makepresidentmessage");
 
     return "";
   };
@@ -126,6 +135,9 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 6) {
       return t("confirmation.removePlayerTitle");
     }
+    if (confirmationPopUp == 7) {
+      return "Are you sure you want to make this member the Club President?";
+    }
     return "";
   };
 
@@ -135,7 +147,8 @@ function ConfirmationPopUp({
       confirmationPopUp == 3 ||
       confirmationPopUp == 4 ||
       confirmationPopUp == 5 ||
-      confirmationPopUp == 6
+      confirmationPopUp == 6 ||
+      confirmationPopUp == 7
     )
       return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
@@ -149,6 +162,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 4) return t("confirmation.deleteAccount");
     if (confirmationPopUp == 5) return t("confirmation.leavePartyConfirm");
     if (confirmationPopUp == 6) return t("confirmation.removePlayerConfirm");
+    if (confirmationPopUp == 7) return "Confirm";
 
     return "";
   };

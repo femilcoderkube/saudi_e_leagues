@@ -428,6 +428,7 @@
     "inqueue": "You’re already queued in another game, cancel it and let’s find you a new match!",
     "removePlayerTitle": "Remove Player",
     "removePlayerMessage": "Are you sure you want to remove this player from the party?",
+    "makepresidentmessage":"Are you Sure you want to Transfer presidency",
     "removePlayerConfirm": "Remove",
     "leavePartyConfirm": "Leave",
     "leavePartyTitle": "Are you sure you want to leave party?"
