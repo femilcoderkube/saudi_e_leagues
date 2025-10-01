@@ -429,6 +429,10 @@
     "removePlayerMessage": "Are you sure you want to remove this player from the party?",
     "makepresidentmessage": "Are you Sure you want to Transfer presidency",
     "removePlayerConfirm": "Remove",
+    "assignManagerConfirm": "Are you want to sure make manager",
+    "assignCoachConfirm": "Are you want to sure make Coach",
+    "removeManagerConfirm": "Are you want to sure remove manager",
+    "removeCoachConfirm": "Are you want to sure remove Player",
     "leavePartyConfirm": "Leave",
     "leavePartyTitle": "Are you sure you want to leave party?"
   },

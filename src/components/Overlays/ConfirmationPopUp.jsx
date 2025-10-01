@@ -28,8 +28,9 @@ function ConfirmationPopUp({
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { partyQueueTeam, popupData } = useSelector((state) => state.constState);
-
+  const { partyQueueTeam, popupData } = useSelector(
+    (state) => state.constState
+  );
 
   const handleOnClick = () => {
     if (confirmationPopUp == 1) {
@@ -90,10 +91,11 @@ function ConfirmationPopUp({
     //     : confirmationPopUp === 6 ? removePlayerPayload
     //       : null;
     if (confirmationPopUp === 5 || confirmationPopUp === 6) {
-      const actionPayload = confirmationPopUp === 5
-        ? { userId: user?._id, teamId: partyQueueTeam?.data?._id }
-        : { userId: popupData?.userId, teamId: popupData?.teamId };
-    
+      const actionPayload =
+        confirmationPopUp === 5
+          ? { userId: user?._id, teamId: partyQueueTeam?.data?._id }
+          : { userId: popupData?.userId, teamId: popupData?.teamId };
+
       if (actionPayload) {
         dispatch(leavePartySocket(actionPayload));
         dispatch(setConfirmationPopUp(0));
@@ -116,6 +118,10 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 5) return t("confirmation.leavePartyTitle");
     if (confirmationPopUp == 6) return t("confirmation.removePlayerMessage");
     if (confirmationPopUp == 7) return t("confirmation.makepresidentmessage");
+    if (confirmationPopUp == 8) return t("confirmation.assignManagerConfirm");
+    if (confirmationPopUp == 9) return t("confirmation.assignCoachConfirm");
+    if (confirmationPopUp == 10) return t("confirmation.removeManagerConfirm");
+    if (confirmationPopUp == 11) return t("confirmation.removeCoachConfirm");
 
     return "";
   };
@@ -138,6 +144,18 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 7) {
       return "Are you sure you want to make this member the Club President?";
     }
+    if (confirmationPopUp == 8) {
+      return "Are you sure you want to assign this member as the Overwatch Roster Manager?";
+    }
+    if (confirmationPopUp == 9) {
+      return "Are you sure you want to assign this member as the Overwatch Roster Coach?";
+    }
+    if (confirmationPopUp == 10) {
+      return "Are you sure you want to remove this member as the Overwatch Roster Manager?";
+    }
+    if (confirmationPopUp == 11) {
+      return "Are you sure you want to remove this member as the Overwatch Roster Coach?";
+    }
     return "";
   };
 
@@ -148,7 +166,11 @@ function ConfirmationPopUp({
       confirmationPopUp == 4 ||
       confirmationPopUp == 5 ||
       confirmationPopUp == 6 ||
-      confirmationPopUp == 7
+      confirmationPopUp == 7 ||
+      confirmationPopUp == 8 ||
+      confirmationPopUp == 9 ||
+      confirmationPopUp == 10 ||
+      confirmationPopUp == 11
     )
       return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
@@ -162,7 +184,11 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 4) return t("confirmation.deleteAccount");
     if (confirmationPopUp == 5) return t("confirmation.leavePartyConfirm");
     if (confirmationPopUp == 6) return t("confirmation.removePlayerConfirm");
-    if (confirmationPopUp == 7) return "Confirm";
+    if (confirmationPopUp == 7) return t("confirmation.removePlayerConfirm");
+    if (confirmationPopUp == 8) return t("confirmation.yes");
+    if (confirmationPopUp == 9) return t("confirmation.yes");
+    if (confirmationPopUp == 10) return t("confirmation.yes");
+    if (confirmationPopUp == 11) return t("confirmation.yes");
 
     return "";
   };

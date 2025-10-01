@@ -67,15 +67,23 @@ export default function TournamentsTeam() {
 
   // Confirm callback after popup for making president
   const handleMakePresident = async (data) => {
-    // TODO: integrate API to transfer president role
     // data contains: { userId, teamId }
-    await dispatch(
-      transferTeamPresidency({
-        teamId: data?.teamId,
-        newPresidentUserId: data?.userId,
-        userId: user?._id,
-      })
-    ).unwrap();
+    try {
+      await dispatch(
+        transferTeamPresidency({
+          teamId: data?.teamId,
+          newPresidentUserId: data?.userId,
+          userId: user?._id,
+        })
+      ).unwrap();
+
+      // Refresh current team data to reflect new president without manual reload
+      if (user?._id) {
+        await dispatch(getTeamData(user._id));
+      }
+    } catch (err) {
+      console.error("Failed to transfer team presidency:", err);
+    }
   };
 
   useEffect(() => {
@@ -898,17 +906,84 @@ export default function TournamentsTeam() {
                                         dispatch(setConfirmationPopUp(7));
                                       }
                                     }}
-                                  > Make President of the Club</span>
-                                  <span className="text-white text-sm font-medium">
+                                  >
+                                    {" "}
+                                    Make President of the Club
+                                  </span>
+                                  <span
+                                    className="text-white text-sm font-medium"
+                                    onClick={() => {
+                                      // const targetUserId =
+                                      //   member?.user?._id || member?.userId;
+                                      // const teamId = currentTeam?._id;
+                                      // if (targetUserId && teamId) {
+                                      //   dispatch(
+                                      //     setPopupData({
+                                      //       userId: targetUserId,
+                                      //       teamId,
+                                      //     })
+                                      //   );
+                                      dispatch(setConfirmationPopUp(8));
+                                      // }
+                                    }}
+                                  >
                                     Assign Overwatch Roster Manager
                                   </span>
-                                  <span className="text-white text-sm font-medium">
+                                  <span
+                                    className="text-white text-sm font-medium"
+                                    onClick={() => {
+                                      // const targetUserId =
+                                      //   member?.user?._id || member?.userId;
+                                      // const teamId = currentTeam?._id;
+                                      // if (targetUserId && teamId) {
+                                      //   dispatch(
+                                      //     setPopupData({
+                                      //       userId: targetUserId,
+                                      //       teamId,
+                                      //     })
+                                      //   );
+                                      dispatch(setConfirmationPopUp(9));
+                                      // }
+                                    }}
+                                  >
                                     Assign Overwatch Roster Coach
                                   </span>
-                                  <span className="text-white text-sm font-medium border-b border-[#5362A9] pb-2">
+                                  <span
+                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2"
+                                    onClick={() => {
+                                      // const targetUserId =
+                                      //   member?.user?._id || member?.userId;
+                                      // const teamId = currentTeam?._id;
+                                      // if (targetUserId && teamId) {
+                                      //   dispatch(
+                                      //     setPopupData({
+                                      //       userId: targetUserId,
+                                      //       teamId,
+                                      //     })
+                                      //   );
+                                      dispatch(setConfirmationPopUp(10));
+                                      // }
+                                    }}
+                                  >
                                     Remove Player from Overwatch Roster
                                   </span>
-                                  <span className="text-white text-sm font-medium">
+                                  <span
+                                    className="text-white text-sm font-medium"
+                                    onClick={() => {
+                                      // const targetUserId =
+                                      //   member?.user?._id || member?.userId;
+                                      // const teamId = currentTeam?._id;
+                                      // if (targetUserId && teamId) {
+                                      //   dispatch(
+                                      //     setPopupData({
+                                      //       userId: targetUserId,
+                                      //       teamId,
+                                      //     })
+                                      //   );
+                                      dispatch(setConfirmationPopUp(11));
+                                      // }
+                                    }}
+                                  >
                                     Remove Player from the Team
                                   </span>
                                 </div>
