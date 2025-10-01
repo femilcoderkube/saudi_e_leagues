@@ -93,8 +93,6 @@ const TournamentDetail = () => {
     }
   }, [tournamentData?.stages, activeStage, isSocketConnected]);
 
-  console.log("currentTeam", currentTeam);
-
   // Empty dependency array means this runs once after mount
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
@@ -159,66 +157,66 @@ const TournamentDetail = () => {
             </motion.div>
           </div>
           <div className="about-tornament flex xl:items-start items-center xl:flex-nowrap flex-wrap md:flex-row flex-col md:gap-[3rem] gap-5">
-          <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-center ">
-            <div className="sd_content-top order-2 flex-col xl:flex-row md:order-1 flex gap-5 justify-between w-full">
-              <motion.div
-                className="sd_game_info--wrap md:flex-row lg:flex-nowrap flex-wrap flex-1 inline-flex gap-[2.063rem] w-full justify-center xl:justify-start"
-                initial="hidden"
-                whileInView="visible"
-                variants={cardVariantsAni}
-                viewport={{ once: true, amount: 0.3 }}
-              >
-                <DetailItem
-                  title={t("league.game")}
-                  logo={tournamentData?.game?.logo}
-                  name={tournamentData?.game?.shortName}
-                />
-                <DetailItem
-                  title={t("league.platform")}
-                  logo={tournamentData?.platform?.logo}
-                  name={tournamentData?.platform?.name?.toUpperCase()}
-                />
-                <DetailItem
-                  title={t("league.team_size")}
-                  logo={IMAGES.teamSizeImage}
-                  name={tournamentData.maxPlayersPerTeam}
-                  type={1}
-                />
-                <DetailItem
-                  title={t("league.participants")}
-                  logo={IMAGES.teamSizeImage}
-                  name={`${tournamentData?.totalRegistrations}/
+            <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-center ">
+              <div className="sd_content-top order-2 flex-col xl:flex-row md:order-1 flex gap-5 justify-between w-full">
+                <motion.div
+                  className="sd_game_info--wrap md:flex-row lg:flex-nowrap flex-wrap flex-1 inline-flex gap-[2.063rem] w-full justify-center xl:justify-start"
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={cardVariantsAni}
+                  viewport={{ once: true, amount: 0.3 }}
+                >
+                  <DetailItem
+                    title={t("league.game")}
+                    logo={tournamentData?.game?.logo}
+                    name={tournamentData?.game?.shortName}
+                  />
+                  <DetailItem
+                    title={t("league.platform")}
+                    logo={tournamentData?.platform?.logo}
+                    name={tournamentData?.platform?.name?.toUpperCase()}
+                  />
+                  <DetailItem
+                    title={t("league.team_size")}
+                    logo={IMAGES.teamSizeImage}
+                    name={tournamentData.maxPlayersPerTeam}
+                    type={1}
+                  />
+                  <DetailItem
+                    title={t("league.participants")}
+                    logo={IMAGES.teamSizeImage}
+                    name={`${tournamentData?.totalRegistrations}/
                   ${tournamentData?.maxParticipants}`}
-                  type={2}
-                />
-              </motion.div>
+                    type={2}
+                  />
+                </motion.div>
+              </div>
             </div>
-            
+            <div
+              onClick={() => dispatch(setRegistrationModal(true))}
+              className="common-width join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
+            >
+              <span
+                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
+                style={{
+                  fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
+                  fontWeight: "bold",
+                  textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                {t("images.Registerog")}
+              </span>
+
+              <img
+                className="mx-auto"
+                src={
+                  condition === "og" ? IMAGES.ragister_og : IMAGES.ragister_gn
+                }
+                alt=""
+                style={{ width: "100%" }}
+              />
+            </div>
           </div>
-          <div
-      onClick={() => dispatch(setRegistrationModal(true))}
-      className="common-width join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
-    >
-      <span
-        className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
-        style={{
-          fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
-          fontWeight: "bold",
-          textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
-        }}
-      >
-        {t("images.Registerog")}
-      </span>
-
-      <img
-        className="mx-auto"
-        src={condition === "og" ? IMAGES.ragister_og : IMAGES.ragister_gn}
-        alt=""
-        style={{ width: "100%" }}
-      />
-    </div>
-
-        </div>
           <div className="sd_tournament-wrapper">
             <div className="sd_tournament-content">
               <div className="mx-auto mt-4">
@@ -444,12 +442,12 @@ const TournamentDetail = () => {
                                   />
                                 </clipPath>
                               </defs>
-                            </svg>                            
+                            </svg>
 
                             <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
-                              <div className="battle-shape-text flex md:gap-6 gap-3 w-[21rem]">                               
+                              <div className="battle-shape-text flex md:gap-6 gap-3 w-[21rem]">
                                 <span className="inline-block md:text-2xl sm:text-lg text-base font-bold">
-                                List of Participants
+                                  List of Participants
                                 </span>
                               </div>
                               <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
@@ -476,7 +474,7 @@ const TournamentDetail = () => {
                                   />
                                 </div>
                                 <div className="round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center">
-                                <img
+                                  <img
                                     src={IMAGES.team_falcons}
                                     alt="Team 3"
                                     className="md:w-6 md:h-6 rounded-full"
@@ -492,12 +490,10 @@ const TournamentDetail = () => {
                             <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
                               <div className="flex gap-2 items-center">
                                 <p className="md:text-2xl sm:text-lg text-base font-bold text-[#6D70BC]">
-                                +10
-                                </p>                               
-                              </div>                           
-                              <div
-                                className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer"
-                              >
+                                  +10
+                                </p>
+                              </div>
+                              <div className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer">
                                 <img
                                   className="sm:w-5 sm:h-3 w-4 h-2"
                                   src={IMAGES.about_down}

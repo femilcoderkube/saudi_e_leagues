@@ -1,269 +1,133 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../components/ui/images/images";
-
-// Custom checkbox component
-const CustomCheckbox = ({ checked, onChange, ariaLabel }) => {
-  return (
-    <label
-      aria-label={ariaLabel}
-      className="relative inline-flex items-center justify-center cursor-pointer select-none"
-      style={{ minWidth: 28, minHeight: 28 }}
-    >
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-        className="absolute opacity-0 cursor-pointer"
-        aria-hidden="true"
-      />
-      <span
-        className={`w-[30px] h-[30px] shrink-0 rounded-[10px] transition-all duration-200 border border-[#51549B] flex items-center justify-center ${
-          checked
-            ? "bg-[linear-gradient(55.02deg,#434BE9_-10.01%,#46B5F9_107.56%)]"
-            : "bg-[#D9D9D91A]"
-        }`}
-      >
-        {checked && (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="15"
-            viewBox="0 0 18 15"
-            fill="none"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M17.4233 0.747316C18.2257 1.70335 18.1859 3.20873 17.3344 4.10966L7.65385 14.3525C6.81218 15.2431 5.4898 15.2111 4.68311 14.2805L0.600388 9.57093C-0.215649 8.6296 -0.197561 7.12371 0.640794 6.20741C1.47914 5.29119 2.82029 5.31146 3.63633 6.25279L6.26525 9.28535L14.4288 0.64749C15.2803 -0.25341 16.621 -0.208714 17.4233 0.747316Z"
-              fill="white"
-            />
-          </svg>
-        )}
-      </span>
-    </label>
-  );
-};
+import { baseURL } from "../../utils/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { resetInviteLink } from "../../app/slices/teamInvitationSlice/teamInvitationSlice";
+import { toast } from "react-toastify";
+import TeamSection from "./TeamSection";
+import {
+  fetchTeamUserFormat,
+  resetTeamUserFormat,
+  updateTeamRoster,
+} from "../../app/slices/TournamentTeam/TournamentTeamSlice";
 
 const ManageTeamModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const {
+    link: inviteLink,
+    loading,
+    error,
+  } = useSelector((state) => state.teamInvitation);
+  const { currentTeam, teamUserFormat } = useSelector(
+    (state) => state.tournamentTeam
+  );
+  const { tournamentData } = useSelector((state) => state.tournament);
 
-  // State for dropdown visibility and selected items for each section
-  const [dropdownOpen, setDropdownOpen] = useState({
-    captain: false,
-    players: false,
-    substitutes: false,
-    coach: false,
-  });
-
+  // State to track selected items for each section
   const [selectedItems, setSelectedItems] = useState({
-    captain: [],
-    players: [],
-    substitutes: [],
+    manager: [],
     coach: [],
+    players: [],
+    // substitutes: [],
   });
 
-  // Sample options for each section (can be fetched dynamically)
-  const options = {
-    captain: [
-      { img: IMAGES.defaultImg, label: "SaulVIVTv" },
-      { img: IMAGES.defaultImg, label: "John Doe" },
-      { img: IMAGES.defaultImg, label: "Jane Smith" },
-    ],
-    players: [
-      { img: IMAGES.defaultImg, label: "SaulVIVTv" },
-      { img: IMAGES.defaultImg, label: "John Doe" },
-      { img: IMAGES.defaultImg, label: "Jane Smith" },
-    ],
-    substitutes: [
-      { img: IMAGES.defaultImg, label: "Substitute 1" },
-      { img: IMAGES.defaultImg, label: "Substitute 2" },
-    ],
-    coach: [
-      { img: IMAGES.defaultImg, label: "Coach 1" },
-      { img: IMAGES.defaultImg, label: "Coach 2" },
-    ],
-  };
-
-  // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClick = (e) => {
-      if (!e.target.closest(".dropdown")) {
-        setDropdownOpen({
-          captain: false,
-          players: false,
-          substitutes: false,
-          coach: false,
-        });
-      }
+    if (currentTeam?._id) {
+      dispatch(fetchTeamUserFormat(currentTeam._id));
+    }
+    return () => {
+      dispatch(resetTeamUserFormat());
     };
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
+  }, [currentTeam?._id, dispatch]);
 
-  // Local selection state for coach example checkbox
-  const [isCoachSelected, setIsCoachSelected] = useState(false);
-
-  // Toggle dropdown for a specific section
-  const toggleDropdown = (section) => {
-    setDropdownOpen((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
-  };
-
-  // Handle selection for multi-select
-  const handleSelect = (section, option) => {
+  // Handle checkbox toggle for an item in a section
+  const handleCheckChange = (section, item) => {
     setSelectedItems((prev) => {
       const isSelected = prev[section].some(
-        (item) => item.label === option.label
+        (selected) => selected.id === item.id
       );
-      if (isSelected) {
-        return {
-          ...prev,
-          [section]: prev[section].filter(
-            (item) => item.label !== option.label
-          ),
-        };
+      let updatedItems;
+
+      if (section === "manager" || section === "coach") {
+        // Single selection for manager and coach
+        updatedItems = isSelected ? [] : [item];
       } else {
-        return {
-          ...prev,
-          [section]: [...prev[section], option],
-        };
+        // Multiple selections for players and substitutes
+        updatedItems = isSelected
+          ? prev[section].filter((selected) => selected.id !== item.id)
+          : [...prev[section], item];
       }
+
+      // Enforce limits: max 3 players, max 2 substitutes
+      if (
+        section === "players" &&
+        updatedItems.length > tournamentData?.maxPlayersPerTeam
+      ) {
+        toast.error(
+          t("tournament.players_max_limit", {
+            count: tournamentData?.maxPlayersPerTeam,
+          })
+        );
+
+        return prev;
+      }
+      // if (section === "substitutes" && updatedItems.length > 2) {
+      //   toast.error(t("tournament.substitutes_max_limit"));
+      //   return prev;
+      // }
+
+      return { ...prev, [section]: updatedItems };
     });
   };
 
-  // Render dropdown for each section
-  const renderDropdown = (section) => (
-    <div className="mb-8">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <h3 className="text-lg font-semibold text-[#BABBFF] capitalize tracking-wide">
-            {t(`tournament.${section}_title`)}
-          </h3>
-          <button
-            onClick={() => toggleDropdown(section)}
-            className="text-[#BABBFF] hover:text-white transition-colors duration-200"
-          >
-            <svg
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeWidth="2"
-                strokeLinecap="round"
-                d="M12 5v14m-7-7h14"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
+  const handleResetLink = () => {
+    dispatch(resetInviteLink(currentTeam?._id))
+      .unwrap()
+      .catch((err) =>
+        toast.error(err || t("tournament.invite_link_reset_failed"))
+      );
+  };
 
-      <div className="relative w-full dropdown">
-        {/* Enhanced Dropdown Menu */}
-        {dropdownOpen[section] && (
-          <motion.ul
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute z-50 w-full mt-2 bg-gradient-to-b from-[#09092d] to-[#0d0d35] border-2 border-[#393B7A] rounded-xl shadow-2xl shadow-black/50 overflow-hidden"
-          >
-            {options[section].map((opt, idx) => (
-              <li
-                key={idx}
-                onClick={() => handleSelect(section, opt)}
-                className={`flex items-center gap-4 px-5 py-4 cursor-pointer transition-all duration-200 hover:bg-gradient-to-r hover:from-[#2D2E6D] hover:to-[#34357a] text-[#BABBFF] border-b border-[#393B7A]/30 last:border-b-0 group ${
-                  selectedItems[section].some(
-                    (item) => item.label === opt.label
-                  )
-                    ? "bg-gradient-to-r from-[#2D2E6D] to-[#34357a]"
-                    : ""
-                }`}
-              >
-                <div className="relative">
-                  <img
-                    src={opt.img}
-                    alt={opt.label}
-                    className="w-10 h-10 rounded-full object-cover border-2 border-[#393B7A] group-hover:border-[#5759c7] transition-all duration-200"
-                  />
-                  {selectedItems[section].some(
-                    (item) => item.label === opt.label
-                  ) && (
-                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-[#5759c7] to-[#7b7ed0] rounded-full flex items-center justify-center border-2 border-[#09092d]">
-                      <svg width="10" height="8" fill="white">
-                        <path
-                          d="M8 2L4 6 2 4"
-                          stroke="white"
-                          strokeWidth="1.5"
-                          fill="none"
-                        />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-                <span className="font-medium group-hover:text-white transition-colors duration-200">
-                  {opt.label}
-                </span>
-              </li>
-            ))}
-          </motion.ul>
-        )}
-      </div>
+  const handleCopy = () => {
+    if (!inviteLink) return;
+    navigator.clipboard.writeText(baseURL + "/invite-link/" + inviteLink);
+    toast.success(t("tournament.copy_button_title1"));
+  };
 
-      {/* Enhanced Selected Items Display */}
-      {selectedItems[section].length > 0 && (
-        <div className="space-y-3 mt-6">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-1 h-6 bg-gradient-to-b from-[#5759c7] to-[#7b7ed0] rounded-full"></div>
-            <h4 className="text-sm font-semibold text-[#7B7ED0] uppercase tracking-widest">
-              {t(`tournament.selected_${section}`)} (
-              {selectedItems[section].length})
-            </h4>
-          </div>
-          {selectedItems[section].map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: idx * 0.1 }}
-              className="flex justify-between items-center bg-gradient-to-r from-[#1a1b3a] to-[#1e1f42] border-2 border-[#393B7A] rounded-xl px-5 py-4 hover:border-[#5759c7] hover:shadow-lg hover:shadow-[#5759c7]/10 transition-all duration-300 group"
-            >
-              <span className="flex items-center gap-4 font-semibold">
-                <span className="flex justify-center items-center w-12 h-12 rounded-full bg-gradient-to-br from-[#2D2E6D] via-[#34357a] to-[#222456] shadow-lg border-2 border-[#393B7A] group-hover:border-[#5759c7] transition-all duration-300">
-                  <img
-                    className="rounded-full w-9 h-9 object-cover"
-                    src={item.img}
-                    alt={item.label}
-                  />
-                </span>
-                <span>
-                  <p className="text-base font-semibold text-[#BABBFF] group-hover:text-white transition-colors duration-200">
-                    {item.label}
-                  </p>
-                  <p className="text-xs text-[#7B7ED0] uppercase tracking-wide mt-1">
-                    {t(`tournament.${section}_title`)}
-                  </p>
-                </span>
-              </span>
-              <button
-                onClick={() => handleSelect(section, item)}
-                className="text-[#ff6b6b] hover:text-white hover:bg-[#ff6b6b] px-3 py-2 rounded-lg font-medium text-sm transition-all duration-200 border border-transparent hover:border-[#ff6b6b]"
-              >
-                {t("tournament.remove")}
-              </button>
-            </motion.div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+  const handleConfirm = () => {
+    if (!currentTeam?._id) {
+      toast.error(t("tournament.no_team_selected"));
+      return;
+    }
+
+    // Check minimum players required
+    const minPlayers = tournamentData?.minPlayersPerTeam; // Fallback to 2 if undefined
+    if (selectedItems.players.length < minPlayers) {
+      toast.error(
+        t("tournament.invite_players_to_team", { count: minPlayers })
+      );
+      return;
+    }
+
+    const rosterData = {
+      Manager:
+        selectedItems.manager.length > 0 ? selectedItems.manager[0].id : null,
+      Coach: selectedItems.coach.length > 0 ? selectedItems.coach[0].id : null,
+      Players: selectedItems.players.map((item) => item.id),
+    };
+
+    dispatch(updateTeamRoster({ teamId: currentTeam._id, rosterData }))
+      .unwrap()
+      .then((res) => {
+        toast.success(res?.message);
+        onClose();
+      })
+      .catch((err) => toast.error(err));
+  };
 
   return (
     <>
@@ -288,7 +152,6 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               <h2 className="text-2xl font-bold text-center text-white mb-2">
                 {t("tournament.manage_team_title")}
               </h2>
-              {/* Close Icon */}
               <button
                 aria-label={t("tournament.close_button_aria")}
                 onClick={onClose}
@@ -310,7 +173,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                 <div className="flex items-center gap-2 bg-[#05042C] h-[56px] border border-[#393B7A] rounded-lg w-full overflow-hidden pl-[15px]">
                   <input
                     type="text"
-                    value="http://primeleague.com/invite/sd5hl02dedf"
+                    value={baseURL + "/invite-link/" + inviteLink || ""}
                     readOnly
                     className="flex-1 bg-transparent text-white text-sm outline-none"
                     style={{ minWidth: 0 }}
@@ -318,11 +181,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   <button
                     className="flex items-center justify-center w-[58px] h-full transition-colors bg-[linear-gradient(59.17deg,#434BE9_22.83%,#46B5F9_151.01%)]"
                     title={t("tournament.copy_button_title")}
-                    onClick={() => {
-                      navigator.clipboard.writeText(
-                        "http://primeleague.com/invite/sd5hl02dedf"
-                      );
-                    }}
+                    onClick={handleCopy}
                   >
                     <svg
                       width="24"
@@ -342,12 +201,14 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   className="flex items-center justify-center w-[56px] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
                   style={{ marginLeft: 13 }}
                   title={t("tournament.reset_button_title")}
+                  onClick={handleResetLink}
                 >
                   {t("tournament.reset_button_title")}
                 </button>
               </div>
             </div>
             <hr className="border-[#51549B] pb-6" />
+
             {/* Manager Section */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-1">
@@ -366,9 +227,13 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   {t("tournament.manager_optional")}
                 </span>
               </div>
-              <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-4 py-3 text-center text-[#7B7ED0] text-sm font-medium">
-                {t("tournament.no_managers_available")}
-              </div>
+              <TeamSection
+                data={teamUserFormat?.data?.manager}
+                section="manager"
+                selectedItems={selectedItems.manager}
+                onCheckChange={handleCheckChange}
+                noDataMessage="tournament.no_managers_available"
+              />
             </div>
 
             {/* Coach Section */}
@@ -389,35 +254,13 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   {t("tournament.coach_optional")}
                 </span>
               </div>
-              <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-4 py-3 flex items-center justify-between">
-                <div className="flex items-center justify-between gap-3 w-full">
-                  <label
-                    htmlFor="coach-checkbox"
-                    className="flex items-center gap-3 cursor-pointer"
-                  >
-                    <span className="w-10 h-10">
-                      <img
-                        src="https://randomuser.me/api/portraits/men/32.jpg"
-                        alt={t("tournament.sample_coach_1")}
-                        className="w-full h-full rounded-full object-cover"
-                      />
-                    </span>
-                    <div className="flex items-center flex-wrap sm:gap-6 gap-1">
-                      <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
-                        SaulVIVTv
-                      </p>
-                      <p className="text-md text-[#8598F6] font-medium leading-none">
-                        @berinjer
-                      </p>
-                    </div>
-                  </label>
-                  <CustomCheckbox
-                    checked={isCoachSelected}
-                    onChange={() => setIsCoachSelected((prev) => !prev)}
-                    ariaLabel={t("tournament.select_coach_aria")}
-                  />
-                </div>
-              </div>
+              <TeamSection
+                data={teamUserFormat?.data?.coach}
+                section="coach"
+                selectedItems={selectedItems.coach}
+                onCheckChange={handleCheckChange}
+                noDataMessage="tournament.no_coaches_available"
+              />
             </div>
 
             {/* Players Section */}
@@ -427,7 +270,10 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   <span className="font-bold text-white text-xl mb-1.5 block">
                     {t("tournament.players_title")}
                     <span className="text-base font-normal text-white ml-1">
-                      {t("tournament.players_min_max")}
+                      {t("tournament.players_min_max", {
+                        min: tournamentData?.minPlayersPerTeam,
+                        max: tournamentData?.maxPlayersPerTeam,
+                      })}
                     </span>
                   </span>
                   <p className="block text-sm text-white mb-2">
@@ -438,40 +284,42 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   {t("tournament.players_required")}
                 </span>
               </div>
-              <div className="bg-[#05042C] border border-[#393B7A] rounded-lg p-3.5 space-y-5">
-                {[1, 2, 3].map((_, idx) => (
-                  <div key={idx} className="flex items-center justify-between">
-                    <div className="flex items-center justify-between gap-3 w-full">
-                      <label
-                        htmlFor={`player-checkbox-${idx}`}
-                        className="flex items-center gap-3 cursor-pointer"
-                      >
-                        <span className="w-10 h-10">
-                          <img
-                            src="https://randomuser.me/api/portraits/men/32.jpg"
-                            alt={t(`tournament.sample_player_${idx + 1}`)}
-                            className="w-full h-full rounded-full object-cover"
-                          />
-                        </span>
-                        <div className="flex items-center flex-wrap sm:gap-6 gap-1">
-                          <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
-                            SaulVIVTv
-                          </p>
-                          <p className="text-md text-[#8598F6] font-medium leading-none">
-                            @berinjer
-                          </p>
-                        </div>
-                      </label>
-                      <CustomCheckbox
-                        checked={isCoachSelected}
-                        onChange={() => setIsCoachSelected((prev) => !prev)}
-                        ariaLabel={t("tournament.select_player_aria")}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <TeamSection
+                data={teamUserFormat?.data?.players}
+                section="players"
+                selectedItems={selectedItems.players}
+                onCheckChange={handleCheckChange}
+                noDataMessage="tournament.no_players_available"
+              />
             </div>
+
+            {/* Substitutes Section */}
+            {/* <div className="mb-4">
+              <div className="flex items-center justify-between mb-1">
+                <div>
+                  <span className="font-bold text-white text-xl mb-1.5 block">
+                    {t("tournament.substitutes_title")}
+                    <span className="text-base font-normal text-white ml-1">
+                      {t("tournament.substitutes_max")}
+                    </span>
+                  </span>
+                  <p className="block text-sm text-white mb-2">
+                    {t("tournament.substitutes_description")}
+                  </p>
+                </div>
+                <span className="text-base font-normal text-[#6A71E8]">
+                  {t("tournament.substitutes_optional")}
+                </span>
+              </div>
+              <TeamSection
+                data={data.substitutes}
+                section="substitutes"
+                selectedItems={selectedItems.substitutes}
+                onCheckChange={handleCheckChange}
+                noDataMessage="tournament.no_substitutes_available"
+              />
+            </div> */}
+
             <div className="manage-team-pop wizard_step--btn gap-5 flex justify-between sm:mt-14 mt-8 mb-8 mr-5 flex-wrap">
               <div className="game_status--tab wizard_btn back_btn">
                 <button
@@ -485,6 +333,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               <div className="game_status--tab wizard_btn next_btn">
                 <button
                   type="submit"
+                  onClick={handleConfirm}
                   className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-bold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                   style={{ width: "8rem", height: "4rem" }}
                 >

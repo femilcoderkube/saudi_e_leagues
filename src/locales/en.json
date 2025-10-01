@@ -360,7 +360,6 @@
     "Registerog": "REGISTER",
     "Registergn": "REGISTER",
 
-
     "queue_button": "Queue button",
     "open_button": "Open button",
     "cancel_button": "CANCEL QUEUE",
@@ -428,7 +427,7 @@
     "inqueue": "You’re already queued in another game, cancel it and let’s find you a new match!",
     "removePlayerTitle": "Remove Player",
     "removePlayerMessage": "Are you sure you want to remove this player from the party?",
-    "makepresidentmessage":"Are you Sure you want to Transfer presidency",
+    "makepresidentmessage": "Are you Sure you want to Transfer presidency",
     "removePlayerConfirm": "Remove",
     "leavePartyConfirm": "Leave",
     "leavePartyTitle": "Are you sure you want to leave party?"
@@ -525,7 +524,7 @@
     "coach_description": "A non-playing support role with no special permissions.",
     "coach_optional": "Optional",
     "players_title": "Players",
-    "players_min_max": "(2 Min - 3 Max)",
+    "players_min_max": "({{min}} Min - {{max}} Max)",
     "players_description": "The Roster Players",
     "players_required": "Required",
     "remove": "Remove",
@@ -539,14 +538,30 @@
     "selected_substitutes": "Selected Substitutes",
     "selected_coach": "Selected Coach",
     "invite_player_model": "Invite Player",
-  "invite_link_label1": "Invitation Link",
-  "copy_button_title1": "Copy Link",
-  "reset_button_title1": "Reset Link",
-  "invite_link_fetch_failed": "Failed to fetch invite link",
-  "invite_link_reset_success": "Invite link reset successfully",
-  "invite_link_reset_failed": "Failed to reset invite link",
-  "copy_success": "Copied to clipboard",
-  "invite_players_title":"Invite Players"
-
+    "invite_link_label1": "Invitation Link",
+    "copy_button_title1": "Copy Link",
+    "reset_button_title1": "Reset Link",
+    "invite_link_fetch_failed": "Failed to fetch invite link",
+    "invite_link_reset_success": "Invite link reset successfully",
+    "invite_link_reset_failed": "Failed to reset invite link",
+    "copy_success": "Copied to clipboard",
+    "no_coaches_available": "No coaches available",
+    "no_players_available": "No players available",
+    "players_max_limit": "Maximum {{count}} players can be selected"
+  },
+  "roster": {
+    "manage_roster_title": "Manage Your Roster",
+    "close_button_aria": "Close roster management modal",
+    "game_label": "Game ID",
+    "game_placeholder": "Enter game name",
+    "game_id_label": "Game",
+    "game_id_placeholder": "Select a game",
+    "game_required": "Game is required",
+    "game_id_required": "Please select a game",
+    "roster_updated": "Roster updated successfully",
+    "submit_failed": "Failed to submit roster",
+    "submitting": "Submitting...",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   }
 }

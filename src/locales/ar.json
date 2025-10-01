@@ -519,7 +519,7 @@
     "coach_description": "دور دعم غير لاعب بدون أذونات خاصة.",
     "coach_optional": "اختياري",
     "players_title": "اللاعبون",
-    "players_min_max": "(2 كحد أدنى - 3 كحد أقصى)",
+    "players_min_max": "({{min}} كحد أدنى - {{max}} كحد أقصى)",
     "players_description": "لاعبو القائمة",
     "players_required": "مطلوب",
     "remove": "إزالة",
@@ -540,7 +540,24 @@
     "invite_link_reset_success": "تم إعادة تعيين رابط الدعوة بنجاح",
     "invite_link_reset_failed": "فشل في إعادة تعيين رابط الدعوة",
     "copy_success": "تم النسخ إلى الحافظة",
-    "invite_players_title": "دعوة اللاعبين"
-
+    "invite_players_title": "دعوة اللاعبين",
+    "no_coaches_available": "لا يوجد مدربون متاحون",
+    "no_players_available": "لا يوجد لاعبون متاحون",
+    "players_max_limit": "يمكن اختيار {{count}} لاعبين كحد أقصى"
+  },
+  "roster": {
+    "manage_roster_title": "إدارة قائمتك",
+    "close_button_aria": "إغلاق نافذة إدارة القائمة",
+    "game_label": "معرف اللعبة",
+    "game_placeholder": "أدخل اسم اللعبة",
+    "game_id_label": "اللعبة",
+    "game_id_placeholder": "اختر لعبة",
+    "game_required": "اللعبة مطلوبة",
+    "game_id_required": "الرجاء اختيار لعبة",
+    "roster_updated": "تم تحديث القائمة بنجاح",
+    "submit_failed": "فشل في تقديم القائمة",
+    "submitting": "جارٍ التقديم...",
+    "confirm": "تأكيد",
+    "cancel": "إلغاء"
   }
 }

@@ -8,6 +8,7 @@ import {
   setTeamRegistrationPopup,
   setTeamEditPopup,
   getTeamData,
+  setRosterModal,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,7 +17,11 @@ import { t } from "i18next";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import InvitePlayerModel from "./InvitePlayerModel.jsx";
 import ConfirmationPopUp from "../../components/Overlays/ConfirmationPopUp.jsx";
-import { setConfirmationPopUp, setPopupData } from "../../app/slices/constState/constStateSlice.js";
+import {
+  setConfirmationPopUp,
+  setPopupData,
+} from "../../app/slices/constState/constStateSlice.js";
+import ManageRosterModal from "../../components/Overlays/TournamentTeam/ManageRosterModal.jsx";
 
 export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -29,9 +34,13 @@ export default function TournamentsTeam() {
     showTeamEditPopup,
     currentTeam,
     error,
-    loading,
+    loading: loading,
   } = useSelector((state) => state.tournamentTeam);
   console.log("currentTeam", currentTeam);
+  const isOpen = useSelector((state) => state.tournamentTeam.showRosterModal);
+
+  const openModal = () => dispatch(setRosterModal(true));
+  const closeModal = () => dispatch(setRosterModal(false));
 
   const isPresident = currentTeam?.members?.some((member) => {
     const memberUserId = member?.user?._id;
@@ -124,12 +133,15 @@ export default function TournamentsTeam() {
                       </button>
                       <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
                         <span
-                          className="text-white text-lg font-medium"
+                          className="text-white text-lg font-medium cursor-pointer"
                           onClick={handleEditTeam}
                         >
                           Edit Team
                         </span>
-                        <span className="text-white text-lg font-medium">
+                        <span
+                          className="text-white text-lg font-medium cursor-pointer"
+                          onClick={openModal}
+                        >
                           Manage Your Roasters
                         </span>
                       </div>
@@ -821,46 +833,50 @@ export default function TournamentsTeam() {
                                   </div>
                                 </div>
                               )}
-                            {myRoleLower === "president" &&
-                              !isSelf &&
-                               (
-                                <div className="relative group flex flex-col items-center">
-                                  <div className="flex justify-end w-full">
-                                    <img
-                                      className="w-[0.313rem] h-[1.188rem]"
-                                      src="/src/assets/images/menu_roaster.svg"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                                    <span
-                                      className="text-white text-sm font-medium border-b border-[#5362A9] pb-2"
-                                      onClick={() => {
-                                        const targetUserId = member?.user?._id || member?.userId;
-                                        const teamId = currentTeam?._id;
-                                        if (targetUserId && teamId) {
-                                          dispatch(setPopupData({ userId: targetUserId, teamId }));
-                                          dispatch(setConfirmationPopUp(7));
-                                        }
-                                      }}
-                                    >
-                                      Make President of the Club
-                                    </span>
-                                    <span className="text-white text-sm font-medium">
-                                      Assign Overwatch Roster Manager
-                                    </span>
-                                    <span className="text-white text-sm font-medium">
-                                      Assign Overwatch Roster Coach
-                                    </span>
-                                    <span className="text-white text-sm font-medium border-b border-[#5362A9] pb-1">
-                                      Remove Player from Overwatch Roster
-                                    </span>
-                                    <span className="text-white text-sm font-medium">
-                                      Remove Player from the Team
-                                    </span>
-                                  </div>
+                            {myRoleLower === "president" && !isSelf && (
+                              <div className="relative group flex flex-col items-center">
+                                <div className="flex justify-end w-full">
+                                  <img
+                                    className="w-[0.313rem] h-[1.188rem]"
+                                    src="/src/assets/images/menu_roaster.svg"
+                                    alt=""
+                                  />
                                 </div>
-                              )}
+                                <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
+                                  <span
+                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2"
+                                    onClick={() => {
+                                      const targetUserId =
+                                        member?.user?._id || member?.userId;
+                                      const teamId = currentTeam?._id;
+                                      if (targetUserId && teamId) {
+                                        dispatch(
+                                          setPopupData({
+                                            userId: targetUserId,
+                                            teamId,
+                                          })
+                                        );
+                                        dispatch(setConfirmationPopUp(7));
+                                      }
+                                    }}
+                                  >
+                                    Make President of the Club
+                                  </span>
+                                  <span className="text-white text-sm font-medium">
+                                    Assign Overwatch Roster Manager
+                                  </span>
+                                  <span className="text-white text-sm font-medium">
+                                    Assign Overwatch Roster Coach
+                                  </span>
+                                  <span className="text-white text-sm font-medium border-b border-[#5362A9] pb-1">
+                                    Remove Player from Overwatch Roster
+                                  </span>
+                                  <span className="text-white text-sm font-medium">
+                                    Remove Player from the Team
+                                  </span>
+                                </div>
+                              </div>
+                            )}
 
                             {/* {myRoleLower === "president" &&
                               !isSelf &&
@@ -960,6 +976,7 @@ export default function TournamentsTeam() {
       )}
       <ConfirmationPopUp onMakePresident={handleMakePresident} />
 
+      <ManageRosterModal isOpen={isOpen} onClose={closeModal} />
     </>
   );
 }

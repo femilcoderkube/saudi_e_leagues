@@ -4,9 +4,17 @@ import axiosInstance from "../../../utils/axios";
 const initialState = {
   showTeamRegistrationPopup: false,
   showTeamEditPopup: false,
+  showRosterModal: false,
   currentTeam: null,
   loading: false,
+  updateloading: false,
   error: null,
+  teamUserFormat: {
+    manager: [],
+    coach: [],
+    players: [],
+    substitutes: [],
+  },
 };
 
 export const createTournamentTeam = createAsyncThunk(
@@ -81,6 +89,58 @@ export const getTeamData = createAsyncThunk(
   }
 );
 
+export const updateTeamRoster = createAsyncThunk(
+  "tournamentTeam/updateTeamRoster",
+  async ({ teamId, rosterData }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`/Roaster/byteamId`, {
+        teamId,
+        ...rosterData,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update team roster"
+      );
+    }
+  }
+);
+
+export const fetchTeamUserFormat = createAsyncThunk(
+  "tournamentTeam/fetchTeamUserFormat",
+  async (teamId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/team/userFormat`, {
+        params: { teamId },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch team user format"
+      );
+    }
+  }
+);
+
+export const updateTeamMemberGame = createAsyncThunk(
+  "tournamentTeam/updateTeamMemberGame",
+  async ({ teamId, userId, game, gameId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`/Team/members/game`, {
+        teamId,
+        userId,
+        game,
+        gameId,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update team member game"
+      );
+    }
+  }
+);
+
 const TournamentTeamSlice = createSlice({
   name: "tournamentTeam",
   initialState,
@@ -93,6 +153,19 @@ const TournamentTeamSlice = createSlice({
     },
     setCurrentTeam: (state, action) => {
       state.currentTeam = action.payload;
+    },
+    setRosterModal: (state, action) => {
+      state.showRosterModal = action.payload ?? !state.showRosterModal;
+    },
+    resetTeamUserFormat: (state) => {
+      state.teamUserFormat = {
+        manager: [],
+        coach: [],
+        players: [],
+        substitutes: [],
+      };
+      state.loading = false;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -122,11 +195,55 @@ const TournamentTeamSlice = createSlice({
       .addCase(getTeamData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(updateTeamRoster.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateTeamRoster.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentTeam = {
+          ...state.currentTeam,
+          roster: action.payload.data.roster, // Update roster in currentTeam
+        };
+      })
+      .addCase(updateTeamRoster.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchTeamUserFormat.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTeamUserFormat.fulfilled, (state, action) => {
+        state.loading = false;
+        state.teamUserFormat = action.payload;
+      })
+      .addCase(fetchTeamUserFormat.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateTeamMemberGame.pending, (state) => {
+        state.updateloading = true;
+        state.error = null;
+      })
+      .addCase(updateTeamMemberGame.fulfilled, (state, action) => {
+        state.updateloading = false;
+        state.showRosterModal = false;
+      })
+      .addCase(updateTeamMemberGame.rejected, (state, action) => {
+        state.updateloading = false;
+        state.error = action.payload;
       });
   },
 });
 
-export const { setTeamRegistrationPopup, setTeamEditPopup, setCurrentTeam } =
-  TournamentTeamSlice.actions;
+export const {
+  setTeamRegistrationPopup,
+  setTeamEditPopup,
+  setRosterModal,
+  setCurrentTeam,
+  resetTeamUserFormat,
+} = TournamentTeamSlice.actions;
 
 export default TournamentTeamSlice.reducer;
