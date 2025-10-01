@@ -29,13 +29,14 @@ export default function TournamentsTeam() {
     error,
     loading,
   } = useSelector((state) => state.tournamentTeam);
+console.log("currentTeam",currentTeam);
 
-  const isPresident = !!currentTeam?.data?.members?.some((member) => {
+  const isPresident = currentTeam?.members?.some((member) => {
     const memberUserId =
-      member?.user?._id || member?.userId || member?.user?._id;
+      member?.user?._id;
     const role =
-      typeof member?.role === "string" ? member.role.toLowerCase() : "";
-    return memberUserId === user?._id && role === "president";
+      member?.role;
+    return memberUserId === user?._id && role == "President";
   });
 
   const handleCreateTeam = (e) => {
