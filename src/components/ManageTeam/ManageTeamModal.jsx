@@ -170,7 +170,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                 {t("tournament.invite_link_label")}
               </label>
               <div className="flex w-full">
-                <div className="flex items-center gap-2 bg-[#05042C] h-[56px] border border-[#393B7A] rounded-lg w-full overflow-hidden pl-[15px]">
+                <div className="flex items-center gap-2 bg-[#05042C] h-[3rem] border border-[#393B7A] rounded-lg w-full overflow-hidden pl-[0.8rem]">
                   <input
                     type="text"
                     value={baseURL + "/invite-link/" + inviteLink || ""}
@@ -179,7 +179,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                     style={{ minWidth: 0 }}
                   />
                   <button
-                    className="flex items-center justify-center w-[58px] h-full transition-colors bg-[linear-gradient(59.17deg,#434BE9_22.83%,#46B5F9_151.01%)]"
+                    className="flex items-center justify-center w-[3rem] h-full transition-colors bg-[linear-gradient(59.17deg,#434BE9_22.83%,#46B5F9_151.01%)]"
                     title={t("tournament.copy_button_title")}
                     onClick={handleCopy}
                   >
