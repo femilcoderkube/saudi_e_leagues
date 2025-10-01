@@ -10,6 +10,7 @@ import {
   getTeamData,
   setRosterModal,
   transferTeamPresidency,
+  assignTeamRole,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -79,13 +80,27 @@ export default function TournamentsTeam() {
         await dispatch(getTeamData(user._id));
       }
     } catch (err) {
-      console.error("Failed to transfer team presidency:", err);
+      console.log("Failed to transfer team presidency:", err);
     }
   };
 
   const handleAssignTeamRole = async (data, role) => {
-    console.log("data", data);
-    console.log("role", role);
+    try {
+      await dispatch(
+        assignTeamRole({
+          teamId: data?.teamId,
+          candidateId: data?.userId,
+          userId: user?._id,
+          role: role,
+        })
+      ).unwrap();
+
+      if (user?._id) {
+        await dispatch(getTeamData(user._id));
+      }
+    } catch (err) {
+      console.log("Failed to transfer team presidency:", err);
+    }
   };
 
   useEffect(() => {
@@ -779,281 +794,209 @@ export default function TournamentsTeam() {
               </clipPath>
             </defs>
           </svg>
-          <div className="team-main-user mt-16">
-            <div className="team-user-title flex items-center flex-wrap gap-5 justify-between mb-10">
-              <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
-                Overwatch Roaster
-              </h3>
-              <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
-                <div
-                  className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
-                  onClick={() => setOpenInviteModel(true)}
+          <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
+            <div
+              className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
+              onClick={() => setOpenInviteModel(true)}
+            >
+              {t("tournament.invite_players_title")}
+
+              <span className="ltr:ml-2.5 rtl:mr-2.5">
+                <svg
+                  width="9"
+                  height="13"
+                  viewBox="0 0 9 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  {t("tournament.invite_players_title")}
-
-                  <span className="ltr:ml-2.5 rtl:mr-2.5">
-                    <svg
-                      width="9"
-                      height="13"
-                      viewBox="0 0 9 13"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M1.181 11.9097C0.784802 11.5927 0.784802 11.0787 1.181 10.7617L6.55072 6.46502L1.181 2.16837C0.784802 1.85135 0.784802 1.33736 1.181 1.02034C1.57719 0.703321 2.21954 0.703321 2.61574 1.02034L8.70284 5.89101C9.09903 6.20802 9.09903 6.72201 8.70284 7.03903L2.61574 11.9097C2.21954 12.2267 1.57719 12.2267 1.181 11.9097Z"
-                        fill="#F4F7FF"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M1.181 11.9097C0.784802 11.5927 0.784802 11.0787 1.181 10.7617L6.55072 6.46502L1.181 2.16837C0.784802 1.85135 0.784802 1.33736 1.181 1.02034C1.57719 0.703321 2.21954 0.703321 2.61574 1.02034L8.70284 5.89101C9.09903 6.20802 9.09903 6.72201 8.70284 7.03903L2.61574 11.9097C2.21954 12.2267 1.57719 12.2267 1.181 11.9097Z"
+                    fill="#F4F7FF"
+                  />
+                </svg>
+              </span>
             </div>
-            <div className="flex gap-8 flex-wrap lg:justify-start justify-center items-end mb-5">
-              {currentTeam?.members?.length
-                ? currentTeam?.members?.map((member) => {
-                    const displayName =
-                      member?.user?.username ||
-                      `${member?.user?.firstName || ""} ${
-                        member?.user?.lastName || ""
-                      }`.trim() ||
-                      "Unknown";
-                    const avatar = member?.user?.profilePicture
-                      ? getServerURL(member.user.profilePicture)
-                      : IMAGES.defaultImg;
-                    const roleLower = String(member?.role || "").toLowerCase();
-                    const memberUserId = member?.user?._id || member?.userId;
-                    const isSelf = memberUserId === user?._id;
-                    const showManagerMenu =
-                      myRoleLower === "manager" &&
-                      !isSelf &&
-                      roleLower === "player";
+          </div>
+          <div className="team-main-user mt-16">
+            {/* Games Section */}
+            <div className="mt-10">
+              {currentTeam?.games?.length ? (
+                currentTeam.games.map((game) => (
+                  <div key={game.game._id} className="mb-8">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="team-user-title flex items-center flex-wrap gap-5 justify-between mb-10">
+                        <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
+                          {game.game.name || "Unknown Game"}
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="flex gap-8 flex-wrap lg:justify-start justify-center items-end">
+                      {game.users?.length ? (
+                        game.users.map((val) => {
+                          const displayName = val.name || "Unknown";
+                          const avatar = val.image
+                            ? getServerURL(val.image)
+                            : IMAGES.defaultImg;
 
-                    const showPresidentMenu =
-                      myRoleLower === "president" && !isSelf;
+                          let roleLower = val?.role?.toLowerCase();
+                          let showPresidentMenu =
+                            val?.role?.toLowerCase() !== "president" &&
+                            val?.id !== user?._id;
 
-                    const hasPopup = showManagerMenu || showPresidentMenu;
+                          let showManagerMenu =
+                            val?.role?.toLowerCase() !== "manager" &&
+                            val?.id !== user?._id;
 
-                    return (
-                      <div
-                        key={
-                          member?._id || `${member?.user?._id}-${member?.role}`
-                        }
-                        className="flex flex-col max-w-max align-center justify-center"
-                      >
-                        {roleLower === "president" && (
-                          <div className="w-[1.188rem] h-auto flex items-center justify-center mx-auto mb-1.5">
-                            <img
-                              src="/src/assets/images/roaster-king.webp"
-                              alt="President crown"
-                              className="w-full h-full"
-                            />
-                          </div>
-                        )}
-                        <div className=" flex-shrink-0 flex mx-auto relative z-20">
-                          <img
-                            className="w-18 h-18 rounded-full "
-                            src={avatar}
-                            alt={displayName}
-                          />
-                        </div>
-                        <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
-                          <div
-                            // className={`game_card--roaster-wrap ${
-                            //   !hasPopup ? "mt-[19px]" : ""
-                            // }`}
-                            className="game_card--roaster-wrap"
-                          >
-                            {myRoleLower === "manager" &&
-                              !isSelf &&
-                              roleLower === "player" && (
-                                <div className="relative group flex flex-col items-center">
-                                  <div className="flex justify-end w-full ">
-                                    <img
-                                      className="w-[0.313rem] h-[1.188rem]"
-                                      src="/src/assets/images/menu_roaster.svg"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                                    <span className="text-white text-sm font-medium">
-                                      Assign Overwatch Roster Manager
-                                    </span>
-                                    <span className="text-white text-sm font-medium">
-                                      Assign Overwatch Roster Coach
-                                    </span>
-                                    <span className="text-white text-sm font-medium">
-                                      Remove Player from the Team
-                                    </span>
-                                  </div>
-                                </div>
-                              )}
-                            {myRoleLower === "president" && (
-                              <div className="relative group flex flex-col items-center">
-                                <div className="flex justify-end w-full">
+                          return (
+                            <div
+                              key={`${val.id}-${val.role}`}
+                              className="flex flex-col max-w-max align-center justify-center"
+                            >
+                              {roleLower === "president" && (
+                                <div className="w-[1.188rem] h-auto flex items-center justify-center mx-auto mb-1.5">
                                   <img
-                                    className="w-[0.313rem] h-[1.188rem]"
-                                    src="/src/assets/images/menu_roaster.svg"
-                                    alt=""
+                                    src="/src/assets/images/roaster-king.webp"
+                                    alt="President crown"
+                                    className="w-full h-full"
                                   />
                                 </div>
-                                <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                                  <span
-                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
-                                    onClick={() => {
-                                      const targetUserId =
-                                        member?.user?._id || member?.userId;
-                                      const teamId = currentTeam?._id;
-                                      if (targetUserId && teamId) {
-                                        dispatch(
-                                          setPopupData({
-                                            userId: targetUserId,
-                                            teamId,
-                                          })
-                                        );
-                                        dispatch(setConfirmationPopUp(7));
-                                      }
-                                    }}
-                                  >
-                                    {" "}
-                                    {t("tourteam.make_president")}
-                                  </span>
-                                  <span
-                                    className="text-white text-sm font-medium cursor-pointer"
-                                    onClick={() => {
-                                      const targetUserId =
-                                        member?.user?._id || member?.userId;
-                                      const teamId = currentTeam?._id;
-                                      if (targetUserId && teamId) {
-                                        dispatch(
-                                          setPopupData({
-                                            userId: targetUserId,
-                                            teamId,
-                                          })
-                                        );
-                                        dispatch(setConfirmationPopUp(8));
-                                      }
-                                    }}
-                                  >
-                                    Assign Overwatch Roster Manager
-                                  </span>
-                                  <span
-                                    className="text-white text-sm font-medium cursor-pointer"
-                                    onClick={() => {
-                                      const targetUserId =
-                                        member?.user?._id || member?.userId;
-                                      const teamId = currentTeam?._id;
-                                      if (targetUserId && teamId) {
-                                        dispatch(
-                                          setPopupData({
-                                            userId: targetUserId,
-                                            teamId,
-                                          })
-                                        );
-                                        dispatch(setConfirmationPopUp(9));
-                                      }
-                                    }}
-                                  >
-                                    Assign Overwatch Roster Coach
-                                  </span>
-                                  <span
-                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
-                                    onClick={() => {
-                                      // const targetUserId =
-                                      //   member?.user?._id || member?.userId;
-                                      // const teamId = currentTeam?._id;
-                                      // if (targetUserId && teamId) {
-                                      //   dispatch(
-                                      //     setPopupData({
-                                      //       userId: targetUserId,
-                                      //       teamId,
-                                      //     })
-                                      //   );
-                                      dispatch(setConfirmationPopUp(10));
-                                      // }
-                                    }}
-                                  >
-                                    Remove Player from Overwatch Roster
-                                  </span>
-                                  <span
-                                    className="text-white text-sm font-medium cursor-pointer"
-                                    onClick={() => {
-                                      // const targetUserId =
-                                      //   member?.user?._id || member?.userId;
-                                      // const teamId = currentTeam?._id;
-                                      // if (targetUserId && teamId) {
-                                      //   dispatch(
-                                      //     setPopupData({
-                                      //       userId: targetUserId,
-                                      //       teamId,
-                                      //     })
-                                      //   );
-                                      dispatch(setConfirmationPopUp(11));
-                                      // }
-                                    }}
-                                  >
-                                    {t("tourteam.remove_player")}
-                                  </span>
+                              )}
+                              <div className="flex-shrink-0 flex mx-auto relative z-20">
+                                <img
+                                  className="w-18 h-18 rounded-full"
+                                  src={avatar}
+                                  alt={displayName}
+                                />
+                              </div>
+                              <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
+                                <div className="game_card--roaster-wrap">
+                                  {showPresidentMenu && (
+                                    <div className="relative group flex flex-col items-center">
+                                      <div className="flex justify-end w-full">
+                                        <img
+                                          className="w-[0.313rem] h-[1.188rem]"
+                                          src="/src/assets/images/menu_roaster.svg"
+                                          alt=""
+                                        />
+                                      </div>
+                                      <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10">
+                                        {showManagerMenu && (
+                                          <span
+                                            className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
+                                            onClick={() => {
+                                              const targetUserId = val.id;
+                                              const teamId = currentTeam?._id;
+                                              if (targetUserId && teamId) {
+                                                dispatch(
+                                                  setPopupData({
+                                                    userId: targetUserId,
+                                                    teamId,
+                                                  })
+                                                );
+                                                dispatch(
+                                                  setConfirmationPopUp(7)
+                                                );
+                                              }
+                                            }}
+                                          >
+                                            {t("tourteam.make_president")}
+                                          </span>
+                                        )}
+                                        <span
+                                          className="text-white text-sm font-medium cursor-pointer"
+                                          onClick={() => {
+                                            const targetUserId = val.id;
+                                            const teamId = currentTeam?._id;
+                                            if (targetUserId && teamId) {
+                                              dispatch(
+                                                setPopupData({
+                                                  userId: targetUserId,
+                                                  teamId,
+                                                })
+                                              );
+                                              dispatch(setConfirmationPopUp(8));
+                                            }
+                                          }}
+                                        >
+                                          Assign {currentTeam?.teamName} Roster
+                                          Manager
+                                        </span>
+                                        <span
+                                          className="text-white text-sm font-medium cursor-pointer"
+                                          onClick={() => {
+                                            const targetUserId = val.id;
+                                            const teamId = currentTeam?._id;
+                                            if (targetUserId && teamId) {
+                                              dispatch(
+                                                setPopupData({
+                                                  userId: targetUserId,
+                                                  teamId,
+                                                })
+                                              );
+                                              dispatch(setConfirmationPopUp(9));
+                                            }
+                                          }}
+                                        >
+                                          Assign {currentTeam?.teamName} Roster
+                                          Coach
+                                        </span>
+                                        <span
+                                          className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
+                                          onClick={() => {
+                                            dispatch(setConfirmationPopUp(10));
+                                          }}
+                                        >
+                                          Remove Player from{" "}
+                                          {currentTeam?.teamName} Roster
+                                        </span>
+                                        {showManagerMenu && (
+                                          <span
+                                            className="text-white text-sm font-medium cursor-pointer"
+                                            onClick={() => {
+                                              dispatch(
+                                                setConfirmationPopUp(11)
+                                              );
+                                            }}
+                                          >
+                                            {t("tourteam.remove_player")}
+                                          </span>
+                                        )}
+                                      </div>
+                                    </div>
+                                  )}
+                                  <h6 className="text-center text-lg !font-bold mt-2">
+                                    {displayName}
+                                  </h6>
+                                  <p className="text-center mt-3 text-[#8492B4] text-base font-semibold h-[24px] overflow-hidden">
+                                    {val.gameId || "No Game ID"}
+                                  </p>
+                                </div>
+                                <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
+                                  <p className="text-[#6368B5] text-base font-semibold">
+                                    {val.role || "Member"}
+                                  </p>
+                                  {/* Gender not available in games.users, so omitting gender-based icons */}
                                 </div>
                               </div>
-                            )}
-
-                            {/* {myRoleLower === "president" &&
-                              !isSelf &&
-                              roleLower === "manager" && (
-                                <div className="relative group flex flex-col items-center">
-                                  <div className="flex justify-end w-full">
-                                    <img
-                                      className="w-[0.313rem] h-[1.188rem]"
-                                      src="/src/assets/images/menu_roaster.svg"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
-                                    <span className="text-white text-sm font-medium">
-                                      Assign Overwatch Roster Manager
-                                    </span>
-                                    <span className="text-white text-sm font-medium">
-                                      Assign Overwatch Roster Coach
-                                    </span>
-                                    <span className="text-white text-sm font-medium">
-                                      Remove Player from the Team
-                                    </span>
-                                  </div>
-                                </div>
-                              )} */}
-                            <h6 className="text-center text-lg !font-bold mt-2">
-                              {displayName}
-                            </h6>
-                            <p className="text-center mt-3 text-[#8492B4] text-base font-semibold h-[24px] overflow-hidden">
-                              {member?.gameId || "Game Id"}
-                            </p>
-                          </div>
-                          <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
-                            <p className="text-[#6368B5] text-base font-semibold">
-                              {member?.role || "Member"}
-                            </p>
-                            {member?.user?.gender === "Male" ? (
-                              <img
-                                className="w-[1.063rem] h-[1.188rem]"
-                                src="/src/assets/images/roaster-arrow.svg"
-                                alt=""
-                              />
-                            ) : member?.user?.gender === "Female" ? (
-                              <img
-                                className="w-[1.063rem] h-[1.188rem]"
-                                src="/src/assets/images/roaster-arrow-female.svg"
-                                alt=""
-                              />
-                            ) : null}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })
-                : null}
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <p className="text-[#8492B4] text-base">
+                          No users found for {game.game.name}.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-[#8492B4] text-base">No games found.</p>
+              )}
             </div>
+
+            {/* SVG Clip Path */}
             <svg
               width="0"
               height="0"
@@ -1064,25 +1007,25 @@ export default function TournamentsTeam() {
                 <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
                   <path
                     d="
-                 M1,0.1111
-                 V0.8889
-                 L0.9219,1
-                 H0.7266
-                 L0.6953,0.9028
-                 H0.3047
-                 L0.2734,1
-                 H0.0781
-                 L0,0.8889
-                 V0.1111
-                 L0.0781,0
-                 H0.2734
-                 L0.3047,0.0972
-                 H0.6953
-                 L0.7266,0
-                 H0.9219
-                 L1,0.1111
-                 Z
-               "
+            M1,0.1111
+            V0.8889
+            L0.9219,1
+            H0.7266
+            L0.6953,0.9028
+            H0.3047
+            L0.2734,1
+            H0.0781
+            L0,0.8889
+            V0.1111
+            L0.0781,0
+            H0.2734
+            L0.3047,0.0972
+            H0.6953
+            L0.7266,0
+            H0.9219
+            L1,0.1111
+            Z
+          "
                   />
                 </clipPath>
               </defs>

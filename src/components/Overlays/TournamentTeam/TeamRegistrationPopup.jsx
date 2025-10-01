@@ -35,6 +35,10 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
     label: country.name,
   }));
 
+  const defaultNationality = countryOptions.find(
+    (option) => option.value === "Saudi Arabia"
+  );
+
   // Initialize preview logo for edit mode
   useEffect(() => {
     if (isEdit && currentTeam?.logoImage) {
@@ -51,7 +55,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
     teamName: "",
     teamShortName: "",
     teamLogo: null,
-    region: null,
+    region: defaultNationality,
     // maxParticipants: 5,
     social: {
       twitterId: "",
@@ -158,7 +162,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
 
       // Add userId for team creation
       // if (!isEdit) {
-        formData.append("userId", user._id);
+      formData.append("userId", user._id);
       // }
       for (let [key, value] of formData.entries()) {
         console.log(`${key}:`, value);
@@ -451,21 +455,21 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
           </Formik>
         </motion.div>
         <svg
-              width="0"
-              height="0"
-              viewBox="0 0 480 416"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ position: "absolute" }}
-            >
-              <defs>
-                <clipPath id="myClipPath" clipPathUnits="objectBoundingBox">
-                  <path
-                    transform="scale(0.00208333, 0.00240385)"
-                    d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L24 0H480V100Z"
-                  />
-                </clipPath>
-              </defs>
-            </svg>
+          width="0"
+          height="0"
+          viewBox="0 0 480 416"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ position: "absolute" }}
+        >
+          <defs>
+            <clipPath id="myClipPath" clipPathUnits="objectBoundingBox">
+              <path
+                transform="scale(0.00208333, 0.00240385)"
+                d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L24 0H480V100Z"
+              />
+            </clipPath>
+          </defs>
+        </svg>
       </div>
     </>
   );
