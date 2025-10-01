@@ -357,7 +357,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
       <div className="fixed inset-0 flex justify-center items-center z-50">
         <motion.div
-          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative p-6 overflow-y-auto max-h-[80vh]"
+          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative p-6 overflow-y-auto md:max-h-[90vh] max-h-[80vh]"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           initial={{ scale: 0.5, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
