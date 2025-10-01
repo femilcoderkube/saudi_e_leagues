@@ -563,7 +563,7 @@ export default function TournamentsTeam() {
               </div>
               <div className="mb-6">
                 <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
-                  {t("tourteam.last_tournaments")}
+                  {t("tourteam.last_matches")}
                 </h3>
               </div>
               <div className="main-card-duty-wp flex md:flex-row flex-col gap-[1.188rem] mt-5">

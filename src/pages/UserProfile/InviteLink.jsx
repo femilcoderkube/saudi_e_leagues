@@ -137,7 +137,7 @@ const InviteLink = () => {
               {/* Header */}
               <div className="bg-[#1a1b3a] rounded-t-xl px-8 py-5 border-b border-[#353c83] text-center">
                 <h2 className="text-2xl font-bold text-white tracking-wide">
-                  Accept Invitation
+                  Join Team
                 </h2>
                 <p className="text-[#7B7ED0] text-base mt-1">
                   You have been invited to join a team. Please review the
@@ -276,7 +276,7 @@ const InviteLink = () => {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before cursor-pointer relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                        className="py-2 px-4 justify-right flex items-right text-nowrap text-xl font-medium transition-all sd_after sd_before cursor-pointer relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                         style={{ width: "10rem", height: "4rem" }}
                       >
                         {loading ? (
