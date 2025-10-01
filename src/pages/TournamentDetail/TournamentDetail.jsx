@@ -325,11 +325,12 @@ const TournamentDetail = () => {
                                     className="w-full h-full object-cover"
                                   />
                                 </div>
-                                {[
-                                  ...Array(
-                                    tournamentData?.maxPlayersPerTeam - 1
+                                {Array.from({
+                                  length: Math.max(
+                                    0,
+                                    (tournamentData?.maxPlayersPerTeam || 1) - 1
                                   ),
-                                ].map((_, idx) => (
+                                }).map((_, idx) => (
                                   <div
                                     key={idx}
                                     className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center opacity-40"

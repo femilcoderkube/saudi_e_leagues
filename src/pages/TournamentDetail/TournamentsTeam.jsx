@@ -891,7 +891,7 @@ export default function TournamentsTeam() {
                                 </div>
                                 <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
                                   <span
-                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2"
+                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
                                     onClick={() => {
                                       const targetUserId =
                                         member?.user?._id || member?.userId;
@@ -911,7 +911,7 @@ export default function TournamentsTeam() {
                                     Make President of the Club
                                   </span>
                                   <span
-                                    className="text-white text-sm font-medium"
+                                    className="text-white text-sm font-medium cursor-pointer"
                                     onClick={() => {
                                       // const targetUserId =
                                       //   member?.user?._id || member?.userId;
@@ -930,7 +930,7 @@ export default function TournamentsTeam() {
                                     Assign Overwatch Roster Manager
                                   </span>
                                   <span
-                                    className="text-white text-sm font-medium"
+                                    className="text-white text-sm font-medium cursor-pointer"
                                     onClick={() => {
                                       // const targetUserId =
                                       //   member?.user?._id || member?.userId;
@@ -949,7 +949,7 @@ export default function TournamentsTeam() {
                                     Assign Overwatch Roster Coach
                                   </span>
                                   <span
-                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2"
+                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
                                     onClick={() => {
                                       // const targetUserId =
                                       //   member?.user?._id || member?.userId;
@@ -968,7 +968,7 @@ export default function TournamentsTeam() {
                                     Remove Player from Overwatch Roster
                                   </span>
                                   <span
-                                    className="text-white text-sm font-medium"
+                                    className="text-white text-sm font-medium cursor-pointer"
                                     onClick={() => {
                                       // const targetUserId =
                                       //   member?.user?._id || member?.userId;
