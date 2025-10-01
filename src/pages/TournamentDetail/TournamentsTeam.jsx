@@ -9,6 +9,7 @@ import {
   setTeamEditPopup,
   getTeamData,
   setRosterModal,
+  transferTeamPresidency,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -65,10 +66,16 @@ export default function TournamentsTeam() {
   };
 
   // Confirm callback after popup for making president
-  const handleMakePresident = (data) => {
+  const handleMakePresident = async (data) => {
     // TODO: integrate API to transfer president role
     // data contains: { userId, teamId }
-    console.log("Make President confirmed:", data);
+    await dispatch(
+      transferTeamPresidency({
+        teamId: data?.teamId,
+        newPresidentUserId: data?.userId,
+        userId: user?._id,
+      })
+    ).unwrap();
   };
 
   useEffect(() => {

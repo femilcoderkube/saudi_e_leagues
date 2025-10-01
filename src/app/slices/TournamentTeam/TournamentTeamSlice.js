@@ -8,6 +8,7 @@ const initialState = {
   currentTeam: null,
   loading: false,
   updateloading: false,
+  transferTeamloading: false,
   error: null,
   teamUserFormat: {
     manager: [],
@@ -141,6 +142,24 @@ export const updateTeamMemberGame = createAsyncThunk(
   }
 );
 
+export const transferTeamPresidency = createAsyncThunk(
+  "tournamentTeam/transferTeamPresidency",
+  async ({ teamId, newPresidentUserId, userId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`/Team/transferPresidency`, {
+        teamId,
+        newPresidentUserId,
+        userId,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to transfer team presidency"
+      );
+    }
+  }
+);
+
 const TournamentTeamSlice = createSlice({
   name: "tournamentTeam",
   initialState,
@@ -233,6 +252,18 @@ const TournamentTeamSlice = createSlice({
       })
       .addCase(updateTeamMemberGame.rejected, (state, action) => {
         state.updateloading = false;
+        state.error = action.payload;
+      })
+      .addCase(transferTeamPresidency.pending, (state) => {
+        state.transferTeamloading = true;
+        state.error = null;
+      })
+      .addCase(transferTeamPresidency.fulfilled, (state, action) => {
+        state.transferTeamloading = false;
+        state.error = null;
+      })
+      .addCase(transferTeamPresidency.rejected, (state, action) => {
+        state.transferTeamloading = false;
         state.error = action.payload;
       });
   },
