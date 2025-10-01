@@ -713,7 +713,8 @@ export default function TournamentsTeam() {
                   className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
                   onClick={() => setOpenInviteModel(true)}
                 >
-                  Invite Players{" "}
+                  {t("tournament.invite_players_title")}
+
                   <span className="ltr:ml-2.5 rtl:mr-2.5">
                     <svg
                       width="9"

@@ -531,6 +531,16 @@
     "selected_captain": "القائد المختار",
     "selected_players": "اللاعبون المختارون",
     "selected_substitutes": "البدلاء المختارون",
-    "selected_coach": "المدرب المختار"
+    "selected_coach": "المدرب المختار",
+    "invite_player_model": "دعوة لاعب",
+    "invite_link_label1": "رابط الدعوة",
+    "copy_button_title1": "نسخ الرابط",
+    "reset_button_title1": "إعادة تعيين الرابط",
+    "invite_link_fetch_failed": "فشل في جلب رابط الدعوة",
+    "invite_link_reset_success": "تم إعادة تعيين رابط الدعوة بنجاح",
+    "invite_link_reset_failed": "فشل في إعادة تعيين رابط الدعوة",
+    "copy_success": "تم النسخ إلى الحافظة",
+    "invite_players_title": "دعوة اللاعبين"
+
   }
 }

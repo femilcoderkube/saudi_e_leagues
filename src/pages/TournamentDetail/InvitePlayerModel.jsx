@@ -81,7 +81,7 @@ const InvitePlayerModel = ({ close }) => {
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
       <div className="fixed inset-0 flex justify-center items-center z-[999]">
         <motion.div
-          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative m-4 md:m-0"
+          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl lg:!w-[37rem]  relative m-4 md:m-0"
           initial={{ scale: 0.5, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
