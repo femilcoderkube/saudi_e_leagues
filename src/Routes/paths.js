@@ -13,6 +13,7 @@ const ROUTESPATH = {
   FINDING_PARTYMATCH: "lobby/:lId/finding-partymatch",
   PROFILE: "profile",
   TEAM: "lobby/team",
+  INVITE_LINK: "invite-link/:Iid",
 };
 
 export default ROUTESPATH;

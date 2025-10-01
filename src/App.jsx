@@ -80,7 +80,7 @@ function App() {
         <div className="flex">
           <Sidebar />
           <Routes>
-            <Route path="/invite-link" element={<InviteLink />} />
+            <Route path={ROUTESPATH.INVITE_LINK} element={<InviteLink />} />
             <Route
               path={ROUTESPATH.RESETPASSWORD}
               element={<ResetPasswordPage />}
@@ -124,10 +124,7 @@ function App() {
                 path={ROUTESPATH.FINDING_PARTYMATCH}
                 element={<PartyMatchMaking />}
               />
-              <Route
-                path={ROUTESPATH.TEAM}
-                element={<TournamentsTeam />}
-              />
+              <Route path={ROUTESPATH.TEAM} element={<TournamentsTeam />} />
               <Route path={ROUTESPATH.PROFILE} element={<UserProfilePage />} />
             </Route>
             <Route path="*" element={<Navigate to={`/${firstItem.id}`} />} />
