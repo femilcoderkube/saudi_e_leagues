@@ -993,7 +993,12 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   background: url(../images/team_bg.svg);
   background-repeat: no-repeat;
   background-size: 100%;
+}
 
+html[dir=rtl] .team_content-left {
+  background: url(../images/rtl_team_bg.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .team-content-left-wp::before,
@@ -1013,6 +1018,12 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   z-index: 1;
 }
 
+html[dir=rtl] .team-content-left-wp::before {
+  left: auto;
+  right: 0;
+  transform: translate(0, -50%) rotateY(180deg);
+}
+
 .team-content-left-wp-last::after {
   position: absolute;
   content: '';
@@ -1025,8 +1036,20 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   height: 2rem;
 }
 
+html[dir=rtl] .team-content-left-wp-last::after {
+  right: auto;
+  left: 0;
+  transform: rotate(90deg);
+}
+
 .team-mange {
   background: url(../images/team-center-shape.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+html[dir=rtl] .team-mange {
+  background: url(../images/rtl_team-center-shape.svg);
   background-repeat: no-repeat;
   background-size: 100%;
 }
@@ -1057,6 +1080,12 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   background-size: contain;
 }
 
+html[dir=rtl] .team-user-wp {
+  background-image: url(/src/assets/images/rtl_team-top-shape.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .team_content-left .polygon_border::before {
   z-index: 1;
   left: 0;
@@ -1070,6 +1099,11 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   background-size: 100%;
 }
 
+html[dir=rtl] .team_content-left .polygon_border::before {
+  left: auto;
+  right: 0;
+  transform: rotateY(180deg);
+}
 
 .team-content-left-wp::after {
   z-index: 1;
@@ -1082,6 +1116,10 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   background: linear-gradient(55.02deg, #434BE9 -10.01%, #46B5F9 107.56%);
 }
 
+html[dir=rtl] .team-content-left-wp::after {
+  left: 56.5%;
+}
+
 .team_content-left .polygon_border::after {
   width: 48%;
   left: auto;
@@ -1090,6 +1128,12 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   bottom: 0.25rem;
   background: linear-gradient(55.02deg, #434BE9 -10.01%, #46B5F9 107.56%);
   clip-path: polygon(2% 0%, 0% 100%, 98% 100%, 100% 0%, 5% 0);
+}
+
+html[dir=rtl] .team_content-left .polygon_border::after {
+  left: 1rem;
+  right: auto;
+  transform: translateX(0%) rotateY(180deg);
 }
 
 .edit-team-drop button {
@@ -1518,9 +1562,23 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link {
     width: 20%;
   }
 
+  html[dir=rtl] .team-content-left-wp::after {
+    left: 55.4%;
+  }
+
   .team-content-left-wp::before {
     left: 2.55rem;
     height: 5.25rem;
+  }
+
+  html[dir=rtl] .team-content-left-wp::before {
+    left: auto;
+    right: 2.55rem;
+  }
+
+  html[dir=rtl] .team-content-left-wp-last::after {
+    left: 2.55rem;
+    right: auto;
   }
 
   .team-mange-wp {
@@ -1705,18 +1763,36 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link {
     padding-block: 0.5rem;
     height: 4.3rem;
   }
-  .team-content-left-wp-last::after {  
-    right: 4rem;   
+
+  .team-content-left-wp-last::after {
+    right: 4rem;
     width: 1.5rem;
     height: 1.5rem;
-}
-.team-content-left-wp::before {
-  left: 4rem;
-  height: 4.25rem;
-}
-.team-board{
-  padding: 1rem;
-}
+  }
+
+  .team-content-left-wp::before {
+    left: 4rem;
+    height: 4.25rem;
+  }
+
+  .team-board {
+    padding: 1rem;
+  }
+
+  html[dir=rtl] .team-content-left-wp::after {
+    left: 54.4%;
+  }
+
+  html[dir=rtl] .team-content-left-wp::before {
+    left: auto;
+    right: 4rem;
+    top: 47%;
+  }
+
+  html[dir=rtl] .team-content-left-wp-last::after {
+    left: 4rem;
+    right: auto;
+  }
 }
 
 .react-pdf__Page {
