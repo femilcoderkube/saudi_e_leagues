@@ -18,6 +18,7 @@ function ConfirmationPopUp({
   onDeleteAccount,
   onLogout,
   onMakePresident,
+  onAssignTeamRole,
 }) {
   const { confirmationPopUp, selectedPlayerData } = useSelector(
     (state) => state.constState
@@ -102,11 +103,16 @@ function ConfirmationPopUp({
       }
     }
     if (confirmationPopUp === 7) {
-      // Make President of the Club confirmation
       dispatch(setConfirmationPopUp(0));
-      if (onMakePresident) {
-        onMakePresident(popupData);
-      }
+      onMakePresident(popupData);
+    }
+    if (confirmationPopUp === 8) {
+      onAssignTeamRole(popupData, "Manager");
+      dispatch(setConfirmationPopUp(0));
+    }
+    if (confirmationPopUp === 9) {
+      onAssignTeamRole(popupData, "Coach");
+      dispatch(setConfirmationPopUp(0));
     }
   };
 

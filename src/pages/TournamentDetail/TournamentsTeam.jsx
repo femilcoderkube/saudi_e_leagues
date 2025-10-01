@@ -65,9 +65,7 @@ export default function TournamentsTeam() {
     dispatch(setTeamEditPopup(true));
   };
 
-  // Confirm callback after popup for making president
   const handleMakePresident = async (data) => {
-    // data contains: { userId, teamId }
     try {
       await dispatch(
         transferTeamPresidency({
@@ -77,13 +75,17 @@ export default function TournamentsTeam() {
         })
       ).unwrap();
 
-      // Refresh current team data to reflect new president without manual reload
       if (user?._id) {
         await dispatch(getTeamData(user._id));
       }
     } catch (err) {
       console.error("Failed to transfer team presidency:", err);
     }
+  };
+
+  const handleAssignTeamRole = async (data, role) => {
+    console.log("data", data);
+    console.log("role", role);
   };
 
   useEffect(() => {
@@ -913,18 +915,18 @@ export default function TournamentsTeam() {
                                   <span
                                     className="text-white text-sm font-medium cursor-pointer"
                                     onClick={() => {
-                                      // const targetUserId =
-                                      //   member?.user?._id || member?.userId;
-                                      // const teamId = currentTeam?._id;
-                                      // if (targetUserId && teamId) {
-                                      //   dispatch(
-                                      //     setPopupData({
-                                      //       userId: targetUserId,
-                                      //       teamId,
-                                      //     })
-                                      //   );
-                                      dispatch(setConfirmationPopUp(8));
-                                      // }
+                                      const targetUserId =
+                                        member?.user?._id || member?.userId;
+                                      const teamId = currentTeam?._id;
+                                      if (targetUserId && teamId) {
+                                        dispatch(
+                                          setPopupData({
+                                            userId: targetUserId,
+                                            teamId,
+                                          })
+                                        );
+                                        dispatch(setConfirmationPopUp(8));
+                                      }
                                     }}
                                   >
                                     Assign Overwatch Roster Manager
@@ -932,18 +934,18 @@ export default function TournamentsTeam() {
                                   <span
                                     className="text-white text-sm font-medium cursor-pointer"
                                     onClick={() => {
-                                      // const targetUserId =
-                                      //   member?.user?._id || member?.userId;
-                                      // const teamId = currentTeam?._id;
-                                      // if (targetUserId && teamId) {
-                                      //   dispatch(
-                                      //     setPopupData({
-                                      //       userId: targetUserId,
-                                      //       teamId,
-                                      //     })
-                                      //   );
-                                      dispatch(setConfirmationPopUp(9));
-                                      // }
+                                      const targetUserId =
+                                        member?.user?._id || member?.userId;
+                                      const teamId = currentTeam?._id;
+                                      if (targetUserId && teamId) {
+                                        dispatch(
+                                          setPopupData({
+                                            userId: targetUserId,
+                                            teamId,
+                                          })
+                                        );
+                                        dispatch(setConfirmationPopUp(9));
+                                      }
                                     }}
                                   >
                                     Assign Overwatch Roster Coach
@@ -1086,7 +1088,10 @@ export default function TournamentsTeam() {
       {openInviteModel && (
         <InvitePlayerModel close={() => setOpenInviteModel(false)} />
       )}
-      <ConfirmationPopUp onMakePresident={handleMakePresident} />
+      <ConfirmationPopUp
+        onMakePresident={handleMakePresident}
+        onAssignTeamRole={handleAssignTeamRole}
+      />
       <ManageRosterModal isOpen={isOpen} onClose={closeModal} />
     </>
   );
