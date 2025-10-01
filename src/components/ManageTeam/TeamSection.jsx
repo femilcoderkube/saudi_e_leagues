@@ -53,7 +53,7 @@ const TeamSection = ({
           ))}
         </div>
       ) : (
-        <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-4 py-3 text-center text-[#7B7ED0] text-sm font-medium">
+        <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-4 py-2 text-center text-[#7B7ED0] text-sm font-medium">
           {t(noDataMessage)}
         </div>
       )}
