@@ -52,7 +52,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
     teamShortName: "",
     teamLogo: null,
     region: null,
-    maxParticipants: 5,
+    // maxParticipants: 5,
     social: {
       twitterId: "",
       instagramId: "",
@@ -73,7 +73,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
         region: currentTeam.region
           ? countryOptions.find((option) => option.value === currentTeam.region)
           : null,
-        maxParticipants: currentTeam.maxParticipants || 5,
+        // maxParticipants: currentTeam.maxParticipants || 5,
         social: {
           twitterId: currentTeam.social?.twitterId || "",
           instagramId: currentTeam.social?.instagramId || "",
@@ -102,10 +102,10 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
         label: Yup.string().required(),
       })
       .required(t("validation_messages.region_required")),
-    maxParticipants: Yup.number()
-      .required(t("validation_messages.max_participants_required"))
-      .min(2, t("validation_messages.max_participants_min"))
-      .max(10, t("validation_messages.max_participants_max")),
+    // maxParticipants: Yup.number()
+    //   .required(t("validation_messages.max_participants_required"))
+    //   .min(2, t("validation_messages.max_participants_min"))
+    //   .max(10, t("validation_messages.max_participants_max")),
   });
 
   const step2ValidationSchema = Yup.object({
@@ -157,9 +157,9 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       });
 
       // Add userId for team creation
-      if (!isEdit) {
+      // if (!isEdit) {
         formData.append("userId", user._id);
-      }
+      // }
       for (let [key, value] of formData.entries()) {
         console.log(`${key}:`, value);
       }
@@ -245,7 +245,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
             </div>
 
             {/* Max Participants */}
-            <div className="text-start w-full pr-4">
+            {/* <div className="text-start w-full pr-4">
               <Field
                 type="number"
                 name="maxParticipants"
@@ -259,7 +259,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
                 component="div"
                 className="text-red-500 text-sm"
               />
-            </div>
+            </div> */}
 
             {/* Team Logo */}
             <div className="text-start w-full pr-4">
