@@ -424,6 +424,10 @@
     "removePlayerTitle": "إزالة لاعب",
     "removePlayerMessage": "هل أنت متأكد أنك تريد إزالة هذا اللاعب من المجموعة؟",
     "removePlayerConfirm": "إزالة",
+    "assignManagerConfirm": "هل أنت متأكد أنك تريد إعطاء هذا اللاعب دور المدير؟",
+    "assignCoachConfirm": "هل أنت متأكد أنك تريد إعطاء هذا اللاعب دور المدرب؟",
+    "removeManagerConfirm": "هل أنت متأكد أنك تريد إزالة هذا اللاعب من دور المدير؟",
+    "removeCoachConfirm": "هل تريد التأكد من إزالة اللاعب؟",
     "leavePartyConfirm": "مغادرة",
     "leavePartyTitle": "هل أنت متأكد أنك تريد مغادرة المجموعة؟"
   },
