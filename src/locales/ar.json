@@ -385,7 +385,9 @@
     "game_background": "خلفية اللعبة",
     "follow_us": "تابعنا",
     "notifications": "الإشعارات",
-    "skip": "تخطي"
+    "skip": "تخطي",
+    "Registerog": "يسجل",
+    "Registergn": "مسجل"
   },
   "actions": {
     "custom_action": "إجراء مخصص"
@@ -477,7 +479,17 @@
     "discordId": "معرّف ديسكورد",
     "twitchId": "معرّف تويتش",
     "no_team_title": "قم بإنشاء فريقك الخاص",
-    "no_team_desc": "أنت لستَ عضوًا في أي فريق بعد. ابدأ رحلتك بإنشاء فريقك الخاص!"
+    "no_team_desc": "أنت لستَ عضوًا في أي فريق بعد. ابدأ رحلتك بإنشاء فريقك الخاص!",
+    "region": "دولة",
+    "members": "أعضاء",
+    "wins": "فازات",
+    "losses": "خسائر",
+    "last_tournaments": "البطولات الأخيرة",
+    "manage_roster_title": "إدارة قائمة اللاعبين",
+    "make_president": "جعل رئيس الفريق",
+    "assign_manager": "تعيين مدير قائمة Overwatch",
+    "assign_coach": "تعيين مدرب قائمة Overwatch",
+    "remove_player": "إزالة اللاعب من الفريق"
   },
   "tournament": {
     "schedule": "الجدول",
@@ -547,7 +559,8 @@
     "invite_players_title": "دعوة اللاعبين",
     "no_coaches_available": "لا يوجد مدربون متاحون",
     "no_players_available": "لا يوجد لاعبون متاحون",
-    "players_max_limit": "يمكن اختيار {{count}} لاعبين كحد أقصى"
+    "players_max_limit": "يمكن اختيار {{count}} لاعبين كحد أقصى",
+    "list_of_participants": "قائمة المشاركين"
   },
   "roster": {
     "manage_roster_title": "إدارة قائمتك",

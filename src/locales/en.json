@@ -357,8 +357,8 @@
     "large_prime": "Large Prime",
     "need_login": "YOU NEED TO LOG IN",
     "join_button": "JOIN",
-    "Registerog": "REGISTER",
-    "Registergn": "REGISTER",
+    "Registerog": "REGISTERED",
+    "Registergn": "REGISTERED",
 
     "queue_button": "Queue button",
     "open_button": "Open button",
@@ -482,7 +482,17 @@
     "discordId": "Discord ID",
     "twitchId": "Twitch ID",
     "no_team_title": "Create Your Own Team",
-    "no_team_desc": "You are not part of any team yet. Start your journey by creating your own team!"
+    "no_team_desc": "You are not part of any team yet. Start your journey by creating your own team!",
+    "region": "Country",
+    "members": "Members",
+    "wins": "Wins",
+    "losses": "Losses",
+    "last_tournaments": "Last Tournaments",
+    "manage_roster_title": "Manage Your Roster",
+    "make_president": "Make President of the Club",
+    "assign_manager": "Assign Overwatch Roster Manager",
+    "assign_coach": "Assign Overwatch Roster Coach",
+    "remove_player": "Remove Player from Team"
   },
   "tournament": {
     "schedule": "Schedule",
@@ -551,7 +561,9 @@
     "copy_success": "Copied to clipboard",
     "no_coaches_available": "No coaches available",
     "no_players_available": "No players available",
-    "players_max_limit": "Maximum {{count}} players can be selected"
+    "players_max_limit": "Maximum {{count}} players can be selected",
+    "invite_players_title": "Invite Players",
+    "list_of_participants": "List of Participants"
   },
   "roster": {
     "manage_roster_title": "Manage Your Roster",
