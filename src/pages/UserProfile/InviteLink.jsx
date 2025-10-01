@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { IMAGES } from "../../components/ui/images/images";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   assignGameToMember,
   fetchGames,
@@ -14,8 +14,9 @@ import { getServerURL } from "../../utils/constant";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
-const InviteLink = () => {
+const InviteLink = ({ Iid }) => {
   const [submitted, setSubmitted] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const { user } = useSelector((state) => state.auth);
@@ -25,8 +26,8 @@ const InviteLink = () => {
     games,
     loading,
   } = useSelector((state) => state.teamInvitation);
-
-  const { Iid } = useParams();
+  const { t } = useTranslation();
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -56,11 +57,13 @@ const InviteLink = () => {
 
   // Validation schema using Yup
   const validationSchema = Yup.object({
-    selectedGame: Yup.object().nullable().required("Please select a game"),
+    selectedGame: Yup.object()
+      .nullable()
+      .required(t("Invite_model.select_game_required")),
     gameId: Yup.string()
       .trim()
-      .required("Game ID is required")
-      .min(1, "Game ID cannot be empty"),
+      .required(t("Invite_model.game_id_required"))
+      .min(1, t("Invite_model.game_id_min")),
   });
 
   // Initial form values
@@ -84,7 +87,16 @@ const InviteLink = () => {
         })
       );
       if (resultAction?.meta?.requestStatus == "fulfilled") {
-        toast.success("Invitation accepted!");
+        toast.success(t("Invite_model.invitation_accepted"));
+        const params = new URLSearchParams(location.search);
+        params.delete("Iid");
+        navigate(
+          {
+            pathname: location.pathname, // keep the same path (/prime/lobby/:id)
+            search: params.toString(), // cleaned query string
+          },
+          { replace: true }
+        );
       }
       console.log("resultAction", resultAction);
     } catch (error) {
@@ -97,7 +109,7 @@ const InviteLink = () => {
   return (
     <main dir="ltr" className="flex-1 lobby_page--wrapper">
       <>
-        <div className="fixed inset-0 bg-[#09092d] z-40" />
+        {/* <div className="fixed inset-0 bg-[#09092d] z-40" /> */}
         <div className="fixed inset-0 flex justify-center items-center z-50">
           <div className="match-makingwp overflow-hidden">
             <img
@@ -137,18 +149,17 @@ const InviteLink = () => {
               {/* Header */}
               <div className="bg-[#1a1b3a] rounded-t-xl px-8 py-5 border-b border-[#353c83] text-center">
                 <h2 className="text-2xl font-bold text-white tracking-wide">
-                  Accept Invitation
+                  {t("Invite_model.accept_invitation")}
                 </h2>
                 <p className="text-[#7B7ED0] text-base mt-1">
-                  You have been invited to join a team. Please review the
-                  details and accept the invitation.
+                  {t("Invite_model.accept_description")}
                 </p>
               </div>
 
               {/* Team Details */}
               <div className="px-8 py-5 border-b border-[#353c83]">
                 <h3 className="text-lg font-semibold text-[#7B7ED0] mb-3">
-                  Team Details
+                  {t("Invite_model.team_details")}
                 </h3>
                 <div className="flex items-center gap-4 mb-3">
                   <div className="rounded-full overflow-hidden w-16 h-16 border-2 border-[#7B7ED0]">
@@ -164,13 +175,13 @@ const InviteLink = () => {
                     </p>
                     <div className="flex gap-6 text-sm text-[#7B7ED0]">
                       <span>
-                        Members:{" "}
+                        {t("Invite_model.members")}:
                         <span className="text-[#F4F7FF] font-semibold">
                           {teamData?.members?.length || 0}
                         </span>
                       </span>
                       <span>
-                        Country:{" "}
+                        {t("Invite_model.country")}:
                         <span className="text-[#F4F7FF] font-semibold">
                           {teamData?.region || "N/A"}
                         </span>
@@ -190,7 +201,7 @@ const InviteLink = () => {
                   <Form className="px-8 pt-5">
                     <div className="custom_select2 sd_select--menu ">
                       <label className="flex gap-4 items-center h-10 rounded ">
-                        Select Game
+                        {t("Invite_model.select_game")}
                       </label>
                       <Select
                         name="selectedGame"
@@ -201,7 +212,7 @@ const InviteLink = () => {
                         options={gameOptions}
                         className="basic-multi-select cursor-pointer"
                         classNamePrefix="select"
-                        placeholder="Select Game"
+                        placeholder={t("Invite_model.select_game")}
                         menuPortalTarget={document.body}
                         formatOptionLabel={(option) => (
                           <div className="flex items-center gap-2">
@@ -257,13 +268,13 @@ const InviteLink = () => {
 
                     <div>
                       <label className="block text-[#7B7ED0] font-semibold mt-5">
-                        Enter Game ID
+                        {t("Invite_model.game_id")}
                       </label>
                       <Field
                         name="gameId"
                         type="text"
                         className="sd_custom-input !w-full px-4 py-2 mt-2 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0] bg-[#18194a] border border-[#353c83] rounded"
-                        placeholder="Enter Game Id"
+                        placeholder={t("Invite_model.game_id")}
                       />
                       <ErrorMessage
                         name="gameId"
@@ -301,7 +312,9 @@ const InviteLink = () => {
                             ></path>
                           </svg>
                         ) : null}
-                        {loading ? "Submitting..." : "Accept Invitation"}
+                        {loading
+                          ? t("Invite_model.submit")
+                          : t("Invite_model.accept_invitation")}
                       </button>
                     </div>
                   </Form>

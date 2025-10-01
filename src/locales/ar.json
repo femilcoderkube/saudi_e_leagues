@@ -576,5 +576,20 @@
     "submitting": "جارٍ التقديم...",
     "confirm": "تأكيد",
     "cancel": "إلغاء"
-  }
+  },
+  "Invite_model": {
+  "accept_invitation": "قبول الدعوة",
+  "accept_description": "لقد تمت دعوتك للانضمام إلى فريق. يرجى مراجعة التفاصيل وقبول الدعوة.",
+  "team_details": "تفاصيل الفريق",
+  "members": "الأعضاء",
+  "country": "البلد",
+  "select_game": "اختر اللعبة",
+  "game_id": "أدخل معرف اللعبة",
+  "submit": "جاري الإرسال...",
+  "select_game_required": "يرجى اختيار لعبة",
+  "game_id_required": "معرف اللعبة مطلوب",
+  "game_id_min": "لا يمكن أن يكون معرف اللعبة فارغًا",
+  "invitation_accepted": "تم قبول الدعوة!"
+}
+
 }

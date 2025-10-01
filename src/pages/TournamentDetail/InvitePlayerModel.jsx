@@ -73,7 +73,10 @@ const InvitePlayerModel = ({ close }) => {
 
   const handleCopy = () => {
     if (!inviteLink) return;
-    navigator.clipboard.writeText(InviteBaseUrl + "/invite-link/" + inviteLink);
+    navigator.clipboard.writeText(
+      `${InviteBaseUrl}/prime/lobby?Iid=${inviteLink}`
+    );
+
     toast.success(t("tournament.copy_button_title1"));
   };
   return (
@@ -116,9 +119,7 @@ const InvitePlayerModel = ({ close }) => {
                     <div className="flex items-center gap-2 bg-[#05042C] h-[56px] border border-[#393B7A] rounded-lg w-full overflow-hidden pl-[15px]">
                       <input
                         type="text"
-                        value={
-                          InviteBaseUrl + "/invite-link/" + inviteLink || ""
-                        } // <-- use inviteLink state
+                        value={`${InviteBaseUrl}/prime/lobby?Iid=${inviteLink}`} // <-- use inviteLink state
                         readOnly
                         className="flex-1 bg-transparent text-white text-sm outline-none"
                         style={{ minWidth: 0 }}

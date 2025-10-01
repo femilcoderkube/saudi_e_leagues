@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GameDropDown from "../../components/Loddy/GameDropDown.jsx";
 import { FolderIcon, ListIcon } from "../../components/ui/svg/index.jsx";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import {
   fetchLeagues,
   setActiveIndex,
@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import { setTournamentData } from "../../app/slices/tournamentSlice/tournamentSlice";
 import { cardVariantsAni } from "../../components/Animation/animation.jsx";
 import { setPartyQueueTeam } from "../../app/slices/constState/constStateSlice.js";
+import InviteLink from "../UserProfile/InviteLink.jsx";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -40,6 +41,9 @@ const Lobby = () => {
   const { id } = useParams();
   const { leagues, loading, activeIndex, tabs, isListView, selectedGame } =
     useSelector((state) => state.lobby);
+  const { user } = useSelector((state) => state.auth);
+  const [searchParams] = useSearchParams();
+  const Iid = searchParams.get("Iid");
   const { t } = useTranslation();
   const partnerID = getPartnerById(id).docId;
   const dispatch = useDispatch();
@@ -65,6 +69,10 @@ const Lobby = () => {
     dispatch(setPartyQueueTeam(null));
     dispatch(setTournamentData(null));
   }, [dispatch, activeIndex, selectedGame]);
+
+  if (Iid && user) {
+    return <InviteLink Iid={Iid} />;
+  }
 
   return (
     <>
