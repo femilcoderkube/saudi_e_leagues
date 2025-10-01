@@ -860,9 +860,10 @@ export default function TournamentsTeam() {
                         </div>
                         <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
                           <div
-                            className={`game_card--roaster-wrap ${
-                              !hasPopup ? "mt-[19px]" : ""
-                            }`}
+                            // className={`game_card--roaster-wrap ${
+                            //   !hasPopup ? "mt-[19px]" : ""
+                            // }`}
+                            className="game_card--roaster-wrap"
                           >
                             {myRoleLower === "manager" &&
                               !isSelf &&
@@ -888,7 +889,7 @@ export default function TournamentsTeam() {
                                   </div>
                                 </div>
                               )}
-                            {myRoleLower === "president" && !isSelf && (
+                            {myRoleLower === "president" && (
                               <div className="relative group flex flex-col items-center">
                                 <div className="flex justify-end w-full">
                                   <img
