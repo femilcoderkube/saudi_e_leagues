@@ -11,7 +11,7 @@ import tournamentSlice from "./tournamentSlice/tournamentSlice";
 import draftSlice from "./draft/draftSlice";
 import TournamentMatchDetailSlice from "./MatchSlice/TournamentMatchDetailSlice"
 import TournamentTeamSlice from "./TournamentTeam/TournamentTeamSlice"
-
+import teamInvitationSlice from "./teamInvitationSlice/teamInvitationSlice"
 export const store = configureStore({
   reducer: {
     auth: authSlice,
@@ -25,7 +25,8 @@ export const store = configureStore({
     notification: notificationSlice,
     tournament: tournamentSlice,
     draft: draftSlice,
-    tournamentTeam: TournamentTeamSlice
+    tournamentTeam: TournamentTeamSlice,
+    teamInvitation:teamInvitationSlice
   },
 });
 

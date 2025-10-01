@@ -21,9 +21,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [visible, setVisible] = useState(false);
   const { t } = useTranslation();
-  const { resetPasswordSuccess } = useSelector(
-    (state) => state.auth
-  );
+  const { resetPasswordSuccess } = useSelector((state) => state.auth);
 
   const loginInitialValues = {
     email: "",
@@ -67,7 +65,7 @@ const Login = () => {
         }
       }
       dispatch(setLogin(false));
-      dispatch(setAnnouncementBanner(true))
+      dispatch(setAnnouncementBanner(true));
     } catch (error) {
       toast.error(error.message || t("auth.login_failed"));
       console.error("Login failed:", error);
@@ -129,12 +127,12 @@ const Login = () => {
               {({ isSubmitting }) => (
                 <Form className="space-y-4 mt-7">
                   <div className="text-start w-full pr-4">
-                    <Field
+                    {/* <Field
                       type="email"
                       name="email"
                       className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                       placeholder={t("form.email")}
-                    />
+                    /> */}
                     <ErrorMessage
                       name="email"
                       component="div"
