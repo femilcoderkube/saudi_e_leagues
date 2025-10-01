@@ -106,6 +106,7 @@ import about_down from "../../../assets/images/about-down.png";
 import list_partycip from "../../../assets/images/list_partycip.png";
 import team_falcons from "../../../assets/images/team-falcons.webp";
 import maskgroup from "../../../assets/images/maskgroup.webp";
+import user_about from "../../../assets/images/user-about.png";
 
 export const IMAGES = {
   prime_icon,
@@ -195,4 +196,5 @@ export const IMAGES = {
   logOut,
   deleteIcon,
   maskgroup,
+  user_about,
 };

@@ -1688,6 +1688,16 @@ html[dir=rtl] .edit-team-wp {
     width: 4.5rem;
   }
 
+  .about-accordation .round-gold{
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  .about-accordation .round-gold img {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
   .round-gold,
   .round-gold img {
     width: 1.6rem;
@@ -1845,6 +1855,34 @@ html[dir=rtl] .edit-team-wp {
 }
 
 .sa__tournament-tabs li {
+  padding: 0 1.875rem 0 0;
+}
+
+#tournament-tabs.sa__tournament-tabs li.active div{
+  border-bottom: 0;
+  padding-block:1rem ;
+}
+
+#tournament-tabs.sa__tournament-tabs li div{
+  padding-block: 1rem;
+  color: #686992;
+}
+
+#tournament-tabs.sa__tournament-tabs li:not(:first-child) div {
+  padding-right: 3rem;
+}
+
+#tournament-tabs.sa__tournament-tabs li.active div{
+  color: unset;
+  background: linear-gradient(180deg, #F4F7FF 53.92%, #55B384 112.5%);
+}
+
+#tournament-tabs.sa__tournament-tabs li {
+  padding-right: 0;
+}
+
+#tournament-tabs.sa__tournament-tabs li:first-child{
+  margin-right:1.875rem ;
   padding: 0 1.875rem 0 0;
 }
 

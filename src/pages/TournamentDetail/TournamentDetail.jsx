@@ -40,6 +40,8 @@ const TournamentDetail = () => {
   const { tournamentData, activeStage, loader } = useSelector(
     (state) => state.tournament
   );
+  console.log(tournamentData,"hvfsfhs");
+  
 
   const [showModal, setShowModal] = useState(false);
   const { currentTeam } = useSelector((state) => state.tournamentTeam);
@@ -239,7 +241,7 @@ const TournamentDetail = () => {
                       onClick={() =>
                         activeStage !== -1 ? dispatch(setActiveStage(-1)) : null
                       }
-                      className={`px-4 py-2 pl-0 flex items-center justify-center text-xl whitespace-nowrap ${
+                      className={`grad_text-clip px-4 pl-0 flex gap-[1.125rem] items-center justify-center text-xl whitespace-nowrap ${
                         activeStage === -1
                           ? "text-blue-500 font-bold"
                           : "text-gray-700"
@@ -248,7 +250,7 @@ const TournamentDetail = () => {
                       <img
                         src={IMAGES.maskgroup}
                         alt="Overview Icon"
-                        className="w-6 h-6 mr-2"
+                        className="w-5 h-5"
                       />
                       {t("tournament.overview")}
                     </div>
@@ -268,12 +270,17 @@ const TournamentDetail = () => {
                               ? dispatch(setActiveStage(index))
                               : null
                           }
-                          className={`px-4 py-2 pl-0 flex items-center justify-center text-xl whitespace-nowrap ${
+                          className={`px-4 pl-0 flex gap-4 items-center justify-center text-xl whitespace-nowrap ${
                             index === activeStage
                               ? "text-blue-500 font-bold"
                               : "text-gray-700"
                           }`}
                         >
+                           <img
+                        src={IMAGES.user_about}
+                        alt="Overview Icon"
+                        className="w-5 h-5"
+                      />
                           {item?.stageName}
                         </div>
                       </li>
