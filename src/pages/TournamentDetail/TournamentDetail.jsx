@@ -455,7 +455,7 @@ const TournamentDetail = () => {
                             <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
                               <div className="battle-shape-text flex md:gap-6 gap-3 w-[21rem]">
                                 <span className="inline-block md:text-2xl sm:text-lg text-base font-bold">
-                                  List of Participants
+                                  {t("tournament.list_of_participants")}
                                 </span>
                               </div>
                               <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">

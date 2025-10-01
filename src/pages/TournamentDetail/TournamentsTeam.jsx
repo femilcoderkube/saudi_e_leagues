@@ -154,13 +154,13 @@ export default function TournamentsTeam() {
                           className="text-white text-lg font-medium cursor-pointer"
                           onClick={handleEditTeam}
                         >
-                          Edit Team
+                          {t("tourteam.edit_team")}
                         </span>
                         <span
                           className="text-white text-lg font-medium cursor-pointer"
                           onClick={openModal}
                         >
-                          Manage Your Roasters
+                          {t("tourteam.manage_roster_title")}
                         </span>
                       </div>
                     </div>
@@ -230,7 +230,7 @@ export default function TournamentsTeam() {
                   <div className="team-mange-wp px-10 flex items-center gap-4 mt-[2rem]">
                     <div className="team-mange w-[10.75rem] h-[5.75rem] md:px-5 md:py-4 p-4">
                       <span className="text-[#7B7ED0] font-semibold text-base">
-                        Members
+                        {t("tourteam.members")}
                       </span>
                       <div className="flex items-center gap-3 mt-2.5">
                         <span className="font-semibold md:text-lg text-base">
@@ -240,7 +240,7 @@ export default function TournamentsTeam() {
                     </div>
                     <div className="team-mange w-[10.75rem] h-[5.75rem] md:px-5 md:py-4 p-4">
                       <span className="text-[#7B7ED0] font-semibold text-base">
-                        Country
+                        {t("tourteam.region")}
                       </span>
                       <div className="flex items-center gap-3 mt-2.5">
                         <span className="font-semibold md:text-lg text-base">
@@ -404,12 +404,18 @@ export default function TournamentsTeam() {
                   <div className="relative mt-7 team-board flex items-center justify-between max-w-[22.5rem] py-6 px-10 rounded-lg w-full mx-auto bg-[linear-gradient(180deg,rgba(48,53,72,0.4)_0%,rgba(48,53,72,0.16)_100%),linear-gradient(85.43deg,rgba(31,116,78,0.12)_3.99%,rgba(31,116,78,0)_32.05%),linear-gradient(85.43deg,rgba(188,50,37,0)_67.72%,rgba(188,50,37,0.12)_100%)] border-t border-[rgba(255,255,255,0.06)] shadow-[0px_4px_12px_0px_#090C1633]">
                     <div className="text-center">
                       <h3 className="text-[#F4F7FF] md:text-2xl sm:text-lg text-base font-bold">
-                        0 <span className="text-base team-win">Wins</span>
+                        0{" "}
+                        <span className="text-base team-win">
+                          {t("tourteam.wins")}
+                        </span>
                       </h3>
                     </div>
                     <div className="text-center">
                       <h3 className="text-[#F4F7FF] md:text-2xl sm:text-lg text-base font-bold">
-                        0 <span className="text-base team-loss">Losses</span>
+                        0{" "}
+                        <span className="text-base team-loss">
+                          {t("tourteam.losses")}
+                        </span>
                       </h3>
                     </div>
                   </div>
@@ -419,7 +425,7 @@ export default function TournamentsTeam() {
             <div className="team_content-right w-full">
               <div className="mb-6">
                 <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
-                  Last Tournaments
+                  {t("tourteam.last_tournaments")}
                 </h3>
               </div>
               <div className="game_card--wrapper game_card--wrapv2 flex sm:flex-wrap  gap-[1.188rem] md:justify-start mb-9">
@@ -557,7 +563,7 @@ export default function TournamentsTeam() {
               </div>
               <div className="mb-6">
                 <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
-                  Last Matches
+                  {t("tourteam.last_tournaments")}
                 </h3>
               </div>
               <div className="main-card-duty-wp flex md:flex-row flex-col gap-[1.188rem] mt-5">
@@ -910,7 +916,7 @@ export default function TournamentsTeam() {
                                     }}
                                   >
                                     {" "}
-                                    Make President of the Club
+                                    {t("tourteam.make_president")}
                                   </span>
                                   <span
                                     className="text-white text-sm font-medium cursor-pointer"
@@ -986,7 +992,7 @@ export default function TournamentsTeam() {
                                       // }
                                     }}
                                   >
-                                    Remove Player from the Team
+                                    {t("tourteam.remove_player")}
                                   </span>
                                 </div>
                               </div>

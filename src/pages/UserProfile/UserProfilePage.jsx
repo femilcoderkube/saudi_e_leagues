@@ -43,7 +43,7 @@ const UserProfilePage = () => {
       dispatch(deleteAccount());
       dispatch(clearDeleteAccountState());
       dispatch(setActiveTabIndex(0));
-      navigate(`/${id}/lobby`);
+      navigate(`/${id}/lobby`, { replace: true });
       let type = localStorage.getItem("deviceType");
       if (type == "mobile") {
         window.AndroidInterface?.androidLogoutCallbackHandler("success");
