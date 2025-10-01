@@ -1207,6 +1207,12 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link {
   min-height: 13rem;
 }
 
+html[dir=rtl] .edit-team-wp {
+  right: auto;
+  left: 0;
+  transform: rotateY(180deg);
+}
+
 /* Start 29-09-2025 */
 .game_card--roaster-main {
   background-image: url(/src/assets/images/card_roaster.svg);
@@ -1620,6 +1626,20 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link {
   .team-mange span {
     font-size: 0.875rem;
   }
+
+  .edit-team-wp{
+    right: 2.5rem;
+  }
+
+  html[dir=rtl] .edit-team-wp {
+    right: auto;
+    left: 2.5rem;
+  }
+
+  .edit-team-drop button{
+    width: 3.125rem;
+    height: 3.125rem;
+  }
 }
 
 @media (max-width: 425px) {
@@ -1793,6 +1813,14 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link {
     left: 4rem;
     right: auto;
   }
+  .edit-team-wp {
+    right: 4rem;
+}
+
+html[dir=rtl] .edit-team-wp {
+  right: auto;
+  left: 4rem;
+}
 }
 
 .react-pdf__Page {

@@ -109,8 +109,8 @@ export default function TournamentsTeam() {
           <div className="team-page-wp flex xl:items-start items-center md:gap-[3.813rem] gap-[2rem] flex-col xl:flex-row w-full">
             <div className="relative team-content-left-wp sm:w-[27.5rem] sm:h-[32.313rem]">
               <div className="relative team-content-left-wp-last">
-                {isPresident && (
-                  <div className="absolute top-0 right-0 z-20">
+                <div className="edit-team-wp absolute top-0 right-0 z-20">
+                  {isPresident ? (
                     <div className="edit-team-drop group relative flex flex-col items-center">
                       <button className="bg-[linear-gradient(180deg,rgba(188,82,37,0.8464)_0%,rgba(244,149,40,0.92)_107.14%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] w-16 h-16 rounded-[0.5rem_0_0.5rem_0] flex items-center justify-center hover:scale-102 transition-transform duration-150 cursor-pointer">
                         <svg
@@ -131,6 +131,7 @@ export default function TournamentsTeam() {
                           />
                         </svg>
                       </button>
+
                       <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
                         <span
                           className="text-white text-lg font-medium cursor-pointer"
@@ -146,8 +147,39 @@ export default function TournamentsTeam() {
                         </span>
                       </div>
                     </div>
-                  </div>
-                )}
+                  ) : (
+                    <div className="edit-team-drop group relative flex flex-col items-center">
+                      <button className="bg-[linear-gradient(180deg,rgba(188,82,37,0.8464)_0%,rgba(244,149,40,0.92)_107.14%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] w-16 h-16 rounded-[0.5rem_0_0.5rem_0] flex items-center justify-center hover:scale-102 transition-transform duration-150 cursor-pointer">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlnsXlink="http://www.w3.org/1999/xlink"
+                          width={24}
+                          height={24}
+                          x={0}
+                          y={0}
+                          viewBox="0 0 512 512"
+                          style={{
+                            enableBackground: "new 0 0 512 512",
+                            width: "1.5rem",
+                            height: "1.5rem",
+                          }}
+                          xmlSpace="preserve"
+                          className=""
+                        >
+                          <g>
+                            <path
+                              d="M363.335 488a24 24 0 0 1-24 24H113.082a80.09 80.09 0 0 1-80-80V80a80.09 80.09 0 0 1 80-80h226.253a24 24 0 0 1 0 48H113.082a32.035 32.035 0 0 0-32 32v352a32.034 32.034 0 0 0 32 32h226.253a24 24 0 0 1 24 24zm108.553-248.97L357.837 124.978a24 24 0 1 0-33.937 33.941L396.977 232H208.041a24 24 0 1 0 0 48h188.935l-73.08 73.08a24 24 0 1 0 33.941 33.941l114.051-114.05a24 24 0 0 0 0-33.941z"
+                              fill="#ffffff"
+                              opacity={1}
+                              data-original="#ffffff"
+                              className=""
+                            />
+                          </g>
+                        </svg>
+                      </button>
+                    </div>
+                  )}
+                </div>
 
                 <div className="team_content-left w-[27.5rem] h-[32.313rem] shrink-0">
                   <div className="relative polygon_border sd_before sd_after">
@@ -790,7 +822,7 @@ export default function TournamentsTeam() {
                         {roleLower === "president" && (
                           <div className="w-[1.188rem] h-auto flex items-center justify-center mx-auto mb-1.5">
                             <img
-                              src="/src/assets/images/roaster-king.png"
+                              src="/src/assets/images/roaster-king.webp"
                               alt="President crown"
                               className="w-full h-full"
                             />
@@ -844,7 +876,7 @@ export default function TournamentsTeam() {
                                 </div>
                                 <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10 ">
                                   <span
-                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
+                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2"
                                     onClick={() => {
                                       const targetUserId =
                                         member?.user?._id || member?.userId;
@@ -859,19 +891,17 @@ export default function TournamentsTeam() {
                                         dispatch(setConfirmationPopUp(7));
                                       }
                                     }}
-                                  >
-                                    Make President of the Club
-                                  </span>
-                                  <span className="text-white text-sm font-medium cursor-pointer">
+                                  > Make President of the Club</span>
+                                  <span className="text-white text-sm font-medium">
                                     Assign Overwatch Roster Manager
                                   </span>
-                                  <span className="text-white text-sm font-medium cursor-pointer">
+                                  <span className="text-white text-sm font-medium">
                                     Assign Overwatch Roster Coach
                                   </span>
-                                  <span className="text-white text-sm font-medium border-b border-[#5362A9] pb-1 cursor-pointer">
+                                  <span className="text-white text-sm font-medium border-b border-[#5362A9] pb-2">
                                     Remove Player from Overwatch Roster
                                   </span>
-                                  <span className="text-white text-sm font-medium cursor-pointer">
+                                  <span className="text-white text-sm font-medium">
                                     Remove Player from the Team
                                   </span>
                                 </div>
@@ -975,7 +1005,6 @@ export default function TournamentsTeam() {
         <InvitePlayerModel close={() => setOpenInviteModel(false)} />
       )}
       <ConfirmationPopUp onMakePresident={handleMakePresident} />
-
       <ManageRosterModal isOpen={isOpen} onClose={closeModal} />
     </>
   );
