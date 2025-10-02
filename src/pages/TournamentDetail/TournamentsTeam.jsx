@@ -131,6 +131,21 @@ export default function TournamentsTeam() {
       console.log("err", error);
     }
   };
+  const handleDeleteTeam = async (data) => {
+    try {
+      const resultAction = await dispatch(
+        removeTeam({
+          teamId: data?.teamId,
+          userId: data?.userId,
+        })
+      );
+      if (removeTeam.fulfilled.match(resultAction)) {
+        await dispatch(getTeamData(user._id));
+      }
+    } catch (error) {
+      console.log("err", error);
+    }
+  };
 
   useEffect(() => {
     if (user?._id) {
@@ -203,7 +218,7 @@ export default function TournamentsTeam() {
                         <span
                           className="text-white text-lg font-medium cursor-pointer"
                           onClick={() => {
-                            dispatch(setConfirmationPopUp(12));
+                            dispatch(setConfirmationPopUp(14));
                             dispatch(
                               setPopupData({
                                 userId: user?._id,
@@ -1083,6 +1098,7 @@ export default function TournamentsTeam() {
         onMakePresident={handleMakePresident}
         onAssignTeamRole={handleAssignTeamRole}
         onRemoveTeam={handleRemoveTeam}
+        onDeleteTeam={handleDeleteTeam}
         onLeaveTeam={handleLeaveTeam}
       />
       <ManageRosterModal isOpen={isOpen} onClose={closeModal} />

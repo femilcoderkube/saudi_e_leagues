@@ -246,14 +246,12 @@ export const leaveTeamPlayer = createAsyncThunk(
 
 export const removeTeam = createAsyncThunk(
   "tournamentTeam/removeTeam",
-  async ({ teamId, user }, { rejectWithValue }) => {
+  async ({ teamId, userId }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.delete(
-        `/Team/asCreator?id=${teamId}`,
-        {
-          user,
-        }
-      );
+      const response = await axiosInstance.put(`/Team/deleteTeam`, {
+        teamId,
+        userId,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(
