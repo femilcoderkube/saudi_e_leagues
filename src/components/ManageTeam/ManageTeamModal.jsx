@@ -148,7 +148,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               }
             `}</style>
             {/* Modal Header */}
-            <div className="flex items-center justify-center mb-6 relative">
+            <div className="flex items-center justify-center mb-5 relative">
               <h2 className="text-2xl font-bold text-center text-white mb-2">
                 {t("tournament.manage_team_title")}
               </h2>
@@ -165,7 +165,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Invite Link */}
-            <div className="mb-6">
+            <div className="mb-5">
               <label className="block text-base text-white mb-2 !font-bold">
                 {t("tournament.invite_link_label")}
               </label>
@@ -184,8 +184,8 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                     onClick={handleCopy}
                   >
                     <svg
-                      width="24"
-                      height="30"
+                      width="20"
+                      height="26"
                       viewBox="0 0 24 30"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -198,7 +198,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                   </button>
                 </div>
                 <button
-                  className="flex items-center justify-center w-[56px] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
+                  className="flex items-center justify-center w-[3.5rem] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
                   style={{ marginLeft: 13 }}
                   title={t("tournament.reset_button_title")}
                   onClick={handleResetLink}
@@ -207,7 +207,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                 </button>
               </div>
             </div>
-            <hr className="border-[#51549B] pb-6" />
+            <hr className="border-[#51549B] pb-5" />
 
             {/* Manager Section */}
             <div className="mb-4">
@@ -320,7 +320,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               />
             </div> */}
 
-            <div className="manage-team-pop wizard_step--btn gap-5 flex justify-between sm:mt-14 mt-8 mb-8 mr-5 flex-wrap">
+            <div className="manage-team-pop wizard_step--btn gap-5 flex justify-between sm:mt-10 mt-6 mb-6 mr-5 flex-wrap">
               <div className="game_status--tab wizard_btn back_btn">
                 <button
                   type="button"

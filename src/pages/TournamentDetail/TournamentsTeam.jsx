@@ -138,7 +138,7 @@ export default function TournamentsTeam() {
         </div>
       ) : (
         <>
-          <div className="team-page-wp flex xl:items-start items-center md:gap-[3.813rem] gap-[2rem] flex-col xl:flex-row w-full">
+          <div className="team-page-wp flex xl:items-start items-center md:gap-[3.813rem] gap-[2rem] flex-col xl:flex-row w-full mb-10">
             <div className="relative team-content-left-wp sm:w-[27.5rem] sm:h-[32.313rem]">
               <div className="relative team-content-left-wp-last">
                 <div className="edit-team-wp absolute top-0 right-0 z-20">
@@ -794,6 +794,7 @@ export default function TournamentsTeam() {
               </clipPath>
             </defs>
           </svg>
+          <div className="flex justify-end items-center w-full">
           <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
             <div
               className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
@@ -819,6 +820,7 @@ export default function TournamentsTeam() {
               </span>
             </div>
           </div>
+          </div>
           <div className="team-main-user mt-16">
             {/* Games Section */}
             <div className="mt-10">
@@ -826,7 +828,7 @@ export default function TournamentsTeam() {
                 currentTeam.games.map((game) => (
                   <div key={game.game._id} className="mb-8">
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="team-user-title flex items-center flex-wrap gap-5 justify-between mb-10">
+                      <div className="team-user-title flex items-center flex-wrap gap-5 justify-between md:mb-10 mb-4">
                         <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
                           {game.game.name || "Unknown Game"}
                         </h3>
@@ -881,7 +883,7 @@ export default function TournamentsTeam() {
                                           alt=""
                                         />
                                       </div>
-                                      <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full left-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 min-w-[19.938rem] z-10">
+                                      <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100">
                                         {showManagerMenu && (
                                           <span
                                             className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"

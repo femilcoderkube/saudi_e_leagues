@@ -711,7 +711,7 @@ const Header = () => {
         style={headerStyles}
       >
         <BackButton
-          className="absolute ltr:left-[5rem] rtl:right-[5rem]"
+          className="absolute sm:ltr:left-[5rem] sm:rtl:right-[5rem] ltr:left-[1.9rem] rtl:right-[1.9rem]"
           onClick={() => {
             navigator(-1);
             dispatch(setGameMatchLoader(false));

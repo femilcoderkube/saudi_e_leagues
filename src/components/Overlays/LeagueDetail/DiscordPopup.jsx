@@ -17,7 +17,7 @@ function DiscordPopup() {
     <>
       {/* Trigger button */}
 
-      <div className="sd_rules--btn md:mb-10 md:order-1 order-2">
+      <div className="sd_rules--btn md:mb-10 mb-8 md:order-1 order-2">
         <button
           onClick={(e) => {
             e.preventDefault();

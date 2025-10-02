@@ -145,7 +145,7 @@ const InvitePlayerModel = ({ close }) => {
                       </button>
                     </div>
                     <button
-                      className="flex items-center justify-center w-[56px] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
+                      className="flex items-center justify-center w-[3.5rem] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
                       style={{ marginLeft: 13 }}
                       title={t("tournament.reset_button_title")}
                       onClick={handleResetLink}

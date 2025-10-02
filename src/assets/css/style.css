@@ -2354,6 +2354,18 @@ html[dir=rtl] .edit-team-wp {
   .sa__tournament-tabs li:first-child {
     margin-top: 0;
   }
+
+  #tournament-tabs.sa__tournament-tabs li:not(:first-child) div {
+    padding: 0;
+    padding-bottom: 1rem;
+}
+#tournament-tabs.sa__tournament-tabs li:first-child {
+  margin-right: 0;
+  padding:0;
+}
+.tournament_page--wrapper .sd_tournament-wrapper {
+  padding-top: 1rem;
+}
 }
 
 @media (max-width: 639px) {

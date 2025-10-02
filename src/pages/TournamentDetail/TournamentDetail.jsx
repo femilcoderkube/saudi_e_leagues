@@ -158,11 +158,11 @@ const TournamentDetail = () => {
               </div>
             </motion.div>
           </div>
-          <div className="about-tornament flex xl:items-start items-center xl:flex-nowrap flex-wrap md:flex-row flex-col md:gap-[3rem] gap-5">
+          <div className="about-tornament flex xl:items-start items-center xl:flex-nowrap flex-wrap md:flex-row flex-col md:gap-[3rem] gap-8">
             <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-center ">
               <div className="sd_content-top order-2 flex-col xl:flex-row md:order-1 flex gap-5 justify-between w-full">
                 <motion.div
-                  className="sd_game_info--wrap md:flex-row lg:flex-nowrap flex-wrap flex-1 inline-flex gap-[2.063rem] w-full justify-center xl:justify-start"
+                  className="sd_game_info--wrap md:flex-row xl:flex-nowrap flex-wrap flex-1 inline-flex gap-[2.063rem] w-full justify-center xl:justify-start"
                   initial="hidden"
                   whileInView="visible"
                   variants={cardVariantsAni}
@@ -225,7 +225,7 @@ const TournamentDetail = () => {
                 {/* <!-- Tabs --> */}
                 <motion.ul
                   id="tournament-tabs"
-                  className="sa__tournament-tabs inline-flex md:flex-row flex-col pt-2 w-full"
+                  className="sa__tournament-tabs inline-flex flex-wrap md:flex-row flex-col pt-2 w-full"
                   initial="hidden"
                   whileInView="visible"
                   variants={cardVariantsAni}
@@ -276,11 +276,11 @@ const TournamentDetail = () => {
                               : "text-gray-700"
                           }`}
                         >
-                           <img
+                           {/* <img
                         src={IMAGES.user_about}
                         alt="Overview Icon"
                         className="w-5 h-5"
-                      />
+                      /> */}
                           {item?.stageName}
                         </div>
                       </li>
@@ -309,14 +309,14 @@ const TournamentDetail = () => {
                                 <span className="text-[#FFF] md:text-xl text-lg font-bold">
                                   {t("league.yourteam")}
                                 </span>
-                                <span className="text-[#9d9d9d] md:text-lg text-base font-semibold">
+                                <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
                                   {t("tournament.invite_players_to_team", {
                                     count: tournamentData?.maxPlayersPerTeam,
                                   })}
                                 </span>
                               </div>
                               <div className="flex items-center gap-3">
-                                <span className="text-[#9d9d9d] md:text-lg text-base font-semibold">
+                                <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
                                   {t("Not Ready")}
                                 </span>
                                 <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
@@ -348,7 +348,7 @@ const TournamentDetail = () => {
                               </div>
                               <div className="flex items-center md:gap-10 gap-4">
                                 <button
-                                  className="text-[#fff] font-bold cursor-pointer manage-team"
+                                  className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
                                   onClick={() => setIsManageOpen(true)} // open modal
                                 >
                                   {t("tournament.manageteam")}
