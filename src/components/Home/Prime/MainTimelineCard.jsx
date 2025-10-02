@@ -100,13 +100,13 @@ const TimelineCard_1 = () => {
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
                   <span className="text-[#C0DEFF] font-semibold">
-                    Division 5
+                    Division 1
                   </span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
                   <span className="text-[#C0DEFF] font-semibold">
-                    Championship 5
+                    Championship 1
                   </span>
                 </p>
               </div>
@@ -223,7 +223,7 @@ const TimelineCard_1 = () => {
               </svg>
               <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <span className="sm:text-[7.35rem] text-[5rem] purple_grad-col grad_text-clip font-black">
-                  01
+                  02
                 </span>
                 <span className="uppercase text-[#C5B9F4] text-[2.501rem] -mt-4 font-black">
                   Split
@@ -235,13 +235,13 @@ const TimelineCard_1 = () => {
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
                   <span className="text-[#C0DEFF] font-semibold">
-                    Division 5
+                    Division 2
                   </span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
                   <span className="text-[#C0DEFF] font-semibold">
-                    Championship 5
+                    Championship 2
                   </span>
                 </p>
               </div>
@@ -340,7 +340,7 @@ const TimelineCard_1 = () => {
               </svg>
               <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <span className="sm:text-[7.35rem] text-[5rem] purple_grad-col grad_text-clip font-black">
-                  01
+                  03
                 </span>
                 <span className="uppercase text-[#F1D3B0] text-[2.501rem] -mt-4 font-black">
                   Split
@@ -352,13 +352,13 @@ const TimelineCard_1 = () => {
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
                   <span className="text-[#C0DEFF] font-semibold">
-                    Division 5
+                    Division 3
                   </span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
                   <span className="text-[#C0DEFF] font-semibold">
-                    Championship 5
+                    Championship 3
                   </span>
                 </p>
               </div>
@@ -457,7 +457,7 @@ const TimelineCard_1 = () => {
               </svg>
               <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <span className="sm:text-[7.35rem] text-[5rem] purple_grad-col grad_text-clip font-black">
-                  01
+                  04
                 </span>
                 <span className="uppercase text-[#F1B0BB] text-[2.501rem] -mt-4 font-black">
                   Split
@@ -469,13 +469,13 @@ const TimelineCard_1 = () => {
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
                   <span className="text-[#C0DEFF] font-semibold">
-                    Division 5
+                    Division 4
                   </span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
                   <span className="text-[#C0DEFF] font-semibold">
-                    Championship 5
+                    Championship 4
                   </span>
                 </p>
               </div>
