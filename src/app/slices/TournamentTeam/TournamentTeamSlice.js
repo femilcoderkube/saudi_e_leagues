@@ -13,6 +13,7 @@ const initialState = {
   removeTeamloading: false,
   registerTournamentLoading: false,
   error: null,
+  teamData: null,
   teamUserFormat: {
     manager: [],
     coach: [],
@@ -96,14 +97,10 @@ export const getTeamData = createAsyncThunk(
 
 export const updateTeamRoster = createAsyncThunk(
   "tournamentTeam/updateTeamRoster",
-  async (
-    { teamId, tournamentParticipantId, rosterData },
-    { rejectWithValue }
-  ) => {
+  async ({ id, rosterData }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.put(`/Roaster/updateRoaster`, {
-        teamId,
-        tournamentParticipantId,
+        id,
         ...rosterData,
       });
       return response.data;
@@ -116,13 +113,9 @@ export const updateTeamRoster = createAsyncThunk(
 );
 export const withdrawTeamRoster = createAsyncThunk(
   "tournamentTeam/withdrawTeamRoster",
-  async ({ teamId, tournamentId, participantId }, { rejectWithValue }) => {
+  async ({ id }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.put(`/Roaster/updateRoaster`, {
-        teamId,
-        tournamentId,
-        participantId,
-      });
+      const response = await axiosInstance.delete(`/Roaster?id=${id}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -249,7 +242,6 @@ export const removeTeam = createAsyncThunk(
   }
 );
 
-// New thunk for Roaster/RegisterTour
 export const registerTournament = createAsyncThunk(
   "tournamentTeam/registerTournament",
   async ({ tournamentId, teamId }, { rejectWithValue }) => {
@@ -258,6 +250,24 @@ export const registerTournament = createAsyncThunk(
         tournamentId,
         teamId,
       });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message ||
+          "Failed to register team for tournament"
+      );
+    }
+  }
+);
+export const getTeamDetails = createAsyncThunk(
+  "tournamentTeam/getTeamDetails",
+  async ({ tournamentId, teamId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(`/Roaster/myteam`, {
+        tournamentId,
+        teamId,
+      });
+
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -427,6 +437,19 @@ const TournamentTeamSlice = createSlice({
       })
       .addCase(registerTournament.rejected, (state, action) => {
         state.registerTournamentLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getTeamDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getTeamDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.teamData = action.payload.data;
+        state.error = null;
+      })
+      .addCase(getTeamDetails.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       });
   },

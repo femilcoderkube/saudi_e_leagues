@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import TeamSection from "./TeamSection";
 import {
   fetchTeamUserFormat,
+  getTeamDetails,
   resetTeamUserFormat,
   updateTeamRoster,
   withdrawTeamRoster,
@@ -23,7 +24,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     loading,
     error,
   } = useSelector((state) => state.teamInvitation);
-  const { currentTeam, teamUserFormat } = useSelector(
+  const { currentTeam, teamUserFormat, teamData } = useSelector(
     (state) => state.tournamentTeam
   );
 
@@ -130,13 +131,18 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
     dispatch(
       updateTeamRoster({
-        teamId: currentTeam._id,
-        tournamentParticipantId: "",
+        id: teamData?.data?._id,
         rosterData,
       })
     )
       .unwrap()
       .then((res) => {
+        dispatch(
+          getTeamDetails({
+            tournamentId: tournamentData?._id,
+            teamId: currentTeam._id,
+          })
+        );
         toast.success(res?.message);
         onClose();
       })
@@ -145,9 +151,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   const handleWithdraw = () => {
     dispatch(
       withdrawTeamRoster({
-        teamId: currentTeam._id,
-        tournamentId: tournamentData?._id,
-        participantId: "",
+        id: teamData?.data?._id,
       })
     )
       .unwrap()

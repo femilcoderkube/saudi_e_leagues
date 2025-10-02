@@ -36,6 +36,7 @@ import ManageTeamModal from "../../components/ManageTeam/ManageTeamModal.jsx";
 import PDFViewer from "../../components/Overlays/LeagueDetail/PDFViewer.jsx";
 import {
   getTeamData,
+  getTeamDetails,
   registerTournament,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 const TournamentDetail = () => {
@@ -45,8 +46,12 @@ const TournamentDetail = () => {
   );
 
   const [showModal, setShowModal] = useState(false);
-  const { currentTeam } = useSelector((state) => state.tournamentTeam);
-  const handleOpen = () => setShowModal(true);
+  const { currentTeam, teamData } = useSelector(
+    (state) => state.tournamentTeam
+  );
+
+  console.log("teamData", teamData);
+
   const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -62,6 +67,17 @@ const TournamentDetail = () => {
       dispatch(getTeamData(user._id));
     }
   }, [user?._id]);
+
+  useEffect(() => {
+    if (currentTeam?._id && tournamentData?._id) {
+      dispatch(
+        getTeamDetails({
+          tournamentId: tournamentData?._id,
+          teamId: currentTeam._id,
+        })
+      );
+    }
+  }, [currentTeam?._id, dispatch, tournamentData?._id]);
 
   useEffect(() => {
     if (isSocketConnected) {
@@ -318,71 +334,59 @@ const TournamentDetail = () => {
                           whileInView="visible"
                           viewport={{ once: true, amount: 0.1 }}
                         >
-                          <div className="your-team-card rounded-2xl md:mb-12 mb-9 bg-[linear-gradient(183.7deg,rgba(94,95,184,0.2)_3.03%,rgba(34,35,86,0.2)_97.05%)] shadow-[inset_0_2px_2px_0_rgba(94,95,184,0.12)] backdrop-blur-[0.75rem]">
-                            <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
-                              <div className="flex flex-wrap items-center sm:gap-4 gap-2">
-                                <span className="text-[#FFF] md:text-xl text-lg font-bold">
-                                  {t("league.yourteam")}
-                                </span>
-                                <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
-                                  {t("tournament.invite_players_to_team", {
-                                    count: tournamentData?.maxPlayersPerTeam,
-                                  })}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-3">
-                                <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
-                                  {t("Not Ready")}
-                                </span>
-                                <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
-                              </div>
-                            </div>
-                            <div className="flex items-center sm:flex-row flex-col gap-4 justify-between md:px-8 md:py-6 p-5">
-                              <div className="flex items-center gap-2">
-                                {/* Team Avatars */}
-                                <div className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full overflow-hidden bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center">
-                                  <img
-                                    src={IMAGES.defaultImg}
-                                    alt="Player 1"
-                                    className="w-full h-full object-cover"
-                                  />
+                          {teamData?.dataFound && (
+                            <div className="your-team-card rounded-2xl md:mb-12 mb-9 bg-[linear-gradient(183.7deg,rgba(94,95,184,0.2)_3.03%,rgba(34,35,86,0.2)_97.05%)] shadow-[inset_0_2px_2px_0_rgba(94,95,184,0.12)] backdrop-blur-[0.75rem]">
+                              <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
+                                <div className="flex flex-wrap items-center sm:gap-4 gap-2">
+                                  <span className="text-[#FFF] md:text-xl text-lg font-bold">
+                                    {t("league.yourteam")}
+                                  </span>
+                                  <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
+                                    {t("tournament.invite_players_to_team", {
+                                      count: tournamentData?.maxPlayersPerTeam,
+                                    })}
+                                  </span>
                                 </div>
-                                {Array.from({
-                                  length: Math.max(
-                                    0,
-                                    (tournamentData?.maxPlayersPerTeam || 1) - 1
-                                  ),
-                                }).map((_, idx) => (
-                                  <div
-                                    key={idx}
-                                    className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center opacity-40"
-                                  >
-                                    {/* Empty slot */}
-                                  </div>
-                                ))}
+                                <div className="flex items-center gap-3">
+                                  <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
+                                    {t("Not Ready")}
+                                  </span>
+                                  <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
+                                </div>
                               </div>
-                              <div className="flex items-center md:gap-10 gap-4">
-                                <button
-                                  className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
-                                  onClick={() => setIsManageOpen(true)} // open modal
-                                >
-                                  {t("tournament.manageteam")}
-                                </button>
-
-                                {/* <button
-                                  className="cursor-pointer px-6.5 py-2.5 md:text-lg text-base font-bold rounded-xl text-[#fff] bg-[linear-gradient(3deg,rgba(67,75,233,1)_0%,rgba(70,181,249,1)_110%)]"
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    navigate(
-                                      `/${id}/lobby/tournament/${tId}/register`
-                                    );
-                                  }}
-                                >
-                                  {t("tournament.Register")}
-                                </button> */}
+                              <div className="flex items-center sm:flex-row flex-col gap-4 justify-between md:px-8 md:py-6 p-5">
+                                <div className="flex items-center gap-2">
+                                  <div className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full overflow-hidden bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center">
+                                    <img
+                                      src={IMAGES.defaultImg}
+                                      alt="Player 1"
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  {Array.from({
+                                    length: Math.max(
+                                      0,
+                                      (tournamentData?.maxPlayersPerTeam || 1) -
+                                        1
+                                    ),
+                                  }).map((_, idx) => (
+                                    <div
+                                      key={idx}
+                                      className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center opacity-40"
+                                    ></div>
+                                  ))}
+                                </div>
+                                <div className="flex items-center md:gap-10 gap-4">
+                                  <button
+                                    className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
+                                    onClick={() => setIsManageOpen(true)} // open modal
+                                  >
+                                    {t("tournament.manageteam")}
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          )}
                           <div className="about-tournament-card">
                             <h3 className="sm:text-[2rem] text-2xl grad_text-clip !font-black sm:mb-8 mb-6 tracking-wide uppercase bg-[linear-gradient(180deg,rgb(244_247_255)_0%,rgba(186,189,255,1)_36%,rgba(123,126,208,1)_66%)]">
                               {t("league.about_tournament")}
