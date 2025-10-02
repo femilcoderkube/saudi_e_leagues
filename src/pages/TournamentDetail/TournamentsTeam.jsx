@@ -61,6 +61,8 @@ export default function TournamentsTeam() {
   );
   const myRoleLower = String(myTeamMember?.role || "").toLowerCase();
 
+
+  
   // Edit existing team
   const handleEditTeam = () => {
     dispatch(setCurrentTeam(currentTeam));
@@ -747,7 +749,6 @@ export default function TournamentsTeam() {
               </clipPath>
             </defs>
           </svg>
-
           <div className="team-main-user mt-16">
             {/* Games Section */}
             <div className="mt-10">
