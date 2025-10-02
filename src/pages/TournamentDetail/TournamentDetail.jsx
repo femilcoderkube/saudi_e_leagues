@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { useRef } from "react";
 import TimelinePanel from "../../components/Cards/LeagueDetail/TimelinePanel.jsx";
 import {
   formatAmountWithCommas,
@@ -58,8 +59,28 @@ const TournamentDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isManageOpen, setIsManageOpen] = useState(false);
+  // Local toggle for static participants dropdown in overview
+  const [activeIndex, setActiveIndex] = useState(null); // For accordion toggle
+  const contentRefs = useRef({}); // For collapse refs
+  const [participantsOpen, setParticipantsOpen] = useState(false);
   const [condition] = useState("gn");
 
+  const toggleAccordion = () => {
+    setActiveIndex(activeIndex === "participants" ? null : "participants");
+  };
+
+  const getOrdinal = (n) => {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return s[(v - 20) % 10] || s[v] || s[0];
+  };
+  // Color top 3 ranks differently: 1st Gold, 2nd Diamond-like, 3rd Bronze
+  const rankClass = (i) => {
+    if (i === 0) return "text-[#F5C542]"; // Gold
+    if (i === 1) return "text-[#B9F2FF]"; // Diamond-like
+    if (i === 2) return "text-[#CD7F32]"; // Bronze
+    return "text-white";
+  };
   useEffect(() => {
     if (user?._id) {
       dispatch(getTeamData(user._id));
@@ -128,6 +149,16 @@ const TournamentDetail = () => {
       member.role === "President" &&
       member.user?._id?.toString() === user?._id?.toString()
   );
+  const teams = [
+    { name: "Static Team 1", totalPoints: 15, placePoints: 8, killPoints: 7 },
+    { name: "Static Team 2", totalPoints: 13, placePoints: 7, killPoints: 6 },
+    { name: "Static Team 3", totalPoints: 10, placePoints: 6, killPoints: 4 },
+    { name: "Static Team 4", totalPoints: 9, placePoints: 5, killPoints: 4 },
+    { name: "Static Team 5", totalPoints: 7, placePoints: 4, killPoints: 3 },
+    { name: "Static Team 6", totalPoints: 6, placePoints: 3, killPoints: 3 },
+    { name: "Static Team 7", totalPoints: 5, placePoints: 2, killPoints: 3 },
+    { name: "Static Team 8", totalPoints: 3, placePoints: 1, killPoints: 2 },
+  ];
   // Empty dependency array means this runs once after mount
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
@@ -266,18 +297,20 @@ const TournamentDetail = () => {
                   viewport={{ once: true, amount: 0.3 }}
                 >
                   <li
-                    className={`font-semibold cursor-pointer ltr:md:border-r rtl:md:border-l border-[#141D46] ${activeStage === -1 ? "active" : ""
-                      }`}
+                    className={`font-semibold cursor-pointer ltr:md:border-r rtl:md:border-l border-[#141D46] ${
+                      activeStage === -1 ? "active" : ""
+                    }`}
                   >
                     <div
                       id={`stage-overview`}
                       onClick={() =>
                         activeStage !== -1 ? dispatch(setActiveStage(-1)) : null
                       }
-                      className={`px-4 pl-0 flex gap-[1.125rem] items-center justify-center text-xl whitespace-nowrap ${activeStage === -1
-                        ? "text-blue-500 font-bold"
-                        : "text-gray-700"
-                        }`}
+                      className={`px-4 pl-0 flex gap-[1.125rem] items-center justify-center text-xl whitespace-nowrap ${
+                        activeStage === -1
+                          ? "text-blue-500 font-bold"
+                          : "text-gray-700"
+                      }`}
                     >
                       <img
                         src={IMAGES.maskgroup}
@@ -290,8 +323,9 @@ const TournamentDetail = () => {
                   {tournamentData?.stages?.map((item, index) => {
                     return (
                       <li
-                        className={`font-semibold cursor-pointer ${index === activeStage ? "active" : ""
-                          }`}
+                        className={`font-semibold cursor-pointer ${
+                          index === activeStage ? "active" : ""
+                        }`}
                         key={index}
                       >
                         <div
@@ -301,10 +335,11 @@ const TournamentDetail = () => {
                               ? dispatch(setActiveStage(index))
                               : null
                           }
-                          className={`px-4 pl-0 flex gap-4 items-center justify-center text-xl whitespace-nowrap ${index === activeStage
-                            ? "text-blue-500 font-bold"
-                            : "text-gray-700"
-                            }`}
+                          className={`px-4 pl-0 flex gap-4 items-center justify-center text-xl whitespace-nowrap ${
+                            index === activeStage
+                              ? "text-blue-500 font-bold"
+                              : "text-gray-700"
+                          }`}
                         >
                           {/* <img
                         src={IMAGES.user_about}
@@ -343,37 +378,50 @@ const TournamentDetail = () => {
                                   <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
                                     {teamData?.data?.status == 1 && (
                                       <>
-                                        {t("tournament.invite_players_to_team", {
-                                          count: tournamentData?.maxPlayersPerTeam,
-                                        })}
+                                        {t(
+                                          "tournament.invite_players_to_team",
+                                          {
+                                            count:
+                                              tournamentData?.maxPlayersPerTeam,
+                                          }
+                                        )}
                                       </>
                                     )}
                                     {teamData?.data?.status == 2 && (
                                       <>
-                                        {tournamentData?.registrationEndDate && (() => {
-                                          const endDate = new Date(tournamentData.registrationEndDate);
-                                          const now = new Date();
-                                          const diffMs = endDate - now;
-                                          if (diffMs > 0) {
-                                            const hours = Math.floor(diffMs / (1000 * 60 * 60));
-                                            const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-                                            return (
-                                              <>
-                                                {t("tournament.roster_lock_in", {
-                                                  hours,
-                                                  minutes,
-                                                })}
-                                              </>
+                                        {tournamentData?.registrationEndDate &&
+                                          (() => {
+                                            const endDate = new Date(
+                                              tournamentData.registrationEndDate
                                             );
-                                          }
-                                          return null;
-                                        })()}
+                                            const now = new Date();
+                                            const diffMs = endDate - now;
+                                            if (diffMs > 0) {
+                                              const hours = Math.floor(
+                                                diffMs / (1000 * 60 * 60)
+                                              );
+                                              const minutes = Math.floor(
+                                                (diffMs % (1000 * 60 * 60)) /
+                                                  (1000 * 60)
+                                              );
+                                              return (
+                                                <>
+                                                  {t(
+                                                    "tournament.roster_lock_in",
+                                                    {
+                                                      hours,
+                                                      minutes,
+                                                    }
+                                                  )}
+                                                </>
+                                              );
+                                            }
+                                            return null;
+                                          })()}
                                       </>
                                     )}
                                     {teamData?.data?.status == 3 && (
-                                      <>
-                                        {t("tournament.roster_locked")}
-                                      </>
+                                      <>{t("tournament.roster_locked")}</>
                                     )}
                                   </span>
                                 </div>
@@ -407,10 +455,12 @@ const TournamentDetail = () => {
                               <div className="flex items-center sm:flex-row flex-col gap-4 justify-between md:px-8 md:py-6 p-5">
                                 <div className="flex items-center gap-2">
                                   {Array.from({
-                                    length: tournamentData?.maxPlayersPerTeam || 1,
+                                    length:
+                                      tournamentData?.maxPlayersPerTeam || 1,
                                   }).map((_, idx) => {
                                     // Try to get player data from teamData.Players
-                                    const player = teamData?.data?.Players?.[idx];
+                                    const player =
+                                      teamData?.data?.Players?.[idx];
                                     // If no player, show empty slot
                                     if (!player) {
                                       return (
@@ -427,7 +477,13 @@ const TournamentDetail = () => {
                                         className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full overflow-hidden bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center"
                                       >
                                         <img
-                                          src={player.profilePicture ? getServerURL(player.profilePicture) : IMAGES.defaultImg}
+                                          src={
+                                            player.profilePicture
+                                              ? getServerURL(
+                                                  player.profilePicture
+                                                )
+                                              : IMAGES.defaultImg
+                                          }
                                           alt={player.username}
                                           className="w-full h-full object-cover"
                                         />
@@ -436,15 +492,14 @@ const TournamentDetail = () => {
                                   })}
                                 </div>
                                 {isPresident && (
-
-                                <div className="flex items-center md:gap-10 gap-4">
-                                  <button
-                                    className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
-                                    onClick={() => setIsManageOpen(true)} // open modal
-                                  >
-                                    {t("tournament.manageteam")}
-                                  </button>
-                                </div>
+                                  <div className="flex items-center md:gap-10 gap-4">
+                                    <button
+                                      className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
+                                      onClick={() => setIsManageOpen(true)} // open modal
+                                    >
+                                      {t("tournament.manageteam")}
+                                    </button>
+                                  </div>
                                 )}
                               </div>
                             </div>
@@ -465,93 +520,156 @@ const TournamentDetail = () => {
                           </div>
                           <div
                             // Static accordion, no dynamic handlers or data
-                            className="about-accordation schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer md:mt-[5.5rem] sm:mt-[3rem] mt-[2rem] active-schdule-accordion-header"
+                            className={`schdule-accordion-card w-full mb-6 mt-[5.5rem] ${
+                              activeIndex === "participants"
+                                ? "active-accordation"
+                                : ""
+                            }`}
                           >
-                            <img
-                              className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
-                              src={IMAGES.list_partycip}
-                              alt=""
-                              loading="lazy"
-                            />
-
-                            {/* SVG ClipPath (kept as-is) */}
-                            <svg
-                              className="absolute"
-                              width="0"
-                              height="0"
-                              viewBox="0 0 360 96"
-                              xmlns="http://www.w3.org/2000/svg"
-                              style={{ position: "absolute" }}
+                            {/* Header ... unchanged */}
+                            <div
+                              onClick={toggleAccordion}
+                              className={`schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer ${
+                                activeIndex === "participants"
+                                  ? "active-schdule-accordion-header"
+                                  : ""
+                              }`}
                             >
-                              <defs>
-                                <clipPath
-                                  id="customClipPath"
-                                  clipPathUnits="objectBoundingBox"
-                                >
-                                  <path
-                                    transform="scale(0.00277778, 0.01041667)"
-                                    d="M360 0L339.6 56L330.6 48L312 96H0V0H360Z"
-                                  />
-                                </clipPath>
-                              </defs>
-                            </svg>
+                              <img
+                                className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
+                                src={IMAGES.list_partycip}
+                                alt=""
+                                loading="lazy"
+                              />
 
-                            <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
-                              <div className="battle-shape-text flex md:gap-6 gap-3 w-[21rem]">
-                                <span className="inline-block md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
-                                  {t("tournament.list_of_participants")}
-                                </span>
+                              <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
+                                <div className="battle-shape-text flex items-center md:gap-6 gap-3 w-[21rem]">
+                                  <span className="uppercase inline-block md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
+                                    {t("tournament.list_of_participants")}
+                                  </span>
+                                </div>
+
+                                {/* Preview avatars */}
+                                <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
+                                  {teams.slice(0, 3).map((team, i) => {
+                                    const classs =
+                                      i === 0
+                                        ? ""
+                                        : i === 1
+                                        ? "round-gray"
+                                        : i === 2
+                                        ? "round-red"
+                                        : "round-common";
+                                    return (
+                                      <div
+                                        key={i}
+                                        className={`round-gold ${classs} rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9`}
+                                      >
+                                        <img
+                                          src={IMAGES.team_falcons}
+                                          alt={team.name}
+                                          className="md:w-6 md:h-6 w-5 h-5 rounded-full"
+                                        />
+                                      </div>
+                                    );
+                                  })}
+                                  {teams.length > 3 && (
+                                    <div className="round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center">
+                                      <span className="text-base font-semibold text-white">
+                                        +{teams.length - 3}
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                              <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
-                                {/* Static team icons */}
-                                <div className="round-gold rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9">
-                                  <img
-                                    src={IMAGES.team_falcons}
-                                    alt="Team 1"
-                                    className="md:w-6 md:h-6 rounded-full"
-                                  />
+
+                              <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
+                                <div className="flex gap-2 items-center">
+                                  <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
+                                    +{teams.length}
+                                  </p>
                                 </div>
-                                <div className="round-gold round-gray rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9">
+                                <div className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer">
                                   <img
-                                    src={IMAGES.team_falcons}
-                                    alt="Team 2"
-                                    className="md:w-6 md:h-6 rounded-full"
+                                    className="sm:w-5 sm:h-3 w-4 h-2"
+                                    src={IMAGES.about_down}
+                                    alt=""
                                   />
-                                </div>
-                                <div className="round-gold round-red rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9">
-                                  <img
-                                    src={IMAGES.team_falcons}
-                                    alt="Team 3"
-                                    className="md:w-6 md:h-6 rounded-full"
-                                  />
-                                </div>
-                                <div className="round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center">
-                                  <img
-                                    src={IMAGES.team_falcons}
-                                    alt="Team 3"
-                                    className="md:w-6 md:h-6 rounded-full"
-                                  />
-                                  {/* <span className="text-base font-semibold text-white">
-                                    +2
-                                  </span> */}
                                 </div>
                               </div>
                             </div>
+                            {/* Participants List */}
+                            <div
+                              className="schdule-collapse block"
+                              ref={(el) =>
+                                (contentRefs.current["participants"] = el)
+                              }
+                            >
+                              {teams.map((team, tIdx) => (
+                                <div
+                                  className="schdule-accordion-body flex flex-col w-full max-w-full"
+                                  key={`team-${tIdx}`}
+                                >
+                                  <div className="flex flex-row items-center lg:p-8 md:p-5 p-3 w-full max-w-full border-b border-[rgb(40,55,66,0.4)]">
+                                    {/* Full row distributed evenly */}
+                                    <div className="flex flex-row items-start justify-start w-full gap-12">
+                                      {/* Rank */}
+                                      <div className="flex items-center min-w-[4rem]">
+                                        <p
+                                          className={`text-base font-black uppercase ${rankClass(
+                                            tIdx
+                                          )}`}
+                                        >
+                                          {tIdx + 1}
+                                          {getOrdinal(tIdx + 1)}
+                                        </p>
+                                      </div>
 
-                            {/* Right section with dropdown toggle */}
-                            <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
-                              <div className="flex gap-2 items-center">
-                                <p className="md:text-2xl sm:text-lg text-base font-bold text-[#6D70BC]">
-                                  +10
-                                </p>
-                              </div>
-                              <div className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer">
-                                <img
-                                  className="sm:w-5 sm:h-3 w-4 h-2"
-                                  src={IMAGES.about_down}
-                                  alt=""
-                                />
-                              </div>
+                                      {/* Team */}
+                                      <div className="flex items-center gap-2 min-w-[12rem]">
+                                        <img
+                                          src={IMAGES.team_falcons}
+                                          alt={team.name}
+                                          className="md:w-8 md:h-8 h-6 w-6 rounded-full"
+                                        />
+                                        <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                                          {team.name}
+                                        </span>
+                                      </div>
+
+                                      {/* Total Points */}
+                                      <div className="flex justify-center min-w-[8rem]">
+                                        <p className="text-lg font-bold text-[#1DED85]">
+                                          {team.totalPoints}
+                                          <span className="text-base font-semibold text-[#688992] ltr:pl-1 rtl:pr-1">
+                                            {t("tournament.points")}
+                                          </span>
+                                        </p>
+                                      </div>
+
+                                      {/* Place Points */}
+                                      {/* <div className="flex justify-center min-w-[6rem]">
+                                        <p className="text-lg font-bold text-[#F4F7FF]">
+                                          {team.placePoints}
+                                          <span className="text-base font-semibold text-[#688992] ltr:pl-1 rtl:pr-1">
+                                            {t("tournament.pp")}
+                                          </span>
+                                        </p>
+                                      </div> */}
+
+                                      {/* Kill Points */}
+                                      {/* <div className="flex justify-center min-w-[6rem]">
+                                        <p className="text-lg font-bold text-[#F4F7FF]">
+                                          {team.killPoints}
+                                          <span className="text-base font-semibold text-[#688992] ltr:pl-1 rtl:pr-1">
+                                            {t("tournament.kp")}
+                                          </span>
+                                        </p>
+                                      </div> */}
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
                             </div>
                           </div>
                         </motion.div>
