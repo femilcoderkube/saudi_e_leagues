@@ -183,9 +183,6 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
       })
       .catch((err) => toast.error(err));
   };
-
-
-  console.log("TEAMDATA",teamData);
   
   return (
     <>

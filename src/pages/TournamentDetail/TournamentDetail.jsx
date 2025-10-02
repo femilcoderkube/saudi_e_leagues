@@ -261,9 +261,8 @@ const TournamentDetail = () => {
                   viewport={{ once: true, amount: 0.3 }}
                 >
                   <li
-                    className={`font-semibold cursor-pointer ltr:md:border-r rtl:md:border-l border-[#141D46] ${
-                      activeStage === -1 ? "active" : ""
-                    }`}
+                    className={`font-semibold cursor-pointer ltr:md:border-r rtl:md:border-l border-[#141D46] ${activeStage === -1 ? "active" : ""
+                      }`}
                   >
                     <div
                       id={`stage-overview`}
@@ -337,9 +336,6 @@ const TournamentDetail = () => {
                                     {t("league.yourteam")}
                                   </span>
                                   <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
-                                    {/* {t("tournament.invite_players_to_team", {
-                                      count: tournamentData?.maxPlayersPerTeam,
-                                    })} */}
                                     {teamData?.data?.status == 1 && (
                                       <>
                                         {t("tournament.invite_players_to_team", {
@@ -350,17 +346,12 @@ const TournamentDetail = () => {
                                     {teamData?.data?.status == 2 && (
                                       <>
                                         {tournamentData?.registrationEndDate && (() => {
-                                          // Calculate time left until registrationEndDate
                                           const endDate = new Date(tournamentData.registrationEndDate);
                                           const now = new Date();
                                           const diffMs = endDate - now;
-                                          console.log("diffMs", diffMs);
-
                                           if (diffMs > 0) {
                                             const hours = Math.floor(diffMs / (1000 * 60 * 60));
                                             const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-                                            console.log("hours", hours, minutes);
-
                                             return (
                                               <>
                                                 {t("tournament.roster_lock_in", {
@@ -374,7 +365,7 @@ const TournamentDetail = () => {
                                         })()}
                                       </>
                                     )}
-                                     {teamData?.data?.status == 3 && (
+                                    {teamData?.data?.status == 3 && (
                                       <>
                                         {t("tournament.roster_locked")}
                                       </>
@@ -463,43 +454,6 @@ const TournamentDetail = () => {
                                     : tournamentData?.description,
                               }}
                             />
-                            {/* {t(
-                                "The open qualifiers kick off for just 4 days, followed by the 3-day online major packed with excitement! The competition peaks in the 2-day major finals full of action and challenges."
-                              )} */}
-
-                            {/* <p className="text-[#9d9d9d] md:text-xl text-lg font-semibold">
-                              {t(
-                                "Don't miss your chance!! join now and showcase your skills!"
-                              )}
-                            </p> */}
-                            {/* <div className="flex flex-col sm:flex-row sm:gap-8 gap-5 sm:mt-12 mt-8">
-                              <a
-                                href="https://discord.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[#F4F7FF] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]"
-                              >
-                                <span className="icon-discord flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
-                                  <img src={IMAGES.discord} />
-                                </span>
-                                {t("tournament.discordsupport")}
-                                <span className="ltr:ml-auto rtl:mr-auto icon-arrow-right text-[#A6B6C6] rtl:[transform:rotateY(180deg)]">
-                                  <img src={IMAGES.discord_arrow} alt="" />
-                                </span>
-                              </a>
-                              <button
-                                className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[#F4F7FF] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)] cursor-pointer"
-                                onClick={handleOpen}
-                              >
-                                <span className="icon-shield flex items-center justify-center rounded-lg md:w-12 md:h-12 w-10 h-10 bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)]">
-                                  <img src={IMAGES.rules_icon} alt="" />
-                                </span>
-                                {t("tournament.Rules_Regulations")}
-                                <span className="ltr:ml-auto rtl:mr-auto icon-arrow-right text-[#A6B6C6] rtl:[transform:rotateY(180deg)]">
-                                  <img src={IMAGES.discord_arrow} alt="" />
-                                </span>
-                              </button>
-                            </div> */}
                           </div>
                           <div
                             // Static accordion, no dynamic handlers or data

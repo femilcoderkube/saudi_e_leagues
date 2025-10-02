@@ -99,7 +99,6 @@ const InviteLink = ({ Iid }) => {
           { replace: true }
         );
       }
-      console.log("resultAction", resultAction);
     } catch (error) {
       console.error("Unexpected error:", error);
     } finally {

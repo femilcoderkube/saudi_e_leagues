@@ -160,13 +160,8 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
         }
       });
 
-      // Add userId for team creation
-      // if (!isEdit) {
       formData.append("userId", user._id);
-      // }
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}:`, value);
-      }
+
       let res;
       if (isEdit) {
         res = await dispatch(

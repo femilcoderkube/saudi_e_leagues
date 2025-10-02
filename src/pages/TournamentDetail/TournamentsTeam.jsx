@@ -17,7 +17,6 @@ import {
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
-import { startTeamSocket } from "../../app/socket/socket.js";
 import { t } from "i18next";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import InvitePlayerModel from "./InvitePlayerModel.jsx";
@@ -132,12 +131,6 @@ export default function TournamentsTeam() {
       console.log("err", error);
     }
   };
-
-  useEffect(() => {
-    if (isSocketConnected) {
-      startTeamSocket({ isSocketConnected, userId: user?._id });
-    }
-  }, [dispatch, isSocketConnected, user]);
 
   useEffect(() => {
     if (user?._id) {

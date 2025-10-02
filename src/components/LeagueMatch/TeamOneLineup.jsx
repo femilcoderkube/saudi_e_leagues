@@ -30,7 +30,6 @@ export const TeamOneLineup = () => {
     });
   };
   const { t } = useTranslation();
-  console.log("matchData", matchData);
 
   return (
     <>
@@ -38,7 +37,6 @@ export const TeamOneLineup = () => {
       {cards.map((Card, index) => {
         
         let player = matchData?.team1[index];
-        console.log("player", player);
         let data = {
           username: player?.participant?.userId?.username || "",
           gameID: player?.participant?.gameId || "",

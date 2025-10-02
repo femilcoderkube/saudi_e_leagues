@@ -3,7 +3,6 @@ import { setLogin } from "../app/slices/constState/constStateSlice";
 class MobileEvent {
     static onLogin() {
         window.appLoginData = function (authToken, language, userData, deviceType) {
-            console.log("Callback from App:", authToken, language, userData, deviceType);
 
             if (authToken) {
                 localStorage.setItem("token", authToken);

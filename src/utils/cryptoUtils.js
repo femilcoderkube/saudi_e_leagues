@@ -182,7 +182,6 @@ if (import.meta.env.DEV) {
   
   // Test conditional encryption status
   const encryptionStatus = import.meta.env.VITE_ENCRYPTION_STATUS;
-  console.log(`🔐 Encryption Status: ${encryptionStatus === "true" ? "ENABLED" : "DISABLED"}`);
 }
 
 export default cryptoUtils;

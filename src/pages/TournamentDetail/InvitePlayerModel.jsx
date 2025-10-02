@@ -40,7 +40,6 @@ const InvitePlayerModel = ({ close }) => {
   if (resetPasswordSuccess) {
     dispatch(clearResetPasswordState());
   }
-  console.log("currentTeam<<", currentTeam);
 
   const handleForgotSubmit = async (values, { setSubmitting }) => {
     try {

@@ -8,11 +8,6 @@ export const baseURL = import.meta.env.VITE_API_BASE_URL;
 const secret = import.meta.env.VITE_SECRET_KEY;
 const encryptionEnabled = import.meta.env.VITE_ENCRYPTION_STATUS;
 
-// Log encryption status in development
-if (import.meta.env.DEV) {
-  console.log(`🌐 Axios Encryption: ${encryptionEnabled === "true" ? "ENABLED" : "DISABLED"}`);
-}
-  
 const axiosInstance = axios.create({
   baseURL: `${baseURL}/api/v1`,
   headers: {
