@@ -115,6 +115,14 @@ function ConfirmationPopUp({
       onAssignTeamRole(popupData, "Coach");
       dispatch(setConfirmationPopUp(0));
     }
+    if (confirmationPopUp === 10) {
+      onRemoveTeam(popupData);
+      dispatch(setConfirmationPopUp(0));
+    }
+    if (confirmationPopUp === 11) {
+      onRemoveTeam(popupData);
+      dispatch(setConfirmationPopUp(0));
+    }
     if (confirmationPopUp === 12) {
       onRemoveTeam(popupData);
       dispatch(setConfirmationPopUp(0));

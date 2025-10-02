@@ -12,6 +12,7 @@ import {
   transferTeamPresidency,
   assignTeamRole,
   removeTeam,
+  removeTeamPlayer,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -107,11 +108,14 @@ export default function TournamentsTeam() {
   const handleRemoveTeam = async (data) => {
     try {
       await dispatch(
-        removeTeam({
+        removeTeamPlayer({
           teamId: data?.teamId,
-          user: data?.userId,
+          userId: data?.userId,
+          targetUserId: data?.targetUserId,
+          gameId: data?.game,
+          removeFromTeam: data?.removeFromTeam
         })
-      ).unwrap();
+      );
       if (user?._id) {
         await dispatch(getTeamData(user._id));
       }
@@ -645,7 +649,7 @@ export default function TournamentsTeam() {
                         <div className="tournament-schedule-card-header-left flex items-center gap-3 md:gap-4 relative z-10">
                           <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
                             {match?.teamOneScore == null ||
-                            match?.teamOneScore == undefined
+                              match?.teamOneScore == undefined
                               ? "-"
                               : match?.teamOneScore}
                           </h2>
@@ -660,7 +664,7 @@ export default function TournamentsTeam() {
                         <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
                           <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
                             {match?.teamTwoScore == null ||
-                            match?.teamTwoScore == undefined
+                              match?.teamTwoScore == undefined
                               ? "-"
                               : match?.teamTwoScore}
                           </h2>
@@ -760,31 +764,31 @@ export default function TournamentsTeam() {
                       {index === 0 && (
                         <div className="flex justify-end items-center w-full">
                           <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
-                           {myRoleLower == "president" && (
-                            <div
-                              className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
-                              onClick={() => setOpenInviteModel(true)}
-                            >
-                              {t("tournament.invite_players_title")}
+                            {myRoleLower == "president" && (
+                              <div
+                                className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
+                                onClick={() => setOpenInviteModel(true)}
+                              >
+                                {t("tournament.invite_players_title")}
 
-                              <span className="ltr:ml-2.5 rtl:mr-2.5">
-                                <svg
-                                  width="9"
-                                  height="13"
-                                  viewBox="0 0 9 13"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    clipRule="evenodd"
-                                    d="M1.181 11.9097C0.784802 11.5927 0.784802 11.0787 1.181 10.7617L6.55072 6.46502L1.181 2.16837C0.784802 1.85135 0.784802 1.33736 1.181 1.02034C1.57719 0.703321 2.21954 0.703321 2.61574 1.02034L8.70284 5.89101C9.09903 6.20802 9.09903 6.72201 8.70284 7.03903L2.61574 11.9097C2.21954 12.2267 1.57719 12.2267 1.181 11.9097Z"
-                                    fill="#F4F7FF"
-                                  />
-                                </svg>
-                              </span>
-                            </div>
-                           )}
+                                <span className="ltr:ml-2.5 rtl:mr-2.5">
+                                  <svg
+                                    width="9"
+                                    height="13"
+                                    viewBox="0 0 9 13"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      clipRule="evenodd"
+                                      d="M1.181 11.9097C0.784802 11.5927 0.784802 11.0787 1.181 10.7617L6.55072 6.46502L1.181 2.16837C0.784802 1.85135 0.784802 1.33736 1.181 1.02034C1.57719 0.703321 2.21954 0.703321 2.61574 1.02034L8.70284 5.89101C9.09903 6.20802 9.09903 6.72201 8.70284 7.03903L2.61574 11.9097C2.21954 12.2267 1.57719 12.2267 1.181 11.9097Z"
+                                      fill="#F4F7FF"
+                                    />
+                                  </svg>
+                                </span>
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}
@@ -797,23 +801,62 @@ export default function TournamentsTeam() {
                             ? getServerURL(val.image)
                             : IMAGES.defaultImg;
 
-                          let roleLower = val?.role?.toLowerCase();
-                          let showPresidentMenu =
-                            val?.role?.toLowerCase() !== "president" &&
-                            val?.id !== user?._id &&
-                            myRoleLower !== "player";
+                          const valGameRole = val?.gameRole?.toLowerCase(); // User's role for THIS game
+                          const myGameId = game?.game?._id;
 
-                          let showManagerMenu =
-                            val?.role?.toLowerCase() !== "manager" &&
-                            val?.id !== user?._id;
-                          myRoleLower !== "player";
+                          // const roleLower = val?.role?.toLowerCase();
+                          // const myGameId = game?.game?._id;
+                          // const userGameId = game?.game?._id; // for clarity
 
+                          // // Determine if the logged-in user is president or manager
+                          // const isPresident = myRoleLower === "president";
+                          // const isManager = myRoleLower === "manager";
+
+                          // // For manager, check if the current user is manager of this game
+                          // // (Assume myTeamMember?.gameId is available, otherwise fallback to all games)
+                          // // We'll allow manager to act only on users of the same game
+                          // let canShowMenu = false;
+                          // console.log("val?.gameId", val);
+                          // console.log("userGameId", userGameId);
+                          // console.log("myRoleLower", myRoleLower);
+
+                          // // console.log("myGameId",myGameId);
+                          // Get logged-in user's info for THIS specific game
+                          const myMemberData = game.users.find(u => u.id === user?._id);
+                          const myGameRole = myMemberData?.gameRole?.toLowerCase(); // My role for THIS game
+
+                          // Get logged-in user's team-level role
+                          const myTeamMember = currentTeam?.members?.find(
+                            m => String(m.user?._id || m.user) === String(user?._id)
+                          );
+                          const myTeamRole = myTeamMember?.role?.toLowerCase(); // My team role
+
+                          // Determine if can show menu
+                          let canShowMenu = false;
+
+                          if (myTeamRole === "president") {
+                            // President can see menu for everyone except themselves
+                            canShowMenu = val?.id !== user?._id;
+                          }
+
+                          else if (myGameRole === "manager") {
+                            // Manager can see menu for players in THIS game, except themselves
+                            // Manager CANNOT manage other Managers
+                            canShowMenu =
+                              val?.id !== user?._id &&
+                              valGameRole !== "manager" &&
+                              valGameRole !== "president"; // Also exclude president
+                          }
+                          // Coach and player cannot see any menu
+                          // (canShowMenu remains false)
+                          const isPresident = myTeamRole === "president";
+                          const isManagerOfThisGame = myGameRole === "manager";
                           return (
                             <div
                               key={`${val.id}-${val.role}`}
                               className="flex flex-col max-w-max align-center justify-center"
                             >
-                              {roleLower === "president" && (
+                              {valGameRole === "president" && (
                                 <div className="w-[1.188rem] h-auto flex items-center justify-center mx-auto mb-1.5">
                                   <img
                                     src="/src/assets/images/roaster-king.webp"
@@ -831,7 +874,7 @@ export default function TournamentsTeam() {
                               </div>
                               <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
                                 <div className="game_card--roaster-wrap">
-                                  {showPresidentMenu && (
+                                  {canShowMenu && (
                                     <div className="relative group flex flex-col items-center">
                                       <div className="flex justify-end w-full">
                                         <img
@@ -841,7 +884,8 @@ export default function TournamentsTeam() {
                                         />
                                       </div>
                                       <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100">
-                                        {showManagerMenu && (
+                                        {/* Only president can make president */}
+                                        {isPresident && (
                                           <span
                                             className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
                                             onClick={() => {
@@ -863,61 +907,95 @@ export default function TournamentsTeam() {
                                             {t("tourteam.make_president")}
                                           </span>
                                         )}
-                                        <span
-                                          className="text-white text-sm font-medium cursor-pointer"
-                                          onClick={() => {
-                                            const targetUserId = val.id;
-                                            const teamId = currentTeam?._id;
-                                            if (targetUserId && teamId) {
-                                              dispatch(
-                                                setPopupData({
-                                                  userId: targetUserId,
-                                                  teamId,
-                                                  game: game.game._id,
-                                                })
-                                              );
-                                              dispatch(setConfirmationPopUp(8));
-                                            }
-                                          }}
-                                        >
-                                          Assign {game?.game?.name} Roster
-                                          Manager
-                                        </span>
-                                        <span
-                                          className="text-white text-sm font-medium cursor-pointer"
-                                          onClick={() => {
-                                            const targetUserId = val.id;
-                                            const teamId = currentTeam?._id;
-                                            if (targetUserId && teamId) {
-                                              dispatch(
-                                                setPopupData({
-                                                  userId: targetUserId,
-                                                  teamId,
-                                                  game: game.game._id,
-                                                })
-                                              );
-                                              dispatch(setConfirmationPopUp(9));
-                                            }
-                                          }}
-                                        >
-                                          Assign {game?.game?.name} Roster Coach
-                                        </span>
-                                        <span
-                                          className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
-                                          onClick={() => {
-                                            dispatch(setConfirmationPopUp(10));
-                                          }}
-                                        >
-                                          Remove Player from {game?.game?.name}{" "}
-                                          Roster
-                                        </span>
-                                        {showManagerMenu && (
+                                        {/* President and manager can assign manager */}
+                                        {(isPresident || isManagerOfThisGame) && (
                                           <span
                                             className="text-white text-sm font-medium cursor-pointer"
                                             onClick={() => {
-                                              dispatch(
-                                                setConfirmationPopUp(11)
-                                              );
+                                              const targetUserId = val.id;
+                                              const teamId = currentTeam?._id;
+                                              if (targetUserId && teamId) {
+                                                dispatch(
+                                                  setPopupData({
+                                                    userId: targetUserId,
+                                                    teamId,
+                                                    game: game.game._id,
+                                                  })
+                                                );
+                                                dispatch(setConfirmationPopUp(8));
+                                              }
+                                            }}
+                                          >
+                                            Assign {game?.game?.name} Roster
+                                            Manager
+                                          </span>
+                                        )}
+                                        {/* President and manager can assign coach */}
+                                        {(isPresident || isManagerOfThisGame) && (
+                                          <span
+                                            className="text-white text-sm font-medium cursor-pointer"
+                                            onClick={() => {
+                                              const targetUserId = val.id;
+                                              const teamId = currentTeam?._id;
+                                              if (targetUserId && teamId) {
+                                                dispatch(
+                                                  setPopupData({
+                                                    userId: targetUserId,
+                                                    teamId,
+                                                    game: game.game._id,
+                                                  })
+                                                );
+                                                dispatch(setConfirmationPopUp(9));
+                                              }
+                                            }}
+                                          >
+                                            Assign {game?.game?.name} Roster Coach
+                                          </span>
+                                        )}
+                                        {/* President and manager can remove from roster */}
+                                        {(isPresident || isManagerOfThisGame) && (
+                                          <span
+                                            className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
+                                            onClick={() => {
+                                              const targetUserId = val.id;
+                                              const teamId = currentTeam?._id;
+                                              if (targetUserId && teamId) {
+                                                dispatch(
+                                                  setPopupData({
+                                                    teamId,
+                                                    userId: user?._id,
+                                                    targetUserId: targetUserId,
+                                                    game: game.game._id,
+                                                    removeFromTeam: false
+                                                  })
+                                                );
+                                                dispatch(setConfirmationPopUp(10));
+                                              }
+                                            }}
+                                          >
+                                            Remove Player from {game?.game?.name}{" "}
+                                            Roster
+                                          </span>
+                                        )}
+                                        {/* President and manager can remove from team */}
+                                        {isPresident && (
+                                          <span
+                                            className="text-white text-sm font-medium cursor-pointer"
+                                            onClick={() => {
+                                              const targetUserId = val.id;
+                                              const teamId = currentTeam?._id;
+                                              if (targetUserId && teamId) {
+                                                dispatch(
+                                                  setPopupData({
+                                                    teamId,
+                                                    userId: user?._id,
+                                                    targetUserId: targetUserId,
+                                                    game: game.game._id,
+                                                    removeFromTeam: true
+                                                  })
+                                                );
+                                                dispatch(setConfirmationPopUp(11));
+                                              }
                                             }}
                                           >
                                             {t("tourteam.remove_player")}
@@ -926,7 +1004,7 @@ export default function TournamentsTeam() {
                                       </div>
                                     </div>
                                   )}
-                                  <h6 className={`text-center text-lg !font-bold ${showPresidentMenu ? "mt-2" : "mt-7"}`}>
+                                  <h6 className={`text-center text-lg !font-bold `}>
                                     {displayName}
                                   </h6>
                                   <p className="text-center mt-3 text-[#8492B4] text-base font-semibold h-[24px] overflow-hidden">
