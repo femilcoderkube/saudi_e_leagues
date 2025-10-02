@@ -598,6 +598,8 @@
     "select_game_required": "Please select a game",
     "game_id_required": "Game ID is required",
     "game_id_min": "Game ID cannot be empty",
-    "invitation_accepted": "Invitation accepted!"
+    "invitation_accepted": "Invitation accepted!",
+    "invite_login_message":"Please login to accept the invitation link.",
+    "invite_link_expire":"This invitation link has expired or is invalid."
   }
 }
