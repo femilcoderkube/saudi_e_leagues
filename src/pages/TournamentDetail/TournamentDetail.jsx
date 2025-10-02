@@ -123,6 +123,11 @@ const TournamentDetail = () => {
     }
   };
 
+  const isPresident = teamData?.data?.teamId?.members?.some(
+    (member) =>
+      member.role === "President" &&
+      member.user?._id?.toString() === user?._id?.toString()
+  );
   // Empty dependency array means this runs once after mount
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
@@ -430,6 +435,8 @@ const TournamentDetail = () => {
                                     );
                                   })}
                                 </div>
+                                {isPresident && (
+
                                 <div className="flex items-center md:gap-10 gap-4">
                                   <button
                                     className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
@@ -438,6 +445,7 @@ const TournamentDetail = () => {
                                     {t("tournament.manageteam")}
                                   </button>
                                 </div>
+                                )}
                               </div>
                             </div>
                           )}
