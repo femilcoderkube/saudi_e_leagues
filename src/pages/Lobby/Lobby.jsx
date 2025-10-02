@@ -19,6 +19,7 @@ import { setTournamentData } from "../../app/slices/tournamentSlice/tournamentSl
 import { cardVariantsAni } from "../../components/Animation/animation.jsx";
 import { setPartyQueueTeam } from "../../app/slices/constState/constStateSlice.js";
 import InviteLink from "../UserProfile/InviteLink.jsx";
+import { toast } from "react-toastify";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -73,6 +74,7 @@ const Lobby = () => {
   // ✅ If Iid exists but user is not logged in → remove it
   useEffect(() => {
     if (Iid && !user) {
+      toast.warning(t("Invite_model.invite_login_message"));
       searchParams.delete("Iid");
       setSearchParams(searchParams, { replace: true });
     }

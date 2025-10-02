@@ -40,6 +40,7 @@ const InviteLink = ({ Iid }) => {
         .unwrap() // unwrap makes it throw if rejected
         .catch(() => {
           // Redirect if fetch failed
+          toast.error(t("Invite_model.invite_link_expire"));
           navigate("/prime/lobby");
         });
 

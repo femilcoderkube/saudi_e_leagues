@@ -592,6 +592,8 @@
     "select_game_required": "يرجى اختيار لعبة",
     "game_id_required": "معرف اللعبة مطلوب",
     "game_id_min": "لا يمكن أن يكون معرف اللعبة فارغًا",
-    "invitation_accepted": "تم قبول الدعوة!"
+    "invitation_accepted": "تم قبول الدعوة!",
+    "invite_login_message": "يرجى تسجيل الدخول لقبول رابط الدعوة.",
+    "invite_link_expire": "رابط الدعوة هذا انتهت صلاحيته أو غير صالح."
   }
 }
