@@ -56,11 +56,6 @@ export default function TournamentsTeam() {
     dispatch(setTeamRegistrationPopup(true));
   };
 
-  const myTeamMember = (currentTeam?.members || []).find(
-    (m) => (m?.user?._id || m?.userId) === user?._id
-  );
-  const myRoleLower = String(myTeamMember?.role || "").toLowerCase();
-
   // Edit existing team
   const handleEditTeam = () => {
     dispatch(setCurrentTeam(currentTeam));
@@ -69,15 +64,14 @@ export default function TournamentsTeam() {
 
   const handleMakePresident = async (data) => {
     try {
-      await dispatch(
+      const resultAction = await dispatch(
         transferTeamPresidency({
           teamId: data?.teamId,
           newPresidentUserId: data?.userId,
           userId: user?._id,
         })
-      ).unwrap();
-
-      if (user?._id) {
+      );
+      if (transferTeamPresidency.fulfilled.match(resultAction)) {
         await dispatch(getTeamData(user._id));
       }
     } catch (err) {
@@ -87,7 +81,7 @@ export default function TournamentsTeam() {
 
   const handleAssignTeamRole = async (data, role) => {
     try {
-      await dispatch(
+      const resultAction = await dispatch(
         assignTeamRole({
           teamId: data?.teamId,
           candidateId: data?.userId,
@@ -95,8 +89,8 @@ export default function TournamentsTeam() {
           gameRole: role,
           game: data?.game,
         })
-      ).unwrap();
-      if (user?._id) {
+      );
+      if (assignTeamRole.fulfilled.match(resultAction)) {
         await dispatch(getTeamData(user._id));
       }
     } catch (err) {
@@ -106,16 +100,16 @@ export default function TournamentsTeam() {
 
   const handleRemoveTeam = async (data) => {
     try {
-      await dispatch(
+      const resultAction = await dispatch(
         removeTeamPlayer({
           teamId: data?.teamId,
           userId: data?.userId,
           targetUserId: data?.targetUserId,
           gameId: data?.game,
-          removeFromTeam: data?.removeFromTeam
+          removeFromTeam: data?.removeFromTeam,
         })
       );
-      if (user?._id) {
+      if (removeTeamPlayer.fulfilled.match(resultAction)) {
         await dispatch(getTeamData(user._id));
       }
     } catch (error) {
@@ -648,7 +642,7 @@ export default function TournamentsTeam() {
                         <div className="tournament-schedule-card-header-left flex items-center gap-3 md:gap-4 relative z-10">
                           <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
                             {match?.teamOneScore == null ||
-                              match?.teamOneScore == undefined
+                            match?.teamOneScore == undefined
                               ? "-"
                               : match?.teamOneScore}
                           </h2>
@@ -663,7 +657,7 @@ export default function TournamentsTeam() {
                         <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
                           <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
                             {match?.teamTwoScore == null ||
-                              match?.teamTwoScore == undefined
+                            match?.teamTwoScore == undefined
                               ? "-"
                               : match?.teamTwoScore}
                           </h2>
@@ -752,24 +746,34 @@ export default function TournamentsTeam() {
             {/* Games Section */}
             <div className="mt-10">
               {currentTeam?.games?.length ? (
-                currentTeam.games.map((game, index) => (
-                  <div key={game.game._id} className="mb-8">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="team-user-title flex items-center flex-wrap gap-5 justify-between w-full">
-                        <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
-                          {game.game.name || "Unknown Game"}
-                        </h3>
-                      </div>
-                      {index === 0 && (
-                        <div className="flex justify-end items-center w-full">
-                          <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
-                            {myRoleLower == "president" && (
+                currentTeam.games.map((game, index) => {
+                  let isManager = game.users.filter(
+                    (u) =>
+                      u.id.toString() === user?._id.toString() &&
+                      u.role === "Manager"
+                  );
+                  let isPresident = game.users.filter(
+                    (u) =>
+                      u.id.toString() === user?._id.toString() &&
+                      u.role === "President"
+                  );
+
+                  return (
+                    <div key={game.game._id} className="mb-8">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="team-user-title flex items-center flex-wrap gap-5 justify-between w-full">
+                          <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
+                            {game.game.name || "Unknown Game"}
+                          </h3>
+                        </div>
+                        {index === 0 && (
+                          <div className="flex justify-end items-center w-full">
+                            <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                               <div
                                 className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
                                 onClick={() => setOpenInviteModel(true)}
                               >
                                 {t("tournament.invite_players_title")}
-
                                 <span className="ltr:ml-2.5 rtl:mr-2.5">
                                   <svg
                                     width="9"
@@ -787,247 +791,227 @@ export default function TournamentsTeam() {
                                   </svg>
                                 </span>
                               </div>
-                            )}
+                            </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex gap-8 flex-wrap lg:justify-start justify-center items-end">
-                      {game.users?.length ? (
-                        game.users.map((val) => {
-                          const displayName = val.name || "Unknown";
-                          const avatar = val.image
-                            ? getServerURL(val.image)
-                            : IMAGES.defaultImg;
+                        )}
+                      </div>
+                      <div className="flex gap-8 flex-wrap lg:justify-start justify-center items-end">
+                        {game.users?.length ? (
+                          game.users.map((val) => {
+                            const displayName = val.name || "Unknown";
+                            const avatar = val.image
+                              ? getServerURL(val.image)
+                              : IMAGES.defaultImg;
 
-                          const valGameRole = val?.gameRole?.toLowerCase(); // User's role for THIS game
-                          const myGameId = game?.game?._id;
+                            return (
+                              <div
+                                key={`${val.id}-${val.role}`}
+                                className="flex flex-col max-w-max align-center justify-center"
+                              >
+                                {val.role === "President" && (
+                                  <div className="w-[1.188rem] h-auto flex items-center justify-center mx-auto mb-1.5">
+                                    <img
+                                      src="/src/assets/images/roaster-king.webp"
+                                      alt="President crown"
+                                      className="w-full h-full"
+                                    />
+                                  </div>
+                                )}
 
-                          // const roleLower = val?.role?.toLowerCase();
-                          // const myGameId = game?.game?._id;
-                          // const userGameId = game?.game?._id; // for clarity
-
-                          // // Determine if the logged-in user is president or manager
-                          // const isPresident = myRoleLower === "president";
-                          // const isManager = myRoleLower === "manager";
-
-                          // // For manager, check if the current user is manager of this game
-                          // // (Assume myTeamMember?.gameId is available, otherwise fallback to all games)
-                          // // We'll allow manager to act only on users of the same game
-                          // let canShowMenu = false;
-                          // console.log("val?.gameId", val);
-                          // console.log("userGameId", userGameId);
-                          // console.log("myRoleLower", myRoleLower);
-
-                          // // console.log("myGameId",myGameId);
-                          // Get logged-in user's info for THIS specific game
-                          const myMemberData = game.users.find(u => u.id === user?._id);
-                          const myGameRole = myMemberData?.gameRole?.toLowerCase(); // My role for THIS game
-
-                          // Get logged-in user's team-level role
-                          const myTeamMember = currentTeam?.members?.find(
-                            m => String(m.user?._id || m.user) === String(user?._id)
-                          );
-                          const myTeamRole = myTeamMember?.role?.toLowerCase(); // My team role
-
-                          // Determine if can show menu
-                          let canShowMenu = false;
-
-                          if (myTeamRole === "president") {
-                            // President can see menu for everyone except themselves
-                            canShowMenu = val?.id !== user?._id;
-                          }
-
-                          else if (myGameRole === "manager") {
-                            // Manager can see menu for players in THIS game, except themselves
-                            // Manager CANNOT manage other Managers
-                            canShowMenu =
-                              val?.id !== user?._id &&
-                              valGameRole !== "manager" &&
-                              valGameRole !== "president"; // Also exclude president
-                          }
-                          // Coach and player cannot see any menu
-                          // (canShowMenu remains false)
-                          const isPresident = myTeamRole === "president";
-                          const isManagerOfThisGame = myGameRole === "manager";
-                          return (
-                            <div
-                              key={`${val.id}-${val.role}`}
-                              className="flex flex-col max-w-max align-center justify-center"
-                            >
-                              {valGameRole === "president" && (
-                                <div className="w-[1.188rem] h-auto flex items-center justify-center mx-auto mb-1.5">
+                                <div className="flex-shrink-0 flex mx-auto relative z-20">
                                   <img
-                                    src="/src/assets/images/roaster-king.webp"
-                                    alt="President crown"
-                                    className="w-full h-full"
+                                    className="w-18 h-18 rounded-full"
+                                    src={avatar}
+                                    alt={displayName}
                                   />
                                 </div>
-                              )}
-                              <div className="flex-shrink-0 flex mx-auto relative z-20">
-                                <img
-                                  className="w-18 h-18 rounded-full"
-                                  src={avatar}
-                                  alt={displayName}
-                                />
-                              </div>
-                              <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
-                                <div className="game_card--roaster-wrap">
-                                  {canShowMenu && (
+                                <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
+                                  <div className="game_card--roaster-wrap">
                                     <div className="relative group flex flex-col items-center">
-                                      <div className="flex justify-end w-full">
-                                        <img
-                                          className="w-[0.313rem] h-[1.188rem]"
-                                          src="/src/assets/images/menu_roaster.svg"
-                                          alt=""
-                                        />
-                                      </div>
-                                      <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100">
-                                        {/* Only president can make president */}
-                                        {isPresident && (
-                                          <span
-                                            className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
-                                            onClick={() => {
-                                              const targetUserId = val.id;
-                                              const teamId = currentTeam?._id;
-                                              if (targetUserId && teamId) {
-                                                dispatch(
-                                                  setPopupData({
-                                                    userId: targetUserId,
-                                                    teamId,
-                                                  })
-                                                );
-                                                dispatch(
-                                                  setConfirmationPopUp(7)
-                                                );
-                                              }
-                                            }}
-                                          >
-                                            {t("tourteam.make_president")}
-                                          </span>
-                                        )}
-                                        {/* President and manager can assign manager */}
-                                        {(isPresident || isManagerOfThisGame) && (
-                                          <span
-                                            className="text-white text-sm font-medium cursor-pointer"
-                                            onClick={() => {
-                                              const targetUserId = val.id;
-                                              const teamId = currentTeam?._id;
-                                              if (targetUserId && teamId) {
-                                                dispatch(
-                                                  setPopupData({
-                                                    userId: targetUserId,
-                                                    teamId,
-                                                    game: game.game._id,
-                                                  })
-                                                );
-                                                dispatch(setConfirmationPopUp(8));
-                                              }
-                                            }}
-                                          >
-                                            Assign {game?.game?.name} Roster
-                                            Manager
-                                          </span>
-                                        )}
-                                        {/* President and manager can assign coach */}
-                                        {(isPresident || isManagerOfThisGame) && (
-                                          <span
-                                            className="text-white text-sm font-medium cursor-pointer"
-                                            onClick={() => {
-                                              const targetUserId = val.id;
-                                              const teamId = currentTeam?._id;
-                                              if (targetUserId && teamId) {
-                                                dispatch(
-                                                  setPopupData({
-                                                    userId: targetUserId,
-                                                    teamId,
-                                                    game: game.game._id,
-                                                  })
-                                                );
-                                                dispatch(setConfirmationPopUp(9));
-                                              }
-                                            }}
-                                          >
-                                            Assign {game?.game?.name} Roster Coach
-                                          </span>
-                                        )}
-                                        {/* President and manager can remove from roster */}
-                                        {(isPresident || isManagerOfThisGame) && (
-                                          <span
-                                            className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
-                                            onClick={() => {
-                                              const targetUserId = val.id;
-                                              const teamId = currentTeam?._id;
-                                              if (targetUserId && teamId) {
-                                                dispatch(
-                                                  setPopupData({
-                                                    teamId,
-                                                    userId: user?._id,
-                                                    targetUserId: targetUserId,
-                                                    game: game.game._id,
-                                                    removeFromTeam: false
-                                                  })
-                                                );
-                                                dispatch(setConfirmationPopUp(10));
-                                              }
-                                            }}
-                                          >
-                                            Remove Player from {game?.game?.name}{" "}
-                                            Roster
-                                          </span>
-                                        )}
-                                        {/* President and manager can remove from team */}
-                                        {isPresident && (
-                                          <span
-                                            className="text-white text-sm font-medium cursor-pointer"
-                                            onClick={() => {
-                                              const targetUserId = val.id;
-                                              const teamId = currentTeam?._id;
-                                              if (targetUserId && teamId) {
-                                                dispatch(
-                                                  setPopupData({
-                                                    teamId,
-                                                    userId: user?._id,
-                                                    targetUserId: targetUserId,
-                                                    game: game.game._id,
-                                                    removeFromTeam: true
-                                                  })
-                                                );
-                                                dispatch(setConfirmationPopUp(11));
-                                              }
-                                            }}
-                                          >
-                                            {t("tourteam.remove_player")}
-                                          </span>
-                                        )}
-                                      </div>
+                                      {(isPresident?.length > 0 &&
+                                        ["Player", "Manager", "Coach"].includes(
+                                          val.role
+                                        )) ||
+                                      (isManager?.length > 0 &&
+                                        ["Player", "Coach"].includes(
+                                          val.role
+                                        )) ? (
+                                        <div className="flex justify-end w-full">
+                                          <img
+                                            className="w-[0.313rem] h-[1.188rem]"
+                                            src="/src/assets/images/menu_roaster.svg"
+                                            alt="Menu"
+                                          />
+                                          <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100">
+                                            {isPresident?.length > 0 && (
+                                              <span
+                                                className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
+                                                onClick={() => {
+                                                  const targetUserId = val.id;
+                                                  const teamId =
+                                                    currentTeam?._id;
+                                                  if (targetUserId && teamId) {
+                                                    dispatch(
+                                                      setPopupData({
+                                                        userId: targetUserId,
+                                                        teamId,
+                                                      })
+                                                    );
+                                                    dispatch(
+                                                      setConfirmationPopUp(7)
+                                                    );
+                                                  }
+                                                }}
+                                              >
+                                                {t("tourteam.make_president")}
+                                              </span>
+                                            )}
+
+                                            <span
+                                              className="text-white text-sm font-medium cursor-pointer"
+                                              onClick={() => {
+                                                const targetUserId = val.id;
+                                                const teamId = currentTeam?._id;
+                                                if (targetUserId && teamId) {
+                                                  dispatch(
+                                                    setPopupData({
+                                                      userId: targetUserId,
+                                                      teamId,
+                                                      game: game.game._id,
+                                                    })
+                                                  );
+                                                  dispatch(
+                                                    setConfirmationPopUp(8)
+                                                  );
+                                                }
+                                              }}
+                                            >
+                                              Assign {game?.game?.name} Roster
+                                              Manager
+                                            </span>
+
+                                            <span
+                                              className="text-white text-sm font-medium cursor-pointer"
+                                              onClick={() => {
+                                                const targetUserId = val.id;
+                                                const teamId = currentTeam?._id;
+                                                if (targetUserId && teamId) {
+                                                  dispatch(
+                                                    setPopupData({
+                                                      userId: targetUserId,
+                                                      teamId,
+                                                      game: game.game._id,
+                                                    })
+                                                  );
+                                                  dispatch(
+                                                    setConfirmationPopUp(9)
+                                                  );
+                                                }
+                                              }}
+                                            >
+                                              Assign {game?.game?.name} Roster
+                                              Coach
+                                            </span>
+
+                                            <span
+                                              className="text-white text-sm font-medium  cursor-pointer"
+                                              onClick={() => {
+                                                const targetUserId = val.id;
+                                                const teamId = currentTeam?._id;
+                                                if (targetUserId && teamId) {
+                                                  dispatch(
+                                                    setPopupData({
+                                                      teamId,
+                                                      userId: user?._id,
+                                                      targetUserId:
+                                                        targetUserId,
+                                                      game: game.game._id,
+                                                      removeFromTeam: false,
+                                                    })
+                                                  );
+                                                  dispatch(
+                                                    setConfirmationPopUp(10)
+                                                  );
+                                                }
+                                              }}
+                                            >
+                                              Remove Player from{" "}
+                                              {game?.game?.name} Roster
+                                            </span>
+
+                                            {isPresident?.length > 0 && (
+                                              <span
+                                                className="text-white text-sm border-t border-[#5362A9] pt-2 font-medium cursor-pointer"
+                                                onClick={() => {
+                                                  const targetUserId = val.id;
+                                                  const teamId =
+                                                    currentTeam?._id;
+                                                  if (targetUserId && teamId) {
+                                                    dispatch(
+                                                      setPopupData({
+                                                        teamId,
+                                                        userId: user?._id,
+                                                        targetUserId:
+                                                          targetUserId,
+                                                        game: game.game._id,
+                                                        removeFromTeam: true,
+                                                      })
+                                                    );
+                                                    dispatch(
+                                                      setConfirmationPopUp(11)
+                                                    );
+                                                  }
+                                                }}
+                                              >
+                                                {t("tourteam.remove_player")}
+                                              </span>
+                                            )}
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        <div className="h-[19px]"></div>
+                                      )}
+                                      <h6 className="text-center text-lg !font-bold">
+                                        {displayName}
+                                      </h6>
+                                      <p className="text-center mt-3 text-[#8492B4] text-base font-semibold h-[24px] overflow-hidden">
+                                        {val.gameId || "No Game ID"}
+                                      </p>
                                     </div>
-                                  )}
-                                  <h6 className={`text-center text-lg !font-bold `}>
-                                    {displayName}
-                                  </h6>
-                                  <p className="text-center mt-3 text-[#8492B4] text-base font-semibold h-[24px] overflow-hidden">
-                                    {val.gameId || "No Game ID"}
-                                  </p>
-                                </div>
-                                <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
-                                  <p className="text-[#6368B5] text-base font-semibold">
-                                    {val.role || "Member"}
-                                  </p>
-                                  {/* Gender not available in games.users, so omitting gender-based icons */}
+                                  </div>
+                                  <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
+                                    <p className="text-[#6368B5] text-base font-semibold">
+                                      {val?.role || "Member"}
+                                    </p>
+                                    {val?.user?.gender === "Male" ? (
+                                      <img
+                                        className="w-[1.063rem] h-[1.188rem]"
+                                        src="/src/assets/images/roaster-arrow.svg"
+                                        alt=""
+                                      />
+                                    ) : val?.user?.gender === "Female" ? (
+                                      <img
+                                        className="w-[1.063rem] h-[1.188rem]"
+                                        src="/src/assets/images/roaster-arrow-female.svg"
+                                        alt=""
+                                      />
+                                    ) : (
+                                      "-"
+                                    )}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          );
-                        })
-                      ) : (
-                        <p className="text-[#8492B4] text-base">
-                          No users found for {game.game.name}.
-                        </p>
-                      )}
+                            );
+                          })
+                        ) : (
+                          <p className="text-[#8492B4] text-base">
+                            No users found for {game.game.name}.
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))
+                  );
+                })
               ) : (
                 <p className="text-[#8492B4] text-base">No games found.</p>
               )}
