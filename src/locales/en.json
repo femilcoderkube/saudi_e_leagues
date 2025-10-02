@@ -427,12 +427,12 @@
     "inqueue": "You’re already queued in another game, cancel it and let’s find you a new match!",
     "removePlayerTitle": "Remove Player",
     "removePlayerMessage": "Are you sure you want to remove this player from the party?",
-    "makepresidentmessage": "Are you Sure you want to Transfer presidency",
+    "makepresidentmessage": "Are you sure you want to transfer the presidency?",
     "removePlayerConfirm": "Remove",
-    "assignManagerConfirm": "Are you want to sure make manager",
-    "assignCoachConfirm": "Are you want to sure make Coach",
-    "removeManagerConfirm": "Are you want to sure remove manager",
-    "removeCoachConfirm": "Are you want to sure remove Player",
+    "assignManagerConfirm": "Are you sure you want to make manager?",
+    "assignCoachConfirm": "Are you sure you want to make Coach?",
+    "removeManagerConfirm": "Are you sure you want to remove from roster?",
+    "removeCoachConfirm": "Are you sure you want to remove player from team?",
     "leavePartyConfirm": "Leave",
     "leavePartyTitle": "Are you sure you want to leave party?",
     "removeTeamConfirm": "Are you sure you want to remove team?"
@@ -496,8 +496,13 @@
     "assign_manager": "Assign Overwatch Roster Manager",
     "assign_coach": "Assign Overwatch Roster Coach",
     "remove_player": "Remove Player from Team",
+    "roster_manager": "Roster Manager",
+    "roster_coach": "Roster Coach",
     "no_tournament": "No Tournaments Found",
-    "no_matches": "No Matches Found"
+    "no_matches": "No Matches Found",
+    "assign": "Assign",
+    "remove_player_from": "Remove Player from",
+    "roster": "roster"
   },
   "tournament": {
     "schedule": "Schedule",
@@ -568,7 +573,6 @@
     "no_coaches_available": "No coaches available",
     "no_players_available": "No players available",
     "players_max_limit": "Maximum {{count}} players can be selected",
-    "invite_players_title": "Invite Players",
     "list_of_participants": "List of Participants"
   },
   "roster": {
@@ -600,7 +604,7 @@
     "game_id_required": "Game ID is required",
     "game_id_min": "Game ID cannot be empty",
     "invitation_accepted": "Invitation accepted!",
-    "invite_login_message":"Please login to accept the invitation link.",
-    "invite_link_expire":"This invitation link has expired or is invalid."
+    "invite_login_message": "Please login to accept the invitation link.",
+    "invite_link_expire": "This invitation link has expired or is invalid."
   }
 }

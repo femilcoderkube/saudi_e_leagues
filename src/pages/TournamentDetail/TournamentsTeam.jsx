@@ -760,31 +760,31 @@ export default function TournamentsTeam() {
                       {index === 0 && (
                         <div className="flex justify-end items-center w-full">
                           <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
-                           {myRoleLower == "president" && (
-                            <div
-                              className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
-                              onClick={() => setOpenInviteModel(true)}
-                            >
-                              {t("tournament.invite_players_title")}
+                            {myRoleLower == "president" && (
+                              <div
+                                className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
+                                onClick={() => setOpenInviteModel(true)}
+                              >
+                                {t("tournament.invite_players_title")}
 
-                              <span className="ltr:ml-2.5 rtl:mr-2.5">
-                                <svg
-                                  width="9"
-                                  height="13"
-                                  viewBox="0 0 9 13"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    clipRule="evenodd"
-                                    d="M1.181 11.9097C0.784802 11.5927 0.784802 11.0787 1.181 10.7617L6.55072 6.46502L1.181 2.16837C0.784802 1.85135 0.784802 1.33736 1.181 1.02034C1.57719 0.703321 2.21954 0.703321 2.61574 1.02034L8.70284 5.89101C9.09903 6.20802 9.09903 6.72201 8.70284 7.03903L2.61574 11.9097C2.21954 12.2267 1.57719 12.2267 1.181 11.9097Z"
-                                    fill="#F4F7FF"
-                                  />
-                                </svg>
-                              </span>
-                            </div>
-                           )}
+                                <span className="ltr:ml-2.5 rtl:mr-2.5">
+                                  <svg
+                                    width="9"
+                                    height="13"
+                                    viewBox="0 0 9 13"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      clipRule="evenodd"
+                                      d="M1.181 11.9097C0.784802 11.5927 0.784802 11.0787 1.181 10.7617L6.55072 6.46502L1.181 2.16837C0.784802 1.85135 0.784802 1.33736 1.181 1.02034C1.57719 0.703321 2.21954 0.703321 2.61574 1.02034L8.70284 5.89101C9.09903 6.20802 9.09903 6.72201 8.70284 7.03903L2.61574 11.9097C2.21954 12.2267 1.57719 12.2267 1.181 11.9097Z"
+                                      fill="#F4F7FF"
+                                    />
+                                  </svg>
+                                </span>
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}
@@ -880,8 +880,9 @@ export default function TournamentsTeam() {
                                             }
                                           }}
                                         >
-                                          Assign {game?.game?.name} Roster
-                                          Manager
+                                          {t("tourteam.assign")}{" "}
+                                          {game?.game?.name}{" "}
+                                          {t("tourteam.roster_manager")}
                                         </span>
                                         <span
                                           className="text-white text-sm font-medium cursor-pointer"
@@ -900,7 +901,9 @@ export default function TournamentsTeam() {
                                             }
                                           }}
                                         >
-                                          Assign {game?.game?.name} Roster Coach
+                                          {t("tourteam.assign")}{" "}
+                                          {game?.game?.name}{" "}
+                                          {t("tourteam.roster_coach")}
                                         </span>
                                         <span
                                           className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
@@ -908,8 +911,9 @@ export default function TournamentsTeam() {
                                             dispatch(setConfirmationPopUp(10));
                                           }}
                                         >
-                                          Remove Player from {game?.game?.name}{" "}
-                                          Roster
+                                          {t("tourteam.remove_player_from")}{" "}
+                                          {game?.game?.name}{" "}
+                                          {t("tourteam.roster")}
                                         </span>
                                         {showManagerMenu && (
                                           <span
@@ -926,7 +930,11 @@ export default function TournamentsTeam() {
                                       </div>
                                     </div>
                                   )}
-                                  <h6 className={`text-center text-lg !font-bold ${showPresidentMenu ? "mt-2" : "mt-7"}`}>
+                                  <h6
+                                    className={`text-center text-lg !font-bold ${
+                                      showPresidentMenu ? "mt-2" : "mt-7"
+                                    }`}
+                                  >
                                     {displayName}
                                   </h6>
                                   <p className="text-center mt-3 text-[#8492B4] text-base font-semibold h-[24px] overflow-hidden">
