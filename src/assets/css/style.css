@@ -822,6 +822,7 @@ html[dir="rtl"] .schdule-accordion-card.active-accordation .schdule-icon {
 .about-accordation .battle-shape {
   opacity: 1;
   clip-path: unset;
+  object-fit: fill;
 }
 
 html[dir="rtl"] .battle-shape {

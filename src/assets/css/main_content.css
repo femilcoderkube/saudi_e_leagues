@@ -112,8 +112,8 @@ html[dir="rtl"] .player_score {
   width: 21.5rem;
 }
 
-.about-tornament  .game_polygon-link,.about-tornament .sd_game-con,.about-tornament .sd_bottom-wraper{
-  width: 100%;
+.about-tornament  .game_polygon-link{
+  width: 16rem;
 }
 
 .sd_game-con.polygon_border:before,
