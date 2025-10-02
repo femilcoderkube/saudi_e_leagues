@@ -158,7 +158,7 @@ const TournamentDetail = () => {
               </div>
             </motion.div>
           </div>
-          <div className="about-tornament flex xl:items-start items-center xl:flex-nowrap flex-wrap md:flex-row flex-col md:gap-[3rem] gap-8">
+          <div className="about-tornament flex xl:items-start items-center xl:flex-nowrap flex-wrap xl:flex-row flex-col md:gap-[3rem] gap-8">
             <div className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-center ">
               <div className="sd_content-top order-2 flex-col xl:flex-row md:order-1 flex gap-5 justify-between w-full">
                 <motion.div
@@ -196,7 +196,7 @@ const TournamentDetail = () => {
             </div>
             <div
               onClick={() => dispatch(setRegistrationModal(true))}
-              className="common-width join_btn hover:opacity-60 duration-300 mb-8 block sd_before relative cursor-pointer"
+              className="common-width join_btn hover:opacity-60 duration-300 block sd_before relative cursor-pointer"
             >
               <span
                 className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
@@ -241,7 +241,7 @@ const TournamentDetail = () => {
                       onClick={() =>
                         activeStage !== -1 ? dispatch(setActiveStage(-1)) : null
                       }
-                      className={`grad_text-clip px-4 pl-0 flex gap-[1.125rem] items-center justify-center text-xl whitespace-nowrap ${
+                      className={`px-4 pl-0 flex gap-[1.125rem] items-center justify-center text-xl whitespace-nowrap ${
                         activeStage === -1
                           ? "text-blue-500 font-bold"
                           : "text-gray-700"

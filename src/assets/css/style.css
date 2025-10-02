@@ -1844,6 +1844,10 @@ html[dir=rtl] .edit-team-wp {
   padding-top: 3.125rem;
 }
 
+.tournament_page--wrapper .sd_tournament-wrapper {
+  padding-top: 2rem;
+}
+
 .sa__tournament-tabs li div {
   color: #9d9d9d;
   padding: 0 0.625rem 1.063rem 0.625rem;
@@ -1873,8 +1877,8 @@ html[dir=rtl] .edit-team-wp {
 }
 
 #tournament-tabs.sa__tournament-tabs li.active div{
-  color: unset;
-  background: linear-gradient(180deg, #F4F7FF 53.92%, #55B384 112.5%);
+  color: #fff;
+  /* background: linear-gradient(180deg, #F4F7FF 53.92%, #55B384 112.5%); */
 }
 
 #tournament-tabs.sa__tournament-tabs li {
