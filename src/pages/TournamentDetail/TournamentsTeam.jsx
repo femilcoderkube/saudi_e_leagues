@@ -862,7 +862,7 @@ export default function TournamentsTeam() {
                                             src="/src/assets/images/menu_roaster.svg"
                                             alt="Menu"
                                           />
-                                          <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100">
+                                          <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-[2rem] ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100">
                                             {isPresident?.length > 0 && (
                                               <span
                                                 className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
