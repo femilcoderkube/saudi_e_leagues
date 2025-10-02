@@ -11,6 +11,7 @@ const initialState = {
   transferTeamloading: false,
   assignTeamloading: false,
   removeTeamloading: false,
+  registerTournamentLoading: false,
   error: null,
   teamUserFormat: {
     manager: [],
@@ -112,10 +113,10 @@ export const updateTeamRoster = createAsyncThunk(
 
 export const fetchTeamUserFormat = createAsyncThunk(
   "tournamentTeam/fetchTeamUserFormat",
-  async (teamId, { rejectWithValue }) => {
+  async ({ teamId, game }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get(`/team/userFormat`, {
-        params: { teamId },
+        params: { teamId, game },
       });
       return response.data;
     } catch (error) {
@@ -222,6 +223,25 @@ export const removeTeam = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to remove team"
+      );
+    }
+  }
+);
+
+// New thunk for Roaster/RegisterTour
+export const registerTournament = createAsyncThunk(
+  "tournamentTeam/registerTournament",
+  async ({ tournamentId, teamId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(`/Roaster/RegisterTour`, {
+        tournamentId,
+        teamId,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message ||
+          "Failed to register team for tournament"
       );
     }
   }
@@ -365,6 +385,18 @@ const TournamentTeamSlice = createSlice({
       })
       .addCase(removeTeam.rejected, (state, action) => {
         state.removeTeamloading = false;
+        state.error = action.payload;
+      })
+      .addCase(registerTournament.pending, (state) => {
+        state.registerTournamentLoading = true;
+        state.error = null;
+      })
+      .addCase(registerTournament.fulfilled, (state, action) => {
+        state.registerTournamentLoading = false;
+        state.error = null;
+      })
+      .addCase(registerTournament.rejected, (state, action) => {
+        state.registerTournamentLoading = false;
         state.error = action.payload;
       });
   },

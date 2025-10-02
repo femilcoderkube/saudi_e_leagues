@@ -34,14 +34,16 @@ import { IMAGES } from "../../components/ui/images/images.js";
 import { Images } from "lucide-react";
 import ManageTeamModal from "../../components/ManageTeam/ManageTeamModal.jsx";
 import PDFViewer from "../../components/Overlays/LeagueDetail/PDFViewer.jsx";
-import { getTeamData } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
+import {
+  getTeamData,
+  registerTournament,
+} from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
   const { tournamentData, activeStage, loader } = useSelector(
     (state) => state.tournament
   );
-  console.log(tournamentData,"hvfsfhs");
-  
+  console.log("tournamentData", tournamentData);
 
   const [showModal, setShowModal] = useState(false);
   const { currentTeam } = useSelector((state) => state.tournamentTeam);
@@ -94,6 +96,19 @@ const TournamentDetail = () => {
       });
     }
   }, [tournamentData?.stages, activeStage, isSocketConnected]);
+
+  const onRegistration = async () => {
+    try {
+      await dispatch(
+        registerTournament({
+          tournamentId: tournamentData?._id,
+          teamId: currentTeam?._id,
+        })
+      );
+    } catch (error) {
+      console.log("err", error);
+    }
+  };
 
   // Empty dependency array means this runs once after mount
   return (
@@ -195,7 +210,8 @@ const TournamentDetail = () => {
               </div>
             </div>
             <div
-              onClick={() => dispatch(setRegistrationModal(true))}
+              // onClick={() => dispatch(setRegistrationModal(true))}
+              onClick={onRegistration}
               className="common-width join_btn hover:opacity-60 duration-300 block sd_before relative cursor-pointer"
             >
               <span
@@ -276,7 +292,7 @@ const TournamentDetail = () => {
                               : "text-gray-700"
                           }`}
                         >
-                           {/* <img
+                          {/* <img
                         src={IMAGES.user_about}
                         alt="Overview Icon"
                         className="w-5 h-5"
