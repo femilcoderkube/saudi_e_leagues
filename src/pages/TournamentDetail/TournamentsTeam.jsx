@@ -752,7 +752,7 @@ export default function TournamentsTeam() {
                 currentTeam.games.map((game, index) => (
                   <div key={game.game._id} className="mb-8">
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="team-user-title flex items-center flex-wrap gap-5 justify-between md:mb-10 mb-4">
+                      <div className="team-user-title flex items-center flex-wrap gap-5 justify-between w-full">
                         <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
                           {game.game.name || "Unknown Game"}
                         </h3>
@@ -760,6 +760,7 @@ export default function TournamentsTeam() {
                       {index === 0 && (
                         <div className="flex justify-end items-center w-full">
                           <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
+                           {myRoleLower == "president" && (
                             <div
                               className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
                               onClick={() => setOpenInviteModel(true)}
@@ -783,6 +784,7 @@ export default function TournamentsTeam() {
                                 </svg>
                               </span>
                             </div>
+                           )}
                           </div>
                         </div>
                       )}
@@ -925,7 +927,7 @@ export default function TournamentsTeam() {
                                       </div>
                                     </div>
                                   )}
-                                  <h6 className="text-center text-lg !font-bold mt-2">
+                                  <h6 className={`text-center text-lg !font-bold ${showPresidentMenu ? "mt-2" : "mt-7"}`}>
                                     {displayName}
                                   </h6>
                                   <p className="text-center mt-3 text-[#8492B4] text-base font-semibold h-[24px] overflow-hidden">
