@@ -502,7 +502,10 @@
     "no_matches": "No Matches Found",
     "assign": "Assign",
     "remove_player_from": "Remove Player from",
-    "roster": "roster"
+    "roster": "roster",
+    "notready": "Not Ready",
+    "changeopen": "Roaster Change Open",
+    "changeclose": "Roaster Change Close"
   },
   "tournament": {
     "schedule": "Schedule",
@@ -523,6 +526,8 @@
     "overview": "Overview",
     "overview_desc": "Overview Desc",
     "invite_players_to_team": "Invite at least {{count}} players to your team to participate",
+    "roster_lock_in": "Roaster will lock in {{hours}} hours, {{minutes}} minutes",
+    "roster_locked": "Roaster Locked",
     "manageteam": "Manage Team",
     "Register": "Register",
     "discordsupport": "Discord Support",

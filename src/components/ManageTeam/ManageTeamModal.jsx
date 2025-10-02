@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../components/ui/images/images";
@@ -14,6 +14,12 @@ import {
   updateTeamRoster,
   withdrawTeamRoster,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice";
+import {
+  setManagerSelection,
+  setCoachSelection,
+  togglePlayerSelection,
+  setRosterSelectionBulk,
+} from "../../app/slices/TournamentTeam/TournamentTeamSlice";
 
 const ManageTeamModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -24,19 +30,23 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     loading,
     error,
   } = useSelector((state) => state.teamInvitation);
-  const { currentTeam, teamUserFormat, teamData } = useSelector(
+  const { currentTeam, teamUserFormat, teamData, rosterSelection } = useSelector(
     (state) => state.tournamentTeam
   );
 
   const { tournamentData } = useSelector((state) => state.tournament);
 
-  // State to track selected items for each section
-  const [selectedItems, setSelectedItems] = useState({
-    manager: [],
-    coach: [],
-    players: [],
-    // substitutes: [],
-  });
+  // Local view-model derived from slice rosterSelection and userFormat
+  const selectedItems = useMemo(() => {
+    const manager = rosterSelection.managerId
+      ? [{ id: rosterSelection.managerId }]
+      : [];
+    const coach = rosterSelection.coachId
+      ? [{ id: rosterSelection.coachId }]
+      : [];
+    const players = (rosterSelection.playerIds || []).map((id) => ({ id }));
+    return { manager, coach, players };
+  }, [rosterSelection]);
 
   useEffect(() => {
     if (currentTeam?._id) {
@@ -52,44 +62,56 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     };
   }, [currentTeam?._id, dispatch]);
 
+  // Initialize default selection from teamData when user format loads
+  useEffect(() => {
+    if (!teamUserFormat?.data) return;
+    const hasExisting =
+      rosterSelection.managerId !== null ||
+      rosterSelection.coachId !== null ||
+      (rosterSelection.playerIds && rosterSelection.playerIds.length > 0);
+    if (hasExisting) return;
+    if (teamData?.data) {
+      const coachId = teamData.data.Coach?._id || null;
+      const playerIds = Array.isArray(teamData.data.Players)
+        ? teamData.data.Players.map((p) => p?._id).filter(Boolean)
+        : [];
+      dispatch(
+        setRosterSelectionBulk({ managerId: null, coachId, playerIds })
+      );
+    }
+  }, [teamUserFormat?.data, teamData?.data, rosterSelection, dispatch]);
+
   // Handle checkbox toggle for an item in a section
   const handleCheckChange = (section, item) => {
-    setSelectedItems((prev) => {
-      const isSelected = prev[section].some(
-        (selected) => selected.id === item.id
-      );
-      let updatedItems;
-
-      if (section === "manager" || section === "coach") {
-        // Single selection for manager and coach
-        updatedItems = isSelected ? [] : [item];
-      } else {
-        // Multiple selections for players and substitutes
-        updatedItems = isSelected
-          ? prev[section].filter((selected) => selected.id !== item.id)
-          : [...prev[section], item];
-      }
-
-      // Enforce limits: max 3 players, max 2 substitutes
-      if (
-        section === "players" &&
-        updatedItems.length > tournamentData?.maxPlayersPerTeam
-      ) {
+    if (section === "manager") {
+      const next = selectedItems.manager.some((s) => s.id === item.id)
+        ? null
+        : item.id;
+      dispatch(setManagerSelection(next));
+      return;
+    }
+    if (section === "coach") {
+      const next = selectedItems.coach.some((s) => s.id === item.id)
+        ? null
+        : item.id;
+      dispatch(setCoachSelection(next));
+      return;
+    }
+    if (section === "players") {
+      const nextCount = selectedItems.players.some((s) => s.id === item.id)
+        ? selectedItems.players.length - 1
+        : selectedItems.players.length + 1;
+      if (nextCount > (tournamentData?.maxPlayersPerTeam || Infinity)) {
         toast.error(
           t("tournament.players_max_limit", {
             count: tournamentData?.maxPlayersPerTeam,
           })
         );
-
-        return prev;
+        return;
       }
-      // if (section === "substitutes" && updatedItems.length > 2) {
-      //   toast.error(t("tournament.substitutes_max_limit"));
-      //   return prev;
-      // }
-
-      return { ...prev, [section]: updatedItems };
-    });
+      dispatch(togglePlayerSelection(item.id));
+      return;
+    }
   };
 
   const handleResetLink = () => {
@@ -162,6 +184,9 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
       .catch((err) => toast.error(err));
   };
 
+
+  console.log("TEAMDATA",teamData);
+  
   return (
     <>
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-40"></div>

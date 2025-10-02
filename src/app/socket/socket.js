@@ -412,7 +412,6 @@ export function startTournamentSocket({ tId, user, isSocketConnected }) {
   if (isSocketConnected) {
     stopTournamentSocket();
     socket.on(SOCKET.ONTOURNAMENTUPDATE, (data) => {
-      console.log("data", data);
       store.dispatch(setTournamentData(data.data));
     });
     socket.emit(SOCKET.GETTOURNAMENT, { tId: tId, userId: user?._id });

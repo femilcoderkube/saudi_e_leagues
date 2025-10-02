@@ -501,7 +501,10 @@
     "assign": "تعيين",
     "roster_manager": "مدير القائمة",
     "roster_coach": "مدرب القائمة",
-    "roster": "قائمة"
+    "roster": "قائمة",
+    "notready": "غير جاهز",
+    "changeopen": "فتح تغيير القائمة",
+    "changeclose": "إغلاق تغيير القائمة"
   },
   "tournament": {
     "schedule": "الجدول",
@@ -522,6 +525,8 @@
     "overview": "ملخص",
     "overview_desc": "",
     "invite_players_to_team": "ادعُ ما لا يقل عن {{count}} لاعبين إلى فريقك للمشاركة",
+    "roster_lock_in": "سيتم قفل القائمة خلال {{hours}} ساعة و{{minutes}} دقيقة",
+    "roster_locked": "تم قفل القائمة",
     "manageteam": "إدارة الفريق",
     "Register": "يسجل",
     "discordsupport": "دعم الخلاف",

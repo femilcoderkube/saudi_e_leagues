@@ -50,8 +50,6 @@ const TournamentDetail = () => {
     (state) => state.tournamentTeam
   );
 
-  console.log("teamData", teamData);
-
   const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -227,7 +225,7 @@ const TournamentDetail = () => {
             <div
               // onClick={() => dispatch(setRegistrationModal(true))}
               onClick={onRegistration}
-              className="common-width join_btn hover:opacity-60 duration-300 block sd_before relative cursor-pointer w-full"
+              className="common-width join_btn duration-300 block sd_before relative w-full"
             >
               <span
                 className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
@@ -272,11 +270,10 @@ const TournamentDetail = () => {
                       onClick={() =>
                         activeStage !== -1 ? dispatch(setActiveStage(-1)) : null
                       }
-                      className={`px-4 pl-0 flex gap-[1.125rem] items-center justify-center text-xl whitespace-nowrap ${
-                        activeStage === -1
-                          ? "text-blue-500 font-bold"
-                          : "text-gray-700"
-                      }`}
+                      className={`px-4 pl-0 flex gap-[1.125rem] items-center justify-center text-xl whitespace-nowrap ${activeStage === -1
+                        ? "text-blue-500 font-bold"
+                        : "text-gray-700"
+                        }`}
                     >
                       <img
                         src={IMAGES.maskgroup}
@@ -289,9 +286,8 @@ const TournamentDetail = () => {
                   {tournamentData?.stages?.map((item, index) => {
                     return (
                       <li
-                        className={`font-semibold cursor-pointer ${
-                          index === activeStage ? "active" : ""
-                        }`}
+                        className={`font-semibold cursor-pointer ${index === activeStage ? "active" : ""
+                          }`}
                         key={index}
                       >
                         <div
@@ -301,11 +297,10 @@ const TournamentDetail = () => {
                               ? dispatch(setActiveStage(index))
                               : null
                           }
-                          className={`px-4 pl-0 flex gap-4 items-center justify-center text-xl whitespace-nowrap ${
-                            index === activeStage
-                              ? "text-blue-500 font-bold"
-                              : "text-gray-700"
-                          }`}
+                          className={`px-4 pl-0 flex gap-4 items-center justify-center text-xl whitespace-nowrap ${index === activeStage
+                            ? "text-blue-500 font-bold"
+                            : "text-gray-700"
+                            }`}
                         >
                           {/* <img
                         src={IMAGES.user_about}
@@ -342,39 +337,107 @@ const TournamentDetail = () => {
                                     {t("league.yourteam")}
                                   </span>
                                   <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
-                                    {t("tournament.invite_players_to_team", {
+                                    {/* {t("tournament.invite_players_to_team", {
                                       count: tournamentData?.maxPlayersPerTeam,
-                                    })}
+                                    })} */}
+                                    {teamData?.data?.status == 1 && (
+                                      <>
+                                        {t("tournament.invite_players_to_team", {
+                                          count: tournamentData?.maxPlayersPerTeam,
+                                        })}
+                                      </>
+                                    )}
+                                    {teamData?.data?.status == 2 && (
+                                      <>
+                                        {tournamentData?.registrationEndDate && (() => {
+                                          // Calculate time left until registrationEndDate
+                                          const endDate = new Date(tournamentData.registrationEndDate);
+                                          const now = new Date();
+                                          const diffMs = endDate - now;
+                                          console.log("diffMs", diffMs);
+
+                                          if (diffMs > 0) {
+                                            const hours = Math.floor(diffMs / (1000 * 60 * 60));
+                                            const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                                            console.log("hours", hours, minutes);
+
+                                            return (
+                                              <>
+                                                {t("tournament.roster_lock_in", {
+                                                  hours,
+                                                  minutes,
+                                                })}
+                                              </>
+                                            );
+                                          }
+                                          return null;
+                                        })()}
+                                      </>
+                                    )}
+                                     {teamData?.data?.status == 3 && (
+                                      <>
+                                        {t("tournament.roster_locked")}
+                                      </>
+                                    )}
                                   </span>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                  <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
-                                    {t("Not Ready")}
-                                  </span>
-                                  <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
+                                  {teamData?.data?.status == 1 && (
+                                    <>
+                                      <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
+                                        {t("tourteam.notready")}
+                                      </span>
+                                      <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
+                                    </>
+                                  )}
+                                  {teamData?.data?.status == 2 && (
+                                    <>
+                                      <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
+                                        {t("tourteam.changeopen")}
+                                      </span>
+                                      <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#00FF00_0%,#008000_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#00FF001F] inline-block"></span>
+                                    </>
+                                  )}
+                                  {teamData?.data?.status == 3 && (
+                                    <>
+                                      <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
+                                        {t("tourteam.changeclose")}
+                                      </span>
+                                      <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
+                                    </>
+                                  )}
                                 </div>
                               </div>
                               <div className="flex items-center sm:flex-row flex-col gap-4 justify-between md:px-8 md:py-6 p-5">
                                 <div className="flex items-center gap-2">
-                                  <div className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full overflow-hidden bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center">
-                                    <img
-                                      src={IMAGES.defaultImg}
-                                      alt="Player 1"
-                                      className="w-full h-full object-cover"
-                                    />
-                                  </div>
                                   {Array.from({
-                                    length: Math.max(
-                                      0,
-                                      (tournamentData?.maxPlayersPerTeam || 1) -
-                                        1
-                                    ),
-                                  }).map((_, idx) => (
-                                    <div
-                                      key={idx}
-                                      className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center opacity-40"
-                                    ></div>
-                                  ))}
+                                    length: tournamentData?.maxPlayersPerTeam || 1,
+                                  }).map((_, idx) => {
+                                    // Try to get player data from teamData.Players
+                                    const player = teamData?.data?.Players?.[idx];
+                                    // If no player, show empty slot
+                                    if (!player) {
+                                      return (
+                                        <div
+                                          key={idx}
+                                          className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center opacity-40"
+                                        ></div>
+                                      );
+                                    }
+                                    // If player exists, show their avatar
+                                    return (
+                                      <div
+                                        key={player._id}
+                                        className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full overflow-hidden bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center"
+                                      >
+                                        <img
+                                          src={player.profilePicture ? getServerURL(player.profilePicture) : IMAGES.defaultImg}
+                                          alt={player.username}
+                                          className="w-full h-full object-cover"
+                                        />
+                                      </div>
+                                    );
+                                  })}
                                 </div>
                                 <div className="flex items-center md:gap-10 gap-4">
                                   <button

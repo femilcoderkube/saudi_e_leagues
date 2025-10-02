@@ -14,6 +14,11 @@ const initialState = {
   registerTournamentLoading: false,
   error: null,
   teamData: null,
+  rosterSelection: {
+    managerId: null,
+    coachId: null,
+    playerIds: [],
+  },
   teamUserFormat: {
     manager: [],
     coach: [],
@@ -83,7 +88,6 @@ export const getTeamData = createAsyncThunk(
         params: { userId },
       });
 
-      console.log("RESPONSE", response);
       return response;
     } catch (error) {
       console.error("Error fetching team data:", error);
@@ -294,6 +298,30 @@ const TournamentTeamSlice = createSlice({
     setRosterModal: (state, action) => {
       state.showRosterModal = action.payload ?? !state.showRosterModal;
     },
+    setManagerSelection: (state, action) => {
+      state.rosterSelection.managerId = action.payload ?? null;
+    },
+    setCoachSelection: (state, action) => {
+      state.rosterSelection.coachId = action.payload ?? null;
+    },
+    togglePlayerSelection: (state, action) => {
+      const playerId = action.payload;
+      const exists = state.rosterSelection.playerIds.includes(playerId);
+      state.rosterSelection.playerIds = exists
+        ? state.rosterSelection.playerIds.filter((id) => id !== playerId)
+        : [...state.rosterSelection.playerIds, playerId];
+    },
+    setRosterSelectionBulk: (state, action) => {
+      const { managerId = null, coachId = null, playerIds = [] } = action.payload || {};
+      state.rosterSelection = {
+        managerId,
+        coachId,
+        playerIds: Array.isArray(playerIds) ? playerIds : [],
+      };
+    },
+    resetRosterSelection: (state) => {
+      state.rosterSelection = { managerId: null, coachId: null, playerIds: [] };
+    },
     resetTeamUserFormat: (state) => {
       state.teamUserFormat = {
         manager: [],
@@ -364,6 +392,21 @@ const TournamentTeamSlice = createSlice({
       .addCase(fetchTeamUserFormat.fulfilled, (state, action) => {
         state.loading = false;
         state.teamUserFormat = action.payload;
+        const hasSelection =
+          state.rosterSelection.managerId !== null ||
+          state.rosterSelection.coachId !== null ||
+          (state.rosterSelection.playerIds && state.rosterSelection.playerIds.length > 0);
+        if (!hasSelection && state.teamData && state.teamData.data) {
+          const coachId = state.teamData.data.Coach?._id || null;
+          const playerIds = Array.isArray(state.teamData.data.Players)
+            ? state.teamData.data.Players.map((p) => p?._id).filter(Boolean)
+            : [];
+          state.rosterSelection = {
+            managerId: null,
+            coachId,
+            playerIds,
+          };
+        }
       })
       .addCase(fetchTeamUserFormat.rejected, (state, action) => {
         state.loading = false;
@@ -460,6 +503,11 @@ export const {
   setTeamEditPopup,
   setRosterModal,
   setCurrentTeam,
+  setManagerSelection,
+  setCoachSelection,
+  togglePlayerSelection,
+  setRosterSelectionBulk,
+  resetRosterSelection,
   resetTeamUserFormat,
 } = TournamentTeamSlice.actions;
 

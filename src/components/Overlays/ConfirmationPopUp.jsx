@@ -9,7 +9,8 @@ import {
 import { motion } from "framer-motion";
 import { deleteFcmToken, logout } from "../../app/slices/auth/authSlice";
 import { IMAGES } from "../ui/images/images";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { checkParams } from "../../utils/constant";
 
 function ConfirmationPopUp({
   onPlayerSelect,
@@ -24,10 +25,11 @@ function ConfirmationPopUp({
   const { confirmationPopUp, selectedPlayerData } = useSelector(
     (state) => state.constState
   );
-  const { lId } = useParams();
+  const { lId, id } = useParams();
   const { user } = useSelector((state) => state.auth);
   const { matchData, myPId } = useSelector((state) => state.matchs);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const { partyQueueTeam, popupData } = useSelector(
@@ -42,6 +44,9 @@ function ConfirmationPopUp({
       dispatch(logout());
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      if (checkParams("team")) {
+        navigate(`/${id}/lobby`);
+      }
       if (onLogout) {
         onLogout();
       }

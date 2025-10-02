@@ -40,7 +40,6 @@ export default function TournamentsTeam() {
     error,
     loading: loading,
   } = useSelector((state) => state.tournamentTeam);
-  console.log("currentTeam", currentTeam);
   const isOpen = useSelector((state) => state.tournamentTeam.showRosterModal);
 
   const openModal = () => dispatch(setRosterModal(true));

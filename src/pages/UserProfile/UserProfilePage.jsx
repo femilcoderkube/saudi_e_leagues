@@ -66,7 +66,6 @@ const UserProfilePage = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       dispatch(setActiveTabIndex(0));
-      navigate(`/${id}/lobby`);
     } catch (error) {
       console.error("Failed to logout:", error);
     }
