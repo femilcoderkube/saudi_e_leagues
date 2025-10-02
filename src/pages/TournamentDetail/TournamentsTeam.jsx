@@ -11,6 +11,7 @@ import {
   setRosterModal,
   transferTeamPresidency,
   assignTeamRole,
+  removeTeam,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -66,17 +67,6 @@ export default function TournamentsTeam() {
     dispatch(setTeamEditPopup(true));
   };
 
-  const openConfirmModal = () => {
-    dispatch(setConfirmationPopUp(12));
-
-    //   dispatch(setPopupData({
-    //     title: t("tourteam.remove_team"),
-    //     message: t("tourteam.remove_team_desc"),
-    //     onConfirm: () => handleRemoveTeam(),
-    //     onCancel: () => dispatch(setConfirmationPopUp(false)),
-    //   }
-    // )
-  };
   const handleMakePresident = async (data) => {
     try {
       await dispatch(
@@ -102,15 +92,31 @@ export default function TournamentsTeam() {
           teamId: data?.teamId,
           candidateId: data?.userId,
           userId: user?._id,
-          role: role,
+          gameRole: role,
+          game: data?.game,
         })
       ).unwrap();
-
       if (user?._id) {
         await dispatch(getTeamData(user._id));
       }
     } catch (err) {
       console.log("Failed to transfer team presidency:", err);
+    }
+  };
+
+  const handleRemoveTeam = async (data) => {
+    try {
+      await dispatch(
+        removeTeam({
+          teamId: data?.teamId,
+          user: data?.userId,
+        })
+      ).unwrap();
+      if (user?._id) {
+        await dispatch(getTeamData(user._id));
+      }
+    } catch (error) {
+      console.log("err", error);
     }
   };
 
@@ -190,7 +196,15 @@ export default function TournamentsTeam() {
                         </span>
                         <span
                           className="text-white text-lg font-medium cursor-pointer"
-                          onClick={openConfirmModal}
+                          onClick={() => {
+                            dispatch(setConfirmationPopUp(12));
+                            dispatch(
+                              setPopupData({
+                                userId: user?._id,
+                                teamId: currentTeam?._id,
+                              })
+                            );
+                          }}
                         >
                           {t("tourteam.remove_team")}
                         </span>
@@ -812,31 +826,31 @@ export default function TournamentsTeam() {
             </defs>
           </svg>
           <div className="flex justify-end items-center w-full">
-          <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
-            <div
-              className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
-              onClick={() => setOpenInviteModel(true)}
-            >
-              {t("tournament.invite_players_title")}
+            <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ">
+              <div
+                className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
+                onClick={() => setOpenInviteModel(true)}
+              >
+                {t("tournament.invite_players_title")}
 
-              <span className="ltr:ml-2.5 rtl:mr-2.5">
-                <svg
-                  width="9"
-                  height="13"
-                  viewBox="0 0 9 13"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M1.181 11.9097C0.784802 11.5927 0.784802 11.0787 1.181 10.7617L6.55072 6.46502L1.181 2.16837C0.784802 1.85135 0.784802 1.33736 1.181 1.02034C1.57719 0.703321 2.21954 0.703321 2.61574 1.02034L8.70284 5.89101C9.09903 6.20802 9.09903 6.72201 8.70284 7.03903L2.61574 11.9097C2.21954 12.2267 1.57719 12.2267 1.181 11.9097Z"
-                    fill="#F4F7FF"
-                  />
-                </svg>
-              </span>
+                <span className="ltr:ml-2.5 rtl:mr-2.5">
+                  <svg
+                    width="9"
+                    height="13"
+                    viewBox="0 0 9 13"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M1.181 11.9097C0.784802 11.5927 0.784802 11.0787 1.181 10.7617L6.55072 6.46502L1.181 2.16837C0.784802 1.85135 0.784802 1.33736 1.181 1.02034C1.57719 0.703321 2.21954 0.703321 2.61574 1.02034L8.70284 5.89101C9.09903 6.20802 9.09903 6.72201 8.70284 7.03903L2.61574 11.9097C2.21954 12.2267 1.57719 12.2267 1.181 11.9097Z"
+                      fill="#F4F7FF"
+                    />
+                  </svg>
+                </span>
+              </div>
             </div>
-          </div>
           </div>
           <div className="team-main-user mt-16">
             {/* Games Section */}
@@ -862,11 +876,13 @@ export default function TournamentsTeam() {
                           let roleLower = val?.role?.toLowerCase();
                           let showPresidentMenu =
                             val?.role?.toLowerCase() !== "president" &&
-                            val?.id !== user?._id;
+                            val?.id !== user?._id &&
+                            myRoleLower !== "player";
 
                           let showManagerMenu =
                             val?.role?.toLowerCase() !== "manager" &&
                             val?.id !== user?._id;
+                          myRoleLower !== "player";
 
                           return (
                             <div
@@ -933,6 +949,7 @@ export default function TournamentsTeam() {
                                                 setPopupData({
                                                   userId: targetUserId,
                                                   teamId,
+                                                  game: game.game._id,
                                                 })
                                               );
                                               dispatch(setConfirmationPopUp(8));
@@ -952,6 +969,7 @@ export default function TournamentsTeam() {
                                                 setPopupData({
                                                   userId: targetUserId,
                                                   teamId,
+                                                  game: game.game._id,
                                                 })
                                               );
                                               dispatch(setConfirmationPopUp(9));
@@ -1060,6 +1078,7 @@ export default function TournamentsTeam() {
       <ConfirmationPopUp
         onMakePresident={handleMakePresident}
         onAssignTeamRole={handleAssignTeamRole}
+        onRemoveTeam={handleRemoveTeam}
       />
       <ManageRosterModal isOpen={isOpen} onClose={closeModal} />
     </>

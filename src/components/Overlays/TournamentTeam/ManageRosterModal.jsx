@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { fetchGames } from "../../../app/slices/game/gamesSlice";
-import { updateTeamMemberGame } from "../../../app/slices/TournamentTeam/TournamentTeamSlice";
+import {
+  getTeamData,
+  updateTeamMemberGame,
+} from "../../../app/slices/TournamentTeam/TournamentTeamSlice";
 import { toast } from "react-toastify";
 import Select from "react-select";
 import { getServerURL } from "../../../utils/constant";
@@ -42,6 +45,7 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
         })
       ).unwrap();
       resetForm();
+      dispatch(getTeamData(user._id));
       toast.success(res?.message);
       onClose();
     } catch (err) {

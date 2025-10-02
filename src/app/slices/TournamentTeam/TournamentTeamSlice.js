@@ -10,6 +10,7 @@ const initialState = {
   updateloading: false,
   transferTeamloading: false,
   assignTeamloading: false,
+  removeTeamloading: false,
   error: null,
   teamUserFormat: {
     manager: [],
@@ -163,18 +164,63 @@ export const transferTeamPresidency = createAsyncThunk(
 
 export const assignTeamRole = createAsyncThunk(
   "tournamentTeam/assignTeamRole",
-  async ({ teamId, userId, candidateId, role }, { rejectWithValue }) => {
+  async (
+    { teamId, userId, candidateId, gameRole, game },
+    { rejectWithValue }
+  ) => {
     try {
       const response = await axiosInstance.put(`/Team/assignRole`, {
         teamId,
         userId,
         candidateId,
-        role,
+        gameRole,
+        game,
       });
       return response.data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to assign team role"
+      );
+    }
+  }
+);
+export const removeTeamPlayer = createAsyncThunk(
+  "tournamentTeam/removeTeamPlayer",
+  async (
+    { teamId, userId, targetUserId, gameId, removeFromTeam },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await axiosInstance.put(`/Team/removePlayer`, {
+        teamId,
+        userId,
+        targetUserId,
+        gameId,
+        removeFromTeam,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to assign team role"
+      );
+    }
+  }
+);
+
+export const removeTeam = createAsyncThunk(
+  "tournamentTeam/removeTeam",
+  async ({ teamId, user }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.delete(
+        `/Team/asCreator?id=${teamId}`,
+        {
+          user,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to remove team"
       );
     }
   }
@@ -295,6 +341,29 @@ const TournamentTeamSlice = createSlice({
       })
       .addCase(assignTeamRole.rejected, (state, action) => {
         state.assignTeamloading = false;
+        state.error = action.payload;
+      })
+      .addCase(removeTeamPlayer.pending, (state) => {
+        state.assignTeamloading = true;
+        state.error = null;
+      })
+      .addCase(removeTeamPlayer.fulfilled, (state, action) => {
+        state.assignTeamloading = false;
+      })
+      .addCase(removeTeamPlayer.rejected, (state, action) => {
+        state.assignTeamloading = false;
+        state.error = action.payload;
+      })
+      .addCase(removeTeam.pending, (state) => {
+        state.removeTeamloading = true;
+        state.error = null;
+      })
+      .addCase(removeTeam.fulfilled, (state, action) => {
+        state.removeTeamloading = false;
+        state.error = null;
+      })
+      .addCase(removeTeam.rejected, (state, action) => {
+        state.removeTeamloading = false;
         state.error = action.payload;
       });
   },

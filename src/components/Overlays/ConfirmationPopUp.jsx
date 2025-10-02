@@ -19,6 +19,7 @@ function ConfirmationPopUp({
   onLogout,
   onMakePresident,
   onAssignTeamRole,
+  onRemoveTeam,
 }) {
   const { confirmationPopUp, selectedPlayerData } = useSelector(
     (state) => state.constState
@@ -112,6 +113,10 @@ function ConfirmationPopUp({
     }
     if (confirmationPopUp === 9) {
       onAssignTeamRole(popupData, "Coach");
+      dispatch(setConfirmationPopUp(0));
+    }
+    if (confirmationPopUp === 12) {
+      onRemoveTeam(popupData);
       dispatch(setConfirmationPopUp(0));
     }
   };
