@@ -47,7 +47,7 @@ export const updateTournamentTeam = createAsyncThunk(
       const response = await axiosInstance.put(`/Team?id=${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "x-encrypted": false
+          "x-encrypted": false,
         },
       });
       return response.data;
@@ -96,11 +96,32 @@ export const getTeamData = createAsyncThunk(
 
 export const updateTeamRoster = createAsyncThunk(
   "tournamentTeam/updateTeamRoster",
-  async ({ teamId, rosterData }, { rejectWithValue }) => {
+  async (
+    { teamId, tournamentParticipantId, rosterData },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await axiosInstance.put(`/Roaster/byteamId`, {
+      const response = await axiosInstance.put(`/Roaster/updateRoaster`, {
         teamId,
+        tournamentParticipantId,
         ...rosterData,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update team roster"
+      );
+    }
+  }
+);
+export const withdrawTeamRoster = createAsyncThunk(
+  "tournamentTeam/withdrawTeamRoster",
+  async ({ teamId, tournamentId, participantId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`/Roaster/updateRoaster`, {
+        teamId,
+        tournamentId,
+        participantId,
       });
       return response.data;
     } catch (error) {
@@ -308,12 +329,21 @@ const TournamentTeamSlice = createSlice({
       })
       .addCase(updateTeamRoster.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentTeam = {
-          ...state.currentTeam,
-          roster: action.payload.data.roster, // Update roster in currentTeam
-        };
+        state.error = null;
       })
       .addCase(updateTeamRoster.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(withdrawTeamRoster.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(withdrawTeamRoster.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(withdrawTeamRoster.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

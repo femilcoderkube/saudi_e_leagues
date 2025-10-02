@@ -43,7 +43,6 @@ const TournamentDetail = () => {
   const { tournamentData, activeStage, loader } = useSelector(
     (state) => state.tournament
   );
-  console.log("tournamentData", tournamentData);
 
   const [showModal, setShowModal] = useState(false);
   const { currentTeam } = useSelector((state) => state.tournamentTeam);

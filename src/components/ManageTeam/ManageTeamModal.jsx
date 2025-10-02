@@ -11,6 +11,7 @@ import {
   fetchTeamUserFormat,
   resetTeamUserFormat,
   updateTeamRoster,
+  withdrawTeamRoster,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice";
 
 const ManageTeamModal = ({ isOpen, onClose }) => {
@@ -25,8 +26,6 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   const { currentTeam, teamUserFormat } = useSelector(
     (state) => state.tournamentTeam
   );
-
-  console.log("teamUserFormat", teamUserFormat);
 
   const { tournamentData } = useSelector((state) => state.tournament);
 
@@ -122,13 +121,35 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     }
 
     const rosterData = {
-      Manager:
+      managerId:
         selectedItems.manager.length > 0 ? selectedItems.manager[0].id : null,
-      Coach: selectedItems.coach.length > 0 ? selectedItems.coach[0].id : null,
-      Players: selectedItems.players.map((item) => item.id),
+      coachId:
+        selectedItems.coach.length > 0 ? selectedItems.coach[0].id : null,
+      playerIds: selectedItems.players.map((item) => item.id),
     };
 
-    dispatch(updateTeamRoster({ teamId: currentTeam._id, rosterData }))
+    dispatch(
+      updateTeamRoster({
+        teamId: currentTeam._id,
+        tournamentParticipantId: "",
+        rosterData,
+      })
+    )
+      .unwrap()
+      .then((res) => {
+        toast.success(res?.message);
+        onClose();
+      })
+      .catch((err) => toast.error(err));
+  };
+  const handleWithdraw = () => {
+    dispatch(
+      withdrawTeamRoster({
+        teamId: currentTeam._id,
+        tournamentId: tournamentData?._id,
+        participantId: "",
+      })
+    )
       .unwrap()
       .then((res) => {
         toast.success(res?.message);
@@ -332,6 +353,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               <div className="game_status--tab wizard_btn back_btn">
                 <button
                   type="button"
+                  onClick={handleWithdraw}
                   className="py-2 px-4 text-[0.938rem] font-semibold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                   style={{ width: "8rem", height: "4rem" }}
                 >
