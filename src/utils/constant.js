@@ -502,3 +502,17 @@ export const shouldDisplayPopup = (popupData) => {
 
   return true;
 };
+
+export const findUserRolesById = (games, userId) => {
+  return (games || [])
+    .map((g) => {
+      const user = (g.users || []).find((u) => u.id === userId);
+      return user
+        ? {
+            gameName: g.game?.name,
+            role: String(user.role || "").toLowerCase(),
+          }
+        : null;
+    })
+    .filter((entry) => entry !== null);
+};
