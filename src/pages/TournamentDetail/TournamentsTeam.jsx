@@ -13,6 +13,7 @@ import {
   assignTeamRole,
   removeTeam,
   removeTeamPlayer,
+  leaveTeamPlayer,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -116,6 +117,21 @@ export default function TournamentsTeam() {
       console.log("err", error);
     }
   };
+  const handleLeaveTeam = async (data) => {
+    try {
+      const resultAction = await dispatch(
+        leaveTeamPlayer({
+          teamId: data?.teamId,
+          userId: data?.userId,
+        })
+      );
+      if (leaveTeamPlayer.fulfilled.match(resultAction)) {
+        await dispatch(getTeamData(user._id));
+      }
+    } catch (error) {
+      console.log("err", error);
+    }
+  };
 
   useEffect(() => {
     if (isSocketConnected) {
@@ -208,7 +224,18 @@ export default function TournamentsTeam() {
                       </div>
                     </div>
                   ) : (
-                    <div className="edit-team-drop group relative flex flex-col items-center">
+                    <div
+                      className="edit-team-drop group relative flex flex-col items-center"
+                      onClick={() => {
+                        dispatch(setConfirmationPopUp(13));
+                        dispatch(
+                          setPopupData({
+                            userId: user?._id,
+                            teamId: currentTeam?._id,
+                          })
+                        );
+                      }}
+                    >
                       <button className="bg-[linear-gradient(180deg,rgba(188,82,37,0.8464)_0%,rgba(244,149,40,0.92)_107.14%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] w-16 h-16 rounded-[0.5rem_0_0.5rem_0] flex items-center justify-center hover:scale-102 transition-transform duration-150 cursor-pointer">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -1063,6 +1090,7 @@ export default function TournamentsTeam() {
         onMakePresident={handleMakePresident}
         onAssignTeamRole={handleAssignTeamRole}
         onRemoveTeam={handleRemoveTeam}
+        onLeaveTeam={handleLeaveTeam}
       />
       <ManageRosterModal isOpen={isOpen} onClose={closeModal} />
     </>

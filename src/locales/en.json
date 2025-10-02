@@ -435,7 +435,8 @@
     "removeCoachConfirm": "Are you sure you want to remove player from team?",
     "leavePartyConfirm": "Leave",
     "leavePartyTitle": "Are you sure you want to leave party?",
-    "removeTeamConfirm": "Are you sure you want to remove team?"
+    "removeTeamConfirm": "Are you sure you want to remove team?",
+    "leaveTeamConfirm": "Are you sure you want to leave team?"
   },
   "drafting": {
     "drafting": "Drafting",

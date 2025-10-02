@@ -21,6 +21,7 @@ function ConfirmationPopUp({
   onMakePresident,
   onAssignTeamRole,
   onRemoveTeam,
+  onLeaveTeam,
 }) {
   const { confirmationPopUp, selectedPlayerData } = useSelector(
     (state) => state.constState
@@ -132,6 +133,10 @@ function ConfirmationPopUp({
       onRemoveTeam(popupData);
       dispatch(setConfirmationPopUp(0));
     }
+    if (confirmationPopUp === 13) {
+      onLeaveTeam(popupData);
+      dispatch(setConfirmationPopUp(0));
+    }
   };
 
   const getConfirmationTitle = () => {
@@ -147,6 +152,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 10) return t("confirmation.removeManagerConfirm");
     if (confirmationPopUp == 11) return t("confirmation.removeCoachConfirm");
     if (confirmationPopUp == 12) return t("confirmation.removeTeamConfirm");
+    if (confirmationPopUp == 13) return t("confirmation.leaveTeamConfirm");
 
     return "";
   };
@@ -199,7 +205,8 @@ function ConfirmationPopUp({
       confirmationPopUp == 9 ||
       confirmationPopUp == 10 ||
       confirmationPopUp == 11 ||
-      confirmationPopUp == 12
+      confirmationPopUp == 12 ||
+      confirmationPopUp == 13
     )
       return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
@@ -219,6 +226,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 10) return t("confirmation.yes");
     if (confirmationPopUp == 11) return t("confirmation.yes");
     if (confirmationPopUp == 12) return t("confirmation.yes");
+    if (confirmationPopUp == 13) return t("confirmation.yes");
     return "";
   };
 

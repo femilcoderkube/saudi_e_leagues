@@ -434,6 +434,7 @@
     "leavePartyConfirm": "مغادرة",
     "leavePartyTitle": "هل أنت متأكد أنك تريد مغادرة المجموعة؟",
     "removeTeamConfirm": "هل أنت متأكد أنك تريد إزالة الفريق؟",
+    "leaveTeamConfirm": "هل أنت متأكد أنك تريد مغادرة الفريق؟",
     "makepresidentmessage": "هل أنت متأكد أنك تريد نقل الرئاسة؟"
   },
   "drafting": {

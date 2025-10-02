@@ -221,7 +221,24 @@ export const removeTeamPlayer = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to assign team role"
+        error.response?.data?.message || "Failed to remove team"
+      );
+    }
+  }
+);
+export const leaveTeamPlayer = createAsyncThunk(
+  "tournamentTeam/leaveTeamPlayer",
+  async ({ teamId, userId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`/Team/leaveTeam`, {
+        teamId,
+        userId,
+      });
+      return response.data;
+    } catch (error) {
+      console.log("err", error);
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to leave team"
       );
     }
   }
@@ -312,7 +329,11 @@ const TournamentTeamSlice = createSlice({
         : [...state.rosterSelection.playerIds, playerId];
     },
     setRosterSelectionBulk: (state, action) => {
-      const { managerId = null, coachId = null, playerIds = [] } = action.payload || {};
+      const {
+        managerId = null,
+        coachId = null,
+        playerIds = [],
+      } = action.payload || {};
       state.rosterSelection = {
         managerId,
         coachId,
@@ -395,7 +416,8 @@ const TournamentTeamSlice = createSlice({
         const hasSelection =
           state.rosterSelection.managerId !== null ||
           state.rosterSelection.coachId !== null ||
-          (state.rosterSelection.playerIds && state.rosterSelection.playerIds.length > 0);
+          (state.rosterSelection.playerIds &&
+            state.rosterSelection.playerIds.length > 0);
         if (!hasSelection && state.teamData && state.teamData.data) {
           const coachId = state.teamData.data.Coach?._id || null;
           const playerIds = Array.isArray(state.teamData.data.Players)
@@ -456,6 +478,17 @@ const TournamentTeamSlice = createSlice({
       })
       .addCase(removeTeamPlayer.rejected, (state, action) => {
         state.assignTeamloading = false;
+        state.error = action.payload;
+      })
+      .addCase(leaveTeamPlayer.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(leaveTeamPlayer.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(leaveTeamPlayer.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       })
       .addCase(removeTeam.pending, (state) => {
