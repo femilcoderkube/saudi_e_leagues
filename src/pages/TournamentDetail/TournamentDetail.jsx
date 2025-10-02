@@ -263,7 +263,7 @@ const TournamentDetail = () => {
                   viewport={{ once: true, amount: 0.3 }}
                 >
                   <li
-                    className={`font-semibold cursor-pointer md:border-r  border-gray-200/20 ${
+                    className={`font-semibold cursor-pointer ltr:md:border-r rtl:md:border-l border-[#141D46] ${
                       activeStage === -1 ? "active" : ""
                     }`}
                   >
@@ -338,7 +338,7 @@ const TournamentDetail = () => {
                             <div className="your-team-card rounded-2xl md:mb-12 mb-9 bg-[linear-gradient(183.7deg,rgba(94,95,184,0.2)_3.03%,rgba(34,35,86,0.2)_97.05%)] shadow-[inset_0_2px_2px_0_rgba(94,95,184,0.12)] backdrop-blur-[0.75rem]">
                               <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
                                 <div className="flex flex-wrap items-center sm:gap-4 gap-2">
-                                  <span className="text-[#FFF] md:text-xl text-lg font-bold">
+                                  <span className="text-[#F4F7FF] md:text-xl text-lg font-bold ltr:md:pr-6 ltr:md:mr-2 ltr:md:border-r ltr:md::border-[#7B7ED0] rtl:md:pl-6 rtl:md:ml-2 rtl:md:border-l rtl:md:border-[#7B7ED0]">
                                     {t("league.yourteam")}
                                   </span>
                                   <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
@@ -388,11 +388,11 @@ const TournamentDetail = () => {
                             </div>
                           )}
                           <div className="about-tournament-card">
-                            <h3 className="sm:text-[2rem] text-2xl grad_text-clip !font-black sm:mb-8 mb-6 tracking-wide uppercase bg-[linear-gradient(180deg,rgb(244_247_255)_0%,rgba(186,189,255,1)_36%,rgba(123,126,208,1)_66%)]">
+                            <h3 className="sm:text-[2rem] text-2xl grad_text-clip !font-black sm:mb-8 mb-6 tracking-wide uppercase bg-[linear-gradient(180deg,rgba(148,156,244,0.288)_32.47%,rgba(104,107,146,0.192)_92.29%)]">
                               {t("league.about_tournament")}
                             </h3>
                             <p
-                              className="text-[#9d9d9d] md:text-xl text-lg font-semibold sm:mb-6 mb-4"
+                              className="text-[#F4F4F4] md:text-xl text-lg font-semibold sm:mb-6 mb-4"
                               dangerouslySetInnerHTML={{
                                 __html:
                                   i18n.language === "ar"
@@ -473,7 +473,7 @@ const TournamentDetail = () => {
 
                             <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
                               <div className="battle-shape-text flex md:gap-6 gap-3 w-[21rem]">
-                                <span className="inline-block md:text-2xl sm:text-lg text-base font-bold">
+                                <span className="inline-block md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
                                   {t("tournament.list_of_participants")}
                                 </span>
                               </div>

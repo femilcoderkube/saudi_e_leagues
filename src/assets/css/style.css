@@ -930,6 +930,11 @@ html[dir="rtl"] .mob-match-gp .royal-date-time p:first-child {
   border-left: 1px solid #5e5fb899;
 }
 
+html[dir="rtl"] .about-accordation .mob-match-gp div p:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
 /* battle royal end */
 
 /* call-duty-card End*/
@@ -1628,7 +1633,7 @@ html[dir=rtl] .edit-team-wp {
     font-size: 0.875rem;
   }
 
-  .edit-team-wp{
+  .edit-team-wp {
     right: 2.5rem;
   }
 
@@ -1637,7 +1642,7 @@ html[dir=rtl] .edit-team-wp {
     left: 2.5rem;
   }
 
-  .edit-team-drop button{
+  .edit-team-drop button {
     width: 3.125rem;
     height: 3.125rem;
   }
@@ -1689,7 +1694,7 @@ html[dir=rtl] .edit-team-wp {
     width: 4.5rem;
   }
 
-  .about-accordation .round-gold{
+  .about-accordation .round-gold {
     width: 1.7rem;
     height: 1.7rem;
   }
@@ -1824,14 +1829,15 @@ html[dir=rtl] .edit-team-wp {
     left: 4rem;
     right: auto;
   }
+
   .edit-team-wp {
     right: 4rem;
-}
+  }
 
-html[dir=rtl] .edit-team-wp {
-  right: auto;
-  left: 4rem;
-}
+  html[dir=rtl] .edit-team-wp {
+    right: auto;
+    left: 4rem;
+  }
 }
 
 .react-pdf__Page {
@@ -1863,12 +1869,12 @@ html[dir=rtl] .edit-team-wp {
   padding: 0 1.875rem 0 0;
 }
 
-#tournament-tabs.sa__tournament-tabs li.active div{
+#tournament-tabs.sa__tournament-tabs li.active div {
   border-bottom: 0;
-  padding-block:1rem ;
+  padding-block: 1rem;
 }
 
-#tournament-tabs.sa__tournament-tabs li div{
+#tournament-tabs.sa__tournament-tabs li div {
   padding-block: 1rem;
   color: #686992;
 }
@@ -1877,18 +1883,33 @@ html[dir=rtl] .edit-team-wp {
   padding-right: 3rem;
 }
 
-#tournament-tabs.sa__tournament-tabs li.active div{
-  color: #fff;
-  /* background: linear-gradient(180deg, #F4F7FF 53.92%, #55B384 112.5%); */
+html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:not(:first-child) div {
+  padding-right: 0;
+  padding-left: 3rem;
+}
+
+
+#tournament-tabs.sa__tournament-tabs li.active div {
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  color: unset;
+  background: linear-gradient(180deg, #F4F7FF 53.92%, #55B384 112.5%);
 }
 
 #tournament-tabs.sa__tournament-tabs li {
   padding-right: 0;
 }
 
-#tournament-tabs.sa__tournament-tabs li:first-child{
-  margin-right:1.875rem ;
+#tournament-tabs.sa__tournament-tabs li:first-child {
+  margin-right: 1.875rem;
   padding: 0 1.875rem 0 0;
+}
+
+html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
+  margin-left: 1.875rem;
+  margin-right: 0;
+  padding: 0 0 0 1.875rem;
 }
 
 /* Tournament brackets css */
@@ -2363,14 +2384,25 @@ html[dir=rtl] .edit-team-wp {
   #tournament-tabs.sa__tournament-tabs li:not(:first-child) div {
     padding: 0;
     padding-bottom: 1rem;
-}
-#tournament-tabs.sa__tournament-tabs li:first-child {
-  margin-right: 0;
-  padding:0;
-}
-.tournament_page--wrapper .sd_tournament-wrapper {
-  padding-top: 1rem;
-}
+  }
+
+  html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:not(:first-child) div{
+    padding: 0;
+  }
+
+  #tournament-tabs.sa__tournament-tabs li:first-child {
+    margin-right: 0;
+    padding: 0;
+  }
+
+  html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
+    margin-left: 0;
+    padding: 0;
+  }
+
+  .tournament_page--wrapper .sd_tournament-wrapper {
+    padding-top: 1rem;
+  }
 }
 
 @media (max-width: 639px) {
