@@ -84,7 +84,7 @@ const InvitePlayerModel = ({ close }) => {
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
       <div className="fixed inset-0 flex justify-center items-center z-[999]">
         <motion.div
-          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl lg:!w-[37rem]  relative m-4 md:m-0"
+          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl lg:!w-[40rem]  relative m-4 md:m-0"
           initial={{ scale: 0.5, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
@@ -145,7 +145,7 @@ const InvitePlayerModel = ({ close }) => {
                       </button>
                     </div>
                     <button
-                      className="flex items-center justify-center w-[3.5rem] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
+                      className="flex items-center justify-center lg:w-[4.5rem] w-[3.5rem] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
                       style={{ marginLeft: 13 }}
                       title={t("tournament.reset_button_title")}
                       onClick={handleResetLink}

@@ -42,7 +42,7 @@ const Lobby = () => {
   const { leagues, loading, activeIndex, tabs, isListView, selectedGame } =
     useSelector((state) => state.lobby);
   const { user } = useSelector((state) => state.auth);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const Iid = searchParams.get("Iid");
   const { t } = useTranslation();
   const partnerID = getPartnerById(id).docId;
@@ -70,9 +70,13 @@ const Lobby = () => {
     dispatch(setTournamentData(null));
   }, [dispatch, activeIndex, selectedGame]);
 
-  if (Iid && user) {
-    return <InviteLink Iid={Iid} />;
-  }
+  // ✅ If Iid exists but user is not logged in → remove it
+  useEffect(() => {
+    if (Iid && !user) {
+      searchParams.delete("Iid");
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [Iid, user, searchParams, setSearchParams]);
 
   return (
     <>
@@ -150,6 +154,7 @@ const Lobby = () => {
           )}
         </div>
       </motion.div>
+      {Iid && user && <InviteLink Iid={Iid} />}
     </>
   );
 };

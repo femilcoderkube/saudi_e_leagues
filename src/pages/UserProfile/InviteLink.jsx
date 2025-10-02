@@ -33,14 +33,14 @@ const InviteLink = ({ Iid }) => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/");
+      navigate("/prime/lobby");
     } else if (Iid) {
       // Fetch team by Iid
       dispatch(fetchTeamByIid(Iid))
         .unwrap() // unwrap makes it throw if rejected
         .catch(() => {
           // Redirect if fetch failed
-          navigate("/");
+          navigate("/prime/lobby");
         });
 
       dispatch(fetchGames());
@@ -109,34 +109,10 @@ const InviteLink = ({ Iid }) => {
   return (
     <main dir="ltr" className="flex-1 lobby_page--wrapper">
       <>
-        {/* <div className="fixed inset-0 bg-[#09092d] z-40" /> */}
+        {/* Backdrop Blur Overlay */}
+        <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm" />
+
         <div className="fixed inset-0 flex justify-center items-center z-50">
-          <div className="match-makingwp overflow-hidden">
-            <img
-              className="left-league absolute -top-60 left-14 opacity-[8%]"
-              src={IMAGES.center_league}
-              alt=""
-              style={{ width: "20rem" }}
-            />
-            <img
-              className="left-bottom-league absolute xl:bottom-25 xl:left-80 md:bottom-15 md:left-60 opacity-[8%]"
-              src={IMAGES.center_league}
-              alt=""
-              style={{ width: "5.5rem" }}
-            />
-            <img
-              className="right-league absolute xl:top-20 xl:right-60 md:top-10 md:right-40 opacity-[8%]"
-              src={IMAGES.center_league}
-              alt=""
-              style={{ width: "9.5rem" }}
-            />
-            <img
-              className="right-bottom-league absolute bottom-[-8.5rem] right-[-6.3rem] opacity-[8%]"
-              src={IMAGES.center_league}
-              alt=""
-              style={{ width: "20rem" }}
-            />
-          </div>
           <div className="flex flex-col gap-6">
             <motion.div
               className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-0 rounded-xl w-full max-w-lg relative max-h-[80vh] overflow-y-auto overflow-x-hidden"
@@ -147,10 +123,16 @@ const InviteLink = ({ Iid }) => {
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               {/* Header */}
-              <div className="bg-[#1a1b3a] rounded-t-xl px-8 py-5 border-b border-[#353c83] text-center">
+              <div className="bg-[#1a1b3a] relative rounded-t-xl px-8 py-5 border-b border-[#353c83] text-center">
                 <h2 className="text-2xl font-bold text-white tracking-wide">
                   {t("Invite_model.accept_invitation")}
                 </h2>
+                <button
+                  onClick={() => navigate("/prime/lobby")} // or navigate(-1) if you want back navigation
+                  className="absolute top-8 right-4  text-[18px] -translate-y-1/2 text-[#7B7ED0] hover:text-white transition"
+                >
+                  ✕
+                </button>
                 <p className="text-[#7B7ED0] text-base mt-1">
                   {t("Invite_model.accept_description")}
                 </p>
@@ -267,13 +249,13 @@ const InviteLink = ({ Iid }) => {
                     </div>
 
                     <div>
-                      <label className="block text-[#7B7ED0] font-semibold mt-5">
+                      <label className="flex mt-3 items-center h-10 rounded ">
                         {t("Invite_model.game_id")}
                       </label>
                       <Field
                         name="gameId"
                         type="text"
-                        className="sd_custom-input !w-full px-4 py-2 mt-2 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0] bg-[#18194a] border border-[#353c83] rounded"
+                        className="sd_custom-input !w-full px-4 py-2 mt-1 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0] bg-[#18194a] border border-[#353c83] rounded"
                         placeholder={t("Invite_model.game_id")}
                       />
                       <ErrorMessage
@@ -287,7 +269,7 @@ const InviteLink = ({ Iid }) => {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="py-2 px-4 justify-right flex items-right text-nowrap text-xl font-medium transition-all sd_after sd_before cursor-pointer relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                        className="py-2 px-4 justify-right flex items-right items-center text-nowrap text-xl font-medium transition-all sd_after sd_before cursor-pointer relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                         style={{ width: "10rem", height: "4rem" }}
                       >
                         {loading ? (

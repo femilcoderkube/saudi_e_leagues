@@ -7,6 +7,8 @@ import * as Yup from "yup";
 import { fetchGames } from "../../../app/slices/game/gamesSlice";
 import { updateTeamMemberGame } from "../../../app/slices/TournamentTeam/TournamentTeamSlice";
 import { toast } from "react-toastify";
+import Select from "react-select";
+import { getServerURL } from "../../../utils/constant";
 
 const ManageRosterModal = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
@@ -92,7 +94,7 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
-              {({ isSubmitting }) => (
+              {({ isSubmitting, values, setFieldValue }) => (
                 <Form>
                   <div className="mb-6">
                     <label className="block text-base text-white mb-2 !font-bold">
@@ -102,7 +104,7 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
                       type="text"
                       name="game"
                       placeholder={t("roster.game_label")}
-                      className="w-full bg-[#05042C] h-[56px] border border-[#393B7A] rounded-lg text-white text-sm outline-none px-4"
+                      className="sd_custom-input !w-full px-4 py-2 mt-2 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0] bg-[#18194a] border border-[#353c83] rounded"
                     />
                     <ErrorMessage
                       name="game"
@@ -111,27 +113,78 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
                     />
                   </div>
 
-                  <div className="mb-6">
-                    <Field
-                      as="select"
+                  <div className="mb-6 custom_select2 sd_select--menu">
+                    <label className="flex gap-4 items-center h-10 rounded !font-bold text-white mb-2">
+                      {t("roster.game_id_label")}
+                    </label>
+
+                    <Select
                       name="gameId"
-                      className="w-full bg-[#05042C] h-[56px] border border-[#393B7A] rounded-lg text-white text-sm outline-none px-4"
-                    >
-                      <option value="" disabled>
-                        {t("roster.game_id_placeholder")}
-                      </option>
-                      {games.length > 0 ? (
-                        games.map((game) => (
-                          <option key={game._id} value={game._id}>
-                            {game.name}
-                          </option>
-                        ))
-                      ) : (
-                        <option value="" disabled>
-                          {t("roster.no_games_available")}
-                        </option>
+                      value={
+                        games
+                          .map((g) => ({
+                            value: g._id,
+                            label: g.name,
+                            logo: g.logo,
+                          }))
+                          .find((g) => g.value === values.gameId) || null
+                      }
+                      onChange={(option) =>
+                        setFieldValue("gameId", option?.value || "")
+                      }
+                      options={games.map((game) => ({
+                        value: game._id,
+                        label: game.name,
+                        logo: game.logo,
+                        color: game.color,
+                      }))}
+                      className="basic-multi-select cursor-pointer"
+                      classNamePrefix="select"
+                      placeholder={t("roster.game_id_placeholder")}
+                      menuPortalTarget={document.body}
+                      formatOptionLabel={(option) => (
+                        <div className="flex items-center gap-2">
+                          {option.logo && (
+                            <img
+                              src={getServerURL(option.logo)}
+                              alt={option.label}
+                              className="w-6 h-6 rounded-full"
+                            />
+                          )}
+                          <span style={{ color: "#7B7ED0" }}>
+                            {option.label}
+                          </span>
+                        </div>
                       )}
-                    </Field>
+                      styles={{
+                        menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                        control: (base) => ({
+                          ...base,
+                          backgroundColor: "#121331",
+                          borderColor: "#7B7ED0",
+                          color: "#7B7ED0",
+                          boxShadow: "none",
+                          minHeight: "56px",
+                          cursor: "pointer",
+                        }),
+                        singleValue: (base) => ({ ...base, color: "#7B7ED0" }),
+                        option: (base, state) => ({
+                          ...base,
+                          backgroundColor: state.isSelected
+                            ? "#23244d"
+                            : state.isFocused
+                            ? "#1a1b3a"
+                            : "#121331",
+                          color: "#7B7ED0",
+                        }),
+                        menu: (base) => ({
+                          ...base,
+                          backgroundColor: "#121331",
+                          zIndex: 9999,
+                        }),
+                      }}
+                    />
+
                     <ErrorMessage
                       name="gameId"
                       component="div"
