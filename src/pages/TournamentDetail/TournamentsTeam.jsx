@@ -475,53 +475,7 @@ export default function TournamentsTeam() {
                 </h3>
               </div>
               <div className="game_card--wrapper game_card--wrapv2 flex sm:flex-wrap  gap-[1.188rem] md:justify-start mb-9">
-                {[
-                  {
-                    _id: "1",
-                    isLeague: true,
-                    logo: "https://static-cdn.jtvnw.net/ttv-boxart/516575-285x380.jpg",
-                    title: "Overwatch Championchip",
-                    titleAr: "دوري الأبطال",
-                    prizepool: 50000,
-                    game: {
-                      logo: "https://static-cdn.jtvnw.net/ttv-boxart/516575-52x72.jpg",
-                      name: "Valorant",
-                      shortName: "VAL",
-                    },
-                    totalRegistrations: 128,
-                    endDate: "2024-07-15T00:00:00Z",
-                  },
-                  {
-                    _id: "2",
-                    isLeague: false,
-                    logo: "https://static-cdn.jtvnw.net/ttv-boxart/33214-285x380.jpg",
-                    title: "Overwatch Championchip",
-                    titleAr: "كأس الصيف",
-                    prizepool: 20000,
-                    game: {
-                      logo: "https://static-cdn.jtvnw.net/ttv-boxart/33214-52x72.jpg",
-                      name: "League of Legends",
-                      shortName: "LOL",
-                    },
-                    totalRegistrations: 64,
-                    endDate: "2024-08-01T00:00:00Z",
-                  },
-                  {
-                    _id: "3",
-                    isLeague: true,
-                    logo: "https://static-cdn.jtvnw.net/ttv-boxart/21779-285x380.jpg",
-                    title: "Overwatch Championchip",
-                    titleAr: "دعوة الشتاء",
-                    prizepool: 30000,
-                    game: {
-                      logo: "https://static-cdn.jtvnw.net/ttv-boxart/21779-52x72.jpg",
-                      name: "Counter-Strike: GO",
-                      shortName: "CS:GO",
-                    },
-                    totalRegistrations: 80,
-                    endDate: "2024-09-10T00:00:00Z",
-                  },
-                ].map((item, index) => (
+                {[].map((item, index) => (
                   <a
                     key={index}
                     className="game_card_wrap--link relative inline-block"
@@ -606,6 +560,7 @@ export default function TournamentsTeam() {
                     </div>
                   </a>
                 ))}
+                {t("tourteam.no_tournament")}
               </div>
               <div className="mb-6">
                 <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
@@ -613,44 +568,7 @@ export default function TournamentsTeam() {
                 </h3>
               </div>
               <div className="main-card-duty-wp flex md:flex-row flex-col gap-[1.188rem] mt-5">
-                {[
-                  {
-                    matchId: "1",
-                    createdAt: "2024-06-01T15:30:00Z",
-                    game: {
-                      logo: "https://static-cdn.jtvnw.net/ttv-boxart/516575-52x72.jpg",
-                      name: "Valorant",
-                    },
-                    status: "in_progress",
-                    userScore: 0,
-                    teamOneScore: 13,
-                    teamTwoScore: 11,
-                  },
-                  {
-                    matchId: "2",
-                    createdAt: "2024-05-28T18:00:00Z",
-                    game: {
-                      logo: "https://static-cdn.jtvnw.net/ttv-boxart/33214-52x72.jpg",
-                      name: "League of Legends",
-                    },
-                    status: "win",
-                    userScore: 1,
-                    teamOneScore: 8,
-                    teamTwoScore: 5,
-                  },
-                  {
-                    matchId: "3",
-                    createdAt: "2024-05-20T20:15:00Z",
-                    game: {
-                      logo: "https://static-cdn.jtvnw.net/ttv-boxart/21779-52x72.jpg",
-                      name: "Counter-Strike: GO",
-                    },
-                    status: "lose",
-                    userScore: -1,
-                    teamOneScore: 7,
-                    teamTwoScore: 13,
-                  },
-                ].map((match) => (
+                {[].map((match) => (
                   <div
                     key={match.matchId}
                     className="card-duty-wp relative main-tournament-schedule-card-wrapper cursor-pointer w-full"
@@ -805,6 +723,8 @@ export default function TournamentsTeam() {
                     </svg>
                   </div>
                 ))}
+
+                {t("tourteam.no_matches")}
               </div>
             </div>
           </div>
@@ -825,7 +745,6 @@ export default function TournamentsTeam() {
               </clipPath>
             </defs>
           </svg>
-
           <div className="team-main-user mt-16">
             {/* Games Section */}
             <div className="mt-10">

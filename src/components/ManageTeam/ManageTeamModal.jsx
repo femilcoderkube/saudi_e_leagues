@@ -25,6 +25,9 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   const { currentTeam, teamUserFormat } = useSelector(
     (state) => state.tournamentTeam
   );
+
+  console.log("teamUserFormat", teamUserFormat);
+
   const { tournamentData } = useSelector((state) => state.tournament);
 
   // State to track selected items for each section
@@ -37,7 +40,12 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (currentTeam?._id) {
-      dispatch(fetchTeamUserFormat(currentTeam._id));
+      dispatch(
+        fetchTeamUserFormat({
+          teamId: currentTeam._id,
+          game: tournamentData?.game?._id,
+        })
+      );
     }
     return () => {
       dispatch(resetTeamUserFormat());
