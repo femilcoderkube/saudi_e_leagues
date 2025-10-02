@@ -34,12 +34,14 @@ export const createTournamentTeam = createAsyncThunk(
       const response = await axiosInstance.post("/Team/asCreator", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "X-Encrypt-Response": false
         },
       });
+
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to create team"
+        error || "Failed to create team"
       );
     }
   }
@@ -273,7 +275,7 @@ export const registerTournament = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
-          "Failed to register team for tournament"
+        "Failed to register team for tournament"
       );
     }
   }
@@ -286,12 +288,11 @@ export const getTeamDetails = createAsyncThunk(
         tournamentId,
         teamId,
       });
-
       return response.data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
-          "Failed to register team for tournament"
+        "Failed to register team for tournament"
       );
     }
   }
@@ -301,6 +302,15 @@ const TournamentTeamSlice = createSlice({
   name: "tournamentTeam",
   initialState,
   reducers: {
+    resetTeamData: (state, action) => {
+      state.showTeamRegistrationPopup = null;
+      state.showTeamEditPopup = null;
+      state.showRosterModal = null;
+      state.currentTeam = null;
+      state.teamData = null;
+      state.rosterSelection = null;
+      state.teamUserFormat = null;
+    },
     setTeamRegistrationPopup: (state, action) => {
       state.showTeamRegistrationPopup = !state.showTeamRegistrationPopup;
     },
@@ -412,14 +422,14 @@ const TournamentTeamSlice = createSlice({
         state.loading = false;
         state.teamUserFormat = action.payload;
         const hasSelection =
-          state.rosterSelection.managerId !== null ||
-          state.rosterSelection.coachId !== null ||
-          (state.rosterSelection.playerIds &&
-            state.rosterSelection.playerIds.length > 0);
-        if (!hasSelection && state.teamData && state.teamData.data) {
-          const coachId = state.teamData.data.Coach?._id || null;
-          const playerIds = Array.isArray(state.teamData.data.Players)
-            ? state.teamData.data.Players.map((p) => p?._id).filter(Boolean)
+          state.rosterSelection?.managerId !== null ||
+          state.rosterSelection?.coachId !== null ||
+          (state.rosterSelection?.playerIds &&
+            state.rosterSelection?.playerIds?.length > 0);
+        if (!hasSelection && state.teamData && state.teamData?.data) {
+          const coachId = state.teamData?.data?.Coach?._id || null;
+          const playerIds = Array.isArray(state.teamData?.data?.Players)
+            ? state.teamData?.data?.Players?.map((p) => p?._id).filter(Boolean)
             : [];
           state.rosterSelection = {
             managerId: null,
@@ -540,6 +550,7 @@ export const {
   setRosterSelectionBulk,
   resetRosterSelection,
   resetTeamUserFormat,
+  resetTeamData
 } = TournamentTeamSlice.actions;
 
 export default TournamentTeamSlice.reducer;

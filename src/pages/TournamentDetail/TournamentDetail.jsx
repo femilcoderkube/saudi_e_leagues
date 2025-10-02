@@ -40,6 +40,7 @@ import {
   getTeamDetails,
   registerTournament,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
+import { setConfirmationPopUp, setPopupData } from "../../app/slices/constState/constStateSlice.js";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
   const { tournamentData, activeStage, loader } = useSelector(
@@ -132,16 +133,26 @@ const TournamentDetail = () => {
   }, [tournamentData?.stages, activeStage, isSocketConnected]);
 
   const onRegistration = async () => {
-    try {
-      await dispatch(
-        registerTournament({
-          tournamentId: tournamentData?._id,
-          teamId: currentTeam?._id,
-        })
-      );
-    } catch (error) {
-      console.log("err", error);
-    }
+    dispatch(
+      setPopupData({
+        tournamentId: tournamentData?._id,
+        teamId: currentTeam?._id,
+      })
+    );
+    dispatch(
+      setConfirmationPopUp(14)
+    );
+    // try {
+    // await dispatch(
+    //   registerTournament({
+    //      tournamentId: tournamentData?._id,
+    //     teamId: currentTeam?._id,
+    //   })
+    // );
+
+    // } catch (error) {
+    //   console.log("err", error);
+    // }
   };
 
   const isPresident = teamData?.data?.teamId?.members?.some(
@@ -260,7 +271,7 @@ const TournamentDetail = () => {
             </div>
             <div
               // onClick={() => dispatch(setRegistrationModal(true))}
-              onClick={onRegistration}
+              onClick={(teamData?.dataFound) ? undefined : onRegistration}
               className="common-width join_btn duration-300 block sd_before relative w-full"
             >
               <span
@@ -271,13 +282,13 @@ const TournamentDetail = () => {
                   textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
                 }}
               >
-                {t("images.Registerog")}
+                {teamData?.dataFound ? t("images.Registergn") : t("images.Registerog")}
               </span>
 
               <img
                 className="mx-auto"
                 src={
-                  condition === "og" ? IMAGES.ragister_og : IMAGES.ragister_gn
+                  teamData?.dataFound ? IMAGES.ragister_gn : IMAGES.ragister_og
                 }
                 alt=""
                 style={{ width: "100%" }}

@@ -11,6 +11,7 @@ import { deleteFcmToken, logout } from "../../app/slices/auth/authSlice";
 import { IMAGES } from "../ui/images/images";
 import { useNavigate, useParams } from "react-router-dom";
 import { checkParams } from "../../utils/constant";
+import { registerTournament, resetTeamData } from "../../app/slices/TournamentTeam/TournamentTeamSlice";
 
 function ConfirmationPopUp({
   onPlayerSelect,
@@ -41,6 +42,7 @@ function ConfirmationPopUp({
   const handleOnClick = () => {
     if (confirmationPopUp == 1) {
       dispatch(deleteFcmToken());
+      dispatch(resetTeamData())
       getUpdateToken("");
       dispatch(setConfirmationPopUp(0));
       dispatch(logout());
@@ -138,8 +140,12 @@ function ConfirmationPopUp({
       onLeaveTeam(popupData);
       dispatch(setConfirmationPopUp(0));
     }
+
     if (confirmationPopUp === 14) {
-      onDeleteTeam(popupData);
+      // onLeaveTeam(popupData);
+      dispatch(
+        registerTournament(popupData)
+      );
       dispatch(setConfirmationPopUp(0));
     }
   };
@@ -158,16 +164,15 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 11) return t("confirmation.removeCoachConfirm");
     if (confirmationPopUp == 12) return t("confirmation.removeTeamConfirm");
     if (confirmationPopUp == 13) return t("confirmation.leaveTeamConfirm");
-    if (confirmationPopUp == 14) return t("confirmation.removeTeamConfirm");
+    if (confirmationPopUp == 14) return t("confirmation.registrationConfirm");
 
     return "";
   };
 
   const getConfirmationMessage = () => {
     if (confirmationPopUp == 3 && selectedPlayerData) {
-      return `${t("confirmation.confirmplayerselectionMessage")} ${
-        selectedPlayerData?.username || t("confirmation.thisplayer")
-      }?`;
+      return `${t("confirmation.confirmplayerselectionMessage")} ${selectedPlayerData?.username || t("confirmation.thisplayer")
+        }?`;
     }
     if (confirmationPopUp == 4) {
       return t("confirmation.deleteAccountMessage");
@@ -195,6 +200,9 @@ function ConfirmationPopUp({
     }
     if (confirmationPopUp == 12) {
       return "Are you sure you want to remove this member as the Overwatch Roster Coach?";
+    }
+    if (confirmationPopUp == 14) {
+      return "Are you sure you want to register for this tournament?";
     }
     return "";
   };

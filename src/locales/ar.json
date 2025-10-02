@@ -387,7 +387,7 @@
     "follow_us": "تابعنا",
     "notifications": "الإشعارات",
     "skip": "تخطي",
-    "Registerog": "يسجل",
+    "Registerog": "تسجيل",
     "Registergn": "مسجل"
   },
   "actions": {
@@ -435,6 +435,7 @@
     "leavePartyTitle": "هل أنت متأكد أنك تريد مغادرة المجموعة؟",
     "removeTeamConfirm": "هل أنت متأكد أنك تريد إزالة الفريق؟",
     "leaveTeamConfirm": "هل أنت متأكد أنك تريد مغادرة الفريق؟",
+    "registrationConfirm": "هل أنت متأكد أنك تريد التسجيل في هذه البطولة؟",
     "makepresidentmessage": "هل أنت متأكد أنك تريد نقل الرئاسة؟"
   },
   "drafting": {

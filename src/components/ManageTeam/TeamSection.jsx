@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import CustomCheckbox from "./CustomCheckbox";
+import { getServerURL } from "../../utils/constant";
 
 const TeamSection = ({
   data,
@@ -25,7 +26,7 @@ const TeamSection = ({
                   <span className="w-10 h-10">
                     <img
                       src={
-                        item.img ||
+                        getServerURL(item.image) ||
                         "https://randomuser.me/api/portraits/men/32.jpg"
                       }
                       alt={t(`tournament.sample_${section}_${idx + 1}`)}

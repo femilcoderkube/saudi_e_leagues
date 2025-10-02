@@ -357,7 +357,7 @@
     "large_prime": "Large Prime",
     "need_login": "YOU NEED TO LOG IN",
     "join_button": "JOIN",
-    "Registerog": "REGISTERED",
+    "Registerog": "REGISTER",
     "Registergn": "REGISTERED",
 
     "queue_button": "Queue button",
@@ -436,7 +436,8 @@
     "leavePartyConfirm": "Leave",
     "leavePartyTitle": "Are you sure you want to leave party?",
     "removeTeamConfirm": "Are you sure you want to remove team?",
-    "leaveTeamConfirm": "Are you sure you want to leave team?"
+    "leaveTeamConfirm": "Are you sure you want to leave team?",
+    "registrationConfirm": "Are you sure you want to register for this tournament?"
   },
   "drafting": {
     "drafting": "Drafting",

@@ -37,18 +37,18 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
   // Local view-model derived from slice rosterSelection
   const selectedItems = useMemo(() => {
-    const manager = rosterSelection.managerId
-      ? [{ id: rosterSelection.managerId }]
+    const manager = rosterSelection?.managerId
+      ? [{ id: rosterSelection?.managerId }]
       : [];
-    const coach = rosterSelection.coachId
-      ? [{ id: rosterSelection.coachId }]
+    const coach = rosterSelection?.coachId
+      ? [{ id: rosterSelection?.coachId }]
       : [];
-    const players = (rosterSelection.playerIds || []).map((id) => ({ id }));
+    const players = (rosterSelection?.playerIds || []).map((id) => ({ id }));
     return { manager, coach, players };
   }, [
-    rosterSelection.managerId,
-    rosterSelection.coachId,
-    rosterSelection.playerIds,
+    rosterSelection?.managerId,
+    rosterSelection?.coachId,
+    rosterSelection?.playerIds,
   ]);
 
   // Fetch team user format when team ID changes
@@ -56,8 +56,8 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     if (currentTeam?._id && tournamentData?.game?._id) {
       dispatch(
         fetchTeamUserFormat({
-          teamId: currentTeam._id,
-          game: tournamentData.game._id,
+          teamId: currentTeam?._id,
+          game: tournamentData?.game?._id,
         })
       );
     }
