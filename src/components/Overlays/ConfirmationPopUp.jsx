@@ -128,6 +128,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 9) return t("confirmation.assignCoachConfirm");
     if (confirmationPopUp == 10) return t("confirmation.removeManagerConfirm");
     if (confirmationPopUp == 11) return t("confirmation.removeCoachConfirm");
+    if (confirmationPopUp == 12) return t("confirmation.removeTeamConfirm");
 
     return "";
   };
@@ -162,6 +163,9 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 11) {
       return "Are you sure you want to remove this member as the Overwatch Roster Coach?";
     }
+    if (confirmationPopUp == 12) {
+      return "Are you sure you want to remove this member as the Overwatch Roster Coach?";
+    }
     return "";
   };
 
@@ -176,7 +180,8 @@ function ConfirmationPopUp({
       confirmationPopUp == 8 ||
       confirmationPopUp == 9 ||
       confirmationPopUp == 10 ||
-      confirmationPopUp == 11
+      confirmationPopUp == 11 ||
+      confirmationPopUp == 12
     )
       return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
@@ -195,7 +200,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 9) return t("confirmation.yes");
     if (confirmationPopUp == 10) return t("confirmation.yes");
     if (confirmationPopUp == 11) return t("confirmation.yes");
-
+    if (confirmationPopUp == 12) return t("confirmation.yes");
     return "";
   };
 

@@ -434,7 +434,8 @@
     "removeManagerConfirm": "Are you want to sure remove manager",
     "removeCoachConfirm": "Are you want to sure remove Player",
     "leavePartyConfirm": "Leave",
-    "leavePartyTitle": "Are you sure you want to leave party?"
+    "leavePartyTitle": "Are you sure you want to leave party?",
+    "removeTeamConfirm": "Are you sure you want to remove team?"
   },
   "drafting": {
     "drafting": "Drafting",
@@ -455,6 +456,7 @@
     "create_newteam": "Create a New Team",
     "create_team": "Create Team",
     "edit_team": "Edit Team",
+    "remove_team": "Remove Team",
     "team_name": "Team Name",
     "team_short_name": "Team Short Name (Max 4 Characters)",
     "nationality": "Team Nationality",
@@ -560,7 +562,7 @@
     "invite_link_reset_success": "Invite link reset successfully",
     "invite_link_reset_failed": "Failed to reset invite link",
     "copy_success": "Copied to clipboard",
-    "invite_players_title":"Invite Players",
+    "invite_players_title": "Invite Players",
     "no_coaches_available": "No coaches available",
     "no_players_available": "No players available",
     "players_max_limit": "Maximum {{count}} players can be selected",
@@ -582,18 +584,18 @@
     "confirm": "Confirm",
     "cancel": "Cancel"
   },
-  "Invite_model":{
-    "accept_invitation":"Accept Invitation",
-    "accept_description":" You have been invited to join a team. Please review the details and accept the invitation.",
-    "team_details":"Team Details",
-    "members":"Members",
-    "country":"Country",
-    "select_game":"Select Game",
-    "game_id":"Enter Game ID",
-    "submit":"Submitting...",
-    "select_game_required":"Please select a game",
-    "game_id_required":"Game ID is required",
-    "game_id_min":"Game ID cannot be empty",
-    "invitation_accepted":"Invitation accepted!"
+  "Invite_model": {
+    "accept_invitation": "Accept Invitation",
+    "accept_description": " You have been invited to join a team. Please review the details and accept the invitation.",
+    "team_details": "Team Details",
+    "members": "Members",
+    "country": "Country",
+    "select_game": "Select Game",
+    "game_id": "Enter Game ID",
+    "submit": "Submitting...",
+    "select_game_required": "Please select a game",
+    "game_id_required": "Game ID is required",
+    "game_id_min": "Game ID cannot be empty",
+    "invitation_accepted": "Invitation accepted!"
   }
 }

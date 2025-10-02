@@ -66,6 +66,17 @@ export default function TournamentsTeam() {
     dispatch(setTeamEditPopup(true));
   };
 
+  const openConfirmModal = () => {
+    dispatch(setConfirmationPopUp(12));
+
+    //   dispatch(setPopupData({
+    //     title: t("tourteam.remove_team"),
+    //     message: t("tourteam.remove_team_desc"),
+    //     onConfirm: () => handleRemoveTeam(),
+    //     onCancel: () => dispatch(setConfirmationPopUp(false)),
+    //   }
+    // )
+  };
   const handleMakePresident = async (data) => {
     try {
       await dispatch(
@@ -176,6 +187,12 @@ export default function TournamentsTeam() {
                           onClick={openModal}
                         >
                           {t("tourteam.manage_roster_title")}
+                        </span>
+                        <span
+                          className="text-white text-lg font-medium cursor-pointer"
+                          onClick={openConfirmModal}
+                        >
+                          {t("tourteam.remove_team")}
                         </span>
                       </div>
                     </div>
