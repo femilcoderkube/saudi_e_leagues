@@ -1076,13 +1076,13 @@ html[dir=rtl] .team-mange {
 }
 
 .team-user-wp {
-  background-image: url(/src/assets/images/team-top-shape.png);
+  background-image: url(/src/assets/images/team-top-shape.webp);
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 html[dir=rtl] .team-user-wp {
-  background-image: url(/src/assets/images/rtl_team-top-shape.png);
+  background-image: url(/src/assets/images/rtl_team-top-shape.webp);
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -1095,7 +1095,7 @@ html[dir=rtl] .team-user-wp {
   top: -0.125rem;
   transform: unset;
   clip-path: unset;
-  background: url(/src/assets/images/team-curve-shape.png);
+  background: url(/src/assets/images/team-curve-shape.webp);
   background-repeat: no-repeat;
   background-size: 100%;
 }
@@ -1162,7 +1162,7 @@ html[dir=rtl] .team_content-left .polygon_border::after {
 }
 
 .manage-team-pop .game_status--tab.back_btn button.active-tab {
-  background: url(/src/assets/images/withdraw-btn.png);
+  background: url(/src/assets/images/withdraw-btn.webp);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -1173,13 +1173,13 @@ html[dir=rtl] .team_content-left .polygon_border::after {
 }
 
 .team_content-right .game_card--wrapv2 .game_card_wrap--link {
-  background-image: url(/src/assets/images/team_game_card.png);
+  background-image: url(/src/assets/images/team_game_card.webp);
   max-width: 19rem;
   flex: 0 0 19rem;
 }
 
 html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link {
-  background-image: url(/src/assets/images/rtl-team_game_card.png);
+  background-image: url(/src/assets/images/rtl-team_game_card.webp);
 }
 
 .team_content-right .card-duty-wp.main-tournament-schedule-card-wrapper {

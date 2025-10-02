@@ -100,13 +100,13 @@ import party_user from "../../../assets/images/party-user.webp";
 import party_logout from "../../../assets/images/party-logout.webp";
 import party_imogi from "../../../assets/images/party-imogi.webp";
 import party_winner from "../../../assets/images/party-winner.webp";
-import ragister_gn from "../../../assets/images/ragister_gn.png";
-import ragister_og from "../../../assets/images/register_og.png";
-import about_down from "../../../assets/images/about-down.png";
-import list_partycip from "../../../assets/images/list_partycip.png";
+import ragister_gn from "../../../assets/images/ragister_gn.webp";
+import ragister_og from "../../../assets/images/register_og.webp";
+import about_down from "../../../assets/images/about-down.webp";
+import list_partycip from "../../../assets/images/list_partycip.webp";
 import team_falcons from "../../../assets/images/team-falcons.webp";
 import maskgroup from "../../../assets/images/maskgroup.webp";
-import user_about from "../../../assets/images/user-about.png";
+import user_about from "../../../assets/images/user-about.webp";
 
 export const IMAGES = {
   prime_icon,
