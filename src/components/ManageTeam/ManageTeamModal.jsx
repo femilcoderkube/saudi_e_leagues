@@ -30,13 +30,12 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     loading,
     error,
   } = useSelector((state) => state.teamInvitation);
-  const { currentTeam, teamUserFormat, teamData, rosterSelection } = useSelector(
-    (state) => state.tournamentTeam
-  );
+  const { currentTeam, teamUserFormat, teamData, rosterSelection } =
+    useSelector((state) => state.tournamentTeam);
 
   const { tournamentData } = useSelector((state) => state.tournament);
 
-  // Local view-model derived from slice rosterSelection and userFormat
+  // Local view-model derived from slice rosterSelection
   const selectedItems = useMemo(() => {
     const manager = rosterSelection.managerId
       ? [{ id: rosterSelection.managerId }]
@@ -46,40 +45,53 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
       : [];
     const players = (rosterSelection.playerIds || []).map((id) => ({ id }));
     return { manager, coach, players };
-  }, [rosterSelection]);
+  }, [
+    rosterSelection.managerId,
+    rosterSelection.coachId,
+    rosterSelection.playerIds,
+  ]);
 
+  // Fetch team user format when team ID changes
   useEffect(() => {
-    if (currentTeam?._id) {
+    if (currentTeam?._id && tournamentData?.game?._id) {
       dispatch(
         fetchTeamUserFormat({
           teamId: currentTeam._id,
-          game: tournamentData?.game?._id,
+          game: tournamentData.game._id,
         })
       );
     }
     return () => {
       dispatch(resetTeamUserFormat());
     };
-  }, [currentTeam?._id, dispatch]);
+  }, [currentTeam?._id, tournamentData?.game?._id, dispatch]);
 
   // Initialize default selection from teamData when user format loads
   useEffect(() => {
-    if (!teamUserFormat?.data) return;
+    if (!teamUserFormat?.data || !teamData?.data) return;
+
+    // Check if rosterSelection is already populated
     const hasExisting =
       rosterSelection.managerId !== null ||
       rosterSelection.coachId !== null ||
       (rosterSelection.playerIds && rosterSelection.playerIds.length > 0);
+
     if (hasExisting) return;
-    if (teamData?.data) {
-      const coachId = teamData.data.Coach?._id || null;
-      const playerIds = Array.isArray(teamData.data.Players)
-        ? teamData.data.Players.map((p) => p?._id).filter(Boolean)
-        : [];
-      dispatch(
-        setRosterSelectionBulk({ managerId: null, coachId, playerIds })
-      );
+
+    // Compare current rosterSelection with teamData to avoid unnecessary dispatches
+    const coachId = teamData.data.Coach?._id || null;
+    const playerIds = Array.isArray(teamData.data.Players)
+      ? teamData.data.Players.map((p) => p?._id).filter(Boolean)
+      : [];
+
+    if (
+      rosterSelection.managerId !== null ||
+      rosterSelection.coachId !== coachId ||
+      JSON.stringify(rosterSelection.playerIds) !== JSON.stringify(playerIds)
+    ) {
+      dispatch(setRosterSelectionBulk({ managerId: null, coachId, playerIds }));
     }
-  }, [teamUserFormat?.data, teamData?.data, rosterSelection, dispatch]);
+  }, [teamUserFormat?.data, teamData?.data, dispatch]);
 
   // Handle checkbox toggle for an item in a section
   const handleCheckChange = (section, item) => {
@@ -183,7 +195,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
       })
       .catch((err) => toast.error(err));
   };
-  
+
   return (
     <>
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-40"></div>
