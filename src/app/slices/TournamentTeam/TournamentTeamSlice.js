@@ -46,6 +46,7 @@ export const updateTournamentTeam = createAsyncThunk(
       const response = await axiosInstance.put(`/Team?id=${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "x-encrypted": false
         },
       });
       return response.data;

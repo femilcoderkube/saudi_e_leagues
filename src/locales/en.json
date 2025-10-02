@@ -495,7 +495,9 @@
     "make_president": "Make President of the Club",
     "assign_manager": "Assign Overwatch Roster Manager",
     "assign_coach": "Assign Overwatch Roster Coach",
-    "remove_player": "Remove Player from Team"
+    "remove_player": "Remove Player from Team",
+    "no_tournament": "No Tournaments Found",
+    "no_matches": "No Matches Found"
   },
   "tournament": {
     "schedule": "Schedule",
