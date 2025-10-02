@@ -338,7 +338,7 @@ const TournamentDetail = () => {
                             <div className="your-team-card rounded-2xl md:mb-12 mb-9 bg-[linear-gradient(183.7deg,rgba(94,95,184,0.2)_3.03%,rgba(34,35,86,0.2)_97.05%)] shadow-[inset_0_2px_2px_0_rgba(94,95,184,0.12)] backdrop-blur-[0.75rem]">
                               <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
                                 <div className="flex flex-wrap items-center sm:gap-4 gap-2">
-                                  <span className="text-[#F4F7FF] md:text-xl text-lg font-bold ltr:md:pr-6 ltr:md:mr-2 ltr:md:border-r ltr:md::border-[#7B7ED0] rtl:md:pl-6 rtl:md:ml-2 rtl:md:border-l rtl:md:border-[#7B7ED0]">
+                                  <span className="text-[#F4F7FF] md:text-xl text-lg font-bold ltr:md:pr-6 ltr:md:mr-2 ltr:md:border-r md:border-[#7B7ED0] rtl:md:pl-6 rtl:md:ml-2 rtl:md:border-l">
                                     {t("league.yourteam")}
                                   </span>
                                   <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
