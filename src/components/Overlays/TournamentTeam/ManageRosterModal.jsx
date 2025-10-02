@@ -100,7 +100,7 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
             >
               {({ isSubmitting, values, setFieldValue }) => (
                 <Form>
-                  <div className="mb-6">
+                  <div className="mb-4">
                     <label className="block text-base text-white mb-2 !font-bold">
                       {t("roster.game_label")}
                     </label>
@@ -108,7 +108,7 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
                       type="text"
                       name="game"
                       placeholder={t("roster.game_label")}
-                      className="sd_custom-input !w-full px-4 py-2 mt-2 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0] bg-[#18194a] border border-[#353c83] rounded"
+                      className="sd_custom-input !w-full px-4 py-2 mt-2 text-lg focus:outline-0 focus:shadow-none leading-none text-[#767679] !placeholder-[#767679] bg-[#18194a] rounded"
                     />
                     <ErrorMessage
                       name="game"
@@ -196,15 +196,15 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
                     />
                   </div>
 
-                  <hr className="border-[#51549B] pb-6" />
+                  {/* <hr className="border-[#51549B] pb-6" /> */}
 
                   {/* Action Buttons */}
-                  <div className="manage-team-pop wizard_step--btn gap-5 flex justify-between sm:mt-14 mt-8 mb-8 mr-5 flex-wrap">
+                  <div className="manage-team-pop wizard_step--btn gap-5 flex justify-end sm:mt-10 mt-6 mb-8 mr-5 flex-wrap">
                     <div className="game_status--tab wizard_btn back_btn">
                       <button
                         type="button"
                         onClick={onClose}
-                        className="py-2 px-4 text-[0.938rem] font-semibold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                        className="py-2 px-4 sm:text-xl text-base font-semibold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                         style={{ width: "8rem", height: "4rem" }}
                       >
                         {t("roster.cancel")}
@@ -214,7 +214,7 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-bold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                        className="py-2 px-4 justify-center flex items-center text-nowrap sm:text-xl text-base font-bold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                         style={{ width: "8rem", height: "4rem" }}
                       >
                         {t("roster.confirm")}
