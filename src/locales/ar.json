@@ -201,7 +201,8 @@
   },
   "rules": {
     "rules_and_regulations": "القوانين والأنظمة",
-    "wizard_form": "نموذج"
+    "wizard_form": "نموذج",
+    "discord_support": "دعم الخلاف"
   },
   "common": {
     "no_data": "لا توجد بيانات متاحة",
@@ -492,7 +493,9 @@
     "make_president": "جعل رئيس الفريق",
     "assign_manager": "تعيين مدير قائمة Overwatch",
     "assign_coach": "تعيين مدرب قائمة Overwatch",
-    "remove_player": "إزالة اللاعب من الفريق"
+    "remove_player": "إزالة اللاعب من الفريق",
+    "no_tournament": "لم يتم العثور على أي بطولات",
+    "no_matches": "لم يتم العثور على أي مباريات"
   },
   "tournament": {
     "schedule": "الجدول",

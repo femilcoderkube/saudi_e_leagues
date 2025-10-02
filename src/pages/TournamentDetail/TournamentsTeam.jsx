@@ -880,7 +880,7 @@ export default function TournamentsTeam() {
                                             }
                                           }}
                                         >
-                                          Assign {currentTeam?.teamName} Roster
+                                          Assign {game?.game?.name} Roster
                                           Manager
                                         </span>
                                         <span
@@ -900,8 +900,7 @@ export default function TournamentsTeam() {
                                             }
                                           }}
                                         >
-                                          Assign {currentTeam?.teamName} Roster
-                                          Coach
+                                          Assign {game?.game?.name} Roster Coach
                                         </span>
                                         <span
                                           className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
@@ -909,8 +908,8 @@ export default function TournamentsTeam() {
                                             dispatch(setConfirmationPopUp(10));
                                           }}
                                         >
-                                          Remove Player from{" "}
-                                          {currentTeam?.teamName} Roster
+                                          Remove Player from {game?.game?.name}{" "}
+                                          Roster
                                         </span>
                                         {showManagerMenu && (
                                           <span
