@@ -26,6 +26,7 @@ import {
   setPopupData,
 } from "../../app/slices/constState/constStateSlice.js";
 import ManageRosterModal from "../../components/Overlays/TournamentTeam/ManageRosterModal.jsx";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -46,9 +47,17 @@ export default function TournamentsTeam() {
     loading: loading,
   } = useSelector((state) => state.tournamentTeam);
   const isOpen = useSelector((state) => state.tournamentTeam.showRosterModal);
-
+  const navigate = useNavigate();
+  const { id } = useParams();
   const openModal = () => dispatch(setRosterModal(true));
   const closeModal = () => dispatch(setRosterModal(false));
+
+  useEffect(() => {
+    if (!user?._id) {
+      navigate(`/${id}/lobby`); // or wherever you want to redirect
+      return;
+    }
+  }, [user?._id]);
 
   const globalIsPresident = currentTeam?.members?.some((member) => {
     const memberUserId = member?.user?._id;
