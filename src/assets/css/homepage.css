@@ -400,6 +400,8 @@ html[dir=rtl] .split_card-num p {
     width: 100%;
     height: 100%;
     background: url('../images/spilit-shape.svg');
+    background-position: center;
+    background-size: cover;
 }
 
 html[dir=rtl] .split_card-num::after,
@@ -430,7 +432,7 @@ html[dir=rtl] .split_card--wrap.polygon_border::before {
     width: 2.51rem;
 }
 
-html[dir=rtl] .split_card--wrap.polygon_border::after{
+html[dir=rtl] .split_card--wrap.polygon_border::after {
     right: auto;
     left: -1.18rem;
     transform: translateY(-50%) rotate(90deg);
@@ -729,7 +731,7 @@ html[dir="rtl"] .home_faq--sec {
         left: auto;
     }
 
-    .home_faq--sec .faq_left--con {        
+    .home_faq--sec .faq_left--con {
         background-size: 190%;
     }
 
@@ -917,6 +919,70 @@ html[dir="rtl"] .home_faq--sec {
     .htp_slider-sec .game_mask--con {
         padding-bottom: 0.85rem;
     }
+
+    .split_card--con {
+        width: 15rem;
+    }
+
+    .split_head-con span {
+        font-size: 0.875rem;
+    }
+
+    .split_head-con svg {
+        width: 0.875rem;
+        height: auto;
+    }
+
+    .split_card--con p span.grad_text-clip{
+        font-size:4rem;
+    }
+
+    .split_card--body {
+        height: 11rem;
+    }
+
+    .spilit-img {
+        height: 13rem;
+        right: -1.7rem;
+    }
+
+    html[dir=rtl] .spilit-img {
+        left: -1.7rem;
+        right: auto;
+    }
+    .split_card--wrap.polygon_border::before {
+        top: calc(50% + 1.4rem);
+        left: -1.15rem;
+        width: 2.4rem;
+    }
+
+    html[dir=rtl] .split_card--wrap.polygon_border::before {
+        left: auto;
+        right: -1.15rem;
+    }
+
+    .split_card--wrap.polygon_border::after {
+        top: calc(50% + 1.8rem);
+        width: 1.5rem;
+        right: -0.7rem;
+    }
+
+    html[dir=rtl] .split_card--wrap.polygon_border::after {
+        left:-0.7rem;
+        right:auto;
+    }
+
+    .split_card-num{
+        padding-top: 0.5rem;
+        margin-bottom: 0.9rem;
+        clip-path: url(#clip-path-01);
+    }
+
+    .split_card-num::after {       
+        width: 80%;
+        height: 90%;
+    }
+  
 }
 
 @media (max-width: 475px) {

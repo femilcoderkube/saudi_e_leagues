@@ -108,7 +108,7 @@ export default function PrimeHome() {
         <HowToPlay id={id} />
         {/* === Timelines Split Card Section HTML block Start === */}
         <section className="sd_timeline--sec pt-[6rem] pb-[1rem] relative">
-          <h2 className="text-[4rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none uppercase items-center tracking-wider !font-black pb-10">
+          <h2 className="md:text-[4rem] text-[2rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none uppercase items-center tracking-wider !font-black md:pb-10 pb-8">
             Timelines
           </h2>
           <TimelineCard_1 />
