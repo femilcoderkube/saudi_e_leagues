@@ -203,16 +203,17 @@ const TournamentDetail = () => {
       member.role === "President" &&
       member.user?._id?.toString() === user?._id?.toString()
   );
-  const teams = [
-    { name: "Static Team 1", totalPoints: 15, placePoints: 8, killPoints: 7 },
-    { name: "Static Team 2", totalPoints: 13, placePoints: 7, killPoints: 6 },
-    { name: "Static Team 3", totalPoints: 10, placePoints: 6, killPoints: 4 },
-    { name: "Static Team 4", totalPoints: 9, placePoints: 5, killPoints: 4 },
-    { name: "Static Team 5", totalPoints: 7, placePoints: 4, killPoints: 3 },
-    { name: "Static Team 6", totalPoints: 6, placePoints: 3, killPoints: 3 },
-    { name: "Static Team 7", totalPoints: 5, placePoints: 2, killPoints: 3 },
-    { name: "Static Team 8", totalPoints: 3, placePoints: 1, killPoints: 2 },
-  ];
+  const teams =
+    teamData?.participentList?.map((p) => ({
+      name: p?.team?.teamName,
+      shortName: p?.team?.teamShortName,
+      logo: p?.team?.logoImage,
+      members: p?.team?.members ?? [],
+      participants: p?.participants ?? [],
+      _id: p?._id,
+    })) || [];
+
+  console.log("TEAMDATA", teamData);
   // Empty dependency array means this runs once after mount
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
@@ -629,8 +630,8 @@ const TournamentDetail = () => {
                                         className={`round-gold ${classs} rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9`}
                                       >
                                         <img
-                                          src={IMAGES.team_falcons}
-                                          alt={team.name}
+                                          src={getServerURL(team?.logo)}
+                                          alt={team?.name}
                                           className="md:w-6 md:h-6 w-5 h-5 rounded-full"
                                         />
                                       </div>
@@ -680,35 +681,21 @@ const TournamentDetail = () => {
                                       </div>
                                       <div className="flex items-center sm:gap-4 gap-2">
                                         <img
-                                          src={IMAGES.team_falcons}
-                                          alt={team.name}
+                                          src={getServerURL(team?.logo)}
+                                          alt={team?.name}
                                           className="md:w-8 md:h-8 h-6 w-6 rounded-full"
                                         />
                                         <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                                          {team.name}
+                                          {team?.name}
                                         </span>
                                       </div>
                                     </div>
                                     <div className="flex items-center xl:gap-13 gap-4">
                                       <p className="text-lg font-bold text-[#1DED85]">
-                                        {team.totalPoints}
+                                        {team?.members?.length}
                                         <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                           {" "}
-                                          {t("tournament.points")}
-                                        </span>
-                                      </p>
-                                      <p className="text-lg font-bold text-[#F4F7FF]">
-                                        {team.placePoints}
-                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                          {" "}
-                                          {t("tournament.pp")}
-                                        </span>
-                                      </p>
-                                      <p className="text-lg font-bold text-[#F4F7FF]">
-                                        {team.killPoints}
-                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                          {" "}
-                                          {t("tournament.kp")}
+                                          {t("tournament.members")}
                                         </span>
                                       </p>
                                     </div>
