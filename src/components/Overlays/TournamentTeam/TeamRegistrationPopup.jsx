@@ -172,14 +172,17 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       }
 
       if (res.success) {
-        toast.success(
-          res?.message ||
-            t(isEdit ? "tourteam.team_updated" : "tourteam.team_created")
-        );
+        // toast.success(
+        //   res?.message ||
+        //     t(isEdit ? "tourteam.team_updated" : "tourteam.team_created")
+        // );
         handleClose();
       }
     } catch (error) {
-      console.error(`${isEdit ? "Update" : "Create"} team failed:`, error.response.data.error);
+      console.error(
+        `${isEdit ? "Update" : "Create"} team failed:`,
+        error.response.data.error
+      );
       toast.error(
         error.response.data.error ||
           t(

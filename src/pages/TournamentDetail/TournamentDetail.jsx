@@ -54,6 +54,8 @@ const TournamentDetail = () => {
     (state) => state.tournamentTeam
   );
 
+  console.log("teamData", teamData?.data?.status === 3);
+
   const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -168,6 +170,12 @@ const TournamentDetail = () => {
       _id: p?._id,
     })) || [];
 
+  const currentDate = new Date();
+  const regStart = new Date(tournamentData?.registrationStartDate); // Replace with actual regStart date
+  const regEnd = new Date(tournamentData?.registrationEndDate); // Replace with actual regEnd date
+  const isWithinRegistrationPeriod =
+    currentDate >= regStart && currentDate <= regEnd;
+
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
       {/* --- dashboard main content back groud --- */}
@@ -267,10 +275,21 @@ const TournamentDetail = () => {
               </div>
             </div>
             <button
-              // onClick={() => dispatch(setRegistrationModal(true))}
-              onClick={teamData?.dataFound ? undefined : onRegistration}
+              onClick={
+                teamData?.dataFound ||
+                !user?._id ||
+                !["Manager", "President"].includes(teamData?.userRole) ||
+                !isWithinRegistrationPeriod
+                  ? undefined
+                  : onRegistration
+              }
               className={`common-width join_btn duration-300 block sd_before relative w-full ${
-                teamData?.dataFound ? "" : "cursor-pointer"
+                teamData?.dataFound ||
+                !user?._id ||
+                !["Manager", "President"].includes(teamData?.userRole) ||
+                !isWithinRegistrationPeriod
+                  ? "opacity-50 cursor-not-allowed"
+                  : "cursor-pointer"
               }`}
             >
               <span
@@ -468,14 +487,22 @@ const TournamentDetail = () => {
                                 <div className="flex items-center gap-2">
                                   {(() => {
                                     // Get the players array, fallback to empty array
-                                    const players = teamData?.data?.Players || [];
-                                    const maxPlayers = tournamentData?.maxPlayersPerTeam || 1;
+                                    const players =
+                                      teamData?.data?.Players || [];
+                                    const maxPlayers =
+                                      tournamentData?.maxPlayersPerTeam || 1;
                                     const totalPlayers = players.length;
-                                    const displayCount = Math.min(5, maxPlayers);
-                                    const extraCount = totalPlayers > 5 ? totalPlayers - 5 : 0;
+                                    const displayCount = Math.min(
+                                      5,
+                                      maxPlayers
+                                    );
+                                    const extraCount =
+                                      totalPlayers > 5 ? totalPlayers - 5 : 0;
 
                                     // Prepare the slots to display (up to maxPlayers)
-                                    const slots = Array.from({ length: maxPlayers });
+                                    const slots = Array.from({
+                                      length: maxPlayers,
+                                    });
 
                                     return slots.map((_, idx) => {
                                       // Show first 7 players or empty slots
@@ -497,7 +524,9 @@ const TournamentDetail = () => {
                                             <img
                                               src={
                                                 player.profilePicture
-                                                  ? getServerURL(player.profilePicture)
+                                                  ? getServerURL(
+                                                      player.profilePicture
+                                                    )
                                                   : IMAGES.defaultImg
                                               }
                                               alt={player.username}
@@ -522,8 +551,9 @@ const TournamentDetail = () => {
                                     });
                                   })()}
                                 </div>
-                                {teamData?.userRole === "President" ||
-                                teamData?.userRole === "Manager" ? (
+                                {(teamData?.userRole === "President" ||
+                                  teamData?.userRole === "Manager") &&
+                                teamData?.data?.status !== 3 ? (
                                   <div className="flex items-center md:gap-10 gap-4">
                                     <button
                                       className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
@@ -592,7 +622,7 @@ const TournamentDetail = () => {
 
                                 {/* Preview avatars */}
                                 <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
-                                  {teams.slice(0, 3).map((team, i) => {                                    
+                                  {teams.slice(0, 3).map((team, i) => {
                                     const classs =
                                       i === 0
                                         ? ""
@@ -627,7 +657,9 @@ const TournamentDetail = () => {
                               <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
                                 <div className="flex gap-2 items-center">
                                   <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
-                                    {teams?.length != 0 ? "+"+teams?.length : ""}
+                                    {teams?.length != 0
+                                      ? "+" + teams?.length
+                                      : ""}
                                   </p>
                                 </div>
                                 <div className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer">

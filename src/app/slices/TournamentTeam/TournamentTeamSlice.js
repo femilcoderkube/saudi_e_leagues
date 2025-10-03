@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../../utils/axios";
+import { toast } from "react-toastify";
 
 const initialState = {
   showTeamRegistrationPopup: false,
@@ -37,7 +38,6 @@ export const createTournamentTeam = createAsyncThunk(
           // "X-Encrypt-Response": false,
         },
       });
-
       return response.data;
     } catch (error) {
       return rejectWithValue(error || "Failed to create team");
@@ -369,9 +369,25 @@ const TournamentTeamSlice = createSlice({
       .addCase(createTournamentTeam.fulfilled, (state, action) => {
         state.loading = false;
         state.currentTeam = action.payload.data;
+        toast.success(action?.payload?.message);
         state.showTeamRegistrationPopup = false;
       })
       .addCase(createTournamentTeam.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateTournamentTeam.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateTournamentTeam.fulfilled, (state, action) => {
+        console.log("action", action?.payload);
+        state.loading = false;
+        state.currentTeam = action.payload.data;
+        toast.success(action?.payload?.message);
+        state.showTeamRegistrationPopup = false;
+      })
+      .addCase(updateTournamentTeam.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

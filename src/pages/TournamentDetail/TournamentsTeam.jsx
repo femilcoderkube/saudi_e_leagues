@@ -14,6 +14,7 @@ import {
   removeTeam,
   removeTeamPlayer,
   leaveTeamPlayer,
+  getTeamDetails,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -52,7 +53,7 @@ export default function TournamentsTeam() {
   const { id } = useParams();
   const openModal = () => dispatch(setRosterModal(true));
   const closeModal = () => dispatch(setRosterModal(false));
-
+  console.log("teamData", teamData);
   useEffect(() => {
     if (!user?._id) {
       navigate(`/${id}/lobby`); // or wherever you want to redirect
@@ -838,8 +839,7 @@ export default function TournamentsTeam() {
               </clipPath>
             </defs>
           </svg>
-          {(teamData?.userRole === "President" ||
-            teamData?.userRole === "Manager") && (
+          {globalIsPresident && (
             <div className="user-team-btn flex justify-end items-center w-full">
               <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                 <div
