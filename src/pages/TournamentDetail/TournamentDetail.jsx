@@ -58,8 +58,6 @@ const TournamentDetail = () => {
     (state) => state.tournamentTeam
   );
 
-  console.log("teamData", teamData);
-
   const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
