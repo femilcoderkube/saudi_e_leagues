@@ -1541,6 +1541,9 @@ html[dir=rtl] .edit-team-wp {
   .schdule-accordion-header.active-schdule-accordion-header {
     gap: 0.3rem;
   }
+  .about-accordation .battle-shape-text span{
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 475px) {
@@ -1682,10 +1685,6 @@ html[dir=rtl] .edit-team-wp {
     width: 1.2rem;
     height: 1.2rem;
     font-size: 14px !important;
-  }
-
-   .about-accordation .battle-shape-text span{
-    font-size: 13px;
   }
 }
 
