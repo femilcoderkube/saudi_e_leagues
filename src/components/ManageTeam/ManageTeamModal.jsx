@@ -26,6 +26,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.auth);
+
   const {
     link: inviteLink,
     loading,
@@ -59,7 +60,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
         fetchTeamUserFormat({
           teamId: currentTeam?._id,
           game: tournamentData?.game?._id,
-          tournamentId: tournamentData?._id
+          tournamentId: tournamentData?._id,
         })
       );
     }
@@ -177,7 +178,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
           getTeamDetails({
             tournamentId: tournamentData?._id,
             teamId: currentTeam._id,
-            userId: user._id
+            userId: user._id,
           })
         );
         toast.success(res?.message);
@@ -403,31 +404,28 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               />
             </div> */}
 
-            {(teamData?.userRole === "President" ||
-              teamData?.userRole === "Manager") && (
-              <div className="manage-team-pop wizard_step--btn gap-5 flex justify-between sm:mt-10 mt-6 mb-6 mr-5 flex-wrap">
-                <div className="game_status--tab wizard_btn back_btn">
-                  <button
-                    type="button"
-                    onClick={handleWithdraw}
-                    className="py-2 px-4 text-[0.938rem] font-semibold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-                    style={{ width: "8rem", height: "4rem" }}
-                  >
-                    {t("tournament.withdraw_registration")}
-                  </button>
-                </div>
-                <div className="game_status--tab wizard_btn next_btn">
-                  <button
-                    type="submit"
-                    onClick={handleConfirm}
-                    className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-bold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
-                    style={{ width: "8rem", height: "4rem" }}
-                  >
-                    {t("tournament.confirm")}
-                  </button>
-                </div>
+            <div className="manage-team-pop wizard_step--btn gap-5 flex justify-between sm:mt-10 mt-6 mb-6 mr-5 flex-wrap">
+              <div className="game_status--tab wizard_btn back_btn">
+                <button
+                  type="button"
+                  onClick={handleWithdraw}
+                  className="py-2 px-4 text-[0.938rem] font-semibold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                  style={{ width: "8rem", height: "4rem" }}
+                >
+                  {t("tournament.withdraw_registration")}
+                </button>
               </div>
-            )}
+              <div className="game_status--tab wizard_btn next_btn">
+                <button
+                  type="submit"
+                  onClick={handleConfirm}
+                  className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-bold transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
+                  style={{ width: "8rem", height: "4rem" }}
+                >
+                  {t("tournament.confirm")}
+                </button>
+              </div>
+            </div>
           </motion.div>
         </AnimatePresence>
 

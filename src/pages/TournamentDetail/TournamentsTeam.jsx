@@ -54,7 +54,7 @@ export default function TournamentsTeam() {
   const { id } = useParams();
   const openModal = () => dispatch(setRosterModal(true));
   const closeModal = () => dispatch(setRosterModal(false));
-  console.log("teamData", teamData);
+
   useEffect(() => {
     if (!user?._id) {
       navigate(`/${id}/lobby`); // or wherever you want to redirect

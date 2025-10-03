@@ -27,11 +27,12 @@ const initialState = {
   gameMatchLoader: false,
   popupData: null,
   isPopUpShow: false,
-
+  viewManagePopup: false,
   countryOptions: countryData.map((country) => ({
     value: country.name,
     label: country.name,
   })),
+
   dialCodeOptions: countryData.map((country) => ({
     value: country.dial_code,
     label: `${country.dial_code} (${country.code})`,
@@ -275,6 +276,9 @@ const constStateSlice = createSlice({
     setPartyQueueTeam: (state, action) => {
       state.partyQueueTeam = action.payload;
     },
+    setViewManagePopup: (state, action) => {
+      state.viewManagePopup = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -343,11 +347,17 @@ const constStateSlice = createSlice({
 
         // Keep only last 5
         if (state.recentInvites[leagueId].length > 5) {
-          state.recentInvites[leagueId] = state.recentInvites[leagueId].slice(0, 5);
+          state.recentInvites[leagueId] = state.recentInvites[leagueId].slice(
+            0,
+            5
+          );
         }
 
-        localStorage.setItem("recentInvites", JSON.stringify(state.recentInvites));
-        
+        localStorage.setItem(
+          "recentInvites",
+          JSON.stringify(state.recentInvites)
+        );
+
         // state.recentInvites = state.recentInvites.filter(
         //   invite => invite.userId !== newInvite.userId
         // );
@@ -359,7 +369,6 @@ const constStateSlice = createSlice({
         // }
 
         // localStorage.setItem("recentInvites", JSON.stringify(state.recentInvites));
-
       })
       .addCase(sendInvite.rejected, (state, action) => {
         state.loading = false;
@@ -412,6 +421,7 @@ export const {
   setShowPartyQueuePopup,
   setTeamFromQueue,
   setPartyQueueTeam,
+  setViewManagePopup,
 } = constStateSlice.actions;
 
 export default constStateSlice.reducer;
