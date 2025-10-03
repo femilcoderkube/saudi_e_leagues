@@ -132,26 +132,26 @@ const TimelineCard_1 = () => {
               <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Jul 15
                     </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Aug 13
                     </span>
                   </p>
                 </div>
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Aug 16
                     </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Aug 23
                     </span>
                   </p>
@@ -270,26 +270,26 @@ const TimelineCard_1 = () => {
               <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Sep 1
                     </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Sep 30
                     </span>
                   </p>
                 </div>
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Oct 2
                     </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Oct 5
                     </span>
                   </p>
@@ -390,26 +390,26 @@ const TimelineCard_1 = () => {
               <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Oct 1
                     </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Oct 30
                     </span>
                   </p>
                 </div>
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Nov 2
                     </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Nov 9
                     </span>
                   </p>
@@ -510,26 +510,26 @@ const TimelineCard_1 = () => {
               <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Nov 1
                     </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Nov 30
                     </span>
                   </p>
                 </div>
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Dec 2
                     </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-xl">
+                    <span className="!font-black sm:text-2xl text-base">
                       Dec 9
                     </span>
                   </p>

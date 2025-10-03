@@ -1573,6 +1573,9 @@ html[dir=rtl] .edit-team-wp {
   .about-accordation .battle-shape-text span{
     font-size: 13px;
   }
+  .split_date p span{
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 475px) {
