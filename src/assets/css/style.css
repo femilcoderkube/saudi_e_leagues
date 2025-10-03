@@ -713,6 +713,15 @@ html[dir="rtl"] .schdule-accordion-body:nth-child(3) {
       rgba(191, 113, 64, 0) 12%);
 }
 
+.about-accordation .schdule-accordion-body:first-child,
+html[dir="rtl"] .about-accordation .schdule-accordion-body:first-child,
+.about-accordation .schdule-accordion-body:nth-child(2),
+html[dir="rtl"] .about-accordation .schdule-accordion-body:nth-child(2),
+.about-accordation .schdule-accordion-body:nth-child(3),
+html[dir="rtl"] .about-accordation .schdule-accordion-body:nth-child(3) {
+  background: unset;
+}
+
 .schdule-accordion-body:nth-child(2) .schdule-common p {
   background: linear-gradient(180deg, #eaeaea 0%, #afafaf 100%);
 }
@@ -721,7 +730,10 @@ html[dir="rtl"] .schdule-accordion-body:nth-child(3) {
   background: linear-gradient(180deg, #e2884f 0%, #b96d3d 100%);
 }
 
-.schdule-accordion-body .schdule-common p {
+.schdule-accordion-body .schdule-common p,
+.about-accordation .schdule-accordion-body:first-child .schdule-common p,
+.schdule-accordion-body:nth-child(2) .schdule-common p,
+.schdule-accordion-body:nth-child(3) .schdule-common p {
   background: linear-gradient(180deg, #9ec2cc 0%, #688992 100%);
 }
 
@@ -739,6 +751,12 @@ html[dir="rtl"] .schdule-accordion-body:nth-child(3) {
   border: 0.6px solid rgba(84, 114, 136, 0.04);
 }
 
+.about-accordation .schdule-accordion-header {
+  background: linear-gradient(199.27deg, rgba(12, 19, 33, 0.032) 19.34%, rgba(12, 19, 33, 0.096) 53.73%, rgba(12, 19, 33, 0.288) 65.69%, rgba(12, 19, 33, 0.256) 85.8%, rgba(12, 19, 33, 0.192) 91.49%);
+  box-shadow: 0px 4px 12px 0px #0C13217A;
+  border: 0.6px solid rgba(198, 230, 239, 0.12);
+}
+
 .round-gold {
   background: linear-gradient(180deg,
       rgba(216, 167, 1, 0.6) 0%,
@@ -747,11 +765,18 @@ html[dir="rtl"] .schdule-accordion-body:nth-child(3) {
   backdrop-filter: blur(1.5rem);
 }
 
+.about-accordation .round-gold {
+  background: linear-gradient(180deg, rgba(32, 37, 93, 0.7) 0%, rgba(16, 20, 65, 0.7) 100%);
+  box-shadow: 0px 4px 4px 0px #5472880A inset;
+  border: 0.6px solid rgba(198, 230, 239, 0.1);
+}
+
 .round-gray {
   background: linear-gradient(180deg,
       rgba(255, 255, 255, 0.5) 0%,
       rgba(40, 55, 66, 0.5) 100%);
 }
+
 
 .round-red {
   background: linear-gradient(180deg,
@@ -805,6 +830,10 @@ html[dir="rtl"] .schdule-icon {
 
 html[dir="rtl"] .schdule-accordion-card.active-accordation .schdule-icon {
   border-bottom-left-radius: 0;
+}
+
+.about-accordation.schdule-accordion-card.active-accordation .schdule-icon,.about-accordation .schdule-icon {
+  background: unset;
 }
 
 .schdule-accordion-card.active-accordation .schdule-accordion-header {
@@ -1290,17 +1319,17 @@ html[dir=rtl] .edit-team-wp {
     width: 14.5rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,.about-accordation .schdule-accordion-header .mob-match-gp {
     padding: 0;
     margin-left: 16.3rem;
   }
 
-  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 16.3rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header {
+  .schdule-accordion-header.active-schdule-accordion-header ,.about-accordation .schdule-accordion-header{
     flex-direction: column;
     align-items: start;
     gap: 1rem;
@@ -1347,11 +1376,11 @@ html[dir=rtl] .edit-team-wp {
     width: 11.5rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,.about-accordation .schdule-accordion-header .mob-match-gp {
     margin-left: 13rem;
   }
 
-  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 13rem;
   }
@@ -1529,17 +1558,21 @@ html[dir=rtl] .edit-team-wp {
     padding-block: 0.8rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp ,.about-accordation .schdule-accordion-header .mob-match-gp{
     margin-left: 7rem;
   }
 
-  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp ,html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp{
     margin-left: 0;
     margin-right: 7rem;
   }
 
   .schdule-accordion-header.active-schdule-accordion-header {
     gap: 0.3rem;
+  }
+
+  .about-accordation .battle-shape-text span {
+    font-size: 13px;
   }
 }
 
@@ -1683,10 +1716,6 @@ html[dir=rtl] .edit-team-wp {
     height: 1.2rem;
     font-size: 14px !important;
   }
-
-   .about-accordation .battle-shape-text span{
-    font-size: 13px;
-  }
 }
 
 @media (max-width: 389px) {
@@ -1760,11 +1789,11 @@ html[dir=rtl] .edit-team-wp {
     padding-left: 0.3rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp ,.about-accordation .schdule-accordion-header .mob-match-gp{
     margin-left: 6rem;
   }
 
-  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp {
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp ,html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp{
     margin-left: 0;
     margin-right: 6rem;
   }
@@ -2390,7 +2419,7 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     padding-bottom: 1rem;
   }
 
-  html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:not(:first-child) div{
+  html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:not(:first-child) div {
     padding: 0;
   }
 

@@ -671,21 +671,7 @@ const TournamentDetail = () => {
                                           {" "}
                                           {t("tournament.points")}
                                         </span>
-                                      </p>
-                                      <p className="text-lg font-bold text-[#F4F7FF]">
-                                        {team.placePoints}
-                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                          {" "}
-                                          {t("tournament.pp")}
-                                        </span>
-                                      </p>
-                                      <p className="text-lg font-bold text-[#F4F7FF]">
-                                        {team.killPoints}
-                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                          {" "}
-                                          {t("tournament.kp")}
-                                        </span>
-                                      </p>
+                                      </p>                                      
                                     </div>
                                   </div>
                                 </div>
