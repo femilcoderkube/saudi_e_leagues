@@ -54,8 +54,6 @@ const TournamentDetail = () => {
     (state) => state.tournamentTeam
   );
 
-  console.log("teamData", teamData?.userRole);
-
   const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -64,8 +62,6 @@ const TournamentDetail = () => {
   const dispatch = useDispatch();
   const [isManageOpen, setIsManageOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null); // For accordion toggle
-
-  console.log("currentTeam", currentTeam);
 
   const toggleAccordion = () => {
     setActiveIndex(activeIndex === "participants" ? null : "participants");
@@ -162,12 +158,6 @@ const TournamentDetail = () => {
     }
   };
 
-  const isPresident = teamData?.data?.teamId?.members?.some(
-    (member) =>
-      member.role === "President" &&
-      member.user?._id?.toString() === user?._id?.toString()
-  );
-
   const teams =
     teamData?.participentList?.map((p) => ({
       name: p?.team?.teamName,
@@ -177,10 +167,6 @@ const TournamentDetail = () => {
       participants: p?.participants ?? [],
       _id: p?._id,
     })) || [];
-
-  console.log("TEAMDATA", teams);
-  // Empty dependency array means this runs once after mount
-  console.log("TEAMDATA", teamData);
 
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
@@ -399,8 +385,7 @@ const TournamentDetail = () => {
                               <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
                                 <div className="flex flex-wrap items-center sm:gap-4 gap-2">
                                   <span className="text-[#F4F7FF] md:text-xl text-lg font-bold ltr:md:pr-6 ltr:md:mr-2 ltr:md:border-r md:border-[#7B7ED0] rtl:md:pl-6 rtl:md:ml-2 rtl:md:border-l">
-                                    {teamData?.data?.teamId?.teamName ||
-                                      t("league.yourteam")}
+                                    {t("league.yourteam")}
                                   </span>
                                   <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
                                     {teamData?.data?.status == 1 && (
@@ -481,42 +466,61 @@ const TournamentDetail = () => {
                               </div>
                               <div className="flex items-center sm:flex-row flex-col gap-4 justify-between md:px-8 md:py-6 p-5">
                                 <div className="flex items-center gap-2">
-                                  {Array.from({
-                                    length:
-                                      tournamentData?.maxPlayersPerTeam || 1,
-                                  }).map((_, idx) => {
-                                    // Try to get player data from teamData.Players
-                                    const player =
-                                      teamData?.data?.Players?.[idx];
-                                    // If no player, show empty slot
-                                    if (!player) {
-                                      return (
-                                        <div
-                                          key={idx}
-                                          className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center opacity-40"
-                                        ></div>
-                                      );
-                                    }
-                                    // If player exists, show their avatar
-                                    return (
-                                      <div
-                                        key={player._id}
-                                        className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full overflow-hidden bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center"
-                                      >
-                                        <img
-                                          src={
-                                            player.profilePicture
-                                              ? getServerURL(
-                                                  player.profilePicture
-                                                )
-                                              : IMAGES.defaultImg
-                                          }
-                                          alt={player.username}
-                                          className="w-full h-full object-cover"
-                                        />
-                                      </div>
-                                    );
-                                  })}
+                                  {(() => {
+                                    // Get the players array, fallback to empty array
+                                    const players = teamData?.data?.Players || [];
+                                    const maxPlayers = tournamentData?.maxPlayersPerTeam || 1;
+                                    const totalPlayers = players.length;
+                                    const displayCount = Math.min(5, maxPlayers);
+                                    const extraCount = totalPlayers > 5 ? totalPlayers - 5 : 0;
+
+                                    // Prepare the slots to display (up to maxPlayers)
+                                    const slots = Array.from({ length: maxPlayers });
+
+                                    return slots.map((_, idx) => {
+                                      // Show first 7 players or empty slots
+                                      if (idx < 5) {
+                                        const player = players[idx];
+                                        if (!player) {
+                                          return (
+                                            <div
+                                              key={idx}
+                                              className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center opacity-40"
+                                            ></div>
+                                          );
+                                        }
+                                        return (
+                                          <div
+                                            key={player._id}
+                                            className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full overflow-hidden bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center mx-2"
+                                          >
+                                            <img
+                                              src={
+                                                player.profilePicture
+                                                  ? getServerURL(player.profilePicture)
+                                                  : IMAGES.defaultImg
+                                              }
+                                              alt={player.username}
+                                              className="w-full h-full object-cover"
+                                            />
+                                          </div>
+                                        );
+                                      }
+                                      // For the 8th slot, if there are extra players, show "+N"
+                                      if (idx === 5 && extraCount > 0) {
+                                        return (
+                                          <div
+                                            key="extra-players"
+                                            className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center text-white font-bold text-lg "
+                                          >
+                                            +{extraCount}
+                                          </div>
+                                        );
+                                      }
+                                      // For slots after 8th, show nothing
+                                      return null;
+                                    });
+                                  })()}
                                 </div>
                                 {teamData?.userRole === "President" ||
                                 teamData?.userRole === "Manager" ? (
@@ -588,7 +592,7 @@ const TournamentDetail = () => {
 
                                 {/* Preview avatars */}
                                 <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
-                                  {teams.slice(0, 3).map((team, i) => {
+                                  {teams.slice(0, 3).map((team, i) => {                                    
                                     const classs =
                                       i === 0
                                         ? ""
@@ -623,7 +627,7 @@ const TournamentDetail = () => {
                               <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
                                 <div className="flex gap-2 items-center">
                                   <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
-                                    +{teams.length}
+                                    {teams?.length != 0 ? "+"+teams?.length : ""}
                                   </p>
                                 </div>
                                 <div className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer">

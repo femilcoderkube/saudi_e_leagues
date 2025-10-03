@@ -25,6 +25,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { user } = useSelector((state) => state.auth);
   const {
     link: inviteLink,
     loading,
@@ -176,6 +177,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
           getTeamDetails({
             tournamentId: tournamentData?._id,
             teamId: currentTeam._id,
+            userId: user._id
           })
         );
         toast.success(res?.message);
