@@ -164,10 +164,12 @@ const TournamentDetail = () => {
       const resultAction = await dispatch(registerTournament(data));
 
       if (registerTournament.fulfilled.match(resultAction)) {
-        getTeamDetails({
-          tournamentId: tournamentData?._id,
-          teamId: currentTeam._id,
-        });
+        dispatch(
+          getTeamDetails({
+            tournamentId: tournamentData?._id,
+            teamId: currentTeam._id,
+          })
+        );
       }
     } catch (error) {
       console.log("err", error);
