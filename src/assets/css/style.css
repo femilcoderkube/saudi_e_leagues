@@ -309,7 +309,7 @@ html[dir="rtl"] .team_score--con {
   width: 100%;
   height: 5rem;
   position: fixed;
-  background: url(../images/shape_bg_bottom.jpg);
+  background: url(../images/shape_bg_bottom.webp);
   background-size: 100%;
   display: flex;
   justify-content: center;
@@ -317,7 +317,7 @@ html[dir="rtl"] .team_score--con {
   padding: 0;
   bottom: 0;
   left: 0;
-  mask-image: url(../images/m_d_shape.svg), url(../images/shape_bg_bottom.jpg);
+  mask-image: url(../images/m_d_shape.svg), url(../images/shape_bg_bottom.webp);
   mask-repeat: no-repeat;
   mask-composite: exclude;
   mask-size: auto, 100%;
@@ -832,7 +832,8 @@ html[dir="rtl"] .schdule-accordion-card.active-accordation .schdule-icon {
   border-bottom-left-radius: 0;
 }
 
-.about-accordation.schdule-accordion-card.active-accordation .schdule-icon,.about-accordation .schdule-icon {
+.about-accordation.schdule-accordion-card.active-accordation .schdule-icon,
+.about-accordation .schdule-icon {
   background: unset;
 }
 
@@ -1319,23 +1320,26 @@ html[dir=rtl] .edit-team-wp {
     width: 14.5rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,.about-accordation .schdule-accordion-header .mob-match-gp {
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,
+  .about-accordation .schdule-accordion-header .mob-match-gp {
     padding: 0;
     margin-left: 16.3rem;
   }
 
-  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp {
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,
+  html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 16.3rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header ,.about-accordation .schdule-accordion-header{
+  .schdule-accordion-header.active-schdule-accordion-header,
+  .about-accordation .schdule-accordion-header {
     flex-direction: column;
     align-items: start;
     gap: 1rem;
   }
 
-  .about-accordation .schdule-accordion-header{
+  .about-accordation .schdule-accordion-header {
     gap: 0.2rem;
   }
 
@@ -1380,11 +1384,13 @@ html[dir=rtl] .edit-team-wp {
     width: 11.5rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,.about-accordation .schdule-accordion-header .mob-match-gp {
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,
+  .about-accordation .schdule-accordion-header .mob-match-gp {
     margin-left: 13rem;
   }
 
-  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp {
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,
+  html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 13rem;
   }
@@ -1562,11 +1568,13 @@ html[dir=rtl] .edit-team-wp {
     padding-block: 0.8rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp ,.about-accordation .schdule-accordion-header .mob-match-gp{
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,
+  .about-accordation .schdule-accordion-header .mob-match-gp {
     margin-left: 7rem;
   }
 
-  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp ,html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp{
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,
+  html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 7rem;
   }
@@ -1574,10 +1582,12 @@ html[dir=rtl] .edit-team-wp {
   .schdule-accordion-header.active-schdule-accordion-header {
     gap: 0.3rem;
   }
-  .about-accordation .battle-shape-text span{
+
+  .about-accordation .battle-shape-text span {
     font-size: 13px;
   }
-  .split_date p span{
+
+  .split_date p span {
     font-size: 14px;
   }
 }
@@ -1795,11 +1805,13 @@ html[dir=rtl] .edit-team-wp {
     padding-left: 0.3rem;
   }
 
-  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp ,.about-accordation .schdule-accordion-header .mob-match-gp{
+  .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,
+  .about-accordation .schdule-accordion-header .mob-match-gp {
     margin-left: 6rem;
   }
 
-  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp ,html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp{
+  html[dir="rtl"] .schdule-accordion-header.active-schdule-accordion-header .mob-match-gp,
+  html[dir="rtl"] .about-accordation .schdule-accordion-header .mob-match-gp {
     margin-left: 0;
     margin-right: 6rem;
   }
