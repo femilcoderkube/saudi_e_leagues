@@ -108,9 +108,12 @@ import team_falcons from "../../../assets/images/team-falcons.webp";
 import maskgroup from "../../../assets/images/maskgroup.webp";
 import user_about from "../../../assets/images/user-about.webp";
 
+import roasterKing from "../../../assets/images/roaster-king.webp";
+
 export const IMAGES = {
   prime_icon,
   full_screen,
+  roasterKing,
   discord_arrow,
   discord,
   party_user,

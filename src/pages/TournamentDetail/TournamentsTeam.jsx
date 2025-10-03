@@ -913,7 +913,7 @@ export default function TournamentsTeam() {
                                 {val.role === "President" && (
                                   <div className="w-[1.188rem] h-auto flex items-center justify-center mx-auto mb-1.5">
                                     <img
-                                      src="/src/assets/images/roaster-king.webp"
+                                      src={IMAGES.roasterKing}
                                       alt="President crown"
                                       className="w-full h-full"
                                     />
