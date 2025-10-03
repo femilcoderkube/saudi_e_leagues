@@ -130,10 +130,10 @@ export const withdrawTeamRoster = createAsyncThunk(
 
 export const fetchTeamUserFormat = createAsyncThunk(
   "tournamentTeam/fetchTeamUserFormat",
-  async ({ teamId, game }, { rejectWithValue }) => {
+  async ({ teamId, game, tournamentId }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get(`/team/userFormat`, {
-        params: { teamId, game },
+        params: { teamId, game, tournamentId },
       });
       return response.data;
     } catch (error) {

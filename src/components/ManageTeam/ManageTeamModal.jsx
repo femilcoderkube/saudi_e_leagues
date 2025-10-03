@@ -58,6 +58,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
         fetchTeamUserFormat({
           teamId: currentTeam?._id,
           game: tournamentData?.game?._id,
+          tournamentId: tournamentData?._id
         })
       );
     }
