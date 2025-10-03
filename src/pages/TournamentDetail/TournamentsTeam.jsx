@@ -947,7 +947,7 @@ export default function TournamentsTeam() {
                                               )
                                             }
                                             className="w-[0.313rem] h-[1.188rem] cursor-pointer"
-                                            src="/src/assets/images/menu_roaster.svg"
+                                            src={IMAGES.menu_roaster}
                                             alt="Menu"
                                           />
 

@@ -14,6 +14,7 @@ import {
   updateTournamentTeam,
   getTeamData,
 } from "../../../app/slices/TournamentTeam/TournamentTeamSlice.js";
+import { uploadFile } from "../../../app/slices/MatchSlice/matchDetailSlice.js";
 import CustomFileUpload from "../../ui/svg/UploadFile.jsx";
 import { getServerURL } from "../../../utils/constant.js";
 
@@ -23,12 +24,17 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
   const { user } = useSelector((state) => state.auth);
   const { showTeamRegistrationPopup, showTeamEditPopup, currentTeam } =
     useSelector((state) => state.tournamentTeam);
+  const { fileUploadLoading, fileUploadError, fileUploadResult } = useSelector(
+    (state) => state.matchs
+  );
 
   const [previewLogo, setPreviewLogo] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [step, setStep] = useState(1);
+  const [uploadedLogoUrl, setUploadedLogoUrl] = useState(null);
 
   const TOTAL_STEPS = 2;
+  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB limit
 
   const countryOptions = countryData.map((country) => ({
     value: country.name,
@@ -43,11 +49,15 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
   useEffect(() => {
     if (isEdit && currentTeam?.logoImage) {
       const logoPath = currentTeam.logoImage;
-      if (typeof logoPath === "string" && logoPath.startsWith("uploads/")) {
-        setPreviewLogo(getServerURL(logoPath));
-      } else {
-        setPreviewLogo(logoPath);
-      }
+      const previewUrl =
+        typeof logoPath === "string" && logoPath.startsWith("uploads/")
+          ? getServerURL(logoPath)
+          : logoPath;
+      setPreviewLogo(previewUrl);
+      setUploadedLogoUrl(logoPath); // Set initial logo URL
+    } else {
+      setPreviewLogo(null);
+      setUploadedLogoUrl(null);
     }
   }, [isEdit, currentTeam]);
 
@@ -56,7 +66,6 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
     teamShortName: "",
     teamLogo: null,
     region: defaultNationality,
-    // maxParticipants: 5,
     social: {
       twitterId: "",
       instagramId: "",
@@ -68,7 +77,6 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
     },
   };
 
-  // Pre-fill form values for editing
   const editInitialValues = currentTeam
     ? {
         teamName: currentTeam.teamName || "",
@@ -77,7 +85,6 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
         region: currentTeam.region
           ? countryOptions.find((option) => option.value === currentTeam.region)
           : null,
-        // maxParticipants: currentTeam.maxParticipants || 5,
         social: {
           twitterId: currentTeam.social?.twitterId || "",
           instagramId: currentTeam.social?.instagramId || "",
@@ -106,10 +113,6 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
         label: Yup.string().required(),
       })
       .required(t("validation_messages.region_required")),
-    // maxParticipants: Yup.number()
-    //   .required(t("validation_messages.max_participants_required"))
-    //   .min(2, t("validation_messages.max_participants_min"))
-    //   .max(10, t("validation_messages.max_participants_max")),
   });
 
   const step2ValidationSchema = Yup.object({
@@ -126,6 +129,28 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
 
   const validationSchemas = [step1ValidationSchema, step2ValidationSchema];
 
+  const handleFileChange = async (file, setFieldValue) => {
+    if (file) {
+      if (file.size > MAX_FILE_SIZE) {
+        toast.error(t("upload.too_large", { limit: "10MB" }));
+        return;
+      }
+
+      try {
+        const result = await dispatch(uploadFile(file)).unwrap();
+        setUploadedLogoUrl(result.data); // Store the uploaded image URL
+        setFieldValue("teamLogo", result.data); // Set Formik field to uploaded URL
+        setPreviewLogo(URL.createObjectURL(file)); // Set preview
+      } catch (error) {
+        toast.error(t("upload.upload_failed"));
+      }
+    } else {
+      setFieldValue("teamLogo", null); // Clear Formik field
+      setPreviewLogo(null); // Clear preview
+      setUploadedLogoUrl(null); // Clear uploaded URL
+    }
+  };
+
   const handleSubmit = async (values) => {
     if (step < TOTAL_STEPS) {
       setStep((prev) => prev + 1);
@@ -140,10 +165,8 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
         if (key === "region") {
           formData.append(key, values[key]?.value || "");
         } else if (key === "social") {
-          // Handle nested social object
           if (values[key]) {
             Object.keys(values[key]).forEach((socialKey) => {
-              // If value not found, add as empty string
               formData.append(
                 `social[${socialKey}]`,
                 values[key][socialKey] ? values[key][socialKey] : ""
@@ -151,10 +174,8 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
             });
           }
         } else if (key === "teamLogo") {
-          // Only append if it's a new file
-          if (values[key] && typeof values[key] !== "string") {
-            formData.append("logoImage", values[key]);
-          }
+          // Use uploadedLogoUrl if available, otherwise use Formik value (null or existing URL)
+          formData.append("logoImage", uploadedLogoUrl || values[key] || "");
         } else {
           formData.append(key, values[key]);
         }
@@ -172,10 +193,6 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       }
 
       if (res.success) {
-        // toast.success(
-        //   res?.message ||
-        //     t(isEdit ? "tourteam.team_updated" : "tourteam.team_created")
-        // );
         handleClose();
       } else {
         toast.error(res?.message);
@@ -183,19 +200,19 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
     } catch (error) {
       console.error(
         `${isEdit ? "Update" : "Create"} team failed:`,
-        error.response.data.error
+        error.response?.data?.error || error
       );
       toast.error(
-        error.response.data.error ||
+        error.response?.data?.error ||
           t(
             isEdit ? "tourteam.update_team_error" : "tourteam.create_team_error"
           )
       );
     } finally {
       setLoadingSubmit(false);
-      handleClose();
       dispatch(getTeamData(user._id));
       setStep(1);
+      handleClose();
     }
   };
 
@@ -206,6 +223,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       dispatch(setTeamRegistrationPopup(false));
     }
     setPreviewLogo(null);
+    setUploadedLogoUrl(null);
     setStep(1);
   };
 
@@ -248,23 +266,6 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
               />
             </div>
 
-            {/* Max Participants */}
-            {/* <div className="text-start w-full pr-4">
-              <Field
-                type="number"
-                name="maxParticipants"
-                className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
-                placeholder={t("tourteam.max_participants")}
-                min={2}
-                max={10}
-              />
-              <ErrorMessage
-                name="maxParticipants"
-                component="div"
-                className="text-red-500 text-sm"
-              />
-            </div> */}
-
             {/* Team Logo */}
             <div className="text-start w-full pr-4">
               <Field name="teamLogo">
@@ -272,18 +273,22 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
                   <CustomFileUpload
                     isReg={true}
                     hasImage={!!previewLogo}
-                    onFileChange={(file) => {
-                      form.setFieldValue("teamLogo", file);
-                      setPreviewLogo(file ? URL.createObjectURL(file) : null);
-                    }}
+                    onFileChange={(file) =>
+                      handleFileChange(file, form.setFieldValue)
+                    }
                     previewImage={previewLogo}
                     onRemove={() => {
-                      form.setFieldValue("teamLogo", null);
-                      setPreviewLogo(null);
+                      form.setFieldValue("teamLogo", null); // Clear Formik field
+                      setPreviewLogo(null); // Clear preview
+                      setUploadedLogoUrl(null); // Clear uploaded URL
                     }}
+                    disabled={fileUploadLoading}
                   />
                 )}
               </Field>
+              {fileUploadError && (
+                <p className="text-red-500 text-sm mt-1">{fileUploadError}</p>
+              )}
               <ErrorMessage
                 name="teamLogo"
                 component="div"
@@ -403,7 +408,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
                         onClick={() => setStep((prev) => prev - 1)}
                         className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                         style={{ width: "8rem", height: "4rem" }}
-                        disabled={loadingSubmit}
+                        disabled={loadingSubmit || fileUploadLoading}
                       >
                         {t("auth.back")}
                       </button>
@@ -414,11 +419,11 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
                       type="submit"
                       className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
                       style={{ width: "8rem", height: "4rem" }}
-                      disabled={loadingSubmit}
+                      disabled={loadingSubmit || fileUploadLoading}
                     >
                       {step < TOTAL_STEPS ? (
                         t("auth.next")
-                      ) : loadingSubmit ? (
+                      ) : loadingSubmit || fileUploadLoading ? (
                         <>
                           <svg
                             className="animate-spin h-5 w-5 mr-2 text-white"
@@ -465,7 +470,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
             <clipPath id="myClipPath" clipPathUnits="objectBoundingBox">
               <path
                 transform="scale(0.00208333, 0.00240385)"
-                d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L24 0H480V100Z"
+                d="M480 100L464 116V188L480 204V368L440 408H228L220 416H40L8 384V304L0 296V24L16 0H480V100Z"
               />
             </clipPath>
           </defs>

@@ -34,7 +34,6 @@ export const createTournamentTeam = createAsyncThunk(
     try {
       const response = await axiosInstance.post("/Team/asCreator", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
           // "X-Encrypt-Response": false,
         },
       });
@@ -52,7 +51,6 @@ export const updateTournamentTeam = createAsyncThunk(
     try {
       const response = await axiosInstance.put(`/Team?id=${id}`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
           "x-encrypted": false,
         },
       });

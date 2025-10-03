@@ -109,10 +109,12 @@ import maskgroup from "../../../assets/images/maskgroup.webp";
 import user_about from "../../../assets/images/user-about.webp";
 
 import roasterKing from "../../../assets/images/roaster-king.webp";
+import menu_roaster from "../../../assets/images/menu_roaster.svg";
 
 export const IMAGES = {
   prime_icon,
   full_screen,
+  menu_roaster,
   roasterKing,
   discord_arrow,
   discord,
