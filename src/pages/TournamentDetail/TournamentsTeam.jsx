@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getServerURL } from "../../utils/constant.js";
 
 import { IMAGES } from "../../components/ui/images/images.js";
@@ -32,7 +32,7 @@ export default function TournamentsTeam() {
   const [openInviteModel, setOpenInviteModel] = useState(false);
   const dispatch = useDispatch();
   const [isDataOpen, setIsDataOpen] = useState(false);
-
+  const dropdownRef = useRef(null);
   const toggleDropdown = () => setIsDataOpen((prev) => !prev);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
 
@@ -156,6 +156,24 @@ export default function TournamentsTeam() {
     }
   }, [dispatch, user?._id]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDataOpen(false);
+      }
+    };
+
+    if (isDataOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
     <>
       {loading ? (
@@ -184,7 +202,10 @@ export default function TournamentsTeam() {
               <div className="relative team-content-left-wp-last">
                 <div className="edit-team-wp absolute top-0 right-0 z-20">
                   {isPresident ? (
-                    <div className="edit-team-drop relative flex flex-col items-center">
+                    <div
+                      ref={dropdownRef}
+                      className="edit-team-drop relative flex flex-col items-center"
+                    >
                       <button
                         className="bg-[linear-gradient(180deg,rgba(188,82,37,0.8464)_0%,rgba(244,149,40,0.92)_107.14%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] w-16 h-16 rounded-[0.5rem_0_0.5rem_0] flex items-center justify-center hover:scale-102 transition-transform duration-150 cursor-pointer"
                         onClick={toggleDropdown}
