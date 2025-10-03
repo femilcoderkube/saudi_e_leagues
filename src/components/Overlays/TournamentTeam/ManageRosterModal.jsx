@@ -124,7 +124,6 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
 
                     <Select
                       name="gameId"
-                      menuIsOpen = "true"
                       value={
                         games
                           .map((g) => ({

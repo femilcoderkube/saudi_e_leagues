@@ -46,7 +46,7 @@ const Lobby = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const Iid = searchParams.get("Iid");
   const { t } = useTranslation();
-  const partnerID = getPartnerById(id).docId;
+  const partnerID = getPartnerById(id)?.docId;
   const dispatch = useDispatch();
   useEffect(() => {
     document.title = `Prime eLeague`;
