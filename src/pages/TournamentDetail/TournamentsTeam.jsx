@@ -50,14 +50,14 @@ export default function TournamentsTeam() {
   const openModal = () => dispatch(setRosterModal(true));
   const closeModal = () => dispatch(setRosterModal(false));
 
-  const isPresident = currentTeam?.members?.some((member) => {
+  const globalIsPresident = currentTeam?.members?.some((member) => {
     const memberUserId = member?.user?._id;
     const role = member?.role;
     return memberUserId === user?._id && role == "President";
   });
-const handleMenu = (id) => {
-  setOpenRosterMenuId((prev) => (prev === id ? null : id));
-};
+  const handleMenu = (id) => {
+    setOpenRosterMenuId((prev) => (prev === id ? null : id));
+  };
   const handleCreateTeam = () => {
     dispatch(setCurrentTeam(null));
     dispatch(setTeamRegistrationPopup(true));
@@ -223,8 +223,8 @@ const handleMenu = (id) => {
             <div className="relative team-content-left-wp sm:w-[27.5rem] sm:h-[32.313rem]">
               <div className="relative team-content-left-wp-last">
                 <div className="edit-team-wp absolute top-0 right-0 z-20">
-                  {isPresident ? (
-                      <div
+                  {globalIsPresident ? (
+                    <div
                       ref={editMenuRef}
                       className="edit-team-drop relative flex flex-col items-center"
                     >
@@ -864,11 +864,11 @@ const handleMenu = (id) => {
                       u.id.toString() === user?._id.toString() &&
                       u.role === "Manager"
                   );
-                  let isPresident = game.users.filter(
-                    (u) =>
-                      u.id.toString() === user?._id.toString() &&
-                      u.role === "President"
-                  );
+                  // let isPresident = game.users.filter(
+                  //   (u) =>
+                  //     u.id.toString() === user?._id.toString() &&
+                  //     u.role === "President"
+                  // );
 
                   return (
                     <div key={game.game._id} className="mb-8">
@@ -915,7 +915,8 @@ const handleMenu = (id) => {
                                 <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
                                   <div className="game_card--roaster-wrap">
                                     <div className="relative group flex flex-col items-center">
-                                      {(isPresident?.length > 0 &&
+                                      {(globalIsPresident &&
+                                        // isPresident?.length > 0 &&
                                         ["Player", "Manager", "Coach"].includes(
                                           val.role
                                         )) ||
@@ -925,22 +926,33 @@ const handleMenu = (id) => {
                                         )) ? (
                                         <div className="flex justify-end w-full">
                                           <img
-                                          onClick={() => handleMenu(`${game?.game?._id}-${val.id}`)}
+                                            onClick={() =>
+                                              handleMenu(
+                                                `${game?.game?._id}-${val.id}`
+                                              )
+                                            }
                                             className="w-[0.313rem] h-[1.188rem] cursor-pointer"
                                             src="/src/assets/images/menu_roaster.svg"
                                             alt="Menu"
                                           />
-                              
-                                          {openRosterMenuId === `${game?.game?._id}-${val.id}` && (
-                                            <div ref={rosterMenuRef} className="opacity-100 pointer-events-auto transition-opacity duration-200 absolute top-[2rem] ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100">
-                                              {isPresident?.length > 0 && (
+
+                                          {openRosterMenuId ===
+                                            `${game?.game?._id}-${val.id}` && (
+                                            <div
+                                              ref={rosterMenuRef}
+                                              className="opacity-100 pointer-events-auto transition-opacity duration-200 absolute top-[2rem] ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100"
+                                            >
+                                              {globalIsPresident && (
                                                 <span
                                                   className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
                                                   onClick={() => {
                                                     const targetUserId = val.id;
                                                     const teamId =
                                                       currentTeam?._id;
-                                                    if (targetUserId && teamId) {
+                                                    if (
+                                                      targetUserId &&
+                                                      teamId
+                                                    ) {
                                                       dispatch(
                                                         setPopupData({
                                                           userId: targetUserId,
@@ -961,7 +973,8 @@ const handleMenu = (id) => {
                                                 className="text-white text-sm font-medium cursor-pointer"
                                                 onClick={() => {
                                                   const targetUserId = val.id;
-                                                  const teamId = currentTeam?._id;
+                                                  const teamId =
+                                                    currentTeam?._id;
                                                   if (targetUserId && teamId) {
                                                     dispatch(
                                                       setPopupData({
@@ -984,7 +997,8 @@ const handleMenu = (id) => {
                                                 className="text-white text-sm font-medium cursor-pointer"
                                                 onClick={() => {
                                                   const targetUserId = val.id;
-                                                  const teamId = currentTeam?._id;
+                                                  const teamId =
+                                                    currentTeam?._id;
                                                   if (targetUserId && teamId) {
                                                     dispatch(
                                                       setPopupData({
@@ -1007,7 +1021,8 @@ const handleMenu = (id) => {
                                                 className="text-white text-sm font-medium  cursor-pointer"
                                                 onClick={() => {
                                                   const targetUserId = val.id;
-                                                  const teamId = currentTeam?._id;
+                                                  const teamId =
+                                                    currentTeam?._id;
                                                   if (targetUserId && teamId) {
                                                     dispatch(
                                                       setPopupData({
@@ -1029,14 +1044,17 @@ const handleMenu = (id) => {
                                                 {game?.game?.name} Roster
                                               </span>
 
-                                              {isPresident?.length > 0 && (
+                                              {globalIsPresident && (
                                                 <span
                                                   className="text-white text-sm border-t border-[#5362A9] pt-2 font-medium cursor-pointer"
                                                   onClick={() => {
                                                     const targetUserId = val.id;
                                                     const teamId =
                                                       currentTeam?._id;
-                                                    if (targetUserId && teamId) {
+                                                    if (
+                                                      targetUserId &&
+                                                      teamId
+                                                    ) {
                                                       dispatch(
                                                         setPopupData({
                                                           teamId,

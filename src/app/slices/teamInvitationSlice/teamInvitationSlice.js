@@ -1,6 +1,7 @@
 // teamInvitationSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../../utils/axios";
+import { toast } from "react-toastify";
 
 // Initial state
 const initialState = {
@@ -91,7 +92,8 @@ export const assignGameToMember = createAsyncThunk(
         gameId,
       });
       // API response assumed: { data: { updatedTeam } }
-      return response.data?.data || {};
+
+      return response.data || {};
     } catch (err) {
       return rejectWithValue(
         err.response?.data?.message || "Failed to assign game"
@@ -191,8 +193,9 @@ const teamInvitationSlice = createSlice({
       })
       .addCase(assignGameToMember.fulfilled, (state, action) => {
         state.loading = false;
+        toast.success(action?.payload?.message);
         // update team with new game assignment if backend returns updated team
-        state.team = action.payload?.updatedTeam || state.team;
+        state.team = action.payload?.data.updatedTeam || state.team;
         state.status = "succeeded";
       })
       .addCase(assignGameToMember.rejected, (state, action) => {

@@ -1570,8 +1570,7 @@ html[dir=rtl] .edit-team-wp {
   .schdule-accordion-header.active-schdule-accordion-header {
     gap: 0.3rem;
   }
-
-  .about-accordation .battle-shape-text span {
+  .about-accordation .battle-shape-text span{
     font-size: 13px;
   }
 }
