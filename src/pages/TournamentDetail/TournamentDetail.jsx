@@ -556,7 +556,7 @@ const TournamentDetail = () => {
                           </div>
                           <div
                             // Static accordion, no dynamic handlers or data
-                            className={`schdule-accordion-card w-full mb-6 mt-[5.5rem] ${
+                            className={`about-accordation schdule-accordion-card w-full mb-6 mt-[5.5rem] ${
                               activeIndex === "participants"
                                 ? "active-accordation"
                                 : ""
@@ -637,32 +637,23 @@ const TournamentDetail = () => {
                             {/* Participants List */}
                             <div
                               className="schdule-collapse block"
-                              ref={(el) =>
-                                (contentRefs.current["participants"] = el)
-                              }
                             >
                               {teams.map((team, tIdx) => (
                                 <div
-                                  className="schdule-accordion-body flex flex-col w-full max-w-full"
-                                  key={`team-${tIdx}`}
+                                  className="schdule-accordion-body flex justify-between items-center"
+                                  key={`static-team-${tIdx}`}
                                 >
-                                  <div className="flex flex-row items-center lg:p-8 md:p-5 p-3 w-full max-w-full border-b border-[rgb(40,55,66,0.4)]">
-                                    {/* Full row distributed evenly */}
-                                    <div className="flex flex-row items-start justify-start w-full gap-12">
-                                      {/* Rank */}
-                                      <div className="flex items-center min-w-[4rem]">
-                                        <p
-                                          className={`text-base font-black uppercase ${rankClass(
-                                            tIdx
-                                          )}`}
-                                        >
+                                  <div
+                                    className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 !w-full ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
+                                  >
+                                    <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
+                                      <div className="schdule-common">
+                                        <p className="text-base font-black grad_text-clip uppercase w-11">
                                           {tIdx + 1}
                                           {getOrdinal(tIdx + 1)}
                                         </p>
                                       </div>
-
-                                      {/* Team */}
-                                      <div className="flex items-center gap-2 min-w-[12rem]">
+                                      <div className="flex items-center sm:gap-4 gap-2">
                                         <img
                                           src={IMAGES.team_falcons}
                                           alt={team.name}
@@ -672,36 +663,29 @@ const TournamentDetail = () => {
                                           {team.name}
                                         </span>
                                       </div>
-
-                                      {/* Total Points */}
-                                      <div className="flex justify-center min-w-[8rem]">
-                                        <p className="text-lg font-bold text-[#1DED85]">
-                                          {team.totalPoints}
-                                          <span className="text-base font-semibold text-[#688992] ltr:pl-1 rtl:pr-1">
-                                            {t("tournament.points")}
-                                          </span>
-                                        </p>
-                                      </div>
-
-                                      {/* Place Points */}
-                                      {/* <div className="flex justify-center min-w-[6rem]">
-                                        <p className="text-lg font-bold text-[#F4F7FF]">
-                                          {team.placePoints}
-                                          <span className="text-base font-semibold text-[#688992] ltr:pl-1 rtl:pr-1">
-                                            {t("tournament.pp")}
-                                          </span>
-                                        </p>
-                                      </div> */}
-
-                                      {/* Kill Points */}
-                                      {/* <div className="flex justify-center min-w-[6rem]">
-                                        <p className="text-lg font-bold text-[#F4F7FF]">
-                                          {team.killPoints}
-                                          <span className="text-base font-semibold text-[#688992] ltr:pl-1 rtl:pr-1">
-                                            {t("tournament.kp")}
-                                          </span>
-                                        </p>
-                                      </div> */}
+                                    </div>
+                                    <div className="flex items-center xl:gap-13 gap-4">
+                                      <p className="text-lg font-bold text-[#1DED85]">
+                                        {team.totalPoints}
+                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                          {" "}
+                                          {t("tournament.points")}
+                                        </span>
+                                      </p>
+                                      <p className="text-lg font-bold text-[#F4F7FF]">
+                                        {team.placePoints}
+                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                          {" "}
+                                          {t("tournament.pp")}
+                                        </span>
+                                      </p>
+                                      <p className="text-lg font-bold text-[#F4F7FF]">
+                                        {team.killPoints}
+                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                          {" "}
+                                          {t("tournament.kp")}
+                                        </span>
+                                      </p>
                                     </div>
                                   </div>
                                 </div>
