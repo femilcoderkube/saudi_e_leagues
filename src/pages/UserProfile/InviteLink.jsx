@@ -26,6 +26,7 @@ const InviteLink = ({ Iid }) => {
     games,
     loading,
   } = useSelector((state) => state.teamInvitation);
+
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
@@ -87,8 +88,8 @@ const InviteLink = ({ Iid }) => {
           gameId: values.gameId,
         })
       );
+
       if (resultAction?.meta?.requestStatus == "fulfilled") {
-        toast.success(t("Invite_model.invitation_accepted"));
         const params = new URLSearchParams(location.search);
         params.delete("Iid");
         navigate(
