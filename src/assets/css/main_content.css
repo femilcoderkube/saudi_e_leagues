@@ -784,7 +784,7 @@ input[type="radio"]:checked + label .checkbox-inner:before {
 .select__menu-list {
   margin-right: 1rem;
   margin-block: 1rem;
-  max-height: 8rem !important;
+  max-height: 9.2rem !important;
 }
 
 .select__menu-list::-webkit-scrollbar {
