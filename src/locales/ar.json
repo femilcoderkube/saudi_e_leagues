@@ -509,6 +509,7 @@
     "changeclose": "إغلاق تغيير القائمة"
   },
   "tournament": {
+    "members": "الأعضاء",
     "schedule": "الجدول",
     "brackets": "الأدوار الإقصائية",
     "group_standings": "ترتيب المجموعات",

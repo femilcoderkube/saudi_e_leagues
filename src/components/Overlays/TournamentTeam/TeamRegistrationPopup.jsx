@@ -179,9 +179,9 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
         handleClose();
       }
     } catch (error) {
-      console.error(`${isEdit ? "Update" : "Create"} team failed:`, error);
+      console.error(`${isEdit ? "Update" : "Create"} team failed:`, error.response.data.error);
       toast.error(
-        error?.message ||
+        error.response.data.error ||
           t(
             isEdit ? "tourteam.update_team_error" : "tourteam.create_team_error"
           )

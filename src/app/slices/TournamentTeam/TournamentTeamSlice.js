@@ -34,7 +34,7 @@ export const createTournamentTeam = createAsyncThunk(
       const response = await axiosInstance.post("/Team/asCreator", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "X-Encrypt-Response": false,
+          // "X-Encrypt-Response": false,
         },
       });
 

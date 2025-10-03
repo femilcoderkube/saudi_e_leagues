@@ -510,6 +510,7 @@
     "changeclose": "Roaster Change Close"
   },
   "tournament": {
+    "members": "Members",
     "schedule": "Schedule",
     "brackets": "Brackets",
     "group_standings": "Group Standings",
