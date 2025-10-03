@@ -177,6 +177,8 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
         //     t(isEdit ? "tourteam.team_updated" : "tourteam.team_created")
         // );
         handleClose();
+      } else {
+        toast.error(res?.message);
       }
     } catch (error) {
       console.error(

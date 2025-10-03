@@ -600,7 +600,7 @@ const TournamentDetail = () => {
                           </div>
                           <div
                             // Static accordion, no dynamic handlers or data
-                            className={`about-accordation schdule-accordion-card w-full mb-6 mt-[5.5rem] ${
+                            className={`about-accordation schdule-accordion-card w-full mb-6 md:mt-[5.5rem] sm:mt-[3rem] mt-[2rem] ${
                               activeIndex === "participants"
                                 ? "active-accordation"
                                 : ""

@@ -38,7 +38,7 @@ export const resetInviteLink = createAsyncThunk(
       const response = await axiosInstance.put("/TeamInvitationLink/reset", {
         teamId,
       });
-      return response.data?.data || {};
+      return response.data || {};
     } catch (err) {
       return rejectWithValue(
         err.response?.data?.message || "Failed to reset invite link"
@@ -142,7 +142,8 @@ const teamInvitationSlice = createSlice({
       })
       .addCase(resetInviteLink.fulfilled, (state, action) => {
         state.loading = false;
-        state.link = action.payload?.invitationLink || "";
+        toast.success(action.payload.message);
+        state.link = action.payload?.data?.invitationLink || "";
         state.status = "succeeded";
       })
       .addCase(resetInviteLink.rejected, (state, action) => {

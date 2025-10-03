@@ -28,6 +28,7 @@ import {
 } from "../../app/slices/constState/constStateSlice.js";
 import ManageRosterModal from "../../components/Overlays/TournamentTeam/ManageRosterModal.jsx";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -158,6 +159,7 @@ export default function TournamentsTeam() {
         })
       );
       if (removeTeam.fulfilled.match(resultAction)) {
+        toast.success(resultAction?.payload?.message);
         await dispatch(getTeamData(user._id));
       }
     } catch (error) {
