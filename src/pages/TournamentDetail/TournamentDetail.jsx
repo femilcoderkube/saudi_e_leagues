@@ -40,7 +40,11 @@ import {
   getTeamDetails,
   registerTournament,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
-import { setConfirmationPopUp, setPopupData } from "../../app/slices/constState/constStateSlice.js";
+import {
+  setConfirmationPopUp,
+  setPopupData,
+} from "../../app/slices/constState/constStateSlice.js";
+import ConfirmationPopUp from "../../components/Overlays/ConfirmationPopUp.jsx";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
   const { tournamentData, activeStage, loader } = useSelector(
@@ -48,9 +52,11 @@ const TournamentDetail = () => {
   );
 
   const [showModal, setShowModal] = useState(false);
-  const { currentTeam, teamData } = useSelector(
+  const { currentTeam, teamData, loading } = useSelector(
     (state) => state.tournamentTeam
   );
+
+  console.log("teamData", teamData);
 
   const handleClose = () => setShowModal(false);
 
@@ -139,9 +145,7 @@ const TournamentDetail = () => {
         teamId: currentTeam?._id,
       })
     );
-    dispatch(
-      setConfirmationPopUp(14)
-    );
+    dispatch(setConfirmationPopUp(14));
     // try {
     // await dispatch(
     //   registerTournament({
@@ -153,6 +157,21 @@ const TournamentDetail = () => {
     // } catch (error) {
     //   console.log("err", error);
     // }
+  };
+
+  const handleRegisterTournament = async (data) => {
+    try {
+      const resultAction = await dispatch(registerTournament(data));
+
+      if (registerTournament.fulfilled.match(resultAction)) {
+        getTeamDetails({
+          tournamentId: tournamentData?._id,
+          teamId: currentTeam._id,
+        });
+      }
+    } catch (error) {
+      console.log("err", error);
+    }
   };
 
   const isPresident = teamData?.data?.teamId?.members?.some(
@@ -178,7 +197,7 @@ const TournamentDetail = () => {
         className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
         style={{ backgroundSize: "100%" }}
       ></div>
-      {!tournamentData ? (
+      {!tournamentData || loading ? (
         <GamingLoader />
       ) : (
         <div className="sd_content-wrapper max-w-full">
@@ -271,8 +290,10 @@ const TournamentDetail = () => {
             </div>
             <div
               // onClick={() => dispatch(setRegistrationModal(true))}
-              onClick={(teamData?.dataFound) ? undefined : onRegistration}
-              className={`common-width join_btn duration-300 block sd_before relative w-full ${(teamData?.dataFound) ? "" : "cursor-pointer"}`}
+              onClick={teamData?.dataFound ? undefined : onRegistration}
+              className={`common-width join_btn duration-300 block sd_before relative w-full ${
+                teamData?.dataFound ? "" : "cursor-pointer"
+              }`}
             >
               <span
                 className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
@@ -282,7 +303,9 @@ const TournamentDetail = () => {
                   textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
                 }}
               >
-                {teamData?.dataFound ? t("images.Registergn") : t("images.Registerog")}
+                {teamData?.dataFound
+                  ? t("images.Registergn")
+                  : t("images.Registerog")}
               </span>
 
               <img
@@ -768,6 +791,7 @@ const TournamentDetail = () => {
         </defs>
       </svg>
       {showModal && <PDFViewer onClose={handleClose} />}
+      <ConfirmationPopUp onRegisterTournament={handleRegisterTournament} />
     </main>
   );
 };

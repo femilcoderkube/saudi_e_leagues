@@ -34,15 +34,13 @@ export const createTournamentTeam = createAsyncThunk(
       const response = await axiosInstance.post("/Team/asCreator", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "X-Encrypt-Response": false
+          "X-Encrypt-Response": false,
         },
       });
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error || "Failed to create team"
-      );
+      return rejectWithValue(error || "Failed to create team");
     }
   }
 );
@@ -92,7 +90,6 @@ export const getTeamData = createAsyncThunk(
 
       return response;
     } catch (error) {
-      console.error("Error fetching team data:", error);
       return rejectWithValue({
         message: error.response?.data?.message || "Failed to fetch team data",
         status: error.response?.status || 500,
@@ -267,7 +264,7 @@ export const registerTournament = createAsyncThunk(
   "tournamentTeam/registerTournament",
   async ({ tournamentId, teamId }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post(`/Roaster/RegisterTour`, {
+      const response = await axiosInstance.post(`/Roaster/RegisterTournament`, {
         tournamentId,
         teamId,
       });
@@ -275,7 +272,7 @@ export const registerTournament = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
-        "Failed to register team for tournament"
+          "Failed to register team for tournament"
       );
     }
   }
@@ -292,7 +289,7 @@ export const getTeamDetails = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
-        "Failed to register team for tournament"
+          "Failed to register team for tournament"
       );
     }
   }
@@ -383,7 +380,6 @@ const TournamentTeamSlice = createSlice({
       })
       .addCase(getTeamData.fulfilled, (state, action) => {
         state.loading = false;
-
         state.currentTeam = action.payload.data.data;
       })
       .addCase(getTeamData.rejected, (state, action) => {
@@ -550,7 +546,7 @@ export const {
   setRosterSelectionBulk,
   resetRosterSelection,
   resetTeamUserFormat,
-  resetTeamData
+  resetTeamData,
 } = TournamentTeamSlice.actions;
 
 export default TournamentTeamSlice.reducer;

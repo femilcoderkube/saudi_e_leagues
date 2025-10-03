@@ -27,6 +27,7 @@ function ConfirmationPopUp({
   onRemoveTeam,
   onLeaveTeam,
   onDeleteTeam,
+  onRegisterTournament,
 }) {
   const { confirmationPopUp, selectedPlayerData } = useSelector(
     (state) => state.constState
@@ -146,7 +147,7 @@ function ConfirmationPopUp({
 
     if (confirmationPopUp === 14) {
       // onLeaveTeam(popupData);
-      dispatch(registerTournament(popupData));
+      onRegisterTournament(popupData);
       dispatch(setConfirmationPopUp(0));
     }
 
