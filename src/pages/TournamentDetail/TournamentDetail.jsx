@@ -56,8 +56,6 @@ const TournamentDetail = () => {
     (state) => state.tournamentTeam
   );
 
-  console.log("teamData", teamData);
-
   const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -181,6 +179,8 @@ const TournamentDetail = () => {
       member.role === "President" &&
       member.user?._id?.toString() === user?._id?.toString()
   );
+
+  
   const teams = [
     { name: "Static Team 1", totalPoints: 15, placePoints: 8, killPoints: 7 },
     { name: "Static Team 2", totalPoints: 13, placePoints: 7, killPoints: 6 },
@@ -192,6 +192,9 @@ const TournamentDetail = () => {
     { name: "Static Team 8", totalPoints: 3, placePoints: 1, killPoints: 2 },
   ];
   // Empty dependency array means this runs once after mount
+
+  console.log("TEAMDATA", teamData);
+  
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
       {/* --- dashboard main content back groud --- */}
