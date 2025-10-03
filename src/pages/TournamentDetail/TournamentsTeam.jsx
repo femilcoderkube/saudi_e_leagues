@@ -864,11 +864,11 @@ export default function TournamentsTeam() {
                       u.id.toString() === user?._id.toString() &&
                       u.role === "Manager"
                   );
-                  let isPresident = game.users.filter(
-                    (u) =>
-                      u.id.toString() === user?._id.toString() &&
-                      u.role === "President"
-                  );
+                  // let isPresident = game.users.filter(
+                  //   (u) =>
+                  //     u.id.toString() === user?._id.toString() &&
+                  //     u.role === "President"
+                  // );
 
                   return (
                     <div key={game.game._id} className="mb-8">
