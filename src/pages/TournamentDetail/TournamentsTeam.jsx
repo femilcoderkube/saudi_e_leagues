@@ -31,6 +31,9 @@ export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
   const [openInviteModel, setOpenInviteModel] = useState(false);
   const dispatch = useDispatch();
+  const [isDataOpen, setIsDataOpen] = useState(false);
+
+  const toggleDropdown = () => setIsDataOpen((prev) => !prev);
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
 
   const {
@@ -181,8 +184,11 @@ export default function TournamentsTeam() {
               <div className="relative team-content-left-wp-last">
                 <div className="edit-team-wp absolute top-0 right-0 z-20">
                   {isPresident ? (
-                    <div className="edit-team-drop group relative flex flex-col items-center">
-                      <button className="bg-[linear-gradient(180deg,rgba(188,82,37,0.8464)_0%,rgba(244,149,40,0.92)_107.14%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] w-16 h-16 rounded-[0.5rem_0_0.5rem_0] flex items-center justify-center hover:scale-102 transition-transform duration-150 cursor-pointer">
+                    <div className="edit-team-drop relative flex flex-col items-center">
+                      <button
+                        className="bg-[linear-gradient(180deg,rgba(188,82,37,0.8464)_0%,rgba(244,149,40,0.92)_107.14%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] w-16 h-16 rounded-[0.5rem_0_0.5rem_0] flex items-center justify-center hover:scale-102 transition-transform duration-150 cursor-pointer"
+                        onClick={toggleDropdown}
+                      >
                         <svg
                           width="24"
                           height="24"
@@ -202,34 +208,36 @@ export default function TournamentsTeam() {
                         </svg>
                       </button>
 
-                      <div className="opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 absolute top-full ltr:lg:left-10 right-0 rtl:lg:right-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
-                        <span
-                          className="text-white text-lg font-medium cursor-pointer"
-                          onClick={handleEditTeam}
-                        >
-                          {t("tourteam.edit_team")}
-                        </span>
-                        <span
-                          className="text-white text-lg font-medium cursor-pointer"
-                          onClick={openModal}
-                        >
-                          {t("tourteam.manage_roster_title")}
-                        </span>
-                        <span
-                          className="text-white text-lg font-medium cursor-pointer"
-                          onClick={() => {
-                            dispatch(setConfirmationPopUp(15));
-                            dispatch(
-                              setPopupData({
-                                userId: user?._id,
-                                teamId: currentTeam?._id,
-                              })
-                            );
-                          }}
-                        >
-                          {t("tourteam.remove_team")}
-                        </span>
-                      </div>
+                      {isDataOpen && (
+                        <div className="absolute top-full ltr:lg:left-10 right-0 rtl:lg:right-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
+                          <span
+                            className="text-white text-lg font-medium cursor-pointer"
+                            onClick={handleEditTeam}
+                          >
+                            {t("tourteam.edit_team")}
+                          </span>
+                          <span
+                            className="text-white text-lg font-medium cursor-pointer"
+                            onClick={openModal}
+                          >
+                            {t("tourteam.manage_roster_title")}
+                          </span>
+                          <span
+                            className="text-white text-lg font-medium cursor-pointer"
+                            onClick={() => {
+                              dispatch(setConfirmationPopUp(15));
+                              dispatch(
+                                setPopupData({
+                                  userId: user?._id,
+                                  teamId: currentTeam?._id,
+                                })
+                              );
+                            }}
+                          >
+                            {t("tourteam.remove_team")}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <div
