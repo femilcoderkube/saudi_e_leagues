@@ -531,6 +531,7 @@
     "roster_lock_in": "سيتم قفل القائمة خلال {{hours}} ساعة و{{minutes}} دقيقة",
     "roster_locked": "تم قفل القائمة",
     "manageteam": "إدارة الفريق",
+    "viewteam": "عرض الفريق",
     "Register": "يسجل",
     "discordsupport": "دعم الخلاف",
     "Rules_Regulations": "القواعد واللوائح",

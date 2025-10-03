@@ -532,6 +532,7 @@
     "roster_lock_in": "Roaster will lock in {{hours}} hours, {{minutes}} minutes",
     "roster_locked": "Roaster Locked",
     "manageteam": "Manage Team",
+    "viewteam": "View Team",
     "Register": "Register",
     "discordsupport": "Discord Support",
     "Rules_Regulations": "Rules & Regulations",

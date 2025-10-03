@@ -44,6 +44,7 @@ export default function TournamentsTeam() {
     showTeamEditPopup,
     currentTeam,
     error,
+    teamData,
     loading: loading,
   } = useSelector((state) => state.tournamentTeam);
   const isOpen = useSelector((state) => state.tournamentTeam.showRosterModal);
@@ -837,32 +838,35 @@ export default function TournamentsTeam() {
               </clipPath>
             </defs>
           </svg>
-          <div className="user-team-btn flex justify-end items-center w-full">
-            <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
-              <div
-                className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
-                onClick={() => setOpenInviteModel(true)}
-              >
-                {t("tournament.invite_players_title")}
-                <span className="ltr:ml-2.5 rtl:mr-2.5">
-                  <svg
-                    width="9"
-                    height="13"
-                    viewBox="0 0 9 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M1.181 11.9097C0.784802 11.5927 0.784802 11.0787 1.181 10.7617L6.55072 6.46502L1.181 2.16837C0.784802 1.85135 0.784802 1.33736 1.181 1.02034C1.57719 0.703321 2.21954 0.703321 2.61574 1.02034L8.70284 5.89101C9.09903 6.20802 9.09903 6.72201 8.70284 7.03903L2.61574 11.9097C2.21954 12.2267 1.57719 12.2267 1.181 11.9097Z"
-                      fill="#F4F7FF"
-                    />
-                  </svg>
-                </span>
+          {(teamData?.userRole === "President" ||
+            teamData?.userRole === "Manager") && (
+            <div className="user-team-btn flex justify-end items-center w-full">
+              <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
+                <div
+                  className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
+                  onClick={() => setOpenInviteModel(true)}
+                >
+                  {t("tournament.invite_players_title")}
+                  <span className="ltr:ml-2.5 rtl:mr-2.5">
+                    <svg
+                      width="9"
+                      height="13"
+                      viewBox="0 0 9 13"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M1.181 11.9097C0.784802 11.5927 0.784802 11.0787 1.181 10.7617L6.55072 6.46502L1.181 2.16837C0.784802 1.85135 0.784802 1.33736 1.181 1.02034C1.57719 0.703321 2.21954 0.703321 2.61574 1.02034L8.70284 5.89101C9.09903 6.20802 9.09903 6.72201 8.70284 7.03903L2.61574 11.9097C2.21954 12.2267 1.57719 12.2267 1.181 11.9097Z"
+                        fill="#F4F7FF"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <div className="team-main-user mt-16">
             {/* Games Section */}
             <div className="mt-10">

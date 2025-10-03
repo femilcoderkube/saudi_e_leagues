@@ -1,5 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useRef } from "react";
+import { useParams } from "react-router-dom";
 import TimelinePanel from "../../components/Cards/LeagueDetail/TimelinePanel.jsx";
 import {
   formatAmountWithCommas,
@@ -32,7 +31,6 @@ import {
 import { motion } from "motion/react";
 import DetailItem from "../../components/Details/DetailItem.jsx";
 import { IMAGES } from "../../components/ui/images/images.js";
-import { Images } from "lucide-react";
 import ManageTeamModal from "../../components/ManageTeam/ManageTeamModal.jsx";
 import PDFViewer from "../../components/Overlays/LeagueDetail/PDFViewer.jsx";
 import {
@@ -51,28 +49,23 @@ const TournamentDetail = () => {
     (state) => state.tournament
   );
 
-  console.log("tournamentData", tournamentData?.registrationEndDate);
-
   const [showModal, setShowModal] = useState(false);
   const { currentTeam, teamData, loading } = useSelector(
     (state) => state.tournamentTeam
   );
 
-  console.log("teamData", teamData);
+  console.log("teamData", teamData?.userRole);
 
   const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { user } = useSelector((state) => state.auth);
-  const { id, tId } = useParams();
+  const { tId } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isManageOpen, setIsManageOpen] = useState(false);
-  // Local toggle for static participants dropdown in overview
   const [activeIndex, setActiveIndex] = useState(null); // For accordion toggle
-  const contentRefs = useRef({}); // For collapse refs
-  const [participantsOpen, setParticipantsOpen] = useState(false);
-  const [condition] = useState("gn");
+
+  console.log("currentTeam", currentTeam);
 
   const toggleAccordion = () => {
     setActiveIndex(activeIndex === "participants" ? null : "participants");
@@ -102,6 +95,7 @@ const TournamentDetail = () => {
         getTeamDetails({
           tournamentId: tournamentData?._id,
           teamId: currentTeam._id,
+          userId: user?._id,
         })
       );
     }
@@ -140,26 +134,6 @@ const TournamentDetail = () => {
     }
   }, [tournamentData?.stages, activeStage, isSocketConnected]);
 
-  // Determine if current date is within registration window using keys
-  // registrationStartDate and registrationEndDate (key-wise, not timeline)
-  const isWithinRegistrationWindow = React.useMemo(() => {
-    const startMs = tournamentData?.registrationStartDate
-      ? new Date(tournamentData.registrationStartDate).getTime()
-      : -Infinity; // if no start, assume open immediately
-    const endMs = tournamentData?.registrationEndDate
-      ? new Date(tournamentData.registrationEndDate).getTime()
-      : Infinity; // if no end, assume open-ended
-    if (Number.isNaN(startMs) || Number.isNaN(endMs)) return false;
-    const now = Date.now();
-    return now >= startMs && now <= endMs;
-  }, [
-    tournamentData?.registrationStartDate,
-    tournamentData?.registrationEndDate,
-  ]);
-
-  // Register enabled only when in registration window and not already registered
-  const isRegisterEnabled = !teamData?.dataFound && isWithinRegistrationWindow;
-
   const onRegistration = async () => {
     dispatch(
       setPopupData({
@@ -168,17 +142,6 @@ const TournamentDetail = () => {
       })
     );
     dispatch(setConfirmationPopUp(14));
-    // try {
-    // await dispatch(
-    //   registerTournament({
-    //      tournamentId: tournamentData?._id,
-    //     teamId: currentTeam?._id,
-    //   })
-    // );
-
-    // } catch (error) {
-    //   console.log("err", error);
-    // }
   };
 
   const handleRegisterTournament = async (data) => {
@@ -190,6 +153,7 @@ const TournamentDetail = () => {
           getTeamDetails({
             tournamentId: tournamentData?._id,
             teamId: currentTeam._id,
+            userId: user?._id,
           })
         );
       }
@@ -203,6 +167,7 @@ const TournamentDetail = () => {
       member.role === "President" &&
       member.user?._id?.toString() === user?._id?.toString()
   );
+
   const teams =
     teamData?.participentList?.map((p) => ({
       name: p?.team?.teamName,
@@ -215,6 +180,8 @@ const TournamentDetail = () => {
 
   console.log("TEAMDATA", teams);
   // Empty dependency array means this runs once after mount
+  console.log("TEAMDATA", teamData);
+
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
       {/* --- dashboard main content back groud --- */}
@@ -313,16 +280,11 @@ const TournamentDetail = () => {
                 </motion.div>
               </div>
             </div>
-            <div
+            <button
               // onClick={() => dispatch(setRegistrationModal(true))}
-              onClick={isRegisterEnabled ? onRegistration : undefined}
-              role="button"
-              aria-disabled={!isRegisterEnabled}
-              tabIndex={isRegisterEnabled ? 0 : -1}
+              onClick={teamData?.dataFound ? undefined : onRegistration}
               className={`common-width join_btn duration-300 block sd_before relative w-full ${
-                isRegisterEnabled
-                  ? "cursor-pointer"
-                  : "cursor-not-allowed opacity-50"
+                teamData?.dataFound ? "" : "cursor-pointer"
               }`}
             >
               <span
@@ -346,7 +308,7 @@ const TournamentDetail = () => {
                 alt=""
                 style={{ width: "100%" }}
               />
-            </div>
+            </button>
           </div>
           <div className="sd_tournament-wrapper">
             <div className="sd_tournament-content">
@@ -437,7 +399,8 @@ const TournamentDetail = () => {
                               <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
                                 <div className="flex flex-wrap items-center sm:gap-4 gap-2">
                                   <span className="text-[#F4F7FF] md:text-xl text-lg font-bold ltr:md:pr-6 ltr:md:mr-2 ltr:md:border-r md:border-[#7B7ED0] rtl:md:pl-6 rtl:md:ml-2 rtl:md:border-l">
-                                    {t("league.yourteam")}
+                                    {teamData?.data?.teamId?.teamName ||
+                                      t("league.yourteam")}
                                   </span>
                                   <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
                                     {teamData?.data?.status == 1 && (
@@ -555,13 +518,23 @@ const TournamentDetail = () => {
                                     );
                                   })}
                                 </div>
-                                {isPresident && (
+                                {teamData?.userRole === "President" ||
+                                teamData?.userRole === "Manager" ? (
                                   <div className="flex items-center md:gap-10 gap-4">
                                     <button
                                       className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
                                       onClick={() => setIsManageOpen(true)} // open modal
                                     >
                                       {t("tournament.manageteam")}
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="flex items-center md:gap-10 gap-4">
+                                    <button
+                                      className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
+                                      onClick={() => setIsManageOpen(true)} // open modal
+                                    >
+                                      {t("tournament.viewteam")}
                                     </button>
                                   </div>
                                 )}
@@ -582,131 +555,128 @@ const TournamentDetail = () => {
                               }}
                             />
                           </div>
-                          {teams.length > 0 && (
+                          <div
+                            // Static accordion, no dynamic handlers or data
+                            className={`about-accordation schdule-accordion-card w-full mb-6 mt-[5.5rem] ${
+                              activeIndex === "participants"
+                                ? "active-accordation"
+                                : ""
+                            }`}
+                          >
+                            {/* Header ... unchanged */}
                             <div
-                              className={`about-accordation schdule-accordion-card w-full mb-6 mt-[5.5rem] ${
+                              onClick={toggleAccordion}
+                              className={`schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer ${
                                 activeIndex === "participants"
-                                  ? "active-accordation"
+                                  ? "active-schdule-accordion-header"
                                   : ""
                               }`}
                             >
-                              {/* Header ... unchanged */}
-                              <div
-                                onClick={toggleAccordion}
-                                className={`schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer ${
-                                  activeIndex === "participants"
-                                    ? "active-schdule-accordion-header"
-                                    : ""
-                                }`}
-                              >
-                                <img
-                                  className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
-                                  src={IMAGES.list_partycip}
-                                  alt=""
-                                  loading="lazy"
-                                />
+                              <img
+                                className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
+                                src={IMAGES.list_partycip}
+                                alt=""
+                                loading="lazy"
+                              />
 
-                                <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
-                                  <div className="battle-shape-text flex items-center md:gap-6 gap-3 w-[21rem]">
-                                    <span className="uppercase inline-block md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
-                                      {t("tournament.list_of_participants")}
-                                    </span>
-                                  </div>
-
-                                  {/* Preview avatars */}
-                                  <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
-                                    {teams.slice(0, 3).map((team, i) => {
-                                      const classs =
-                                        i === 0
-                                          ? ""
-                                          : i === 1
-                                          ? "round-gray"
-                                          : i === 2
-                                          ? "round-red"
-                                          : "round-common";
-                                      return (
-                                        <div
-                                          key={i}
-                                          className={`round-gold ${classs} rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9`}
-                                        >
-                                          <img
-                                            src={getServerURL(team?.logo)}
-                                            alt={team?.name}
-                                            className="md:w-6 md:h-6 w-5 h-5 rounded-full"
-                                          />
-                                        </div>
-                                      );
-                                    })}
-                                    {teams.length > 3 && (
-                                      <div className="round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center">
-                                        <span className="text-base font-semibold text-white">
-                                          +{teams.length - 3}
-                                        </span>
-                                      </div>
-                                    )}
-                                  </div>
+                              <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
+                                <div className="battle-shape-text flex items-center md:gap-6 gap-3 w-[21rem]">
+                                  <span className="uppercase inline-block md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
+                                    {t("tournament.list_of_participants")}
+                                  </span>
                                 </div>
 
-                                <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
-                                  <div className="flex gap-2 items-center">
-                                    <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
-                                      {teams.length < 4 ? (
-                                        <> </>
-                                      ) : (
-                                        <span>+{teams.length - 4}</span>
-                                      )}
-                                    </p>
-                                  </div>
-                                  <div className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer">
-                                    <img
-                                      className="sm:w-5 sm:h-3 w-4 h-2"
-                                      src={IMAGES.about_down}
-                                      alt=""
-                                    />
-                                  </div>
+                                {/* Preview avatars */}
+                                <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
+                                  {teams.slice(0, 3).map((team, i) => {
+                                    const classs =
+                                      i === 0
+                                        ? ""
+                                        : i === 1
+                                        ? "round-gray"
+                                        : i === 2
+                                        ? "round-red"
+                                        : "round-common";
+                                    return (
+                                      <div
+                                        key={i}
+                                        className={`round-gold ${classs} rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9`}
+                                      >
+                                        <img
+                                          src={getServerURL(team?.logo)}
+                                          alt={team?.name}
+                                          className="md:w-6 md:h-6 w-5 h-5 rounded-full"
+                                        />
+                                      </div>
+                                    );
+                                  })}
+                                  {teams.length > 3 && (
+                                    <div className="round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center">
+                                      <span className="text-base font-semibold text-white">
+                                        +{teams.length - 3}
+                                      </span>
+                                    </div>
+                                  )}
                                 </div>
                               </div>
 
-                              {/* Participants List */}
-                              <div className="schdule-collapse block">
-                                {teams.map((team, tIdx) => (
-                                  <div
-                                    className="schdule-accordion-body flex justify-between items-center"
-                                    key={`static-team-${tIdx}`}
-                                  >
-                                    <div className="mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 !w-full ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]">
-                                      <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
-                                        <div className="schdule-common">
-                                          <p className="text-base font-black grad_text-clip uppercase w-11">
-                                            {tIdx + 1}
-                                            {getOrdinal(tIdx + 1)}
-                                          </p>
-                                        </div>
-                                        <div className="flex items-center sm:gap-4 gap-2">
-                                          <img
-                                            src={getServerURL(team?.logo)}
-                                            alt={team?.name}
-                                            className="md:w-8 md:h-8 h-6 w-6 rounded-full"
-                                          />
-                                          <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
-                                            {team?.name}
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div className="flex items-center xl:gap-13 gap-4">
-                                        <p className="text-lg font-bold text-[#1DED85]">
-                                          {team?.members?.length}
-                                          <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                            {t("tournament.members")}
-                                          </span>
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                ))}
+                              <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
+                                <div className="flex gap-2 items-center">
+                                  <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
+                                    +{teams.length}
+                                  </p>
+                                </div>
+                                <div className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer">
+                                  <img
+                                    className="sm:w-5 sm:h-3 w-4 h-2"
+                                    src={IMAGES.about_down}
+                                    alt=""
+                                  />
+                                </div>
                               </div>
                             </div>
-                          )}
+                            {/* Participants List */}
+                            <div className="schdule-collapse block">
+                              {teams.map((team, tIdx) => (
+                                <div
+                                  className="schdule-accordion-body flex justify-between items-center"
+                                  key={`static-team-${tIdx}`}
+                                >
+                                  <div
+                                    className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 !w-full ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
+                                  >
+                                    <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
+                                      <div className="schdule-common">
+                                        <p className="text-base font-black grad_text-clip uppercase w-11">
+                                          {tIdx + 1}
+                                          {getOrdinal(tIdx + 1)}
+                                        </p>
+                                      </div>
+                                      <div className="flex items-center sm:gap-4 gap-2">
+                                        <img
+                                          src={getServerURL(team?.logo)}
+                                          alt={team?.name}
+                                          className="md:w-8 md:h-8 h-6 w-6 rounded-full"
+                                        />
+                                        <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                                          {team?.name}
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center xl:gap-13 gap-4">
+                                      <p className="text-lg font-bold text-[#1DED85]">
+                                        {team?.members?.length}
+                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                          {" "}
+                                          {t("tournament.members")}
+                                        </span>
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
                         </motion.div>
                         <motion.div
                           className="sd_content-right w-full order-0 xl:order-1"

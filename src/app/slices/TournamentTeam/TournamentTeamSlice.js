@@ -279,11 +279,12 @@ export const registerTournament = createAsyncThunk(
 );
 export const getTeamDetails = createAsyncThunk(
   "tournamentTeam/getTeamDetails",
-  async ({ tournamentId, teamId }, { rejectWithValue }) => {
+  async ({ tournamentId, teamId, userId }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post(`/Roaster/myteam`, {
         tournamentId,
         teamId,
+        userId,
       });
       return response.data;
     } catch (error) {

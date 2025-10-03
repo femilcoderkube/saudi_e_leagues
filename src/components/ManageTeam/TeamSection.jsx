@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import CustomCheckbox from "./CustomCheckbox";
 import { getServerURL } from "../../utils/constant";
+import { useSelector } from "react-redux";
 
 const TeamSection = ({
   data,
@@ -11,7 +12,7 @@ const TeamSection = ({
   noDataMessage,
 }) => {
   const { t } = useTranslation();
-
+  const { teamData } = useSelector((state) => state.tournamentTeam);
   return (
     <div className="mb-4">
       {data && data.length > 0 ? (
@@ -42,13 +43,16 @@ const TeamSection = ({
                     </p>
                   </div>
                 </label>
-                <CustomCheckbox
-                  checked={selectedItems.some(
-                    (selected) => selected.id === item.id
-                  )}
-                  onChange={() => onCheckChange(section, item)}
-                  ariaLabel={t(`tournament.select_${section}_aria`)}
-                />
+                {(teamData?.userRole === "President" ||
+                  teamData?.userRole === "Manager") && (
+                  <CustomCheckbox
+                    checked={selectedItems.some(
+                      (selected) => selected.id === item.id
+                    )}
+                    onChange={() => onCheckChange(section, item)}
+                    ariaLabel={t(`tournament.select_${section}_aria`)}
+                  />
+                )}
               </div>
             </div>
           ))}
