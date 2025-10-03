@@ -180,7 +180,6 @@ const TournamentDetail = () => {
       member.user?._id?.toString() === user?._id?.toString()
   );
 
-  
   const teams = [
     { name: "Static Team 1", totalPoints: 15, placePoints: 8, killPoints: 7 },
     { name: "Static Team 2", totalPoints: 13, placePoints: 7, killPoints: 6 },
@@ -194,7 +193,7 @@ const TournamentDetail = () => {
   // Empty dependency array means this runs once after mount
 
   console.log("TEAMDATA", teamData);
-  
+
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
       {/* --- dashboard main content back groud --- */}
@@ -638,9 +637,7 @@ const TournamentDetail = () => {
                               </div>
                             </div>
                             {/* Participants List */}
-                            <div
-                              className="schdule-collapse block"
-                            >
+                            <div className="schdule-collapse block">
                               {teams.map((team, tIdx) => (
                                 <div
                                   className="schdule-accordion-body flex justify-between items-center"
@@ -673,20 +670,6 @@ const TournamentDetail = () => {
                                         <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
                                           {" "}
                                           {t("tournament.points")}
-                                        </span>
-                                      </p>
-                                      <p className="text-lg font-bold text-[#F4F7FF]">
-                                        {team.placePoints}
-                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                          {" "}
-                                          {t("tournament.pp")}
-                                        </span>
-                                      </p>
-                                      <p className="text-lg font-bold text-[#F4F7FF]">
-                                        {team.killPoints}
-                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
-                                          {" "}
-                                          {t("tournament.kp")}
                                         </span>
                                       </p>
                                     </div>

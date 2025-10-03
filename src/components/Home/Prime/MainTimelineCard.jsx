@@ -39,6 +39,7 @@ const rightToLeft = {
 const TimelineCard_1 = () => {
   return (
     <div className="home_timecard grid grid-cols-2 gap-x-8 gap-y-10">
+      {/* Split 1 League */}
       <motion.div
         className="split_card--wrap relative sd_before sd_after polygon_border inline-block"
         variants={leftToRight}
@@ -82,7 +83,7 @@ const TimelineCard_1 = () => {
                   width="100%"
                   height="100%"
                   fill="#88C6F3"
-                  clip-path="url(#customClip)"
+                  clipPath="url(#customClip)"
                 />
               </svg>
 
@@ -119,9 +120,7 @@ const TimelineCard_1 = () => {
               <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[#ffffff1f] pb-3">
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
-                  <span className="text-[#C0DEFF] font-semibold">
-                    Division 1
-                  </span>
+                  <span className="text-[#C0DEFF] font-semibold">League 1</span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
@@ -133,28 +132,28 @@ const TimelineCard_1 = () => {
               <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">6</span>{" "}
-                    Apr
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Jul 15
+                    </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">4</span>{" "}
-                    Jun
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Aug 13
+                    </span>
                   </p>
                 </div>
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">
-                      11
-                    </span>{" "}
-                    May
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Aug 16
+                    </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">
-                      19
-                    </span>{" "}
-                    Jun
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Aug 23
+                    </span>
                   </p>
                 </div>
               </div>
@@ -199,6 +198,7 @@ const TimelineCard_1 = () => {
           </defs>
         </svg>
       </motion.div>
+      {/* Split 2 League */}
       <motion.div
         className="split_card--wrap-purple split_card--wrap relative sd_before sd_after polygon_border inline-block"
         variants={rightToLeft}
@@ -242,7 +242,7 @@ const TimelineCard_1 = () => {
                   width="100%"
                   height="100%"
                   fill="#88C6F3"
-                  clip-path="url(#customClip)"
+                  clipPath="url(#customClip)"
                 />
               </svg>
               <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
@@ -258,9 +258,7 @@ const TimelineCard_1 = () => {
               <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[#ffffff1f] pb-3">
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
-                  <span className="text-[#C0DEFF] font-semibold">
-                    Division 2
-                  </span>
+                  <span className="text-[#C0DEFF] font-semibold">League 2</span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
@@ -272,28 +270,28 @@ const TimelineCard_1 = () => {
               <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">6</span>{" "}
-                    Apr
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Sep 1
+                    </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">4</span>{" "}
-                    Jun
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Sep 30
+                    </span>
                   </p>
                 </div>
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">
-                      11
-                    </span>{" "}
-                    May
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Oct 2
+                    </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">
-                      19
-                    </span>{" "}
-                    Jun
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Oct 5
+                    </span>
                   </p>
                 </div>
               </div>
@@ -320,6 +318,7 @@ const TimelineCard_1 = () => {
           </defs>
         </svg>
       </motion.div>
+      {/* Split 3 League */}
       <motion.div
         className="split_card--wrap-orange split_card--wrap relative sd_before sd_after polygon_border inline-block"
         variants={leftToRight}
@@ -363,7 +362,7 @@ const TimelineCard_1 = () => {
                   width="100%"
                   height="100%"
                   fill="#88C6F3"
-                  clip-path="url(#customClip)"
+                  clipPath="url(#customClip)"
                 />
               </svg>
               <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
@@ -379,9 +378,7 @@ const TimelineCard_1 = () => {
               <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[#ffffff1f] pb-3">
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
-                  <span className="text-[#C0DEFF] font-semibold">
-                    Division 3
-                  </span>
+                  <span className="text-[#C0DEFF] font-semibold">League 3</span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
@@ -393,28 +390,28 @@ const TimelineCard_1 = () => {
               <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">6</span>{" "}
-                    Apr
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Oct 1
+                    </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">4</span>{" "}
-                    Jun
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Oct 30
+                    </span>
                   </p>
                 </div>
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">
-                      11
-                    </span>{" "}
-                    May
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Nov 2
+                    </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">
-                      19
-                    </span>{" "}
-                    Jun
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Nov 9
+                    </span>
                   </p>
                 </div>
               </div>
@@ -441,6 +438,7 @@ const TimelineCard_1 = () => {
           </defs>
         </svg>
       </motion.div>
+      {/* Split 4 League */}
       <motion.div
         className="split_card--wrap-pink split_card--wrap relative sd_before sd_after polygon_border inline-block"
         variants={rightToLeft}
@@ -484,7 +482,7 @@ const TimelineCard_1 = () => {
                   width="100%"
                   height="100%"
                   fill="#88C6F3"
-                  clip-path="url(#customClip)"
+                  clipPath="url(#customClip)"
                 />
               </svg>
               <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
@@ -500,9 +498,7 @@ const TimelineCard_1 = () => {
               <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[#ffffff1f] pb-3">
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
-                  <span className="text-[#C0DEFF] font-semibold">
-                    Division 4
-                  </span>
+                  <span className="text-[#C0DEFF] font-semibold">League 4</span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="#D8DAFF" />
@@ -514,28 +510,28 @@ const TimelineCard_1 = () => {
               <div className="split_date-wrap flex sm:justify-between sm:gap-3 gap-1 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">6</span>{" "}
-                    Apr
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Nov 1
+                    </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">4</span>{" "}
-                    Jun
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Nov 30
+                    </span>
                   </p>
                 </div>
                 <div className="split_date relative flex items-center">
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">
-                      11
-                    </span>{" "}
-                    May
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Dec 2
+                    </span>
                   </p>
                   <span className="sm:w-3 w-2 sm:h-[0.188rem] h-[0.1444rem] bg-[#C0DEFF]"></span>
                   <p className="flex gap-2 sm:text-xl text-base p-2 sm:px-2 px-1 items-center !font-bold">
-                    <span className="!font-black sm:text-2xl text-base">
-                      19
-                    </span>{" "}
-                    Jun
+                    <span className="!font-black sm:text-2xl text-xl">
+                      Dec 9
+                    </span>
                   </p>
                 </div>
               </div>

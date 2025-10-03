@@ -22,12 +22,12 @@ const ScheduleCard = ({ item }) => {
           day: "2-digit",
         })
       : "",
-    team1: item?.opponent1.team || item?.opponent1.user,
-    team2: item?.opponent2.team || item?.opponent2.user,
+    team1: item?.opponent1?.team || item?.opponent1?.user,
+    team2: item?.opponent2?.team || item?.opponent2?.user,
     acticeScore:
       item?.matchScores?.find((score) => score.isActive === true) || {},
-    teamlogo1: getServerURL(item?.opponent1.team.logoImage),
-    teamlogo2: getServerURL(item?.opponent2.team.logoImage),
+    teamlogo1: getServerURL(item?.opponent1.team?.logoImage),
+    teamlogo2: getServerURL(item?.opponent2.team?.logoImage),
   };
   const navigate = useNavigate();
 
