@@ -777,7 +777,7 @@ export default function TournamentsTeam() {
               </clipPath>
             </defs>
           </svg>
-          <div className="flex justify-end items-center w-full">
+          <div className="user-team-btn flex justify-end items-center w-full">
             <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
               <div
                 className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"

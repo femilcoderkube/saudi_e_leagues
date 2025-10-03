@@ -1146,20 +1146,20 @@ html[dir=rtl] .team_content-left .polygon_border::after {
   clip-path: polygon(80% 0, 100% 19%, 100% 100%, 75% 100%, 23% 100%, 0 80%, 0 0);
 }
 
-.team-main-user .btn_polygon-link {
+.user-team-btn .btn_polygon-link {
   background: linear-gradient(3deg, rgba(67, 75, 233, 1) 0%, rgba(70, 181, 249, 1) 110%);
   width: 11.33rem;
   height: 3.35rem;
 }
 
-.team-main-user .polygon_border:before,
-.team-main-user .polygon_border:after {
+.user-team-btn .polygon_border:before,
+.user-team-btn .polygon_border:after {
   background: linear-gradient(3deg, rgba(67, 75, 233, 1) 0%, rgba(70, 181, 249, 1) 110%);
   width: 42%;
 }
 
-.team-main-user .btn_polygon-link:before,
-.team-main-user .btn_polygon-link:after {
+.user-team-btn .btn_polygon-link:before,
+.user-team-btn .btn_polygon-link:after {
   opacity: 0.8;
   width: 2.3rem;
   height: 4rem;

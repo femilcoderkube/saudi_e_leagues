@@ -272,7 +272,7 @@ const TournamentDetail = () => {
             <div
               // onClick={() => dispatch(setRegistrationModal(true))}
               onClick={(teamData?.dataFound) ? undefined : onRegistration}
-              className="common-width join_btn duration-300 block sd_before relative w-full"
+              className={`common-width join_btn duration-300 block sd_before relative w-full ${(teamData?.dataFound) ? "" : "cursor-pointer"}`}
             >
               <span
                 className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
