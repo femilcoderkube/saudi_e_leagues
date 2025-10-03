@@ -1335,6 +1335,10 @@ html[dir=rtl] .edit-team-wp {
     gap: 1rem;
   }
 
+  .about-accordation .schdule-accordion-header{
+    gap: 0.2rem;
+  }
+
   .team_content-right .main-card-duty-wp {
     flex-direction: column;
   }
