@@ -170,11 +170,20 @@ const TournamentDetail = () => {
       _id: p?._id,
     })) || [];
 
+  // Ensure all dates are valid and compare only if all are valid
+  const regStart = tournamentData?.registrationStartDate
+    ? new Date(tournamentData.registrationStartDate)
+    : null;
+  const regEnd = tournamentData?.registrationEndDate
+    ? new Date(tournamentData.registrationEndDate)
+    : null;
   const currentDate = new Date();
-  const regStart = new Date(tournamentData?.registrationStartDate); // Replace with actual regStart date
-  const regEnd = new Date(tournamentData?.registrationEndDate); // Replace with actual regEnd date
+
+  // Defensive: check for valid dates and that regEnd is after regStart
   const isWithinRegistrationPeriod =
-    currentDate >= regStart && currentDate <= regEnd;
+    regEnd > regStart &&
+    currentDate >= regStart &&
+    currentDate <= regEnd;
 
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
@@ -566,7 +575,7 @@ const TournamentDetail = () => {
                                   <div className="flex items-center md:gap-10 gap-4">
                                     <button
                                       className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
-                                      onClick={() => setIsManageOpen(true)} // open modal
+                                      onClick={() => setIsManageOpen(true)} 
                                     >
                                       {t("tournament.viewteam")}
                                     </button>
