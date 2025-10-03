@@ -58,7 +58,7 @@ const TournamentDetail = () => {
     (state) => state.tournamentTeam
   );
 
-  console.log("teamData", teamData?.data?.status === 3);
+  console.log("teamData", teamData);
 
   const handleClose = () => setShowModal(false);
 
@@ -87,16 +87,16 @@ const TournamentDetail = () => {
   };
   useEffect(() => {
     if (user?._id) {
-      dispatch(getTeamData(user._id));
+      dispatch(getTeamData(user?._id));
     }
   }, [user?._id]);
 
   useEffect(() => {
-    if (currentTeam?._id && tournamentData?._id) {
+    if (tournamentData?._id) {
       dispatch(
         getTeamDetails({
           tournamentId: tournamentData?._id,
-          teamId: currentTeam._id,
+          teamId: currentTeam?._id,
           userId: user?._id,
         })
       );
@@ -611,79 +611,81 @@ const TournamentDetail = () => {
                             }`}
                           >
                             {/* Header ... unchanged */}
-                            <div
-                              onClick={toggleAccordion}
-                              className={`schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer ${
-                                activeIndex === "participants"
-                                  ? "active-schdule-accordion-header"
-                                  : ""
-                              }`}
-                            >
-                              <img
-                                className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
-                                src={IMAGES.list_partycip}
-                                alt=""
-                                loading="lazy"
-                              />
+                            {teamData?.participentList?.length > 0 && (
+                              <div
+                                onClick={toggleAccordion}
+                                className={`schdule-accordion-header md:px-6 px-3 py-5 w-full flex justify-between items-center gap-1 relative cursor-pointer ${
+                                  activeIndex === "participants"
+                                    ? "active-schdule-accordion-header"
+                                    : ""
+                                }`}
+                              >
+                                <img
+                                  className="battle-shape absolute ltr:left-0 rtl:right-0 top-0 h-full md:w-[22.51rem] -z-1 object-cover object-center"
+                                  src={IMAGES.list_partycip}
+                                  alt=""
+                                  loading="lazy"
+                                />
 
-                              <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
-                                <div className="battle-shape-text flex items-center md:gap-6 gap-3 w-[21rem]">
-                                  <span className="uppercase inline-block md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
-                                    {t("tournament.list_of_participants")}
-                                  </span>
-                                </div>
+                                <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
+                                  <div className="battle-shape-text flex items-center md:gap-6 gap-3 w-[21rem]">
+                                    <span className="uppercase inline-block md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
+                                      {t("tournament.list_of_participants")}
+                                    </span>
+                                  </div>
 
-                                {/* Preview avatars */}
-                                <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
-                                  {teams.slice(0, 3).map((team, i) => {
-                                    const classs =
-                                      i === 0
-                                        ? ""
-                                        : i === 1
-                                        ? "round-gray"
-                                        : i === 2
-                                        ? "round-red"
-                                        : "round-common";
-                                    return (
-                                      <div
-                                        key={i}
-                                        className={`round-gold ${classs} rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9`}
-                                      >
-                                        <img
-                                          src={getServerURL(team?.logo)}
-                                          alt={team?.name}
-                                          className="md:w-6 md:h-6 w-5 h-5 rounded-full"
-                                        />
+                                  {/* Preview avatars */}
+                                  <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
+                                    {teams.slice(0, 3).map((team, i) => {
+                                      const classs =
+                                        i === 0
+                                          ? ""
+                                          : i === 1
+                                          ? "round-gray"
+                                          : i === 2
+                                          ? "round-red"
+                                          : "round-common";
+                                      return (
+                                        <div
+                                          key={i}
+                                          className={`round-gold ${classs} rounded-full flex items-center justify-center md:w-12 md:h-12 w-9 h-9`}
+                                        >
+                                          <img
+                                            src={getServerURL(team?.logo)}
+                                            alt={team?.name}
+                                            className="md:w-6 md:h-6 w-5 h-5 rounded-full"
+                                          />
+                                        </div>
+                                      );
+                                    })}
+                                    {teams.length > 3 && (
+                                      <div className="round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center">
+                                        <span className="text-base font-semibold text-white">
+                                          +{teams.length - 3}
+                                        </span>
                                       </div>
-                                    );
-                                  })}
-                                  {teams.length > 3 && (
-                                    <div className="round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center">
-                                      <span className="text-base font-semibold text-white">
-                                        +{teams.length - 3}
-                                      </span>
-                                    </div>
-                                  )}
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
 
-                              <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
-                                <div className="flex gap-2 items-center">
-                                  <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
-                                    {teams?.length != 0
-                                      ? "+" + teams?.length
-                                      : ""}
-                                  </p>
-                                </div>
-                                <div className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer">
-                                  <img
-                                    className="sm:w-5 sm:h-3 w-4 h-2"
-                                    src={IMAGES.about_down}
-                                    alt=""
-                                  />
+                                <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
+                                  <div className="flex gap-2 items-center">
+                                    <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
+                                      {teams?.length != 0
+                                        ? "+" + teams?.length
+                                        : ""}
+                                    </p>
+                                  </div>
+                                  <div className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer">
+                                    <img
+                                      className="sm:w-5 sm:h-3 w-4 h-2"
+                                      src={IMAGES.about_down}
+                                      alt=""
+                                    />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
+                            )}
                             {/* Participants List */}
                             <div className="schdule-collapse block">
                               {teams.map((team, tIdx) => (
