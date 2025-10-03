@@ -218,7 +218,7 @@ export default function TournamentsTeam() {
                         <span
                           className="text-white text-lg font-medium cursor-pointer"
                           onClick={() => {
-                            dispatch(setConfirmationPopUp(14));
+                            dispatch(setConfirmationPopUp(15));
                             dispatch(
                               setPopupData({
                                 userId: user?._id,
@@ -677,7 +677,7 @@ export default function TournamentsTeam() {
                         <div className="tournament-schedule-card-header-left flex items-center gap-3 md:gap-4 relative z-10">
                           <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
                             {match?.teamOneScore == null ||
-                              match?.teamOneScore == undefined
+                            match?.teamOneScore == undefined
                               ? "-"
                               : match?.teamOneScore}
                           </h2>
@@ -692,7 +692,7 @@ export default function TournamentsTeam() {
                         <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
                           <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
                             {match?.teamTwoScore == null ||
-                              match?.teamTwoScore == undefined
+                            match?.teamTwoScore == undefined
                               ? "-"
                               : match?.teamTwoScore}
                           </h2>
@@ -868,10 +868,10 @@ export default function TournamentsTeam() {
                                         ["Player", "Manager", "Coach"].includes(
                                           val.role
                                         )) ||
-                                        (isManager?.length > 0 &&
-                                          ["Player", "Coach"].includes(
-                                            val.role
-                                          )) ? (
+                                      (isManager?.length > 0 &&
+                                        ["Player", "Coach"].includes(
+                                          val.role
+                                        )) ? (
                                         <div className="flex justify-end w-full">
                                           <img
                                             className="w-[0.313rem] h-[1.188rem]"

@@ -11,7 +11,10 @@ import { deleteFcmToken, logout } from "../../app/slices/auth/authSlice";
 import { IMAGES } from "../ui/images/images";
 import { useNavigate, useParams } from "react-router-dom";
 import { checkParams } from "../../utils/constant";
-import { registerTournament, resetTeamData } from "../../app/slices/TournamentTeam/TournamentTeamSlice";
+import {
+  registerTournament,
+  resetTeamData,
+} from "../../app/slices/TournamentTeam/TournamentTeamSlice";
 
 function ConfirmationPopUp({
   onPlayerSelect,
@@ -42,7 +45,7 @@ function ConfirmationPopUp({
   const handleOnClick = () => {
     if (confirmationPopUp == 1) {
       dispatch(deleteFcmToken());
-      dispatch(resetTeamData())
+      dispatch(resetTeamData());
       getUpdateToken("");
       dispatch(setConfirmationPopUp(0));
       dispatch(logout());
@@ -143,9 +146,12 @@ function ConfirmationPopUp({
 
     if (confirmationPopUp === 14) {
       // onLeaveTeam(popupData);
-      dispatch(
-        registerTournament(popupData)
-      );
+      dispatch(registerTournament(popupData));
+      dispatch(setConfirmationPopUp(0));
+    }
+
+    if (confirmationPopUp === 15) {
+      onDeleteTeam(popupData);
       dispatch(setConfirmationPopUp(0));
     }
   };
@@ -165,14 +171,16 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 12) return t("confirmation.removeTeamConfirm");
     if (confirmationPopUp == 13) return t("confirmation.leaveTeamConfirm");
     if (confirmationPopUp == 14) return t("confirmation.registrationConfirm");
+    if (confirmationPopUp == 15) return t("confirmation.removeTeamConfirm");
 
     return "";
   };
 
   const getConfirmationMessage = () => {
     if (confirmationPopUp == 3 && selectedPlayerData) {
-      return `${t("confirmation.confirmplayerselectionMessage")} ${selectedPlayerData?.username || t("confirmation.thisplayer")
-        }?`;
+      return `${t("confirmation.confirmplayerselectionMessage")} ${
+        selectedPlayerData?.username || t("confirmation.thisplayer")
+      }?`;
     }
     if (confirmationPopUp == 4) {
       return t("confirmation.deleteAccountMessage");
@@ -221,7 +229,8 @@ function ConfirmationPopUp({
       confirmationPopUp == 11 ||
       confirmationPopUp == 12 ||
       confirmationPopUp == 13 ||
-      confirmationPopUp == 14
+      confirmationPopUp == 14 ||
+      confirmationPopUp == 15
     )
       return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
@@ -243,6 +252,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 12) return t("confirmation.yes");
     if (confirmationPopUp == 13) return t("confirmation.yes");
     if (confirmationPopUp == 14) return t("confirmation.yes");
+    if (confirmationPopUp == 15) return t("confirmation.yes");
     return "";
   };
 
