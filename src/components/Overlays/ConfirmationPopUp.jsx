@@ -245,7 +245,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 4) return t("confirmation.deleteAccount");
     if (confirmationPopUp == 5) return t("confirmation.leavePartyConfirm");
     if (confirmationPopUp == 6) return t("confirmation.removePlayerConfirm");
-    if (confirmationPopUp == 7) return t("confirmation.removePlayerConfirm");
+    if (confirmationPopUp == 7) return t("confirmation.yes");
     if (confirmationPopUp == 8) return t("confirmation.yes");
     if (confirmationPopUp == 9) return t("confirmation.yes");
     if (confirmationPopUp == 10) return t("confirmation.yes");
