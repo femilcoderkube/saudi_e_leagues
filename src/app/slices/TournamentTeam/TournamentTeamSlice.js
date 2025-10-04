@@ -103,9 +103,7 @@ export const updateTeamRoster = createAsyncThunk(
       const response = await axiosInstance.put(`/Roaster/updateRoaster`, {
         id,
         ...rosterData,
-      },{headers : {
-        "X-Encrypt-Response": false,
-      }});
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(

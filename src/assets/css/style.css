@@ -2627,3 +2627,8 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     transform: translate3d(0, 0, 0) scale(1);
   }
 }
+
+html[dir="rtl"] .team-rotate-popup {
+  transform: rotateY(180deg);
+
+}

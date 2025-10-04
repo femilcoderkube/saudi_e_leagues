@@ -181,6 +181,8 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             userId: user._id,
           })
         );
+
+        console.log("shgfddsahfghkjsa----", res)
         toast.success(res?.message);
         onClose();
       })

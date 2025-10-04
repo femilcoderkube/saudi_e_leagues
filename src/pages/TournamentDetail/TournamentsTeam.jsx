@@ -130,6 +130,10 @@ export default function TournamentsTeam() {
         })
       );
       if (removeTeamPlayer.fulfilled.match(resultAction)) {
+        if(resultAction.payload.message == "Cannot remove this player because they are in a locked roaster.")
+        {
+          toast.success(resultAction.payload.message)
+        }
         await dispatch(getTeamData(user._id));
       }
     } catch (error) {
@@ -266,37 +270,22 @@ export default function TournamentsTeam() {
                       </button>
 
                       {isDataOpen && (
-                        <div
-                          className={`
-                            absolute top-full
-                            ${
-                              document.dir === "rtl"
-                                ? "left-0 rtl:lg:left-20"
-                                : "right-0 ltr:lg:left-20"
-                            }
-                            bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)]
-                            rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]
-                          `}
-                          style={{
-                            direction: document.dir === "rtl" ? "rtl" : "ltr",
-                            textAlign:
-                              document.dir === "rtl" ? "right" : "left",
-                          }}
-                        >
+                      <div className="absolute team-rotate-popup top-full ltr:lg:left-10 right-0 rtl:lg:right-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
+
                           <span
-                            className="text-white text-lg font-medium cursor-pointer rtl:text-end"
+                            className="text-white text-lg font-medium cursor-pointer rtl:text-start"
                             onClick={handleEditTeam}
                           >
                             {t("tourteam.edit_team")}
                           </span>
                           <span
-                            className="text-white text-lg font-medium cursor-pointer rtl:text-end"
+                            className="text-white text-lg font-medium cursor-pointer rtl:text-start"
                             onClick={openModal}
                           >
                             {t("tourteam.manage_roster_title")}
                           </span>
                           <span
-                            className="text-white text-lg font-medium cursor-pointer rtl:text-end"
+                            className="text-white text-lg font-medium cursor-pointer rtl:text-start"
                             onClick={() => {
                               dispatch(setConfirmationPopUp(15));
                               dispatch(
@@ -973,7 +962,7 @@ export default function TournamentsTeam() {
                                             <div
                                               ref={rosterMenuRef}
                                               className="
-                                              opacity-100 pointer-events-auto transition-opacity duration-200 absolute top-[2rem] ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100"
+                                              opacity-100 pointer-events-auto transition-opacity duration-200 absolute top-[2rem] ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-49"
                                               style={{
                                                 direction:
                                                   document.dir === "rtl"
