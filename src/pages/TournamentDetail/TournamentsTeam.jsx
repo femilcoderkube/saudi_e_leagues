@@ -18,7 +18,6 @@ import {
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
-import { t } from "i18next";
 import GamingLoader from "../../components/Loader/loader.jsx";
 import InvitePlayerModel from "./InvitePlayerModel.jsx";
 import ConfirmationPopUp from "../../components/Overlays/ConfirmationPopUp.jsx";
@@ -29,9 +28,11 @@ import {
 import ManageRosterModal from "../../components/Overlays/TournamentTeam/ManageRosterModal.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
+  const { t } = useTranslation();
   const [openInviteModel, setOpenInviteModel] = useState(false);
   const [openRosterMenuId, setOpenRosterMenuId] = useState(null);
   const dispatch = useDispatch();
@@ -265,21 +266,37 @@ export default function TournamentsTeam() {
                       </button>
 
                       {isDataOpen && (
-                        <div className="absolute top-full ltr:lg:left-10 right-0 rtl:lg:right-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
+                        <div
+                          className={`
+                            absolute top-full
+                            ${
+                              document.dir === "rtl"
+                                ? "left-0 rtl:lg:left-20"
+                                : "right-0 ltr:lg:left-20"
+                            }
+                            bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)]
+                            rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]
+                          `}
+                          style={{
+                            direction: document.dir === "rtl" ? "rtl" : "ltr",
+                            textAlign:
+                              document.dir === "rtl" ? "right" : "left",
+                          }}
+                        >
                           <span
-                            className="text-white text-lg font-medium cursor-pointer"
+                            className="text-white text-lg font-medium cursor-pointer rtl:text-end"
                             onClick={handleEditTeam}
                           >
                             {t("tourteam.edit_team")}
                           </span>
                           <span
-                            className="text-white text-lg font-medium cursor-pointer"
+                            className="text-white text-lg font-medium cursor-pointer rtl:text-end"
                             onClick={openModal}
                           >
                             {t("tourteam.manage_roster_title")}
                           </span>
                           <span
-                            className="text-white text-lg font-medium cursor-pointer"
+                            className="text-white text-lg font-medium cursor-pointer rtl:text-end"
                             onClick={() => {
                               dispatch(setConfirmationPopUp(15));
                               dispatch(
@@ -741,7 +758,7 @@ export default function TournamentsTeam() {
                         <div className="tournament-schedule-card-header-left flex items-center gap-3 md:gap-4 relative z-10">
                           <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
                             {match?.teamOneScore == null ||
-                              match?.teamOneScore == undefined
+                            match?.teamOneScore == undefined
                               ? "-"
                               : match?.teamOneScore}
                           </h2>
@@ -756,7 +773,7 @@ export default function TournamentsTeam() {
                         <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
                           <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
                             {match?.teamTwoScore == null ||
-                              match?.teamTwoScore == undefined
+                            match?.teamTwoScore == undefined
                               ? "-"
                               : match?.teamTwoScore}
                           </h2>
@@ -935,10 +952,10 @@ export default function TournamentsTeam() {
                                         ["Player", "Manager", "Coach"].includes(
                                           val.role
                                         )) ||
-                                        (isManager?.length > 0 &&
-                                          ["Player", "Coach"].includes(
-                                            val.role
-                                          )) ? (
+                                      (isManager?.length > 0 &&
+                                        ["Player", "Coach"].includes(
+                                          val.role
+                                        )) ? (
                                         <div className="flex justify-end w-full">
                                           <img
                                             onClick={() =>
@@ -953,90 +970,138 @@ export default function TournamentsTeam() {
 
                                           {openRosterMenuId ===
                                             `${game?.game?._id}-${val.id}` && (
-                                              <div
-                                                ref={rosterMenuRef}
-                                                className="opacity-100 pointer-events-auto transition-opacity duration-200 absolute top-[2rem] ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100"
+                                            <div
+                                              ref={rosterMenuRef}
+                                              className="
+                                              opacity-100 pointer-events-auto transition-opacity duration-200 absolute top-[2rem] ltr:left-0 rtl:right-0 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,1)_100%)] rounded-xl px-6 py-3 shadow-2xl flex flex-col gap-3 lg:min-w-[18rem] min-w-[14rem] z-100"
+                                              style={{
+                                                direction:
+                                                  document.dir === "rtl"
+                                                    ? "rtl"
+                                                    : "ltr",
+                                                textAlign:
+                                                  document.dir === "rtl"
+                                                    ? "right"
+                                                    : "left",
+                                              }}
+                                            >
+                                              {globalIsPresident && (
+                                                <span
+                                                  className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
+                                                  onClick={() => {
+                                                    const targetUserId = val.id;
+                                                    const teamId =
+                                                      currentTeam?._id;
+                                                    if (
+                                                      targetUserId &&
+                                                      teamId
+                                                    ) {
+                                                      dispatch(
+                                                        setPopupData({
+                                                          userId: targetUserId,
+                                                          teamId,
+                                                        })
+                                                      );
+                                                      dispatch(
+                                                        setConfirmationPopUp(7)
+                                                      );
+                                                    }
+                                                  }}
+                                                >
+                                                  {t("tourteam.make_president")}
+                                                </span>
+                                              )}
+
+                                              <span
+                                                className="text-white text-sm font-medium cursor-pointer"
+                                                onClick={() => {
+                                                  const targetUserId = val.id;
+                                                  const teamId =
+                                                    currentTeam?._id;
+                                                  if (targetUserId && teamId) {
+                                                    dispatch(
+                                                      setPopupData({
+                                                        userId: targetUserId,
+                                                        teamId,
+                                                        game: game.game._id,
+                                                      })
+                                                    );
+                                                    dispatch(
+                                                      setConfirmationPopUp(8)
+                                                    );
+                                                  }
+                                                }}
                                               >
-                                                {globalIsPresident && (
-                                                  <span
-                                                    className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
-                                                    onClick={() => {
-                                                      const targetUserId = val.id;
-                                                      const teamId =
-                                                        currentTeam?._id;
-                                                      if (
-                                                        targetUserId &&
-                                                        teamId
-                                                      ) {
-                                                        dispatch(
-                                                          setPopupData({
-                                                            userId: targetUserId,
-                                                            teamId,
-                                                          })
-                                                        );
-                                                        dispatch(
-                                                          setConfirmationPopUp(7)
-                                                        );
-                                                      }
-                                                    }}
-                                                  >
-                                                    {t("tourteam.make_president")}
-                                                  </span>
+                                                {t("tourteam.assign_manager", {
+                                                  game: game?.game?.name,
+                                                })}
+                                              </span>
+
+                                              <span
+                                                className="text-white text-sm font-medium cursor-pointer"
+                                                onClick={() => {
+                                                  const targetUserId = val.id;
+                                                  const teamId =
+                                                    currentTeam?._id;
+                                                  if (targetUserId && teamId) {
+                                                    dispatch(
+                                                      setPopupData({
+                                                        userId: targetUserId,
+                                                        teamId,
+                                                        game: game.game._id,
+                                                      })
+                                                    );
+                                                    dispatch(
+                                                      setConfirmationPopUp(9)
+                                                    );
+                                                  }
+                                                }}
+                                              >
+                                                {t("tourteam.assign_coach", {
+                                                  game: game?.game?.name,
+                                                })}
+                                              </span>
+
+                                              <span
+                                                className="text-white text-sm font-medium  cursor-pointer"
+                                                onClick={() => {
+                                                  const targetUserId = val.id;
+                                                  const teamId =
+                                                    currentTeam?._id;
+                                                  if (targetUserId && teamId) {
+                                                    dispatch(
+                                                      setPopupData({
+                                                        teamId,
+                                                        userId: user?._id,
+                                                        targetUserId:
+                                                          targetUserId,
+                                                        game: game.game._id,
+                                                        removeFromTeam: false,
+                                                      })
+                                                    );
+                                                    dispatch(
+                                                      setConfirmationPopUp(10)
+                                                    );
+                                                  }
+                                                }}
+                                              >
+                                                {t(
+                                                  "tourteam.remove_player_from_game",
+                                                  { game: game?.game?.name }
                                                 )}
+                                              </span>
 
+                                              {globalIsPresident && (
                                                 <span
-                                                  className="text-white text-sm font-medium cursor-pointer"
+                                                  className="text-white text-sm border-t border-[#5362A9] pt-2 font-medium cursor-pointer"
                                                   onClick={() => {
                                                     const targetUserId = val.id;
                                                     const teamId =
                                                       currentTeam?._id;
-                                                    if (targetUserId && teamId) {
-                                                      dispatch(
-                                                        setPopupData({
-                                                          userId: targetUserId,
-                                                          teamId,
-                                                          game: game.game._id,
-                                                        })
-                                                      );
-                                                      dispatch(
-                                                        setConfirmationPopUp(8)
-                                                      );
-                                                    }
-                                                  }}
-                                                >
-                                                  {t("tourteam.assign_manager", { game: game?.game?.name })}
-                                                </span>
-
-                                                <span
-                                                  className="text-white text-sm font-medium cursor-pointer"
-                                                  onClick={() => {
-                                                    const targetUserId = val.id;
-                                                    const teamId =
-                                                      currentTeam?._id;
-                                                    if (targetUserId && teamId) {
-                                                      dispatch(
-                                                        setPopupData({
-                                                          userId: targetUserId,
-                                                          teamId,
-                                                          game: game.game._id,
-                                                        })
-                                                      );
-                                                      dispatch(
-                                                        setConfirmationPopUp(9)
-                                                      );
-                                                    }
-                                                  }}
-                                                >
-                                                  {t("tourteam.assign_coach", { game: game?.game?.name })}
-                                                </span>
-
-                                                <span
-                                                  className="text-white text-sm font-medium  cursor-pointer"
-                                                  onClick={() => {
-                                                    const targetUserId = val.id;
-                                                    const teamId =
-                                                      currentTeam?._id;
-                                                    if (targetUserId && teamId) {
+                                                    if (
+                                                      targetUserId &&
+                                                      teamId
+                                                    ) {
                                                       dispatch(
                                                         setPopupData({
                                                           teamId,
@@ -1044,50 +1109,20 @@ export default function TournamentsTeam() {
                                                           targetUserId:
                                                             targetUserId,
                                                           game: game.game._id,
-                                                          removeFromTeam: false,
+                                                          removeFromTeam: true,
                                                         })
                                                       );
                                                       dispatch(
-                                                        setConfirmationPopUp(10)
+                                                        setConfirmationPopUp(11)
                                                       );
                                                     }
                                                   }}
                                                 >
-                                                  {t("tourteam.remove_player_from_game", { game: game?.game?.name })}
+                                                  {t("tourteam.remove_player")}
                                                 </span>
-
-                                                {globalIsPresident && (
-                                                  <span
-                                                    className="text-white text-sm border-t border-[#5362A9] pt-2 font-medium cursor-pointer"
-                                                    onClick={() => {
-                                                      const targetUserId = val.id;
-                                                      const teamId =
-                                                        currentTeam?._id;
-                                                      if (
-                                                        targetUserId &&
-                                                        teamId
-                                                      ) {
-                                                        dispatch(
-                                                          setPopupData({
-                                                            teamId,
-                                                            userId: user?._id,
-                                                            targetUserId:
-                                                              targetUserId,
-                                                            game: game.game._id,
-                                                            removeFromTeam: true,
-                                                          })
-                                                        );
-                                                        dispatch(
-                                                          setConfirmationPopUp(11)
-                                                        );
-                                                      }
-                                                    }}
-                                                  >
-                                                    {t("tourteam.remove_player")}
-                                                  </span>
-                                                )}
-                                              </div>
-                                            )}
+                                              )}
+                                            </div>
+                                          )}
                                         </div>
                                       ) : (
                                         <div className="h-[19px]"></div>
