@@ -581,7 +581,7 @@ export default function TournamentsTeam() {
                 </div>
               </div>
             </div>
-            <div className="team_content-right w-full">
+            {/* <div className="team_content-right w-full">
               <div className="mb-6">
                 <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
                   {t("tourteam.last_tournaments")}
@@ -839,7 +839,7 @@ export default function TournamentsTeam() {
 
                 {t("tourteam.no_matches")}
               </div>
-            </div>
+            </div> */}
           </div>
           {/* team-top shape */}
           <svg

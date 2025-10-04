@@ -149,13 +149,16 @@ const TournamentDetail = () => {
       const resultAction = await dispatch(registerTournament(data));
 
       if (registerTournament.fulfilled.match(resultAction)) {
-        dispatch(
+        await dispatch(
           getTeamDetails({
             tournamentId: tournamentData?._id,
             teamId: currentTeam._id,
             userId: user?._id,
           })
-        );
+        ).unwrap();
+        if(teamData?.userRole === "President" ||
+          teamData?.userRole === "Manager") 
+        setIsManageOpen(true)
       }
     } catch (error) {
       console.log("err", error);
@@ -422,7 +425,7 @@ const TournamentDetail = () => {
                                           "tournament.invite_players_to_team",
                                           {
                                             count:
-                                              tournamentData?.maxPlayersPerTeam,
+                                              tournamentData?.minPlayersPerTeam,
                                           }
                                         )}
                                       </>
@@ -695,12 +698,12 @@ const TournamentDetail = () => {
                                     className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 !w-full ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
                                   >
                                     <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
-                                      <div className="schdule-common">
+                                      {/* <div className="schdule-common">
                                         <p className="text-base font-black grad_text-clip uppercase w-11">
                                           {tIdx + 1}
                                           {getOrdinal(tIdx + 1)}
                                         </p>
-                                      </div>
+                                      </div> */}
                                       <div className="flex items-center sm:gap-4 gap-2">
                                         <img
                                           src={getServerURL(team?.logo)}

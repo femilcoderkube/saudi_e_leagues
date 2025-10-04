@@ -103,7 +103,9 @@ export const updateTeamRoster = createAsyncThunk(
       const response = await axiosInstance.put(`/Roaster/updateRoaster`, {
         id,
         ...rosterData,
-      });
+      },{headers : {
+        "X-Encrypt-Response": false,
+      }});
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -116,7 +118,11 @@ export const withdrawTeamRoster = createAsyncThunk(
   "tournamentTeam/withdrawTeamRoster",
   async ({ id }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.delete(`/Roaster?id=${id}`);
+      const response = await axiosInstance.delete(`/Roaster?id=${id}`,{
+        headers : {
+          "X-Encrypt-Response": false,
+        }
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(
