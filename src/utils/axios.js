@@ -5,8 +5,8 @@ import { generateToken } from "../Services/Security";
 import cryptoUtils from "./cryptoUtils";
 
 export const baseURL = import.meta.env.VITE_API_BASE_URL;
-export const inviteUrl = import.meta.env.VITE_INVITE_LINK;
 const secret = import.meta.env.VITE_SECRET_KEY;
+export const inviteUrl = import.meta.env.VITE_INVITE_LINK;
 const encryptionEnabled = import.meta.env.VITE_ENCRYPTION_STATUS;
 
 const axiosInstance = axios.create({
@@ -39,20 +39,19 @@ axiosInstance.interceptors.request.use(
     const lang = localStorage.getItem("lang") || i18n.language || "en";
     config.headers["Accept-Language"] = lang;
 
-    // if (
-    //   encryptionEnabled &&
-    //   config.data &&
-    //   cryptoUtils.shouldEncrypt(config.data, config.headers["Content-Type"])
-    // ) {
-    //   try {
-    //     const encryptedData = cryptoUtils.encrypt(config.data);
-    //     config.data = { encryptedData };
-    //     config.headers["X-Encrypted"] = "true";
-    //     config.headers["X-Encryption-Method"] = "AES-256-CBC";
-    //   } catch (error) {
-    //     console.error("Failed to encrypt request data:", error);
-    //   }
-    // }
+    if (
+      config.data &&
+      cryptoUtils.shouldEncrypt(config.data, config.headers["Content-Type"])
+    ) {
+      try {
+        const encryptedData = cryptoUtils.encrypt(config.data);
+        config.data = { encryptedData };
+        config.headers["X-Encrypted"] = "true";
+        config.headers["X-Encryption-Method"] = "AES-256-CBC";
+      } catch (error) {
+        console.error("Failed to encrypt request data:", error);
+      }
+    }
 
     return config;
   },
@@ -63,7 +62,7 @@ let isLoggingOut = false;
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    if (encryptionEnabled && response.data?.encryptedData) {
+    if (response.data?.encryptedData) {
       try {
         const decryptedData = cryptoUtils.decrypt(response.data.encryptedData);
         response.data = decryptedData;
@@ -78,29 +77,27 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (encryptionEnabled) {
-      const isEncrypted =
-        error.response?.headers["x-encrypted"] === "true" ||
-        error.response?.headers["X-Encrypted"] === "true";
+    const isEncrypted =
+      error.response?.headers["x-encrypted"] === "true" ||
+      error.response?.headers["X-Encrypted"] === "true";
 
-      if (isEncrypted && error.response?.data?.encryptedData) {
-        try {
-          const decryptedError = cryptoUtils.decrypt(
-            error.response.data.encryptedData
-          );
-          error.response.data = decryptedError;
-        } catch (decryptError) {
-          console.error("Failed to decrypt error response:", decryptError);
-          console.error(
-            "Encrypted error data was:",
-            error.response.data.encryptedData
-          );
-        }
-      } else if (isEncrypted) {
-        console.warn(
-          "Error response marked as encrypted but no encryptedData found"
+    if (isEncrypted && error.response?.data?.encryptedData) {
+      try {
+        const decryptedError = cryptoUtils.decrypt(
+          error.response.data.encryptedData
+        );
+        error.response.data = decryptedError;
+      } catch (decryptError) {
+        console.error("Failed to decrypt error response:", decryptError);
+        console.error(
+          "Encrypted error data was:",
+          error.response.data.encryptedData
         );
       }
+    } else if (isEncrypted) {
+      console.warn(
+        "Error response marked as encrypted but no encryptedData found"
+      );
     }
 
     if (error.response && error.response.status === 401) {

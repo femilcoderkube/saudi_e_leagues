@@ -135,7 +135,7 @@ const DraftingDetail = () => {
             initial="hidden"
             whileInView="visible"
             variants={cardVariantsAni}
-            viewport={{ once: true, amount: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
           >
             <h2 className="text-[7.5rem] font-bold font_oswald drafting__title-bg">
               {otherPlayers.length > 0 ? countdown : "00:00"}
@@ -148,7 +148,7 @@ const DraftingDetail = () => {
               initial="hidden"
               whileInView="visible"
               variants={cardVariantsAni}
-              viewport={{ once: true, amount: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
             >
               <div className="mx-auto max-w-[40rem] sd_before sd_after relative polygon_border">
                 <div className="px-6 py-4">
@@ -174,7 +174,7 @@ const DraftingDetail = () => {
               initial="hidden"
               whileInView="visible"
               variants={cardVariantsAni}
-              viewport={{ once: true, amount: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
             >
               <div className="mx-auto max-w-[40rem] sd_before sd_after relative polygon_border">
                 <div className="px-6 py-4">
@@ -188,8 +188,17 @@ const DraftingDetail = () => {
             ""
           )}
 
+<<<<<<< HEAD
           <div
             className="drafting__final_teams-wrapper mb-5"           
+=======
+          <motion.div
+            className="drafting__final_teams-wrapper mb-5"
+            initial="hidden"
+            whileInView="visible"
+            variants={cardVariantsAni}
+            viewport={{ once: true, amount: 0.3 }}
+>>>>>>> 3b4aae36b1ede5a9dbed88a7bc6c701d7366654d
           >
             <div className="drafting__teams-list-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
               {teams?.map((team, teamIdx) => {
@@ -286,7 +295,7 @@ const DraftingDetail = () => {
             initial="hidden"
             whileInView="visible"
             variants={cardVariantsAni}
-            viewport={{ once: true, amount: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
           >
             <div className="draft-picks-wrapper-title text-center relative mb-4">
               <h2 className="text-[3.2rem] font-bold font_oswald drafting__title-bg relative inline-block">
