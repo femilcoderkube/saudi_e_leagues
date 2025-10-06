@@ -151,7 +151,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
   const handleCopy = () => {
     if (!inviteLink) return;
-    navigator.clipboard.writeText(inviteUrl + "/invite-link/" + inviteLink);
+    navigator.clipboard.writeText(`${inviteUrl}/prime/lobby?Iid=${inviteLink}`);
     toast.success(t("tournament.copy_button_title1"));
   };
 
@@ -269,7 +269,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                     <div className="flex items-center gap-2 bg-[#05042C] h-[3rem] border border-[#393B7A] rounded-lg w-full overflow-hidden pl-[0.8rem]">
                       <input
                         type="text"
-                        value={inviteUrl + "/invite-link/" + inviteLink || ""}
+                        value={`${inviteUrl}/prime/lobby?Iid=${inviteLink}`}
                         readOnly
                         className="flex-1 bg-transparent text-white text-sm outline-none"
                         style={{ minWidth: 0 }}
