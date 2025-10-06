@@ -188,17 +188,8 @@ const DraftingDetail = () => {
             ""
           )}
 
-<<<<<<< HEAD
           <div
             className="drafting__final_teams-wrapper mb-5"           
-=======
-          <motion.div
-            className="drafting__final_teams-wrapper mb-5"
-            initial="hidden"
-            whileInView="visible"
-            variants={cardVariantsAni}
-            viewport={{ once: true, amount: 0.3 }}
->>>>>>> 3b4aae36b1ede5a9dbed88a7bc6c701d7366654d
           >
             <div className="drafting__teams-list-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
               {teams?.map((team, teamIdx) => {
