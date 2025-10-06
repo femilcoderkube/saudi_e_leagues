@@ -130,10 +130,7 @@ export default function TournamentsTeam() {
         })
       );
       if (removeTeamPlayer.fulfilled.match(resultAction)) {
-        if(resultAction.payload.message == "Cannot remove this player because they are in a locked roaster.")
-        {
-          toast.success(resultAction.payload.message)
-        }
+        toast.success(resultAction.payload.message);
         await dispatch(getTeamData(user._id));
       }
     } catch (error) {
@@ -149,6 +146,7 @@ export default function TournamentsTeam() {
         })
       );
       if (leaveTeamPlayer.fulfilled.match(resultAction)) {
+        toast.success(resultAction?.payload?.message);
         await dispatch(getTeamData(user._id));
       }
     } catch (error) {
@@ -270,8 +268,7 @@ export default function TournamentsTeam() {
                       </button>
 
                       {isDataOpen && (
-                      <div className="absolute team-rotate-popup top-full ltr:lg:left-10 right-0 rtl:lg:right-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
-
+                        <div className="absolute team-rotate-popup top-full ltr:lg:left-10 right-0 rtl:lg:right-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
                           <span
                             className="text-white text-lg font-medium cursor-pointer rtl:text-start"
                             onClick={handleEditTeam}
