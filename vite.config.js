@@ -2,11 +2,10 @@ import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
-import javascriptObfuscator from "vite-plugin-javascript-obfuscator"
+import javascriptObfuscator from "vite-plugin-javascript-obfuscator";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-
-  const isProduction = mode === 'production';
+  const isProduction = mode === "production";
   return {
     plugins: [
       react(),
@@ -62,22 +61,27 @@ export default defineConfig(({ mode }) => {
         },
       }),
       // Conditional obfuscation based on environment variable
-      isProduction && javascriptObfuscator({
-        options: {
-          stringArray: true,
-          stringArrayEncoding: ['base64'],
-          stringArrayThreshold: 0.2,
-          controlFlowFlattening: false,
-          splitStrings: false,
-          selfDefending: false,
-          disableConsoleOutput: false,
-          debugProtection: isProduction ? true : false,
-          target: 'browser'
-        },
-        include: ['src/**/*.{js,jsx,ts,tsx}'],
-        exclude: ['node_modules/**', 'public/**', 'src/**/*.test.{js,jsx,ts,tsx}'],
-        apply: 'build'
-      })
+      isProduction &&
+        javascriptObfuscator({
+          options: {
+            stringArray: true,
+            stringArrayEncoding: ["base64"],
+            stringArrayThreshold: 0.2,
+            controlFlowFlattening: false,
+            splitStrings: false,
+            selfDefending: false,
+            // disableConsoleOutput: false,
+            // debugProtection: isProduction ? true : false,
+            target: "browser",
+          },
+          include: ["src/**/*.{js,jsx,ts,tsx}"],
+          exclude: [
+            "node_modules/**",
+            "public/**",
+            "src/**/*.test.{js,jsx,ts,tsx}",
+          ],
+          apply: "build",
+        }),
     ],
     server: {
       proxy: {
@@ -95,14 +99,14 @@ export default defineConfig(({ mode }) => {
     },
     // Optimize dependencies
     optimizeDeps: {
-      include: ['react', 'react-dom'],
-      exclude: ['vite-plugin-javascript-obfuscator'] // Exclude plugin from optimization
+      include: ["react", "react-dom"],
+      exclude: ["vite-plugin-javascript-obfuscator"], // Exclude plugin from optimization
     },
 
     build: {
       sourcemap: !isProduction, // Only generate source maps in development
-      minify: isProduction ? 'esbuild' : false,
-      chunkSizeWarningLimit: 10000
-    }
-  }
+      minify: isProduction ? "esbuild" : false,
+      chunkSizeWarningLimit: 10000,
+    },
+  };
 });
