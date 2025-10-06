@@ -27,8 +27,6 @@ const InviteLink = ({ Iid }) => {
     loading,
   } = useSelector((state) => state.teamInvitation);
 
-  console.log("games", games);
-
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
