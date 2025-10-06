@@ -515,11 +515,6 @@ export const countryData = [
     code: "IM",
   },
   {
-    name: "Israel",
-    dial_code: "+972",
-    code: "IL",
-  },
-  {
     name: "Italy",
     dial_code: "+39",
     code: "IT",
@@ -825,7 +820,7 @@ export const countryData = [
     code: "PW",
   },
   {
-    name: "Palestinian Territory, Occupied",
+    name: "Palestinian",
     dial_code: "+970",
     code: "PS",
   },

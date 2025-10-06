@@ -4,10 +4,7 @@ import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../components/ui/images/images";
 import { baseURL, inviteUrl } from "../../utils/axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchInviteLink,
-  resetInviteLink,
-} from "../../app/slices/teamInvitationSlice/teamInvitationSlice";
+import { resetInviteLink } from "../../app/slices/teamInvitationSlice/teamInvitationSlice";
 import { toast } from "react-toastify";
 import TeamSection from "./TeamSection";
 import {
@@ -29,7 +26,6 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.auth);
-
   const {
     link: inviteLink,
     loading,
@@ -55,15 +51,6 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     rosterSelection?.coachId,
     rosterSelection?.playerIds,
   ]);
-
-  // Fetch invite link when modal opens
-  useEffect(() => {
-    dispatch(fetchInviteLink(currentTeam?._id))
-      .unwrap()
-      .catch((err) =>
-        toast.error(err || t("tournament.invite_link_fetch_failed"))
-      );
-  }, [dispatch, t]);
 
   // Fetch team user format when team ID changes
   useEffect(() => {
@@ -151,7 +138,9 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
   const handleCopy = () => {
     if (!inviteLink) return;
-    navigator.clipboard.writeText(`${inviteUrl}/prime/lobby?Iid=${inviteLink}`);
+    navigator.clipboard.writeText(
+      `${InviteBaseUrl}/prime/lobby?Iid=${inviteLink}`
+    );
     toast.success(t("tournament.copy_button_title1"));
   };
 

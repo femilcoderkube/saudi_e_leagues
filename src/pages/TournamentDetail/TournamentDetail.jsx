@@ -45,6 +45,8 @@ import {
 } from "../../app/slices/constState/constStateSlice.js";
 import ConfirmationPopUp from "../../components/Overlays/ConfirmationPopUp.jsx";
 import ViewTeamModal from "../../components/ManageTeam/ViewTeamModal.jsx";
+import { fetchInviteLink } from "../../app/slices/teamInvitationSlice/teamInvitationSlice.js";
+import { toast } from "react-toastify";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
   const { tournamentData, activeStage, loader } = useSelector(
@@ -83,6 +85,7 @@ const TournamentDetail = () => {
     if (i === 2) return "text-[#CD7F32]"; // Bronze
     return "text-white";
   };
+
   useEffect(() => {
     if (user?._id) {
       dispatch(getTeamData(user?._id));
@@ -98,6 +101,8 @@ const TournamentDetail = () => {
           userId: user?._id,
         })
       );
+
+      dispatch(fetchInviteLink(currentTeam?._id)).unwrap();
     }
   }, [currentTeam?._id, dispatch, tournamentData?._id]);
 
