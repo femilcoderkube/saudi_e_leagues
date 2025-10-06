@@ -193,7 +193,6 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     )
       .unwrap()
       .then((res) => {
-        console.log("res", res);
         dispatch(
           getTeamDetails({
             tournamentId: tournamentData?._id,
