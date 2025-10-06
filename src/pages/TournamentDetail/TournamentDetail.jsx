@@ -292,80 +292,57 @@ const TournamentDetail = () => {
                 </motion.div>
               </div>
             </div>
-            {currentTeam?._id ? (
-              <button
-                onClick={
-                  teamData?.dataFound ||
-                  !user?._id ||
-                  !["Manager", "President"].includes(teamData?.userRole) ||
-                  !isWithinRegistrationPeriod
+            <button
+              onClick={
+                currentTeam?._id
+                  ? teamData?.dataFound ||
+                    !user?._id ||
+                    !["Manager", "President"].includes(teamData?.userRole) ||
+                    !isWithinRegistrationPeriod
                     ? undefined
                     : onRegistration
-                }
-                className={`common-width join_btn duration-300 block sd_before relative w-full ${
-                  teamData?.dataFound ||
-                  !user?._id ||
-                  !["Manager", "President"].includes(teamData?.userRole) ||
-                  !isWithinRegistrationPeriod
+                  : () => dispatch(setConfirmationPopUp(16))
+              }
+              className={`common-width join_btn duration-300 block sd_before relative w-full ${
+                currentTeam?._id
+                  ? teamData?.dataFound ||
+                    !user?._id ||
+                    !["Manager", "President"].includes(teamData?.userRole) ||
+                    !isWithinRegistrationPeriod
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
-                }`}
-              >
-                <span
-                  className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
-                  style={{
-                    fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
-                    fontWeight: "bold",
-                    textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
-                  }}
-                >
-                  {teamData?.dataFound
-                    ? t("images.Registergn")
-                    : t("images.Registerog")}
-                </span>
-
-                <img
-                  className="mx-auto"
-                  src={
-                    teamData?.dataFound
-                      ? IMAGES.ragister_gn
-                      : IMAGES.ragister_og
-                  }
-                  alt=""
-                  style={{ width: "100%" }}
-                />
-              </button>
-            ) : (
-              <button
-                className={`common-width join_btn duration-300 block sd_before relative w-full ${
-                  !user?._id
-                    ? "opacity-50 cursor-not-allowed"
-                    : "cursor-pointer"
-                }`}
-                disabled={!user?._id}
-                onClick={() => {
-                  dispatch(setConfirmationPopUp(16));
+                  : !user?._id
+                  ? "opacity-50 cursor-not-allowed"
+                  : "cursor-pointer"
+              }`}
+              disabled={!user?._id}
+            >
+              <span
+                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
+                style={{
+                  fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
+                  fontWeight: "bold",
+                  textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
                 }}
               >
-                <span
-                  className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
-                  style={{
-                    fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
-                    fontWeight: "bold",
-                    textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
-                  }}
-                >
-                  {t("images.Registerog")}
-                </span>
+                {currentTeam?._id
+                  ? teamData?.dataFound
+                    ? t("images.Registergn")
+                    : t("images.Registerog")
+                  : t("images.create")}
+              </span>
 
-                <img
-                  className="mx-auto"
-                  src={IMAGES.ragister_og}
-                  alt=""
-                  style={{ width: "100%" }}
-                />
-              </button>
-            )}
+              <img
+                className="mx-auto"
+                src={
+                  currentTeam?._id && teamData?.dataFound
+                    ? IMAGES.ragister_gn
+                    : IMAGES.ragister_og
+                }
+                alt=""
+                style={{ width: "100%" }}
+              />
+            </button>
           </div>
           <div className="sd_tournament-wrapper">
             <div className="sd_tournament-content">
@@ -712,7 +689,9 @@ const TournamentDetail = () => {
                                 <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
                                   <div className="flex gap-2 items-center">
                                     <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
-                                      {teams?.length > 4 ? `+${teams.length - 4}` : ""}
+                                      {teams?.length > 4
+                                        ? `+${teams.length - 4}`
+                                        : ""}
                                     </p>
                                   </div>
                                   <div className="schdule-icon absolute lg:w-[6rem] sm:w-[4rem] w-[3rem] ltr:right-0 rtl:left-0 top-0 h-full flex items-center justify-center cursor-pointer">

@@ -389,7 +389,8 @@
     "notifications": "الإشعارات",
     "skip": "تخطي",
     "Registerog": "تسجيل",
-    "Registergn": "مسجل"
+    "Registergn": "مسجل",
+    "create": "إنشاء فريق"
   },
   "actions": {
     "custom_action": "إجراء مخصص"

@@ -360,6 +360,7 @@
     "join_button": "JOIN",
     "Registerog": "REGISTER",
     "Registergn": "REGISTERED",
+    "create": "CREATE TEAM",
 
     "queue_button": "Queue button",
     "open_button": "Open button",
