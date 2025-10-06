@@ -188,12 +188,8 @@ const DraftingDetail = () => {
             ""
           )}
 
-          <motion.div
-            className="drafting__final_teams-wrapper mb-5"
-            initial="hidden"
-            whileInView="visible"
-            variants={cardVariantsAni}
-            viewport={{ once: true, amount: 0 }}
+          <div
+            className="drafting__final_teams-wrapper mb-5"           
           >
             <div className="drafting__teams-list-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
               {teams?.map((team, teamIdx) => {
@@ -283,7 +279,7 @@ const DraftingDetail = () => {
                 );
               })}
             </div>
-          </motion.div>
+          </div>
 
           <motion.div
             className="draft-picks-wrapper mb-8"
