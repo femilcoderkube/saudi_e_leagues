@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TimelinePanel from "../../components/Cards/LeagueDetail/TimelinePanel.jsx";
 import {
   formatAmountWithCommas,
@@ -64,7 +64,7 @@ const TournamentDetail = () => {
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { user } = useSelector((state) => state.auth);
-  const { tId } = useParams();
+  const { id, tId } = useParams();
   const dispatch = useDispatch();
   const [isManageOpen, setIsManageOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null); // For accordion toggle
@@ -195,6 +195,8 @@ const TournamentDetail = () => {
   const isWithinRegistrationPeriod =
     regEnd > regStart && currentDate >= regStart && currentDate <= regEnd;
 
+  const navigate = useNavigate();
+
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
       {/* --- dashboard main content back groud --- */}
@@ -293,46 +295,78 @@ const TournamentDetail = () => {
                 </motion.div>
               </div>
             </div>
-            <button
-              onClick={
-                teamData?.dataFound ||
-                !user?._id ||
-                !["Manager", "President"].includes(teamData?.userRole) ||
-                !isWithinRegistrationPeriod
-                  ? undefined
-                  : onRegistration
-              }
-              className={`common-width join_btn duration-300 block sd_before relative w-full ${
-                teamData?.dataFound ||
-                !user?._id ||
-                !["Manager", "President"].includes(teamData?.userRole) ||
-                !isWithinRegistrationPeriod
-                  ? "opacity-50 cursor-not-allowed"
-                  : "cursor-pointer"
-              }`}
-            >
-              <span
-                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
-                style={{
-                  fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
-                  fontWeight: "bold",
-                  textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
-                }}
-              >
-                {teamData?.dataFound
-                  ? t("images.Registergn")
-                  : t("images.Registerog")}
-              </span>
-
-              <img
-                className="mx-auto"
-                src={
-                  teamData?.dataFound ? IMAGES.ragister_gn : IMAGES.ragister_og
+            {currentTeam?._id ? (
+              <button
+                onClick={
+                  teamData?.dataFound ||
+                  !user?._id ||
+                  !["Manager", "President"].includes(teamData?.userRole) ||
+                  !isWithinRegistrationPeriod
+                    ? undefined
+                    : onRegistration
                 }
-                alt=""
-                style={{ width: "100%" }}
-              />
-            </button>
+                className={`common-width join_btn duration-300 block sd_before relative w-full ${
+                  teamData?.dataFound ||
+                  !user?._id ||
+                  !["Manager", "President"].includes(teamData?.userRole) ||
+                  !isWithinRegistrationPeriod
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
+                }`}
+              >
+                <span
+                  className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
+                  style={{
+                    fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
+                    fontWeight: "bold",
+                    textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  {teamData?.dataFound
+                    ? t("images.Registergn")
+                    : t("images.Registerog")}
+                </span>
+
+                <img
+                  className="mx-auto"
+                  src={
+                    teamData?.dataFound
+                      ? IMAGES.ragister_gn
+                      : IMAGES.ragister_og
+                  }
+                  alt=""
+                  style={{ width: "100%" }}
+                />
+              </button>
+            ) : (
+              <button
+                className={`common-width join_btn duration-300 block sd_before relative w-full ${
+                  !user?._id
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
+                }`}
+                disabled={!user?._id}
+                onClick={() => navigate(`/${id}/lobby/team`)}
+              >
+                <span
+                  className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
+                  style={{
+                    fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
+                    fontWeight: "bold",
+                    textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  {t("images.Registerog")}
+                </span>
+
+                <img
+                  className="mx-auto"
+                  src={IMAGES.ragister_og}
+                  alt=""
+                  style={{ width: "100%" }}
+                />
+              </button>
+            )}
           </div>
           <div className="sd_tournament-wrapper">
             <div className="sd_tournament-content">

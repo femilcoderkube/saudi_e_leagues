@@ -138,9 +138,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
   const handleCopy = () => {
     if (!inviteLink) return;
-    navigator.clipboard.writeText(
-      `${InviteBaseUrl}/prime/lobby?Iid=${inviteLink}`
-    );
+    navigator.clipboard.writeText(`${inviteUrl}/prime/lobby?Iid=${inviteLink}`);
     toast.success(t("tournament.copy_button_title1"));
   };
 
