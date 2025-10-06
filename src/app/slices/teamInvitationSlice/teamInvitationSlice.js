@@ -69,7 +69,7 @@ export const fetchGames = createAsyncThunk(
   "teamInvitation/fetchGames",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get("/Game");
+      const response = await axiosInstance.get("/Game/user");
       // API response assumed: { data: [ { id, name }, ... ] }
       return response.data?.data || [];
     } catch (err) {

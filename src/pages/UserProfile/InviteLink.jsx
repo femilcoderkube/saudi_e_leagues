@@ -27,6 +27,8 @@ const InviteLink = ({ Iid }) => {
     loading,
   } = useSelector((state) => state.teamInvitation);
 
+  console.log("games", games);
+
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
@@ -44,18 +46,12 @@ const InviteLink = ({ Iid }) => {
           toast.error(t("Invite_model.invite_link_expire"));
           navigate("/prime/lobby");
         });
-
-      dispatch(fetchGames());
     }
   }, [user, Iid, dispatch, navigate]);
 
-  const gameOptions =
-    games?.result?.map((game) => ({
-      value: game._id,
-      label: game.name,
-      logo: game.logo,
-      color: game.color,
-    })) || [];
+  useEffect(() => {
+    dispatch(fetchGames());
+  }, [dispatch]);
 
   // Validation schema using Yup
   const validationSchema = Yup.object({
@@ -223,7 +219,12 @@ const InviteLink = ({ Iid }) => {
                             onChange={(option) =>
                               setFieldValue("selectedGame", option)
                             }
-                            options={gameOptions}
+                            options={games.map((game) => ({
+                              value: game._id,
+                              label: game.name,
+                              logo: game.logo,
+                              color: game.color,
+                            }))}
                             className="basic-multi-select cursor-pointer"
                             classNamePrefix="select"
                             placeholder={t("Invite_model.select_game")}
