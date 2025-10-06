@@ -5,6 +5,7 @@ import { generateToken } from "../Services/Security";
 import cryptoUtils from "./cryptoUtils";
 
 export const baseURL = import.meta.env.VITE_API_BASE_URL;
+export const inviteUrl = import.meta.env.VITE_INVITE_LINK;
 const secret = import.meta.env.VITE_SECRET_KEY;
 const encryptionEnabled = import.meta.env.VITE_ENCRYPTION_STATUS;
 
@@ -15,7 +16,7 @@ const axiosInstance = axios.create({
     ...(encryptionEnabled && { "X-Encrypt-Response": "true" }),
   },
 });
- 
+
 let reduxStore = null;
 export const setAxiosStore = (storeInstance) => {
   reduxStore = storeInstance;
@@ -42,7 +43,7 @@ axiosInstance.interceptors.request.use(
     //   encryptionEnabled &&
     //   config.data &&
     //   cryptoUtils.shouldEncrypt(config.data, config.headers["Content-Type"])
-    // ) {      
+    // ) {
     //   try {
     //     const encryptedData = cryptoUtils.encrypt(config.data);
     //     config.data = { encryptedData };
@@ -57,7 +58,7 @@ axiosInstance.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
- 
+
 let isLoggingOut = false;
 
 axiosInstance.interceptors.response.use(
@@ -116,5 +117,5 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
- 
+
 export default axiosInstance;

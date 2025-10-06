@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../components/ui/images/images";
-import { baseURL } from "../../utils/axios";
+import { baseURL, inviteUrl } from "../../utils/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { resetInviteLink } from "../../app/slices/teamInvitationSlice/teamInvitationSlice";
 import { toast } from "react-toastify";
@@ -139,7 +139,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
   const handleCopy = () => {
     if (!inviteLink) return;
-    navigator.clipboard.writeText(baseURL + "/invite-link/" + inviteLink);
+    navigator.clipboard.writeText(inviteUrl + "/invite-link/" + inviteLink);
     toast.success(t("tournament.copy_button_title1"));
   };
 
@@ -182,7 +182,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
           })
         );
 
-        console.log("shgfddsahfghkjsa----", res)
+        console.log("shgfddsahfghkjsa----", res);
         toast.success(res?.message);
         onClose();
       })
@@ -257,7 +257,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                     <div className="flex items-center gap-2 bg-[#05042C] h-[3rem] border border-[#393B7A] rounded-lg w-full overflow-hidden pl-[0.8rem]">
                       <input
                         type="text"
-                        value={baseURL + "/invite-link/" + inviteLink || ""}
+                        value={inviteUrl + "/invite-link/" + inviteLink || ""}
                         readOnly
                         className="flex-1 bg-transparent text-white text-sm outline-none"
                         style={{ minWidth: 0 }}
