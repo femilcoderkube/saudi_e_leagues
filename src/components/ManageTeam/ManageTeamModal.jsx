@@ -180,14 +180,12 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             userId: user._id,
           })
         );
-
-        console.log("shgfddsahfghkjsa----", res);
         toast.success(res?.message);
         onClose();
       })
       .catch((err) => toast.error(err));
   };
-  const handleWithdraw = () => {
+  const handleWithdraw = async () => {
     dispatch(
       withdrawTeamRoster({
         id: teamData?.data?._id,
@@ -195,6 +193,14 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     )
       .unwrap()
       .then((res) => {
+        console.log("res", res);
+        dispatch(
+          getTeamDetails({
+            tournamentId: tournamentData?._id,
+            teamId: currentTeam?._id,
+            userId: user?._id,
+          })
+        );
         toast.success(res?.message);
         onClose();
       })

@@ -437,7 +437,8 @@
     "leavePartyTitle": "Are you sure you want to leave party?",
     "removeTeamConfirm": "Are you sure you want to remove team?",
     "leaveTeamConfirm": "Are you sure you want to leave team?",
-    "registrationConfirm": "Are you sure you want to register for this tournament?"
+    "registrationConfirm": "Are you sure you want to register for this tournament?",
+    "createTeamConfirm": "Are you sure you would like to create a team?"
   },
   "drafting": {
     "drafting": "Drafting",

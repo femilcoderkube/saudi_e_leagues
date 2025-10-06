@@ -46,7 +46,7 @@ import {
 import ConfirmationPopUp from "../../components/Overlays/ConfirmationPopUp.jsx";
 import ViewTeamModal from "../../components/ManageTeam/ViewTeamModal.jsx";
 import { fetchInviteLink } from "../../app/slices/teamInvitationSlice/teamInvitationSlice.js";
-import { toast } from "react-toastify";
+import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
   const { tournamentData, activeStage, loader } = useSelector(
@@ -56,9 +56,8 @@ const TournamentDetail = () => {
   const { viewManagePopup } = useSelector((state) => state.constState);
 
   const [showModal, setShowModal] = useState(false);
-  const { currentTeam, teamData, loading } = useSelector(
-    (state) => state.tournamentTeam
-  );
+  const { currentTeam, teamData, loading, showTeamRegistrationPopup } =
+    useSelector((state) => state.tournamentTeam);
 
   const handleClose = () => setShowModal(false);
 
@@ -194,8 +193,6 @@ const TournamentDetail = () => {
   // Defensive: check for valid dates and that regEnd is after regStart
   const isWithinRegistrationPeriod =
     regEnd > regStart && currentDate >= regStart && currentDate <= regEnd;
-
-  const navigate = useNavigate();
 
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
@@ -346,7 +343,9 @@ const TournamentDetail = () => {
                     : "cursor-pointer"
                 }`}
                 disabled={!user?._id}
-                onClick={() => navigate(`/${id}/lobby/team`)}
+                onClick={() => {
+                  dispatch(setConfirmationPopUp(16));
+                }}
               >
                 <span
                   className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
@@ -863,6 +862,7 @@ const TournamentDetail = () => {
       </svg>
       {showModal && <PDFViewer onClose={handleClose} />}
       <ConfirmationPopUp onRegisterTournament={handleRegisterTournament} />
+      {showTeamRegistrationPopup && <TeamRegistrationPopup isEdit={false} />}
     </main>
   );
 };
