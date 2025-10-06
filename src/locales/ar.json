@@ -246,7 +246,8 @@
     "lobby": "البطولات",
     "home": "الرئيسية",
     "profile": "الملف الشخصي",
-    "prime": "برايم"
+    "prime": "برايم",
+    "myteam": "فريقي"
   },
   "user_menu": {
     "my_profile": "تعديل الملف الشخصي",
@@ -388,7 +389,8 @@
     "notifications": "الإشعارات",
     "skip": "تخطي",
     "Registerog": "تسجيل",
-    "Registergn": "مسجل"
+    "Registergn": "مسجل",
+    "create": "إنشاء فريق"
   },
   "actions": {
     "custom_action": "إجراء مخصص"
@@ -436,7 +438,8 @@
     "removeTeamConfirm": "هل أنت متأكد أنك تريد إزالة الفريق؟",
     "leaveTeamConfirm": "هل أنت متأكد أنك تريد مغادرة الفريق؟",
     "registrationConfirm": "هل أنت متأكد أنك تريد التسجيل في هذه البطولة؟",
-    "makepresidentmessage": "هل أنت متأكد أنك تريد نقل الرئاسة؟"
+    "makepresidentmessage": "هل أنت متأكد أنك تريد نقل الرئاسة؟",
+    "createTeamConfirm": "هل أنت متأكد أنك تريد إنشاء فريق؟"
   },
   "drafting": {
     "drafting": "الدرافت",

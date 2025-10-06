@@ -245,7 +245,8 @@
     "lobby": "Lobby",
     "home": "Home",
     "profile": "Profile",
-    "prime": "Prime"
+    "prime": "Prime",
+    "myteam": "My Team"
   },
   "user_menu": {
     "my_profile": "My Profile",
@@ -359,6 +360,7 @@
     "join_button": "JOIN",
     "Registerog": "REGISTER",
     "Registergn": "REGISTERED",
+    "create": "CREATE TEAM",
 
     "queue_button": "Queue button",
     "open_button": "Open button",
@@ -437,7 +439,8 @@
     "leavePartyTitle": "Are you sure you want to leave party?",
     "removeTeamConfirm": "Are you sure you want to remove team?",
     "leaveTeamConfirm": "Are you sure you want to leave team?",
-    "registrationConfirm": "Are you sure you want to register for this tournament?"
+    "registrationConfirm": "Are you sure you want to register for this tournament?",
+    "createTeamConfirm": "Are you sure you would like to create a team?"
   },
   "drafting": {
     "drafting": "Drafting",

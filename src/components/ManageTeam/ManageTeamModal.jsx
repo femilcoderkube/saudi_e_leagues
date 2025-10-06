@@ -4,10 +4,7 @@ import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../components/ui/images/images";
 import { baseURL, inviteUrl } from "../../utils/axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchInviteLink,
-  resetInviteLink,
-} from "../../app/slices/teamInvitationSlice/teamInvitationSlice";
+import { resetInviteLink } from "../../app/slices/teamInvitationSlice/teamInvitationSlice";
 import { toast } from "react-toastify";
 import TeamSection from "./TeamSection";
 import {
@@ -29,7 +26,6 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.auth);
-
   const {
     link: inviteLink,
     loading,
@@ -55,15 +51,6 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     rosterSelection?.coachId,
     rosterSelection?.playerIds,
   ]);
-
-  // Fetch invite link when modal opens
-  useEffect(() => {
-    dispatch(fetchInviteLink(currentTeam?._id))
-      .unwrap()
-      .catch((err) =>
-        toast.error(err || t("tournament.invite_link_fetch_failed"))
-      );
-  }, [dispatch, t]);
 
   // Fetch team user format when team ID changes
   useEffect(() => {
@@ -193,14 +180,12 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
             userId: user._id,
           })
         );
-
-        console.log("shgfddsahfghkjsa----", res);
         toast.success(res?.message);
         onClose();
       })
       .catch((err) => toast.error(err));
   };
-  const handleWithdraw = () => {
+  const handleWithdraw = async () => {
     dispatch(
       withdrawTeamRoster({
         id: teamData?.data?._id,
@@ -208,6 +193,13 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     )
       .unwrap()
       .then((res) => {
+        dispatch(
+          getTeamDetails({
+            tournamentId: tournamentData?._id,
+            teamId: currentTeam?._id,
+            userId: user?._id,
+          })
+        );
         toast.success(res?.message);
         onClose();
       })

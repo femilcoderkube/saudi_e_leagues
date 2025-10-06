@@ -429,11 +429,7 @@ export const countries = [
   },
   {
     value: "Isle of Man",
-    label: "Isle of Man"
-  },
-  {
-    value: "Israel",
-    label: "Israel"
+    label: "Isle of Man",
   },
   {
     value: "Italy",

@@ -194,6 +194,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
 
       if (res.success) {
         handleClose();
+        dispatch(getTeamData(user?._id));
       } else {
         toast.error(res?.message);
       }

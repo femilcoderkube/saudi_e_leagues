@@ -116,11 +116,7 @@ export const withdrawTeamRoster = createAsyncThunk(
   "tournamentTeam/withdrawTeamRoster",
   async ({ id }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.delete(`/Roaster?id=${id}`,{
-        headers : {
-          "X-Encrypt-Response": false,
-        }
-      });
+      const response = await axiosInstance.delete(`/Roaster?id=${id}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(

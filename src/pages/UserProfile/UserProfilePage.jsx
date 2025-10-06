@@ -105,6 +105,20 @@ const UserProfilePage = () => {
             {t("auth.edit_profile")}
           </li>
 
+          <li
+            className="text-lg purple_col flex gap-2 cursor-pointer"
+            onClick={() => { 
+                navigate(`/${id}/lobby/team`);                            
+            }}
+          >
+            <img
+              className="w-6 h-6 object-contain"
+              src={IMAGES.my_team_icon}
+              alt="user"
+            />
+            {t("user_menu.my_team")}
+          </li>    
+
           {deviceType == "mobile" && (
             <li
               className="text-lg purple_col flex gap-2 cursor-pointer"

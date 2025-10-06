@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TimelinePanel from "../../components/Cards/LeagueDetail/TimelinePanel.jsx";
 import {
   formatAmountWithCommas,
@@ -45,6 +45,8 @@ import {
 } from "../../app/slices/constState/constStateSlice.js";
 import ConfirmationPopUp from "../../components/Overlays/ConfirmationPopUp.jsx";
 import ViewTeamModal from "../../components/ManageTeam/ViewTeamModal.jsx";
+import { fetchInviteLink } from "../../app/slices/teamInvitationSlice/teamInvitationSlice.js";
+import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
   const { tournamentData, activeStage, loader } = useSelector(
@@ -54,15 +56,14 @@ const TournamentDetail = () => {
   const { viewManagePopup } = useSelector((state) => state.constState);
 
   const [showModal, setShowModal] = useState(false);
-  const { currentTeam, teamData, loading } = useSelector(
-    (state) => state.tournamentTeam
-  );
+  const { currentTeam, teamData, loading, showTeamRegistrationPopup } =
+    useSelector((state) => state.tournamentTeam);
 
   const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { user } = useSelector((state) => state.auth);
-  const { tId } = useParams();
+  const { id, tId } = useParams();
   const dispatch = useDispatch();
   const [isManageOpen, setIsManageOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null); // For accordion toggle
@@ -83,6 +84,7 @@ const TournamentDetail = () => {
     if (i === 2) return "text-[#CD7F32]"; // Bronze
     return "text-white";
   };
+
   useEffect(() => {
     if (user?._id) {
       dispatch(getTeamData(user?._id));
@@ -98,6 +100,8 @@ const TournamentDetail = () => {
           userId: user?._id,
         })
       );
+
+      dispatch(fetchInviteLink(currentTeam?._id)).unwrap();
     }
   }, [currentTeam?._id, dispatch, tournamentData?._id]);
 
@@ -290,21 +294,28 @@ const TournamentDetail = () => {
             </div>
             <button
               onClick={
-                teamData?.dataFound ||
-                !user?._id ||
-                !["Manager", "President"].includes(teamData?.userRole) ||
-                !isWithinRegistrationPeriod
-                  ? undefined
-                  : onRegistration
+                currentTeam?._id
+                  ? teamData?.dataFound ||
+                    !user?._id ||
+                    !["Manager", "President"].includes(teamData?.userRole) ||
+                    !isWithinRegistrationPeriod
+                    ? undefined
+                    : onRegistration
+                  : () => dispatch(setConfirmationPopUp(16))
               }
               className={`common-width join_btn duration-300 block sd_before relative w-full ${
-                teamData?.dataFound ||
-                !user?._id ||
-                !["Manager", "President"].includes(teamData?.userRole) ||
-                !isWithinRegistrationPeriod
+                currentTeam?._id
+                  ? teamData?.dataFound ||
+                    !user?._id ||
+                    !["Manager", "President"].includes(teamData?.userRole) ||
+                    !isWithinRegistrationPeriod
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
+                  : !user?._id
                   ? "opacity-50 cursor-not-allowed"
                   : "cursor-pointer"
               }`}
+              disabled={!user?._id}
             >
               <span
                 className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
@@ -314,15 +325,19 @@ const TournamentDetail = () => {
                   textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
                 }}
               >
-                {teamData?.dataFound
-                  ? t("images.Registergn")
-                  : t("images.Registerog")}
+                {currentTeam?._id
+                  ? teamData?.dataFound
+                    ? t("images.Registergn")
+                    : t("images.Registerog")
+                  : t("images.create")}
               </span>
 
               <img
                 className="mx-auto"
                 src={
-                  teamData?.dataFound ? IMAGES.ragister_gn : IMAGES.ragister_og
+                  currentTeam?._id && teamData?.dataFound
+                    ? IMAGES.ragister_gn
+                    : IMAGES.ragister_og
                 }
                 alt=""
                 style={{ width: "100%" }}
@@ -639,7 +654,7 @@ const TournamentDetail = () => {
 
                                   {/* Preview avatars */}
                                   <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
-                                    {teams.slice(0, 3).map((team, i) => {
+                                    {teams.slice(0, 4).map((team, i) => {
                                       const classs =
                                         i === 0
                                           ? ""
@@ -661,21 +676,21 @@ const TournamentDetail = () => {
                                         </div>
                                       );
                                     })}
-                                    {teams.length > 3 && (
+                                    {/* {teams.length > 4 && (
                                       <div className="round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center">
                                         <span className="text-base font-semibold text-white">
-                                          +{teams.length - 3}
+                                          +{teams.length - 4}
                                         </span>
                                       </div>
-                                    )}
+                                    )} */}
                                   </div>
                                 </div>
 
                                 <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
                                   <div className="flex gap-2 items-center">
                                     <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
-                                      {teams?.length != 0
-                                        ? "+" + teams?.length
+                                      {teams?.length > 4
+                                        ? `+${teams.length - 4}`
                                         : ""}
                                     </p>
                                   </div>
@@ -824,6 +839,7 @@ const TournamentDetail = () => {
       </svg>
       {showModal && <PDFViewer onClose={handleClose} />}
       <ConfirmationPopUp onRegisterTournament={handleRegisterTournament} />
+      {showTeamRegistrationPopup && <TeamRegistrationPopup isEdit={false} />}
     </main>
   );
 };

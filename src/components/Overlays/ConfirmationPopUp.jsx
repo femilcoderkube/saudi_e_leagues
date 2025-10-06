@@ -12,8 +12,8 @@ import { IMAGES } from "../ui/images/images";
 import { useNavigate, useParams } from "react-router-dom";
 import { checkParams } from "../../utils/constant";
 import {
-  registerTournament,
   resetTeamData,
+  setTeamRegistrationPopup,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice";
 
 function ConfirmationPopUp({
@@ -155,6 +155,10 @@ function ConfirmationPopUp({
       onDeleteTeam(popupData);
       dispatch(setConfirmationPopUp(0));
     }
+    if (confirmationPopUp === 16) {
+      dispatch(setTeamRegistrationPopup(true));
+      dispatch(setConfirmationPopUp(0));
+    }
   };
 
   const getConfirmationTitle = () => {
@@ -173,6 +177,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 13) return t("confirmation.leaveTeamConfirm");
     if (confirmationPopUp == 14) return t("confirmation.registrationConfirm");
     if (confirmationPopUp == 15) return t("confirmation.removeTeamConfirm");
+    if (confirmationPopUp == 16) return t("confirmation.createTeamConfirm");
 
     return "";
   };
@@ -231,7 +236,8 @@ function ConfirmationPopUp({
       confirmationPopUp == 12 ||
       confirmationPopUp == 13 ||
       confirmationPopUp == 14 ||
-      confirmationPopUp == 15
+      confirmationPopUp == 15 ||
+      confirmationPopUp == 16
     )
       return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
@@ -254,6 +260,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 13) return t("confirmation.yes");
     if (confirmationPopUp == 14) return t("confirmation.yes");
     if (confirmationPopUp == 15) return t("confirmation.yes");
+    if (confirmationPopUp == 16) return t("confirmation.yes");
     return "";
   };
 
