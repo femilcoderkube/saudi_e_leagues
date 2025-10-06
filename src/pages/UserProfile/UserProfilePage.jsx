@@ -116,7 +116,7 @@ const UserProfilePage = () => {
               src={IMAGES.my_team_icon}
               alt="user"
             />
-            My Team
+            {t("user_menu.my_team")}
           </li>    
 
           {deviceType == "mobile" && (

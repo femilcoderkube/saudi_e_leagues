@@ -677,7 +677,7 @@ const TournamentDetail = () => {
 
                                   {/* Preview avatars */}
                                   <div className="data-images flex items-center lg:gap-6 sm:gap-4 gap-2">
-                                    {teams.slice(0, 3).map((team, i) => {
+                                    {teams.slice(0, 4).map((team, i) => {
                                       const classs =
                                         i === 0
                                           ? ""
@@ -699,13 +699,13 @@ const TournamentDetail = () => {
                                         </div>
                                       );
                                     })}
-                                    {teams.length > 3 && (
+                                    {/* {teams.length > 4 && (
                                       <div className="round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center">
                                         <span className="text-base font-semibold text-white">
-                                          +{teams.length - 3}
+                                          +{teams.length - 4}
                                         </span>
                                       </div>
-                                    )}
+                                    )} */}
                                   </div>
                                 </div>
 
@@ -713,7 +713,7 @@ const TournamentDetail = () => {
                                   <div className="flex gap-2 items-center">
                                     <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
                                       {teams?.length != 0
-                                        ? "+" + teams?.length
+                                        ? "+" + ((teams?.length) - 4) 
                                         : ""}
                                     </p>
                                   </div>

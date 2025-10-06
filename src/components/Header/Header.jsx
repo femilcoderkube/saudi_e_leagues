@@ -211,9 +211,8 @@ const MatchControls = ({
         !matchData?.isCanceled &&
         showCancelBtn && (
           <div
-            className={`cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ${
-              isMatchCanceled ? "!cursor-not-allowed" : "cursor-pointer"
-            }`}
+            className={`cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ${isMatchCanceled ? "!cursor-not-allowed" : "cursor-pointer"
+              }`}
             onClick={() =>
               isMatchCanceled ? null : dispatch(setConfirmationPopUp(2))
             }
@@ -287,9 +286,8 @@ const BreadcrumbNavigation = ({
               <div className="breadcrumb-box flex items-center gap-2">
                 <Link
                   to={item.path}
-                  className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
-                    item.active ? "sky_col font-semibold" : ""
-                  }`}
+                  className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${item.active ? "sky_col font-semibold" : ""
+                    }`}
                 >
                   {item.label && (
                     <item.icon IsActive={item.active} className="text-white" />
@@ -325,6 +323,26 @@ const BreadcrumbNavigation = ({
                   className="breadcrumb-text flex items-center gap-3 ltr:pl-2 rtl:pr-2 sm:gap-3 text-sm md:text-lg font-bold text-white text-[1.25rem]"
                 >
                   {t("navigation.profile")}
+                </Link>
+              </div>
+            </li>
+          ) : checkParams("team") ? (
+            <li
+              key={-4}
+              className="flex items-center gap-2 sm:gap-4 md:gap-7"
+              onClick={() => {
+                dispatch(setActiveTabIndex(2));
+                dispatch(setProfileVisible(false));
+                dispatch(setGameMatchLoader(false));
+              }}
+            >
+              {i18n.language === "ar" ? <NextArrow2 /> : <NextArrow3 />}
+              <div className="breadcrumb-box flex items-center gap-2">
+                <Link
+                  to={`/${params.id}/profile`}
+                  className="breadcrumb-text flex items-center gap-3 ltr:pl-2 rtl:pr-2 sm:gap-3 text-sm md:text-lg font-bold text-white text-[1.25rem]"
+                >
+                  {t("navigation.myteam")}
                 </Link>
               </div>
             </li>
@@ -421,18 +439,16 @@ const MobileNavigation = ({ user, isActiveTab, breadcrumbItems }) => {
 
   return (
     <div
-      className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${
-        breadcrumbItems?.length == 3 ? "hidden " : ""
-      }${user ? "" : "nav-condition"}`}
+      className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${breadcrumbItems?.length == 3 ? "hidden " : ""
+        }${user ? "" : "nav-condition"}`}
     >
       <div className="sq__main-wrap h-full">
         <ul className="listWrap h-full flex justify-around items-center">
           {navigationItems.map((item) => (
             <li
               key={item.id}
-              className={`list flex-1 ${
-                isActiveTab == item.id ? "active" : ""
-              }`}
+              className={`list flex-1 ${isActiveTab == item.id ? "active" : ""
+                }`}
               onClick={() => handleNavClick(item)}
             >
               <a
@@ -493,7 +509,7 @@ const Header = () => {
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
-  useEffect(() => {}, [matchData, matchDataT, user, location]);
+  useEffect(() => { }, [matchData, matchDataT, user, location]);
   const userUpdate = useSelector((state) => state.auth.user);
 
   const { i18n, t } = useTranslation();
@@ -502,6 +518,7 @@ const Header = () => {
   const breadcrumbItems = [];
   let path = new Set(window.location.pathname.split("/")).has("lobby");
   let profile = new Set(window.location.pathname.split("/")).has("profile");
+  let team = new Set(window.location.pathname.split("/")).has("team");
 
   if (params.id) {
     let item = {
@@ -592,14 +609,16 @@ const Header = () => {
   }
 
   useEffect(() => {
-    if (path) {
+    if (path && !team) {
       dispatch(setActiveTabIndex(0));
     } else if (profile) {
+      dispatch(setActiveTabIndex(2));
+    } else if (team) {
       dispatch(setActiveTabIndex(2));
     } else if (checkParams(params.id)) {
       dispatch(setActiveTabIndex(1));
     }
-  }, [path, profile, checkParams(params.id)]);
+  }, [path, profile, team,  checkParams(params.id)]);
 
   let mainItem = breadcrumbItems[breadcrumbItems.length - 1];
 

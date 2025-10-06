@@ -245,7 +245,8 @@
     "lobby": "Lobby",
     "home": "Home",
     "profile": "Profile",
-    "prime": "Prime"
+    "prime": "Prime",
+    "myteam": "My Team"
   },
   "user_menu": {
     "my_profile": "My Profile",
