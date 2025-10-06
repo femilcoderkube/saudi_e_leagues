@@ -4,7 +4,10 @@ import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../components/ui/images/images";
 import { baseURL, inviteUrl } from "../../utils/axios";
 import { useDispatch, useSelector } from "react-redux";
-import { resetInviteLink } from "../../app/slices/teamInvitationSlice/teamInvitationSlice";
+import {
+  fetchInviteLink,
+  resetInviteLink,
+} from "../../app/slices/teamInvitationSlice/teamInvitationSlice";
 import { toast } from "react-toastify";
 import TeamSection from "./TeamSection";
 import {
@@ -52,6 +55,15 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     rosterSelection?.coachId,
     rosterSelection?.playerIds,
   ]);
+
+  // Fetch invite link when modal opens
+  useEffect(() => {
+    dispatch(fetchInviteLink(currentTeam?._id))
+      .unwrap()
+      .catch((err) =>
+        toast.error(err || t("tournament.invite_link_fetch_failed"))
+      );
+  }, [dispatch, t]);
 
   // Fetch team user format when team ID changes
   useEffect(() => {

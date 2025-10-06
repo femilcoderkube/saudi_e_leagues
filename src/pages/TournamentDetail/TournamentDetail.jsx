@@ -156,9 +156,11 @@ const TournamentDetail = () => {
             userId: user?._id,
           })
         ).unwrap();
-        if(teamData?.userRole === "President" ||
-          teamData?.userRole === "Manager") 
-        setIsManageOpen(true)
+        if (
+          teamData?.userRole === "President" ||
+          teamData?.userRole === "Manager"
+        )
+          setIsManageOpen(true);
       }
     } catch (error) {
       console.log("err", error);
