@@ -392,7 +392,8 @@
     "skip": "تخطي",
     "Registerog": "تسجيل",
     "Registergn": "مسجل",
-    "create": "إنشاء فريق"
+    "create": "إنشاء فريق",
+    "NotCompleted": "غير مكتمل"
   },
   "actions": {
     "custom_action": "إجراء مخصص"

@@ -1056,7 +1056,7 @@ const WizardSteps = ({
                 </div>
               )}
               <div className="game_status--tab wizard_btn next_btn flex gap-6 justify-between items-center w-full flex-wrap">
-                {!isEdit && (
+                {!isEdit && step === 1 && (
                   <div className="flex gap-2 ">
                     <span className="text-sm text-white">
                       {t("auth.dohaveaccount")}

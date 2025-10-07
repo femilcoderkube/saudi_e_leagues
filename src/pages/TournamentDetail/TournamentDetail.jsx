@@ -60,6 +60,9 @@ const TournamentDetail = () => {
   const { currentTeam, teamData, loading, showTeamRegistrationPopup } =
     useSelector((state) => state.tournamentTeam);
 
+  console.log("currentTeam", currentTeam);
+  console.log("teamData?.data?.status ", teamData?.data?.status);
+
   const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
@@ -299,7 +302,8 @@ const TournamentDetail = () => {
                   ? teamData?.dataFound ||
                     !user?._id ||
                     !["Manager", "President"].includes(teamData?.userRole) ||
-                    !isWithinRegistrationPeriod
+                    !isWithinRegistrationPeriod ||
+                    teamData?.data?.status === 1
                     ? undefined
                     : onRegistration
                   : () => dispatch(setConfirmationPopUp(16))
@@ -309,11 +313,12 @@ const TournamentDetail = () => {
                   ? teamData?.dataFound ||
                     !user?._id ||
                     !["Manager", "President"].includes(teamData?.userRole) ||
-                    !isWithinRegistrationPeriod
-                    ? "opacity-50 cursor-not-allowed"
+                    !isWithinRegistrationPeriod ||
+                    teamData?.data?.status === 1
+                    ? "cursor-not-allowed"
                     : "cursor-pointer"
                   : !user?._id
-                  ? "opacity-50 cursor-not-allowed"
+                  ? "cursor-not-allowed"
                   : "cursor-pointer"
               }`}
               disabled={!user?._id}
@@ -327,7 +332,9 @@ const TournamentDetail = () => {
                 }}
               >
                 {currentTeam?._id
-                  ? teamData?.dataFound
+                  ? teamData?.data?.status === 1
+                    ? t("images.NotCompleted")
+                    : teamData?.dataFound
                     ? t("images.Registergn")
                     : t("images.Registerog")
                   : t("images.create")}
@@ -336,8 +343,12 @@ const TournamentDetail = () => {
               <img
                 className="mx-auto"
                 src={
-                  currentTeam?._id && teamData?.dataFound
-                    ? IMAGES.ragister_gn
+                  currentTeam?._id
+                    ? teamData?.data?.status === 1
+                      ? IMAGES.ragister_yl
+                      : teamData?.dataFound
+                      ? IMAGES.ragister_gn
+                      : IMAGES.ragister_og
                     : IMAGES.ragister_og
                 }
                 alt=""

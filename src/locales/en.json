@@ -363,7 +363,7 @@
     "Registerog": "REGISTER",
     "Registergn": "REGISTERED",
     "create": "CREATE TEAM",
-
+    "NotCompleted": "NOT COMPLETED",
     "queue_button": "Queue button",
     "open_button": "Open button",
     "cancel_button": "CANCEL QUEUE",
