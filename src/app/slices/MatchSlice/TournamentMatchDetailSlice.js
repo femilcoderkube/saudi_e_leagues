@@ -11,6 +11,8 @@ const initialState = {
   isSubmitBtnShow: false,
   myTeam: null,
   showMobileChat: false,
+  isScoreSubmited: false,
+  isEditScoreT: null,
   chatData: [],
   winnerScore: {
     teamOne: "-",
@@ -44,8 +46,8 @@ const TournamentMatchDetailSlice = createSlice({
 
       // Helper function to check if user is in team
       const isUserInTeam = (team) => {
-        return team?.team?.members?.some(member =>
-          member?.user?.userId?._id?.toString() === userId
+        return team?.team?.members?.some(
+          (member) => member?.user?.userId?._id?.toString() === userId
         );
       };
 
@@ -62,21 +64,26 @@ const TournamentMatchDetailSlice = createSlice({
       state.opponent2 = matchData.opponent2;
 
       // Check if current user is in this match
-      const isMyMatch = isUserInTeam(matchData.opponent1) || isUserInTeam(matchData.opponent2);
+      const isMyMatch =
+        isUserInTeam(matchData.opponent1) || isUserInTeam(matchData.opponent2);
 
       // Reset scores to default
       state.winnerScore.teamOne = "-";
       state.winnerScore.teamTwo = "-";
 
       // Find active score or determine chat visibility
-      const activeScore = matchData?.matchScores?.find(score => score.isActive);
+      const activeScore = matchData?.matchScores?.find(
+        (score) => score.isActive
+      );
 
       if (activeScore) {
         state.winnerScore.teamOne = activeScore.opponent1Score;
         state.winnerScore.teamTwo = activeScore.opponent2Score;
         state.isShowChat = false; // Don't show chat when there's an active score
+        state.isScoreSubmited = true;
       } else {
         state.isShowChat = shouldShowChat(matchData, isMyMatch);
+        state.isScoreSubmited = false;
       }
 
       const team1Authors = matchData?.team1Author?.map(String) || [];
@@ -90,22 +97,26 @@ const TournamentMatchDetailSlice = createSlice({
 
         if (isInTeam1) {
           isSubmitBtnShow = isWithinTime;
+          isEditScoreT = matchData?.matchScores?.find(
+            (score) => score.submittedBy == "opponent1"
+          );
         } else if (isInTeam2) {
           isSubmitBtnShow = isWithinTime;
+          isEditScoreT = matchData?.matchScores?.find(
+            (score) => score.submittedBy == "opponent2"
+          );
         }
 
         state.myTeam = isUserInTeam(matchData.opponent1)
           ? "team1"
           : isUserInTeam(matchData.opponent2)
-            ? "team2"
-            : null;
-
+          ? "team2"
+          : null;
       } else {
         isSubmitBtnShow = false;
       }
 
       state.isSubmitBtnShow = isSubmitBtnShow;
-
     },
     setIsTeamOne: (state, action) => {
       state.isTeamOne = action.payload;
@@ -123,15 +134,10 @@ const TournamentMatchDetailSlice = createSlice({
       state.matchDataT = null;
     },
   },
-  extraReducers: (builder) => {
-
-  },
+  extraReducers: (builder) => {},
 });
 
-export const {
-  setmatchTData,
-  setChatTData,
-  setshowMobileChatT
-} = TournamentMatchDetailSlice.actions;
+export const { setmatchTData, setChatTData, setshowMobileChatT } =
+  TournamentMatchDetailSlice.actions;
 
 export default TournamentMatchDetailSlice.reducer;

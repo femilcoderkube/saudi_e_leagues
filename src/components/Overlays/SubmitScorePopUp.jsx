@@ -3,7 +3,10 @@ import * as Yup from "yup";
 import CustomFileUpload from "../ui/svg/UploadFile.jsx";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSubmitScoreLoading, uploadFile } from "../../app/slices/MatchSlice/matchDetailSlice.js";
+import {
+  setSubmitScoreLoading,
+  uploadFile,
+} from "../../app/slices/MatchSlice/matchDetailSlice.js";
 import { SOCKET, socket } from "../../app/socket/socket.js";
 import { getServerURL } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
@@ -15,13 +18,24 @@ function SubmitPopUp({ handleClose }) {
 
   const dispatch = useDispatch();
   const { submitScoreLoading } = useSelector((state) => state.matchs);
-  const { matchData, isEditScore } = useSelector((state) => state.matchs);
+
+  let matchData, isEditScore;
+  if (checkParams(`tournament`) && checkParams(`match`)) {
+    const matchsSliceT = useSelector((state) => state.tournamentMatch);
+    matchData = matchsSliceT.matchDataT;
+    isEditScore = matchsSliceT.isEditScoreT;
+  } else {
+    const matchsSlice = useSelector((state) => state.matchs);
+    matchData = matchsSlice.matchData;
+    isEditScore = matchsSlice.isEditScore;
+  }
+
   const initialAttachments = isEditScore?.attachment || [];
   const [previewImages, setPreviewImages] = useState(
     initialAttachments.length > 0
       ? initialAttachments.map((attachment) =>
-        attachment ? getServerURL(attachment) : null
-      )
+          attachment ? getServerURL(attachment) : null
+        )
       : [null]
   );
   const [fileError, setFileError] = useState(null);
@@ -38,9 +52,7 @@ function SubmitPopUp({ handleClose }) {
       opponentScore: isEditScore?.opponentScore || "",
       description: isEditScore?.description || "",
       scoreProofs:
-        initialAttachments.length > 0
-          ? [...initialAttachments]
-          : [null],
+        initialAttachments.length > 0 ? [...initialAttachments] : [null],
     },
     validationSchema: Yup.object({
       yourScore: Yup.number()
@@ -59,23 +71,26 @@ function SubmitPopUp({ handleClose }) {
           "At least one score proof is required",
           (value) => value.some((file) => file !== null)
         ),
-    })
-      .test(
-        "no-draw-scores",
-        "Draw results are not allowed",
-        function (values) {
-          const { yourScore, opponentScore } = values;
-          if (yourScore !== "" && opponentScore !== "" &&
-            !isNaN(yourScore) && !isNaN(opponentScore) &&
-            Number(yourScore) === Number(opponentScore)) {
-            return this.createError({
-              path: 'drawScore',
-              message: 'Draw results are not allowed'
-            });
-          }
-          return true;
+    }).test(
+      "no-draw-scores",
+      "Draw results are not allowed",
+      function (values) {
+        const { yourScore, opponentScore } = values;
+        if (
+          yourScore !== "" &&
+          opponentScore !== "" &&
+          !isNaN(yourScore) &&
+          !isNaN(opponentScore) &&
+          Number(yourScore) === Number(opponentScore)
+        ) {
+          return this.createError({
+            path: "drawScore",
+            message: "Draw results are not allowed",
+          });
         }
-      ),
+        return true;
+      }
+    ),
     onSubmit: async (values) => {
       if (Number(values.yourScore) === Number(values.opponentScore)) {
         return;
@@ -89,17 +104,28 @@ function SubmitPopUp({ handleClose }) {
         );
         const uploadResults = await Promise.all(uploadPromises);
         const uploadedFiles = uploadResults.map((result) => result?.data);
-
-        let data = {
-          team: team,
-          matchId: matchData?._id || "",
-          yourScore: values.yourScore,
-          opponentScore: values.opponentScore,
-          description: values.description,
-          attachment: uploadedFiles,
-          submittedBy: user?._id,
-        };
-        socket.emit(SOCKET.ONSUBMIT, data);
+        if (checkParams(`tournament`) && checkParams(`match`)) {
+          let data = {
+            team: team == "team1" ? "opponent1" : "opponent2",
+            matchId: matchData?._id || "",
+            yourScore: values.yourScore,
+            opponentScore: values.opponentScore,
+            description: values.description,
+            attachment: uploadedFiles,
+            submittedBy: user?._id,
+          };
+        } else {
+          let data = {
+            team: team,
+            matchId: matchData?._id || "",
+            yourScore: values.yourScore,
+            opponentScore: values.opponentScore,
+            description: values.description,
+            attachment: uploadedFiles,
+            submittedBy: user?._id,
+          };
+          socket.emit(SOCKET.ONSUBMIT, data);
+        }
         formik.resetForm();
         setPreviewImages([null]);
         setUploadCount(0);
@@ -192,10 +218,16 @@ function SubmitPopUp({ handleClose }) {
   };
 
   useEffect(() => {
-    const isInTeam1 = matchData?.team1?.some(
-      (participant) => participant?.participant?.userId?._id === user?._id
-    );
-    setTeam(isInTeam1 ? "team1" : "team2");
+    if (checkParams(`tournament`) && checkParams(`match`)) {
+      const isInTeam1 = team1Authors.includes(user?._id);
+
+      setTeam(isInTeam1 ? "team1" : "team2");
+    } else {
+      const isInTeam1 = matchData?.team1?.some(
+        (participant) => participant?.participant?.userId?._id === user?._id
+      );
+      setTeam(isInTeam1 ? "team1" : "team2");
+    }
   }, []);
 
   const isSubmitDisabled =
@@ -212,14 +244,17 @@ function SubmitPopUp({ handleClose }) {
       ></div>
 
       <div className="fixed modal_popup-con inset-0 flex justify-center items-center z-50">
-        <motion.div className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60"
+        <motion.div
+          className="popup-wrap inline-flex items-center justify-center h-[fit-content] relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60"
           initial={{ scale: 0.5, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-auto text-white 
-    h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden sm:overflow-y-auto">
+          <div
+            className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-auto text-white 
+    h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden sm:overflow-y-auto"
+          >
             <div className="popup_header px-8 pt-4 flex items-start ltr:justify-end mt-3 text-center sm:mt-0 sm:text-left rtl:justify-start rtl:text-right">
               <div className="flex items-center gap-2 absolute left-12 top-5">
                 <span className="text-[#7B7ED0] font-bold text-lg">{team}</span>
@@ -400,8 +435,9 @@ function SubmitPopUp({ handleClose }) {
                 type="submit"
                 onClick={formik.handleSubmit}
                 disabled={isSubmitDisabled}
-                className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 flex items-center justify-center ${isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 flex items-center justify-center ${
+                  isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
                 {submitScoreLoading ? (
                   <svg
@@ -428,8 +464,8 @@ function SubmitPopUp({ handleClose }) {
                 {submitScoreLoading
                   ? t("common.uploading")
                   : isEditScore?.yourScore
-                    ? t("auth.update")
-                    : t("auth.submit_score")}
+                  ? t("auth.update")
+                  : t("auth.submit_score")}
               </button>
               <Popup_btn />
             </div>

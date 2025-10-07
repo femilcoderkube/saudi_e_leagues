@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "../../assets/css/main_content.css";
 import "../../assets/css/select_game.css";
 import {
@@ -200,38 +195,38 @@ const MatchControls = ({
   myTeam,
   isSubmitBtnShow,
   isMyMatch,
+  isScoreSubmited,
 }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   if (!user) return null;
 
-  if (
-    checkParams(`tournament`) &&
-    checkParams(`match`)
-  ) {
+  if (checkParams(`tournament`) && checkParams(`match`)) {
     return (
       <div className="flex items-center gap-3">
-        <div
-          className="submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
-          onClick={isSubmitBtnShow ? () => dispatch(setSubmitModal(true)) : undefined}
-        >
-          <Link className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
-            {isSubmitBtnShow ? t("auth.submit_score") : t("auth.view_score")}
-          </Link>
-          <svg
-            width="0"
-            height="0"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ position: "absolute" }}
+        {isSubmitBtnShow && (
+          <div
+            className="submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
+            onClick={() => dispatch(setSubmitModal(true))}
           >
-            <defs>
-              <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
-                <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
-              </clipPath>
-            </defs>
-          </svg>
-        </div>
+            <Link className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
+              {!isScoreSubmited ? t("auth.submit_score") : t("auth.view_score")}
+            </Link>
+            <svg
+              width="0"
+              height="0"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ position: "absolute" }}
+            >
+              <defs>
+                <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
+                  <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+        )}
       </div>
     );
   } else {
@@ -242,8 +237,9 @@ const MatchControls = ({
           !matchData?.isCanceled &&
           showCancelBtn && (
             <div
-              className={`cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ${isMatchCanceled ? "!cursor-not-allowed" : "cursor-pointer"
-                }`}
+              className={`cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ${
+                isMatchCanceled ? "!cursor-not-allowed" : "cursor-pointer"
+              }`}
               onClick={() =>
                 isMatchCanceled ? null : dispatch(setConfirmationPopUp(2))
               }
@@ -292,7 +288,6 @@ const MatchControls = ({
       </div>
     );
   }
-
 };
 
 // Breadcrumb Component
@@ -319,8 +314,9 @@ const BreadcrumbNavigation = ({
               <div className="breadcrumb-box flex items-center gap-2">
                 <Link
                   to={item.path}
-                  className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${item.active ? "sky_col font-semibold" : ""
-                    }`}
+                  className={`breadcrumb-text flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-sm md:text-lg purple_col font-bold ${
+                    item.active ? "sky_col font-semibold" : ""
+                  }`}
                 >
                   {item.label && (
                     <item.icon IsActive={item.active} className="text-white" />
@@ -472,16 +468,18 @@ const MobileNavigation = ({ user, isActiveTab, breadcrumbItems }) => {
 
   return (
     <div
-      className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${breadcrumbItems?.length == 3 ? "hidden " : ""
-        }${user ? "" : "nav-condition"}`}
+      className={`navigation sm:hidden w-full h-[5rem] left-0 fixed bottom-0 z-100 ${
+        breadcrumbItems?.length == 3 ? "hidden " : ""
+      }${user ? "" : "nav-condition"}`}
     >
       <div className="sq__main-wrap h-full">
         <ul className="listWrap h-full flex justify-around items-center">
           {navigationItems.map((item) => (
             <li
               key={item.id}
-              className={`list flex-1 ${isActiveTab == item.id ? "active" : ""
-                }`}
+              className={`list flex-1 ${
+                isActiveTab == item.id ? "active" : ""
+              }`}
               onClick={() => handleNavClick(item)}
             >
               <a
@@ -538,12 +536,22 @@ const Header = () => {
     isMyMatch,
     isMatchCanceled,
   } = useSelector((state) => state.matchs);
-  const { matchDataT, myTeam, isSubmitBtnShow } = useSelector((state) => state.tournamentMatch);
+  const { matchDataT, myTeam, isSubmitBtnShow, isScoreSubmited } = useSelector(
+    (state) => state.tournamentMatch
+  );
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
   const userUpdate = useSelector((state) => state.auth.user);
-  useEffect(() => { }, [matchData, matchDataT, user, userUpdate, isSubmitBtnShow, location]);
+  useEffect(() => {}, [
+    matchData,
+    matchDataT,
+    user,
+    userUpdate,
+    isSubmitBtnShow,
+    location,
+    isScoreSubmited,
+  ]);
 
   const { i18n, t } = useTranslation();
 
@@ -740,6 +748,7 @@ const Header = () => {
               matchData={matchData}
               myTeam={myTeam}
               isSubmitBtnShow={isSubmitBtnShow}
+              isScoreSubmited={isScoreSubmited}
               isMyMatch={isMyMatch}
             />
             {!user && (
