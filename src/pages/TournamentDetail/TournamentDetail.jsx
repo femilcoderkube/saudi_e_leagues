@@ -42,6 +42,7 @@ import {
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import {
   setConfirmationPopUp,
+  setLogin,
   setPopupData,
   setViewManagePopup,
 } from "../../app/slices/constState/constStateSlice.js";
@@ -61,10 +62,7 @@ const TournamentDetail = () => {
   const { currentTeam, teamData, loading, showTeamRegistrationPopup } =
     useSelector((state) => state.tournamentTeam);
 
-  console.log("tournamentData", tournamentData);
-
   console.log("currentTeam", currentTeam);
-  console.log("teamData?.data?.status ", teamData);
 
   const handleClose = () => setShowModal(false);
 
@@ -201,15 +199,166 @@ const TournamentDetail = () => {
   const isWithinRegistrationPeriod =
     regEnd > regStart && currentDate >= regStart && currentDate <= regEnd;
 
+  const startDate = tournamentData?.startDate
+    ? new Date(tournamentData?.startDate)
+    : null;
+
+  const endDate = tournamentData?.endDate
+    ? new Date(tournamentData?.endDate)
+    : null;
+
   const timeUntilRegistration = useMemo(
-    () => getTimeUntilRegistration(regStart),
-    [regStart]
+    () => getTimeUntilRegistration(regStart, t),
+    [regStart, t]
   );
 
   const isRegistrationClosed =
     (regEnd && new Date() >= regEnd) ||
     (tournamentData?.maxParticipants &&
       tournamentData?.totalRegistrations >= tournamentData?.maxParticipants);
+
+  const isTournamentStarted = startDate && new Date() >= startDate;
+  const isTournamentFinished = endDate && new Date() >= endDate;
+
+  const getButtonState = ({
+    currentTeam,
+    teamData,
+    user,
+    isWithinRegistrationPeriod,
+    timeUntilRegistration,
+    isRegistrationClosed,
+    isTournamentStarted,
+    isTournamentFinished,
+    t,
+  }) => {
+    // Default state for disabled button
+    const defaultState = {
+      text: "",
+      image: IMAGES.ragister_bl,
+      isDisabled: true,
+      onClick: undefined,
+      className: "opacity-50 cursor-not-allowed",
+    };
+
+    // Tournament finished
+    if (isTournamentFinished) {
+      return {
+        ...defaultState,
+        text: t("images.Finished"),
+      };
+    }
+
+    // Tournament started
+    if (isTournamentStarted) {
+      return {
+        ...defaultState,
+        text: t("images.Started"),
+      };
+    }
+
+    // Registration closed
+    if (isRegistrationClosed) {
+      return {
+        ...defaultState,
+        text: t("images.RegistrationClose"),
+      };
+    }
+
+    // Registration not yet open
+    if (timeUntilRegistration) {
+      return {
+        ...defaultState,
+        text: t("images.openIn", { time: timeUntilRegistration }),
+      };
+    }
+
+    // No user logged in
+    if (!user?._id) {
+      return {
+        // ...defaultState,
+        image: IMAGES.ragister_og,
+        isDisabled: false,
+        text: t("auth.login"),
+        onClick: () => dispatch(setLogin(true)),
+      };
+    }
+
+    // User has a team
+    if (currentTeam?._id) {
+      // Team already registered
+      if (teamData?.dataFound) {
+        return {
+          ...defaultState,
+          text: t("images.Registergn"),
+        };
+      }
+
+      // Team incomplete
+      if (teamData?.data?.status === 1) {
+        return {
+          ...defaultState,
+          text: t("images.NotCompleted"),
+          image: IMAGES.ragister_yl,
+        };
+      }
+
+      // Not Manager or President, or outside registration period
+      if (
+        !["Manager", "President"].includes(teamData?.userRole) ||
+        !isWithinRegistrationPeriod
+      ) {
+        return {
+          ...defaultState,
+          text: t("images.Registerog"),
+          image: IMAGES.ragister_og,
+        };
+      }
+
+      // Team can register
+      return {
+        text: t("images.Registerog"),
+        image: IMAGES.ragister_og,
+        isDisabled: false,
+        onClick: onRegistration,
+        className: "cursor-pointer",
+      };
+    }
+
+    // No team, allow team creation
+    return {
+      text: t("images.create"),
+      image: IMAGES.ragister_og,
+      isDisabled: false,
+      onClick: () => dispatch(setConfirmationPopUp(16)),
+      className: "cursor-pointer",
+    };
+  };
+
+  const buttonState = useMemo(
+    () =>
+      getButtonState({
+        currentTeam,
+        teamData,
+        user,
+        isWithinRegistrationPeriod,
+        timeUntilRegistration,
+        isRegistrationClosed,
+        isTournamentStarted,
+        isTournamentFinished,
+        t,
+      }),
+    [
+      currentTeam,
+      teamData,
+      user,
+      isWithinRegistrationPeriod,
+      timeUntilRegistration,
+      isRegistrationClosed,
+      isTournamentStarted,
+      isTournamentFinished,
+      t,
+    ]
+  );
 
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
@@ -310,37 +459,9 @@ const TournamentDetail = () => {
               </div>
             </div>
             <button
-              onClick={
-                currentTeam?._id
-                  ? teamData?.dataFound ||
-                    !user?._id ||
-                    !["Manager", "President"].includes(teamData?.userRole) ||
-                    !isWithinRegistrationPeriod ||
-                    teamData?.data?.status === 1 ||
-                    timeUntilRegistration ||
-                    isRegistrationClosed
-                    ? undefined
-                    : onRegistration
-                  : () => dispatch(setConfirmationPopUp(16))
-              }
-              className={`regi-close-btn common-width join_btn duration-300 block sd_before relative w-full ${
-                currentTeam?._id
-                  ? teamData?.dataFound ||
-                    !user?._id ||
-                    !["Manager", "President"].includes(teamData?.userRole) ||
-                    !isWithinRegistrationPeriod ||
-                    teamData?.data?.status === 1 ||
-                    timeUntilRegistration ||
-                    isRegistrationClosed
-                    ? "opacity-50 cursor-not-allowed"
-                    : "cursor-pointer"
-                  : !user?._id
-                  ? "opacity-50 cursor-not-allowed"
-                  : "cursor-pointer"
-              }`}
-              disabled={
-                !user?._id || !!timeUntilRegistration || isRegistrationClosed
-              }
+              onClick={buttonState.onClick}
+              className={`regi-close-btn common-width join_btn duration-300 block sd_before relative w-full ${buttonState.className}`}
+              disabled={buttonState.isDisabled}
             >
               <span
                 className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-lg xl:text-[1.375rem]"
@@ -350,34 +471,11 @@ const TournamentDetail = () => {
                   textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
                 }}
               >
-                {isRegistrationClosed
-                  ? t("images.RegistrationClose")
-                  : timeUntilRegistration
-                  ? t("images.openIn", { time: timeUntilRegistration })
-                  : currentTeam?._id
-                  ? teamData?.data?.status === 1
-                    ? t("images.NotCompleted")
-                    : teamData?.dataFound
-                    ? t("images.Registergn")
-                    : t("images.Registerog")
-                  : t("images.create")}
+                {buttonState.text}
               </span>
-
               <img
                 className="mx-auto"
-                src={
-                  isRegistrationClosed
-                    ? IMAGES.ragister_bl
-                    : timeUntilRegistration
-                    ? IMAGES.ragister_bl
-                    : currentTeam?._id
-                    ? teamData?.data?.status === 1
-                      ? IMAGES.ragister_yl
-                      : teamData?.dataFound
-                      ? IMAGES.ragister_gn
-                      : IMAGES.ragister_og
-                    : IMAGES.ragister_og
-                }
+                src={buttonState.image}
                 alt=""
                 style={{ width: "100%" }}
               />

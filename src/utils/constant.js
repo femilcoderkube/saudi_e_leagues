@@ -517,7 +517,7 @@ export const findUserRolesById = (games, userId) => {
     .filter((entry) => entry !== null);
 };
 
-// / Helper function to calculate time remaining until registration start
+// Helper function to calculate time remaining until registration start
 export const getTimeUntilRegistration = (regStart, t) => {
   if (!regStart) return null;
   const now = new Date();
@@ -535,7 +535,12 @@ export const getTimeUntilRegistration = (regStart, t) => {
   const transMinutes = minutes === 1 ? t("units.minute") : t("units.minutes");
   const transNumbers = (num) => t(`numbers.${num}`);
 
-  return `${transNumbers(days)} ${transDays} ${transNumbers(
-    hours
-  )} ${transHours} ${transNumbers(minutes)} ${transMinutes}`;
+  // Return only the largest non-zero unit
+  if (days > 0) {
+    return `${transNumbers(days)} ${transDays}`;
+  } else if (hours > 0) {
+    return `${transNumbers(hours)} ${transHours}`;
+  } else {
+    return `${transNumbers(minutes)} ${transMinutes}`;
+  }
 };
