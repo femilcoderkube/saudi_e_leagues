@@ -312,7 +312,17 @@ const Login = () => {
                       </defs>
                     </svg>
                   </div>
-                  <div className="flex gap-2 ">
+                  
+                  <button
+                    type="button"
+                    onClick={() => setVisible(true)}
+                    className="text-sm text-blue-500 cursor-pointer hover:opacity-70"
+                  >
+                    {t("auth.lblForgot")}
+                  </button>
+                  <div className="wizard_step--btn flex justify-end">
+                    <div className="game_status--tab wizard_btn mt-10 mb-8 mr-5 login-btn flex gap-6 justify-between items-center w-full flex-wrap">
+                    <div className="flex gap-2 ">
                     <span className="text-sm text-white">
                       {t("auth.donthaveaccount")}
                     </span>
@@ -326,15 +336,6 @@ const Login = () => {
                       {t("auth.create_account")}
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setVisible(true)}
-                    className="text-sm text-blue-500 cursor-pointer hover:opacity-70"
-                  >
-                    {t("auth.lblForgot")}
-                  </button>
-                  <div className="wizard_step--btn flex justify-end">
-                    <div className="game_status--tab wizard_btn mt-10 mb-8 mr-5 login-btn">
                       <button
                         type="submit"
                         disabled={isSubmitting}
