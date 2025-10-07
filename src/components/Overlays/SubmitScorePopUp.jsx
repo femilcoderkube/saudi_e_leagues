@@ -7,28 +7,43 @@ import {
   setSubmitScoreLoading,
   uploadFile,
 } from "../../app/slices/MatchSlice/matchDetailSlice.js";
-import { SOCKET, socket } from "../../app/socket/socket.js";
-import { getServerURL } from "../../utils/constant.js";
+import {
+  getMatchDetailTById,
+  SOCKET,
+  socket,
+} from "../../app/socket/socket.js";
+import { checkParams, getServerURL } from "../../utils/constant.js";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Popup_btn } from "../ui/svg/index.jsx";
+import { addScore } from "../../app/slices/MatchSlice/TournamentMatchDetailSlice.js";
+import { useParams } from "react-router-dom";
 
 function SubmitPopUp({ handleClose }) {
   const MAX_FILE_SIZE = 10 * 1024 * 1024;
+  const { mId } = useParams();
+
+  const isSocketConnected = useSelector((state) => state.socket.isConnected);
 
   const dispatch = useDispatch();
   const { submitScoreLoading } = useSelector((state) => state.matchs);
+  // Fix: use useSelector at the top level, avoid calling hooks conditionally, and clean up logic
 
-  let matchData, isEditScore;
-  if (checkParams(`tournament`) && checkParams(`match`)) {
-    const matchsSliceT = useSelector((state) => state.tournamentMatch);
-    matchData = matchsSliceT.matchDataT;
-    isEditScore = matchsSliceT.isEditScoreT;
-  } else {
-    const matchsSlice = useSelector((state) => state.matchs);
-    matchData = matchsSlice.matchData;
-    isEditScore = matchsSlice.isEditScore;
-  }
+  const isTournament = checkParams("tournament") && checkParams("match");
+
+  // Always call useSelector at the top level
+  const matchsSliceT = useSelector((state) => state.tournamentMatch);
+  const matchsSlice = useSelector((state) => state.matchs);
+  const user = useSelector((state) => state.auth.user);
+  const { t } = useTranslation();
+
+  // Determine matchData and isEditScore based on isTournament
+  const matchData = isTournament
+    ? matchsSliceT.matchDataT
+    : matchsSlice.matchData;
+  const isEditScore = isTournament
+    ? matchsSliceT.isEditScoreT
+    : matchsSlice.isEditScore;
 
   const initialAttachments = isEditScore?.attachment || [];
   const [previewImages, setPreviewImages] = useState(
@@ -43,13 +58,22 @@ function SubmitPopUp({ handleClose }) {
     initialAttachments.filter((attachment) => attachment !== null).length
   ); // Count only non-null attachments
   const [team, setTeam] = useState(null);
-  const user = useSelector((state) => state.auth.user);
-  const { t } = useTranslation();
 
+  // Defensive: matchData or user may be undefined
+  const isInTeam1 = matchData?.team1Author?.includes(user?._id);
+  console.log("jashbdgvbasjkhgbdjhask-", isEditScore);
   const formik = useFormik({
     initialValues: {
-      yourScore: isEditScore?.yourScore || "",
-      opponentScore: isEditScore?.opponentScore || "",
+      yourScore: isTournament
+        ? isInTeam1
+          ? isEditScore?.opponent1Score || ""
+          : isEditScore?.opponent2Score || ""
+        : isEditScore?.yourScore || "",
+      opponentScore: isTournament
+        ? isInTeam1
+          ? isEditScore?.opponent2Score || ""
+          : isEditScore?.opponent1Score || ""
+        : isEditScore?.opponentScore || "",
       description: isEditScore?.description || "",
       scoreProofs:
         initialAttachments.length > 0 ? [...initialAttachments] : [null],
@@ -104,7 +128,7 @@ function SubmitPopUp({ handleClose }) {
         );
         const uploadResults = await Promise.all(uploadPromises);
         const uploadedFiles = uploadResults.map((result) => result?.data);
-        if (checkParams(`tournament`) && checkParams(`match`)) {
+        if (isTournament) {
           let data = {
             team: team == "team1" ? "opponent1" : "opponent2",
             matchId: matchData?._id || "",
@@ -114,6 +138,9 @@ function SubmitPopUp({ handleClose }) {
             attachment: uploadedFiles,
             submittedBy: user?._id,
           };
+
+          await dispatch(addScore(data)).unwrap();
+          getMatchDetailTById({ mId, isSocketConnected, user });
         } else {
           let data = {
             team: team,
@@ -218,8 +245,8 @@ function SubmitPopUp({ handleClose }) {
   };
 
   useEffect(() => {
-    if (checkParams(`tournament`) && checkParams(`match`)) {
-      const isInTeam1 = team1Authors.includes(user?._id);
+    if (isTournament) {
+      console.log("------------", matchData);
 
       setTeam(isInTeam1 ? "team1" : "team2");
     } else {
@@ -463,7 +490,10 @@ function SubmitPopUp({ handleClose }) {
                 ) : null}
                 {submitScoreLoading
                   ? t("common.uploading")
-                  : isEditScore?.yourScore
+                  : isEditScore?.yourScore ||
+                    (isInTeam1
+                      ? isEditScore?.opponent1Score
+                      : isEditScore?.opponent2Score)
                   ? t("auth.update")
                   : t("auth.submit_score")}
               </button>

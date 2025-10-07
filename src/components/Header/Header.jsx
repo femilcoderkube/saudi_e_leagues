@@ -195,7 +195,7 @@ const MatchControls = ({
   myTeam,
   isSubmitBtnShow,
   isMyMatch,
-  isScoreSubmited,
+  isEditScoreT,
 }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -211,7 +211,7 @@ const MatchControls = ({
             onClick={() => dispatch(setSubmitModal(true))}
           >
             <Link className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
-              {!isScoreSubmited ? t("auth.submit_score") : t("auth.view_score")}
+              {!isEditScoreT ? t("auth.submit_score") : t("auth.view_score")}
             </Link>
             <svg
               width="0"
@@ -536,7 +536,7 @@ const Header = () => {
     isMyMatch,
     isMatchCanceled,
   } = useSelector((state) => state.matchs);
-  const { matchDataT, myTeam, isSubmitBtnShow, isScoreSubmited } = useSelector(
+  const { matchDataT, myTeam, isSubmitBtnShow, isEditScoreT } = useSelector(
     (state) => state.tournamentMatch
   );
 
@@ -550,7 +550,7 @@ const Header = () => {
     userUpdate,
     isSubmitBtnShow,
     location,
-    isScoreSubmited,
+    isEditScoreT,
   ]);
 
   const { i18n, t } = useTranslation();
@@ -748,7 +748,7 @@ const Header = () => {
               matchData={matchData}
               myTeam={myTeam}
               isSubmitBtnShow={isSubmitBtnShow}
-              isScoreSubmited={isScoreSubmited}
+              isEditScoreT={isEditScoreT}
               isMyMatch={isMyMatch}
             />
             {!user && (
