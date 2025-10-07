@@ -196,6 +196,7 @@ const MatchControls = ({
   isSubmitBtnShow,
   isMyMatch,
   isEditScoreT,
+  isScoreSubmited,
 }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -205,7 +206,7 @@ const MatchControls = ({
   if (checkParams(`tournament`) && checkParams(`match`)) {
     return (
       <div className="flex items-center gap-3">
-        {isSubmitBtnShow && (
+        {isSubmitBtnShow && !isScoreSubmited && (
           <div
             className="submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
             onClick={() => dispatch(setSubmitModal(true))}
@@ -536,9 +537,8 @@ const Header = () => {
     isMyMatch,
     isMatchCanceled,
   } = useSelector((state) => state.matchs);
-  const { matchDataT, myTeam, isSubmitBtnShow, isEditScoreT } = useSelector(
-    (state) => state.tournamentMatch
-  );
+  const { matchDataT, myTeam, isSubmitBtnShow, isEditScoreT, isScoreSubmited } =
+    useSelector((state) => state.tournamentMatch);
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
@@ -551,6 +551,7 @@ const Header = () => {
     isSubmitBtnShow,
     location,
     isEditScoreT,
+    isScoreSubmited,
   ]);
 
   const { i18n, t } = useTranslation();
@@ -749,6 +750,7 @@ const Header = () => {
               myTeam={myTeam}
               isSubmitBtnShow={isSubmitBtnShow}
               isEditScoreT={isEditScoreT}
+              isScoreSubmited={isScoreSubmited}
               isMyMatch={isMyMatch}
             />
             {!user && (

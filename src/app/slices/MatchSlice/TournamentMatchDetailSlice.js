@@ -107,6 +107,7 @@ const TournamentMatchDetailSlice = createSlice({
         state.winnerScore.teamOne = activeScore.opponent1Score;
         state.winnerScore.teamTwo = activeScore.opponent2Score;
         state.isShowChat = false; // Don't show chat when there's an active score
+          state.isScoreSubmited = true;
        
       } else {
         state.isShowChat = shouldShowChat(matchData, isMyMatch);
