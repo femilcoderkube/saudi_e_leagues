@@ -395,7 +395,7 @@
     "create": "إنشاء فريق",
     "NotCompleted": "غير مكتمل",
     "openIn": "يفتح خلال {time}",
-    "RegistrationClose": "التسجيل مغلق"
+    "RegistrationClose": "التسجيل\nمغلق"
   },
   "actions": {
     "custom_action": "إجراء مخصص"

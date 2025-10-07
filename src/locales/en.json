@@ -395,7 +395,7 @@
     "notifications": "Notifications",
     "skip": "Skip",
     "openIn": "Open in {time}",
-    "RegistrationClose": "Registration closed"
+    "RegistrationClose": "Registration\nclosed"
   },
   "actions": {
     "custom_action": "Custom action"
