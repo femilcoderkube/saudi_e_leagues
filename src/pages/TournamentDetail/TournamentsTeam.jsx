@@ -394,7 +394,7 @@ export default function TournamentsTeam() {
                       </div>
                     </div>
                   </div>
-                  <ul className="team-social flex items-center justify-between sm:gap-4 gap-2 px-9 sm:pt-8.5 pt-6">
+                  <ul className="team-social flex items-center  sm:gap-4 gap-2 px-9 sm:pt-8.5 pt-6">
                     {currentTeam?.social?.twitterId != "" && (
                       <li>
                         <a
