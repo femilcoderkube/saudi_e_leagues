@@ -1043,7 +1043,7 @@ const WizardSteps = ({
               : renderStepContent(values, setFieldValue)}
             <div className="wizard_step--btn gap-5 flex justify-end sm:mt-14 mt-8 mb-8 mr-5">
               {step > 1 && (
-                <div className="game_status--tab wizard_btn back_btn">
+                <div className="game_status--tab wizard_btn back_btn flex gap-6 justify-between items-center w-full flex-wrap">
                   <button
                     type="button"
                     onClick={onBack}
@@ -1055,7 +1055,7 @@ const WizardSteps = ({
                   </button>
                 </div>
               )}
-              <div className="game_status--tab wizard_btn next_btn">
+              <div className="game_status--tab wizard_btn next_btn flex gap-6 justify-between items-center w-full flex-wrap">
                 {!isEdit && (
                   <div className="flex gap-2 ">
                     <span className="text-sm text-white">
