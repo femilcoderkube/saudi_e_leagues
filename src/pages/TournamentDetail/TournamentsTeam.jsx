@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getServerURL } from "../../utils/constant.js";
-
 import { IMAGES } from "../../components/ui/images/images.js";
 import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
 import {

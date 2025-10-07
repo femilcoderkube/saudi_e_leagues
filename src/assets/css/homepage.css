@@ -461,6 +461,10 @@ html[dir=rtl] .spilit-card-polygon::after {
     background: linear-gradient(180deg, #4D28F4 0%, #290566 100%);
 }
 
+.split_card--wrap-purple.split_card--wrap.polygon_border::before{
+background: #3A1898;
+}
+
 .split_card--wrap-purple .spilit-card-polygon::after {
     background: #6148E9;
 }
