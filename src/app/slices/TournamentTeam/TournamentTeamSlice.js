@@ -379,7 +379,6 @@ const TournamentTeamSlice = createSlice({
         state.error = null;
       })
       .addCase(updateTournamentTeam.fulfilled, (state, action) => {
-        console.log("action", action?.payload);
         state.loading = false;
         state.currentTeam = action.payload.data;
         toast.success(action?.payload?.message);

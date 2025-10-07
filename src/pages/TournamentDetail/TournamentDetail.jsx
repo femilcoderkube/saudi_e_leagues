@@ -37,6 +37,7 @@ import {
   getTeamData,
   getTeamDetails,
   registerTournament,
+  resetRosterSelection,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import {
   setConfirmationPopUp,
@@ -801,7 +802,10 @@ const TournamentDetail = () => {
       ) : (
         <ManageTeamModal
           isOpen={isManageOpen}
-          onClose={() => setIsManageOpen(false)}
+          onClose={() => {
+            setIsManageOpen(false);
+            dispatch(resetRosterSelection());
+          }}
         />
       )}
       <svg
