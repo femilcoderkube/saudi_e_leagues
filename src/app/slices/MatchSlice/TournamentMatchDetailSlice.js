@@ -8,7 +8,9 @@ const initialState = {
   opponent1: null,
   opponent2: null,
   isShowChat: false,
-  showMobileChat : false,
+  isSubmitBtnShow: false,
+  myTeam: null,
+  showMobileChat: false,
   chatData: [],
   winnerScore: {
     teamOne: "-",
@@ -31,43 +33,44 @@ const TournamentMatchDetailSlice = createSlice({
     },
     setmatchTData: (state, action) => {
       const { matchData, user } = action.payload || {};
-      
+
       // Early return if no match data
       if (!matchData) return;
-    
+
+      const userId = user?._id?.toString();
+      const currentTime = Date.now();
+      const startTime = new Date(matchData?.startTime).getTime() || 0;
+      const endTime = new Date(matchData?.endTime).getTime() || 0;
+
       // Helper function to check if user is in team
       const isUserInTeam = (team) => {
-        return team?.team?.members?.some(member => 
-          member?.user?.userId?._id?.toString() === user?._id?.toString()
+        return team?.team?.members?.some(member =>
+          member?.user?.userId?._id?.toString() === userId
         );
       };
-    
+
       // Helper function to determine chat visibility
       const shouldShowChat = (matchData, isMyMatch) => {
         if (!isMyMatch) return false;
-        
-        const currentTime = Date.now();
-        const startTime = new Date(matchData?.startTime).getTime() || 0;
-        const endTime = new Date(matchData?.endTime).getTime() || 0;
-        
+
         return currentTime >= startTime && currentTime <= endTime;
       };
-    
+
       // Update basic match data
       state.matchDataT = matchData;
       state.opponent1 = matchData.opponent1;
       state.opponent2 = matchData.opponent2;
-    
+
       // Check if current user is in this match
       const isMyMatch = isUserInTeam(matchData.opponent1) || isUserInTeam(matchData.opponent2);
-    
+
       // Reset scores to default
       state.winnerScore.teamOne = "-";
       state.winnerScore.teamTwo = "-";
-    
+
       // Find active score or determine chat visibility
       const activeScore = matchData?.matchScores?.find(score => score.isActive);
-      
+
       if (activeScore) {
         state.winnerScore.teamOne = activeScore.opponent1Score;
         state.winnerScore.teamTwo = activeScore.opponent2Score;
@@ -75,6 +78,34 @@ const TournamentMatchDetailSlice = createSlice({
       } else {
         state.isShowChat = shouldShowChat(matchData, isMyMatch);
       }
+
+      const team1Authors = matchData?.team1Author?.map(String) || [];
+      const team2Authors = matchData?.team2Author?.map(String) || [];
+      let isSubmitBtnShow = false;
+
+      if (userId) {
+        const isInTeam1 = team1Authors.includes(userId);
+        const isInTeam2 = team2Authors.includes(userId);
+        const isWithinTime = currentTime >= startTime && currentTime <= endTime;
+
+        if (isInTeam1) {
+          isSubmitBtnShow = isWithinTime;
+        } else if (isInTeam2) {
+          isSubmitBtnShow = isWithinTime;
+        }
+
+        state.myTeam = isUserInTeam(matchData.opponent1)
+          ? "team1"
+          : isUserInTeam(matchData.opponent2)
+            ? "team2"
+            : null;
+
+      } else {
+        isSubmitBtnShow = false;
+      }
+
+      state.isSubmitBtnShow = isSubmitBtnShow;
+
     },
     setIsTeamOne: (state, action) => {
       state.isTeamOne = action.payload;
@@ -89,7 +120,7 @@ const TournamentMatchDetailSlice = createSlice({
       state.error = null;
     },
     clearmatchDetail: (state) => {
-      state.matchDataT  = null;
+      state.matchDataT = null;
     },
   },
   extraReducers: (builder) => {

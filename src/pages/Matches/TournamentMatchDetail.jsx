@@ -31,7 +31,7 @@ import { IMAGES } from "../../components/ui/images/images.js";
 const TournamentMatchDetail = () => {
   const { id, mId } = useParams();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const { matchDataT, showMobileChat, isShowChat, chatData, winnerScore } =
+  const { matchDataT, showMobileChat, isShowChat, chatData, winnerScore, isSubmitBtnShow } =
     useSelector((state) => state.tournamentMatch);
 
   const user = useSelector((state) => state.auth.user);
@@ -143,6 +143,75 @@ const TournamentMatchDetail = () => {
                 style={{ width: "17.5rem" }}
               />
             </div>
+
+            {/* <div className="mob-sub-btn flex items-center justify-center flex-wrap gap-6 mb-[1rem]">
+              {user && isSubmitBtnShow &&
+                (
+                  <div className="mob-btn_polygon-link submit_score-btn chat_score_btn btn_polygon--mask inline-flex sm:hidden max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
+                    <div
+                      onClick={isSubmitBtnShow ? () => {
+                        dispatch(setSubmitModal(true));
+                      } : undefined}
+                      // onClick={}
+                      className="btn_polygon-link font_oswald font-medium  relative sd_before sd_after vertical_center cursor-pointer"
+                    >
+                      {isSubmitBtnShow
+                        ? t("auth.submit_score")
+                        :  t("auth.view_score")}
+                    </div>
+                    <svg
+                      width="0"
+                      height="0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ position: "absolute" }}
+                    >
+                      <defs>
+                        <clipPath
+                          id="polygonClip12"
+                          clipPathUnits="objectBoundingBox"
+                        >
+                          <path
+                            d="
+              M1,0.1111
+              V0.8889
+              L0.9219,1
+              H0.7266
+              L0.6953,0.9028
+              H0.3047
+              L0.2734,1
+              H0.0781
+              L0,0.8889
+              V0.1111
+              L0.0781,0
+              H0.2734
+              L0.3047,0.0972
+              H0.6953
+              L0.7266,0
+              H0.9219
+              L1,0.1111
+              Z
+            "
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                )}
+              {isShowChat && (
+                <div className="sm:hidden chat-btn-wp">
+                  <div
+                    className="inline-flex gap-4 items-center justify-center chat-btn w-[9.95rem] h-[3.5rem] cursor-pointer"
+                    onClick={() => dispatch(setshowMobileChat(true))}
+                  >
+                    <img src={IMAGES.ChatIcon} alt="" />
+                    <span className="purple_col text-base font-bold">
+                      {t("match.chat")} <span className="text-[#BABDFF]"></span>
+                    </span>
+                    <img src={IMAGES.ChatArr} alt="" />
+                  </div>
+                </div>
+              )}
+            </div> */}
             <div className="mob-sub-btn flex items-center justify-center flex-wrap gap-6 mb-[1rem]">
               {isShowChat && (
                 <div className="sm:hidden chat-btn-wp">
@@ -164,7 +233,7 @@ const TournamentMatchDetail = () => {
                 <div className="chat_block--con pt-[1rem] h-[25rem] sd_before relative flex flex-col max-w-lg mx-auto">
                   <div
                     className="flex-1 flex flex-col-reverse mx-h-[20rem] chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4"
-                    // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
+                  // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
                   >
                     <div ref={scrollAnchorRef}></div>
                     <div className="flex flex-col space-y-1">
@@ -243,11 +312,10 @@ const TournamentMatchDetail = () => {
                         }
                         return (
                           <div
-                            className={`block ${
-                              user?._id == chat.senderId?._id
+                            className={`block ${user?._id == chat.senderId?._id
                                 ? "send_msg-con"
                                 : "reply_msg-con"
-                            }`}
+                              }`}
                           >
                             <div className="px-2 py-1 rounded-lg">
                               <p className="text-white text-lg font-light">

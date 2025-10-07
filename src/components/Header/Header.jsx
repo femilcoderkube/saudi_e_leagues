@@ -197,6 +197,8 @@ const MatchControls = ({
   cancelMatchCount,
   isMatchCanceled,
   matchData,
+  myTeam,
+  isSubmitBtnShow,
   isMyMatch,
 }) => {
   const dispatch = useDispatch();
@@ -204,62 +206,93 @@ const MatchControls = ({
 
   if (!user) return null;
 
-  return (
-    <div className="flex items-center gap-3">
-      {isMyMatch &&
-        (!IsSubmited || isEditScore != null) &&
-        !matchData?.isCanceled &&
-        showCancelBtn && (
-          <div
-            className={`cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ${isMatchCanceled ? "!cursor-not-allowed" : "cursor-pointer"
-              }`}
-            onClick={() =>
-              isMatchCanceled ? null : dispatch(setConfirmationPopUp(2))
-            }
+  if (
+    checkParams(`tournament`) &&
+    checkParams(`match`)
+  ) {
+    return (
+      <div className="flex items-center gap-3">
+        <div
+          className="submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
+          onClick={isSubmitBtnShow ? () => dispatch(setSubmitModal(true)) : undefined}
+        >
+          <Link className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
+            {isSubmitBtnShow ? t("auth.submit_score") : t("auth.view_score")}
+          </Link>
+          <svg
+            width="0"
+            height="0"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ position: "absolute" }}
           >
-            <div className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
-              {t("match.cancel_match")} {cancelMatchCount}
+            <defs>
+              <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
+                <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="flex items-center gap-3">
+        {isMyMatch &&
+          (!IsSubmited || isEditScore != null) &&
+          !matchData?.isCanceled &&
+          showCancelBtn && (
+            <div
+              className={`cancel-score-btn submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400 ${isMatchCanceled ? "!cursor-not-allowed" : "cursor-pointer"
+                }`}
+              onClick={() =>
+                isMatchCanceled ? null : dispatch(setConfirmationPopUp(2))
+              }
+            >
+              <div className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
+                {t("match.cancel_match")} {cancelMatchCount}
+              </div>
+              <svg
+                width="0"
+                height="0"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ position: "absolute" }}
+              >
+                <defs>
+                  <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
+                    <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
+                  </clipPath>
+                </defs>
+              </svg>
             </div>
-            <svg
-              width="0"
-              height="0"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ position: "absolute" }}
+          )}
+        {isCaptain &&
+          (!IsSubmited || isEditScore != null) &&
+          !matchData?.isCanceled && (
+            <div
+              className="submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
+              onClick={() => dispatch(setSubmitModal(true))}
             >
-              <defs>
-                <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
-                  <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
-                </clipPath>
-              </defs>
-            </svg>
-          </div>
-        )}
-      {isCaptain &&
-        (!IsSubmited || isEditScore != null) &&
-        !matchData?.isCanceled && (
-          <div
-            className="submit_score-btn hidden sm:inline-flex btn_polygon--mask max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400"
-            onClick={() => dispatch(setSubmitModal(true))}
-          >
-            <Link className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
-              {IsSubmited ? t("auth.view_score") : t("auth.submit_score")}
-            </Link>
-            <svg
-              width="0"
-              height="0"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ position: "absolute" }}
-            >
-              <defs>
-                <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
-                  <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
-                </clipPath>
-              </defs>
-            </svg>
-          </div>
-        )}
-    </div>
-  );
+              <Link className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center">
+                {IsSubmited ? t("auth.view_score") : t("auth.submit_score")}
+              </Link>
+              <svg
+                width="0"
+                height="0"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ position: "absolute" }}
+              >
+                <defs>
+                  <clipPath id="polygonClip" clipPathUnits="objectBoundingBox">
+                    <path d="M1,0.1111 V0.8889 L0.9219,1 H0.7266 L0.6953,0.9028 H0.3047 L0.2734,1 H0.0781 L0,0.8889 V0.1111 L0.0781,0 H0.2734 L0.3047,0.0972 H0.6953 L0.7266,0 H0.9219 L1,0.1111 Z" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+          )}
+      </div>
+    );
+  }
+
 };
 
 // Breadcrumb Component
@@ -505,12 +538,12 @@ const Header = () => {
     isMyMatch,
     isMatchCanceled,
   } = useSelector((state) => state.matchs);
-  const { matchDataT } = useSelector((state) => state.tournamentMatch);
+  const { matchDataT, myTeam, isSubmitBtnShow } = useSelector((state) => state.tournamentMatch);
 
   const user = useSelector((state) => state.auth.user);
   let params = useParams();
-  useEffect(() => { }, [matchData, matchDataT, user, location]);
   const userUpdate = useSelector((state) => state.auth.user);
+  useEffect(() => { }, [matchData, matchDataT, user, userUpdate, isSubmitBtnShow, location]);
 
   const { i18n, t } = useTranslation();
 
@@ -618,7 +651,7 @@ const Header = () => {
     } else if (checkParams(params.id)) {
       dispatch(setActiveTabIndex(1));
     }
-  }, [path, profile, team,  checkParams(params.id)]);
+  }, [path, profile, team, checkParams(params.id)]);
 
   let mainItem = breadcrumbItems[breadcrumbItems.length - 1];
 
@@ -705,6 +738,8 @@ const Header = () => {
               cancelMatchCount={cancelMatchCount}
               isMatchCanceled={isMatchCanceled}
               matchData={matchData}
+              myTeam={myTeam}
+              isSubmitBtnShow={isSubmitBtnShow}
               isMyMatch={isMyMatch}
             />
             {!user && (
