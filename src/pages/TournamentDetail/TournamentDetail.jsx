@@ -63,6 +63,7 @@ const TournamentDetail = () => {
     useSelector((state) => state.tournamentTeam);
 
   console.log("currentTeam", currentTeam);
+  console.log("teamData", teamData);
 
   const handleClose = () => setShowModal(false);
 
@@ -286,10 +287,11 @@ const TournamentDetail = () => {
     // User has a team
     if (currentTeam?._id) {
       // Team already registered
-      if (teamData?.dataFound) {
+      if (teamData?.dataFound && teamData?.data?.status !== 1) {
         return {
           ...defaultState,
           text: t("images.Registergn"),
+          image: IMAGES.ragister_gn,
         };
       }
 
