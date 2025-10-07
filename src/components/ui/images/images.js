@@ -103,6 +103,7 @@ import party_winner from "../../../assets/images/party-winner.webp";
 import ragister_gn from "../../../assets/images/ragister_gn.webp";
 import ragister_og from "../../../assets/images/register_og.webp";
 import ragister_yl from "../../../assets/images/ragister_yl.webp";
+import ragister_bl from "../../../assets/images/ragister_bl.webp";
 import about_down from "../../../assets/images/about-down.webp";
 import list_partycip from "../../../assets/images/list_partycip.webp";
 import team_falcons from "../../../assets/images/team-falcons.webp";
@@ -127,6 +128,7 @@ export const IMAGES = {
   ragister_og,
   ragister_gn,
   ragister_yl,
+  ragister_bl,
   party_winner,
   team_falcons,
   exit_screen,

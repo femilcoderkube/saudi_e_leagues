@@ -393,7 +393,9 @@
     "game_background": "Game background",
     "follow_us": "Follow us",
     "notifications": "Notifications",
-    "skip": "Skip"
+    "skip": "Skip",
+    "openIn": "Open in {time}",
+    "RegistrationClose": "Registration closed"
   },
   "actions": {
     "custom_action": "Custom action"
@@ -620,5 +622,25 @@
     "invitation_accepted": "Invitation accepted!",
     "invite_login_message": "Please login to accept the invitation link.",
     "invite_link_expire": "This invitation link has expired or is invalid."
+  },
+  "units": {
+    "day": "day",
+    "days": "days",
+    "hour": "hour",
+    "hours": "hours",
+    "minute": "minute",
+    "minutes": "minutes"
+  },
+  "numbers": {
+    "0": "0",
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "4": "4",
+    "5": "5",
+    "6": "6",
+    "7": "7",
+    "8": "8",
+    "9": "9"
   }
 }

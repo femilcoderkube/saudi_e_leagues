@@ -3,13 +3,14 @@ import TimelinePanel from "../../components/Cards/LeagueDetail/TimelinePanel.jsx
 import {
   formatAmountWithCommas,
   getServerURL,
+  getTimeUntilRegistration,
   stageTypes,
 } from "../../utils/constant.js";
 import PDFPopup from "../../components/Overlays/LeagueDetail/PDFPopup.jsx";
 import DiscordPopup from "../../components/Overlays/LeagueDetail/DiscordPopup.jsx";
 
 import { useTranslation } from "react-i18next";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import GamingLoader from "../../components/Loader/loader.jsx";
@@ -60,8 +61,10 @@ const TournamentDetail = () => {
   const { currentTeam, teamData, loading, showTeamRegistrationPopup } =
     useSelector((state) => state.tournamentTeam);
 
+  console.log("tournamentData", tournamentData);
+
   console.log("currentTeam", currentTeam);
-  console.log("teamData?.data?.status ", teamData?.data?.status);
+  console.log("teamData?.data?.status ", teamData);
 
   const handleClose = () => setShowModal(false);
 
@@ -198,6 +201,16 @@ const TournamentDetail = () => {
   const isWithinRegistrationPeriod =
     regEnd > regStart && currentDate >= regStart && currentDate <= regEnd;
 
+  const timeUntilRegistration = useMemo(
+    () => getTimeUntilRegistration(regStart),
+    [regStart]
+  );
+
+  const isRegistrationClosed =
+    (regEnd && new Date() >= regEnd) ||
+    (tournamentData?.maxParticipants &&
+      tournamentData?.totalRegistrations >= tournamentData?.maxParticipants);
+
   return (
     <main className="flex-1 tournament_page--wrapper  pb-[5.25rem] sm:pb-0">
       {/* --- dashboard main content back groud --- */}
@@ -303,7 +316,9 @@ const TournamentDetail = () => {
                     !user?._id ||
                     !["Manager", "President"].includes(teamData?.userRole) ||
                     !isWithinRegistrationPeriod ||
-                    teamData?.data?.status === 1
+                    teamData?.data?.status === 1 ||
+                    timeUntilRegistration ||
+                    isRegistrationClosed
                     ? undefined
                     : onRegistration
                   : () => dispatch(setConfirmationPopUp(16))
@@ -314,14 +329,18 @@ const TournamentDetail = () => {
                     !user?._id ||
                     !["Manager", "President"].includes(teamData?.userRole) ||
                     !isWithinRegistrationPeriod ||
-                    teamData?.data?.status === 1
-                    ? "cursor-not-allowed"
+                    teamData?.data?.status === 1 ||
+                    timeUntilRegistration ||
+                    isRegistrationClosed
+                    ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
                   : !user?._id
-                  ? "cursor-not-allowed"
+                  ? "opacity-50 cursor-not-allowed"
                   : "cursor-pointer"
               }`}
-              disabled={!user?._id}
+              disabled={
+                !user?._id || !!timeUntilRegistration || isRegistrationClosed
+              }
             >
               <span
                 className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
@@ -331,7 +350,11 @@ const TournamentDetail = () => {
                   textShadow: "0px 3px 2px rgba(0, 0, 0, 0.2)",
                 }}
               >
-                {currentTeam?._id
+                {isRegistrationClosed
+                  ? t("images.RegistrationClose")
+                  : timeUntilRegistration
+                  ? t("images.openIn", { time: timeUntilRegistration })
+                  : currentTeam?._id
                   ? teamData?.data?.status === 1
                     ? t("images.NotCompleted")
                     : teamData?.dataFound
@@ -343,7 +366,11 @@ const TournamentDetail = () => {
               <img
                 className="mx-auto"
                 src={
-                  currentTeam?._id
+                  isRegistrationClosed
+                    ? IMAGES.ragister_bl
+                    : timeUntilRegistration
+                    ? IMAGES.ragister_bl
+                    : currentTeam?._id
                     ? teamData?.data?.status === 1
                       ? IMAGES.ragister_yl
                       : teamData?.dataFound
