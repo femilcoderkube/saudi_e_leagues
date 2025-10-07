@@ -312,7 +312,7 @@ const Login = () => {
                       </defs>
                     </svg>
                   </div>
-                  <div className="flex gap-2 sm:hidden">
+                  <div className="flex gap-2 ">
                     <span className="text-sm text-white">
                       {t("auth.donthaveaccount")}
                     </span>

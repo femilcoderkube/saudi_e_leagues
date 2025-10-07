@@ -4,13 +4,8 @@ import Select from "react-select";
 import * as Yup from "yup";
 import CustomFileUpload from "../ui/svg/UploadFile.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchGames,
-} from "../../app/slices/game/gamesSlice.js";
-import {
-  checkUsersExists,
-  sendOtp,
-} from "../../app/slices/auth/authSlice.js";
+import { fetchGames } from "../../app/slices/game/gamesSlice.js";
+import { checkUsersExists, sendOtp } from "../../app/slices/auth/authSlice.js";
 import { debounce } from "lodash";
 import { countryData } from "../../utils/CountryCodes.js";
 import { getServerURL } from "../../utils/constant.js";
@@ -19,6 +14,10 @@ import { Tooltip } from "react-tooltip";
 import VerifiyOTPModel from "./VerifiyOTPModel.jsx";
 import { setVerificationModal } from "../../app/slices/leagueDetail/leagueDetailSlice.js";
 import { toast } from "react-toastify";
+import {
+  setLogin,
+  setRegisteration,
+} from "../../app/slices/constState/constStateSlice.js";
 
 const WizardSteps = ({
   step,
@@ -33,7 +32,9 @@ const WizardSteps = ({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { games } = useSelector((state) => state.games);
-  const { verificationModal, verificationModule } = useSelector((state) => state.leagues);
+  const { verificationModal, verificationModule } = useSelector(
+    (state) => state.leagues
+  );
   const [showPassword, setShowPassword] = useState(false);
   const createdAt = localStorage.getItem("OTPCreated");
 
@@ -101,7 +102,9 @@ const WizardSteps = ({
           return;
         }
         try {
-          const result = await dispatch(checkUsersExists({ phone: fullPhone })).unwrap();
+          const result = await dispatch(
+            checkUsersExists({ phone: fullPhone })
+          ).unwrap();
           const isAvailable = !result.exists;
           phoneCache.set(fullPhone, isAvailable);
           resolve(isAvailable);
@@ -120,7 +123,12 @@ const WizardSteps = ({
       debouncedCheckEmail.cancel();
       debouncedCheckphone.cancel();
     };
-  }, [dispatch, debouncedCheckUsername, debouncedCheckEmail, debouncedCheckphone]);
+  }, [
+    dispatch,
+    debouncedCheckUsername,
+    debouncedCheckEmail,
+    debouncedCheckphone,
+  ]);
 
   const countryOptions = countryData.map((country) => ({
     value: country.name,
@@ -161,11 +169,15 @@ const WizardSteps = ({
     }).required(t("validation_messages.dial_code_required")),
     phoneNumber: Yup.string()
       .required(t("validation_messages.phone_required"))
-      .test("phone-digit-count", t("validation_messages.phone_digit_count"), (value) => {
-        if (!value) return false;
-        const digits = value.replace(/[^0-9]/g, "");
-        return digits.length >= 7 && digits.length <= 15;
-      })
+      .test(
+        "phone-digit-count",
+        t("validation_messages.phone_digit_count"),
+        (value) => {
+          if (!value) return false;
+          const digits = value.replace(/[^0-9]/g, "");
+          return digits.length >= 7 && digits.length <= 15;
+        }
+      )
       .matches(/^[0-9\s\-\(\)]*$/, t("validation_messages.phone_format"))
       .test(
         "check-phone-exists",
@@ -176,8 +188,13 @@ const WizardSteps = ({
 
           const digits = value.replace(/[^0-9]/g, "");
           const fullPhone = `${dialCode.value}-${digits}`;
-          const initialDigits = (initialValues.phoneNumber || "").replace(/[^0-9]/g, "");
-          const initialFullPhone = `${initialValues.dialCode?.value || ""}-${initialDigits}`;
+          const initialDigits = (initialValues.phoneNumber || "").replace(
+            /[^0-9]/g,
+            ""
+          );
+          const initialFullPhone = `${
+            initialValues.dialCode?.value || ""
+          }-${initialDigits}`;
 
           if (isEdit && fullPhone === initialFullPhone) return true;
 
@@ -193,23 +210,23 @@ const WizardSteps = ({
       username: isEdit
         ? Yup.string().notRequired()
         : Yup.string()
-          .required(t("validation_messages.username_required"))
-          .min(3, t("validation_messages.username_min_length"))
-          .matches(
-            /^[a-zA-Z0-9_]+$/,
-            t("validation_messages.username_format")
-          )
-          .test(
-            "check-username-exists",
-            t("validation_messages.username_taken"),
-            async (value, context) => {
-              if (!value || (isEdit && value === initialValues.username))
-                return true; // Skip for unchanged username in edit mode
-              return new Promise((resolve) =>
-                debouncedCheckUsername(value, resolve)
-              );
-            }
-          ),
+            .required(t("validation_messages.username_required"))
+            .min(3, t("validation_messages.username_min_length"))
+            .matches(
+              /^[a-zA-Z0-9_]+$/,
+              t("validation_messages.username_format")
+            )
+            .test(
+              "check-username-exists",
+              t("validation_messages.username_taken"),
+              async (value, context) => {
+                if (!value || (isEdit && value === initialValues.username))
+                  return true; // Skip for unchanged username in edit mode
+                return new Promise((resolve) =>
+                  debouncedCheckUsername(value, resolve)
+                );
+              }
+            ),
       firstName: Yup.string()
         .required(t("validation_messages.first_name_required"))
         .matches(/^[a-zA-Z]+$/, t("validation_messages.first_name_format")),
@@ -235,23 +252,23 @@ const WizardSteps = ({
       password: isEdit
         ? Yup.string().notRequired() // Password optional for editing
         : Yup.string()
-          .required(t("validation_messages.password_required"))
-          .min(8, t("validation_messages.password_min_length"))
-          .matches(/[A-Z]/, t("validation_messages.password_uppercase"))
-          .matches(/[a-z]/, t("validation_messages.password_lowercase"))
-          .matches(/[0-9]/, t("validation_messages.password_number"))
-          .matches(
-            /[!@#$%^&*()\-\_=+\{\}\[\]|\\:;\"'<,>\.\/\?~]/,
-            t("validation_messages.password_special")
-          ),
+            .required(t("validation_messages.password_required"))
+            .min(8, t("validation_messages.password_min_length"))
+            .matches(/[A-Z]/, t("validation_messages.password_uppercase"))
+            .matches(/[a-z]/, t("validation_messages.password_lowercase"))
+            .matches(/[0-9]/, t("validation_messages.password_number"))
+            .matches(
+              /[!@#$%^&*()\-\_=+\{\}\[\]|\\:;\"'<,>\.\/\?~]/,
+              t("validation_messages.password_special")
+            ),
       nationality: isEdit
         ? Yup.string().notRequired()
         : Yup.object()
-          .shape({
-            value: Yup.string().required(),
-            label: Yup.string().required(),
-          })
-          .required(t("validation_messages.nationality_required")),
+            .shape({
+              value: Yup.string().required(),
+              label: Yup.string().required(),
+            })
+            .required(t("validation_messages.nationality_required")),
       // dialCode: Yup.object()
       //   .shape({
       //     value: Yup.string().required(),
@@ -290,11 +307,15 @@ const WizardSteps = ({
       }).required(t("validation_messages.dial_code_required")),
       phoneNumber: Yup.string()
         .required(t("validation_messages.phone_required"))
-        .test("phone-digit-count", t("validation_messages.phone_digit_count"), (value) => {
-          if (!value) return false;
-          const digits = value.replace(/[^0-9]/g, "");
-          return digits.length >= 7 && digits.length <= 15;
-        })
+        .test(
+          "phone-digit-count",
+          t("validation_messages.phone_digit_count"),
+          (value) => {
+            if (!value) return false;
+            const digits = value.replace(/[^0-9]/g, "");
+            return digits.length >= 7 && digits.length <= 15;
+          }
+        )
         .matches(/^[0-9\s\-\(\)]*$/, t("validation_messages.phone_format"))
         .test(
           "check-phone-exists",
@@ -305,8 +326,13 @@ const WizardSteps = ({
 
             const digits = value.replace(/[^0-9]/g, "");
             const fullPhone = `${dialCode.value}-${digits}`;
-            const initialDigits = (initialValues.phoneNumber || "").replace(/[^0-9]/g, "");
-            const initialFullPhone = `${initialValues.dialCode?.value || ""}-${initialDigits}`;
+            const initialDigits = (initialValues.phoneNumber || "").replace(
+              /[^0-9]/g,
+              ""
+            );
+            const initialFullPhone = `${
+              initialValues.dialCode?.value || ""
+            }-${initialDigits}`;
 
             if (isEdit && fullPhone === initialFullPhone) return true;
 
@@ -320,14 +346,14 @@ const WizardSteps = ({
       dateOfBirth: isEdit
         ? Yup.string().notRequired()
         : Yup.date()
-          .required(t("validation_messages.dob_required"))
-          .max(new Date(), t("validation_messages.dob_future"))
-          .typeError(t("validation_messages.dob_invalid")),
+            .required(t("validation_messages.dob_required"))
+            .max(new Date(), t("validation_messages.dob_future"))
+            .typeError(t("validation_messages.dob_invalid")),
       gender: isEdit
         ? Yup.string().notRequired()
         : Yup.string()
-          .oneOf(["Male", "Female"], t("validation_messages.gender_required"))
-          .required(t("validation_messages.gender_required")),
+            .oneOf(["Male", "Female"], t("validation_messages.gender_required"))
+            .required(t("validation_messages.gender_required")),
     }),
     Yup.object({
       favoriteGame: Yup.object()
@@ -396,8 +422,8 @@ const WizardSteps = ({
                     name={field}
                     className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                     placeholder={t("form." + field)}
-                  // onChange={(e) => setCurrenrEmail(e.target.value)}
-                  // placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                    // onChange={(e) => setCurrenrEmail(e.target.value)}
+                    // placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                   />
                   {field === "password" && (
                     <button
@@ -729,7 +755,7 @@ const WizardSteps = ({
                   name={field}
                   className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                   placeholder={t("form." + field)}
-                // placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                  // placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                 />
                 {field === "password" && (
                   <button
@@ -772,16 +798,28 @@ const WizardSteps = ({
                     <button
                       type="button"
                       onClick={() => {
-                        dispatch(setVerificationModal({ open: true, module: "profile" }));
-                        if (new Date(createdAt).getTime() + 1 * 60 * 1000 < new Date().getTime()) {
+                        dispatch(
+                          setVerificationModal({
+                            open: true,
+                            module: "profile",
+                          })
+                        );
+                        if (
+                          new Date(createdAt).getTime() + 1 * 60 * 1000 <
+                          new Date().getTime()
+                        ) {
                           localStorage.removeItem("OTPCreated");
-                          localStorage.setItem("OTPCreated", new Date().toISOString());
+                          localStorage.setItem(
+                            "OTPCreated",
+                            new Date().toISOString()
+                          );
                           dispatch(sendOtp(values.email)).then((action) => {
                             if (action.meta.requestStatus === "fulfilled") {
                               toast.success(t("form.otp_sent"));
                             } else {
                               toast.error(
-                                action.payload || t("validation_messages.email_invalid")
+                                action.payload ||
+                                  t("validation_messages.email_invalid")
                               );
                             }
                           });
@@ -789,8 +827,16 @@ const WizardSteps = ({
                       }}
                       disabled={initialValues.email !== formValues.email}
                       data-tooltip-id="otp-tooltip"
-                      data-tooltip-content={initialValues.email !== formValues.email ? "Update your email" : "Verify"}
-                      className={`absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 ${initialValues.email !== formValues.email ? 'text-gray-300' : 'text-yellow-500'} hover:opacity-80`}
+                      data-tooltip-content={
+                        initialValues.email !== formValues.email
+                          ? "Update your email"
+                          : "Verify"
+                      }
+                      className={`absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 ${
+                        initialValues.email !== formValues.email
+                          ? "text-gray-300"
+                          : "text-yellow-500"
+                      } hover:opacity-80`}
                     >
                       <svg
                         width="20"
@@ -946,7 +992,11 @@ const WizardSteps = ({
   const [formValues, setFormValues] = useState(initialValues);
 
   useEffect(() => {
-    if (initialValues?.email && formValues?.email && initialValues.email !== formValues.email) {
+    if (
+      initialValues?.email &&
+      formValues?.email &&
+      initialValues.email !== formValues.email
+    ) {
       localStorage.removeItem("OTPCreated");
     }
   }, [formValues.email, initialValues?.email]);
@@ -955,7 +1005,9 @@ const WizardSteps = ({
     <Formik
       initialValues={initialValues}
       // validationSchema={validationSchemas[step - 1]}
-      validationSchema={isEdit ? editValidationSchema : validationSchemas[step - 1]}
+      validationSchema={
+        isEdit ? editValidationSchema : validationSchemas[step - 1]
+      }
       onSubmit={(values) => {
         if (isEdit) {
           const phone = values.dialCode
@@ -983,7 +1035,9 @@ const WizardSteps = ({
         return (
           <Form>
             {/* {showOtpPopup && renderOtpPopup()} */}
-            {verificationModal && <VerifiyOTPModel module={verificationModule} />}
+            {verificationModal && (
+              <VerifiyOTPModel module={verificationModule} />
+            )}
             {isEdit
               ? renderContent(values, setFieldValue)
               : renderStepContent(values, setFieldValue)}
@@ -1002,6 +1056,22 @@ const WizardSteps = ({
                 </div>
               )}
               <div className="game_status--tab wizard_btn next_btn">
+                {!isEdit && (
+                  <div className="flex gap-2 ">
+                    <span className="text-sm text-white">
+                      {t("auth.dohaveaccount")}
+                    </span>
+                    <div
+                      className="text-sm text-blue-500 cursor-pointer"
+                      onClick={() => {
+                        dispatch(setLogin(true));
+                        dispatch(setRegisteration(false));
+                      }}
+                    >
+                      {t("auth.login")}
+                    </div>
+                  </div>
+                )}
                 <button
                   type="submit"
                   className="py-2 px-4 justify-center flex items-center text-nowrap text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border"
