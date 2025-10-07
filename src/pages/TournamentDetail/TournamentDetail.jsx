@@ -323,7 +323,7 @@ const TournamentDetail = () => {
                     : onRegistration
                   : () => dispatch(setConfirmationPopUp(16))
               }
-              className={`common-width join_btn duration-300 block sd_before relative w-full ${
+              className={`regi-close-btn common-width join_btn duration-300 block sd_before relative w-full ${
                 currentTeam?._id
                   ? teamData?.dataFound ||
                     !user?._id ||
@@ -343,7 +343,7 @@ const TournamentDetail = () => {
               }
             >
               <span
-                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-xl sm:text-[1.375rem]"
+                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-lg xl:text-[1.375rem]"
                 style={{
                   fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
                   fontWeight: "bold",
