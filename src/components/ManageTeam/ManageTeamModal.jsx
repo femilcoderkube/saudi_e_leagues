@@ -10,6 +10,7 @@ import TeamSection from "./TeamSection";
 import {
   fetchTeamUserFormat,
   getTeamDetails,
+  resetRosterSelection,
   resetTeamUserFormat,
   updateTeamRoster,
   withdrawTeamRoster,
@@ -81,17 +82,18 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
     if (hasExisting) return;
 
     // Compare current rosterSelection with teamData to avoid unnecessary dispatches
+    const managerId = teamData?.data?.Manager?._id || null;
     const coachId = teamData.data.Coach?._id || null;
     const playerIds = Array.isArray(teamData.data.Players)
       ? teamData.data.Players.map((p) => p?._id).filter(Boolean)
       : [];
 
     if (
-      rosterSelection.managerId !== null ||
+      rosterSelection.managerId !== managerId ||
       rosterSelection.coachId !== coachId ||
       JSON.stringify(rosterSelection.playerIds) !== JSON.stringify(playerIds)
     ) {
-      dispatch(setRosterSelectionBulk({ managerId: null, coachId, playerIds }));
+      dispatch(setRosterSelectionBulk({ managerId, coachId, playerIds }));
     }
   }, [teamUserFormat?.data, teamData?.data, dispatch]);
 
@@ -181,7 +183,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
           })
         );
         toast.success(res?.message);
-        onClose();
+        handleClose();
       })
       .catch((err) => toast.error(err));
   };
@@ -201,9 +203,15 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
           })
         );
         toast.success(res?.message);
-        onClose();
+        handleClose();
       })
       .catch((err) => toast.error(err));
+  };
+
+  const handleClose = () => {
+    dispatch(resetRosterSelection()); // Reset selections if not confirmed
+
+    onClose(); // Call the original onClose
   };
 
   return (
@@ -382,33 +390,6 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                 noDataMessage="tournament.no_players_available"
               />
             </div>
-
-            {/* Substitutes Section */}
-            {/* <div className="mb-4">
-              <div className="flex items-center justify-between mb-1">
-                <div>
-                  <span className="font-bold text-white text-xl mb-1.5 block">
-                    {t("tournament.substitutes_title")}
-                    <span className="text-base font-normal text-white ml-1">
-                      {t("tournament.substitutes_max")}
-                    </span>
-                  </span>
-                  <p className="block text-sm text-white mb-2">
-                    {t("tournament.substitutes_description")}
-                  </p>
-                </div>
-                <span className="text-base font-normal text-[#6A71E8]">
-                  {t("tournament.substitutes_optional")}
-                </span>
-              </div>
-              <TeamSection
-                data={data.substitutes}
-                section="substitutes"
-                selectedItems={selectedItems.substitutes}
-                onCheckChange={handleCheckChange}
-                noDataMessage="tournament.no_substitutes_available"
-              />
-            </div> */}
 
             <div className="manage-team-pop wizard_step--btn gap-5 flex justify-between sm:mt-10 mt-6 mb-6 mr-5 flex-wrap">
               <div className="game_status--tab wizard_btn back_btn">
