@@ -62,9 +62,6 @@ const TournamentDetail = () => {
   const { currentTeam, teamData, loading, showTeamRegistrationPopup } =
     useSelector((state) => state.tournamentTeam);
 
-  console.log("currentTeam", currentTeam);
-  console.log("teamData", teamData);
-
   const handleClose = () => setShowModal(false);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
