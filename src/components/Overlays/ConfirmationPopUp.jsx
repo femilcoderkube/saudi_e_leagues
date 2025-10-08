@@ -128,6 +128,11 @@ function ConfirmationPopUp({
       onAssignTeamRole(popupData, "Coach");
       dispatch(setConfirmationPopUp(0));
     }
+    if (confirmationPopUp === 9) {
+      onAssignTeamRole(popupData, "Coach");
+      dispatch(setConfirmationPopUp(0));
+    }
+
     if (confirmationPopUp === 10) {
       onRemoveTeam(popupData);
       dispatch(setConfirmationPopUp(0));
@@ -159,6 +164,10 @@ function ConfirmationPopUp({
       dispatch(setTeamRegistrationPopup(true));
       dispatch(setConfirmationPopUp(0));
     }
+    if (confirmationPopUp === 17) {
+      onAssignTeamRole(popupData, "Player");
+      dispatch(setConfirmationPopUp(0));
+    }
   };
 
   const getConfirmationTitle = () => {
@@ -178,6 +187,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 14) return t("confirmation.registrationConfirm");
     if (confirmationPopUp == 15) return t("confirmation.removeTeamConfirm");
     if (confirmationPopUp == 16) return t("confirmation.createTeamConfirm");
+    if (confirmationPopUp == 17) return t("confirmation.assignPlayerConfirm");
 
     return "";
   };
@@ -237,7 +247,8 @@ function ConfirmationPopUp({
       confirmationPopUp == 13 ||
       confirmationPopUp == 14 ||
       confirmationPopUp == 15 ||
-      confirmationPopUp == 16
+      confirmationPopUp == 16 ||
+      confirmationPopUp == 17
     )
       return t("confirmation.cancel");
     if (confirmationPopUp == 2) return t("confirmation.no");
@@ -261,6 +272,7 @@ function ConfirmationPopUp({
     if (confirmationPopUp == 14) return t("confirmation.yes");
     if (confirmationPopUp == 15) return t("confirmation.yes");
     if (confirmationPopUp == 16) return t("confirmation.yes");
+    if (confirmationPopUp == 17) return t("confirmation.yes");
     return "";
   };
 
