@@ -67,7 +67,7 @@ const CustomFileUpload = ({
       />
       <div
         onClick={handleUploadClick}
-        className={`cursor-${hasImage ? "default" : "pointer"} ${isReg ? "w-full" : "w-[6.25rem]"} h-[6.25rem] border-2 border-dashed border-[#7B7ED0] bg-gradient-to-br from-[#09092d] to-[#1a1a4a] p-2 rounded-xl shadow-lg hover:border-blue-500 transition-all duration-300 flex items-center justify-center relative overflow-hidden m-auto`}
+        className={`cursor-${hasImage ? "default" : "pointer"} ${isReg ? "w-full" : "sm:w-[7rem] w-[6.25rem]"} sm:h-[7rem] h-[6.25rem] border-2 border-dashed border-[#7B7ED0] bg-gradient-to-br from-[#09092d] to-[#1a1a4a] sm:p-2 p-1.5 rounded-xl shadow-lg hover:border-blue-500 transition-all duration-300 flex items-center justify-center relative overflow-hidden m-auto`}
       >
         {hasImage ? (
           <>
@@ -89,7 +89,7 @@ const CustomFileUpload = ({
           </>
         ) : (
           <div className="flex flex-col items-center justify-center w-full h-full">
-            <p className="text-[#7B7ED0] sm:text-lg text-base font-medium">
+            <p className="text-[#7B7ED0] md:text-lg sm:text-base text-sm font-medium">
               {isReg ? "Upload Profile Picture" : "Upload Photo"}
             </p>
             <p className="text-[#7B7ED0]/70 text-sm mt-1">

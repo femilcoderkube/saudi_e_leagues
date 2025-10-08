@@ -424,7 +424,7 @@ function SubmitPopUp({ handleClose }) {
                 </svg>
               </div>
 
-              <div className="upload-pic text-center max-w-full w-[24rem] flex flex-row sm:gap-4 gap-2 justify-center">
+              <div className="upload-pic text-center max-w-full w-[24rem] flex flex-row md:gap-4 sm:gap-2 gap-1 justify-center">
                 {renderSlots.map((index) => (
                   <div key={index} className="relative flex-1">
                     <CustomFileUpload
