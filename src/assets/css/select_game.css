@@ -450,8 +450,8 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
     max-width: 9rem;
   }
 
-  html[dir="rtl"] .card_participants_v2 {
-    max-width: 8rem;
+   .card_participants_v2 {
+    max-width: 7.6rem;
   }
 
   .game_intro-con {
@@ -508,6 +508,9 @@ html[dir="rtl"] .game_card--wrapv2 .match_date {
   .sd_custom-input.otp-input{
     width: 2.9rem;
     height:2.9rem;
+  }
+  .card_participants_v2 {
+    max-width: 7.2rem;
   }
 }
 
