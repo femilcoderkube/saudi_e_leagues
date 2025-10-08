@@ -531,7 +531,7 @@ export const getTimeUntilRegistration = (regStart, t) => {
 
   // If less than a minute remains, return a message or null
   if (days === 0 && hours === 0 && minutes === 0 && seconds < 60) {
-    return t("{tourteam.eventStartingSoon}") || "Starting soon";
+    return t("tourteam.eventStartingSoon") || "Starting soon";
   }
 
   // Translate numbers and units
