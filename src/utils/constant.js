@@ -517,7 +517,6 @@ export const findUserRolesById = (games, userId) => {
     .filter((entry) => entry !== null);
 };
 
-// Helper function to calculate time remaining until registration start
 export const getTimeUntilRegistration = (regStart, t) => {
   if (!regStart) return null;
   const now = new Date();
@@ -528,12 +527,27 @@ export const getTimeUntilRegistration = (regStart, t) => {
   const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+
+  // If less than a minute remains, return a message or null
+  if (days === 0 && hours === 0 && minutes === 0 && seconds < 60) {
+    return t("{tourteam.eventStartingSoon}") || "Starting soon";
+  }
 
   // Translate numbers and units
   const transDays = days === 1 ? t("units.day") : t("units.days");
   const transHours = hours === 1 ? t("units.hour") : t("units.hours");
   const transMinutes = minutes === 1 ? t("units.minute") : t("units.minutes");
-  const transNumbers = (num) => t(`numbers.${num}`);
+
+  // Flexible number translation
+  const transNumbers = (num) => {
+    // Check if the number exists in the translation object
+    if (t(`numbers.${num}`)) {
+      return t(`numbers.${num}`);
+    }
+    // Fallback: Convert number to string for unsupported numbers
+    return num.toString();
+  };
 
   // Return only the largest non-zero unit
   if (days > 0) {
