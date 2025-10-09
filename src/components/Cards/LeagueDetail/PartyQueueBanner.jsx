@@ -14,7 +14,7 @@ const PartyQueueBanner = () => {
     (state) => state.leagues
   );
 
-  const partySizeLimit = leagueData?.partySizeLimit || 3;
+  const partySizeLimit = leagueData?.partySizeLimit || 1;
 
   const { partyQueueTeam } = useSelector((state) => state.constState);
   const { user } = useSelector((state) => state.auth);
