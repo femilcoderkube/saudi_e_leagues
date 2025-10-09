@@ -109,17 +109,18 @@ import list_partycip from "../../../assets/images/list_partycip.webp";
 import team_falcons from "../../../assets/images/team-falcons.webp";
 import maskgroup from "../../../assets/images/maskgroup.webp";
 import user_about from "../../../assets/images/user-about.webp";
-
 import roasterKing from "../../../assets/images/roaster-king.webp";
 import menu_roaster from "../../../assets/images/menu_roaster.svg";
 import my_team_icon from "../../../assets/images/my-team-con.webp";
 import roaster_arrow from "../../../assets/images/roaster-arrow.svg";
 import roaster_arrow_female from "../../../assets/images/roaster-arrow-female.svg";
+import chat_null from "../../../assets/images/chat-null.webp";
 
 export const IMAGES = {
   prime_icon,
   full_screen,
   roaster_arrow,
+  chat_null,
   roaster_arrow_female,
   menu_roaster,
   roasterKing,
