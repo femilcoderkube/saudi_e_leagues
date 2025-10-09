@@ -763,7 +763,14 @@ html[dir="rtl"] .home_faq--sec {
         background-size: contain;
     }
 
+    html[dir=rtl] .sd_play-link{
+        background-image: url(/src/assets/images/mob-home-about_rtl.webp);
+        background-position:center;
+    }
+
     html[dir=rtl] .home_faq--sec .faq_left--con {
+        background-image: url(/src/assets/images/faqBG.webp);   
+        background-size: contain;
         background-position: top;
     }
 
@@ -784,6 +791,7 @@ html[dir="rtl"] .home_faq--sec {
     .home_timecard {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
+  
 }
 
 @media (max-width: 767px) {
