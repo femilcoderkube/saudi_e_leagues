@@ -39,9 +39,11 @@ const TeamSection = ({
                     <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
                       {item.name || item.username || "-"}
                     </p>
-                    <p className="text-md text-[#8598F6] font-medium leading-none">
-                      {item.gameId || "-"}
-                    </p>
+                    {item.gameId && (
+                      <p className="text-md text-[#8598F6] font-medium leading-none">
+                        {item.gameId || "-"}
+                      </p>
+                    )}
                   </div>
                 </label>
                 {(teamData?.userRole === "President" ||
