@@ -437,12 +437,13 @@ const TournamentTeamSlice = createSlice({
           (state.rosterSelection?.playerIds &&
             state.rosterSelection?.playerIds?.length > 0);
         if (!hasSelection && state.teamData && state.teamData?.data) {
+          const managerId = state.teamData?.data?.Manager?._id || null; // FIX: Use Manager from teamData
           const coachId = state.teamData?.data?.Coach?._id || null;
           const playerIds = Array.isArray(state.teamData?.data?.Players)
             ? state.teamData?.data?.Players?.map((p) => p?._id).filter(Boolean)
             : [];
           state.rosterSelection = {
-            managerId: null,
+            managerId,
             coachId,
             playerIds,
           };

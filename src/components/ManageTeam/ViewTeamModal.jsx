@@ -37,7 +37,7 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
 
   // Fetch team user format when team ID changes
   useEffect(() => {
-    if (currentTeam?._id && tournamentData?.game?._id && viewManagePopup) {
+    if (currentTeam?._id && tournamentData?.game?._id) {
       dispatch(
         fetchTeamUserFormat({
           teamId: currentTeam?._id,
@@ -49,7 +49,7 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
     return () => {
       dispatch(resetTeamUserFormat());
     };
-  }, [currentTeam?._id, tournamentData?.game?._id, dispatch, viewManagePopup]);
+  }, [currentTeam?._id, tournamentData?.game?._id, dispatch]);
 
   // Filter teamUserFormat data to include only selected items
   const filteredTeamUserFormat = useMemo(() => {
