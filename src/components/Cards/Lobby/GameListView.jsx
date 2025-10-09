@@ -66,7 +66,7 @@ const GameListView = ({ leagues }) => {
                     </div>
                   </div>
                 </div>
-                <div className="card_participants_v2 mt-3 relative ltr:pl-13 rtl:pr-13 z-40">
+                <div className="card_participants_v2 mt-3 relative sm:ltr:pl-13 ltr:pl-10 sm:rtl:pr-13 rtl:pr-10 z-40">
                   <h3 className="part_number sm:text-lg text-base !font-bold leading-tight">
                     {item.totalRegistrations}
                   </h3>
