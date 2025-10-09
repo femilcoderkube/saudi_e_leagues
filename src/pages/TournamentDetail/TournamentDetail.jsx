@@ -603,7 +603,9 @@ const TournamentDetail = () => {
                                               return (
                                                 <>
                                                   {t(
-                                                    "tournament.roster_lock_in",
+                                                    hours > 0
+                                                      ? "tournament.roster_lock_in_hour"
+                                                      : "tournament.roster_lock_in",
                                                     {
                                                       hours,
                                                       minutes,

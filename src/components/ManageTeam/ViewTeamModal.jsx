@@ -17,6 +17,7 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
   const { viewManagePopup } = useSelector((state) => state.constState);
   const { currentTeam, teamUserFormat, teamData, rosterSelection } =
     useSelector((state) => state.tournamentTeam);
+
   const { tournamentData } = useSelector((state) => state.tournament);
 
   // Local view-model derived from slice rosterSelection
@@ -53,6 +54,37 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
 
   // Filter teamUserFormat data to include only selected items
   const filteredTeamUserFormat = useMemo(() => {
+    if (teamData?.status != 1 && teamData?.data) {
+      // For status 3, use teamData.data directly
+      return {
+        manager: teamData.data.Manager
+          ? [
+              {
+                id: teamData.data.Manager._id,
+                username: teamData.data.Manager.username,
+                profilePicture: teamData.data.Manager.profilePicture,
+              },
+            ]
+          : [],
+        coach: teamData.data.Coach
+          ? [
+              {
+                id: teamData.data.Coach._id,
+                username: teamData.data.Coach.username,
+                profilePicture: teamData.data.Coach.profilePicture,
+              },
+            ]
+          : [],
+        players: teamData.data.Players
+          ? teamData.data.Players.map((player) => ({
+              id: player._id,
+              username: player.username,
+              profilePicture: player.profilePicture,
+            }))
+          : [],
+      };
+    }
+
     if (!teamUserFormat?.data) return { manager: [], coach: [], players: [] };
 
     return {
@@ -69,7 +101,9 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
           selectedItems.players.some((selected) => selected.id === item.id)
         ) || [],
     };
-  }, [teamUserFormat?.data, selectedItems]);
+  }, [teamUserFormat?.data, selectedItems, teamData?.data]);
+
+  console.log("filter", filteredTeamUserFormat);
 
   if (!viewManagePopup) return null;
 
