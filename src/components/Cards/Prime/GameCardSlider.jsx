@@ -5,30 +5,36 @@ import "swiper/css";
 import "swiper/css/navigation";
 import GameCard from "./GameCard";
 
-
 const SliderCardDetails = [
   {
     paht: "#",
-    imgsrc: "https://backend.primeeleague.com/api/v1/uploads/1752507756022-cod.jpg",
-    gameLogo: "https://backend.primeeleague.com/api/v1/uploads/1752008880358-CoD.png",
+    imgsrc:
+      "https://backend.primeeleague.com/api/v1/uploads/1752507756022-cod.jpg",
+    gameLogo:
+      "https://backend.primeeleague.com/api/v1/uploads/1752008880358-CoD.png",
   },
   {
     paht: "#",
-    imgsrc: "https://backend.primeeleague.com/api/v1/uploads/1752507723419-fifa.jpg",
-    gameLogo: "https://backend.primeeleague.com/api/v1/uploads/1752009843866-FC25.png",
+    imgsrc:
+      "https://backend.primeeleague.com/api/v1/uploads/1759330786983-EA%20FC%2026%20outside%20photo.jpg",
+    gameLogo:
+      "https://backend.primeeleague.com/api/v1/uploads/1752009843866-FC25.png",
   },
   {
     paht: "#",
-    imgsrc: "https://backend.primeeleague.com/api/v1/uploads/1752507747372-rocket-league.jpg",
-    gameLogo: "https://backend.primeeleague.com/api/v1/uploads/1752008907915-RL.png",
+    imgsrc:
+      "https://backend.primeeleague.com/api/v1/uploads/1752507747372-rocket-league.jpg",
+    gameLogo:
+      "https://backend.primeeleague.com/api/v1/uploads/1752008907915-RL.png",
   },
   {
     paht: "#",
-    imgsrc: "https://backend.primeeleague.com/api/v1/uploads/1752507803859-pubg.jpg",
-    gameLogo: "https://backend.primeeleague.com/api/v1/uploads/1752008897490-PUBGM.png",
+    imgsrc:
+      "https://backend.primeeleague.com/api/v1/uploads/1752507803859-pubg.jpg",
+    gameLogo:
+      "https://backend.primeeleague.com/api/v1/uploads/1752008897490-PUBGM.png",
   },
 ];
-
 
 const GameCardSlider = () => {
   const prevRef = useRef(null);
@@ -41,7 +47,7 @@ const GameCardSlider = () => {
   //   ? ongoingLeaguesAndTournaments.map((league) => ({
   //       path: `/game/${league.game._id}/league/${league._id}`,
   //       imgsrc: `${BASE_IMAGE_URL}${league.game.logo}`,
-  //       gameLogo: `${BASE_IMAGE_URL}${league.game.logo}`, 
+  //       gameLogo: `${BASE_IMAGE_URL}${league.game.logo}`,
   //     }))
   //   : SliderCardDetails;
 
@@ -68,7 +74,7 @@ const GameCardSlider = () => {
         slidesPerView={2.5}
         centeredSlides={false}
         loop={true}
-        style={{ position: 'relative' }}
+        style={{ position: "relative" }}
         breakpoints={{
           0: {
             slidesPerView: 1.5,
