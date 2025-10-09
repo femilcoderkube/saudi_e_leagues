@@ -78,6 +78,9 @@ const TournamentMatchDetailSlice = createSlice({
         );
       };
 
+      const team1Authors = matchData?.team1Author?.map(String) || [];
+      const team2Authors = matchData?.team2Author?.map(String) || [];
+      let isSubmitBtnShow = false;
       // Helper function to determine chat visibility
       const shouldShowChat = (matchData, isMyMatch) => {
         if (!isMyMatch) return false;
@@ -92,7 +95,10 @@ const TournamentMatchDetailSlice = createSlice({
 
       // Check if current user is in this match
       const isMyMatch =
-        isUserInTeam(matchData.opponent1) || isUserInTeam(matchData.opponent2);
+        isUserInTeam(matchData.opponent1) ||
+        isUserInTeam(matchData.opponent2) ||
+        team1Authors.includes(userId) ||
+        team2Authors.includes(userId);
 
       // Reset scores to default
       state.winnerScore.teamOne = "-";
@@ -107,16 +113,11 @@ const TournamentMatchDetailSlice = createSlice({
         state.winnerScore.teamOne = activeScore.opponent1Score;
         state.winnerScore.teamTwo = activeScore.opponent2Score;
         state.isShowChat = false; // Don't show chat when there's an active score
-          state.isScoreSubmited = true;
-       
+        state.isScoreSubmited = true;
       } else {
         state.isShowChat = shouldShowChat(matchData, isMyMatch);
         state.isScoreSubmited = false;
       }
-
-      const team1Authors = matchData?.team1Author?.map(String) || [];
-      const team2Authors = matchData?.team2Author?.map(String) || [];
-      let isSubmitBtnShow = false;
 
       if (userId) {
         const isInTeam1 = team1Authors.includes(userId);

@@ -542,7 +542,9 @@ const TournamentDetail = () => {
                         alt="Overview Icon"
                         className="w-5 h-5"
                       /> */}
-                          {item?.stageName}
+                          {i18n.language == "en"
+                            ? item?.stageName
+                            : item.stageNameAr}
                         </div>
                       </li>
                     );
