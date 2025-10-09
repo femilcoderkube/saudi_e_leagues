@@ -103,8 +103,6 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
     };
   }, [teamUserFormat?.data, selectedItems, teamData?.data]);
 
-  console.log("filter", filteredTeamUserFormat);
-
   if (!viewManagePopup) return null;
 
   return (
