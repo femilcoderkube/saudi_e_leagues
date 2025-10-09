@@ -128,10 +128,6 @@ function ConfirmationPopUp({
       onAssignTeamRole(popupData, "Coach");
       dispatch(setConfirmationPopUp(0));
     }
-    if (confirmationPopUp === 9) {
-      onAssignTeamRole(popupData, "Coach");
-      dispatch(setConfirmationPopUp(0));
-    }
 
     if (confirmationPopUp === 10) {
       onRemoveTeam(popupData);
