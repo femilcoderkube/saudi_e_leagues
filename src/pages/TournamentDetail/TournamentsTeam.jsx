@@ -91,6 +91,7 @@ export default function TournamentsTeam() {
         })
       );
       if (transferTeamPresidency.fulfilled.match(resultAction)) {
+        toast.success(resultAction?.payload?.message);
         await dispatch(getTeamData(user._id));
       }
     } catch (err) {
@@ -110,6 +111,7 @@ export default function TournamentsTeam() {
         })
       );
       if (assignTeamRole.fulfilled.match(resultAction)) {
+        toast.success(resultAction?.payload?.message);
         await dispatch(getTeamData(user._id));
       }
     } catch (err) {
@@ -907,8 +909,6 @@ export default function TournamentsTeam() {
                   //     u.role === "President"
                   // );
 
-                  console.log("isManager", isManager);
-
                   return (
                     <div key={game.game._id} className="mb-8">
                       <div className="flex items-center gap-4 mb-4">
@@ -1218,16 +1218,16 @@ export default function TournamentsTeam() {
                                     <p className="text-[#6368B5] text-base font-semibold">
                                       {val?.role || "Member"}
                                     </p>
-                                    {val?.user?.gender === "Male" ? (
+                                    {val?.gender === "Male" ? (
                                       <img
                                         className="w-[1.063rem] h-[1.188rem]"
-                                        src="/src/assets/images/roaster-arrow.svg"
+                                        src={IMAGES.roaster_arrow}
                                         alt=""
                                       />
-                                    ) : val?.user?.gender === "Female" ? (
+                                    ) : val?.gender === "Female" ? (
                                       <img
                                         className="w-[1.063rem] h-[1.188rem]"
-                                        src="/src/assets/images/roaster-arrow-female.svg"
+                                        src={IMAGES.roaster_arrow_female}
                                         alt=""
                                       />
                                     ) : (
