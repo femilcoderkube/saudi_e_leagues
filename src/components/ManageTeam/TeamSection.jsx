@@ -28,6 +28,7 @@ const TeamSection = ({
                     <img
                       src={
                         getServerURL(item.image) ||
+                        getServerURL(item.profilePicture) ||
                         "https://randomuser.me/api/portraits/men/32.jpg"
                       }
                       alt={t(`tournament.sample_${section}_${idx + 1}`)}
@@ -36,7 +37,7 @@ const TeamSection = ({
                   </span>
                   <div className="flex items-center flex-wrap sm:gap-6 gap-1">
                     <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
-                      {item.name || "-"}
+                      {item.name || item.username || "-"}
                     </p>
                     <p className="text-md text-[#8598F6] font-medium leading-none">
                       {item.gameId || "-"}

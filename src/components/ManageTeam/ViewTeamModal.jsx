@@ -20,6 +20,8 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
 
   const { tournamentData } = useSelector((state) => state.tournament);
 
+  console.log("tea", teamData);
+
   // Local view-model derived from slice rosterSelection
   const selectedItems = useMemo(() => {
     const manager = rosterSelection?.managerId
