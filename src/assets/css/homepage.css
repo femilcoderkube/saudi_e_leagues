@@ -772,6 +772,7 @@ html[dir="rtl"] .home_faq--sec {
         left: 15rem;
         top: 1rem;
         right: auto;
+        background-image: url(/src/assets/images/home_mob_logo.webp);
     }
 
     .htp_slider-sec .htp_left-con,
