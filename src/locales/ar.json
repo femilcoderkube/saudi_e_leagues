@@ -345,7 +345,8 @@
     "team_short_name_max": "يجب ألا يزيد اختصار اسم الفريق عن 4 أحرف",
     "team_logo_required": "شعار الفريق مطلوب",
     "invalid_url": "رابط غير صالح",
-    "region_required": "المنطقة مطلوبة"
+    "region_required": "المنطقة مطلوبة",
+    "valid_url_required": "يرجى إدخال رابط صالح"
   },
   "wizard": {
     "rules_and_regulations": "القواعد والأنظمة",

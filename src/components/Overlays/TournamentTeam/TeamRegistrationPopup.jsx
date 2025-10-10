@@ -115,15 +115,35 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       .required(t("validation_messages.region_required")),
   });
 
+  const urlValidation = Yup.string()
+    .trim()
+    .nullable()
+    .test(
+      "is-url-or-empty",
+      t("validation_messages.valid_url_required"),
+      (value) => {
+        // Allow empty values (optional field)
+        if (!value) return true;
+        // Must pass URL test
+        try {
+          // Allow both https and http
+          const url = new URL(value);
+          return ["https:", "http:"].includes(url.protocol);
+        } catch (err) {
+          return false;
+        }
+      }
+    );
+
   const step2ValidationSchema = Yup.object({
     social: Yup.object({
-      twitterId: Yup.string(),
-      instagramId: Yup.string(),
-      twitchId: Yup.string(),
-      kickId: Yup.string(),
-      discordId: Yup.string(),
-      facebookId: Yup.string(),
-      tiktokId: Yup.string(),
+      twitterId: urlValidation,
+      instagramId: urlValidation,
+      twitchId: urlValidation,
+      kickId: urlValidation,
+      discordId: urlValidation,
+      facebookId: urlValidation,
+      tiktokId: urlValidation,
     }),
   });
 
