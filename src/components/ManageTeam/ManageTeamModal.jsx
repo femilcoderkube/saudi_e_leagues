@@ -63,6 +63,13 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
           tournamentId: tournamentData?._id,
         })
       );
+      dispatch(
+        getTeamDetails({
+          tournamentId: tournamentData?._id,
+          teamId: currentTeam._id,
+          userId: user._id,
+        })
+      );
     }
     return () => {
       dispatch(resetTeamUserFormat());

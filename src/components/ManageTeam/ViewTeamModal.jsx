@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TeamSection from "./TeamSection";
 import {
   fetchTeamUserFormat,
+  getTeamDetails,
   resetTeamUserFormat,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice";
 
@@ -43,6 +44,13 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
           teamId: currentTeam?._id,
           game: tournamentData?.game?._id,
           tournamentId: tournamentData?._id,
+        })
+      );
+      dispatch(
+        getTeamDetails({
+          tournamentId: tournamentData?._id,
+          teamId: currentTeam._id,
+          userId: user._id,
         })
       );
     }

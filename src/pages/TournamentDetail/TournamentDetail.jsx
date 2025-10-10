@@ -463,7 +463,7 @@ const TournamentDetail = () => {
               disabled={buttonState.isDisabled}
             >
               <span
-                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-lg xl:text-[1.3rem]"
+                className="mob-common-btn absolute top-[2.3rem] left-0 w-full text-center text-base xl:text-[1.3rem]"
                 style={{
                   fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
                   fontWeight: "bold",
