@@ -15,9 +15,9 @@ const TeamSection = ({
   const { teamData } = useSelector((state) => state.tournamentTeam);
   return (
     <div className="mb-4">
-      {data && data.length > 0 ? (
+      {data && data?.length > 0 ? (
         <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-3.5 py-3 space-y-4">
-          {data.map((item, idx) => (
+          {data?.map((item, idx) => (
             <div key={idx} className="flex items-center justify-between">
               <div className="flex items-center justify-between gap-3 w-full">
                 <label
@@ -27,8 +27,8 @@ const TeamSection = ({
                   <span className="w-10 h-10">
                     <img
                       src={
-                        getServerURL(item.image) ||
-                        getServerURL(item.profilePicture) ||
+                        getServerURL(item?.image) ||
+                        getServerURL(item?.profilePicture) ||
                         "https://randomuser.me/api/portraits/men/32.jpg"
                       }
                       alt={t(`tournament.sample_${section}_${idx + 1}`)}
@@ -37,11 +37,11 @@ const TeamSection = ({
                   </span>
                   <div className="flex items-center flex-wrap sm:gap-6 gap-1">
                     <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
-                      {item.name || item.username || "-"}
+                      {item?.name || item?.username || "-"}
                     </p>
                     {item.gameId && (
                       <p className="text-md text-[#8598F6] font-medium leading-none">
-                        {item.gameId || "-"}
+                        {item?.gameId || "-"}
                       </p>
                     )}
                   </div>
@@ -49,8 +49,8 @@ const TeamSection = ({
                 {(teamData?.userRole === "President" ||
                   teamData?.userRole === "Manager") && (
                   <CustomCheckbox
-                    checked={selectedItems.some(
-                      (selected) => selected.id === item.id
+                    checked={selectedItems?.some(
+                      (selected) => selected?.id === item?.id
                     )}
                     onChange={() => onCheckChange(section, item)}
                     ariaLabel={t(`tournament.select_${section}_aria`)}

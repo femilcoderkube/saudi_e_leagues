@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import TeamSection from "./TeamSection";
 import {
   fetchTeamUserFormat,
-  getTeamDetails,
   resetTeamUserFormat,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice";
 
@@ -15,7 +14,7 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.auth);
   const { viewManagePopup } = useSelector((state) => state.constState);
-  const { currentTeam, teamUserFormat, teamData, rosterSelection } =
+  const { currentTeam, teamUserFormat, teamData, rosterSelection, loading } =
     useSelector((state) => state.tournamentTeam);
 
   const { tournamentData } = useSelector((state) => state.tournament);
@@ -57,29 +56,29 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
     if (teamData?.status != 1 && teamData?.data) {
       // For status 3, use teamData.data directly
       return {
-        manager: teamData.data.Manager
+        manager: teamData?.data?.Manager
           ? [
               {
-                id: teamData.data.Manager._id,
-                username: teamData.data.Manager.username,
-                profilePicture: teamData.data.Manager.profilePicture,
+                id: teamData?.data?.Manager?._id,
+                username: teamData?.data?.Manager?.username,
+                profilePicture: teamData?.data?.Manager?.profilePicture,
               },
             ]
           : [],
-        coach: teamData.data.Coach
+        coach: teamData?.data?.Coach
           ? [
               {
-                id: teamData.data.Coach._id,
-                username: teamData.data.Coach.username,
-                profilePicture: teamData.data.Coach.profilePicture,
+                id: teamData?.data?.Coach?._id,
+                username: teamData?.data?.Coach?.username,
+                profilePicture: teamData?.data?.Coach?.profilePicture,
               },
             ]
           : [],
-        players: teamData.data.Players
-          ? teamData.data.Players.map((player) => ({
-              id: player._id,
-              username: player.username,
-              profilePicture: player.profilePicture,
+        players: teamData?.data?.Players
+          ? teamData?.data?.Players?.map((player) => ({
+              id: player?._id,
+              username: player?.username,
+              profilePicture: player?.profilePicture,
             }))
           : [],
       };
@@ -89,21 +88,29 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
 
     return {
       manager:
-        teamUserFormat.data.manager?.filter((item) =>
-          selectedItems.manager.some((selected) => selected.id === item.id)
+        teamUserFormat?.data?.manager?.filter((item) =>
+          selectedItems?.manager?.some((selected) => selected?.id === item?.id)
         ) || [],
       coach:
-        teamUserFormat.data.coach?.filter((item) =>
-          selectedItems.coach.some((selected) => selected.id === item.id)
+        teamUserFormat?.data?.coach?.filter((item) =>
+          selectedItems?.coach?.some((selected) => selected?.id === item?.id)
         ) || [],
       players:
-        teamUserFormat.data.players?.filter((item) =>
-          selectedItems.players.some((selected) => selected.id === item.id)
+        teamUserFormat?.data?.players?.filter((item) =>
+          selectedItems?.players?.some((selected) => selected?.id === item?.id)
         ) || [],
     };
   }, [teamUserFormat?.data, selectedItems, teamData?.data]);
 
   if (!viewManagePopup) return null;
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full p-4">
+        <div className="text-white">Loading team data...</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -159,9 +166,9 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
                 </span>
               </div>
               <TeamSection
-                data={filteredTeamUserFormat.manager}
+                data={filteredTeamUserFormat?.manager}
                 section="manager"
-                selectedItems={selectedItems.manager}
+                selectedItems={selectedItems?.manager}
                 onCheckChange={() => {}} // No-op for view mode
                 noDataMessage="tournament.no_managers_available"
                 isViewMode={true}
@@ -187,9 +194,9 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
                 </span>
               </div>
               <TeamSection
-                data={filteredTeamUserFormat.coach}
+                data={filteredTeamUserFormat?.coach}
                 section="coach"
-                selectedItems={selectedItems.coach}
+                selectedItems={selectedItems?.coach}
                 onCheckChange={() => {}} // No-op for view mode
                 noDataMessage="tournament.no_coaches_available"
                 isViewMode={true}
@@ -218,9 +225,9 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
                 </span>
               </div>
               <TeamSection
-                data={filteredTeamUserFormat.players}
+                data={filteredTeamUserFormat?.players}
                 section="players"
-                selectedItems={selectedItems.players}
+                selectedItems={selectedItems?.players}
                 onCheckChange={() => {}} // No-op for view mode
                 noDataMessage="tournament.no_players_available"
                 isViewMode={true}

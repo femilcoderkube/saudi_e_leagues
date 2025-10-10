@@ -29,10 +29,10 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   const { user } = useSelector((state) => state.auth);
   const {
     link: inviteLink,
-    loading,
+    loading: loadingLink,
     error,
   } = useSelector((state) => state.teamInvitation);
-  const { currentTeam, teamUserFormat, teamData, rosterSelection } =
+  const { currentTeam, teamUserFormat, teamData, rosterSelection, loading } =
     useSelector((state) => state.tournamentTeam);
 
   const { tournamentData } = useSelector((state) => state.tournament);
@@ -83,15 +83,15 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
     // Compare current rosterSelection with teamData to avoid unnecessary dispatches
     const managerId = teamData?.data?.Manager?._id || null;
-    const coachId = teamData.data.Coach?._id || null;
-    const playerIds = Array.isArray(teamData.data.Players)
-      ? teamData.data.Players.map((p) => p?._id).filter(Boolean)
+    const coachId = teamData?.data?.Coach?._id || null;
+    const playerIds = Array.isArray(teamData?.data?.Players)
+      ? teamData?.data?.Players.map((p) => p?._id).filter(Boolean)
       : [];
 
     if (
-      rosterSelection.managerId !== managerId ||
-      rosterSelection.coachId !== coachId ||
-      JSON.stringify(rosterSelection.playerIds) !== JSON.stringify(playerIds)
+      rosterSelection?.managerId !== managerId ||
+      rosterSelection?.coachId !== coachId ||
+      JSON.stringify(rosterSelection?.playerIds) !== JSON.stringify(playerIds)
     ) {
       dispatch(setRosterSelectionBulk({ managerId, coachId, playerIds }));
     }
@@ -100,23 +100,23 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   // Handle checkbox toggle for an item in a section
   const handleCheckChange = (section, item) => {
     if (section === "manager") {
-      const next = selectedItems.manager.some((s) => s.id === item.id)
+      const next = selectedItems?.manager?.some((s) => s?.id === item?.id)
         ? null
-        : item.id;
+        : item?.id;
       dispatch(setManagerSelection(next));
       return;
     }
     if (section === "coach") {
-      const next = selectedItems.coach.some((s) => s.id === item.id)
+      const next = selectedItems?.coach?.some((s) => s?.id === item?.id)
         ? null
-        : item.id;
+        : item?.id;
       dispatch(setCoachSelection(next));
       return;
     }
     if (section === "players") {
-      const nextCount = selectedItems.players.some((s) => s.id === item.id)
-        ? selectedItems.players.length - 1
-        : selectedItems.players.length + 1;
+      const nextCount = selectedItems?.players?.some((s) => s?.id === item?.id)
+        ? selectedItems?.players?.length - 1
+        : selectedItems?.players?.length + 1;
       if (nextCount > (tournamentData?.maxPlayersPerTeam || Infinity)) {
         toast.error(
           t("tournament.players_max_limit", {
@@ -125,7 +125,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
         );
         return;
       }
-      dispatch(togglePlayerSelection(item.id));
+      dispatch(togglePlayerSelection(item?.id));
       return;
     }
   };
@@ -152,7 +152,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
     // Check minimum players required
     const minPlayers = tournamentData?.minPlayersPerTeam; // Fallback to 2 if undefined
-    if (selectedItems.players.length < minPlayers) {
+    if (selectedItems?.players?.length < minPlayers) {
       toast.error(
         t("tournament.invite_players_to_team", { count: minPlayers })
       );
@@ -161,10 +161,12 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
     const rosterData = {
       managerId:
-        selectedItems.manager.length > 0 ? selectedItems.manager[0].id : null,
+        selectedItems?.manager?.length > 0
+          ? selectedItems?.manager[0]?.id
+          : null,
       coachId:
-        selectedItems.coach.length > 0 ? selectedItems.coach[0].id : null,
-      playerIds: selectedItems.players.map((item) => item.id),
+        selectedItems?.coach?.length > 0 ? selectedItems?.coach[0]?.id : null,
+      playerIds: selectedItems?.players?.map((item) => item?.id),
     };
 
     dispatch(
@@ -213,6 +215,14 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
 
     onClose(); // Call the original onClose
   };
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full p-4">
+        <div className="text-white">Loading team data...</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -328,7 +338,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               <TeamSection
                 data={teamUserFormat?.data?.manager}
                 section="manager"
-                selectedItems={selectedItems.manager}
+                selectedItems={selectedItems?.manager}
                 onCheckChange={handleCheckChange}
                 noDataMessage="tournament.no_managers_available"
               />
@@ -355,7 +365,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               <TeamSection
                 data={teamUserFormat?.data?.coach}
                 section="coach"
-                selectedItems={selectedItems.coach}
+                selectedItems={selectedItems?.coach}
                 onCheckChange={handleCheckChange}
                 noDataMessage="tournament.no_coaches_available"
               />
@@ -385,7 +395,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               <TeamSection
                 data={teamUserFormat?.data?.players}
                 section="players"
-                selectedItems={selectedItems.players}
+                selectedItems={selectedItems?.players}
                 onCheckChange={handleCheckChange}
                 noDataMessage="tournament.no_players_available"
               />
