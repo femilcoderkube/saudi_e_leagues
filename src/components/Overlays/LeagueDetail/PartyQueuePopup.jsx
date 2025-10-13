@@ -8,6 +8,7 @@ import {
   setShowPartyQueuePopup,
 } from "../../../app/slices/constState/constStateSlice";
 import { t } from "i18next";
+import { checkBannedUser } from "../../../app/slices/auth/authSlice";
 
 function PartyQueuePopup() {
   const dispatch = useDispatch();
@@ -60,8 +61,15 @@ function PartyQueuePopup() {
     setPlayersToShow((prev) => prev + 10);
   };
 
-  const handleInvite = (option) => {
+  const handleInvite = async (option) => {
     if (!option) return;
+
+    const banCheckResult = await dispatch(checkBannedUser()).unwrap();
+    if (banCheckResult?.data.banMessage) {
+      toast.error(banCheckResult?.data.banMessage || "You Are Banned!")
+      return;
+    }
+
     dispatch(
       sendInvite({
         userId: option.value,

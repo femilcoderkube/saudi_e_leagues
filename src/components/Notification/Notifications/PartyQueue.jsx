@@ -9,6 +9,7 @@ import {
 } from "../../../app/socket/socket";
 import { IMAGES } from "../../ui/images/images";
 import { toast } from "react-toastify";
+import { checkBannedUser } from "../../../app/slices/auth/authSlice";
 
 const PartyQueue = ({ data }) => {
   const { t, i18n } = useTranslation();
@@ -68,10 +69,17 @@ const PartyQueue = ({ data }) => {
   const buttonClasses = `${baseClasses}${dynamicClasses}`;
   const buttonText = isExpired ? t("Expired") : notificationData.buttonText;
 
-  const handleAcceptInvite = () => {
+  const handleAcceptInvite = async () => {
     if (isExpired) {
       return;
     }
+
+    const banCheckResult = await dispatch(checkBannedUser()).unwrap();
+    if (banCheckResult?.data.banMessage) {
+      toast.error(banCheckResult?.data.banMessage || "You Are Banned!")
+      return;
+    }
+
     if (
       isQueueUser ||
       !(
