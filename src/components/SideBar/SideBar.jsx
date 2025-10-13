@@ -1,5 +1,4 @@
 import { NavLink, useLocation } from "react-router-dom";
-import "../../assets/css/aside.css";
 
 import { Link } from "react-router-dom";
 import { Twitter, Instagram, discord, Tiktok } from "../ui/svg/index.jsx";

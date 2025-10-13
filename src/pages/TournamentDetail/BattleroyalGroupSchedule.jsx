@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import "../../assets/css/homepage.css";
 
 import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";

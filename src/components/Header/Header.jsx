@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import "../../assets/css/main_content.css";
-import "../../assets/css/select_game.css";
 import {
   Prime,
   Lobby,

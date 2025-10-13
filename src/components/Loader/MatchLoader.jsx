@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "../../assets/css/Matchmaking.css";
 
 import { motion, useAnimation } from "motion/react";
 import { IMAGES } from "../ui/images/images";

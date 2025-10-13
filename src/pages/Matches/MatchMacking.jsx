@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../../assets/css/Matchmaking.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { formatTime } from "../../utils/constant.js";
 import { useSelector } from "react-redux";

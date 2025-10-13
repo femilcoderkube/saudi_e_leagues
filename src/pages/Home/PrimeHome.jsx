@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import "../../assets/css/homepage.css";
 
 import VideoPlayer from "../../components/Overlays/Prime/VideoPlayer.jsx";
 import Hero from "../../components/Home/Prime/Hero.jsx";
