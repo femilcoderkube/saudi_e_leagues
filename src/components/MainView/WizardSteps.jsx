@@ -1055,7 +1055,7 @@ const WizardSteps = ({
                   </button>
                 </div>
               )}
-              <div className="game_status--tab wizard_btn next_btn flex gap-6 justify-between items-center flex-wrap w-full">
+              <div className={`game_status--tab wizard_btn next_btn flex gap-6 justify-between items-center flex-wrap${!isEdit && step === 1 ? " w-full" : ""}`}>
                 {!isEdit && step === 1 && (
                   <div className="flex gap-2 ">
                     <span className="text-sm text-white">

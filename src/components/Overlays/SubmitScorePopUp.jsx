@@ -279,9 +279,7 @@ function SubmitPopUp({ handleClose }) {
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           <div
-            className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-auto text-white 
-    h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden sm:overflow-y-auto"
-          >
+            className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after !h-auto text-white h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden sm:overflow-y-auto">
             <div className="popup_header px-8 pt-4 flex items-start ltr:justify-end mt-3 text-center sm:mt-0 sm:text-left rtl:justify-start rtl:text-right">
               <div className="flex items-center gap-2 absolute left-12 top-5">
                 <span className="text-[#7B7ED0] font-bold text-lg">{team}</span>

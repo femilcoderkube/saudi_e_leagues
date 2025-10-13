@@ -2,10 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "../../assets/css/Matchmaking.css";
 
 import { useParams } from "react-router-dom";
-import {
-  getPartnerById,
-  getRandomColor,
-} from "../../utils/constant.js";
+import { getPartnerById, getRandomColor } from "../../utils/constant.js";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -123,9 +120,26 @@ const LeagueMatchDetail = () => {
   return (
     <main
       className="flex-1 pt-[0.5rem] match_page--wrapper h-full"
-      style={{ background: `url(${IMAGES.MatchMakingBG})`, backgroundSize: "100%" }}
+      style={{
+        background: `url(${IMAGES.MatchMakingBG})`,
+        backgroundSize: "100%",
+      }}
     >
-      <section className="match_team--wrap flex pt-[5rem] justify-between items-end sm:pl-[7.5rem] sm:pr-[7.5rem] pl-[3rem] pr-[3rem]  pb-[5.25rem] sm:pb-0">
+      <section className="match_team--wrap flex pt-[5rem] justify-between items-end sm:pl-[7.5rem] sm:pr-[7.5rem] pl-[3rem] pr-[3rem]  pb-[5.25rem] sm:pb-0 relative">
+        <div className="match-animate-img sm:hidden block">
+          <img
+            className="left-league absolute -top-60 left-14 opacity-[8%]"
+            src={IMAGES.center_league}
+            alt=""
+            style={{ width: "20rem" }}
+          />
+          <img
+            className="right-league absolute xl:top-20 xl:right-60 md:top-10 md:right-40 opacity-[8%]"
+            src={IMAGES.center_league}
+            alt=""
+            style={{ width: "9.5rem" }}
+          />
+        </div>
         <div className="team_score--con flex xl:flex-row flex-col justify-between w-full gap-10 items-center xl:items-start">
           {/* Team 1 */}
           <motion.div
@@ -149,21 +163,30 @@ const LeagueMatchDetail = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: 0.4 }}
           >
-            <h2 className="text-[4rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center text-center tracking-wider !font-black pb-[4rem]">
+            <h2 className="text-[4rem] mt-[-1rem] grad_text-clip uppercase leading-none items-center text-center tracking-wider !font-black sm:pb-[4rem] pb-[3rem]">
               <>
                 <span>{winnerScore.teamOne}</span>:
                 <span>{winnerScore.teamTwo}</span>
               </>
             </h2>
 
-            <div className="prime_logo--con sm:flex hidden justify-center sd_before gradiant_bg relative">
+            <div className="prime_logo--con flex justify-center sd_before gradiant_bg relative sm:pb-0 pb-[4rem]">
               <img
                 src={LargePrime}
                 alt={t("images.large_prime")}
                 style={{ width: "17.5rem" }}
               />
             </div>
-            <div className="mob-sub-btn flex items-center justify-center flex-wrap gap-6 mb-[1rem]">
+            <div
+              className={`mob-sub-btn flex items-center justify-center gap-6 mb-[1rem]${
+                isMyMatch &&
+                (!IsSubmited || isEditScore != null) &&
+                !matchData?.isCanceled &&
+                showCancelBtn
+                  ? "flex-wrap"
+                  : ""
+              }`}
+            >
               {user &&
                 isMyMatch &&
                 (!IsSubmited || isEditScore != null) &&
@@ -288,7 +311,7 @@ const LeagueMatchDetail = () => {
                 <div className="chat_block--con pt-[1rem] h-[25rem] sd_before relative flex flex-col max-w-lg mx-auto">
                   <div
                     className="flex-1 flex flex-col-reverse mx-h-[20rem] chat_msg--con custom_scroll overflow-y-auto pr-4 pb-4"
-                  // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
+                    // style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}
                   >
                     <div ref={scrollAnchorRef}></div>
                     <div className="flex flex-col space-y-1">
@@ -304,7 +327,10 @@ const LeagueMatchDetail = () => {
                           return chat.messages
                             .filter((msg) => msg)
                             .map((msg, msgIdx) => (
-                              <div className={`block send_msg-con`} key={msgIdx}>
+                              <div
+                                className={`block send_msg-con`}
+                                key={msgIdx}
+                              >
                                 <div className="px-2 py-1 rounded-lg">
                                   <div className="flex items-center gap-2">
                                     <span
@@ -367,10 +393,11 @@ const LeagueMatchDetail = () => {
                         }
                         return (
                           <div
-                            className={`block ${user?._id == chat.senderId?._id
-                              ? "send_msg-con"
-                              : "reply_msg-con"
-                              }`}
+                            className={`block ${
+                              user?._id == chat.senderId?._id
+                                ? "send_msg-con"
+                                : "reply_msg-con"
+                            }`}
                           >
                             <div className="px-2 py-1 rounded-lg">
                               <p className="text-white text-lg font-light">
@@ -444,7 +471,7 @@ const LeagueMatchDetail = () => {
                   onClick={() => dispatch(setshowMobileChat(false))}
                 >
                   <motion.div
-                    className="mob-chat-wp sm:hidden w-full max-w-[19rem] fixed top-0 ltr:right-0 rtl:left-0 z-11 bg-slate-900 text-white  flex flex-col justify-between"
+                    className="mob-chat-wp sm:hidden w-full max-w-[19rem] fixed top-0 ltr:right-0 rtl:left-0 z-101 bg-slate-900 text-white  flex flex-col justify-between"
                     onClick={(e) => e.stopPropagation()}
                     initial={{ x: "100%" }} // start from right
                     animate={{ x: 0 }} // slide in
@@ -543,7 +570,6 @@ const LeagueMatchDetail = () => {
                           }
                           return (
                             <div className="flex items-center gap-4 pb-6">
-
                               <div className="min-w-0">
                                 <div
                                   className="font-bold text-base"
@@ -565,8 +591,17 @@ const LeagueMatchDetail = () => {
                           );
                         })}
                         <div ref={scrollAnchorRef}></div>
+                        <div className="flex flex-col gap-7 items-center justify-center h-full text-center mx-auto max-w-[10rem]">
+                          <img
+                            className="w-[7.5rem] h-[7.5rem]"
+                            src={IMAGES.chat_null}
+                            alt=""
+                          />
+                          <span className="text-base font-semibold text-[#7B7ED0CC]">
+                            There are no Messages in the Chat yet.
+                          </span>
+                        </div>
                       </div>
-
                     </div>
                     <div className="mob-chat-box p-6 flex items-center">
                       <input

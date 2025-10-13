@@ -166,10 +166,9 @@ const PartyMatchMaking = () => {
                     }`}
                   >
                     <img
-                      className="cancel-btn duration-400 cursor-pointer z-2"
+                      className="cancel-btn duration-400 cursor-pointer z-2 sm:w-[25rem] w-[21.375rem]"
                       src={IMAGES.cancel_btn}
-                      alt={t("cancel")}
-                      style={{ width: "25rem" }}
+                      alt={t("cancel")}                      
                     />
                     <span
                       className={`mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-lg sm:text-2xl ${

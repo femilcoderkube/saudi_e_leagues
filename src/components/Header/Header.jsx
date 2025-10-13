@@ -670,6 +670,7 @@ const Header = () => {
     checkParams("finding-partymatch") ||
     checkParams("match")
   ) {
+    console.log("jijjkjl")
     // Extract common data
     const isEnglish = i18n.language === "en";
     const isTournament = checkParams("tournament");
@@ -765,6 +766,11 @@ const Header = () => {
           <div className="mob-logo sm:hidden block">
             <img className="w-18 h-auto" src={IMAGES.logo_ltr} alt="" />
           </div>
+          <MobileNavigation
+          user={user}
+          isActiveTab={isActiveTab}
+          breadcrumbItems={breadcrumbItems}
+        />
         </header>
       );
     }
