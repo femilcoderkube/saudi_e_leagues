@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../../assets/css/Matchmaking.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { formatTime } from "../../utils/constant.js";
 import { useSelector } from "react-redux";
@@ -166,10 +165,9 @@ const PartyMatchMaking = () => {
                     }`}
                   >
                     <img
-                      className="cancel-btn duration-400 cursor-pointer z-2"
+                      className="cancel-btn duration-400 cursor-pointer z-2 sm:w-[25rem] w-[21.375rem]"
                       src={IMAGES.cancel_btn}
-                      alt={t("cancel")}
-                      style={{ width: "25rem" }}
+                      alt={t("cancel")}                      
                     />
                     <span
                       className={`mob-common-btn absolute top-[2.0125rem] left-0 w-full text-center text-lg sm:text-2xl ${

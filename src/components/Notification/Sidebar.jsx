@@ -90,7 +90,7 @@ const NotificationSidebar = () => {
 
   return (
     <div
-      className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"
+      className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-101"
       onClick={handleClose}
     >
       <div

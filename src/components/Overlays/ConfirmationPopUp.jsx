@@ -296,7 +296,7 @@ function ConfirmationPopUp({
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <div className="match_reg--popup submit_score--popup popup_bg relative sd_before sd_after ">
+          <div className="match_reg--popup logout-popup submit_score--popup popup_bg relative sd_before sd_after">
             <div className="popup_header px-8 pt-4 flex items-start ltr:justify-end mt-3 text-center sm:mt-0 sm:text-left rtl:justify-start rtl:text-right">
               <div className="flex items-center gap-2 h-8 absolute left-1/2 translate-x-[-50%] top-10">
                 <img

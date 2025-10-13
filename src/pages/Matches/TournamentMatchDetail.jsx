@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import "../../assets/css/Matchmaking.css";
 import { useParams } from "react-router-dom";
 import {
   getPartnerById,

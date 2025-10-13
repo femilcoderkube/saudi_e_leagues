@@ -102,10 +102,10 @@ const LeagueRegistration = () => {
           aria-hidden="true"
         ></div>
 
-        <div className="fixed  inset-0 overflow-y-auto flex justify-center items-center">
-          <div className="popup-wrap inline-flex justify-center  items-center h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60 ">
+        <div className="fixed inset-0 overflow-y-auto flex sm:justify-center justify-end sm:flex-row flex-col items-center">
+          <div className="popup-wrap sm:w-auto w-full inline-flex justify-center  items-center h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60 ">
             <motion.div
-              className="match_reg--popup relative sd_before sd_after"
+              className="match_reg--popup mob-register-popup relative sd_before sd_after"
               initial={{ scale: 0.5, opacity: 0, y: 50 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.5, opacity: 0, y: 50 }}
@@ -159,7 +159,7 @@ const LeagueRegistration = () => {
                           {fieldList.map((field) => (
                             <div
                               key={field._id}
-                              className="mb-4 flex items-center"
+                              className="mb-4 flex items-center sm:px-0 px-2"
                             >
                               {/* Image displayed next to the field */}
                               {field?.image && (
@@ -174,8 +174,15 @@ const LeagueRegistration = () => {
                                   type={field.fieldType}
                                   id={field.fieldName}
                                   name={field.fieldName}
-                                  className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] rtl:mr-2"
+                                  className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] rtl:mr-2 sm:block hidden"
                                   placeholder={field.fieldName}
+                                />
+                                <Field
+                                  type={field.fieldType}
+                                  id={field.fieldName}
+                                  name={field.fieldName}
+                                  className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] rtl:mr-2 block sm:hidden"
+                                  placeholder="Input ID"
                                 />
                                 <div className="text-start px-7">
                                   <ErrorMessage
@@ -210,7 +217,7 @@ const LeagueRegistration = () => {
                       )}
 
                       {/* Terms and Conditions Checkbox */}
-                      <div className="px-4 pt-6">
+                      <div className="sm:px-4 px-2 pt-6">
                         {customFields.map((field) => (
                           <div key={field._id} className="mb-4">
                             <input
@@ -233,11 +240,13 @@ const LeagueRegistration = () => {
                               <span className="checkbox-inner flex items-center justify-center w-[2rem] h-[2rem] text-transparent rounded-sm bg-[#09092d]"></span>
                               <div className="text-base flex-[1]">
                                 <span
-                                  className="purple_light"
+                                  className="purple_light sm:block hidden"
                                   dangerouslySetInnerHTML={{
                                     __html: field.checkboxText,
                                   }}
-                                />
+                                />                              
+                                <span className="purple_light block sm:hidden text-sm">By Registering a Match I agree
+                                to <span className="break-text"> <a className="text-[#46ABF8] underline font-semibold" href="">Terms and Conditions</a> and <a className="text-[#46ABF8] underline font-semibold" href="">Privacy Policy</a></span></span>
                               </div>
                             </label>
                           </div>
@@ -280,23 +289,25 @@ const LeagueRegistration = () => {
                         )} */}
                       </div>
 
-                      <div className="popup_footer px-6 mt-5 pt-6">
+                      <div className="popup_footer sm:px-6 px-4 mt-5 pt-6 ">
                         <button
                           type="submit"
                           disabled={
                             !allRequiredChecked ||
                             (fieldList.length > 0 && !isValid)
                           }
-                          className={`popup_submit-btn text-xl uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400 ${
+                          className={`popup_submit-btn sm:text-xl text-lg uppercase purple_col font-medium font_oswald hover:opacity-70 duration-400  ${
                             !allRequiredChecked ||
                             (fieldList.length > 0 && !isValid)
                               ? "opacity-50 cursor-not-allowed"
                               : "cursor-pointer"
                           }`}
                         >
-                          {fieldList.length > 0
+                          <span className="sm:block hidden">{fieldList.length > 0
                             ? t("auth.submit")
                             : t("auth.registration")}
+                            </span>
+                            <span className="block sm:hidden text-[#7B7ED0] font-bold">Input ID</span>
                         </button>
                         <Popup_btn />
                       </div>

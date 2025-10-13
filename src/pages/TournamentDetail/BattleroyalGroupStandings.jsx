@@ -1,5 +1,4 @@
 import React from "react";
-import "../../assets/css/homepage.css";
 import { useSelector } from "react-redux";
 import { getRandomColor, getServerURL } from "../../utils/constant";
 import { cardVariantsAni } from "../../components/Animation/animation.jsx";

@@ -118,7 +118,7 @@ const GetQueueButton = () => {
             }}
           >
             <span
-              className="mob-common-btn absolute top-[2rem] left-0 w-full mb-3 text-center text-xl sm:text-3xl"
+              className="mob-common-btn absolute top-[2rem] left-0 w-full mb-3 text-center text-base sm:text-xl md:text-3xl"
               style={{
                 fontFamily: i18n.language === "ar" ? "Cairo" : "Yapari",
                 fontWeight: "bold",

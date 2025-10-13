@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import "../../assets/css/main_content.css";
-import "../../assets/css/select_game.css";
 import {
   Prime,
   Lobby,
@@ -670,6 +668,7 @@ const Header = () => {
     checkParams("finding-partymatch") ||
     checkParams("match")
   ) {
+    console.log("jijjkjl")
     // Extract common data
     const isEnglish = i18n.language === "en";
     const isTournament = checkParams("tournament");
@@ -765,6 +764,11 @@ const Header = () => {
           <div className="mob-logo sm:hidden block">
             <img className="w-18 h-auto" src={IMAGES.logo_ltr} alt="" />
           </div>
+          <MobileNavigation
+          user={user}
+          isActiveTab={isActiveTab}
+          breadcrumbItems={breadcrumbItems}
+        />
         </header>
       );
     }

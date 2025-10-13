@@ -1,5 +1,4 @@
 import React from "react";
-import "../../assets/css/Matchmaking.css";
 import { motion } from "framer-motion";
 export const GamingLoader = () => {
   // Animation variants for the cut/join effect
