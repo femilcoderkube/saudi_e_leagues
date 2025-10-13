@@ -8,11 +8,12 @@ import {
   setShowPartyQueuePopup,
 } from "../../../app/slices/constState/constStateSlice";
 import { t } from "i18next";
-import { checkBannedUser } from "../../../app/slices/auth/authSlice";
+import { checkBannedUser, logout } from "../../../app/slices/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 function PartyQueuePopup() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const { leagueData, leaderBoard } = useSelector((state) => state.leagues);
   const { partyQueueTeam, recentInvites } = useSelector((state) => state.constState);
@@ -64,9 +65,10 @@ function PartyQueuePopup() {
   const handleInvite = async (option) => {
     if (!option) return;
 
-    const banCheckResult = await dispatch(checkBannedUser()).unwrap();
-    if (banCheckResult?.data.banMessage) {
-      toast.error(banCheckResult?.data.banMessage || "You Are Banned!")
+    const banCheckResult = await dispatch(checkBannedUser());
+    if (banCheckResult?.error.message) {
+      dispatch(logout())
+      navigate(`/${id}/`);
       return;
     }
 
@@ -83,7 +85,7 @@ function PartyQueuePopup() {
     );
     toast.success(`${option.username} invited`);
   };
-  
+
   return (
     <>
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"></div>

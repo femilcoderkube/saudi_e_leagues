@@ -9,7 +9,7 @@ import {
 } from "../../../app/socket/socket";
 import { IMAGES } from "../../ui/images/images";
 import { toast } from "react-toastify";
-import { checkBannedUser } from "../../../app/slices/auth/authSlice";
+import { checkBannedUser, logout } from "../../../app/slices/auth/authSlice";
 
 const PartyQueue = ({ data }) => {
   const { t, i18n } = useTranslation();
@@ -28,11 +28,11 @@ const PartyQueue = ({ data }) => {
 
   const body = langIsEn
     ? notificationId.Body.toString()
-        .replace(`{PlayerName}`, extras.name)
-        .replace(`{LeagueName}`, extras.leagueName)
+      .replace(`{PlayerName}`, extras.name)
+      .replace(`{LeagueName}`, extras.leagueName)
     : notificationId.BodyAr.toString()
-        .replace(`{PlayerName}`, extras.name)
-        .replace(`{LeagueName}`, extras.leagueName);
+      .replace(`{PlayerName}`, extras.name)
+      .replace(`{LeagueName}`, extras.leagueName);
 
   const imageUrl =
     notificationId?.notificationtype === 12 ? extras?.gameLogo : "";
@@ -74,9 +74,10 @@ const PartyQueue = ({ data }) => {
       return;
     }
 
-    const banCheckResult = await dispatch(checkBannedUser()).unwrap();
-    if (banCheckResult?.data.banMessage) {
-      toast.error(banCheckResult?.data.banMessage || "You Are Banned!")
+    const banCheckResult = await dispatch(checkBannedUser());
+    if (banCheckResult?.error.message) {
+      dispatch(logout())
+      navigate(`/${id}/`);
       return;
     }
 
