@@ -75,8 +75,9 @@ const PartyQueue = ({ data }) => {
     }
 
     const banCheckResult = await dispatch(checkBannedUser());
-    if (banCheckResult?.error.message) {
+    if (banCheckResult?.error?.message) {
       dispatch(logout())
+      dispatch(setshowNotification(false));
       navigate(`/${id}/`);
       return;
     }
