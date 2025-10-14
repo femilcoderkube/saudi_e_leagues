@@ -9,11 +9,12 @@ import {
 } from "../../../app/slices/constState/constStateSlice";
 import { t } from "i18next";
 import { checkBannedUser, logout } from "../../../app/slices/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function PartyQueuePopup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
   const user = useSelector((state) => state.auth.user);
   const { leagueData, leaderBoard } = useSelector((state) => state.leagues);
   const { partyQueueTeam, recentInvites } = useSelector((state) => state.constState);
@@ -66,8 +67,9 @@ function PartyQueuePopup() {
     if (!option) return;
 
     const banCheckResult = await dispatch(checkBannedUser());
-    if (banCheckResult?.error.message) {
+    if (banCheckResult?.error?.message) {
       dispatch(logout())
+      dispatch(setShowPartyQueuePopup(false));
       navigate(`/${id}/`);
       return;
     }
@@ -213,9 +215,9 @@ function PartyQueuePopup() {
               ref={scrollContainerRef}
             >
               {displayedPlayers.length > 0 ? (
-                displayedPlayers.filter((p) => p.userId._id != user._id).map((player) => (
+                displayedPlayers.filter((p) => p.userId?._id != user?._id).map((player) => (
                   <div
-                    key={player.userId._id}
+                    key={player?.userId?._id}
                     className="flex items-center justify-between sm:gap-3 gap-2"
                   >
                     <div className="relative flex items-center sm:gap-3 gap-2 rounded-lg">
@@ -223,7 +225,7 @@ function PartyQueuePopup() {
                         <>
                           <img
                             src={getServerURL(player?.userId?.profilePicture)}
-                            alt={player.userId?.username}
+                            alt={player?.userId?.username}
                             className="sm:w-12 sm:h-12 w-9 h-9 rounded-full object-cover"
                           />
                         </>
@@ -236,14 +238,14 @@ function PartyQueuePopup() {
                               alignItems: "center",
                               justifyContent: "center",
                               background: getRandomColor(
-                                player.userId.username
+                                player?.userId?.username
                               ),
                               color: "#fff",
                               fontWeight: "bold",
                               fontSize: "1.5rem",
                             }}
                           >
-                            {player.userId.username
+                            {player?.userId?.username
                               ?.charAt(0)
                               ?.toUpperCase() || "?"}
                           </div>
@@ -254,7 +256,7 @@ function PartyQueuePopup() {
                             {player.userId.firstName} {player.userId.lastName}
                           </p> */}
                         <p className="text-md text-gray-400 truncate">
-                          @{player.userId.username}
+                          @{player?.userId?.username}
                         </p>
                       </div>
                     </div>
@@ -263,10 +265,10 @@ function PartyQueuePopup() {
                         className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer"
                         onClick={() =>
                           handleInvite({
-                            value: player.userId._id,
-                            label: `${player.userId.firstName} ${player.userId.lastName}`,
-                            username: player.userId.username,
-                            avatar: player.userId.profilePicture,
+                            value: player?.userId?._id,
+                            label: `${player?.userId?.firstName} ${player?.userId?.lastName}`,
+                            username: player?.userId?.username,
+                            avatar: player?.userId?.profilePicture,
                           })
                         }
                       >
