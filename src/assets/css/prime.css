@@ -5246,8 +5246,7 @@ html[dir=rtl] .edit-team-wp {
         flex-direction: column;
     }
 
-    .sd_content-left .game_polygon-link,
-    .sd_content-right .game_polygon-link {
+    .sd_content-left .game_polygon-link,.sd_content-right .game_polygon-link {
         width: 100%;
     }
 }
@@ -5728,8 +5727,9 @@ html[dir=rtl] .edit-team-wp {
         font-size: 14px;
     }
 
-    .sd_content-left .game_polygon-link {
-        width: 6.3rem;
+    .sd_content-left .game_polygon-link,
+    .sd_content-right .game_polygon-link {       
+        width: 7rem;
     }
 
     .wizard_step--btn {
@@ -5739,7 +5739,7 @@ html[dir=rtl] .edit-team-wp {
 
 }
 
-@media (max-width: 370px) {
+@media (max-width: 370px) {    
     .team_content-left {
         width: calc(100% - 8rem);
         height: 22.4rem;
@@ -5801,6 +5801,13 @@ html[dir=rtl] .edit-team-wp {
     html[dir=rtl] .edit-team-wp {
         right: auto;
         left: 4rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .sd_content-left .game_polygon-link,
+    .sd_content-right .game_polygon-link {       
+        width: 6.3rem;
     }
 }
 
