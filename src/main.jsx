@@ -14,53 +14,77 @@ import "react-toastify/dist/ReactToastify.css";
 import "@emran-alhaddad/saudi-riyal-font/index.css";
 import MobileEvent from "./hooks/mobileevents.js";
 
-// Function to apply conditional CSS and return a Promise
-const applyConditionalCSS = () => {
-  return new Promise((resolve) => {
-    const path = window.location.pathname; // e.g., "/prime" or "/saude"
-    if (path === "/prime") {
-      // Option 1: Add a class to the body
-      document.body.classList.add("prime-theme");
+/* ---------------------------
+   Helper: resolve path to bundled CSS
+----------------------------*/
+const getCssHref = (relativePath) => {
+  try {
+    return new URL(relativePath, import.meta.url).href;
+  } catch {
+    return relativePath;
+  }
+};
 
-      // Option 2: Dynamically import prime.css
-      import("./assets/css/prime.css")
-        .then(() => {
-          console.log("Prime CSS applied");
-          resolve();
-        })
-        .catch((err) => {
-          console.error("Failed to load Prime CSS:", err);
-          resolve(); // Resolve even if CSS fails to avoid blocking
-        });
-    } else {
-      // Remove the class if not on /prime
-      document.body.classList.remove("prime-theme");
-      resolve(); // No additional CSS to load
-    }
+/* ---------------------------
+   Detect theme by pathname
+----------------------------*/
+const detectThemeForPath = (path) => {
+  if (path.startsWith("/prime")) return "prime";
+  if (path.startsWith("/saudi")) return "saudi";
+  return null;
+};
+
+/* ---------------------------
+   Insert <link> stylesheet with loader handling
+----------------------------*/
+const insertThemeStylesheetBlocking = async (theme) => {
+  if (!theme) return;
+
+  const href = getCssHref(
+    theme === "prime" ? "./assets/css/prime.css" : "./assets/css/saudi.css"
+  );
+
+  // Avoid duplicates
+  const existing = Array.from(document.querySelectorAll("link")).find(
+    (l) => l.href === href
+  );
+  if (existing) {
+    if (existing.sheet) return; // already loaded
+    return new Promise((resolve) => {
+      existing.onload = resolve;
+      existing.onerror = resolve;
+    });
+  }
+
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = href;
+  link.dataset.theme = theme;
+
+  return new Promise((resolve) => {
+    const timeout = setTimeout(() => {
+      console.warn("⚠️ CSS load timeout, continuing anyway");
+      resolve();
+    }, 2500);
+
+    link.onload = () => {
+      clearTimeout(timeout);
+      resolve();
+    };
+    link.onerror = () => {
+      clearTimeout(timeout);
+      resolve();
+    };
+
+    document.head.appendChild(link);
   });
 };
 
-// Function to wait for all CSS to load
-const waitForCSS = () => {
-  const cssPromises = [];
-
-  // Add global CSS files (already imported via `import` statements)
-  // Since they are synchronous in modern bundlers, we assume they're loaded
-  // If you have dynamically imported global CSS, add them here as Promises
-
-  // Add conditional CSS
-  cssPromises.push(applyConditionalCSS());
-
-  // Wait for all CSS to load
-  return Promise.all(cssPromises);
-};
-
-// Function to render the app
+/* ---------------------------
+   Render App (don't hide loader yet)
+----------------------------*/
 const renderApp = () => {
-  const rootElement = document.getElementById("root");
-  const loadingFallback = document.getElementById("loading-fallback");
-
-  const root = createRoot(rootElement);
+  const root = createRoot(document.getElementById("root"));
   root.render(
     <Provider store={store}>
       <ToastContainer
@@ -74,35 +98,60 @@ const renderApp = () => {
       <App />
     </Provider>
   );
+};
 
-  // Hide loading fallback after rendering
-  if (loadingFallback) {
+/* ---------------------------
+   Hide loader smoothly
+----------------------------*/
+const hideLoader = () => {
+  const loader = document.getElementById("loading-fallback");
+  if (loader) {
+    loader.style.transition = "opacity 0.4s ease-out";
+    loader.style.opacity = "0";
     setTimeout(() => {
-      loadingFallback.style.opacity = "0";
-      loadingFallback.style.transition = "opacity 0.3s ease-out";
-      setTimeout(() => {
-        loadingFallback.style.display = "none";
-      }, 300);
-    }, 100);
+      loader.style.display = "none";
+    }, 400);
   }
 };
 
-// Initialize app after CSS is loaded
-waitForCSS()
-  .then(() => {
-    setAxiosStore(store);
-    MobileEvent.onLogin();
-    renderApp();
-  })
-  .catch((err) => {
-    console.error("Error loading CSS:", err);
-    // Render anyway to avoid a blank page
-    setAxiosStore(store);
-    MobileEvent.onLogin();
-    renderApp();
-  });
+/* ---------------------------
+   Initialize
+----------------------------*/
+(async () => {
+  setAxiosStore(store);
+  MobileEvent.onLogin();
 
-// Listen for navigation changes (for single-page apps)
+  const path = window.location.pathname;
+  let theme = detectThemeForPath(path);
+
+  // Show loader by default — background stays visible
+  document.body.style.background = "#020326";
+
+  // Render app (React Router can trigger redirects)
+  renderApp();
+
+  // Wait for theme CSS — handle initial redirect from "/"
+  if (!theme) {
+    for (let i = 0; i < 30; i++) {
+      await new Promise((r) => setTimeout(r, 100));
+      theme = detectThemeForPath(window.location.pathname);
+      if (theme) break;
+    }
+  }
+
+  // Load theme CSS (still keep loader visible)
+  if (theme) {
+    await insertThemeStylesheetBlocking(theme);
+    console.log(`🎨 ${theme} theme CSS loaded`);
+  }
+
+  // Remove loader *after* CSS ready
+  hideLoader();
+})();
+
+/* ---------------------------
+   Handle browser navigation
+----------------------------*/
 window.addEventListener("popstate", () => {
   const theme = detectThemeForPath(window.location.pathname);
   if (theme) insertThemeStylesheetBlocking(theme);
