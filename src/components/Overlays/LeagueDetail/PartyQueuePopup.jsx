@@ -287,7 +287,7 @@ function PartyQueuePopup() {
 
           {/* footer */}
           <div className="wizard_step--btn gap-5 flex justify-end mt-auto mb-6">
-            <div className="game_status--tab wizard_btn flex flex-col items-end gap-6">
+            <div className="game_status--tab wizard_btn flex flex-wrap items-center gap-6">
               {" "}
               {/* Changed to flex-col to stack buttons */}
               {filteredPlayers.length > displayedPlayers.length && (
