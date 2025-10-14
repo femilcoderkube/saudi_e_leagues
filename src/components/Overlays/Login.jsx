@@ -127,12 +127,12 @@ const Login = () => {
               {({ isSubmitting }) => (
                 <Form className="space-y-4 mt-7">
                   <div className="text-start w-full pr-4">
-                    {/* <Field
+                    <Field
                       type="email"
                       name="email"
                       className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
                       placeholder={t("form.email")}
-                    /> */}
+                    />
                     <ErrorMessage
                       name="email"
                       component="div"

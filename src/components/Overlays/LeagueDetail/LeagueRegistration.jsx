@@ -103,7 +103,7 @@ const LeagueRegistration = () => {
         ></div>
 
         <div className="fixed inset-0 overflow-y-auto flex sm:justify-center justify-end sm:flex-row flex-col items-center">
-          <div className="popup-wrap sm:w-auto w-full inline-flex justify-center  items-center h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60 ">
+          <div className="popup-wrap sm:w-auto w-full inline-flex justify-center  items-center !h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60 ">
             <motion.div
               className="match_reg--popup mob-register-popup relative sd_before sd_after"
               initial={{ scale: 0.5, opacity: 0, y: 50 }}

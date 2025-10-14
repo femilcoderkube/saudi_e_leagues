@@ -96,7 +96,7 @@ function PartyQueuePopup() {
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="bg-[#121331] manage-popup match_reg--popup sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[90vh] h-auto py-[3rem] overflow-x-hidden sm:p-6 px-4"
+          className="bg-[#121331] manage-popup match_reg--popup sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[90vh] !h-auto py-[3rem] overflow-x-hidden sm:p-6 px-4"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
@@ -285,7 +285,7 @@ function PartyQueuePopup() {
 
           {/* footer */}
           <div className="wizard_step--btn gap-5 flex justify-end mt-auto mb-6">
-            <div className="game_status--tab wizard_btn flex flex-col items-end gap-4">
+            <div className="game_status--tab wizard_btn flex flex-col items-end gap-6">
               {" "}
               {/* Changed to flex-col to stack buttons */}
               {filteredPlayers.length > displayedPlayers.length && (
@@ -299,7 +299,7 @@ function PartyQueuePopup() {
                 </div>
               )}
               <button
-                className="py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border cursor-pointer"
+                className="close-btn py-2 px-4 text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 active-tab duration-300 polygon_border cursor-pointer"
                 style={{ width: "8rem", height: "4rem" }}
                 onClick={handleClosePopup}
               >

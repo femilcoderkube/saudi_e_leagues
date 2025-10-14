@@ -4883,6 +4883,12 @@ html[dir="rtl"] .about-accordation .mob-match-gp div p:first-child {
     background-repeat: no-repeat;
 }
 
+.manage-popup .game_status--tab button.close-btn{
+    background: url(/src/assets/images/active_game-tab.webp);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
 .manage-popup .notification-box,
 .manage-popup .react-select__control {
     background: radial-gradient(circle, rgba(45, 46, 109, 0.8) 0%, rgba(34, 35, 86, 0.8) 100%);

@@ -29,7 +29,7 @@ function TimeOverPopup({
         aria-hidden="true"
       ></div>
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
-        <div className="timeout-popup popup-wrap inline-flex items-center justify-center h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
+        <div className="timeout-popup popup-wrap inline-flex items-center justify-center !h-auto relative sd_before before:bg-[#010221] before:w-full before:h-full before:blur-2xl before:opacity-60">
           <motion.div className="match_reg--popup relative sd_before sd_after"
            initial={{ scale: 0.5, opacity: 0, y: 50 }}
            animate={{ scale: 1, opacity: 1, y: 0 }}
