@@ -205,7 +205,7 @@ const GameDropDown = () => {
                         className="dropdown-item py-3 px-5 block hover:opacity-50 duration-400 font_oswald flex gap-4 cursor-pointer"
                         onClick={() => dispatch(setSelectedGame({}))}
                       >
-                        <span className="text-xl purple_light">
+                        <span className="sm:text-xl text-lg purple_light">
                           {t("common.none")}
                         </span>
                       </Link>
@@ -223,14 +223,14 @@ const GameDropDown = () => {
                             style={{ width: "2rem" }}
                             loading="lazy"
                           />
-                          <span className="text-xl purple_light">
+                          <span className="sm:text-xl text-lg purple_light">
                             {item.name}
                           </span>
                         </Link>
                       ))}
                     </>
                   ) : (
-                    <div className="py-3 px-5 text-xl purple_light font_oswald">
+                    <div className="py-3 px-5 sm:text-xl text-lg purple_light font_oswald">
                       {t("common.no_games_found")}
                     </div>
                   )}

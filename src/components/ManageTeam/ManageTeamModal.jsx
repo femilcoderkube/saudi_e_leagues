@@ -283,7 +283,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                     {t("tournament.invite_link_label")}
                   </label>
                   <div className="flex w-full">
-                    <div className="flex items-center gap-2 bg-[#05042C] h-[3rem] border border-[#393B7A] rounded-lg w-full overflow-hidden pl-[0.8rem]">
+                    <div className="flex items-center gap-2 bg-[#05042C] h-[3rem] border border-[#393B7A] rounded-lg w-full overflow-hidden ltr:pl-[0.8rem] rtl:pr-[0.8rem]">
                       <input
                         type="text"
                         value={`${inviteUrl}/prime/lobby?Iid=${inviteLink}`}
@@ -311,8 +311,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
                       </button>
                     </div>
                     <button
-                      className="flex items-center justify-center w-[3.5rem] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
-                      style={{ marginLeft: 13 }}
+                      className="flex items-center justify-center w-[3.5rem] ltr:ml-[0.813rem] rtl:mr-[0.813rem] shrink-0 h-auto rounded-lg bg-linear-to-b text-white from-[#BC5225EB] to-[#F49528] font-medium text-base cursor-pointer transition-colors"
                       title={t("tournament.reset_button_title")}
                       onClick={handleResetLink}
                     >
