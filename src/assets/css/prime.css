@@ -71,7 +71,7 @@ html[dir=rtl] .home_hero--sec::after {
 
 .swiper-slide.swiper-slide-active {
     transform: scale(1) !important;
-    transition: all 600ms linear;
+    transition:transform all 600ms linear;
     margin-right: 2rem;
     opacity: 1;
 }
