@@ -590,7 +590,7 @@ const LeagueMatchDetail = () => {
                           );
                         })}
                         <div ref={scrollAnchorRef}></div>
-                        <div className="flex flex-col gap-7 items-center justify-center h-full text-center mx-auto max-w-[10rem]">
+                       {chatData?.length < 1 && <div className="flex flex-col gap-7 items-center justify-center h-full text-center mx-auto max-w-[10rem]">
                           <img
                             className="w-[7.5rem] h-[7.5rem]"
                             src={IMAGES.chat_null}
@@ -599,7 +599,7 @@ const LeagueMatchDetail = () => {
                           <span className="text-base font-semibold text-[#7B7ED0CC]">
                             There are no Messages in the Chat yet.
                           </span>
-                        </div>
+                        </div>}
                       </div>
                     </div>
                     <div className="mob-chat-box p-6 flex items-center">

@@ -87,9 +87,9 @@ const LeagueDetail = () => {
       ) : (
         <div className="sd_content-wrapper max-w-full">
           {/* === League Top Hero Block HTML block Start === */}
-          <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8 mb-10">
+          <div className="sd_top-wraper flex flex-col md:flex-row items-center justify-between md:gap-0 gap-8 md:mb-10 mb-6">
             <motion.div
-              className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-9.5 mr-[-1rem] relative order-2 md:order-1"
+              className="sd_content-left flex  items-center gap-12 md:gap-10 md:pb-6 pb-5 mr-[-1rem] relative order-2 md:order-1"
               variants={leftToRight}
               custom={0}
               initial="hidden"
@@ -156,7 +156,7 @@ const LeagueDetail = () => {
             </motion.div>
           </div>
           <motion.div
-            className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] gap-[2rem] items-center md:items-start"
+            className="sd_bottom-wraper flex flex-col xl:flex-row md:gap-[2.5rem] sm:gap-[2rem] gap-[1.2rem] items-center md:items-start"
             initial="hidden"
             whileInView="visible"
             variants={cardVariantsAni}
