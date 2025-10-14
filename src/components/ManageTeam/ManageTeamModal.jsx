@@ -408,7 +408,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
               />
             </div>
 
-            <div className="manage-team-pop wizard_step--btn gap-5 flex justify-between sm:mt-10 mt-6 mb-6 mr-5 flex-wrap">
+            <div className="manage-team-pop wizard_step--btn gap-5 flex justify-end sm:mt-10 mt-6 mb-6 mr-5 flex-wrap">
               <div className="game_status--tab wizard_btn back_btn">
                 <button
                   type="button"
