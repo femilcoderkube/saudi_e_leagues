@@ -41,7 +41,9 @@ const insertThemeStylesheetBlocking = async (theme) => {
   if (!theme) return;
 
   const href = getCssHref(
-    theme === "prime" ? "./assets/css/prime.css" : "./assets/css/saudi.css"
+    theme === "prime"
+      ? import("./assets/css/prime.css")
+      : import("./assets/css/saudi.css")
   );
 
   // Avoid duplicates
