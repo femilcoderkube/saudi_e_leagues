@@ -66,7 +66,8 @@
     "verify_email_title": "Verify Your Email",
     "verify_email_message": "Please verify your email address to continue.Verification OTP has been sent to your email.",
     "otp_sent": "OTP sent successfully!",
-    "otp_verified": "OTP verified successfully!"
+    "otp_verified": "OTP verified successfully!",
+    "discordId": "Discord ID"
   },
   "countries": {
     "saudi_arabia": "Saudi Arabia"
@@ -99,7 +100,9 @@
     "dob_invalid": "Please enter a valid date",
     "gender_required": "Gender is required",
     "favorite_game_required": "Favorite game is required",
-    "field_required": "{{field}} is required"
+    "field_required": "{{field}} is required",
+    "discord_id_required": "Discord ID is required",
+    "discord_id_format": "Discord ID can only contain letters, numbers, and underscores"
   },
   "homepage": {
     "level_up": "Level Up",
@@ -346,7 +349,9 @@
     "team_logo_required": "Team logo is required",
     "invalid_url": "Invalid URL",
     "region_required": "Region required",
-    "valid_url_required": "Please enter a valid URL"
+    "valid_url_required": "Please enter a valid URL",
+    "discord_id_required": "Discord ID is required",
+    "discord_id_format": "Discord ID can only contain letters, numbers, and underscores"
   },
   "wizard": {
     "rules_and_regulations": "Rules and Regulations",
