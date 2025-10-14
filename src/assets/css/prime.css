@@ -3,6 +3,14 @@
     --purple-col: #7b7ed0;
     --aside-link-col: #babdff;
     --sky-col: #3eccf3;
+    --split-1-text: #B0D0F1;
+    --split-2-text: #C5B9F4;
+    --split-3-text: #F1D3B0;
+    --split-4-text: #F1B0BB;
+    --text-secondary: #C0DEFF;
+    --spark-icon-gradient: #D8DAFF;
+    --border-color: #ffffff1f;
+    --date-line-bg: #C0DEFF;
     /* --- font variables --- */
     --text-size-16: 16px;
     --text-size-18: 18px;
@@ -71,7 +79,7 @@ html[dir=rtl] .home_hero--sec::after {
 
 .swiper-slide.swiper-slide-active {
     transform: scale(1) !important;
-    transition:transform all 600ms linear;
+    transition: transform all 600ms linear;
     margin-right: 2rem;
     opacity: 1;
 }
@@ -1248,6 +1256,7 @@ aside {
         width: 5rem;
     }
 }
+
 /* === Polygon button css End === */
 /* Aside Page css End */
 
@@ -1262,6 +1271,7 @@ aside {
     width: 16rem;
     height: 4.5rem;
 }
+
 /* ---------------------------------------      
       Select Game Header Block CSS Start       
   ----------------------------------------- */
@@ -1315,6 +1325,7 @@ aside {
 .otp-input .polygon_border::before {
     top: -1px;
 }
+
 /* -------------------------------      
       Game Card Design CSS Start      
   ---------------------------------- */
@@ -4883,7 +4894,7 @@ html[dir="rtl"] .about-accordation .mob-match-gp div p:first-child {
     background-repeat: no-repeat;
 }
 
-.manage-popup .game_status--tab button.close-btn{
+.manage-popup .game_status--tab button.close-btn {
     background: url(/src/assets/images/active_game-tab.webp);
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -5252,7 +5263,8 @@ html[dir=rtl] .edit-team-wp {
         flex-direction: column;
     }
 
-    .sd_content-left .game_polygon-link,.sd_content-right .game_polygon-link {
+    .sd_content-left .game_polygon-link,
+    .sd_content-right .game_polygon-link {
         width: 100%;
     }
 }
@@ -5734,7 +5746,7 @@ html[dir=rtl] .edit-team-wp {
     }
 
     .sd_content-left .game_polygon-link,
-    .sd_content-right .game_polygon-link {       
+    .sd_content-right .game_polygon-link {
         width: 7rem;
     }
 
@@ -5745,7 +5757,7 @@ html[dir=rtl] .edit-team-wp {
 
 }
 
-@media (max-width: 370px) {    
+@media (max-width: 370px) {
     .team_content-left {
         width: calc(100% - 8rem);
         height: 22.4rem;
@@ -5811,8 +5823,9 @@ html[dir=rtl] .edit-team-wp {
 }
 
 @media (max-width: 360px) {
+
     .sd_content-left .game_polygon-link,
-    .sd_content-right .game_polygon-link {       
+    .sd_content-right .game_polygon-link {
         width: 6.3rem;
     }
 }
@@ -6337,6 +6350,7 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
 }
 
 @media (max-width: 767px) {
+
     .sd_tournament-content .polygon_border:before,
     .sd_tournament-content .polygon_border:after {
         width: 4.5rem;
