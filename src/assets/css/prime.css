@@ -71,7 +71,7 @@ html[dir=rtl] .home_hero--sec::after {
 
 .swiper-slide.swiper-slide-active {
     transform: scale(1) !important;
-    transition: all 600ms linear;
+    transition:transform all 600ms linear;
     margin-right: 2rem;
     opacity: 1;
 }
@@ -4878,6 +4878,11 @@ html[dir="rtl"] .about-accordation .mob-match-gp div p:first-child {
     background: unset;
 }
 
+.manage-team-pop .game_status--tab button {
+    background: url(/src/assets/images/active_game-tab.webp);
+    background-repeat: no-repeat;
+}
+
 .manage-popup .notification-box,
 .manage-popup .react-select__control {
     background: radial-gradient(circle, rgba(45, 46, 109, 0.8) 0%, rgba(34, 35, 86, 0.8) 100%);
@@ -5241,8 +5246,7 @@ html[dir=rtl] .edit-team-wp {
         flex-direction: column;
     }
 
-    .sd_content-left .game_polygon-link,
-    .sd_content-right .game_polygon-link {
+    .sd_content-left .game_polygon-link,.sd_content-right .game_polygon-link {
         width: 100%;
     }
 }
@@ -5723,8 +5727,9 @@ html[dir=rtl] .edit-team-wp {
         font-size: 14px;
     }
 
-    .sd_content-left .game_polygon-link {
-        width: 6.3rem;
+    .sd_content-left .game_polygon-link,
+    .sd_content-right .game_polygon-link {       
+        width: 7rem;
     }
 
     .wizard_step--btn {
@@ -5734,7 +5739,7 @@ html[dir=rtl] .edit-team-wp {
 
 }
 
-@media (max-width: 370px) {
+@media (max-width: 370px) {    
     .team_content-left {
         width: calc(100% - 8rem);
         height: 22.4rem;
@@ -5796,6 +5801,13 @@ html[dir=rtl] .edit-team-wp {
     html[dir=rtl] .edit-team-wp {
         right: auto;
         left: 4rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .sd_content-left .game_polygon-link,
+    .sd_content-right .game_polygon-link {       
+        width: 6.3rem;
     }
 }
 
