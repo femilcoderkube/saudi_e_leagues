@@ -1,4 +1,3 @@
-/* index.jsx — No FOUC, loader stays until CSS loads */
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import "swiper/css";
@@ -14,16 +13,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "@emran-alhaddad/saudi-riyal-font/index.css";
 import MobileEvent from "./hooks/mobileevents.js";
 
-/* ---------------------------
-   Helper: resolve path to bundled CSS
-----------------------------*/
-const getCssHref = (relativePath) => {
-  try {
-    return new URL(relativePath, import.meta.url).href;
-  } catch {
-    return relativePath;
-  }
-};
+/* ✅ Import CSS files as URLs (works after build) */
+import primeCss from "./assets/css/prime.css?url";
+import saudiCss from "./assets/css/saudi.css?url";
 
 /* ---------------------------
    Detect theme by pathname
@@ -40,15 +32,11 @@ const detectThemeForPath = (path) => {
 const insertThemeStylesheetBlocking = async (theme) => {
   if (!theme) return;
 
-  const href = getCssHref(
-    theme === "prime"
-      ? import("./assets/css/prime.css")
-      : import("./assets/css/saudi.css")
-  );
+  const href = theme === "prime" ? primeCss : saudiCss;
 
   // Avoid duplicates
-  const existing = Array.from(document.querySelectorAll("link")).find(
-    (l) => l.href === href
+  const existing = Array.from(document.querySelectorAll("link")).find((l) =>
+    l.href.includes(href)
   );
   if (existing) {
     if (existing.sheet) return; // already loaded
@@ -126,7 +114,7 @@ const hideLoader = () => {
   const path = window.location.pathname;
   let theme = detectThemeForPath(path);
 
-  // Show loader by default — background stays visible
+  // Keep loader visible until theme CSS loads
   document.body.style.background = "#020326";
 
   // Render app (React Router can trigger redirects)
@@ -141,7 +129,7 @@ const hideLoader = () => {
     }
   }
 
-  // Load theme CSS (still keep loader visible)
+  // Load theme CSS (keep loader visible)
   if (theme) {
     await insertThemeStylesheetBlocking(theme);
     console.log(`🎨 ${theme} theme CSS loaded`);
