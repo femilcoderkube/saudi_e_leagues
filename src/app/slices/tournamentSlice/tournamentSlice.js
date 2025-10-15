@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axiosInstance from "../../../utils/axios";
 import { stageTypes } from "../../../utils/constant";
 
 const initialState = {
+  teamData: null,
+  currentTeam: null,
   tournamentData: null,
+  status: "idle",
+  link: "", 
   tournamentStages: null,
   battleRoyalGroup: null,
   battleRoyalSchedule: null,
@@ -12,6 +17,29 @@ const initialState = {
   currentDate: null, // store timestamp
   nextDayDate: Date.now() + 86400000, // store timestamp
 };
+
+export const getTeamAndTournamentDetails = createAsyncThunk(
+  "tournament/getTeamAndTournamentDetails",
+  async ({ tId, userId,teamId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/Team/getTeamAndTournament`, {
+        params: {
+          userId,
+          tournamentId: tId,
+          teamId
+        }
+      });
+      console.log("DATA=====", response);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message ||
+        "Failed to get tournament details"
+      );
+    }
+  }
+);
+
 
 const tournamentSlice = createSlice({
   name: "tournament",
@@ -74,7 +102,31 @@ const tournamentSlice = createSlice({
         ignoredActionPaths: ["payload"], // optional
       },
     }),
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getTeamAndTournamentDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getTeamAndTournamentDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log("ACTION===========", action.payload);
+
+        state.tournamentData = action.payload.data.tournamentData;
+        state.teamData = action.payload.data;
+        state.currentTeam = action.payload.data;
+        state.link = action.payload?.invitationLink || "";
+        state.status = "succeeded";
+        state.currentDate = null;
+        state.nextDayDate = Date.now() + 86400000;
+        state.error = null;
+      })
+      .addCase(getTeamAndTournamentDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.status = "failed";
+      });
+  },
 });
 
 export const {

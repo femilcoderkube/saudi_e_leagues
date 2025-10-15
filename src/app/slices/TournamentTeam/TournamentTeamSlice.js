@@ -540,6 +540,8 @@ const TournamentTeamSlice = createSlice({
       })
       .addCase(getTeamDetails.fulfilled, (state, action) => {
         state.loading = false;
+        console.log("TEAMDATA===========", action.payload);
+        
         state.teamData = action.payload.data;
         state.error = null;
       })

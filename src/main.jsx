@@ -148,7 +148,6 @@ const hideLoader = () => {
   // Load theme CSS (keep loader visible)
   if (theme) {
     await insertThemeStylesheetBlocking(theme);
-    console.log(`🎨 ${theme} theme CSS loaded`);
   }
 
   // Remove loader *after* CSS ready

@@ -28,14 +28,15 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.auth);
   const {
-    link: inviteLink,
+    // link: inviteLink,
     loading: loadingLink,
     error,
   } = useSelector((state) => state.teamInvitation);
-  const { currentTeam, teamUserFormat, teamData, rosterSelection, loading } =
+  const { teamUserFormat, rosterSelection, loading } =
     useSelector((state) => state.tournamentTeam);
 
-  const { tournamentData } = useSelector((state) => state.tournament);
+  const { tournamentData, link: inviteLink, currentTeam, teamData } = useSelector((state) => state.tournament);
+console.log("teamData", teamData);
 
   // Local view-model derived from slice rosterSelection
   const selectedItems = useMemo(() => {
@@ -176,6 +177,8 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
       playerIds: selectedItems?.players?.map((item) => item?.id),
     };
 
+    console.log("teamData?.data?._id",teamData?.data?._id);
+    
     dispatch(
       updateTeamRoster({
         id: teamData?.data?._id,
