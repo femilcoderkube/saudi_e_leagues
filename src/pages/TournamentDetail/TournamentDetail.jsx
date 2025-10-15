@@ -21,6 +21,7 @@ import {
 } from "../../app/socket/socket.js";
 import {
   clearData,
+  getTeamAndTournamentDetails,
   setActiveStage,
 } from "../../app/slices/tournamentSlice/tournamentSlice.js";
 import BattleRoyalStage from "./BattleRoyalStage.jsx";
@@ -52,9 +53,11 @@ import { fetchInviteLink } from "../../app/slices/teamInvitationSlice/teamInvita
 import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
-  const { tournamentData, activeStage, loader } = useSelector(
+  const { tournamentData, activeStage, loader, tourmentTeamData } = useSelector(
     (state) => state.tournament
   );
+
+  console.log("tourmentTeamData", tourmentTeamData);
 
   const { viewManagePopup } = useSelector((state) => state.constState);
 
@@ -95,6 +98,17 @@ const TournamentDetail = () => {
   }, [user?._id]);
 
   useEffect(() => {
+    if (user?._id && tId) {
+      dispatch(
+        getTeamAndTournamentDetails({
+          userId: user?._id,
+          tournamentId: tId,
+        })
+      );
+    }
+  }, [user?._id, tId]);
+
+  useEffect(() => {
     if (tournamentData?._id) {
       dispatch(
         getTeamDetails({
@@ -108,16 +122,16 @@ const TournamentDetail = () => {
     }
   }, [currentTeam?._id, dispatch, tournamentData?._id]);
 
-  useEffect(() => {
-    if (isSocketConnected) {
-      dispatch(clearData());
-      startTournamentSocket({
-        tId: tId,
-        user: user,
-        isSocketConnected: isSocketConnected,
-      });
-    }
-  }, [isSocketConnected, tId]);
+  // useEffect(() => {
+  //   if (isSocketConnected) {
+  //     dispatch(clearData());
+  //     startTournamentSocket({
+  //       tId: tId,
+  //       user: user,
+  //       isSocketConnected: isSocketConnected,
+  //     });
+  //   }
+  // }, [isSocketConnected, tId]);
 
   useEffect(() => {
     if (tournamentData?.title) {

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { stageTypes } from "../../../utils/constant";
+import axiosInstance from "../../../utils/axios";
 
 const initialState = {
   tournamentData: null,
@@ -9,9 +10,29 @@ const initialState = {
   stageSettings: null,
   loader: false,
   activeStage: -1,
+  tourmentTeamData: null,
   currentDate: null, // store timestamp
   nextDayDate: Date.now() + 86400000, // store timestamp
 };
+
+export const getTeamAndTournamentDetails = createAsyncThunk(
+  "tournament/getTeamAndTournamentDetails",
+  async ({ tournamentId, userId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/Team/getTeamAndTournament`, {
+        params: {
+          userId,
+          tournamentId,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to get tournament details"
+      );
+    }
+  }
+);
 
 const tournamentSlice = createSlice({
   name: "tournament",
@@ -74,7 +95,22 @@ const tournamentSlice = createSlice({
         ignoredActionPaths: ["payload"], // optional
       },
     }),
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getTeamAndTournamentDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getTeamAndTournamentDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.tourmentTeamData = action.payload;
+        state.tournamentData = action.payload.data.tournamentData;
+      })
+      .addCase(getTeamAndTournamentDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
 });
 
 export const {
