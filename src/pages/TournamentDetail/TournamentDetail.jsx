@@ -830,7 +830,7 @@ const TournamentDetail = () => {
                                   <div className="flex gap-2 items-center">
                                     <p className="md:text-xl text-base font-semibold text-[#6D70BC]">
                                       {teams?.length > 4
-                                        ? `+${teams.length - 4}`
+                                        ? `+${teams?.length - 4}`
                                         : ""}
                                     </p>
                                   </div>
@@ -846,7 +846,7 @@ const TournamentDetail = () => {
                             )}
                             {/* Participants List */}
                             <div className="schdule-collapse block">
-                              {teams.map((team, tIdx) => (
+                              {teams?.map((team, tIdx) => (
                                 <div
                                   className="schdule-accordion-body flex justify-between items-center"
                                   key={`static-team-${tIdx}`}
