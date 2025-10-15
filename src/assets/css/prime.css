@@ -5944,6 +5944,63 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     color: #fff;
 }
 
+.brackets-viewer table tr{
+    color: #fff;
+    background: linear-gradient(180deg, rgba(94, 95, 184, 0.2) 0%, rgba(34, 35, 86, 0.2) 125%);
+    backdrop-filter: blur(0.75rem);
+    height: 2rem;
+}
+
+.brackets-viewer table tr:first-child{
+    background: linear-gradient(180deg, #1d1e4e 0%, #2a2b67 100%);
+    backdrop-filter: blur(1.5rem);
+}
+
+.brackets-viewer .round-robin .group td:nth-of-type(2), .brackets-viewer .round-robin .group td:last-of-type{
+    color: #fff;
+}
+
+.brackets-viewer .round-robin .group td.hover{
+    background: #0b0e85 !important;
+}
+
+.brackets-viewer table tr:last-child{
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.brackets-viewer .round-robin .group th{
+    border: 0;
+}
+
+.brackets-viewer .round-robin .group th:first-child,.brackets-viewer .round-robin .group th:last-child,.brackets-viewer .round-robin .group tr td:first-child,.brackets-viewer .round-robin .group tr td:last-child{
+    padding-inline: 0.5rem;
+}
+
+.brackets-viewer .round-robin .group th:first-child{
+    border-top-left-radius: 0.5rem;
+}
+
+.brackets-viewer .round-robin .group th:last-child{
+    border-top-right-radius: 0.5rem;
+}
+
+.brackets-viewer .round-robin .group tr:last-child td:first-child{
+    border-bottom-left-radius: 0.5rem;
+}
+
+.brackets-viewer .round-robin .group tr:last-child td:last-child{
+    border-bottom-right-radius: 0.5rem;
+}
+
+.brackets-viewer .round-robin .group:not(:last-of-type){
+    margin-right: 0;
+}
+
+.brackets-viewer .round-robin{
+    column-gap: 2.5rem;
+}
+
 .brackets-viewer .opponents,
 .brackets-viewer .opponents:hover {
     background-color: transparent;
