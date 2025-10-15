@@ -11,13 +11,20 @@
     --spark-icon-gradient: #D8DAFF;
     --border-color: #ffffff1f;
     --date-line-bg: #C0DEFF;
-    /* --- font variables --- */
     --text-size-16: 16px;
     --text-size-18: 18px;
     --text-size-20: 1.25rem;
     --text-size-24: 24px;
     --text-size-48px: 48px;
     --match-width: 200px;
+    --party-banner-bg: linear-gradient(180deg, rgba(34, 35, 86, 0.2) 0%, rgba(34, 35, 86, 0.2) 100%);
+    --party-header-bg: linear-gradient(180deg, rgba(94, 95, 184, 0.32) 0%, rgba(34, 35, 86, 0.32) 100%), linear-gradient(90deg, rgba(68, 119, 239, 0) 0%, rgba(67, 109, 238, 0.096) 100%);
+    --party-header-shadow: inset 0px 2px 2px 0px rgba(94, 95, 184, 0.1215686275);
+    --party-header-blur: blur(12px);
+    --game-id-col: #FFD0AF;
+    --add-button-bg: linear-gradient(180deg, rgba(33, 36, 92, 0.7) 0%, rgba(17, 18, 60, 0.7) 100%);
+    --add-button-shadow: inset 0px 4px 4px 0px rgba(84, 114, 136, 0.0392156863);
+    --add-button-blur: blur(24px);
 }
 
 @font-face {
@@ -4873,6 +4880,36 @@ html[dir="rtl"] .about-accordation .mob-match-gp div p:first-child {
 /* call-duty-card End*/
 
 /* Prty card popup start */
+.party-queue-banner {
+    background: var(--party-banner-bg);
+    color: var(--white-col);
+  }
+  
+  .party-queue-header {
+    background: var(--party-header-bg);
+    box-shadow: var(--party-header-shadow);
+    backdrop-filter: var(--party-header-blur);
+  }
+  
+  .username {
+    color: var(--white-col);
+  }
+  
+  .game-id {
+    color: var(--game-id-col);
+  }
+  
+  .add-img {
+    background: var(--add-button-bg);
+    box-shadow: var(--add-button-shadow);
+    backdrop-filter: var(--add-button-blur);
+    color: var(--white-col);
+  }
+  
+  .profile-placeholder {
+    color: var(--white-col);
+  }
+
 .party-card {
     background: linear-gradient(0deg, rgba(34, 35, 86, 20%) 0%, rgba(94, 95, 184, 20%) 100%);
     clip-path: url(#custom-party-shape);
@@ -5903,6 +5940,9 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
 }
 
 /* Tournament brackets css */
+.brackets-viewer .round-robin h2{
+    color: #fff;
+}
 
 .brackets-viewer .opponents,
 .brackets-viewer .opponents:hover {

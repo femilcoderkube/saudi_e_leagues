@@ -177,14 +177,7 @@ const LeagueMatchDetail = () => {
               />
             </div>
             <div
-              className={`mob-sub-btn flex items-center justify-center gap-6 mb-[1rem]${
-                isMyMatch &&
-                (!IsSubmited || isEditScore != null) &&
-                !matchData?.isCanceled &&
-                showCancelBtn
-                  ? "flex-wrap"
-                  : ""
-              }`}
+              className={`mob-sub-btn flex items-center justify-center gap-6 mb-[1rem] flex-wrap`}
             >
               {user &&
                 isMyMatch &&

@@ -30,18 +30,18 @@ const PartyQueueBanner = () => {
   return (
     <>
       {leagueData?.format == "party queue" && user && partyQueueTeam?.data && (
-        <div className="rounded-xl overflow-hidden bg-[linear-gradient(180deg,rgba(34,35,86,0.2)_0%,rgba(34,35,86,0.2)_100%)] text-white md:mb-10 mb-5">
-          <div className="flex items-center justify-between ga-2 px-4 py-[1.25rem] bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_100%),linear-gradient(90deg,rgba(68,119,239,0)_0%,rgba(67,109,238,0.096)_100%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px]">
+        <div className="party-queue-banner rounded-xl overflow-hidden md:mb-10 mb-5">
+          <div className="party-queue-header flex items-center justify-between ga-2 px-4 py-[1.25rem]">
             <div className="flex items-center sm:gap-4 gap-3">
               <img
                 className="sm:w-[1.75rem] w-[1.5rem]"
                 src={IMAGES.party_user}
                 alt="clock"
               />
-              <h3 className="text-[#F4F7FF] text-base sm:text-xl font-medium font_oswald ">
+              <h3 className="text-base sm:text-xl font-medium font_oswald ">
                 {t("party.party_queue")}
               </h3>
-              <h3 className="text-[#F4F7FF] text-base sm:text-xl font_oswald ">
+              <h3 className="text-base sm:text-xl font_oswald ">
                 (Max {partySizeLimit})
               </h3>
             </div>
@@ -84,7 +84,7 @@ const PartyQueueBanner = () => {
                   >
                     <div className="flex items-center gap-3 mb-2">
                       <div className="relative">
-                        <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full bg-[#0a0c32]">
+                        <sub className="flex items-center justify-center absolute -top-2.5 -left-2 w-6 h-6 rounded-full">
                           <img
                             className="w-4 h-4"
                             src={getSmile(player.wilsonScore || 0)}
@@ -109,7 +109,7 @@ const PartyQueueBanner = () => {
                         ) : (
                           <>
                             <div
-                              className="rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]  object-cover"
+                              className="profile-placeholder rounded-full sm:w-[3.125rem] sm:h-[3.125rem] w-[2.5rem] h-[2.5rem]  object-cover"
                               style={{
                                 display: "flex",
                                 alignItems: "center",
@@ -117,7 +117,6 @@ const PartyQueueBanner = () => {
                                 background: getRandomColor(
                                   player.userId?.username
                                 ),
-                                color: "#fff",
                                 fontWeight: "bold",
                                 fontSize: "1.5rem",
                               }}
@@ -129,7 +128,7 @@ const PartyQueueBanner = () => {
                           </>
                         )}
                       </div>
-                      <div className="text-xl font-bold text-white">
+                      <div className="text-xl font-bold">
                         {player?.totalLeaguesScore || 0}
                       </div>
                     </div>
@@ -140,13 +139,13 @@ const PartyQueueBanner = () => {
                         </div>
                       )}
                       <div className="flex items-center gap-1 mb-1">
-                        <span className="username font-bold text-lg text-[#F4F7FF]">
+                        <span className="username font-bold text-lg">
                           {player.userId?.username}
                         </span>
                       </div>
                       {/* Add remove icon if current user is creator and this player is not the creator */}
                     </div>
-                    <span className="text-sm font-medium text-[#FFD0AF]">
+                    <span className="text-sm font-medium">
                       @{player.userId.gameId} ID
                     </span>
                   </div>
@@ -160,10 +159,10 @@ const PartyQueueBanner = () => {
                   isMatchJoind?.currentMatch == undefined) && (
                   <div className="party-card-wp mx-auto">
                     <div
-                      className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] bg-[linear-gradient(180deg,rgba(33,36,92,0.7)_0%,rgba(17,18,60,0.7)_100%)] shadow-[inset_0px_4px_4px_0px_#5472880A] backdrop-blur-[24px] cursor-pointer"
+                      className="add-img flex items-center justify-center rounded-full w-[3.125rem] h-[3.125rem] cursor-pointer"
                       onClick={openPopup}
                     >
-                      <span className="text-white text-2xl font-medium">+</span>
+                      <span className="text-2xl font-medium">+</span>
                     </div>
                   </div>
                 )}
