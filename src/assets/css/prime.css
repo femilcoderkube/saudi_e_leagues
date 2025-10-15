@@ -4884,32 +4884,32 @@ html[dir="rtl"] .about-accordation .mob-match-gp div p:first-child {
 .party-queue-banner {
     background: var(--party-banner-bg);
     color: var(--white-col);
-  }
-  
-  .party-queue-header {
+}
+
+.party-queue-header {
     background: var(--party-header-bg);
     box-shadow: var(--party-header-shadow);
     backdrop-filter: var(--party-header-blur);
-  }
-  
-  .username {
+}
+
+.username {
     color: var(--white-col);
-  }
-  
-  .game-id {
+}
+
+.game-id {
     color: var(--game-id-col);
-  }
-  
-  .add-img {
+}
+
+.add-img {
     background: var(--add-button-bg);
     box-shadow: var(--add-button-shadow);
     backdrop-filter: var(--add-button-blur);
     color: var(--white-col);
-  }
-  
-  .profile-placeholder {
+}
+
+.profile-placeholder {
     color: var(--white-col);
-  }
+}
 
 .party-card {
     background: linear-gradient(0deg, rgba(34, 35, 86, 20%) 0%, rgba(94, 95, 184, 20%) 100%);
@@ -5223,6 +5223,14 @@ html[dir=rtl] .edit-team-wp {
 
     .schdule-accordion-body .mob-body-full div:last-child p {
         width: 5rem;
+    }
+
+    .robin-round-standing:has(.battle-wp:nth-child(2)) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .robin-round-standing:not(:has(.battle-wp:nth-child(2))) {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -5898,7 +5906,6 @@ html[dir=rtl] .edit-team-wp {
 }
 
 #tournament-tabs.sa__tournament-tabs li.active div {
-    border-bottom: 0;
     padding-block: 1rem;
 }
 
@@ -5908,7 +5915,7 @@ html[dir=rtl] .edit-team-wp {
 }
 
 #tournament-tabs.sa__tournament-tabs li:not(:first-child) div {
-    padding-right: 3rem;
+    margin-right: 3rem;
 }
 
 html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:not(:first-child) div {
@@ -5941,64 +5948,68 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
 }
 
 /* Tournament brackets css */
-.brackets-viewer .round-robin h2{
+.brackets-viewer .round-robin h2 {
     color: #fff;
 }
 
-.brackets-viewer table tr{
+.brackets-viewer table tr {
     color: #fff;
     background: linear-gradient(180deg, rgba(94, 95, 184, 0.2) 0%, rgba(34, 35, 86, 0.2) 125%);
     backdrop-filter: blur(0.75rem);
     height: 2rem;
 }
 
-.brackets-viewer table tr:first-child{
+.brackets-viewer table tr:first-child {
     background: linear-gradient(180deg, #1d1e4e 0%, #2a2b67 100%);
     backdrop-filter: blur(1.5rem);
 }
 
-.brackets-viewer .round-robin .group td:nth-of-type(2), .brackets-viewer .round-robin .group td:last-of-type{
+.brackets-viewer .round-robin .group td:nth-of-type(2),
+.brackets-viewer .round-robin .group td:last-of-type {
     color: #fff;
 }
 
-.brackets-viewer .round-robin .group td.hover{
+.brackets-viewer .round-robin .group td.hover {
     background: #0b0e85 !important;
 }
 
-.brackets-viewer table tr:last-child{
+.brackets-viewer table tr:last-child {
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
 }
 
-.brackets-viewer .round-robin .group th{
+.brackets-viewer .round-robin .group th {
     border: 0;
 }
 
-.brackets-viewer .round-robin .group th:first-child,.brackets-viewer .round-robin .group th:last-child,.brackets-viewer .round-robin .group tr td:first-child,.brackets-viewer .round-robin .group tr td:last-child{
+.brackets-viewer .round-robin .group th:first-child,
+.brackets-viewer .round-robin .group th:last-child,
+.brackets-viewer .round-robin .group tr td:first-child,
+.brackets-viewer .round-robin .group tr td:last-child {
     padding-inline: 0.5rem;
 }
 
-.brackets-viewer .round-robin .group th:first-child{
+.brackets-viewer .round-robin .group th:first-child {
     border-top-left-radius: 0.5rem;
 }
 
-.brackets-viewer .round-robin .group th:last-child{
+.brackets-viewer .round-robin .group th:last-child {
     border-top-right-radius: 0.5rem;
 }
 
-.brackets-viewer .round-robin .group tr:last-child td:first-child{
+.brackets-viewer .round-robin .group tr:last-child td:first-child {
     border-bottom-left-radius: 0.5rem;
 }
 
-.brackets-viewer .round-robin .group tr:last-child td:last-child{
+.brackets-viewer .round-robin .group tr:last-child td:last-child {
     border-bottom-right-radius: 0.5rem;
 }
 
-.brackets-viewer .round-robin .group:not(:last-of-type){
+.brackets-viewer .round-robin .group:not(:last-of-type) {
     margin-right: 0;
 }
 
-.brackets-viewer .round-robin{
+.brackets-viewer .round-robin {
     column-gap: 2.5rem;
 }
 
@@ -6489,6 +6500,13 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     .tournament_page--wrapper .sd_tournament-wrapper {
         padding-top: 1rem;
     }
+
+    #tournament-tabs.sa__tournament-tabs li:not(:first-child) div {
+        margin-right: 0rem;
+    }
+    #tournament-tabs.sa__tournament-tabs li.active div {
+        border-bottom: 0;
+    }
 }
 
 @media (max-width: 639px) {
@@ -6497,9 +6515,18 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     }
 }
 
+@media (max-width: 589px) {
+    .tab-btn-wp.bracket-btn{
+        transform: scale(0.82);
+        align-items: center;
+        justify-content: center;        
+    }
+}
+
 @media (max-width: 575px) {
     .tab-btn-wp {
         flex-direction: column;
+        transform: scale(0.82);
     }
 
     .calender-btn {
@@ -6523,8 +6550,8 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
 
 @media (max-width: 475px) {
     .tab-btn-wp.bracket-btn {
-        transform: scale(0.9);
-        transform-origin: left center;
+        transform: scale(0.68);
+        transform-origin:center;
         flex-direction: row;
     }
 
@@ -6561,7 +6588,10 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     }
 
     .tab-btn-wp.bracket-btn {
-        transform: scale(0.8);
+        transform: scale(0.6);
+    }
+    .tab-btn-wp {
+        transform: scale(0.7);
     }
 }
 

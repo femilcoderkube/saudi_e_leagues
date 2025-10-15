@@ -5,6 +5,7 @@ import {
   setShowCalendar,
 } from "../../app/slices/constState/constStateSlice.js";
 import ScheduleCard from "../../components/Cards/TournamentDetail/ScheduleCard.jsx";
+import RoundRobinStanding from "./RoundrobinStandings.jsx";
 import DatePiker from "../../components/Cards/TournamentDetail/DatePiker.jsx";
 import { getServerURL } from "../../utils/constant.js";
 import GamingLoader from "../../components/Loader/loader.jsx";
@@ -174,7 +175,16 @@ const SingleDoubleStages = () => {
                 >
                   {t("tournament.brackets")}
                 </button>
-
+                <button
+                  onClick={() => handleActiveTournamentTab(3)}
+                  className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
+                    activeTournamentTab === 3
+                      ? "active-tab hover:opacity-100 polygon_border"
+                      : ""
+                  }`}
+                >
+                  Group Standings
+                </button>
                 <button
                   onClick={() => handleActiveTournamentTab(2)}
                   className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
@@ -326,6 +336,14 @@ const SingleDoubleStages = () => {
                     {t("tournament.no_matchs_found")}
                   </div>
                 )}
+              </div>
+            )}
+            {activeTournamentTab === 3 && (
+              <div className="robin-round-standing grid gap-7.5">
+                <RoundRobinStanding />
+                <RoundRobinStanding />
+                <RoundRobinStanding />
+                <RoundRobinStanding />
               </div>
             )}
           </>
