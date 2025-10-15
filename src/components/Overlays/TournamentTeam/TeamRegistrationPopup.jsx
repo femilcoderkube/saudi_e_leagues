@@ -479,6 +479,22 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
               </Form>
             )}
           </Formik>
+          <svg
+                width="0"
+                height="0"
+                viewBox="0 0 400 72"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ position: "absolute" }}
+              >
+                <defs>
+                  <clipPath id="inputclip" clipPathUnits="objectBoundingBox">
+                    <path
+                      transform="scale(0.0025, 0.0138889)"
+                      d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
         </motion.div>
         <svg
           width="0"
