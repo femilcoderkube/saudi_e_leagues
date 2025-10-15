@@ -500,14 +500,14 @@ const TournamentTeamSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(leaveTeamPlayer.pending, (state) => {
-        state.loading = true;
+        state.assignTeamloading = true;
         state.error = null;
       })
       .addCase(leaveTeamPlayer.fulfilled, (state, action) => {
-        state.loading = false;
+        state.assignTeamloading = false;
       })
       .addCase(leaveTeamPlayer.rejected, (state, action) => {
-        state.loading = false;
+        state.assignTeamloading = false;
         state.error = action.payload;
       })
       .addCase(removeTeam.pending, (state) => {
