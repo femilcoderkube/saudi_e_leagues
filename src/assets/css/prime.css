@@ -4429,7 +4429,8 @@ html[dir="rtl"] .view-all::after {
 
 .Toastify__toast-theme--light {
     clip-path: url(#inputclip);
-    height: 3rem;
+    /* height: 3rem; */
+    height: auto;
     font-size: 0.9rem;
     font-weight: 600;
     padding: 1rem 1.5rem 1rem 1rem !important;
