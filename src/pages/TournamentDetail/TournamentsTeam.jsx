@@ -30,6 +30,8 @@ import ManageRosterModal from "../../components/Overlays/TournamentTeam/ManageRo
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { motion } from "motion/react";
+import { leftToRight,rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
 
 export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -65,6 +67,7 @@ export default function TournamentsTeam() {
       return;
     }
   }, [user?._id]);
+  const ANIMATION_VIEWPORT_CONFIG = { once: true, amount: 0.4 };
 
   const globalIsPresident = currentTeam?.members?.some((member) => {
     const memberUserId = member?.user?._id;
@@ -255,7 +258,14 @@ export default function TournamentsTeam() {
       ) : (
         <>
           <div className="team-page-wp flex xl:items-start items-center md:gap-[3.813rem] gap-[2rem] flex-col xl:flex-row w-full mb-10">
-            <div className="relative team-content-left-wp sm:w-[27.5rem] sm:h-[32.313rem]">
+            <motion.div
+              className="relative team-content-left-wp sm:w-[27.5rem] sm:h-[32.313rem]"
+              variants={leftToRight}
+              custom={0}
+              initial="hidden"
+              whileInView="visible"
+              viewport={ANIMATION_VIEWPORT_CONFIG}
+            >
               <div className="relative team-content-left-wp-last">
                 <div className="edit-team-wp absolute top-0 right-0 z-20">
                   {globalIsPresident ? (
@@ -605,8 +615,15 @@ export default function TournamentsTeam() {
                   </div>
                 </div>
               </div>
-            </div>
-            {/* <div className="team_content-right w-full">
+            </motion.div>
+            {/* <motion.div
+              className="team_content-right w-full"
+              variants={rightToLeft}
+              custom={1}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.4 }}
+            >
               <div className="mb-6">
                 <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
                   {t("tourteam.last_tournaments")}
@@ -864,7 +881,7 @@ export default function TournamentsTeam() {
 
                 {t("tourteam.no_matches")}
               </div>
-            </div> */}
+            </motion.div> */}
           </div>
           {/* team-top shape */}
           <svg
@@ -884,7 +901,11 @@ export default function TournamentsTeam() {
             </defs>
           </svg>
           {globalIsPresident && (
-            <div className="user-team-btn flex justify-end items-center w-full">
+            <motion.div className="user-team-btn flex justify-end items-center w-full"
+            initial="hidden"
+          whileInView="visible"
+          variants={cardVariantsAni}
+          viewport={{ once: true, amount: 0}}>
               <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                 <div
                   className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
@@ -909,9 +930,14 @@ export default function TournamentsTeam() {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
-          <div className="team-main-user mt-16">
+          <motion.div className="team-main-user mt-16"
+          initial="hidden"
+          whileInView="visible"
+          variants={cardVariantsAni}
+          viewport={{ once: true, amount: 0}}
+          >
             {/* Games Section */}
             <div className="mt-10">
               {currentTeam?.games?.length ? (
@@ -1391,7 +1417,7 @@ export default function TournamentsTeam() {
                 </clipPath>
               </defs>
             </svg>
-          </div>
+          </motion.div>
         </>
       )}
       {showTeamEditPopup && <TeamRegistrationPopup isEdit={true} />}

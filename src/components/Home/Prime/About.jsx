@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "motion/react";
-
 import { leftToRight } from "../../Animation/animation.jsx";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../ui/images/images.js";
