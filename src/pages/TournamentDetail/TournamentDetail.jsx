@@ -21,8 +21,6 @@ import {
 } from "../../app/socket/socket.js";
 import {
   clearData,
-  // getTournamentDetails,
-  getTeamAndTournamentDetails,
   setActiveStage,
 } from "../../app/slices/tournamentSlice/tournamentSlice.js";
 import BattleRoyalStage from "./BattleRoyalStage.jsx";
@@ -54,14 +52,14 @@ import { fetchInviteLink } from "../../app/slices/teamInvitationSlice/teamInvita
 import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
-  const { tournamentData, activeStage, loader, currentTeam, teamData } = useSelector(
+  const { tournamentData, activeStage, loader } = useSelector(
     (state) => state.tournament
   );
 
   const { viewManagePopup } = useSelector((state) => state.constState);
 
   const [showModal, setShowModal] = useState(false);
-  const {  loading, showTeamRegistrationPopup } =
+  const { currentTeam, teamData, loading, showTeamRegistrationPopup } =
     useSelector((state) => state.tournamentTeam);
 
   const handleClose = () => setShowModal(false);
@@ -90,41 +88,36 @@ const TournamentDetail = () => {
     return "text-white";
   };
 
-  // useEffect(() => {
-  //   if (user?._id) {
-  //     dispatch(getTeamData(user?._id));
-  //   }
-  // }, [user?._id]);
+  useEffect(() => {
+    if (user?._id) {
+      dispatch(getTeamData(user?._id));
+    }
+  }, [user?._id]);
 
   useEffect(() => {
     if (tournamentData?._id) {
-      // dispatch(
-      //   getTeamDetails({
-      //     tournamentId: tournamentData?._id,
-      //     teamId: currentTeam?._id,
-      //     userId: user?._id,
-      //   })
-      // );
+      dispatch(
+        getTeamDetails({
+          tournamentId: tournamentData?._id,
+          teamId: currentTeam?._id,
+          userId: user?._id,
+        })
+      );
 
-      // dispatch(fetchInviteLink(currentTeam?._id)).unwrap();
+      dispatch(fetchInviteLink(currentTeam?._id)).unwrap();
     }
   }, [currentTeam?._id, dispatch, tournamentData?._id]);
 
-  // useEffect(() => {
-  //   if (isSocketConnected) {
-  //     dispatch(clearData());
-  //     startTournamentSocket({
-  //       tId: tId,
-  //       user: user,
-  //       isSocketConnected: isSocketConnected,
-  //     });
-  //   }
-  // }, [isSocketConnected, tId]);
-
   useEffect(() => {
+    if (isSocketConnected) {
       dispatch(clearData());
-      dispatch(getTeamAndTournamentDetails({tId, userId: user?._id, teamId: currentTeam?._id}));
-  }, [tId, user?._id, currentTeam?._id]);
+      startTournamentSocket({
+        tId: tId,
+        user: user,
+        isSocketConnected: isSocketConnected,
+      });
+    }
+  }, [isSocketConnected, tId]);
 
   useEffect(() => {
     if (tournamentData?.title) {
