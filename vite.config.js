@@ -64,12 +64,14 @@ export default defineConfig(({ mode }) => {
       isProduction &&
         javascriptObfuscator({
           options: {
+            compact: true,
+            controlFlowFlattening: true,
+            deadCodeInjection: true,
             stringArray: true,
-            stringArrayEncoding: ["base64"],
-            stringArrayThreshold: 0.2,
-            controlFlowFlattening: false,
-            splitStrings: false,
-            selfDefending: false,
+            rotateStringArray: true,
+            stringArrayEncoding: ['rc4'],
+            stringArrayThreshold: 0.75,
+            splitStrings: true,
             // disableConsoleOutput: false,
             // debugProtection: isProduction ? true : false,
             target: "browser",
