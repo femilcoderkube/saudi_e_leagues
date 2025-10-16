@@ -1,8 +1,16 @@
 :root {
     --white-col: #f4f7ff;
+    --pure-white: #fff;
+    --black-color: #000;
+    --dark-blue:#0b0d32;
+    --dark-shade-blue:#020326;
     --purple-col: #7b7ed0;
+    --light-purple: #7b7ed047;
+    --very-light-purple: #9E9ECC;
+    --dark-purple: #2A2F64;
     --aside-link-col: #babdff;
     --sky-col: #3eccf3;
+    --light-blue: #87C9F2;
     --split-1-text: #B0D0F1;
     --split-2-text: #C5B9F4;
     --split-3-text: #F1D3B0;
@@ -2121,7 +2129,7 @@ li.team_score--card:hover .review_score--con:before {
     height: 1.25rem;
     top: -0.5rem;
     right: -0.5rem;
-    border: 0.25rem solid #020326;
+    border: 0.25rem solid var(--dark-shade-blue);
     border-radius: 0.938rem;
 }
 
@@ -2451,6 +2459,7 @@ html[dir="rtl"] .leaderboard-table tr td:last-child {
             rgba(94, 95, 184, 0.3) 0%,
             rgba(34, 35, 86, 0.4) 100%);
     box-shadow: inset 0 2px 2px rgba(94, 95, 184, 0.2);
+    border-color: var(--dark-purple);
 }
 
 .timeline-step {
@@ -2523,7 +2532,7 @@ html[dir="rtl"] .timeline_wrap.completed:after {
       Rules & Regulation Button Design CSS Start   
       ------------------------------------------ */
 .sd_rules--btn button:before {
-    background: #020326;
+    background: var(--dark-shade-blue);
     width: 2rem;
     height: 2rem;
     right: 1.25rem;
@@ -2780,7 +2789,7 @@ input[type="radio"]:checked+label .checkbox-inner:before {
 
 .select__menu-list::-webkit-scrollbar-thumb {
     border-radius: 0.25rem;
-    background: #2a2f64;
+    background: var(--dark-purple);
 }
 
 .select__menu .select__menu-list .select__option {
@@ -3847,7 +3856,7 @@ Selct Input in Wizard form CSS Start
 
 .select__menu-list::-webkit-scrollbar-thumb {
     border-radius: 0.25rem;
-    background: #2a2f64;
+    background: var(--dark-purple);
 }
 
 .select__menu .select__menu-list .select__option {
@@ -4021,6 +4030,34 @@ html[lang="en"][dir="rtl"] .font_oswald {
     color: var(--sky-col);
 }
 
+.user_id {
+    color: var(--light-blue);
+}
+
+.light_white {
+    color: var(--white-col);
+}
+
+.black_color {
+    color: var(--black-color);
+}
+
+.very_light_purple {
+    color: var(--very-light-purple);
+}
+
+.dark_shade_blue{
+    color: var(--dark-shade-blue);
+}
+
+.dropdown-item:hover{
+    background:var(--dark-blue);
+}
+
+.sd_bedge_left-con {
+    border-color: var(--light-purple);
+}
+
 .sd_radial-bg {
     background: linear-gradient(180deg,
             rgba(45, 46, 109, 1) 0%,
@@ -4078,7 +4115,7 @@ body {
             rgba(1, 2, 29, 1) 0%,
             rgba(2, 3, 41, 1) 100%);
     transition: 0.2s ease;
-    color: #fff !important;
+    color: var(--pure-white) !important;
     font-family: "Cairo", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -4109,7 +4146,7 @@ html[lang="ar"] body {
 
 .custom_scroll::-webkit-scrollbar-thumb {
     border-radius: 0.25rem;
-    background: #2a2f64;
+    background: var(--dark-purple);
 }
 
 .header_teture--bg:before {
@@ -5228,7 +5265,7 @@ html[dir=rtl] .edit-team-wp {
     .robin-round-standing:has(.battle-wp:nth-child(2)) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    
+
     .robin-round-standing:not(:has(.battle-wp:nth-child(2))) {
         grid-template-columns: 1fr;
     }
@@ -6504,6 +6541,7 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     #tournament-tabs.sa__tournament-tabs li:not(:first-child) div {
         margin-right: 0rem;
     }
+
     #tournament-tabs.sa__tournament-tabs li.active div {
         border-bottom: 0;
     }
@@ -6516,10 +6554,10 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
 }
 
 @media (max-width: 589px) {
-    .tab-btn-wp.bracket-btn{
+    .tab-btn-wp.bracket-btn {
         transform: scale(0.82);
         align-items: center;
-        justify-content: center;        
+        justify-content: center;
     }
 }
 
@@ -6551,7 +6589,7 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
 @media (max-width: 475px) {
     .tab-btn-wp.bracket-btn {
         transform: scale(0.68);
-        transform-origin:center;
+        transform-origin: center;
         flex-direction: row;
     }
 
@@ -6590,6 +6628,7 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     .tab-btn-wp.bracket-btn {
         transform: scale(0.6);
     }
+
     .tab-btn-wp {
         transform: scale(0.7);
     }
@@ -6628,7 +6667,7 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     left: -5%;
     width: 110%;
     height: 100%;
-    background: #020326;
+    background: var(--dark-shade-blue);
     display: block;
     z-index: -1;
 }

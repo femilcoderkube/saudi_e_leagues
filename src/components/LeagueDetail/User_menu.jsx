@@ -39,7 +39,7 @@ const Dropdown = ({ user }) => {
   return (
     <div className="dropdown relative">
       <div
-        className="dropdown-header gap-6 p-3 flex justify-between items-center cursor-pointer text-white rounded"
+        className="dropdown-header gap-6 p-3 flex justify-between items-center cursor-pointer rounded"
         onClick={toggleDropdown}
       >
         <div className="use_con text-right flex flex-col gap-1">
@@ -83,7 +83,7 @@ const Dropdown = ({ user }) => {
             {data.map((item) => (
               <div
                 key={item.id}
-                className="dropdown-item p-3 block hover:bg-[#0b0d32] duration-400  cursor-pointer"
+                className="dropdown-item p-3 block duration-400  cursor-pointer"
                 onClick={() => handleItemClick(item.id)}
               >
                 {item.id === 0

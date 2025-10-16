@@ -125,10 +125,10 @@ const DatePiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate })
   }
 
   return (
-    <div className="datepiker-wp w-100 rounded-xl sm:px-6 py-6 px-4 text-white">
+    <div className="datepiker-wp w-100 rounded-xl sm:px-6 py-6 px-4">
       {/* Header */}
       <div className="datepiker-head flex items-center justify-between mb-5 pb-6 relative">
-        <h2 className="text-lg font-semibold text-[#F4F7FF]">
+        <h2 className="text-lg font-semibold light_white">
           {months[currentDate.getMonth()]}, {currentDate.getFullYear()}
         </h2>
         <div className="flex">
@@ -150,7 +150,7 @@ const DatePiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate })
       {/* Weekdays */}
       <div className="grid grid-cols-7 gap-1 mb-2">
         {weekDays.map((day) => (
-          <div key={day} className="text-center text-sm text-[#F4F7FF] py-2">
+          <div key={day} className="text-center text-sm light_white py-2">
             {day}
           </div>
         ))}
@@ -209,13 +209,13 @@ const DatePiker = ({ startDate: propStartDate, endDate: propEndDate, onUpdate })
       <div className="flex justify-end">
         <button
           onClick={handleReset}
-          className="px-8 py-3 text-[#9E9ECC] hover:text-white transition-colors text-base font-bold cursor-pointer"
+          className="px-8 py-3 very_light_purple hover:text-white transition-colors text-base font-bold cursor-pointer"
         >
           Reset
         </button>
         <button
           onClick={handleUpdate}
-          className="update-btn px-[2.2rem] py-3 rounded-lg text-white text-base font-bold cursor-pointer"
+          className="update-btn px-[2.2rem] py-3 rounded-lg text-base font-bold cursor-pointer"
         >
           Update
         </button>

@@ -48,7 +48,7 @@ const StarOfTheWeek = () => {
             return (
               <SwiperSlide className="w-full" key={index}>
                 <div className="mob-star-week bg-[url(./assets/images/mob-star-week-shape.webp)] sm:max-w-[32rem] sm:w-full flex flex-col bg-no-repeat bg-center bg-cover relative p-5 mx-auto md:order-2 order-2">
-                  <div className="sd_bedge_left-con border-b-1 border-[#7b7ed047] pb-5 mb-6 flex flex-row items-center justify-between gap-4 w-full">
+                  <div className="sd_bedge_left-con border-b-1 pb-5 mb-6 flex flex-row items-center justify-between gap-4 w-full">
                     <div className="sd_bedge-lable flex gap-2 items-end">
                       {i18n.language === "ar" ? (
                         <img
@@ -116,7 +116,7 @@ const StarOfTheWeek = () => {
                         <span className="text-lg">
                           {star?.weeklyUsersData?.userId?.fullName}
                         </span>
-                        <span className="user_id md:text-md text-sm block text-[#87C9F2]">
+                        <span className="user_id md:text-md text-sm block">
                           @{star?.weeklyUsersData?.userId?.username}
                         </span>
                       </div>

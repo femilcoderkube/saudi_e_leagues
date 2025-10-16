@@ -84,7 +84,7 @@ export default function BattleRoyalStage() {
               {activeTournamentTab === 2 && (
                 <button
                   id="calendar-popup-btn"
-                  className="relative calender-btn text-[#BABDFF] bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
+                  className="relative calender-btn purple_light bg-no-repeat bg-cover px-5 py-4 flex justify-between items-center gap-1 w-[12.5rem] h-[3.5rem] cursor-pointer"
                   onClick={() => dispatch(setShowCalendar(!showCalendar))}
                 >
                   <span className="sm:text-lg text-base font-bold">

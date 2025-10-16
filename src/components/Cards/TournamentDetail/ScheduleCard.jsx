@@ -44,12 +44,12 @@ const ScheduleCard = ({ item }) => {
         dir="ltr"
       >
         <h2
-          className="text-base font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative"
+          className="text-base font-bold purple_light px-10 pt-1 pb-[0.35rem] relative"
           dir="ltr"
         >
           {data?.date}&nbsp;&nbsp;
           <span
-            className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative"
+            className="inline-block purple_col pl-2 ml-1 relative"
             dir="ltr"
           >
             {data?.time}
@@ -71,7 +71,7 @@ const ScheduleCard = ({ item }) => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
+            <h2 className="text-[2rem] grad_text-clip font-bold font_oswald">
               {data?.acticeScore?.opponent1Score?.toString() || "-"}
             </h2>
           </div>
@@ -84,7 +84,7 @@ const ScheduleCard = ({ item }) => {
             />
           </div>
           <div className="tournament-schedule-card-header-right flex items-center gap-4 md:gap-8 relative z-10">
-            <h2 className="text-[2rem] grad_text-clip  font-bold text-white font_oswald">
+            <h2 className="text-[2rem] grad_text-clip font-bold font_oswald">
               {data?.acticeScore?.opponent2Score?.toString() || "-"}
             </h2>
             <div className="sm:w-[4.5rem] sm:h-[4.5rem] w-[3.5rem] h-[3.5rem] rounded-full overflow-hidden">
@@ -117,7 +117,7 @@ const ScheduleCard = ({ item }) => {
         </div>
         <div className="tournament-schedule-card-footer tournament-schedule-card-footer-hover flex justify-center items-center h-[3rem] md:h-[4rem] px-4 md:px-8 md:pb-6 py-4 overflow-hidden relative">
           <div className="tournament-schedule-card-footer-left flex gap-2 items-center justify-center">
-            <h2 className="text-base md:text-xl font-semibold text-[#3ECCF3]">
+            <h2 className="text-base md:text-xl font-semibold sky_col">
               Match Page
             </h2>
             <img src={IMAGES.footer_card_icon} alt="" />

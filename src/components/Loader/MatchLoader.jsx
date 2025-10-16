@@ -33,7 +33,7 @@ const MatchLoader = () => {
   }, [controls]);
 
   return (
-    <div className="flex-1 flex flex-col justify-between sd_main-content relative bg-[#020326] rounded-b-[0] z-20">
+    <div className="flex-1 flex flex-col justify-between sd_main-content relative bg-[var(--dark-shade-blue)] rounded-b-[0] z-20">
       <main className="flex-1 match_loading--wrapper overflow-hidden relative ">
         <div className="loading-not-finish-wp h-[100%] flex justify-center items-center">
           {/* Pink background */}

@@ -82,7 +82,7 @@ const NotificationIcon = ({ user }) => {
       title="Notification"
       className="inline-block p-[0.75rem] rounded-xl hover:opacity-70 duration-400 sd_radial-bg relative sd_before notification-icon-wp"
     >
-      <sup className="notification-icon flex justify-center items-center rounded-full absolute sm:-top-[0.2rem] sm:right-[-0.2rem] -top-[0.3rem] right-[-0.1rem] text-black font-bold">
+      <sup className="notification-icon flex justify-center items-center rounded-full absolute sm:-top-[0.2rem] sm:right-[-0.2rem] -top-[0.3rem] right-[-0.1rem] black_color font-bold">
         {unReadNotificationCount}
       </sup>
       <Notification />
