@@ -121,6 +121,43 @@ export default function RoundRobinStanding() {
 
         {/* Desktop View */}
         <div className="hidden lg:block">
+          {/* Battle Table Heading */}
+          <div className="battle-head flex mb-4">
+            <p className="text-[#9EA7CC] text-sm font-semibold xl:px-6 lg:px-4 px-2 py-2 max-w-[5.5%] w-full">
+              {t("tournament.place")}
+            </p>
+            <p className="text-[#9EA7CC] text-sm font-semibold px-15 py-2 max-w-[44.5%] w-full ltr:text-left rtl:text-right">
+              {t("tournament.team")}
+            </p>
+            <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
+              {t("tournament.played")}
+            </p>
+            <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
+              {t("tournament.wins")}
+            </p>
+            <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
+              {t("tournament.draws")}
+            </p>
+            <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
+              {t("tournament.losses")}
+            </p>
+            <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
+              {t("tournament.forfeits")}
+            </p>
+            <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
+              {t("tournament.scoreFor")}
+            </p>
+            <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
+              {t("tournament.scoreAgainst")}
+            </p>
+            <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
+              {t("tournament.scoreDifference")}
+            </p>
+            <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 ltr:lg:pr-14 rtl:lg:pl-14 max-w-[10%] w-full ltr:text-right rtl:text-left">
+              {t("tournament.points")}
+            </p>
+          </div>
+
           <div className="battle-body flex flex-col gap-4">
             {groupStandings.map((player, index) => (
               <div
@@ -320,43 +357,6 @@ export default function RoundRobinStanding() {
       variants={cardVariantsAni}
       viewport={{ once: true, amount: 0 }}
     >
-      {/* Battle Table Heading - Desktop Only */}
-      <div className="battle-head hidden lg:flex mb-4">
-        <p className="text-[#9EA7CC] text-sm font-semibold xl:px-6 lg:px-4 px-2 py-2 max-w-[5.5%] w-full">
-          {t("tournament.place")}
-        </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold px-15 py-2 max-w-[44.5%] w-full ltr:text-left rtl:text-right">
-          {t("tournament.team")}
-        </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
-          {t("tournament.played")}
-        </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
-          {t("tournament.wins")}
-        </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
-          {t("tournament.draws")}
-        </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
-          {t("tournament.losses")}
-        </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
-          {t("tournament.forfeits")}
-        </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
-          {t("tournament.scoreFor")}
-        </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
-          {t("tournament.scoreAgainst")}
-        </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[10%] w-full text-center">
-          {t("tournament.scoreDifference")}
-        </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 ltr:lg:pr-14 rtl:lg:pl-14 max-w-[10%] w-full ltr:text-right rtl:text-left">
-          {t("tournament.points")}
-        </p>
-      </div>
-
       {/* Render standings for each group in a two-column grid */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
         {groups.map((group) => renderGroupStandings(group))}
