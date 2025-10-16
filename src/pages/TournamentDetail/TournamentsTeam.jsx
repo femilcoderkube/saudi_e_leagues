@@ -52,6 +52,8 @@ export default function TournamentsTeam() {
     showTeamRegistrationPopup,
     showTeamEditPopup,
     currentTeam,
+    lastTournaments,
+    lastMatches,
     error,
     teamData,
     loading: loading,
@@ -619,7 +621,7 @@ export default function TournamentsTeam() {
                 </div>
               </div>
             </motion.div>
-            {/* <motion.div
+            <motion.div
               className="team_content-right w-full"
               variants={rightToLeft}
               custom={1}
@@ -633,7 +635,7 @@ export default function TournamentsTeam() {
                 </h3>
               </div>
               <div className="game_card--wrapper game_card--wrapv2 flex sm:flex-wrap  gap-[1.188rem] md:justify-start mb-9">
-                {[].map((item, index) => (
+                {lastTournaments ? lastTournaments.map((item, index) => (
                   <a
                     key={index}
                     className="game_card_wrap--link relative inline-block"
@@ -642,7 +644,7 @@ export default function TournamentsTeam() {
                       <div className="game_img--mask relative flex">
                         <div className="game_image relative">
                           <img
-                            src={item.logo}
+                            src={getServerURL(item?.logo)}
                             alt="Game Logo"
                             className="w-[7.75rem] h-[9.5rem] object-cover"
                             loading="lazy"
@@ -650,18 +652,18 @@ export default function TournamentsTeam() {
                         </div>
                         <div className="game_mask--con pt-3 relative h-full flex flex-col justify-between">
                           <h3 className="game_label !mb-0 text-base !font-black uppercase leading-tight ltr:pl-5 rtl:pr-5 h-[34px]">
-                            {item.title}
+                            {item?.title}
                           </h3>
                           <div className="league_price_v2 mt-5 mb-7 ltr:pl-5 rtl:pr-5 py-3 relative sd_before sd_after before:top-0 before:left-0 before:w-full before:h-[0.063rem] after:bottom-0 after:left-0 after:w-full after:h-[0.063rem]">
                             <h2 className="league_price text-base !font-bold font_oswald yellow_grad-bg grad_text-clip">
                               <span className="icon-saudi_riyal !p-0"></span>
-                              {item.prizepool.toLocaleString()}
+                              {item?.prizepool.toLocaleString()}
                             </h2>
                           </div>
                           <div className="game_intro_v2 bg-no-repeat ltr:pl-5 rtl:pr-5">
                             <div className="game_intro-con flex gap-5 relative bottom-1">
                               <img
-                                src={item.game.logo}
+                                src={getServerURL(item?.game?.logo)}
                                 alt="Game Logo"
                                 style={{ width: "2.5rem", height: "2.5rem" }}
                                 loading="lazy"
@@ -671,10 +673,10 @@ export default function TournamentsTeam() {
                                   Game
                                 </p>
                                 <h4
-                                  title={item.game.name}
+                                  title={item?.game?.name}
                                   className="sm:text-base text-sm !font-bold"
                                 >
-                                  {item.game.shortName}
+                                  {item?.game?.name}
                                 </h4>
                               </div>
                             </div>
@@ -717,8 +719,9 @@ export default function TournamentsTeam() {
                       </div>
                     </div>
                   </a>
-                ))}
-                {t("tourteam.no_tournament")}
+                )) : (
+                  t("tourteam.no_tournament")
+                )}
               </div>
               <div className="mb-6">
                 <h3 className="grad_text-clip !font-extrabold uppercase md:text-[2rem] text-[1.5rem] bg-[linear-gradient(181.21deg,rgba(132,146,180,0.8)_1.03%,rgba(132,146,180,0.16)_98.97%)]">
@@ -726,9 +729,9 @@ export default function TournamentsTeam() {
                 </h3>
               </div>
               <div className="main-card-duty-wp flex md:flex-row flex-col gap-[1.188rem] mt-5">
-                {[].map((match) => (
+                {lastMatches ? lastMatches.map((match) => (
                   <div
-                    key={match.matchId}
+                    key={match?.matchId}
                     className="card-duty-wp relative main-tournament-schedule-card-wrapper cursor-pointer w-full"
                   >
                     <div className="tournament-schedule-card-header-time absolute bottom-0 left-0 z-10 w-full flex items-center justify-center ">
@@ -736,12 +739,12 @@ export default function TournamentsTeam() {
                         className="text-[0.7rem] font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative"
                         dir="ltr"
                       >
-                        {new Date(match.createdAt).toLocaleDateString("en-GB", {
+                        {new Date(match?.createdAt).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "short",
                         })}
                         <span className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative">
-                          {new Date(match.createdAt).toLocaleTimeString(
+                          {new Date(match?.createdAt).toLocaleTimeString(
                             "en-GB",
                             {
                               hour: "2-digit",
@@ -756,12 +759,12 @@ export default function TournamentsTeam() {
                       <div className="tournament-schedule-card-footer-left flex items-center gap-3">
                         <img
                           className="w-5 h-5"
-                          src={match.game.logo}
-                          alt={match.game.name}
+                          src={getServerURL(match?.game?.logo)}
+                          alt={match?.game?.name}
                           loading="lazy"
                         />
                         <h2 className="text-sm grad_text-clip font-bold">
-                          {match.game.name}
+                          {match?.game?.name}
                         </h2>
                       </div>
                       <div className="tournament-schedule-card-footer-right text-right">
@@ -880,11 +883,12 @@ export default function TournamentsTeam() {
                       </defs>
                     </svg>
                   </div>
-                ))}
+                )) : (
+                  t("tourteam.no_matches")
+                )}
 
-                {t("tourteam.no_matches")}
               </div>
-            </motion.div> */}
+            </motion.div>
           </div>
           {/* team-top shape */}
           <svg

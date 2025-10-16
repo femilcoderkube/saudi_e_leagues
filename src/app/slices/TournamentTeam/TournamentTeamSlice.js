@@ -15,6 +15,8 @@ const initialState = {
   registerTournamentLoading: false,
   error: null,
   teamData: null,
+  lastMatches: [],
+  lastTournaments: [],
   rosterSelection: {
     managerId: null,
     coachId: null,
@@ -394,7 +396,16 @@ const TournamentTeamSlice = createSlice({
       })
       .addCase(getTeamData.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentTeam = action.payload.data.data;
+        const team = action.payload?.data?.data || null;
+        state.currentTeam = team;
+        console.log("team",team);
+        
+        state.lastMatches = Array.isArray(team?.lastMatches?.data)
+          ? team.lastMatches?.data
+          : [];
+        state.lastTournaments = Array.isArray(team?.lastTournaments?.data)
+          ? team.lastTournaments?.data
+          : [];
       })
       .addCase(getTeamData.rejected, (state, action) => {
         state.loading = false;

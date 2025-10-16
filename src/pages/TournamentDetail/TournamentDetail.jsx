@@ -59,7 +59,6 @@ const TournamentDetail = () => {
     tourmentTeamData,
   } = useSelector((state) => state.tournament);
 
-  console.log("tourmentTeamData", tourmentTeamData);
 
   const { viewManagePopup, isloading } = useSelector(
     (state) => state.constState
