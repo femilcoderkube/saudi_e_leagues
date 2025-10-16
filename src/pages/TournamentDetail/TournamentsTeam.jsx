@@ -30,7 +30,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { motion } from "motion/react";
-import { leftToRight,rightToLeft,cardVariantsAni } from "../../components/Animation/animation.jsx";
+import {
+  leftToRight,
+  rightToLeft,
+  cardVariantsAni,
+} from "../../components/Animation/animation.jsx";
 
 export default function TournamentsTeam() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -900,11 +904,13 @@ export default function TournamentsTeam() {
             </defs>
           </svg>
           {globalIsPresident && (
-            <motion.div className="user-team-btn flex justify-end items-center w-full"
-            initial="hidden"
-          whileInView="visible"
-          variants={cardVariantsAni}
-          viewport={{ once: true, amount: 0}}>
+            <motion.div
+              className="user-team-btn flex justify-end items-center w-full"
+              initial="hidden"
+              whileInView="visible"
+              variants={cardVariantsAni}
+              viewport={{ once: true, amount: 0 }}
+            >
               <div className="btn_polygon--mask inline-flex max-w-[fit-content] justify-center sd_before sd_after relative polygon_border hover:opacity-70 duration-400">
                 <div
                   className="btn_polygon-link font_oswald font-medium relative sd_before sd_after vertical_center cursor-pointer"
@@ -931,11 +937,12 @@ export default function TournamentsTeam() {
               </div>
             </motion.div>
           )}
-          <motion.div className="team-main-user mt-16"
-          initial="hidden"
-          whileInView="visible"
-          variants={cardVariantsAni}
-          viewport={{ once: true, amount: 0}}
+          <motion.div
+            className="team-main-user mt-16"
+            initial="hidden"
+            whileInView="visible"
+            variants={cardVariantsAni}
+            viewport={{ once: true, amount: 0 }}
           >
             {/* Games Section */}
             <div className="mt-10">
@@ -966,7 +973,7 @@ export default function TournamentsTeam() {
                       </div>
                       <div className="flex gap-8 flex-wrap lg:justify-start justify-center items-end">
                         {game.users?.length ? (
-                          game.users.map((val) => {
+                          game.users.map((val, inx) => {
                             const displayName = val.name || "Unknown";
                             const avatar = val.image
                               ? getServerURL(val.image)
@@ -995,7 +1002,9 @@ export default function TournamentsTeam() {
                                   />
                                 </div>
                                 <div className="game_card--roaster-main flex flex-col justify-between relative mt-[-25px]">
-                                  {loading && selectdedItem === val?.id ? (
+                                  {loading &&
+                                  selectdedItem ===
+                                    `${game?.game?._id}-${val.id}` ? (
                                     <div className="flex justify-center items-center h-[150px]">
                                       <svg
                                         className="animate-spin h-5 w-5 text-white mr-2"
@@ -1040,7 +1049,9 @@ export default function TournamentsTeam() {
                                               <img
                                                 onClick={() => {
                                                   dispatch(
-                                                    setSelectdedItem(val?.id)
+                                                    setSelectdedItem(
+                                                      `${game?.game?._id}-${val.id}`
+                                                    )
                                                   );
                                                   handleMenu(
                                                     `${game?.game?._id}-${val.id}`
