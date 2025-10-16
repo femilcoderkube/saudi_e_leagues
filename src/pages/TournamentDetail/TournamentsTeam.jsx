@@ -13,7 +13,6 @@ import {
   removeTeam,
   removeTeamPlayer,
   leaveTeamPlayer,
-  getTeamDetails,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 

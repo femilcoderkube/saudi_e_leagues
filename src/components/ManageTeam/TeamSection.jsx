@@ -12,7 +12,8 @@ const TeamSection = ({
   noDataMessage,
 }) => {
   const { t } = useTranslation();
-  const { teamData } = useSelector((state) => state.tournamentTeam);
+  const { teamData } = useSelector((state) => state.tournament);
+
   return (
     <div className="mb-4">
       {data && data?.length > 0 ? (

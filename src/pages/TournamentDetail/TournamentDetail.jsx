@@ -22,6 +22,7 @@ import {
 import {
   clearData,
   getTeamAndTournamentDetails,
+  resetRosterSelection,
   setActiveStage,
 } from "../../app/slices/tournamentSlice/tournamentSlice.js";
 import BattleRoyalStage from "./BattleRoyalStage.jsx";
@@ -35,14 +36,10 @@ import DetailItem from "../../components/Details/DetailItem.jsx";
 import { IMAGES } from "../../components/ui/images/images.js";
 import ManageTeamModal from "../../components/ManageTeam/ManageTeamModal.jsx";
 import PDFViewer from "../../components/Overlays/LeagueDetail/PDFViewer.jsx";
-import {
-  getTeamData,
-  getTeamDetails,
-  registerTournament,
-  resetRosterSelection,
-} from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
+import { registerTournament } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import {
   setConfirmationPopUp,
+  setisloading,
   setLogin,
   setPopupData,
   setViewManagePopup,
@@ -53,17 +50,25 @@ import { fetchInviteLink } from "../../app/slices/teamInvitationSlice/teamInvita
 import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
-  const { tournamentData, activeStage, loader, tourmentTeamData } = useSelector(
-    (state) => state.tournament
-  );
+  const {
+    tournamentData,
+    teamData,
+    currentTeam,
+    activeStage,
+    loader,
+    tourmentTeamData,
+  } = useSelector((state) => state.tournament);
 
   console.log("tourmentTeamData", tourmentTeamData);
 
-  const { viewManagePopup } = useSelector((state) => state.constState);
+  const { viewManagePopup, isloading } = useSelector(
+    (state) => state.constState
+  );
 
   const [showModal, setShowModal] = useState(false);
-  const { currentTeam, teamData, loading, showTeamRegistrationPopup } =
-    useSelector((state) => state.tournamentTeam);
+  const { loading, showTeamRegistrationPopup } = useSelector(
+    (state) => state.tournamentTeam
+  );
 
   const handleClose = () => setShowModal(false);
 
@@ -78,60 +83,36 @@ const TournamentDetail = () => {
     setActiveIndex(activeIndex === "participants" ? null : "participants");
   };
 
-  const getOrdinal = (n) => {
-    const s = ["th", "st", "nd", "rd"];
-    const v = n % 100;
-    return s[(v - 20) % 10] || s[v] || s[0];
-  };
-  // Color top 3 ranks differently: 1st Gold, 2nd Diamond-like, 3rd Bronze
-  const rankClass = (i) => {
-    if (i === 0) return "text-[#F5C542]"; // Gold
-    if (i === 1) return "text-[#B9F2FF]"; // Diamond-like
-    if (i === 2) return "text-[#CD7F32]"; // Bronze
-    return "text-white";
-  };
-
   useEffect(() => {
-    if (user?._id) {
-      dispatch(getTeamData(user?._id));
+    if (tId) {
+      getData();
     }
-  }, [user?._id]);
+  }, [user?._id, tId]);
 
-  useEffect(() => {
-    if (user?._id && tId) {
-      dispatch(
+  const getData = async () => {
+    try {
+      dispatch(setisloading(true));
+      const resultAction = await dispatch(
         getTeamAndTournamentDetails({
           userId: user?._id,
           tournamentId: tId,
         })
       );
+      if (getTeamAndTournamentDetails.fulfilled.match(resultAction)) {
+        dispatch(setisloading(false));
+      } else {
+        dispatch(setisloading(false));
+      }
+    } catch (error) {
+      dispatch(setisloading(false));
     }
-  }, [user?._id, tId]);
+  };
 
   useEffect(() => {
     if (tournamentData?._id) {
-      dispatch(
-        getTeamDetails({
-          tournamentId: tournamentData?._id,
-          teamId: currentTeam?._id,
-          userId: user?._id,
-        })
-      );
-
       dispatch(fetchInviteLink(currentTeam?._id)).unwrap();
     }
   }, [currentTeam?._id, dispatch, tournamentData?._id]);
-
-  // useEffect(() => {
-  //   if (isSocketConnected) {
-  //     dispatch(clearData());
-  //     startTournamentSocket({
-  //       tId: tId,
-  //       user: user,
-  //       isSocketConnected: isSocketConnected,
-  //     });
-  //   }
-  // }, [isSocketConnected, tId]);
 
   useEffect(() => {
     if (tournamentData?.title) {
@@ -170,13 +151,12 @@ const TournamentDetail = () => {
       const resultAction = await dispatch(registerTournament(data));
 
       if (registerTournament.fulfilled.match(resultAction)) {
-        await dispatch(
-          getTeamDetails({
-            tournamentId: tournamentData?._id,
-            teamId: currentTeam._id,
+        dispatch(
+          getTeamAndTournamentDetails({
             userId: user?._id,
+            tournamentId: tId,
           })
-        ).unwrap();
+        );
         if (
           teamData?.userRole === "President" ||
           teamData?.userRole === "Manager"
@@ -380,7 +360,7 @@ const TournamentDetail = () => {
         className="main_con--bg fixed top-0 right-0 h-full bg-no-repeat"
         style={{ backgroundSize: "100%" }}
       ></div>
-      {!tournamentData || loading ? (
+      {isloading ? (
         <GamingLoader />
       ) : (
         <div className="sd_content-wrapper max-w-full">
@@ -396,7 +376,7 @@ const TournamentDetail = () => {
             >
               <div className="sd_com--logo cursor-hide w-[8.75rem] md:w-[18.5rem]">
                 <img
-                  src={getServerURL(tournamentData.internalPhoto)}
+                  src={getServerURL(tournamentData?.internalPhoto)}
                   alt=""
                   className="w-full h-full object-contain"
                 />
@@ -428,7 +408,7 @@ const TournamentDetail = () => {
                 <div className="player_one sd_before relative gradiant_bg con_center w-[41.02rem] h-[27.33rem]">
                   <img
                     className="absolute top-0 left-0 w-full h-full object-contain"
-                    src={getServerURL(tournamentData.headerPhoto)}
+                    src={getServerURL(tournamentData?.headerPhoto)}
                     alt=""
                   />
                 </div>
@@ -458,7 +438,7 @@ const TournamentDetail = () => {
                   <DetailItem
                     title={t("league.team_size")}
                     logo={IMAGES.teamSizeImage}
-                    name={tournamentData.maxPlayersPerTeam}
+                    name={tournamentData?.maxPlayersPerTeam}
                     type={1}
                   />
                   <DetailItem

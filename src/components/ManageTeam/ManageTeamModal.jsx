@@ -1,41 +1,50 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { IMAGES } from "../../components/ui/images/images";
-import { baseURL, inviteUrl } from "../../utils/axios";
+
+import { inviteUrl } from "../../utils/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { resetInviteLink } from "../../app/slices/teamInvitationSlice/teamInvitationSlice";
 import { toast } from "react-toastify";
 import TeamSection from "./TeamSection";
+
 import {
   fetchTeamUserFormat,
-  getTeamDetails,
+  getTeamAndTournamentDetails,
   resetRosterSelection,
   resetTeamUserFormat,
+  setCoachSelection,
+  setManagerSelection,
+  setRosterSelectionBulk,
+  togglePlayerSelection,
+} from "../../app/slices/tournamentSlice/tournamentSlice";
+import { useParams } from "react-router-dom";
+import {
   updateTeamRoster,
   withdrawTeamRoster,
 } from "../../app/slices/TournamentTeam/TournamentTeamSlice";
-import {
-  setManagerSelection,
-  setCoachSelection,
-  togglePlayerSelection,
-  setRosterSelectionBulk,
-} from "../../app/slices/TournamentTeam/TournamentTeamSlice";
+import GamingLoader from "../Loader/loader";
 
 const ManageTeamModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { id, tId } = useParams();
   const { user } = useSelector((state) => state.auth);
   const {
     link: inviteLink,
     loading: loadingLink,
     error,
   } = useSelector((state) => state.teamInvitation);
-  const { currentTeam, teamUserFormat, teamData, rosterSelection, loading } =
-    useSelector((state) => state.tournamentTeam);
 
-  const { tournamentData } = useSelector((state) => state.tournament);
+  const {
+    tournamentData,
+    currentTeam,
+    teamData,
+    rosterSelection,
+    loading,
+    teamUserFormat,
+  } = useSelector((state) => state.tournament);
 
   // Local view-model derived from slice rosterSelection
   const selectedItems = useMemo(() => {
@@ -61,13 +70,6 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
           teamId: currentTeam?._id,
           game: tournamentData?.game?._id,
           tournamentId: tournamentData?._id,
-        })
-      );
-      dispatch(
-        getTeamDetails({
-          tournamentId: tournamentData?._id,
-          teamId: currentTeam._id,
-          userId: user._id,
         })
       );
     }
@@ -185,10 +187,9 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
       .unwrap()
       .then((res) => {
         dispatch(
-          getTeamDetails({
-            tournamentId: tournamentData?._id,
-            teamId: currentTeam._id,
-            userId: user._id,
+          getTeamAndTournamentDetails({
+            userId: user?._id,
+            tournamentId: tId,
           })
         );
         toast.success(res?.message);
@@ -205,10 +206,9 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
       .unwrap()
       .then((res) => {
         dispatch(
-          getTeamDetails({
-            tournamentId: tournamentData?._id,
-            teamId: currentTeam?._id,
+          getTeamAndTournamentDetails({
             userId: user?._id,
+            tournamentId: tId,
           })
         );
         toast.success(res?.message);
@@ -224,11 +224,7 @@ const ManageTeamModal = ({ isOpen, onClose }) => {
   };
 
   if (loading) {
-    return (
-      <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full p-4">
-        <div className="text-white">Loading team data...</div>
-      </div>
-    );
+    return <GamingLoader />;
   }
 
   return (

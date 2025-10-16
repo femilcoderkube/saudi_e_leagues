@@ -17,9 +17,13 @@ import {
 import { uploadFile } from "../../../app/slices/MatchSlice/matchDetailSlice.js";
 import CustomFileUpload from "../../ui/svg/UploadFile.jsx";
 import { getServerURL } from "../../../utils/constant.js";
+import { getTeamAndTournamentDetails } from "../../../app/slices/tournamentSlice/tournamentSlice.js";
+import { useParams } from "react-router-dom";
 
 const TeamRegistrationPopup = ({ isEdit = false }) => {
   const { t } = useTranslation();
+  const { id, tId } = useParams();
+  console.log("tId", tId);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { showTeamRegistrationPopup, showTeamEditPopup, currentTeam } =
@@ -214,7 +218,16 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
 
       if (res.success) {
         handleClose();
-        dispatch(getTeamData(user?._id));
+        if (tId) {
+          dispatch(
+            getTeamAndTournamentDetails({
+              userId: user?._id,
+              tournamentId: tId,
+            })
+          );
+        } else {
+          dispatch(getTeamData(user?._id));
+        }
       } else {
         toast.error(res?.message);
       }
@@ -231,7 +244,16 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       );
     } finally {
       setLoadingSubmit(false);
-      dispatch(getTeamData(user._id));
+      if (tId) {
+        dispatch(
+          getTeamAndTournamentDetails({
+            userId: user?._id,
+            tournamentId: tId,
+          })
+        );
+      } else {
+        dispatch(getTeamData(user?._id));
+      }
       setStep(1);
       handleClose();
     }
@@ -480,21 +502,21 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
             )}
           </Formik>
           <svg
-                width="0"
-                height="0"
-                viewBox="0 0 400 72"
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ position: "absolute" }}
-              >
-                <defs>
-                  <clipPath id="inputclip" clipPathUnits="objectBoundingBox">
-                    <path
-                      transform="scale(0.0025, 0.0138889)"
-                      d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
-                    />
-                  </clipPath>
-                </defs>
-              </svg>
+            width="0"
+            height="0"
+            viewBox="0 0 400 72"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ position: "absolute" }}
+          >
+            <defs>
+              <clipPath id="inputclip" clipPathUnits="objectBoundingBox">
+                <path
+                  transform="scale(0.0025, 0.0138889)"
+                  d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
+                />
+              </clipPath>
+            </defs>
+          </svg>
         </motion.div>
         <svg
           width="0"

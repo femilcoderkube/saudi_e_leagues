@@ -5,9 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import TeamSection from "./TeamSection";
 import {
   fetchTeamUserFormat,
-  getTeamDetails,
   resetTeamUserFormat,
-} from "../../app/slices/TournamentTeam/TournamentTeamSlice";
+} from "../../app/slices/tournamentSlice/tournamentSlice";
 
 const ViewTeamModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -15,10 +14,14 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.auth);
   const { viewManagePopup } = useSelector((state) => state.constState);
-  const { currentTeam, teamUserFormat, teamData, rosterSelection, loading } =
-    useSelector((state) => state.tournamentTeam);
-
-  const { tournamentData } = useSelector((state) => state.tournament);
+  const {
+    tournamentData,
+    currentTeam,
+    teamData,
+    rosterSelection,
+    loading,
+    teamUserFormat,
+  } = useSelector((state) => state.tournament);
 
   // Local view-model derived from slice rosterSelection
   const selectedItems = useMemo(() => {
@@ -44,13 +47,6 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
           teamId: currentTeam?._id,
           game: tournamentData?.game?._id,
           tournamentId: tournamentData?._id,
-        })
-      );
-      dispatch(
-        getTeamDetails({
-          tournamentId: tournamentData?._id,
-          teamId: currentTeam._id,
-          userId: user._id,
         })
       );
     }

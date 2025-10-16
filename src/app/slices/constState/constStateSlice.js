@@ -47,6 +47,7 @@ const initialState = {
   recentInvites: JSON.parse(localStorage.getItem("recentInvites")) || {},
   isloading: false,
   selectdedItem: null,
+  btnloading: false,
 };
 
 export const createPartyQueue = createAsyncThunk(
@@ -284,6 +285,9 @@ const constStateSlice = createSlice({
     setisloading: (state, action) => {
       state.isloading = action.payload;
     },
+    setbtnloading: (state, action) => {
+      state.btnloading = action.payload;
+    },
     setSelectdedItem: (state, action) => {
       state.selectdedItem = action.payload;
     },
@@ -431,6 +435,7 @@ export const {
   setPartyQueueTeam,
   setViewManagePopup,
   setisloading,
+  setbtnloading,
   setSelectdedItem,
 } = constStateSlice.actions;
 
