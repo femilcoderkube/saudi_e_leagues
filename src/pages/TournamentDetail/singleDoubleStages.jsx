@@ -23,7 +23,7 @@ const SingleDoubleStages = () => {
     useSelector((state) => state.tournament);
   const dispatch = useDispatch();
   const [isFullscreen, setIsFullscreen] = useState(false);
-
+  console.log("tournamentStages", tournamentStages);
   let container;
 
   useEffect(() => {
@@ -340,7 +340,31 @@ const SingleDoubleStages = () => {
             )}
             {activeTournamentTab === 3 && (
               <div className="robin-round-standing grid gap-7.5">
-                <RoundRobinStanding />
+                {tournamentStages?.config?.group?.map((group) => {
+                  // Filter participants and matches for the current group
+                  const groupParticipants =
+                    tournamentStages?.config?.participant.filter((p) =>
+                      tournamentStages?.config?.match.some(
+                        (m) =>
+                          m.group_id === group.id &&
+                          (m.opponent1?.id === p.id || m.opponent2?.id === p.id)
+                      )
+                    );
+                  const groupMatches = tournamentStages?.config?.match.filter(
+                    (m) => m.group_id === group.id
+                  );
+
+                  return (
+                    <RoundRobinStanding
+                      key={group.id}
+                      groupData={{
+                        participants: groupParticipants,
+                        matches: groupMatches,
+                      }}
+                      groupNumber={group.number}
+                    />
+                  );
+                })}
               </div>
             )}
           </>
