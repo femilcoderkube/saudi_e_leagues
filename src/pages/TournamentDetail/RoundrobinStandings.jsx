@@ -97,12 +97,13 @@ export default function RoundRobinStanding({ groupData, groupNumber }) {
       variants={cardVariantsAni}
       viewport={{ once: true, amount: 0 }}
     >
+      <h2 className="robinround-title !font-black sm:text-2xl text-xl pb-6 mb-5 border-b grad_text-clip">Group 1</h2>
       {/* Battle Table Heading */}
       <div className="battle-head flex">
         <p className="text-[#9EA7CC] text-sm font-semibold xl:px-6 lg:px-4 px-2 py-2 max-w-[5.5%] w-full">
           {t("tournament.place")}
         </p>
-        <p className="text-[#9EA7CC] text-sm font-semibold md:px-15 sm:px-9 px-3 py-2 md:max-w-[44.5%] sm:max-w-[40.5%] max-w-[35%] w-full ltr:text-left rtl:text-right">
+        <p className="text-[#9EA7CC] text-sm font-semibold md:px-15 sm:px-9 px-3 py-2 md:max-w-[44.5%] sm:max-w-[40.5%] max-w-[30%] w-full ltr:text-left rtl:text-right">
           {t("tournament.team")} (Group {groupNumber})
         </p>
         <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[13%] w-full text-center">

@@ -11,6 +11,7 @@
     --aside-link-col: #babdff;
     --sky-col: #3eccf3;
     --light-blue: #87C9F2;
+    --red-color:#FA4768;
     --split-1-text: #B0D0F1;
     --split-2-text: #C5B9F4;
     --split-3-text: #F1D3B0;
@@ -1444,6 +1445,7 @@ html[dir="rtl"] .match_date {
     background: linear-gradient(180deg,
             rgba(45, 46, 109, 1) 0%,
             rgba(29, 30, 78, 0.8) 100%);
+            border-color: #4a4b988c;
 }
 
 .game_dropdown-body:after {
@@ -4050,12 +4052,22 @@ html[lang="en"][dir="rtl"] .font_oswald {
     color: var(--dark-shade-blue);
 }
 
+.red_color{
+    color: var(--red-color);
+}
+
 .dropdown-item:hover{
     background:var(--dark-blue);
 }
 
 .sd_bedge_left-con {
     border-color: var(--light-purple);
+}
+
+.robinround-title{
+    background: linear-gradient(180deg, #F4F7FF 53.92%, #55B384 112.5%);
+    box-shadow: 0px 4px 24px 0px #0C132152;
+    border-color: #141D46;
 }
 
 .sd_radial-bg {
@@ -5543,6 +5555,14 @@ html[dir=rtl] .edit-team-wp {
         flex-wrap: nowrap;
         margin-bottom: 2.5rem;
     }
+
+    .robin-round-standing .battle-head P:nth-child(2),.robin-round-standing .battle-body-wp div:nth-child(2){
+        min-width: 32%;
+    }
+
+    .robin-round-standing .battle-head P:first-child, .robin-round-standing .battle-body-wp div:first-child, .robin-round-standing .battle-head P:nth-child(3), .robin-round-standing .battle-body-wp div:nth-child(3) {
+        min-width: 13%;
+    }
 }
 
 @media (max-width: 575px) {
@@ -5735,6 +5755,9 @@ html[dir=rtl] .edit-team-wp {
         width: 1.2rem;
         height: 1.2rem;
         font-size: 14px !important;
+    }
+    .robin-round-standing .battle-head P,.robin-round-standing .battle-body-wp div {
+        padding-inline: 0.4rem;
     }
 }
 

@@ -156,7 +156,7 @@ const GameDropDown = () => {
                   <input
                     type="search"
                     id="default-search"
-                    className="block w-full border-b border-[#4a4b988c] focus:outline-0 focus:border-0 p-4 ps-15 placeholder-[#7B7ED0] text-lg"
+                    className="block w-full border-b focus:outline-0 focus:border-0 p-4 ps-15 placeholder-[#7B7ED0] text-lg"
                     placeholder={t("games.search_game")}
                     value={gameSearchTerm}
                     onChange={(e) =>

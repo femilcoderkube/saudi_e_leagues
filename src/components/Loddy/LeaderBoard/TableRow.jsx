@@ -83,7 +83,7 @@ const TableRow = ({ user, isYou, playersPerTeam }) => {
           <div className="ltr:md:pl-0 ltr:pl-3 rtl:md:pr-0 rtl:pr-3">
             <span className="win text-lg sky_col">{user.wins}</span>{" "}
             <b className="font-bold text-xs">/</b>{" "}
-            <span className="loss text-lg text-[#FA4768]">{user.losses}</span>
+            <span className="loss text-lg red_color">{user.losses}</span>
           </div>
         </td>
 

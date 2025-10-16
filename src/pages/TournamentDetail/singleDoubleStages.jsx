@@ -339,7 +339,7 @@ const SingleDoubleStages = () => {
               </div>
             )}
             {activeTournamentTab === 3 && (
-              <div className="robin-round-standing grid gap-7.5">
+              <div className="robin-round-standing grid gap-7.5 md:mt-10 mt-8">
                 {tournamentStages?.config?.group?.map((group) => {
                   // Filter participants and matches for the current group
                   const groupParticipants =
