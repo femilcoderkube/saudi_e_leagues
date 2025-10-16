@@ -9,9 +9,10 @@ import Matchslice from "./MatchSlice/matchDetailSlice";
 import notificationSlice from "./notificationSlice/notificationSlice";
 import tournamentSlice from "./tournamentSlice/tournamentSlice";
 import draftSlice from "./draft/draftSlice";
-import TournamentMatchDetailSlice from "./MatchSlice/TournamentMatchDetailSlice"
-import TournamentTeamSlice from "./TournamentTeam/TournamentTeamSlice"
-import teamInvitationSlice from "./teamInvitationSlice/teamInvitationSlice"
+import TournamentMatchDetailSlice from "./MatchSlice/TournamentMatchDetailSlice";
+import TournamentTeamSlice from "./TournamentTeam/TournamentTeamSlice";
+import teamInvitationSlice from "./teamInvitationSlice/teamInvitationSlice";
+import latestMatchesSlice from "./latestMatches/latestMatchesSlice";
 export const store = configureStore({
   reducer: {
     auth: authSlice,
@@ -21,12 +22,13 @@ export const store = configureStore({
     games: gameSlice,
     constState: constStateSlice,
     matchs: Matchslice,
-    tournamentMatch :TournamentMatchDetailSlice,
+    tournamentMatch: TournamentMatchDetailSlice,
     notification: notificationSlice,
     tournament: tournamentSlice,
     draft: draftSlice,
     tournamentTeam: TournamentTeamSlice,
-    teamInvitation:teamInvitationSlice
+    teamInvitation: teamInvitationSlice,
+    latestMatches: latestMatchesSlice,
   },
 });
 
