@@ -24,7 +24,7 @@ const RecentMatches = () => {
     } else {
       dispatch(setLastMatch([]));
     }
-  }, [user]);
+  }, [user, window.location.pathname]);
 
   return (
     <div className="main-card-duty-wp flex flex-col mt-5">
