@@ -651,7 +651,7 @@ export default function TournamentsTeam() {
                           />
                         </div>
                         <div className="game_mask--con pt-3 relative h-full flex flex-col justify-between">
-                          <h3 className="game_label !mb-0 text-base !font-black uppercase leading-tight ltr:pl-5 rtl:pr-5 h-[34px]">
+                          <h3 className="game_label !mb-0 text-base !font-black uppercase leading-tight ltr:pl-2 rtl:pr-2 h-[34px]">
                             {item?.title}
                           </h3>
                           <div className="league_price_v2 mt-5 mb-7 ltr:pl-5 rtl:pr-5 py-3 relative sd_before sd_after before:top-0 before:left-0 before:w-full before:h-[0.063rem] after:bottom-0 after:left-0 after:w-full after:h-[0.063rem]">
@@ -660,8 +660,8 @@ export default function TournamentsTeam() {
                               {item?.prizepool.toLocaleString()}
                             </h2>
                           </div>
-                          <div className="game_intro_v2 bg-no-repeat ltr:pl-5 rtl:pr-5">
-                            <div className="game_intro-con flex gap-5 relative bottom-1">
+                          <div className="game_intro_v2 bg-no-repeat ltr:pl-3 rtl:pr-3">
+                            <div className="game_intro-con flex gap-2 relative bottom-1">
                               <img
                                 src={getServerURL(item?.game?.logo)}
                                 alt="Game Logo"
