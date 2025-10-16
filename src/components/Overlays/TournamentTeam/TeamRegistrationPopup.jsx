@@ -280,7 +280,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
               <Field
                 type="text"
                 name="teamName"
-                className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                 placeholder={t("tourteam.team_name")}
               />
               <ErrorMessage
@@ -295,7 +295,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
               <Field
                 type="text"
                 name="teamShortName"
-                className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                 placeholder={t("tourteam.team_short_name")}
                 maxLength={4}
                 onChange={(e) => {
@@ -367,7 +367,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
         return (
           <div className="space-y-4 mt-7">
             <div className="text-start w-full pr-4">
-              <h3 className="text-[#7B7ED0] mb-3">
+              <h3 className="purple_col mb-3">
                 {t("tourteam.social_media")} ({t("tourteam.optional")})
               </h3>
               {[
@@ -383,7 +383,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
                   <Field
                     type="text"
                     name={`social.${platform}`}
-                    className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                    className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                     placeholder={t(`tourteam.${platform}`) || platform}
                   />
                   <ErrorMessage
@@ -409,7 +409,7 @@ const TeamRegistrationPopup = ({ isEdit = false }) => {
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
       <div className="fixed inset-0 flex justify-center items-center z-50">
         <motion.div
-          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative p-6 overflow-y-auto md:max-h-[90vh] max-h-[80vh]"
+          className="match_reg--popup !h-auto sd_before sd_after rounded-xl w-full max-w-lg relative p-6 overflow-y-auto md:max-h-[90vh] max-h-[80vh]"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           initial={{ scale: 0.5, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}

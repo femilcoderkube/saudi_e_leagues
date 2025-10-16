@@ -161,7 +161,7 @@ export default function Main() {
 
   return (
     <div
-      className={`flex-1 flex flex-col sd_main-content md:ltr:ml-[-2.5rem] md:rtl:mr-[-2.5rem] relative bg-[#020326] ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20 
+      className={`flex-1 flex flex-col sd_main-content md:ltr:ml-[-2.5rem] md:rtl:mr-[-2.5rem] relative ltr:rounded-l-[2.5rem] rtl:rounded-r-[2.5rem] z-20 
         ${gameMatchLoader ? "!overflow-y-hidden" : ""}
         `}
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
@@ -178,10 +178,10 @@ export default function Main() {
       >
         {(isRegisteration || profileVisible) && (
           <>
-            <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
+            <div className="fixed popup-overlay inset-0 bg-opacity-50 z-40" />
             <div className="fixed inset-0 flex justify-center items-center z-50">
               <motion.div
-                className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white rounded-xl w-full max-w-lg relative 
+                className={`match_reg--popup !h-auto sd_before sd_after rounded-xl w-full max-w-lg relative 
     ${
       profileVisible
         ? "h-full max-h-[90vh] px-6 py-[3rem] sm:py-6 overflow-x-hidden match_reg--popup2 sm:overflow-y-auto"
@@ -212,7 +212,7 @@ export default function Main() {
                   <div className="flex justify-center items-center h-200">
                     {/* Simple spinner, you can replace with your own */}
                     <svg
-                      className="animate-spin h-8 w-8 text-[#7b7ed0]"
+                      className="animate-spin h-8 w-8 purple_col"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"

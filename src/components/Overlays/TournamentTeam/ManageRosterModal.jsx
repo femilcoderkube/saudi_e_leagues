@@ -101,14 +101,14 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
               {({ isSubmitting, values, setFieldValue }) => (
                 <Form>
                   <div className="mb-4">
-                    <label className="block text-base text-white mb-2 !font-bold">
+                    <label className="block text-base mb-2 !font-bold">
                       {t("roster.game_label")}
                     </label>
                     <Field
                       type="text"
                       name="game"
                       placeholder={t("roster.game_label")}
-                      className="sd_custom-input !w-full px-4 py-2 mt-2 text-lg focus:outline-0 focus:shadow-none leading-none text-[#767679] !placeholder-[#767679] bg-[#18194a] rounded"
+                      className="sd_custom-input !w-full px-4 py-2 mt-2 text-lg focus:outline-0 focus:shadow-none leading-none text-[var(--gray-color)] !placeholder-[var(--gray-color)] rounded"
                     />
                     <ErrorMessage
                       name="game"
@@ -118,7 +118,7 @@ const ManageRosterModal = ({ isOpen, onClose }) => {
                   </div>
 
                   <div className="mb-6 custom_select2 sd_select--menu">
-                    <label className="flex gap-4 items-center h-10 rounded !font-bold text-white mb-2">
+                    <label className="flex gap-4 items-center h-10 rounded !font-bold mb-2">
                       {t("roster.game_id_label")}
                     </label>
 

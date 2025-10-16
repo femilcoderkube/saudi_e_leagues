@@ -56,7 +56,7 @@ const GameDropDown = () => {
             style={{ width: "2rem" }}
             loading="lazy"
           />
-          <span className="text-sm md:text-xl font_oswald font-medium purple_col">
+          <span className="text-sm md:text-xl font_oswald font-medium text-[var(--purple-col)]">
             {selectedGame?.name ? selectedGame.name : t("games.select_game")}
           </span>
           <svg
@@ -156,7 +156,7 @@ const GameDropDown = () => {
                   <input
                     type="search"
                     id="default-search"
-                    className="block w-full border-b focus:outline-0 focus:border-0 p-4 ps-15 placeholder-[#7B7ED0] text-lg"
+                    className="block w-full border-b focus:outline-0 focus:border-0 p-4 ps-15 placeholder-[var(--purple-col)] text-lg"
                     placeholder={t("games.search_game")}
                     value={gameSearchTerm}
                     onChange={(e) =>

@@ -86,7 +86,7 @@ const VerifiyOTPModel = ({ module }) => {
   return (
     <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
       <motion.div
-        className={`verify-otp-shape bg-[#151743] sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md ${
+        className={`verify-otp-shape sm:p-6 p-4 rounded-lg shadow-lg w-full max-w-md ${
           module === "queue" ? "" : "otp-verify"
         }`}
         initial={{ scale: 0.5, opacity: 0, y: 50 }}
@@ -117,7 +117,7 @@ const VerifiyOTPModel = ({ module }) => {
                 maxLength="1"
                 value={digit}
                 onChange={(e) => handleOtpChange(index, e.target.value)}
-                className="sd_custom-input otp-input w-12 h-12 text-center text-lg text-[#7B7ED0] bg-[#1a1a3d] border-none focus:outline-0 focus:shadow-none"
+                className="sd_custom-input otp-input w-12 h-12 text-center text-lg purple_col bg-[#1a1a3d] border-none focus:outline-0 focus:shadow-none"
               />
               {/* Hidden SVG for clipPath styling */}
               <svg

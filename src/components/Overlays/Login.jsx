@@ -97,7 +97,7 @@ const Login = () => {
       <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40" />
       <div className="fixed inset-0 flex justify-center items-center z-[999]">
         <motion.div
-          className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative m-4 md:m-0"
+          className="match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative m-4 md:m-0"
           initial={{ scale: 0.5, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
@@ -130,7 +130,7 @@ const Login = () => {
                     <Field
                       type="email"
                       name="email"
-                      className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                      className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                       placeholder={t("form.email")}
                     />
                     <ErrorMessage
@@ -218,7 +218,7 @@ const Login = () => {
                     <Field
                       type="email"
                       name="email"
-                      className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                      className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                       placeholder={t("form.email")}
                     />
                     <ErrorMessage
@@ -251,13 +251,13 @@ const Login = () => {
                       <Field
                         type={showPassword ? "text" : "password"}
                         name="password"
-                        className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                        className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                         placeholder={t("form.password")}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
+                        className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 purple_col hover:opacity-70"
                       >
                         <svg
                           width="20"

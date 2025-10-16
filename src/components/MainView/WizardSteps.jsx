@@ -376,7 +376,7 @@ const WizardSteps = ({
                 <Field
                   type="text"
                   name={field}
-                  className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                  className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                   placeholder={t("form." + field)}
                 />
                 <ErrorMessage
@@ -420,7 +420,7 @@ const WizardSteps = ({
                         : "email"
                     }
                     name={field}
-                    className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                    className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                     placeholder={t("form." + field)}
                     // onChange={(e) => setCurrenrEmail(e.target.value)}
                     // placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
@@ -429,7 +429,7 @@ const WizardSteps = ({
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
+                      className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 purple_col hover:opacity-70"
                     >
                       <svg
                         width="20"
@@ -503,7 +503,7 @@ const WizardSteps = ({
                   <Field
                     type="text"
                     name="phoneNumber"
-                    className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                    className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                     placeholder={t("form.phone_number")}
                   />
                   <ErrorMessage
@@ -579,7 +579,7 @@ const WizardSteps = ({
               <Field
                 type="date"
                 name="dateOfBirth"
-                className="sd_custom-input custom-date-icon !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                className="sd_custom-input custom-date-icon !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                 placeholder={t("form.date_of_birth")}
                 max={new Date().toISOString().split("T")[0]}
               />
@@ -619,7 +619,7 @@ const WizardSteps = ({
                     htmlFor={`gender-${gender}`}
                     className="flex gap-4 items-center h-10 rounded cursor-pointer"
                   >
-                    <span className="checkbox-inner flex items-center justify-center w-[2rem] h-[2rem] text-transparent rounded-sm bg-[#09092d]"></span>
+                    <span className="checkbox-inner flex items-center justify-center w-[2rem] h-[2rem] text-transparent rounded-sm bg-[var(--very-dark-blue)]"></span>
                     <div className="text-base">
                       <span className="purple_light">
                         {t("form." + gender)}
@@ -712,7 +712,7 @@ const WizardSteps = ({
               <Field
                 type="text"
                 name={field}
-                className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                 placeholder={t("form." + field)}
               />
               <ErrorMessage
@@ -753,7 +753,7 @@ const WizardSteps = ({
                       : "email"
                   }
                   name={field}
-                  className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                  className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                   placeholder={t("form." + field)}
                   // placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                 />
@@ -763,7 +763,7 @@ const WizardSteps = ({
                     onClick={() => {
                       setShowPassword(!showPassword);
                     }}
-                    className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
+                    className="absolute ltr:right-6 rtl:left-6 top-1/2 transform -translate-y-1/2 purple_col hover:opacity-70"
                   >
                     <svg
                       width="20"
@@ -899,7 +899,7 @@ const WizardSteps = ({
                 <Field
                   type="text"
                   name="phoneNumber"
-                  className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                  className="sd_custom-input !w-full px-4 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)]"
                   placeholder={t("form.phone_number")}
                 />
                 <ErrorMessage

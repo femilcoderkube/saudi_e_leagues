@@ -4,6 +4,7 @@
     --black-color: #000;
     --dark-blue:#0b0d32;
     --dark-shade-blue:#020326;
+    --very-dark-blue:#09092d;
     --purple-col: #7b7ed0;
     --light-purple: #7b7ed047;
     --very-light-purple: #9E9ECC;
@@ -12,6 +13,7 @@
     --sky-col: #3eccf3;
     --light-blue: #87C9F2;
     --red-color:#FA4768;
+    --gray-color:#767679;
     --split-1-text: #B0D0F1;
     --split-2-text: #C5B9F4;
     --split-3-text: #F1D3B0;
@@ -2617,14 +2619,6 @@ html[dir="rtl"] .sd_rules--btn button:after {
     top: 0;
 }
 
-.popup-overlay {
-    background: linear-gradient(180deg,
-            rgba(2, 3, 41, 60%) 0%,
-            rgba(1, 2, 29, 60%) 100%);
-    backdrop-filter: blur(1px);
-    border-radius: 30px 0 0 0;
-}
-
 .modal_popup-con,
 .popup-overlay {
     width: 100%;
@@ -2638,7 +2632,7 @@ html[dir="rtl"] .popup-overlay {
 }
 
 .sd_custom-input {
-    background: #09092d;
+    background: var(--very-dark-blue);
     clip-path: url(#inputclip);
     width: 25rem;
     height: 4.5rem;
@@ -2720,7 +2714,7 @@ input[type="radio"]:checked+label .checkbox-inner:before {
       Selct Input in Wizard form CSS Start  
   --------------------------------------------*/
 .sd_select--menu .select__control {
-    background: #09092d;
+    background: var(--very-dark-blue);
     clip-path: url(#inputclip);
     width: 100%;
     height: 4.5rem;
@@ -2748,7 +2742,7 @@ input[type="radio"]:checked+label .checkbox-inner:before {
 }
 
 .select__menu {
-    background: #09092d !important;
+    background: var(--very-dark-blue) !important;
 }
 
 .select__menu * {
@@ -3787,7 +3781,7 @@ Wizard Form PopUp CSS Start
 Selct Input in Wizard form CSS Start
 --------------------------------------------*/
 .sd_select--menu .select__control {
-    background: #09092D;
+    background: var(--very-dark-blue);
     clip-path: url(#inputclip);
     width: 100%;
     height: 4.5rem;
@@ -3815,7 +3809,7 @@ Selct Input in Wizard form CSS Start
 }
 
 .select__menu {
-    background: #09092d !important;
+    background: var(--very-dark-blue) !important;
 }
 
 .select__menu * {
@@ -4172,6 +4166,7 @@ html[lang="ar"] body {
     overflow-y: auto;
     height: 100vh;
     overflow-x: hidden;
+    background: var(--dark-shade-blue);
 }
 
 .header_teture--bg:before {
@@ -4242,7 +4237,7 @@ html[lang="ar"] body {
 
 .game_intro-con h4 {
     white-space: nowrap;
-    width: 5.09rem;
+    width: 5rem;
     overflow: hidden;
     text-overflow: clip;
 }
@@ -4538,6 +4533,7 @@ html[dir="rtl"] .view-all::after {
     clip-path: url(#myClipPath);
     width: auto;
     height: auto;
+    background: #151743;
 }
 
 .verify-otp-shape.otp-verify {
