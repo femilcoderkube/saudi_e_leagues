@@ -36,6 +36,7 @@ import ManageTeamModal from "../../components/ManageTeam/ManageTeamModal.jsx";
 import PDFViewer from "../../components/Overlays/LeagueDetail/PDFViewer.jsx";
 import { registerTournament } from "../../app/slices/TournamentTeam/TournamentTeamSlice.js";
 import {
+  setActiveTournamentTab,
   setConfirmationPopUp,
   setisloading,
   setLogin,
@@ -512,11 +513,21 @@ const TournamentDetail = () => {
                       >
                         <div
                           id={`stage-${index}`}
-                          onClick={() =>
-                            activeStage !== index
-                              ? dispatch(setActiveStage(index))
-                              : null
-                          }
+                          onClick={() => {
+                            // Set tab type depending on stage type
+                            if (
+                              tournamentData?.stages?.[index]?.stageType ===
+                              stageTypes.RoundRobin
+                            ) {
+                              dispatch(setActiveTournamentTab(3));
+                            } else {
+                              dispatch(setActiveTournamentTab(1));
+                            }
+                            // Switch stage
+                            if (activeStage !== index) {
+                              dispatch(setActiveStage(index));
+                            }
+                          }}
                           className={`px-4 pl-0 flex gap-4 items-center justify-center text-xl whitespace-nowrap ${
                             index === activeStage
                               ? "text-blue-500 font-bold"
