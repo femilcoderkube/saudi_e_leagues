@@ -733,7 +733,7 @@ console.log("lastMatches",lastMatches);
               <div className="main-card-duty-wp flex md:flex-row flex-col gap-[1.188rem] mt-5">
                 {lastMatches ? lastMatches.map((match) => (
                   <Link
-                    to={`/${id}/match/${match?.matchId}`}
+                    to={`/${id}/tournament/match/${match?.matchId}`}
                     key={match?.matchId}
                     className="card-duty-wp relative main-tournament-schedule-card-wrapper cursor-pointer w-full"
                   >
