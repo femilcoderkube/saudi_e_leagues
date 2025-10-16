@@ -16,6 +16,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getPopupData } from "../../utils/constant.js";
 import TimelineCard_1 from "../../components/Home/Prime/MainTimelineCard.jsx";
+import { t } from "i18next";
 
 const usePageLoading = (delay = 300) => {
   useEffect(() => {
@@ -108,7 +109,7 @@ export default function PrimeHome() {
         {/* === Timelines Split Card Section HTML block Start === */}
         <section className="sd_timeline--sec pt-[6rem] pb-[1rem] relative">
           <h2 className="md:text-[4rem] text-[2rem] purple_grad-col mt-[-1rem] grad_text-clip leading-none uppercase items-center tracking-wider !font-black md:pb-10 pb-8">
-            Timelines
+            {t("homepage.timelines")}
           </h2>
           <TimelineCard_1 />
         </section>

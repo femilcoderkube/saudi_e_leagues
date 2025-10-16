@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { IMAGES } from "../../ui/images/images.js";
+import { checkBannedUser2 } from "../../../app/slices/auth/authSlice.js";
 
 const Hero = React.memo(({ id }) => {
   const { t, i18n } = useTranslation();
@@ -15,6 +16,7 @@ const Hero = React.memo(({ id }) => {
 
   const handleGetStartedClick = useCallback(() => {
     dispatch(setActiveTabIndex(0));
+    dispatch(checkBannedUser2())
     navigate(`/${id}/lobby`);
   }, [dispatch, navigate, id]);
 

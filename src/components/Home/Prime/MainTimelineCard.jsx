@@ -9,6 +9,7 @@ import spilit_2 from "../../../assets/images/spilit2.webp";
 import spilit_3 from "../../../assets/images/spilit3.webp";
 import spilit_4 from "../../../assets/images/spilit4.webp";
 import { motion } from "motion/react";
+import { t } from "i18next";
 
 // Card animation start
 const leftToRight = {
@@ -113,7 +114,7 @@ const TimelineCard_1 = () => {
                   01
                 </span>
                 <span className="uppercase text-[var(--split-1-text)] sm:text-[2.501rem] text-2xl sm:-mt-4 -mt-2 font-black">
-                  Split
+                  {t("homepage.Split")}
                 </span>
               </p>
             </div>
@@ -121,12 +122,12 @@ const TimelineCard_1 = () => {
               <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[var(--border-color)] pb-3">
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="var(--spark-icon-gradient)" />
-                  <span className="text-[var(--text-secondary)] font-semibold">League 1</span>
+                  <span className="text-[var(--text-secondary)] font-semibold">{t("homepage.Division")} 1</span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="var(--spark-icon-gradient)" />
                   <span className="text-[var(--text-secondary)] font-semibold">
-                    Championship 1
+                  {t("homepage.Championship")} 1
                   </span>
                 </p>
               </div>
@@ -250,7 +251,7 @@ const TimelineCard_1 = () => {
                   02
                 </span>
                 <span className="uppercase text-[var(--split-2-text)] sm:text-[2.501rem] text-2xl -mt-4 font-black">
-                  Split
+                {t("homepage.Split")}
                 </span>
               </p>
             </div>
@@ -258,12 +259,12 @@ const TimelineCard_1 = () => {
               <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[var(--border-color)] pb-3">
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="var(--spark-icon-gradient)" />
-                  <span className="text-[var(--text-secondary)] font-semibold">League 2</span>
+                  <span className="text-[var(--text-secondary)] font-semibold">{t("homepage.Division")} 2</span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="var(--spark-icon-gradient)" />
                   <span className="text-[var(--text-secondary)] font-semibold">
-                    Championship 2
+                  {t("homepage.Championship")} 2
                   </span>
                 </p>
               </div>
@@ -370,7 +371,7 @@ const TimelineCard_1 = () => {
                   03
                 </span>
                 <span className="uppercase text-[var(--split-3-text)] sm:text-[2.501rem] text-2xl -mt-4 font-black">
-                  Split
+                {t("homepage.Split")}
                 </span>
               </p>
             </div>
@@ -378,12 +379,12 @@ const TimelineCard_1 = () => {
               <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[var(--border-color)] pb-3">
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="var(--spark-icon-gradient)" />
-                  <span className="text-[var(--text-secondary)] font-semibold">League 3</span>
+                  <span className="text-[var(--text-secondary)] font-semibold">{t("homepage.Division")} 3</span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="var(--spark-icon-gradient)" />
                   <span className="text-[var(--text-secondary)] font-semibold">
-                    Championship 3
+                  {t("homepage.Championship")} 3
                   </span>
                 </p>
               </div>
@@ -490,7 +491,7 @@ const TimelineCard_1 = () => {
                   04
                 </span>
                 <span className="uppercase text-[var(--split-4-text)] sm:text-[2.501rem] text-2xl -mt-4 font-black">
-                  Split
+                {t("homepage.Split")}
                 </span>
               </p>
             </div>
@@ -498,12 +499,12 @@ const TimelineCard_1 = () => {
               <div className="split_head-con flex sm:justify-between gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4 border-b border-[var(--border-color)] pb-3">
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="var(--spark-icon-gradient)" />
-                  <span className="text-[var(--text-secondary)] font-semibold">League 4</span>
+                  <span className="text-[var(--text-secondary)] font-semibold">{t("homepage.Division")} 4</span>
                 </p>
                 <p className="flex sm:gap-3 gap-2 sm:text-xl text-base items-center">
                   <SparkIcon gradientColor="var(--spark-icon-gradient)" />
                   <span className="text-[var(--text-secondary)] font-semibold">
-                    Championship 4
+                  {t("homepage.Championship")} 4
                   </span>
                 </p>
               </div>

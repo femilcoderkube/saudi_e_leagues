@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   token: localStorage.getItem("token") || null,
+  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
   loading: false,
   error: null,
   success: false, // from registerSlice
@@ -43,6 +44,37 @@ export const checkBannedUser = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
+      return response.data;
+    } catch (error) {
+      console.log("error", error);
+      return rejectWithValue(error.response?.data?.message || "Login failed");
+    }
+  }
+);
+
+export const checkBannedUser2 = createAsyncThunk(
+  "auth/checkBannedUser2",
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const { auth } = getState();
+      const token = auth.token || localStorage.getItem("token");
+      if (!token) {
+        return rejectWithValue("Token not found");
+      }
+      console.log(auth.timezone);
+      
+      const response = await axiosInstance.post(
+        "/BannedUsers/checkBanUser",
+        {
+          userId: auth.user?._id,
+          timezone: auth.timezone,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       console.log("error", error);
@@ -422,6 +454,9 @@ const authSlice = createSlice({
           state.user = action.payload.data;
           localStorage.setItem("user", JSON.stringify(action.payload.data));
         }
+      })
+      .addCase(checkBannedUser2.fulfilled, (state, action) => {
+        console.log("action", action.payload);
       })
       // resetPassword logic
       .addCase(resetPassword.pending, (state) => {
