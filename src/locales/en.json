@@ -601,7 +601,15 @@
     "no_coaches_available": "No coaches available",
     "no_players_available": "No players available",
     "players_max_limit": "Maximum {{count}} players can be selected",
-    "list_of_participants": "List of Participants"
+    "list_of_participants": "List of Participants",
+    "played": "P",
+    "wins": "W",
+    "draws": "D",
+    "losses": "L",
+    "forfeits": "F",
+    "scoreFor": "SF",
+    "scoreAgainst": "SA",
+    "scoreDifference": "+/-"
   },
   "roster": {
     "manage_roster_title": "Manage Your Roster",

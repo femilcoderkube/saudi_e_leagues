@@ -341,9 +341,6 @@ const SingleDoubleStages = () => {
             {activeTournamentTab === 3 && (
               <div className="robin-round-standing grid gap-7.5">
                 <RoundRobinStanding />
-                <RoundRobinStanding />
-                <RoundRobinStanding />
-                <RoundRobinStanding />
               </div>
             )}
           </>

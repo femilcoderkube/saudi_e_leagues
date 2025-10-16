@@ -601,7 +601,14 @@
     "no_coaches_available": "لا يوجد مدرب متاح متاح",
     "no_players_available": "لا يوجد لاعب متاح",
     "players_max_limit": "يمكن اختيار {{count}} لاعبين كحد أقصى",
-    "list_of_participants": "قائمة المشاركين"
+    "played": "ل",
+    "wins": "ف",
+    "draws": "ت",
+    "losses": "خ",
+    "forfeits": "أ",
+    "scoreFor": "له",
+    "scoreAgainst": "عليه",
+    "scoreDifference": "+/-"
   },
   "roster": {
     "manage_roster_title": "التحكم في ألعابك",
