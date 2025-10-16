@@ -634,7 +634,7 @@ export default function TournamentsTeam() {
                   {t("tourteam.last_tournaments")}
                 </h3>
               </div>
-              <div className="game_card--wrapper game_card--wrapv2 flex sm:flex-wrap  gap-[1.188rem] md:justify-start mb-9">
+              <div className="game_card--wrapper purple_col game_card--wrapv2 flex sm:flex-wrap  gap-[1.188rem] text-lg md:justify-start mb-9">
                 {lastTournaments?.length > 0 ? lastTournaments.map((item, index) => (
                   <Link
                     to={`/${id}/lobby/tournament/${item?._id}`}
@@ -729,7 +729,7 @@ export default function TournamentsTeam() {
                   {t("tourteam.last_matches")}
                 </h3>
               </div>
-              <div className="main-card-duty-wp flex md:flex-row flex-col gap-[1.188rem] mt-5">
+              <div className="main-card-duty-wp purple_col flex md:flex-row flex-col text-lg gap-[1.188rem] mt-5">
                 {lastMatches?.length > 0 ? lastMatches.map((match) => (
                   <Link
                     to={`/${id}/tournament/match/${match?.matchId}`}

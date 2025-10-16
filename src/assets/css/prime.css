@@ -5221,7 +5221,7 @@ html[dir=rtl] .team_content-right .game_card--wrapv2 .game_card_wrap--link {
 }
 
 .team_content-right .card-duty-wp .tournament-schedule-card-header-time h2 {
-    backdrop-filter: blur(1px);
+    backdrop-filter: unset;
     height: 1.5rem;
     width: 50%;
 }
@@ -6440,6 +6440,7 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
             rgba(220, 220, 220, 0) 72.36%);
     box-shadow: 0px 2px 2px 0px rgba(255, 255, 255, 0.24) inset;
     backdrop-filter: blur(48px);
+    color: var(--pure-white);
 }
 
 .card-duty-wp .tournament-schedule-card-footer-right button.common-green {
@@ -6453,6 +6454,7 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     box-shadow: 0px 2px 2px 0px rgba(94, 154, 184, 0.24) inset;
     backdrop-filter: blur(48px);
     box-shadow: 0px -2px 12px 0px rgba(29, 197, 150, 0.24) inset;
+    color: var(--pure-white);
 }
 
 .card-duty-wp .tournament-schedule-card-footer-right button.common-red {
@@ -6466,6 +6468,7 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     box-shadow: 0px 2px 2px 0px rgba(184, 94, 96, 0.24) inset;
     backdrop-filter: blur(48px);
     box-shadow: 0px -2px 12px 0px rgba(255, 0, 4, 0.24) inset;
+    color: var(--pure-white);
 }
 
 .card-duty-wp.main-tournament-schedule-card-wrapper {
