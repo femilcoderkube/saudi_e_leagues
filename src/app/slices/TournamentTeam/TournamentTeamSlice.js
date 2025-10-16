@@ -397,9 +397,7 @@ const TournamentTeamSlice = createSlice({
       .addCase(getTeamData.fulfilled, (state, action) => {
         state.loading = false;
         const team = action.payload?.data?.data || null;
-        state.currentTeam = team;
-        console.log("team",team);
-        
+        state.currentTeam = team;        
         state.lastMatches = Array.isArray(team?.lastMatches?.data)
           ? team.lastMatches?.data
           : [];

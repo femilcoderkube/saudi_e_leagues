@@ -238,7 +238,6 @@ export default function TournamentsTeam() {
       document.removeEventListener("mousedown", handleClickOutsideRoster);
     };
   }, [openRosterMenuId]);
-console.log("lastMatches",lastMatches);
 
   return (
     <>
@@ -604,7 +603,7 @@ console.log("lastMatches",lastMatches);
                   <div className="relative mt-7 team-board flex items-center justify-between max-w-[22.5rem] py-6 px-10 rounded-lg w-full mx-auto bg-[linear-gradient(180deg,rgba(48,53,72,0.4)_0%,rgba(48,53,72,0.16)_100%),linear-gradient(85.43deg,rgba(31,116,78,0.12)_3.99%,rgba(31,116,78,0)_32.05%),linear-gradient(85.43deg,rgba(188,50,37,0)_67.72%,rgba(188,50,37,0.12)_100%)] border-t border-[rgba(255,255,255,0.06)] shadow-[0px_4px_12px_0px_#090C1633]">
                     <div className="text-center">
                       <h3 className="text-[#F4F7FF] md:text-2xl sm:text-lg text-base font-bold">
-                        0{" "}
+                        {currentTeam?.wins || 0} {" "}
                         <span className="text-base team-win">
                           {t("tourteam.wins")}
                         </span>
@@ -612,7 +611,7 @@ console.log("lastMatches",lastMatches);
                     </div>
                     <div className="text-center">
                       <h3 className="text-[#F4F7FF] md:text-2xl sm:text-lg text-base font-bold">
-                        0{" "}
+                        {currentTeam?.losses || 0}{" "}
                         <span className="text-base team-loss">
                           {t("tourteam.losses")}
                         </span>
@@ -636,7 +635,7 @@ console.log("lastMatches",lastMatches);
                 </h3>
               </div>
               <div className="game_card--wrapper game_card--wrapv2 flex sm:flex-wrap  gap-[1.188rem] md:justify-start mb-9">
-                {lastTournaments ? lastTournaments.map((item, index) => (
+                {lastTournaments?.length > 0 ? lastTournaments.map((item, index) => (
                   <Link
                     to={`/${id}/lobby/tournament/${item?._id}`}
                     key={index}
@@ -731,7 +730,7 @@ console.log("lastMatches",lastMatches);
                 </h3>
               </div>
               <div className="main-card-duty-wp flex md:flex-row flex-col gap-[1.188rem] mt-5">
-                {lastMatches ? lastMatches.map((match) => (
+                {lastMatches?.length > 0 ? lastMatches.map((match) => (
                   <Link
                     to={`/${id}/tournament/match/${match?.matchId}`}
                     key={match?.matchId}
