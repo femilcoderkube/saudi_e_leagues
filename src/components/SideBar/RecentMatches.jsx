@@ -5,26 +5,31 @@ import { getLastMatchesSocket } from "../../app/socket/socket";
 import { useEffect } from "react";
 import { setLastMatch } from "../../app/slices/notificationSlice/notificationSlice";
 import { IMAGES } from "../ui/images/images";
+import { fetchLatestMatches } from "../../app/slices/latestMatches/latestMatchesSlice";
 
 const RecentMatches = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { lastMatchs } = useSelector((state) => state.notification);
+  // const { lastMatchs } = useSelector((state) => state.notification);
+  const { lastMatches } = useSelector((state) => state.latestMatches);
   const user = useSelector((state) => state.auth.user);
   const id = items[0].id;
 
+  console.log("lastMatches", lastMatches);
+
   useEffect(() => {
     if (user?._id) {
-      getLastMatchesSocket(user?._id);
+      dispatch(fetchLatestMatches(user?._id));
+      // getLastMatchesSocket(user?._id);
     } else {
       dispatch(setLastMatch([]));
     }
-  }, [user]);
+  }, [user, window.location.pathname]);
 
   return (
     <div className="main-card-duty-wp flex flex-col mt-5">
       {user &&
-        lastMatchs?.map((match) => {
+        lastMatches?.map((match) => {
           return (
             <div
               key={match.matchId}

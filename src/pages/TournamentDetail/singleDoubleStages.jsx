@@ -152,6 +152,7 @@ const SingleDoubleStages = () => {
   if (loader) {
     return <GamingLoader />;
   }
+  console.log(tournamentStages?.stageType);
 
   if (tournamentStages && tournamentStages?.config?.match) {
     return (
@@ -164,7 +165,7 @@ const SingleDoubleStages = () => {
           >
             <div className="game_status--tab-wrapper text-center md:text-left md:rtl:text-right">
               <div className="game_status--tab sm:w-auto rounded-xl overflow-hidden relative md:left-auto md:-translate-x-0 rtl:translate-x-[0] sm:top-1 top-0 inline-flex justify-center sm:justify-start">
-                <button
+              { tournamentStages?.stageType != "RoundRobin" && <button
                   onClick={() => handleActiveTournamentTab(1)}
                   className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
                     activeTournamentTab === 1
@@ -173,8 +174,8 @@ const SingleDoubleStages = () => {
                   }`}
                 >
                   {t("tournament.brackets")}
-                </button>
-                <button
+                </button>}
+               {tournamentStages?.stageType == "RoundRobin" &&  <button
                   onClick={() => handleActiveTournamentTab(3)}
                   className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
                     activeTournamentTab === 3
@@ -183,7 +184,7 @@ const SingleDoubleStages = () => {
                   }`}
                 >
                   Group Standings
-                </button>
+                </button>}
                 <button
                   onClick={() => handleActiveTournamentTab(2)}
                   className={`w-[10rem] h-[4rem] md:py-2 md:px-2.5 px-4 py-4 sm:text-xl font-medium transition-all sd_after sd_before relative font_oswald hover:opacity-70 duration-300 ${
