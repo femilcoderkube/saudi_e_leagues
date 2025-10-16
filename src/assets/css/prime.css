@@ -6761,5 +6761,8 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
 html[dir="rtl"] .team-rotate-popup {
     transform: rotateY(180deg);
 }
+.brackets-viewer .round-robin .group table{
+    display: none;
+}
 
 /* Common Style page css End */

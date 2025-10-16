@@ -23,7 +23,6 @@ const SingleDoubleStages = () => {
     useSelector((state) => state.tournament);
   const dispatch = useDispatch();
   const [isFullscreen, setIsFullscreen] = useState(false);
-  console.log("tournamentStages", tournamentStages);
   let container;
 
   useEffect(() => {

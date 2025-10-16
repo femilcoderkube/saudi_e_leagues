@@ -15,13 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import GamingLoader from "../../components/Loader/loader.jsx";
 import SingleDoubleStages from "./singleDoubleStages.jsx";
-import {
-  getTournamentStages,
-  startTournamentSocket,
-} from "../../app/socket/socket.js";
+
 import {
   clearData,
   getTeamAndTournamentDetails,
+  getTournamentStages,
   resetRosterSelection,
   setActiveStage,
 } from "../../app/slices/tournamentSlice/tournamentSlice.js";
@@ -58,7 +56,6 @@ const TournamentDetail = () => {
     loader,
     tourmentTeamData,
   } = useSelector((state) => state.tournament);
-
 
   const { viewManagePopup, isloading } = useSelector(
     (state) => state.constState
@@ -122,18 +119,14 @@ const TournamentDetail = () => {
   useEffect(() => {
     if (
       tournamentData?.stages?.length > 0 &&
-      isSocketConnected &&
       typeof activeStage === "number" &&
       activeStage > -1
     ) {
-      getTournamentStages({
-        stageId: tournamentData?.stages[activeStage]?._id,
-        stageType: tournamentData?.stages[activeStage]?.stageType,
-        isSocketConnected: isSocketConnected,
-        user: user,
-      });
+      dispatch(
+        getTournamentStages({ id: tournamentData?.stages[activeStage]?._id })
+      );
     }
-  }, [tournamentData?.stages, activeStage, isSocketConnected]);
+  }, [tournamentData?.stages, activeStage]);
 
   const onRegistration = async () => {
     dispatch(

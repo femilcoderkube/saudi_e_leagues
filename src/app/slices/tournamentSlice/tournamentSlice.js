@@ -43,7 +43,6 @@ export const getTeamAndTournamentDetails = createAsyncThunk(
         },
       });
 
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -64,6 +63,23 @@ export const fetchTeamUserFormat = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch team user format"
+      );
+    }
+  }
+);
+
+// New async thunk for fetching tournament stages data
+export const getTournamentStages = createAsyncThunk(
+  "tournament/getTournamentStages",
+  async ({ id }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/TournamentStage/stagesData`, {
+        params: { id },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch tournament stages"
       );
     }
   }
@@ -233,6 +249,27 @@ const tournamentSlice = createSlice({
       })
       .addCase(fetchTeamUserFormat.rejected, (state, action) => {
         state.loading = false;
+        state.error = action.payload;
+      }) // New cases for getTournamentStages
+      .addCase(getTournamentStages.pending, (state) => {
+        state.loader = true;
+        state.error = null;
+      })
+      .addCase(getTournamentStages.fulfilled, (state, action) => {
+        state.loader = false;
+        state.error = null;
+
+        const { stageType, data } = action.payload.data;
+        if (stageType === stageTypes.BattleRoyal) {
+          state.battleRoyalGroup = data?.matcheData?.participantList || [];
+          state.battleRoyalSchedule = data?.matcheData?.groupedByDate || {};
+          state.stageSettings = data?.settings || {};
+        } else {
+          state.tournamentStages = data || {};
+        }
+      })
+      .addCase(getTournamentStages.rejected, (state, action) => {
+        state.loader = false;
         state.error = action.payload;
       });
   },
