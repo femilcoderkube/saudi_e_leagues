@@ -3972,6 +3972,7 @@ h6 {
     .split_card-num{
         width: 360px;
         height: 128px;
+        margin-top: -10px;
     }
 }
 
