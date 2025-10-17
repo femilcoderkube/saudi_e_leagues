@@ -5,47 +5,80 @@ import {
   setRegistrationModal,
 } from "../../../app/slices/leagueDetail/leagueDetailSlice";
 import { getQueueText } from "../../../utils/constant";
-import { stopReadyToPlaySocket } from "../../../app/socket/socket";
+import { leavePartySocket, RemoveBanPlayers, stopReadyToPlaySocket } from "../../../app/socket/socket";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../ui/images/images";
 import MobileEvent from "../../../hooks/mobileevents.js";
 import { useState } from "react";
 import PartyQueuePopup from "../../Overlays/LeagueDetail/PartyQueuePopup.jsx";
-import { checkBannedUser } from "../../../app/slices/auth/authSlice.js";
+import { checkBannedUser, checkBannedUser2 } from "../../../app/slices/auth/authSlice.js";
 
 const GetQueueButton = () => {
   const { id } = useParams();
   const { leagueData, isJoinedUser, isQueueUser, isMatchJoind, userInQueue } =
     useSelector((state) => state.leagues);
-  const { showPartyQueuePopup } = useSelector((state) => state.constState);
+  const { showPartyQueuePopup, partyQueueTeam } = useSelector((state) => state.constState);
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
-  const user = useSelector((state) => state.auth.user);
+  const { user, timezone } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const now = new Date();
   const end = new Date(leagueData?.endDate);
   const { t, i18n } = useTranslation();
   const [isCheckingBan, setIsCheckingBan] = useState(false);
-  const { partyQueueTeam } = useSelector((state) => state.constState);
 
   const handleLoginClick = () => {
     const currentUrl = window.location.href;
     MobileEvent.onLoginClick(currentUrl, dispatch);
   };
 
-  const handleQueueClick = async () => {
-    try {
-      setIsCheckingBan(true);
+  const handleRemoveBanPlayers = ({ partyId, bannedParticipantIds }) => {
+    if (isSocketConnected) {
+      RemoveBanPlayers({ partyId, bannedParticipantIds });
+    }
+  };
 
+  const handleQueueClick = async () => {
+    setIsCheckingBan(true);
+    try {
       const banCheckResult = await dispatch(checkBannedUser()).unwrap();
       if (banCheckResult?.data.banMessage) {
+        dispatch(leavePartySocket({ userId: user?._id, teamId: partyQueueTeam?.data?._id }));
         setIsCheckingBan(false);
         return;
       }
 
       if (leagueData?.format == "party queue") {
+
+        const partyPlayers = partyQueueTeam?.data?.Players || [];
+        if (partyPlayers.length > 0) {
+          const checkPromises = partyPlayers
+            .map((player) => player?.userId?._id)
+            .filter(Boolean)
+            .map((playerId) =>
+              dispatch(checkBannedUser2({ userId: playerId, timezone }))
+                .unwrap()
+                .then((res) => ({ playerId, banned: !!res?.data?.banMessage }))
+                .catch(() => ({ playerId, banned: false }))
+            );
+
+          const results = await Promise.all(checkPromises);
+          const bannedPlayers = results
+            .filter((r) => r.banned)
+            .map((r) => r.playerId);
+
+          if (bannedPlayers.length > 0) {
+            handleRemoveBanPlayers({
+              partyId: partyQueueTeam?.data?._id,
+              bannedParticipantIds: bannedPlayers,
+            });
+            return;
+          }
+        }
+
+
         if (userInQueue) {
           dispatch(setQueueConfirmation(true));
         } else {
@@ -185,9 +218,9 @@ const GetQueueButton = () => {
       return (
         <div
           className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer ${(leagueData.format === "party queue" &&
-                partyQueueTeam?.data?.Creator !== user?._id)
-              ? "cursor-not-allowed opacity-50"
-              : "cursor-pointer"
+            partyQueueTeam?.data?.Creator !== user?._id)
+            ? "cursor-not-allowed opacity-50"
+            : "cursor-pointer"
             }`}
           onClick={() => {
             if (leagueData?.format === "party queue") {
@@ -260,10 +293,10 @@ const GetQueueButton = () => {
         return (
           <div
             className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${isCheckingBan ||
-                (leagueData.format === "party queue" &&
-                  partyQueueTeam?.data?.Creator !== user?._id)
-                ? "cursor-not-allowed opacity-50"
-                : "cursor-pointer"
+              (leagueData.format === "party queue" &&
+                partyQueueTeam?.data?.Creator !== user?._id)
+              ? "cursor-not-allowed opacity-50"
+              : "cursor-pointer"
               }`}
             onClick={
               isCheckingBan ||

@@ -54,20 +54,19 @@ export const checkBannedUser = createAsyncThunk(
 
 export const checkBannedUser2 = createAsyncThunk(
   "auth/checkBannedUser2",
-  async (_, { rejectWithValue, getState }) => {
+  async ( {userId, timezone}, { rejectWithValue, getState }) => {
     try {
       const { auth } = getState();
       const token = auth.token || localStorage.getItem("token");
       if (!token) {
         return rejectWithValue("Token not found");
       }
-      console.log(auth.timezone);
       
       const response = await axiosInstance.post(
         "/BannedUsers/checkBanUser",
         {
-          userId: auth.user?._id,
-          timezone: auth.timezone,
+          userId,
+          timezone
         },
         {
           headers: {

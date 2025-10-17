@@ -553,6 +553,7 @@
     "invite_players_to_team": "ارسل دعوة على الأقل لـ {{count}} لاعبين إلى فريقك للمشاركة بالبطولة",
     "roster_lock_in_hour": "سيتم قفل التعديل خلال {{hours}} ساعة و{{minutes}} دقيقة",
     "roster_lock_in": "سيتم قفل القائمة في {{minutes}} دقيقة",
+    "roster_lock_in_days": "سيتم قفل التعديلات خلال {{days}} يوم و{{hours}} ساعة و{{minutes}} دقيقة",
     "roster_locked": "تم قفل التعديلات",
     "manageteam": "إدارة الفريق",
     "viewteam": "عرض الفريق",

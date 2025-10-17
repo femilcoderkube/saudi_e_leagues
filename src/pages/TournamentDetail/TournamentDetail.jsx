@@ -592,24 +592,28 @@ const TournamentDetail = () => {
                                             const now = new Date();
                                             const diffMs = endDate - now;
                                             if (diffMs > 0) {
-                                              const hours = Math.floor(
+                                              const totalHours = Math.floor(
                                                 diffMs / (1000 * 60 * 60)
                                               );
                                               const minutes = Math.floor(
                                                 (diffMs % (1000 * 60 * 60)) /
                                                   (1000 * 60)
                                               );
+                                              const days = Math.floor(totalHours / 24);
+                                              const hours = totalHours % 24;
+                                              const key =
+                                                days > 0
+                                                  ? "tournament.roster_lock_in_days"
+                                                  : totalHours > 0
+                                                  ? "tournament.roster_lock_in_hour"
+                                                  : "tournament.roster_lock_in";
                                               return (
                                                 <>
-                                                  {t(
-                                                    hours > 0
-                                                      ? "tournament.roster_lock_in_hour"
-                                                      : "tournament.roster_lock_in",
-                                                    {
-                                                      hours,
-                                                      minutes,
-                                                    }
-                                                  )}
+                                                  {t(key, {
+                                                    days,
+                                                    hours,
+                                                    minutes,
+                                                  })}
                                                 </>
                                               );
                                             }

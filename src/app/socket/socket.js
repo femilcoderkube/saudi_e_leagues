@@ -100,6 +100,7 @@ export const SOCKET = {
   PARTY_QUEUE_STARTED: "PARTY_QUEUE_STARTED",
   TEAM_DATA: "TeamData",
   TEAM_UPDATEDDATA: "TeamUpdatedData",
+  PARTY_PLAYER_BAN: "PartyPlayerban"
 };
 
 export let socket;
@@ -310,7 +311,7 @@ export function startStarOfTheWeekSocket({ lId, user, isSocketConnected }) {
     socket.emit(SOCKET.GETWEEKOFSTAR, { Lid: lId, userId: user?._id });
   }
 }
-export function getPartyQueueUpdate() {}
+export function getPartyQueueUpdate() { }
 export function startReadyToPlaySocket({ lId, user, isSocketConnected }) {
   if (!isSocketConnected) return;
   socket.emit(SOCKET.READYTOPLAY, { Lid: lId, userId: user?._id });
@@ -479,6 +480,9 @@ export const joinUserRoom = () => {
 export const acceptInvitation = (data) => {
   socket.emit(SOCKET.ACCEPT_INVITATION, data);
 };
+export const RemoveBanPlayers = (data) => {
+  socket.emit(SOCKET.PARTY_PLAYER_BAN, data);
+}
 export function leavePartySocket(actionPayload) {
   socket.emit(SOCKET.LEAVEPARTY, actionPayload);
 }

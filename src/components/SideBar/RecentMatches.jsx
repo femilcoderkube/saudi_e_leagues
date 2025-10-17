@@ -15,8 +15,6 @@ const RecentMatches = () => {
   const user = useSelector((state) => state.auth.user);
   const id = items[0].id;
 
-  console.log("lastMatches", lastMatches);
-
   useEffect(() => {
     if (user?._id) {
       dispatch(fetchLatestMatches(user?._id));

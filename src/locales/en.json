@@ -553,6 +553,7 @@
     "invite_players_to_team": "Invite at least {{count}} players to your team to participate",
     "roster_lock_in_hour": "Roster will lock in {{hours}} hours, {{minutes}} minutes",
     "roster_lock_in": "Roster will lock in {{minutes}} minutes",
+    "roster_lock_in_days": "Roster will lock in {{days}} days, {{hours}} hours, {{minutes}} minutes",
     "roster_locked": "Roster Locked",
     "manageteam": "Manage Team",
     "viewteam": "View Team",
