@@ -137,7 +137,7 @@ const LeagueDetail = () => {
               </div>
               <div className="player_score mt-4 flex md:flex-col items-start md:h-full sm:ltr:ml-[-2.5rem] sm:rtl:ml-0 z-2">
                 <div className="online_user md:p-4 px-4 py-1 relative md:flex-shrink flex-shrink-0 flex md:block flex-col md:flex-row">
-                  <h3 className="sm:text-base text-sm text-[#63A3D2] order-2 md:order-1">
+                  <h3 className="sm:text-base text-sm text-[var(--online-user-blue)] order-2 md:order-1">
                     {t("league.online_users")}
                   </h3>
                   <span className="sm:text-2xl text-lg font-bold order-1 md:order-2">
@@ -148,7 +148,7 @@ const LeagueDetail = () => {
                   <span className="sm:text-2xl text-lg font-bold">
                     {leagueData?.totalRegistrations || 0}
                   </span>
-                  <h3 className="sm:text-base text-sm text-[#D27D63]">
+                  <h3 className="sm:text-base text-sm text-[var(--online-user-red)]">
                     {t("league.participants")}
                   </h3>
                 </div>

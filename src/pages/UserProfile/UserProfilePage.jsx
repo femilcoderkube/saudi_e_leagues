@@ -74,7 +74,7 @@ const UserProfilePage = () => {
   return (
     <main className="flex-1 lobby_page--wrapper">
       <div className="dropdown relative prof-drop">
-        <div className="dropdown-header gap-6 p-3 pb-5 mt-3 flex items-center cursor-pointer text-white border-b border-[#7b7ed0] ">
+        <div className="dropdown-header gap-6 p-3 pb-5 mt-3 flex items-center cursor-pointer text-[var(--pure-white)] border-b border-[var(--purple-col)] ">
           <div className="user_img  relative sd_before ">
             <img
               src={getServerURL(user?.profilePicture)}

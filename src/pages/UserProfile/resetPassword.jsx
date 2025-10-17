@@ -89,7 +89,7 @@ const ResetPasswordPage = () => {
   return (
     <main dir="ltr" className="flex-1 lobby_page--wrapper">
       <>
-        <div className="fixed inset-0 bg-[#09092d] z-40" />
+        <div className="fixed inset-0 bg-[var(--very-dark-blue)] z-40" />
         <div className="fixed inset-0 flex justify-center items-center z-50">
           <div className="match-makingwp overflow-hidden">
             <img
@@ -119,7 +119,7 @@ const ResetPasswordPage = () => {
           </div>
           {tokenValid ? (
             <motion.div
-              className={`bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-6 rounded-xl w-full max-w-lg relative max-h-[80vh] overflow-y-auto overflow-x-hidden`}
+              className={`match_reg--popup !h-auto sd_before sd_after text-[var(--pure-white)] p-6 rounded-xl w-full max-w-lg relative max-h-[80vh] overflow-y-auto overflow-x-hidden`}
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               initial={{ scale: 0.5, opacity: 0, y: 50 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -146,13 +146,13 @@ const ResetPasswordPage = () => {
                         <Field
                           name="newPassword"
                           type={showNewPassword ? "text" : "password"}
-                          className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                          className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[var(--purple-col)] !placeholder-[var(--purple-col)]"
                           placeholder="Enter new password"
                         />
                         <button
                           type="button"
                           onClick={() => setShowNewPassword(!showNewPassword)}
-                          className="absolute right-6 top-1/2 transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
+                          className="absolute right-6 top-1/2 transform -translate-y-1/2 text-[var(--purple-col)] hover:opacity-70"
                         >
                           <svg
                             width="20"
@@ -181,7 +181,7 @@ const ResetPasswordPage = () => {
                         <Field
                           name="confirmPassword"
                           type={showConfirmPassword ? "text" : "password"}
-                          className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0]"
+                          className="sd_custom-input !w-full px-4 ltr:pr-10 rtl:pr-4 text-lg focus:outline-0 focus:shadow-none leading-none text-[var(--purple-col)] !placeholder-[var(--purple-col)]"
                           placeholder="Confirm new password"
                         />
                         <button
@@ -189,7 +189,7 @@ const ResetPasswordPage = () => {
                           onClick={() =>
                             setShowConfirmPassword(!showConfirmPassword)
                           }
-                          className="absolute right-6 top-1/2 transform -translate-y-1/2 text-[#7B7ED0] hover:opacity-70"
+                          className="absolute right-6 top-1/2 transform -translate-y-1/2 text-[var(--purple-col)] hover:opacity-70"
                         >
                           <svg
                             width="20"
@@ -255,7 +255,7 @@ const ResetPasswordPage = () => {
               </svg>
             </motion.div>
           ) : (
-            <div className="text-white text-center text-2xl font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="text-[var(--pure-white)] text-center text-2xl font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               Token expired. Redirecting to home...
             </div>
           )}

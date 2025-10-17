@@ -6,8 +6,14 @@
     --dark-blue: #0b0d32;
     --dark-shade-blue: #020326;
     --very-dark-blue: #09092d;
+    --slate-blue:#688992;
+    --blue-bell-color: #9EA7CC;
+    --online-user-blue:#63A3D2;
+    --online-user-red:#D27D63;
     --video-bg:#121331;
+    --green-color:#1DED85;
     --purple-col: #7b7ed0;
+    --mob-chat-error:#7B7ED0CC;
     --light-purple: #7b7ed047;
     --very-light-purple: #9E9ECC;
     --dark-purple: #2A2F64;
@@ -4667,6 +4673,10 @@ html[dir="rtl"] .battle-body-wp div:first-child {
     background: linear-gradient(180deg, #e2884f 0%, #b96d3d 100%);
 }
 
+.schdule-date .grad_text-clip{
+    border-color: rgb(40,55,66,0.8);
+}
+
 .schdule-date span {
     background: linear-gradient(180deg, #f4f7ff 36.06%, #4584f2 150%);
 }
@@ -4864,6 +4874,10 @@ html[dir="rtl"] .battle-shape {
 
 .schdule-accordion-card.active-accordation .battle-shape {
     border-bottom-left-radius: 0;
+}
+
+.mob-body-full{
+    border-color: rgb(40,55,66,0.4);
 }
 
 .schdule-accordion-body .mob-body-full {

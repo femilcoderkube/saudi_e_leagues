@@ -110,7 +110,7 @@ const InviteLink = ({ Iid }) => {
         <div className="fixed inset-0 flex justify-center items-center z-50">
           <div className="flex flex-col gap-6">
             <motion.div
-              className="bg-[#121331] match_reg--popup !h-auto sd_before sd_after text-white p-0 rounded-xl w-full max-w-lg relative max-h-[80vh] overflow-y-auto overflow-x-hidden"
+              className="match_reg--popup !h-auto sd_before sd_after text-[var(--pure-white)] p-0 rounded-xl w-full max-w-lg relative max-h-[80vh] overflow-y-auto overflow-x-hidden"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               initial={{ scale: 0.5, opacity: 0, y: 50 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -119,16 +119,16 @@ const InviteLink = ({ Iid }) => {
             >
               {/* Header */}
               <div className="bg-[#1a1b3a] relative rounded-t-xl px-8 py-5 border-b border-[#353c83] text-center">
-                <h2 className="text-2xl font-bold text-white tracking-wide">
+                <h2 className="text-2xl font-bold text-[var(--pure-white)] tracking-wide">
                   {t("Invite_model.accept_invitation")}
                 </h2>
                 <button
                   onClick={() => navigate("/prime/lobby")} // or navigate(-1) if you want back navigation
-                  className="absolute top-8 right-4  text-[18px] -translate-y-1/2 text-[#7B7ED0] hover:text-white transition"
+                  className="absolute top-8 right-4  text-[18px] -translate-y-1/2 purple_col hover:text-[var(--pure-white)] transition"
                 >
                   ✕
                 </button>
-                <p className="text-[#7B7ED0] text-base mt-1">
+                <p className="purple_col text-base mt-1">
                   {t("Invite_model.accept_description")}
                 </p>
               </div>
@@ -136,7 +136,7 @@ const InviteLink = ({ Iid }) => {
               {loading ? (
                 <div className="flex justify-center items-center h-40">
                   <svg
-                    className="animate-spin h-12 w-12 text-white"
+                    className="animate-spin h-12 w-12 text-[var(--pure-white)]"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -160,11 +160,11 @@ const InviteLink = ({ Iid }) => {
                 <>
                   {/* Team Details */}
                   <div className="px-8 py-5 border-b border-[#353c83]">
-                    <h3 className="text-lg font-semibold text-[#7B7ED0] mb-3">
+                    <h3 className="text-lg font-semibold purple_col mb-3">
                       {t("Invite_model.team_details")}
                     </h3>
                     <div className="flex items-center gap-4 mb-3">
-                      <div className="rounded-full overflow-hidden w-16 h-16 border-2 border-[#7B7ED0]">
+                      <div className="rounded-full overflow-hidden w-16 h-16 border-2 border-[var(--purple-col)]">
                         <img
                           src={getServerURL(teamData?.logoImage)}
                           alt="Team"
@@ -172,19 +172,19 @@ const InviteLink = ({ Iid }) => {
                         />
                       </div>
                       <div>
-                        <p className="font-bold text-white text-xl mb-1">
+                        <p className="font-bold text-[var(--pure-white)] text-xl mb-1">
                           {teamData?.teamName || "N/A"}
                         </p>
-                        <div className="flex gap-6 text-sm text-[#7B7ED0]">
+                        <div className="flex gap-6 text-sm purple_col">
                           <span>
                             {t("Invite_model.members")}:
-                            <span className="text-[#F4F7FF] font-semibold">
+                            <span className="text-[var(--white-col)] font-semibold">
                               {teamData?.members?.length || 0}
                             </span>
                           </span>
                           <span>
                             {t("Invite_model.country")}:
-                            <span className="text-[#F4F7FF] font-semibold">
+                            <span className="text-[var(--white-col)] font-semibold">
                               {teamData?.region || "N/A"}
                             </span>
                           </span>
@@ -286,7 +286,7 @@ const InviteLink = ({ Iid }) => {
                           <Field
                             name="gameId"
                             type="text"
-                            className="sd_custom-input !w-full px-4 py-2 mt-1 text-lg focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] !placeholder-[#7B7ED0] bg-[#18194a] rounded"
+                            className="sd_custom-input !w-full px-4 py-2 mt-1 text-lg focus:outline-0 focus:shadow-none leading-none purple_col !placeholder-[var(--purple-col)] rounded"
                             placeholder={t("Invite_model.game_id")}
                           />
                           <ErrorMessage
@@ -305,7 +305,7 @@ const InviteLink = ({ Iid }) => {
                           >
                             {loading ? (
                               <svg
-                                className="animate-spin h-5 w-5 text-white mr-2"
+                                className="animate-spin h-5 w-5 text-[var(--pure-white)] mr-2"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"

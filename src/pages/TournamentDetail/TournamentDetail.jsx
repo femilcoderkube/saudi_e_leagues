@@ -567,10 +567,10 @@ const TournamentDetail = () => {
                             <div className="your-team-card rounded-2xl md:mb-12 mb-9 bg-[linear-gradient(183.7deg,rgba(94,95,184,0.2)_3.03%,rgba(34,35,86,0.2)_97.05%)] shadow-[inset_0_2px_2px_0_rgba(94,95,184,0.12)] backdrop-blur-[0.75rem]">
                               <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
                                 <div className="flex flex-wrap items-center sm:gap-4 gap-2">
-                                  <span className="text-[#F4F7FF] md:text-xl text-lg font-bold ltr:md:pr-6 ltr:md:mr-2 ltr:md:border-r md:border-[#7B7ED0] rtl:md:pl-6 rtl:md:ml-2 rtl:md:border-l">
+                                  <span className="text-[var(--white-col)] md:text-xl text-lg font-bold ltr:md:pr-6 ltr:md:mr-2 ltr:md:border-r md:border-[var(--purple-col)] rtl:md:pl-6 rtl:md:ml-2 rtl:md:border-l">
                                     {t("league.yourteam")}
                                   </span>
-                                  <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
+                                  <span className="purple_col md:text-lg text-base font-semibold">
                                     {teamData?.data?.status == 1 && (
                                       <>
                                         {t(
@@ -629,7 +629,7 @@ const TournamentDetail = () => {
                                 <div className="flex items-center gap-3">
                                   {teamData?.data?.status == 1 && (
                                     <>
-                                      <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
+                                      <span className="purple_col md:text-lg text-base font-semibold">
                                         {t("tourteam.notready")}
                                       </span>
                                       <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
@@ -637,7 +637,7 @@ const TournamentDetail = () => {
                                   )}
                                   {teamData?.data?.status == 2 && (
                                     <>
-                                      <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
+                                      <span className="purple_col md:text-lg text-base font-semibold">
                                         {t("tourteam.changeopen")}
                                       </span>
                                       <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#00FF00_0%,#008000_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#00FF001F] inline-block"></span>
@@ -645,7 +645,7 @@ const TournamentDetail = () => {
                                   )}
                                   {teamData?.data?.status == 3 && (
                                     <>
-                                      <span className="text-[#7B7ED0] md:text-lg text-base font-semibold">
+                                      <span className="purple_col md:text-lg text-base font-semibold">
                                         {t("tourteam.changeclose")}
                                       </span>
                                       <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
@@ -726,7 +726,7 @@ const TournamentDetail = () => {
                                 teamData?.data?.status !== 3 ? (
                                   <div className="flex items-center md:gap-10 gap-4">
                                     <button
-                                      className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
+                                      className="purple_col sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
                                       onClick={() => setIsManageOpen(true)} // open modal
                                     >
                                       {t("tournament.manageteam")}
@@ -735,7 +735,7 @@ const TournamentDetail = () => {
                                 ) : (
                                   <div className="flex items-center md:gap-10 gap-4">
                                     <button
-                                      className="text-[#7B7ED0] sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
+                                      className="purple_col sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
                                       onClick={() => {
                                         dispatch(setViewManagePopup(true));
                                       }} // open modal
@@ -788,7 +788,7 @@ const TournamentDetail = () => {
 
                                 <div className="flex items-center lg:gap-10 md:gap-7 gap-5">
                                   <div className="battle-shape-text flex items-center md:gap-6 gap-3 w-[21rem]">
-                                    <span className="uppercase inline-block md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
+                                    <span className="uppercase inline-block md:text-2xl sm:text-lg text-base font-bold text-[var(--white-col)]">
                                       {t("tournament.list_of_participants")}
                                     </span>
                                   </div>
@@ -853,7 +853,7 @@ const TournamentDetail = () => {
                                   key={`static-team-${tIdx}`}
                                 >
                                   <div
-                                    className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 !w-full ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
+                                    className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 !w-full ltr:border-r rtl:border-l`}
                                   >
                                     <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
                                       {/* <div className="schdule-common">
@@ -868,15 +868,15 @@ const TournamentDetail = () => {
                                           alt={team?.name}
                                           className="md:w-8 md:h-8 h-6 w-6 rounded-full"
                                         />
-                                        <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                                        <span className="inline-block md:text-lg text-base font-bold text-[var(--white-col)]">
                                           {team?.name}
                                         </span>
                                       </div>
                                     </div>
                                     <div className="flex items-center xl:gap-13 gap-4">
-                                      <p className="text-lg font-bold text-[#1DED85]">
+                                      <p className="text-lg font-bold text-[var(--green-color)]">
                                         {team?.members?.length}
-                                        <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                        <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
                                           {" "}
                                           {t("tournament.members")}
                                         </span>
@@ -910,7 +910,7 @@ const TournamentDetail = () => {
                                 </span>
                               </a>
                               <button
-                                className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[#F4F7FF] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)] cursor-pointer"
+                                className="flex-1 max-w-[20.75rem] flex items-center gap-4 p-2 pr-6 rounded-xl text-[var(--white-col)] font-semibold md:text-lg text-base bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)] cursor-pointer"
                                 onClick={handleOpen}
                               > */}
                           <DiscordPopup />

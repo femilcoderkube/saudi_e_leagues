@@ -24,24 +24,24 @@ export default function BattleRoyalStanding() {
         {/* Battle Table Heading */}
         <div className="battle-head flex">
           {/* Headings */}
-          <p className="text-[#9EA7CC] text-sm font-semibold xl:px-6 lg:px-4 px-2 py-2 max-w-[5.5%] w-full">
+          <p className="text-[var(--blue-bell-color)] text-sm font-semibold xl:px-6 lg:px-4 px-2 py-2 max-w-[5.5%] w-full">
             {t("tournament.place")}
           </p>
-          <p className="text-[#9EA7CC] text-sm font-semibold md:px-15 sm:px-9 px-3 py-2 md:max-w-[44.5%] sm:max-w-[40.5%] max-w-[35%] w-full ltr:text-left rtl:text-right">
+          <p className="text-[var(--blue-bell-color)] text-sm font-semibold md:px-15 sm:px-9 px-3 py-2 md:max-w-[44.5%] sm:max-w-[40.5%] max-w-[35%] w-full ltr:text-left rtl:text-right">
             {t("tournament.team")}
           </p>
-          <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 max-w-[13%] w-full text-center">
+          <p className="text-[var(--blue-bell-color)] text-sm font-semibold px-6 py-2 max-w-[13%] w-full text-center">
             {t("tournament.points")}
           </p>
-          <p className="text-[#9EA7CC] text-sm font-semibold xl:px-6 px-2 py-2 md:max-w-[13%] max-w-[15%] w-full text-center">
+          <p className="text-[var(--blue-bell-color)] text-sm font-semibold xl:px-6 px-2 py-2 md:max-w-[13%] max-w-[15%] w-full text-center">
             <span className="md:block hidden">{t("tournament.placement_points")}</span>
             <span className="md:hidden block">{t("tournament.pp")}</span>
           </p>
-          <p className="text-[#9EA7CC] text-sm font-semibold lg:px-6 px-3 py-2 max-w-[13%] w-full text-center">
+          <p className="text-[var(--blue-bell-color)] text-sm font-semibold lg:px-6 px-3 py-2 max-w-[13%] w-full text-center">
             <span className="md:block hidden">{t("tournament.kill_points")}</span>
             <span className="block md:hidden">{t("tournament.kp")}</span>
           </p>
-          <p className="text-[#9EA7CC] text-sm font-semibold px-6 py-2 ltr:lg:pr-14 rtl:lg:pl-14 max-w-[13%] w-full ltr:text-right rtl:text-left">
+          <p className="text-[var(--blue-bell-color)] text-sm font-semibold px-6 py-2 ltr:lg:pr-14 rtl:lg:pl-14 max-w-[13%] w-full ltr:text-right rtl:text-left">
             {t("tournament.victory")}
           </p>
         </div>
@@ -91,27 +91,27 @@ export default function BattleRoyalStanding() {
                       ?.toUpperCase() || "?"}
                   </div>
                 )}
-                <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                <span className="inline-block md:text-lg text-base font-bold text-[var(--white-col)]">
                   {player?.participant?.team?.teamName}
                 </span>
               </div>
               <div className="px-6 py-4 text-center max-w-[13%] w-full">
-                <span className="inline-block text-lg font-bold text-[#1DED85]">
+                <span className="inline-block text-lg font-bold text-[var(--green-color)]">
                   {player.totalPoints || 0}
                 </span>
               </div>
               <div className="px-6 py-4 text-center max-w-[13%] w-full">
-                <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                <span className="inline-block md:text-lg text-base font-bold text-[var(--white-col)]">
                   {player.totalPlacePoints?.toFixed(2) || 0}
                 </span>
               </div>
               <div className="px-6 py-4 text-center max-w-[13%] w-full">
-                <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                <span className="inline-block md:text-lg text-base font-bold text-[var(--white-col)]">
                   {player.totalKillPoints?.toFixed(2) || 0}
                 </span>
               </div>
               <div className="px-6 ltr:lg:pr-16 rtl:lg:pl-16 ltr:pr-7 rtl:pl-7 py-4 ltr:text-right rtl:text-left max-w-[13%] w-full">
-                <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                <span className="inline-block md:text-lg text-base font-bold text-[var(--white-col)]">
                   {player.totalVictory || 0}
                 </span>
               </div>

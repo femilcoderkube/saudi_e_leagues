@@ -220,7 +220,7 @@ const TournamentMatchDetail = () => {
                   >
                     <img src={IMAGES.ChatIcon} alt="" />
                     <span className="purple_col text-base font-bold">
-                      {t("match.chat")} <span className="text-[#BABDFF]"></span>
+                      {t("match.chat")} <span className="purple_light"></span>
                     </span>
                     <img src={IMAGES.ChatArr} alt="" />
                   </div>
@@ -300,7 +300,7 @@ const TournamentMatchDetail = () => {
                                         __html: msg.randomText,
                                       }}
                                     />
-                                    <span className="text-white text-lg font-bold">
+                                    <span className="text-[var(--pure-white)] text-lg font-bold">
                                       {": "}
                                       {msg.tags}
                                     </span>
@@ -317,7 +317,7 @@ const TournamentMatchDetail = () => {
                               }`}
                           >
                             <div className="px-2 py-1 rounded-lg">
-                              <p className="text-white text-lg font-light">
+                              <p className="text-[var(--pure-white)] text-lg font-light">
                                 {!chat.isMsg && (
                                   <span
                                     className="!font-bold"
@@ -352,13 +352,13 @@ const TournamentMatchDetail = () => {
                     <input
                       type="text"
                       placeholder={t("match.chat_message")}
-                      className="chat_msg-input rtl:text-right text-lg placeholder:text-[#7B7ED0] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"
+                      className="chat_msg-input rtl:text-right text-lg placeholder:text-[var(--purple-col)] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"
                       value={messageInput}
                       onChange={(e) => setMessageInput(e.target.value)}
                       onKeyPress={handleKeyPress}
                     />
                     <button
-                      className="absolute ltr:right-0 rtl:left-0 text-white cursor-pointer hover:opacity-65 duration-400 rounded-full p-2 ml-2 focus:outline-none"
+                      className="absolute ltr:right-0 rtl:left-0 text-[var(--pure-white)] cursor-pointer hover:opacity-65 duration-400 rounded-full p-2 ml-2 focus:outline-none"
                       onClick={handleSendMessage}
                     >
                       <svg
@@ -388,7 +388,7 @@ const TournamentMatchDetail = () => {
                   onClick={() => dispatch(setshowMobileChatT(false))}
                 >
                   <motion.div
-                    className="mob-chat-wp sm:hidden w-full max-w-[19rem] fixed top-0 ltr:right-0 rtl:left-0 z-11 bg-slate-900 text-white  flex flex-col justify-between"
+                    className="mob-chat-wp sm:hidden w-full max-w-[19rem] fixed top-0 ltr:right-0 rtl:left-0 z-11 bg-slate-900 text-[var(--pure-white)]  flex flex-col justify-between"
                     onClick={(e) => e.stopPropagation()}
                     initial={{ x: "100%" }} // start from right
                     animate={{ x: 0 }} // slide in
@@ -407,7 +407,7 @@ const TournamentMatchDetail = () => {
                             src={IMAGES.ChatArr}
                             alt=""
                           />
-                          <h1 className="text-lg font-extrabold text-white tracking-wide">
+                          <h1 className="text-lg font-extrabold text-[var(--pure-white)] tracking-wide">
                             {t("match.match_chat")}
                           </h1>
                         </div>
@@ -476,7 +476,7 @@ const TournamentMatchDetail = () => {
                                           __html: msg.randomText,
                                         }}
                                       />
-                                      <span className="text-white text-lg font-bold">
+                                      <span className="text-[var(--pure-white)] text-lg font-bold">
                                         {msg.tags}
                                       </span>
                                     </div>
@@ -531,7 +531,7 @@ const TournamentMatchDetail = () => {
                                     ? t("match.admin")
                                     : chat?.senderId?.username}
                                 </div>
-                                <div className="text-white text-sm leading-relaxed break-words">
+                                <div className="text-[var(--pure-white)] text-sm leading-relaxed break-words">
                                   {chat.msg}
                                 </div>
                               </div>
@@ -545,13 +545,13 @@ const TournamentMatchDetail = () => {
                       <input
                         type="text"
                         placeholder={t("match.chat_message")}
-                        className="chat_msg-input rtl:text-right sm:text-lg text-base placeholder:text-[#7B7ED0] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"
+                        className="chat_msg-input rtl:text-right sm:text-lg text-base placeholder:text-[var(--purple-col)] placeholder:font-semibold placeholder:opacity-65 flex-1 px-4 py-3 rounded-md focus:outline-none"
                         value={messageInput}
                         onChange={(e) => setMessageInput(e.target.value)}
                         onKeyPress={handleKeyPress}
                       />
                       <button
-                        className="absolute ltr:right-8 rtl:left-8 text-white cursor-pointer hover:opacity-65 duration-400 rounded-full p-2 ml-2 focus:outline-none"
+                        className="absolute ltr:right-8 rtl:left-8 text-[var(--pure-white)] cursor-pointer hover:opacity-65 duration-400 rounded-full p-2 ml-2 focus:outline-none"
                         onClick={handleSendMessage}
                       >
                         <svg

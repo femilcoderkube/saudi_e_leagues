@@ -54,7 +54,7 @@ export default function BattleRoyalSChedule() {
               <div className="schedule-date-wp pb-8 pt-5 flex items-center gap-5">
                 <img className="w-5 h-6" src={IMAGES.date_icon} alt="" />
                 <div className="schdule-date">
-                  <span className="grad_text-clip sm:text-2xl text-lg font-bold inline-block ltr:pr-5 rtl:pl-5 ltr:mr-5 rtl:ml-5 ltr:border-r rtl:border-l border-[rgb(40,55,66,0.8)]">
+                  <span className="grad_text-clip sm:text-2xl text-lg font-bold inline-block ltr:pr-5 rtl:pl-5 ltr:mr-5 rtl:ml-5 ltr:border-r rtl:border-l">
                     {itemObj.dateweekday}
                   </span>
                   <span className="grad_text-clip sm:text-2xl text-lg font-bold inline-block">
@@ -163,7 +163,7 @@ export default function BattleRoyalSChedule() {
                                         className="md:w-12 md:h-12 h-9 w-9 rounded-full"
                                       />
                                     ) : (
-                                      <span className="text-lg font-semibold text-white md:w-12 md:h-12 h-9 w-9 rounded-full flex items-center justify-center">
+                                      <span className="text-lg font-semibold text-[var(--pure-white)] md:w-12 md:h-12 h-9 w-9 rounded-full flex items-center justify-center">
                                         {team?.participant?.team?.teamName
                                           ?.charAt(0)
                                           ?.toUpperCase() || "?"}
@@ -176,7 +176,7 @@ export default function BattleRoyalSChedule() {
                                 <div
                                   className={`round-gold round-common md:w-12 md:h-12 w-9 h-9 rounded-full flex items-center justify-center`}
                                 >
-                                  <span className="text-base font-semibold text-white">
+                                  <span className="text-base font-semibold text-[var(--pure-white)]">
                                     +{ExtraTeams}
                                   </span>
                                 </div>
@@ -189,19 +189,19 @@ export default function BattleRoyalSChedule() {
                       {/* Right section with dropdown toggle */}
                       <div className="mob-match-gp flex flex-col md:gap-3.5 gap-2 items-end ltr:lg:pr-[7rem] rtl:lg:pl-[7rem] ltr:sm:pr-[4rem] rtl:sm:pl-[4rem] ltr:pr-[3rem] rtl:pl-[3rem]">
                         <div className="flex gap-2 items-center">
-                          <p className="md:text-xl text-base font-semibold text-white">
+                          <p className="md:text-xl text-base font-semibold text-[var(--pure-white)]">
                             {t("tournament.group")} {item?.groupNumber || 0}
                           </p>
-                          <p className="md:text-xl text-base font-semibold text-white">
+                          <p className="md:text-xl text-base font-semibold text-[var(--pure-white)]">
                             {t("tournament.match")} {item?.matchNumber || 0}
                           </p>
                         </div>
 
                         <div className="royal-date-time flex gap-2 items-center">
-                          <p className="md:text-xl text-base font-semibold text-[#BABDFF]">
+                          <p className="md:text-xl text-base font-semibold purple_light">
                             {moment(item?.startTime).format("DD MMM")}
                           </p>
-                          <p className="md:text-xl text-base font-semibold text-[#7B7ED0]">
+                          <p className="md:text-xl text-base font-semibold purple_col">
                             {moment(item?.startTime).format("LT")}
                           </p>
                         </div>
@@ -236,7 +236,7 @@ export default function BattleRoyalSChedule() {
                             >
                               {/* Left Side (team1) */}
                               <div
-                                className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
+                                className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 w-[50%] ltr:border-r rtl:border-l`}
                               >
                                 <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
                                   <div className="schdule-common">
@@ -282,29 +282,29 @@ export default function BattleRoyalSChedule() {
                                       </div>
                                     )}
 
-                                    <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                                    <span className="inline-block md:text-lg text-base font-bold text-[var(--white-col)]">
                                       {team1?.participant?.team?.teamName}
                                     </span>
                                   </div>
                                 </div>
                                 <div className="flex items-center xl:gap-13 gap-4">
-                                  <p className="text-lg font-bold text-[#1DED85]">
+                                  <p className="text-lg font-bold text-[var(--green-color)]">
                                     {team1?.totalPoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
                                       {" "}
                                       {t("tournament.points")}
                                     </span>
                                   </p>
-                                  <p className="text-lg font-bold text-[#F4F7FF]">
+                                  <p className="text-lg font-bold text-[var(--white-col)]">
                                     {team1?.placePoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
                                       {" "}
                                       {t("tournament.pp")}
                                     </span>
                                   </p>
-                                  <p className="text-lg font-bold text-[#F4F7FF]">
+                                  <p className="text-lg font-bold text-[var(--white-col)]">
                                     {team1?.killPoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
                                       {" "}
                                       {t("tournament.kp")}
                                     </span>
@@ -313,7 +313,7 @@ export default function BattleRoyalSChedule() {
                               </div>
                               {/* Right Side (team2) */}
                               <div
-                                className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5  p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
+                                className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5  p-3 w-[50%] ltr:border-r rtl:border-l`}
                               >
                                 <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
                                   <div className="schdule-common-1">
@@ -359,29 +359,29 @@ export default function BattleRoyalSChedule() {
                                       </div>
                                     )}
 
-                                    <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                                    <span className="inline-block md:text-lg text-base font-bold text-[var(--white-col)]">
                                       {team2?.participant?.team?.teamName}
                                     </span>
                                   </div>
                                 </div>
                                 <div className="flex items-center lg:gap-13 gap-6">
-                                  <p className="text-lg font-bold text-[#1DED85]">
+                                  <p className="text-lg font-bold text-[var(--green-color)]">
                                     {team2?.totalPoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
                                       {" "}
                                       {t("tournament.points")}
                                     </span>
                                   </p>
-                                  <p className="text-lg font-bold text-[#F4F7FF]">
+                                  <p className="text-lg font-bold text-[var(--white-col)]">
                                     {team2?.placePoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
                                       {" "}
                                       {t("tournament.pp")}
                                     </span>
                                   </p>
-                                  <p className="text-lg font-bold text-[#F4F7FF]">
+                                  <p className="text-lg font-bold text-[var(--white-col)]">
                                     {team2?.killPoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
                                       {" "}
                                       {t("tournament.kp")}
                                     </span>
@@ -408,7 +408,7 @@ export default function BattleRoyalSChedule() {
                             >
                               {/* Left Side (team1) */}
                               <div
-                                className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 w-[50%] ltr:border-r rtl:border-l border-[rgb(40,55,66,0.4)]`}
+                                className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 w-[50%] ltr:border-r rtl:border-l`}
                               >
                                 <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
                                   <div className="schdule-common">
@@ -454,29 +454,29 @@ export default function BattleRoyalSChedule() {
                                       </div>
                                     )}
 
-                                    <span className="inline-block md:text-lg text-base font-bold text-[#F4F7FF]">
+                                    <span className="inline-block md:text-lg text-base font-bold text-[var(--white-col)]">
                                       {team1?.participant?.team?.teamName}
                                     </span>
                                   </div>
                                 </div>
                                 <div className="flex items-center xl:gap-13 gap-4">
-                                  <p className="text-lg font-bold text-[#1DED85]">
+                                  <p className="text-lg font-bold text-[var(--green-color)]">
                                     {team1?.totalPoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
                                       {" "}
                                       {t("tournament.points")}
                                     </span>
                                   </p>
-                                  <p className="text-lg font-bold text-[#F4F7FF]">
+                                  <p className="text-lg font-bold text-[var(--white-col)]">
                                     {team1?.placePoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
                                       {" "}
                                       {t("tournament.pp")}
                                     </span>
                                   </p>
-                                  <p className="text-lg font-bold text-[#F4F7FF]">
+                                  <p className="text-lg font-bold text-[var(--white-col)]">
                                     {team1?.killPoints || 0}
-                                    <span className="text-base font-semibold inline-block text-[#688992] ltr:pl-1 rtl:pr-1">
+                                    <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
                                       {" "}
                                       {t("tournament.kp")}
                                     </span>

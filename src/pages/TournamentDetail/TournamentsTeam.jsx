@@ -255,7 +255,7 @@ export default function TournamentsTeam() {
           </div>
           <button
             onClick={handleCreateTeam}
-            className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#BC5225] to-[#F49528] text-white font-semibold text-lg shadow-lg hover:scale-105 transition-transform duration-150"
+            className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#BC5225] to-[#F49528] text-[var(--pure-white)] font-semibold text-lg shadow-lg hover:scale-105 transition-transform duration-150"
           >
             {t("tourteam.create_newteam")}
           </button>
@@ -304,19 +304,19 @@ export default function TournamentsTeam() {
                       {isDataOpen && (
                         <div className="absolute team-rotate-popup top-full ltr:lg:left-10 right-0 rtl:lg:right-10 bg-[radial-gradient(100%_71.25%_at_50%_-14.46%,#2D2E6D_0%,rgba(34,35,86,0.9)_100%),radial-gradient(100%_110.56%_at_50%_-14.46%,rgba(67,109,238,0)_47.51%,rgba(67,109,238,0.25)_100%)] rounded-xl px-8 py-5 shadow-2xl flex flex-col gap-3 min-w-[16rem]">
                           <span
-                            className="text-white text-lg font-medium cursor-pointer rtl:text-start"
+                            className="text-[var(--pure-white)] text-lg font-medium cursor-pointer rtl:text-start"
                             onClick={handleEditTeam}
                           >
                             {t("tourteam.edit_team")}
                           </span>
                           <span
-                            className="text-white text-lg font-medium cursor-pointer rtl:text-start"
+                            className="text-[var(--pure-white)] text-lg font-medium cursor-pointer rtl:text-start"
                             onClick={openModal}
                           >
                             {t("tourteam.manage_roster_title")}
                           </span>
                           <span
-                            className="text-white text-lg font-medium cursor-pointer rtl:text-start"
+                            className="text-[var(--pure-white)] text-lg font-medium cursor-pointer rtl:text-start"
                             onClick={() => {
                               dispatch(setConfirmationPopUp(15));
                               dispatch(
@@ -386,11 +386,11 @@ export default function TournamentsTeam() {
                         alt=""
                       />
                       <div className="sm:space-y-3 space-y-1 w-full">
-                        <h3 className="md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
+                        <h3 className="md:text-2xl sm:text-lg text-base font-bold text-[var(--white-col)]">
                           {currentTeam?.teamName}
                         </h3>
                         <span className="flex justify-between">
-                          <h3 className="md:text-2xl sm:text-lg text-base font-bold text-[#F4F7FF]">
+                          <h3 className="md:text-2xl sm:text-lg text-base font-bold text-[var(--white-col)]">
                             {currentTeam?.teamShortName}
                           </h3>
                           <span className="self-end md:text-lg text-base font-semibold">
@@ -408,7 +408,7 @@ export default function TournamentsTeam() {
                   </div>
                   <div className="team-mange-wp px-10 flex items-center gap-4 mt-[2rem]">
                     <div className="team-mange w-[10.75rem] h-[5.75rem] md:px-5 md:py-4 p-4">
-                      <span className="text-[#7B7ED0] font-semibold text-base">
+                      <span className="purple_col font-semibold text-base">
                         {t("tourteam.members")}
                       </span>
                       <div className="flex items-center gap-3 mt-2.5">
@@ -418,7 +418,7 @@ export default function TournamentsTeam() {
                       </div>
                     </div>
                     <div className="team-mange w-[10.75rem] h-[5.75rem] md:px-5 md:py-4 p-4">
-                      <span className="text-[#7B7ED0] font-semibold text-base">
+                      <span className="purple_col font-semibold text-base">
                         {t("tourteam.region")}
                       </span>
                       <div className="flex items-center gap-3 mt-2.5">
@@ -602,7 +602,7 @@ export default function TournamentsTeam() {
                   </ul>
                   <div className="relative mt-7 team-board flex items-center justify-between max-w-[22.5rem] py-6 px-10 rounded-lg w-full mx-auto bg-[linear-gradient(180deg,rgba(48,53,72,0.4)_0%,rgba(48,53,72,0.16)_100%),linear-gradient(85.43deg,rgba(31,116,78,0.12)_3.99%,rgba(31,116,78,0)_32.05%),linear-gradient(85.43deg,rgba(188,50,37,0)_67.72%,rgba(188,50,37,0.12)_100%)] border-t border-[rgba(255,255,255,0.06)] shadow-[0px_4px_12px_0px_#090C1633]">
                     <div className="text-center">
-                      <h3 className="text-[#F4F7FF] md:text-2xl sm:text-lg text-base font-bold">
+                      <h3 className="text-[var(--white-col)] md:text-2xl sm:text-lg text-base font-bold">
                         {currentTeam?.wins || 0} {" "}
                         <span className="text-base team-win">
                           {t("tourteam.wins")}
@@ -610,7 +610,7 @@ export default function TournamentsTeam() {
                       </h3>
                     </div>
                     <div className="text-center">
-                      <h3 className="text-[#F4F7FF] md:text-2xl sm:text-lg text-base font-bold">
+                      <h3 className="text-[var(--white-col)] md:text-2xl sm:text-lg text-base font-bold">
                         {currentTeam?.losses || 0}{" "}
                         <span className="text-base team-loss">
                           {t("tourteam.losses")}
@@ -738,14 +738,14 @@ export default function TournamentsTeam() {
                   >
                     <div className="tournament-schedule-card-header-time absolute bottom-0 left-0 z-10 w-full flex items-center justify-center ">
                       <h2
-                        className="text-[0.7rem] font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative"
+                        className="text-[0.7rem] font-bold purple_light px-10 pt-1 pb-[0.35rem] relative"
                         dir="ltr"
                       >
                         {new Date(match?.createdAt).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "short",
                         })}
-                        <span className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative">
+                        <span className="inline-block purple_col  pl-2 ml-1 relative">
                           {new Date(match?.createdAt).toLocaleTimeString(
                             "en-GB",
                             {
@@ -806,7 +806,7 @@ export default function TournamentsTeam() {
                     <div className="tournament-schedule-card-wrapper relative  p-2  md:px-3 ">
                       <div className="tournament-schedule-card-header flex justify-between items-center relative gap-6 mt-4">
                         <div className="tournament-schedule-card-header-left flex items-center gap-3 md:gap-4 relative z-10">
-                          <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
+                          <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-[var(--pure-white)]">
                             {match?.teamOneScore == null ||
                               match?.teamOneScore == undefined
                               ? "-"
@@ -821,7 +821,7 @@ export default function TournamentsTeam() {
                           />
                         </div>
                         <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
-                          <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
+                          <h2 className="text-[2rem] grad_text-clip font-bold text-[var(--pure-white)] font_oswald">
                             {match?.teamTwoScore == null ||
                               match?.teamTwoScore == undefined
                               ? "-"
@@ -1013,7 +1013,7 @@ export default function TournamentsTeam() {
                                     `${game?.game?._id}-${val.id}` ? (
                                     <div className="flex justify-center items-center h-[150px]">
                                       <svg
-                                        className="animate-spin h-5 w-5 text-white mr-2"
+                                        className="animate-spin h-5 w-5 text-[var(--pure-white)] mr-2"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -1087,7 +1087,7 @@ export default function TournamentsTeam() {
                                                   >
                                                     {globalIsPresident && (
                                                       <span
-                                                        className="text-white text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
+                                                        className="text-[var(--pure-white)] text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
                                                         onClick={() => {
                                                           const targetUserId =
                                                             val.id;
@@ -1122,7 +1122,7 @@ export default function TournamentsTeam() {
                                                       val.role
                                                     ) ? (
                                                       <span
-                                                        className="text-white text-sm font-medium cursor-pointer"
+                                                        className="text-[var(--pure-white)] text-sm font-medium cursor-pointer"
                                                         onClick={() => {
                                                           const targetUserId =
                                                             val.id;
@@ -1159,7 +1159,7 @@ export default function TournamentsTeam() {
                                                       </span>
                                                     ) : (
                                                       <span
-                                                        className="text-white text-sm font-medium cursor-pointer"
+                                                        className="text-[var(--pure-white)] text-sm font-medium cursor-pointer"
                                                         onClick={() => {
                                                           const targetUserId =
                                                             val.id;
@@ -1200,7 +1200,7 @@ export default function TournamentsTeam() {
                                                       val.role
                                                     ) ? (
                                                       <span
-                                                        className="text-white text-sm font-medium cursor-pointer"
+                                                        className="text-[var(--pure-white)] text-sm font-medium cursor-pointer"
                                                         onClick={() => {
                                                           const targetUserId =
                                                             val.id;
@@ -1237,7 +1237,7 @@ export default function TournamentsTeam() {
                                                       </span>
                                                     ) : (
                                                       <span
-                                                        className="text-white text-sm font-medium cursor-pointer"
+                                                        className="text-[var(--pure-white)] text-sm font-medium cursor-pointer"
                                                         onClick={() => {
                                                           const targetUserId =
                                                             val.id;
@@ -1275,7 +1275,7 @@ export default function TournamentsTeam() {
                                                     )}
 
                                                     <span
-                                                      className="text-white text-sm font-medium  cursor-pointer"
+                                                      className="text-[var(--pure-white)] text-sm font-medium  cursor-pointer"
                                                       onClick={() => {
                                                         const targetUserId =
                                                           val.id;
@@ -1311,7 +1311,7 @@ export default function TournamentsTeam() {
 
                                                     {globalIsPresident && (
                                                       <span
-                                                        className="text-white text-sm border-t border-[#5362A9] pt-2 font-medium cursor-pointer"
+                                                        className="text-[var(--pure-white)] text-sm border-t border-[#5362A9] pt-2 font-medium cursor-pointer"
                                                         onClick={() => {
                                                           const targetUserId =
                                                             val.id;
