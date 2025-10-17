@@ -5,20 +5,29 @@ import {
   setRegistrationModal,
 } from "../../../app/slices/leagueDetail/leagueDetailSlice";
 import { getQueueText } from "../../../utils/constant";
-import { leavePartySocket, RemoveBanPlayers, stopReadyToPlaySocket } from "../../../app/socket/socket";
+import {
+  leavePartySocket,
+  RemoveBanPlayers,
+  stopReadyToPlaySocket,
+} from "../../../app/socket/socket";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { IMAGES } from "../../ui/images/images";
 import MobileEvent from "../../../hooks/mobileevents.js";
 import { useState } from "react";
 import PartyQueuePopup from "../../Overlays/LeagueDetail/PartyQueuePopup.jsx";
-import { checkBannedUser, checkBannedUser2 } from "../../../app/slices/auth/authSlice.js";
+import {
+  checkBannedUser,
+  checkBannedUser2,
+} from "../../../app/slices/auth/authSlice.js";
 
 const GetQueueButton = () => {
   const { id } = useParams();
   const { leagueData, isJoinedUser, isQueueUser, isMatchJoind, userInQueue } =
     useSelector((state) => state.leagues);
-  const { showPartyQueuePopup, partyQueueTeam } = useSelector((state) => state.constState);
+  const { showPartyQueuePopup, partyQueueTeam } = useSelector(
+    (state) => state.constState
+  );
 
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const { user, timezone } = useSelector((state) => state.auth);
@@ -45,13 +54,17 @@ const GetQueueButton = () => {
     try {
       const banCheckResult = await dispatch(checkBannedUser()).unwrap();
       if (banCheckResult?.data.banMessage) {
-        dispatch(leavePartySocket({ userId: user?._id, teamId: partyQueueTeam?.data?._id }));
+        dispatch(
+          leavePartySocket({
+            userId: user?._id,
+            teamId: partyQueueTeam?.data?._id,
+          })
+        );
         setIsCheckingBan(false);
         return;
       }
 
       if (leagueData?.format == "party queue") {
-
         const partyPlayers = partyQueueTeam?.data?.Players || [];
         if (partyPlayers.length > 0) {
           const checkPromises = partyPlayers
@@ -78,7 +91,6 @@ const GetQueueButton = () => {
           }
         }
 
-
         if (userInQueue) {
           dispatch(setQueueConfirmation(true));
         } else {
@@ -91,21 +103,24 @@ const GetQueueButton = () => {
         }
         setIsCheckingBan(false);
         return;
-      }
-
-      dispatch(setQueuePlayers(1));
-      if (userInQueue) {
-        dispatch(setQueueConfirmation(true));
       } else {
-        if (localStorage.getItem("skipQueueConfirmation")) {
-          sessionStorage.setItem("canAccessFindingMatch", "true");
-          navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
-        } else {
+        dispatch(setQueuePlayers(1));
+        if (userInQueue) {
           dispatch(setQueueConfirmation(true));
+        } else {
+          if (localStorage.getItem("skipQueueConfirmation")) {
+            sessionStorage.setItem("canAccessFindingMatch", "true");
+            navigate(`/${id}/lobby/${leagueData?._id}/finding-match`);
+          } else {
+            dispatch(setQueueConfirmation(true));
+          }
         }
       }
+
       setIsCheckingBan(false);
     } catch (error) {
+      setIsCheckingBan(false);
+    } finally {
       setIsCheckingBan(false);
     }
   };
@@ -217,11 +232,12 @@ const GetQueueButton = () => {
     } else if (isQueueUser) {
       return (
         <div
-          className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer ${(leagueData.format === "party queue" &&
-            partyQueueTeam?.data?.Creator !== user?._id)
-            ? "cursor-not-allowed opacity-50"
-            : "cursor-pointer"
-            }`}
+          className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before cursor-pointer ${
+            leagueData.format === "party queue" &&
+            partyQueueTeam?.data?.Creator !== user?._id
+              ? "cursor-not-allowed opacity-50"
+              : "cursor-pointer"
+          }`}
           onClick={() => {
             if (leagueData?.format === "party queue") {
               // Only the creator can stop the party queue socket
@@ -292,16 +308,17 @@ const GetQueueButton = () => {
       } else if (text == t("images.queue")) {
         return (
           <div
-            className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${isCheckingBan ||
+            className={`common-width mb-8 relative que_btn hover:opacity-60 duration-300 block sd_before ${
+              isCheckingBan ||
               (leagueData.format === "party queue" &&
                 partyQueueTeam?.data?.Creator !== user?._id)
-              ? "cursor-not-allowed opacity-50"
-              : "cursor-pointer"
-              }`}
+                ? "cursor-not-allowed opacity-50"
+                : "cursor-pointer"
+            }`}
             onClick={
               isCheckingBan ||
-                (leagueData.format === "party queue" &&
-                  partyQueueTeam?.data?.Creator !== user?._id)
+              (leagueData.format === "party queue" &&
+                partyQueueTeam?.data?.Creator !== user?._id)
                 ? undefined
                 : handleQueueClick
             }
