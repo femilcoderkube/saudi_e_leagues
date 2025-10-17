@@ -68,7 +68,26 @@ const TimelineCard_1 = () => {
             alt=""
           />
           <div className="split_card--con relative z-20 sm:w-[26.25rem] w-[23rem] h-full flex flex-col justify-between pb-5">
-            <div className="relative -z-1 split_card-num pt-7">
+            <div className="relative -z-1 split_card-num xl:pt-[17px] pt-7">              
+              <svg
+                className="absolute"
+                width="0"
+                height="0"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 187 64"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                aria-labelledby="title desc"
+              >
+                <defs>
+                  <clipPath id="clip-path-01" clipPathUnits="userSpaceOnUse">
+                    <path d="M0 64V12L12.4365 0H186.546V10L182.4 14V26L186.546 30V44L174.109 56H8.29102L0 64Z" />
+                  </clipPath>
+                </defs>
+                <g clipPath="url(#clip-path-01)">
+                  <rect x={0} y={0} width={187} height={64} fill="#000" />
+                </g>
+              </svg>
               <svg
                 className="absolute"
                 width="0"
@@ -89,28 +108,8 @@ const TimelineCard_1 = () => {
                   clipPath="url(#customClip)"
                 />
               </svg>
-
-              <svg
-                className="absolute"
-                width="0"
-                height="0"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 187 64"
-                preserveAspectRatio="xMidYMid meet"
-                role="img"
-                aria-labelledby="title desc"
-              >
-                <defs>
-                  <clipPath id="clip-path-01" clipPathUnits="userSpaceOnUse">
-                    <path d="M0 64V12L12.4365 0H186.546V10L182.4 14V26L186.546 30V44L174.109 56H8.29102L0 64Z" />
-                  </clipPath>
-                </defs>
-                <g clipPath="url(#clip-path-01)">
-                  <rect x={0} y={0} width={187} height={64} fill="#000" />
-                </g>
-              </svg>
               <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
-                <span className="sm:text-[7.35rem] text-[6.8rem] purple_grad-col grad_text-clip font-black">
+                <span className="xl:text-[130px] sm:text-[7.35rem] text-[6.8rem] purple_grad-col grad_text-clip font-black">
                   01
                 </span>
                 <span className="uppercase text-[var(--split-1-text)] sm:text-[2.501rem] text-2xl sm:-mt-4 -mt-2 font-black">
@@ -225,7 +224,7 @@ const TimelineCard_1 = () => {
             alt=""
           />
           <div className="split_card--con relative z-20 sm:w-[26.25rem] w-[23rem] h-full flex flex-col justify-between pb-5">
-            <div className="relative -z-1 split_card-num pt-7">
+            <div className="relative -z-1 split_card-num xl:pt-[17px] pt-7">
               <svg
                 className="absolute"
                 width="0"
@@ -247,7 +246,7 @@ const TimelineCard_1 = () => {
                 />
               </svg>
               <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
-                <span className="sm:text-[7.35rem] text-[6.8rem] purple_grad-col grad_text-clip font-black">
+                <span className="xl:text-[130px] sm:text-[7.35rem] text-[6.8rem] purple_grad-col grad_text-clip font-black">
                   02
                 </span>
                 <span className="uppercase text-[var(--split-2-text)] sm:text-[2.501rem] text-2xl -mt-4 font-black">
@@ -345,7 +344,7 @@ const TimelineCard_1 = () => {
             alt=""
           />
           <div className="split_card--con relative z-20 sm:w-[26.25rem] w-[23rem] h-full flex flex-col justify-between pb-5">
-            <div className="relative -z-1 split_card-num pt-7">
+            <div className="relative -z-1 split_card-num xl:pt-[17px] pt-7">
               <svg
                 className="absolute"
                 width="0"
@@ -367,7 +366,7 @@ const TimelineCard_1 = () => {
                 />
               </svg>
               <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
-                <span className="sm:text-[7.35rem] text-[6.8rem] purple_grad-col grad_text-clip font-black">
+                <span className="xl:text-[130px] sm:text-[7.35rem] text-[6.8rem] purple_grad-col grad_text-clip font-black">
                   03
                 </span>
                 <span className="uppercase text-[var(--split-3-text)] sm:text-[2.501rem] text-2xl -mt-4 font-black">
@@ -465,7 +464,7 @@ const TimelineCard_1 = () => {
             alt=""
           />
           <div className="split_card--con relative z-20 sm:w-[26.25rem] w-[23rem] h-full flex flex-col justify-between pb-5">
-            <div className="relative -z-1 split_card-num pt-7">
+            <div className="relative -z-1 split_card-num xl:pt-[17px] pt-7">
               <svg
                 className="absolute"
                 width="0"
@@ -487,7 +486,7 @@ const TimelineCard_1 = () => {
                 />
               </svg>
               <p className="flex items-center sm:gap-5 gap-3 ltr:sm:pl-10 ltr:pl-4 rtl:sm:pr-10 rtl:pr-4">
-                <span className="sm:text-[7.35rem] text-[6.8rem] purple_grad-col grad_text-clip font-black">
+                <span className="xl:text-[130px] sm:text-[7.35rem] text-[6.8rem] purple_grad-col grad_text-clip font-black">
                   04
                 </span>
                 <span className="uppercase text-[var(--split-4-text)] sm:text-[2.501rem] text-2xl -mt-4 font-black">

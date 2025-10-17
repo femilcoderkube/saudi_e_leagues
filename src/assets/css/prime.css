@@ -3969,6 +3969,10 @@ h6 {
     html {
         font-size: 0.833vw;
     }
+    .split_card-num{
+        width: 360px;
+        height: 128px;
+    }
 }
 
 button:focus {
@@ -6468,7 +6472,7 @@ html[dir=rtl] #tournament-tabs.sa__tournament-tabs li:first-child {
     box-shadow: 0px 2px 2px 0px rgba(184, 94, 96, 0.24) inset;
     backdrop-filter: blur(48px);
     box-shadow: 0px -2px 12px 0px rgba(255, 0, 4, 0.24) inset;
-    color: var(--pure-white);
+    
 }
 
 .card-duty-wp.main-tournament-schedule-card-wrapper {
