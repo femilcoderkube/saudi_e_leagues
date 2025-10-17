@@ -38,14 +38,14 @@ const RecentMatches = () => {
             >
               <div className="tournament-schedule-card-header-time absolute bottom-0 left-0 z-10 w-full flex items-center justify-center ">
                 <h2
-                  className="text-[0.7rem] font-bold text-[#BABDFF] px-10 pt-1 pb-[0.35rem] relative"
+                  className="text-[0.7rem] font-bold text-[var(--aside-link-col)] px-10 pt-1 pb-[0.35rem] relative"
                   dir="ltr"
                 >
                   {new Date(match.createdAt).toLocaleDateString("en-GB", {
                     day: "2-digit",
                     month: "short",
                   })}
-                  <span className="inline-block text-[#7B7ED0]  pl-2 ml-1 relative">
+                  <span className="inline-block purple_col pl-2 ml-1 relative">
                     {new Date(match.createdAt).toLocaleTimeString("en-GB", {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -112,7 +112,7 @@ const RecentMatches = () => {
                         className="w-full h-full object-cover"
                       />
                     </div> */}
-                    <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-white">
+                    <h2 className="text-[2rem] grad_text-clip font-bold font_oswald text-[var(--dark-color)]">
                       {match?.teamOneScore == null ||
                       match?.teamOneScore == undefined
                         ? "-"
@@ -127,7 +127,7 @@ const RecentMatches = () => {
                     />
                   </div>
                   <div className="tournament-schedule-card-header-right flex items-center gap-4 relative z-10">
-                    <h2 className="text-[2rem] grad_text-clip font-bold text-white font_oswald">
+                    <h2 className="text-[2rem] grad_text-clip font-bold text-[var(--dark-color)] font_oswald">
                       {match?.teamTwoScore == null ||
                       match?.teamTwoScore == undefined
                         ? "-"

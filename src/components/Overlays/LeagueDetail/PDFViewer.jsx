@@ -101,7 +101,7 @@ function PDFViewer({ onClose }) {
         {/* Close button - Fixed position */}
         <button
           onClick={onClose}
-          className="fixed top-3 right-4 text-gray-300 hover:text-white transform hover:rotate-90 hover:scale-110 transition-all duration-200 z-10"
+          className="fixed top-3 right-4 text-gray-300 hover:text-[var(--pure-white)] transform hover:rotate-90 hover:scale-110 transition-all duration-200 z-10"
           aria-label="Close modal"
         >
           <svg
@@ -131,7 +131,7 @@ function PDFViewer({ onClose }) {
             onLoadError={onDocumentLoadError}
             className="w-full rounded-lg scroll-hide"
             loading={
-              <div className="text-white text-lg animate-pulse">
+              <div className="text-[var(--pure-white)] text-lg animate-pulse">
                 {t("common.loading_pdf")}
               </div>
             }

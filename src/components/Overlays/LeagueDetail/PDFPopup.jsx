@@ -17,7 +17,7 @@ function PDFPopup() {
       <div className="sd_rules--btn md:mb-10 mb-6 md:order-1 order-2">
         <button
           onClick={handleOpen}
-          className="timeline-card__header w-full md:mt-1 flex items-center gap-3 rounded-xl cursor-pointer relative sd_before sd_after px-4 py-[1.4rem] bg-white hover:bg-gray-100 transition-colors"
+          className="timeline-card__header w-full md:mt-1 flex items-center gap-3 rounded-xl cursor-pointer relative sd_before sd_after px-4 py-[1.4rem] transition-colors"
         >
           <img
             src={IMAGES.rules_icon}

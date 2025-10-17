@@ -47,13 +47,13 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`w-[22.5rem] text-white ${
+      className={`w-[22.5rem] text-[var(--dark-color)] ${
         resetpassword ? "hidden" : "hidden md:block"
       }`}
     >
       <Link
         to={"/"}
-        className="sd_logo flex items-center h-[7.438rem] ltr:justify-start rtl:justify-end rtl:pl-45 bg-[url(./assets/images/logo-background.svg)] bg-cover bg-no-repeat object-center"
+        className="sd_logo flex items-center h-[7.438rem] ltr:justify-start rtl:justify-end rtl:pl-45 bg-cover bg-no-repeat object-center"
       >
         <img
           src={IMAGES.asideLogo_rtl}

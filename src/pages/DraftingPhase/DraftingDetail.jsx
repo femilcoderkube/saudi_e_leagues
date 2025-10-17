@@ -124,7 +124,7 @@ const DraftingDetail = () => {
   return (
     <main className="flex-1 tournament_page--wrapper pb-[5.25rem] sm:pb-0">
       {validationMessage && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg">
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-red-500 text-[var(--pure-white)] px-6 py-3 rounded-lg shadow-lg">
           <p className="font-semibold">{validationMessage}</p>
         </div>
       )}
@@ -155,7 +155,7 @@ const DraftingDetail = () => {
                   <p className="text-2xl font_oswald font-bold uppercase yellow_grad-bg grad_text-clip">
                     {t("drafting.draft_not_started")}
                   </p>
-                  <p className="text-white mt-1">
+                  <p className="text-[var(--pure-white)] mt-1">
                     {t("drafting.draft_will_begin")}
                     {moment(draftData.startTime)
                       .local()

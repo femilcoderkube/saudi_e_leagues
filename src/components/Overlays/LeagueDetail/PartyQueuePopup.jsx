@@ -128,8 +128,7 @@ function PartyQueuePopup() {
             <input
               type="text"
               placeholder={t("league.search_players")}
-              className="w-full p-3 rounded-lg bg-[radial-gradient(circle,rgba(45,46,109,0.8)_0%,rgba(34,35,86,0.8)_100%)] 
-            shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset] text-[var(--pure-white)] focus:outline-none mb-2"
+              className="search-input w-full p-3 rounded-lg text-[var(--pure-white)] focus:outline-none mb-2"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -142,7 +141,7 @@ function PartyQueuePopup() {
                 <h3 className="text-lg font-medium text-[var(--pure-white)] mb-3">
                   {t("league.recent_invites")}
                 </h3>
-                <div className="space-y-3 custom_scroll overflow-y-auto max-h-[20rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
+                <div className="custom-player space-y-3 custom_scroll overflow-y-auto max-h-[20rem] rounded-xl p-4">
                   {leagueRecentInvites.map((inv, index) => (
                     <div
                       key={index}
@@ -188,7 +187,7 @@ function PartyQueuePopup() {
                       </div>
                       <div>
                         <button
-                          className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer"
+                          className="party-btn ml-2 px-4 py-2 text-sm rounded purple_col cursor-pointer"
                           onClick={() =>
                             handleInvite({
                               value: inv.userId,
@@ -211,7 +210,7 @@ function PartyQueuePopup() {
               {maxPlayers})
             </h3>
             <div
-              className="space-y-3 custom_scroll overflow-y-auto max-h-[38rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]"
+              className="custom-player space-y-3 custom_scroll overflow-y-auto max-h-[38rem] rounded-xl p-4"
               ref={scrollContainerRef}
             >
               {displayedPlayers.length > 0 ? (
@@ -262,7 +261,7 @@ function PartyQueuePopup() {
                     </div>
                     <div>
                       <button
-                        className="party-btn ml-2 px-4 py-2 text-sm bg-[linear-gradient(180deg,rgba(94,95,184,0.32)_0%,rgba(34,35,86,0.32)_166.67%)] shadow-[inset_0px_2px_2px_0px_#5E5FB81F] backdrop-blur-[12px] rounded text-[#7B7ED0] cursor-pointer"
+                        className="party-btn ml-2 px-4 py-2 text-sm rounded purple_col cursor-pointer"
                         onClick={() =>
                           handleInvite({
                             value: player?.userId?._id,
