@@ -28,7 +28,7 @@ function VideoPlayer({ onClose }) {
     <AnimatePresence>
       <motion.div
         key="modal-backdrop"
-        className="fixed inset-0 flex items-center justify-center z-[999] m-0 bg-black/70"
+        className="fixed inset-0 flex items-center justify-center z-[999] m-0 bg-[var(--black-color)]/70"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -37,7 +37,7 @@ function VideoPlayer({ onClose }) {
       >
         <motion.div
           key="modal-content"
-          className="bg-[#121331] rounded-2xl p-2 md:p-6 w-[90dvh] md:w-[70dvh] h-[50%] relative overflow-hidden shadow-2xl flex flex-col items-center justify-center"
+          className="bg-[var(--video-bg)] rounded-2xl p-2 md:p-6 w-[90dvh] md:w-[70dvh] h-[50%] relative overflow-hidden shadow-2xl flex flex-col items-center justify-center"
           initial={{ scale: 0.5, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
@@ -47,7 +47,7 @@ function VideoPlayer({ onClose }) {
           {/* Close button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 text-gray-300 hover:text-white transform hover:rotate-90 hover:scale-110 transition-all duration-200 z-11"
+            className="absolute top-4 right-4 text-gray-300 hover:text-[var(--dark-color)] transform hover:rotate-90 hover:scale-110 transition-all duration-200 z-11"
             aria-label="Close modal"
           >
             <svg
@@ -79,7 +79,7 @@ function VideoPlayer({ onClose }) {
                     src={IMAGES.center_league}
                     alt="Loading..."
                   />
-                  <p className="text-white text-lg mt-4 animate-pulse">
+                  <p className="text-[var(--dark-color)] text-lg mt-4 animate-pulse">
                     {t("common.loading_video") || "Loading video..."}
                   </p>
                 </div>

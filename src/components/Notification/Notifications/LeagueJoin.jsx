@@ -25,7 +25,7 @@ const LeagueJoin = ({ data }) => {
     i18n.dir() === "rtl" ? "rtl" : ""
   }`}>
         <div className="notification-box-rotate h-[19rem] flex flex-col justify-between">
-          <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
+          <div className="notification-box-head-wp flex justify-between p-5 border-b border-[var(--notification-border)]">
             <div className="notification-box-head flex items-center gap-4 pt-2">
               <img
                 src={notificationData.image}

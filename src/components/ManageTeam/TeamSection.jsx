@@ -17,7 +17,7 @@ const TeamSection = ({
   return (
     <div className="mb-4">
       {data && data?.length > 0 ? (
-        <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-3.5 py-3 space-y-4">
+        <div className="bg-[var(--team-model-blue)] border border-[var(--team-model-border)] rounded-lg px-3.5 py-3 space-y-4">
           {data?.map((item, idx) => (
             <div key={idx} className="flex items-center justify-between">
               <div className="flex items-center justify-between gap-3 w-full">
@@ -37,11 +37,11 @@ const TeamSection = ({
                     />
                   </span>
                   <div className="flex items-center flex-wrap sm:gap-6 gap-1">
-                    <p className="text-[#F4F7FF] sm:text-xl text-base !font-bold leading-none">
+                    <p className="text-[var(--white-col)] sm:text-xl text-base !font-bold leading-none">
                       {item?.name || item?.username || "-"}
                     </p>
                     {item.gameId && (
-                      <p className="text-md text-[#8598F6] font-medium leading-none">
+                      <p className="text-md text-[var(--team-player-text)] font-medium leading-none">
                         {item?.gameId || "-"}
                       </p>
                     )}
@@ -62,7 +62,7 @@ const TeamSection = ({
           ))}
         </div>
       ) : (
-        <div className="bg-[#05042C] border border-[#393B7A] rounded-lg px-4 py-2.5 text-center text-[#7B7ED0] text-sm font-medium">
+        <div className="bg-[var(--team-model-blue)] border border-[var(--team-model-border)] rounded-lg px-4 py-2.5 text-center purple_col text-sm font-medium">
           {t(noDataMessage)}
         </div>
       )}

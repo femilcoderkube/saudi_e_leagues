@@ -15,10 +15,10 @@ const CustomCheckbox = ({ checked, onChange, ariaLabel }) => {
         aria-hidden="true"
       />
       <span
-        className={`w-[30px] h-[30px] shrink-0 rounded-[10px] transition-all duration-200 border border-[#51549B] flex items-center justify-center ${
+        className={`w-[30px] h-[30px] shrink-0 rounded-[10px] transition-all duration-200 border border-[var(--checkbox-border)] flex items-center justify-center ${
           checked
             ? "bg-[linear-gradient(55.02deg,#434BE9_-10.01%,#46B5F9_107.56%)]"
-            : "bg-[#D9D9D91A]"
+            : "bg-[var(--checkbox-bg)]"
         }`}
       >
         {checked && (
