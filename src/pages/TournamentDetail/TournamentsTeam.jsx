@@ -246,10 +246,10 @@ export default function TournamentsTeam() {
       ) : error?.status || !currentTeam ? (
         <div className="flex flex-col items-center justify-center min-h-[60vh] w-full">
           <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-[#6368B5] mb-2">
+            <h2 className="text-2xl font-bold text-[var(--shade-blue-purple)] mb-2">
               {t("tourteam.no_team_title")}
             </h2>
-            <p className="text-base text-[#8492B4]">
+            <p className="text-base text-[var(--grayish-blue)]">
               {t("tourteam.no_team_desc")}
             </p>
           </div>
@@ -1087,7 +1087,7 @@ export default function TournamentsTeam() {
                                                   >
                                                     {globalIsPresident && (
                                                       <span
-                                                        className="text-[var(--pure-white)] text-sm font-medium border-b border-[#5362A9] pb-2 cursor-pointer"
+                                                        className="text-[var(--pure-white)] text-sm font-medium border-b border-[var(--presedent-border)] pb-2 cursor-pointer"
                                                         onClick={() => {
                                                           const targetUserId =
                                                             val.id;
@@ -1311,7 +1311,7 @@ export default function TournamentsTeam() {
 
                                                     {globalIsPresident && (
                                                       <span
-                                                        className="text-[var(--pure-white)] text-sm border-t border-[#5362A9] pt-2 font-medium cursor-pointer"
+                                                        className="text-[var(--pure-white)] text-sm border-t border-[var(--presedent-border)] pt-2 font-medium cursor-pointer"
                                                         onClick={() => {
                                                           const targetUserId =
                                                             val.id;
@@ -1354,13 +1354,13 @@ export default function TournamentsTeam() {
                                           <h6 className="text-center text-lg !font-bold">
                                             {displayName}
                                           </h6>
-                                          <p className="text-center mt-3 text-[#8492B4] text-base font-semibold h-[24px] overflow-hidden">
+                                          <p className="text-center mt-3 text-[var(--grayish-blue)] text-base font-semibold h-[24px] overflow-hidden">
                                             {val.gameId || "No Game ID"}
                                           </p>
                                         </div>
                                       </div>
-                                      <div className="flex justify-between items-center border-t-[1px] border-[#5E73B880] px-7 py-[9.5px] mb-2">
-                                        <p className="text-[#6368B5] text-base font-semibold">
+                                      <div className="flex justify-between items-center border-t-[1px] border-[var(--team-valorant-border)] px-7 py-[9.5px] mb-2">
+                                        <p className="text-[var(--shade-blue-purple)] text-base font-semibold">
                                           {val?.role || "Member"}
                                         </p>
                                         {val?.gender === "Male" ? (
@@ -1386,7 +1386,7 @@ export default function TournamentsTeam() {
                             );
                           })
                         ) : (
-                          <p className="text-[#8492B4] text-base">
+                          <p className="text-[var(--grayish-blue)] text-base">
                             No users found for {game.game.name}.
                           </p>
                         )}
@@ -1395,7 +1395,7 @@ export default function TournamentsTeam() {
                   );
                 })
               ) : (
-                <p className="text-[#8492B4] text-base">No games found.</p>
+                <p className="text-[var(--grayish-blue)] text-base">No games found.</p>
               )}
             </div>
 
