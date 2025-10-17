@@ -117,7 +117,7 @@ const VerifiyOTPModel = ({ module }) => {
                 maxLength="1"
                 value={digit}
                 onChange={(e) => handleOtpChange(index, e.target.value)}
-                className="sd_custom-input otp-input w-12 h-12 text-center text-lg purple_col bg-[#1a1a3d] border-none focus:outline-0 focus:shadow-none"
+                className="sd_custom-input otp-input w-12 h-12 text-center text-lg purple_col border-none focus:outline-0 focus:shadow-none"
               />
               {/* Hidden SVG for clipPath styling */}
               <svg

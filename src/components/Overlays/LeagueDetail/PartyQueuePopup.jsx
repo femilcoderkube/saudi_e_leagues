@@ -90,7 +90,7 @@ function PartyQueuePopup() {
 
   return (
     <>
-      <div className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-40"></div>
+      <div className="fixed popup-overlay inset-0 bg-opacity-50 z-40"></div>
       <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full">
         {/* popup */}
         <motion.div
@@ -98,7 +98,7 @@ function PartyQueuePopup() {
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.5, opacity: 0, y: 50 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="bg-[#121331] manage-popup match_reg--popup sd_before sd_after text-white rounded-xl w-full max-w-xl relative max-h-[90vh] !h-auto py-[3rem] overflow-x-hidden sm:p-6 px-4"
+          className="manage-popup match_reg--popup sd_before sd_after text-[var(--pure-white)] rounded-xl w-full max-w-xl relative max-h-[90vh] !h-auto py-[3rem] overflow-x-hidden sm:p-6 px-4"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
@@ -114,7 +114,7 @@ function PartyQueuePopup() {
             <h2 className="text-xl font-bold">{t("league.invite_players")}</h2>
             <button
               type="button"
-              className="absolute ltr:right-2 rtl:left-3 text-gray-300 hover:text-white cursor-pointer"
+              className="absolute ltr:right-2 rtl:left-3 text-gray-300 hover:text-[var(--pure-white)] cursor-pointer"
               onClick={handleClosePopup}
             >
               <svg width="18" height="18" fill="none" stroke="#7B7ED0">
@@ -129,7 +129,7 @@ function PartyQueuePopup() {
               type="text"
               placeholder={t("league.search_players")}
               className="w-full p-3 rounded-lg bg-[radial-gradient(circle,rgba(45,46,109,0.8)_0%,rgba(34,35,86,0.8)_100%)] 
-            shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset] text-white focus:outline-none mb-2"
+            shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset] text-[var(--pure-white)] focus:outline-none mb-2"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -139,7 +139,7 @@ function PartyQueuePopup() {
           <div className="flex-1 overflow-y-auto custom_scroll mb-3">
             {leagueRecentInvites?.length > 0 && (
               <div className="mb-6">
-                <h3 className="text-lg font-medium text-white mb-3">
+                <h3 className="text-lg font-medium text-[var(--pure-white)] mb-3">
                   {t("league.recent_invites")}
                 </h3>
                 <div className="space-y-3 custom_scroll overflow-y-auto max-h-[20rem] rounded-xl p-4 shadow-[0_4px_24px_0_rgba(34,35,86,0.25),_0_1.5px_6px_0_rgba(94,95,184,0.10)_inset]">
@@ -176,7 +176,7 @@ function PartyQueuePopup() {
                           </>
                         )}
                         <div className="text-left">
-                          {/* <p className="text-sm font-medium text-white truncate w-full">
+                          {/* <p className="text-sm font-medium text-[var(--pure-white)] truncate w-full">
                             {inv.label || inv.username}
                           </p> */}
                           {inv.username && (
@@ -206,7 +206,7 @@ function PartyQueuePopup() {
                 </div>
               </div>
             )}
-            <h3 className="text-lg font-medium text-white mb-5">
+            <h3 className="text-lg font-medium text-[var(--pure-white)] mb-5">
               {t("league.players")} ({partyQueueTeam?.data?.Players?.length}/
               {maxPlayers})
             </h3>
@@ -252,7 +252,7 @@ function PartyQueuePopup() {
                         </>
                       )}
                       <div className="text-left">
-                        {/* <p className="text-sm font-medium text-white truncate w-full">
+                        {/* <p className="text-sm font-medium text-[var(--pure-white)] truncate w-full">
                             {player.userId.firstName} {player.userId.lastName}
                           </p> */}
                         <p className="text-md text-gray-400 truncate">
@@ -293,7 +293,7 @@ function PartyQueuePopup() {
               {filteredPlayers.length > displayedPlayers.length && (
                 <div className="flex justify-center ">
                   <button
-                    className="px-8 text-white font-semibold rounded-lg transition-all  hover:opacity-80 cursor-pointer"
+                    className="px-8 text-[var(--pure-white)] font-semibold rounded-lg transition-all  hover:opacity-80 cursor-pointer"
                     onClick={handleLoadMore}
                   >
                     {t("lobby.load_more")}

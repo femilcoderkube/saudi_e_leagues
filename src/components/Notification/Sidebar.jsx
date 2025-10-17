@@ -90,14 +90,14 @@ const NotificationSidebar = () => {
 
   return (
     <div
-      className="fixed popup-overlay inset-0 bg-black bg-opacity-50 z-101"
+      className="fixed popup-overlay inset-0 bg-opacity-50 z-101"
       onClick={handleClose}
     >
       <div
-        className={`notification-sidebar w-[25.6rem] h-full text-white fixed ltr:right-0 rtl:left-0 top-0 ${animationClass}`}
+        className={`notification-sidebar w-[25.6rem] h-full text-[var(--pure-white)] fixed ltr:right-0 rtl:left-0 top-0 ${animationClass}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="notification-head-wp fixed t-0 z-101 w-full bg-[#0d0f3b] px-5 pt-9">
+        <div className="notification-head-wp fixed t-0 z-101 w-full px-5 pt-9">
           <div
             className="notification-head flex items-center gap-5"
             onClick={handleClose}

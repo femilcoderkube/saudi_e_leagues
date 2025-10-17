@@ -111,7 +111,7 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
   if (loading) {
     return (
       <div className="fixed inset-0 flex justify-center items-center z-50 h-full w-full p-4">
-        <div className="text-white">Loading team data...</div>
+        <div className="text-[var(--pure-white)]">Loading team data...</div>
       </div>
     );
   }
@@ -126,7 +126,7 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.5, opacity: 0, y: 50 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="bg-gradient-to-br from-[#5e5e69] via-[#151642] to-[#0f0f2a] manage-popup match_reg--popup !h-auto sd_before sd_after text-white rounded-2xl w-full max-w-2xl relative max-h-[85vh] py-8 overflow-x-hidden px-6 overflow-y-auto custom_scroll shadow-2xl shadow-black/50"
+            className="manage-popup match_reg--popup !h-auto sd_before sd_after text-[var(--pure-white)] rounded-2xl w-full max-w-2xl relative max-h-[85vh] py-8 overflow-x-hidden px-6 overflow-y-auto custom_scroll shadow-2xl shadow-black/50"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             <style jsx="true">{`
@@ -136,7 +136,7 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
             `}</style>
             {/* Modal Header */}
             <div className="flex items-center justify-center mb-5 relative">
-              <h2 className="text-2xl font-bold text-center text-white mb-2">
+              <h2 className="text-2xl font-bold text-center text-[var(--pure-white)] mb-2">
                 {t("tournament.viewteam")}
               </h2>
               <button
@@ -155,17 +155,17 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
             <div className="mb-4">
               <div className="flex items-center justify-between mb-1">
                 <div>
-                  <span className="font-bold text-white text-xl mb-1.5 block">
+                  <span className="font-bold text-[var(--pure-white)] text-xl mb-1.5 block">
                     {t("tournament.manager_title")}{" "}
-                    <span className="text-base font-normal text-white">
+                    <span className="text-base font-normal text-[var(--pure-white)]">
                       {t("tournament.manager_max")}
                     </span>
                   </span>
-                  <p className="block text-sm text-white mb-2">
+                  <p className="block text-sm text-[var(--pure-white)] mb-2">
                     {t("tournament.manager_description")}
                   </p>
                 </div>
-                <span className="text-base font-normal text-[#6A71E8]">
+                <span className="text-base font-normal text-[var(--team-model-text)]">
                   {t("tournament.manager_optional")}
                 </span>
               </div>
@@ -183,17 +183,17 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
             <div className="mb-4">
               <div className="flex items-center justify-between mb-1">
                 <div>
-                  <span className="font-bold text-white text-xl mb-1.5 block">
+                  <span className="font-bold text-[var(--pure-white)] text-xl mb-1.5 block">
                     {t("tournament.coach_title")}{" "}
-                    <span className="text-base font-normal text-white">
+                    <span className="text-base font-normal text-[var(--pure-white)]">
                       {t("tournament.coach_max")}
                     </span>
                   </span>
-                  <p className="block text-sm text-white mb-2">
+                  <p className="block text-sm text-[var(--pure-white)] mb-2">
                     {t("tournament.coach_description")}
                   </p>
                 </div>
-                <span className="text-base font-normal text-[#6A71E8]">
+                <span className="text-base font-normal text-[var(--team-model-text)]">
                   {t("tournament.coach_optional")}
                 </span>
               </div>
@@ -211,20 +211,20 @@ const ViewTeamModal = ({ isOpen, onClose }) => {
             <div className="mb-4">
               <div className="flex items-center justify-between mb-1">
                 <div>
-                  <span className="font-bold text-white text-xl mb-1.5 block">
+                  <span className="font-bold text-[var(--pure-white)] text-xl mb-1.5 block">
                     {t("tournament.players_title")}
-                    <span className="text-base font-normal text-white ml-1">
+                    <span className="text-base font-normal text-[var(--pure-white)] ml-1">
                       {t("tournament.players_min_max", {
                         min: tournamentData?.minPlayersPerTeam,
                         max: tournamentData?.maxPlayersPerTeam,
                       })}
                     </span>
                   </span>
-                  <p className="block text-sm text-white mb-2">
+                  <p className="block text-sm text-[var(--pure-white)] mb-2">
                     {t("tournament.players_description")}
                   </p>
                 </div>
-                <span className="text-base font-normal text-[#6A71E8]">
+                <span className="text-base font-normal text-[var(--team-model-text)]">
                   {t("tournament.players_required")}
                 </span>
               </div>

@@ -9,9 +9,18 @@
     --light-purple: #7b7ed047;
     --very-light-purple: #9E9ECC;
     --dark-purple: #2A2F64;
+    --checkbox-border:#51549B;
+    --checkbox-bg:#D9D9D91A;
+    --checkbox-gradient: linear-gradient(55.02deg, #434BE9 -10.01%, #46B5F9 107.56%);
+    --copy-btn-gradient: linear-gradient(59.17deg, #434BE9 22.83%, #46B5F9 151.01%);
+    --team-model-blue:#05042C;
+    --team-model-border:#393B7A;    
+    --team-model-text:#6A71E8;
+    --team-player-text:#8598F6;
     --aside-link-col: #babdff;
     --sky-col: #3eccf3;
     --light-blue: #87C9F2;
+    --very-light-blue:#46ABF8;
     --red-color:#FA4768;
     --gray-color:#767679;
     --split-1-text: #B0D0F1;
@@ -19,7 +28,7 @@
     --split-3-text: #F1D3B0;
     --split-4-text: #F1B0BB;
     --text-secondary: #C0DEFF;
-    --spark-icon-gradient: #D8DAFF;
+    --spark-icon-gradient: #D8DAFF;    
     --border-color: #ffffff1f;
     --date-line-bg: #C0DEFF;
     --text-size-16: 16px;
@@ -36,6 +45,7 @@
     --add-button-bg: linear-gradient(180deg, rgba(33, 36, 92, 0.7) 0%, rgba(17, 18, 60, 0.7) 100%);
     --add-button-shadow: inset 0px 4px 4px 0px rgba(84, 114, 136, 0.0392156863);
     --add-button-blur: blur(24px);
+    --notification-border:#262968;
 }
 
 @font-face {
@@ -4053,6 +4063,10 @@ html[lang="en"][dir="rtl"] .font_oswald {
 
 .red_color{
     color: var(--red-color);
+}
+
+.copy-btn{
+    background: var(--copy-btn-gradient);
 }
 
 .dropdown-item:hover{

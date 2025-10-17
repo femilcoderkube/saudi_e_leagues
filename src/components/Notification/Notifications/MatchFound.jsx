@@ -65,7 +65,7 @@ const MatchFound = ({ data }) => {
     <div className="notification-box-wp relative polygon_border sd_before sd_after">
       <div className="notification-box">
         <div className="notification-box-rotate">
-          <div className="notification-box-head-wp flex justify-between p-5 border-b border-[#262968]">
+          <div className="notification-box-head-wp flex justify-between p-5 border-b border-[var(--notification-border)]">
             <div className="notification-box-head flex items-center gap-4">
               <img
                 src={notificationData.image || IMAGES.defaultImg}

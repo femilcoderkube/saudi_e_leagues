@@ -174,14 +174,14 @@ const LeagueRegistration = () => {
                                   type={field.fieldType}
                                   id={field.fieldName}
                                   name={field.fieldName}
-                                  className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] rtl:mr-2 sm:block hidden"
+                                  className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none purple_col rtl:mr-2 sm:block hidden"
                                   placeholder={field.fieldName}
                                 />
                                 <Field
                                   type={field.fieldType}
                                   id={field.fieldName}
                                   name={field.fieldName}
-                                  className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none text-[#7B7ED0] rtl:mr-2 block sm:hidden"
+                                  className="sd_custom-input px-4 text-xl focus:outline-0 focus:shadow-none leading-none purple_col rtl:mr-2 block sm:hidden"
                                   placeholder="Input ID"
                                 />
                                 <div className="text-start px-7">
@@ -237,7 +237,7 @@ const LeagueRegistration = () => {
                               className="flex gap-4 items-center h-10 px-2 rounded cursor-pointer"
                               htmlFor={`check-${field._id}`}
                             >
-                              <span className="checkbox-inner flex items-center justify-center w-[2rem] h-[2rem] text-transparent rounded-sm bg-[#09092d]"></span>
+                              <span className="checkbox-inner flex items-center justify-center w-[2rem] h-[2rem] text-transparent rounded-sm bg-[var(--very-dark-blue)]"></span>
                               <div className="text-base flex-[1]">
                                 <span
                                   className="purple_light sm:block hidden"
@@ -246,7 +246,7 @@ const LeagueRegistration = () => {
                                   }}
                                 />                              
                                 <span className="purple_light block sm:hidden text-sm">By Registering a Match I agree
-                                to <span className="break-text"> <a className="text-[#46ABF8] underline font-semibold" href="">Terms and Conditions</a> and <a className="text-[#46ABF8] underline font-semibold" href="">Privacy Policy</a></span></span>
+                                to <span className="break-text"> <a className="text-[var(--very-light-blue)] underline font-semibold" href="">Terms and Conditions</a> and <a className="text-[var(--very-light-blue)] underline font-semibold" href="">Privacy Policy</a></span></span>
                               </div>
                             </label>
                           </div>
@@ -307,7 +307,7 @@ const LeagueRegistration = () => {
                             ? t("auth.submit")
                             : t("auth.registration")}
                             </span>
-                            <span className="block sm:hidden text-[#7B7ED0] font-bold">Input ID</span>
+                            <span className="block sm:hidden purple_col font-bold">Input ID</span>
                         </button>
                         <Popup_btn />
                       </div>
