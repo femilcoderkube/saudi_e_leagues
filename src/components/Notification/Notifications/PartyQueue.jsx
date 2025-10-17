@@ -70,13 +70,11 @@ const PartyQueue = ({ data }) => {
   const buttonText = isExpired ? t("Expired") : notificationData.buttonText;
 
   const handleAcceptInvite = async () => {
-    if (isExpired) {
-      return;
-    }
+    if (isExpired) return;
 
-    const banCheckResult = await dispatch(checkBannedUser());
-    if (banCheckResult?.error?.message) {
-      dispatch(logout())
+    const banCheckResult = await dispatch(checkBannedUser()).unwrap();    
+    if (banCheckResult?.data?.banMessage) {
+      dispatch(logout());
       dispatch(setshowNotification(false));
       navigate(`/${id}/`);
       return;

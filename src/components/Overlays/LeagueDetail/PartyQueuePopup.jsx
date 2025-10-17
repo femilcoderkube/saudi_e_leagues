@@ -66,26 +66,26 @@ function PartyQueuePopup() {
   const handleInvite = async (option) => {
     if (!option) return;
 
-    const banCheckResult = await dispatch(checkBannedUser());
-    if (banCheckResult?.error?.message) {
+    const banCheckResult = await dispatch(checkBannedUser()).unwrap();    
+    if (banCheckResult?.data?.banMessage) {
       dispatch(logout())
       dispatch(setShowPartyQueuePopup(false));
       navigate(`/${id}/`);
-      return;
+    } else {
+      dispatch(
+        sendInvite({
+          userId: option.value,
+          name: user.username,
+          leagueName: leagueData?.title,
+          teamId: partyQueueTeam?.data._id,
+          leagueId: leagueData?._id,
+          username: option.username,
+          avatar: option.avatar,
+        })
+      );
+      toast.success(`${option.username} invited`);
     }
 
-    dispatch(
-      sendInvite({
-        userId: option.value,
-        name: user.username,
-        leagueName: leagueData?.title,
-        teamId: partyQueueTeam?.data._id,
-        leagueId: leagueData?._id,
-        username: option.username,
-        avatar: option.avatar,
-      })
-    );
-    toast.success(`${option.username} invited`);
   };
 
   return (
