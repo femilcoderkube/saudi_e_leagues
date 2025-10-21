@@ -45,6 +45,7 @@ axiosInstance.interceptors.request.use(
       try {
         const encryptedData = cryptoUtils.encrypt(config.data);
         config.data = { encryptedData };
+        config.headers["X-Encrypted"] = "true";
       } catch (error) {
         console.error("Failed to encrypt request data:", error);
       }

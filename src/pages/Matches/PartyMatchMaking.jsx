@@ -58,7 +58,7 @@ const PartyMatchMaking = () => {
 
     if (isSocketConnected && user?._id) {
       startLeagueSocket({ lId, user, isSocketConnected });
-      // startGetQueuePlayers();
+      startGetQueuePlayers();
       startReadyToPlayWithPartySocket({ lId, user, teamId, isSocketConnected });
     }
   }, [isSocketConnected, lId, teamId, user._id]);
