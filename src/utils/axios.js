@@ -13,7 +13,6 @@ const axiosInstance = axios.create({
   baseURL: `${baseURL}/api/v1`,
   headers: {
     "Content-Type": "application/json",
-    ...(encryptionEnabled && { "X-Encrypt-Response": "true" }),
   },
 });
 
@@ -46,8 +45,6 @@ axiosInstance.interceptors.request.use(
       try {
         const encryptedData = cryptoUtils.encrypt(config.data);
         config.data = { encryptedData };
-        config.headers["X-Encrypted"] = "true";
-        config.headers["X-Encryption-Method"] = "AES-256-CBC";
       } catch (error) {
         console.error("Failed to encrypt request data:", error);
       }

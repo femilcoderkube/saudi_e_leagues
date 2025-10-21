@@ -27,12 +27,13 @@ export const addScore = createAsyncThunk(
     try {
       const response = await axiosInstance.post(
         `/TournamentMatch/add-score-team`,
-        data,
-        {
-          headers: {
-            " x-encrypt-response": false,
-          },
-        }
+        data
+        ,
+        // {
+        //   headers: {
+        //     " x-encrypt-response": false,
+        //   },
+        // }
       );
       return response.data.data;
     } catch (error) {
