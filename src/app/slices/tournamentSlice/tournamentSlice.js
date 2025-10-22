@@ -260,6 +260,8 @@ const tournamentSlice = createSlice({
         state.error = null;
 
         const { stageType, data } = action.payload.data;
+
+        console.log("stage data , data0", data )
         if (stageType === stageTypes.BattleRoyal) {
           state.battleRoyalGroup = data?.matcheData?.participantList || [];
           state.battleRoyalSchedule = data?.matcheData?.groupedByDate || {};

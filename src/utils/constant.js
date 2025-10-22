@@ -459,6 +459,8 @@ export const checkIsCurrentCaptainTurn = (
 export const getPopupData = async () => {
   try {
     const response = await axiosInstance.get("/Popup");
+
+    // console.log(response.data,"asdasdsadsad")
     return response.data;
   } catch (error) {
     console.error("Error fetching popup data:", error);

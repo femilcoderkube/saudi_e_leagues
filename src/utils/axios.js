@@ -3,11 +3,22 @@ import { logout } from "../app/slices/auth/authSlice";
 import i18n from "../i18n";
 import { generateToken } from "../Services/Security";
 import cryptoUtils from "./cryptoUtils";
+import b from "./xtoken";
 
 export const baseURL = import.meta.env.VITE_API_BASE_URL;
 const secret = import.meta.env.VITE_SECRET_KEY;
 export const inviteUrl = import.meta.env.VITE_INVITE_LINK;
 const encryptionEnabled = import.meta.env.VITE_ENCRYPTION_STATUS;
+
+
+
+
+// --- How to use it ---
+// const myKey = a();
+// console.log(myKey);
+// Output: "0kob1_(6#hooH$-vt<fbQz>psZD4gS"
+
+
 
 const axiosInstance = axios.create({
   baseURL: `${baseURL}/api/v1`,
@@ -23,14 +34,17 @@ export const setAxiosStore = (storeInstance) => {
 
 axiosInstance.interceptors.request.use(
   async (config) => {
+    let h =b()
     const token = localStorage.getItem("token");
-    const payload = { data: "SecurityPayload", time: Date.now() };
+    const payload = {timestamp : h.timestamp , nonce : h.nonce};
 
     if (secret) {
       let secrets = await generateToken(secret, payload);
       config.headers["X-Auth-Token"] = secrets;
     }
-
+    if(h){
+      config.headers['X-Token'] = h.hash;
+    }
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
