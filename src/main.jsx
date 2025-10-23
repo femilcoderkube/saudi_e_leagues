@@ -16,6 +16,7 @@ import MobileEvent from "./hooks/mobileevents.js";
 /* ✅ Import CSS files as URLs (works after build) */
 import primeCss from "./assets/css/prime.css?url";
 import saudiCss from "./assets/css/saudi.css?url";
+import schoolCss from "./assets/css/school.css?url";
 
 /* ---------------------------
    Detect theme by pathname
@@ -23,6 +24,7 @@ import saudiCss from "./assets/css/saudi.css?url";
 const detectThemeForPath = (path) => {
   if (path.startsWith("/prime")) return "prime";
   if (path.startsWith("/saudi")) return "saudi";
+  if (path.startsWith("/schooleleagues")) return "school";
   return null;
 };
 
@@ -32,7 +34,8 @@ const detectThemeForPath = (path) => {
 const insertThemeStylesheetBlocking = async (theme) => {
   if (!theme) return;
 
-  const href = theme === "prime" ? primeCss : saudiCss;
+  const href =
+    theme === "prime" ? primeCss : theme == "school" ? schoolCss : saudiCss;
 
   // Avoid duplicates
   const existing = Array.from(document.querySelectorAll("link")).find((l) =>
