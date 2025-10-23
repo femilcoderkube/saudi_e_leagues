@@ -17,6 +17,7 @@ import playgameBG from "../../../assets/images/playgameBG.webp";
 import sliderBG_opp from "../../../assets/images/sliderBG_opp.webp";
 import activeslideBG from "../../../assets/images/activeslideBG.webp";
 import sliderBG from "../../../assets/images/sliderBG.webp";
+import aside_hover from "../../../assets/images/aside_hover.webp";
 
 import country_us from "../../../assets/images/country_us.webp";
 import country_ar from "../../../assets/images/ar_lang.webp";
@@ -140,6 +141,7 @@ export const IMAGES = {
   about_down,
   cal_arrow,
   list_partycip,
+  aside_hover,
   youtube,
   rules_icon,
   battale_sahpe_img,
