@@ -181,12 +181,12 @@ export default function RoundRobinStanding({ groupData, groupNumber }) {
             </div>
             <div className="px-6 py-4 text-center max-w-[13%] w-full">
               <span className="inline-block md:text-lg text-base font-bold text-[var(--white-col)]">
-                {player.scoreFor}:{player.scoreAgainst}
+                {player.scoreAgainst}:{player.scoreFor}
               </span>
             </div>
             <div className="px-6 ltr:lg:pr-16 rtl:lg:pl-16 ltr:pr-7 rtl:pl-7 py-4 ltr:text-right rtl:text-left max-w-[13%] w-full">
               <span className="inline-block md:text-lg text-base font-bold text-[var(--white-col)]">
-                {player.scoreFor - player.scoreAgainst}
+                { player.scoreAgainst  -player.scoreFor }
               </span>
             </div>
           </div>
