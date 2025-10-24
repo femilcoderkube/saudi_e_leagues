@@ -13,154 +13,57 @@ import "react-toastify/dist/ReactToastify.css";
 import "@emran-alhaddad/saudi-riyal-font/index.css";
 import MobileEvent from "./hooks/mobileevents.js";
 
-/* ✅ Import CSS files as URLs (works after build) */
-import primeCss from "./assets/css/prime.css?url";
-import saudiCss from "./assets/css/saudi.css?url";
-import schoolCss from "./assets/css/school.css?url";
+setAxiosStore(store);
+MobileEvent.onLogin();
 
-/* ---------------------------
-   Detect theme by pathname
-----------------------------*/
-const detectThemeForPath = (path) => {
-  if (path.startsWith("/prime")) return "prime";
-  if (path.startsWith("/saudi")) return "saudi";
-  if (path.startsWith("/schooleleagues")) return "school";
-  return null;
-};
+// Hide loading fallback and render app
+const rootElement = document.getElementById("root");
+const loadingFallback = document.getElementById("loading-fallback");
 
-/* ---------------------------
-   Insert <link> stylesheet with loader handling
-----------------------------*/
-const insertThemeStylesheetBlocking = async (theme) => {
-  if (!theme) return;
+// Render the app
+const root = createRoot(rootElement);
+root.render(
+  <Provider store={store}>
+    <ToastContainer
+      position="top-right" // Common position
+      autoClose={2000} // Set toast duration to 2000 milliseconds (2 seconds)
+      hideProgressBar={false} // Show a progress bar
+      newestOnTop={false} // Newer toasts appear at the bottom
+      closeOnClick // Close toast on click
+      rtl={false} // Left-to-right text
+      pauseOnFocusLoss // Pause autoClose when window loses focus
+      draggable // Allow dragging to dismiss
+      pauseOnHover // Pause autoClose on hover
+      theme="light" // Light theme for toasts
+    />
+    <svg
+      width="0"
+      height="0"
+      viewBox="0 0 400 72"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ position: "absolute" }}
+    >
+      <defs>
+        <clipPath id="inputclip" clipPathUnits="objectBoundingBox">
+          <path
+            transform="scale(0.0025, 0.0138889)"
+            d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+    <App />
+  </Provider>
+);
 
-  const href =
-    theme === "prime" ? primeCss : theme == "school" ? schoolCss : saudiCss;
-
-  // Avoid duplicates
-  const existing = Array.from(document.querySelectorAll("link")).find((l) =>
-    l.href.includes(href)
-  );
-  if (existing) {
-    if (existing.sheet) return; // already loaded
-    return new Promise((resolve) => {
-      existing.onload = resolve;
-      existing.onerror = resolve;
-    });
-  }
-
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = href;
-  link.dataset.theme = theme;
-
-  return new Promise((resolve) => {
-    const timeout = setTimeout(() => {
-      console.warn("⚠️ CSS load timeout, continuing anyway");
-      resolve();
-    }, 2500);
-
-    link.onload = () => {
-      clearTimeout(timeout);
-      resolve();
-    };
-    link.onerror = () => {
-      clearTimeout(timeout);
-      resolve();
-    };
-
-    document.head.appendChild(link);
-  });
-};
-
-/* ---------------------------
-   Render App (don't hide loader yet)
-----------------------------*/
-const renderApp = () => {
-  const root = createRoot(document.getElementById("root"));
-  root.render(
-    <Provider store={store}>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        closeOnClick
-        pauseOnHover
-        theme="light"
-      />
-      <svg
-        width="0"
-        height="0"
-        viewBox="0 0 400 72"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ position: "absolute" }}
-      >
-        <defs>
-          <clipPath id="inputclip" clipPathUnits="objectBoundingBox">
-            <path
-              transform="scale(0.0025, 0.0138889)"
-              d="M240 0L248 8H384L400 24V56L384 72H0V16L16 0H240Z"
-            />
-          </clipPath>
-        </defs>
-      </svg>
-      <App />
-    </Provider>
-  );
-};
-
-/* ---------------------------
-   Hide loader smoothly
-----------------------------*/
-const hideLoader = () => {
-  const loader = document.getElementById("loading-fallback");
-  if (loader) {
-    loader.style.transition = "opacity 0.4s ease-out";
-    loader.style.opacity = "0";
+// Hide loading fallback after React app renders
+if (loadingFallback) {
+  // Small delay to ensure smooth transition
+  setTimeout(() => {
+    loadingFallback.style.opacity = "0";
+    loadingFallback.style.transition = "opacity 0.3s ease-out";
     setTimeout(() => {
-      loader.style.display = "none";
-    }, 400);
-  }
-};
-
-/* ---------------------------
-   Initialize
-----------------------------*/
-(async () => {
-  setAxiosStore(store);
-  MobileEvent.onLogin();
-
-  const path = window.location.pathname;
-  let theme = detectThemeForPath(path);
-
-  // Keep loader visible until theme CSS loads
-  document.body.style.background = "#020326";
-
-  // Render app (React Router can trigger redirects)
-  renderApp();
-
-  // Wait for theme CSS — handle initial redirect from "/"
-  if (!theme) {
-    for (let i = 0; i < 30; i++) {
-      await new Promise((r) => setTimeout(r, 100));
-      theme = detectThemeForPath(window.location.pathname);
-      if (theme) break;
-    }
-  }
-
-  // Load theme CSS (keep loader visible)
-  if (theme) {
-    await insertThemeStylesheetBlocking(theme);
-  }
-
-  // Remove loader *after* CSS ready
-  hideLoader();
-})();
-
-/* ---------------------------
-   Handle browser navigation
-----------------------------*/
-window.addEventListener("popstate", () => {
-  const theme = detectThemeForPath(window.location.pathname);
-  if (theme) insertThemeStylesheetBlocking(theme);
-});
+      loadingFallback.style.display = "none";
+    }, 300);
+  }, 100);
+}

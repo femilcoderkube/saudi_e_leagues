@@ -17,7 +17,7 @@ export const items = [
     headerIcon: Prime,
   },
   {
-    name: "School leagues",
+    name: "Schools E leagues",
     path: "/:id",
     src: IMAGES.prime_icon,
     hoverSrc: IMAGES.primeIcon,
@@ -25,7 +25,7 @@ export const items = [
     logoLtr: IMAGES.asideLogo_ltr,
     logo: IMAGES.primeIcon,
     docId: "68fa00fa8f42d138405074ee",
-    id: "schooleleagues",
+    id: "schoolseleague",
     headerIcon: Prime,
   },
 ];

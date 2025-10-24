@@ -37,6 +37,8 @@ import PartyMatchMaking from "./pages/Matches/PartyMatchMaking.jsx";
 import TournamentsTeam from "./pages/TournamentDetail/TournamentsTeam.jsx";
 import InviteLink from "./pages/UserProfile/InviteLink.jsx";
 
+const ACTIVE_INDEX = import.meta.env.VITE_ACTIVE_INDEX || 0;
+
 function NavigatorSetter() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -71,7 +73,7 @@ function App() {
     joinUserRoom();
   }, [user]);
 
-  const firstItem = items[0];
+  const firstItem = items[ACTIVE_INDEX];
 
   return (
     <>

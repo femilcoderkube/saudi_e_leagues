@@ -106,10 +106,15 @@ const TournamentDetail = () => {
   };
 
   useEffect(() => {
-    if (tournamentData?._id) {
+    if (tournamentData?._id && tournamentData?.tournamentType === "Team") {
       dispatch(fetchInviteLink(currentTeam?._id)).unwrap();
     }
-  }, [currentTeam?._id, dispatch, tournamentData?._id]);
+  }, [
+    currentTeam?._id,
+    dispatch,
+    tournamentData?._id,
+    tournamentData?.tournamentType,
+  ]);
 
   useEffect(() => {
     if (tournamentData?.title) {
@@ -130,12 +135,21 @@ const TournamentDetail = () => {
   }, [tournamentData?.stages, activeStage]);
 
   const onRegistration = async () => {
-    dispatch(
-      setPopupData({
-        tournamentId: tournamentData?._id,
-        teamId: currentTeam?._id,
-      })
-    );
+    if (tournamentData?.tournamentType === "Solo") {
+      dispatch(
+        setPopupData({
+          tournamentId: tournamentData?._id,
+          userId: user?._id, // Use userId for solo tournaments
+        })
+      );
+    } else {
+      dispatch(
+        setPopupData({
+          tournamentId: tournamentData?._id,
+          teamId: currentTeam?._id, // Use teamId for team tournaments
+        })
+      );
+    }
     dispatch(setConfirmationPopUp(14));
   };
 
@@ -151,25 +165,42 @@ const TournamentDetail = () => {
           })
         );
         if (
-          teamData?.userRole === "President" ||
-          teamData?.userRole === "Manager"
-        )
+          tournamentData?.tournamentType === "Team" &&
+          (teamData?.userRole === "President" ||
+            teamData?.userRole === "Manager")
+        ) {
           setIsManageOpen(true);
+        }
       }
     } catch (error) {
       console.log("err", error);
     }
   };
 
-  const teams =
-    teamData?.participentList?.map((p) => ({
-      name: p?.team?.teamName,
-      shortName: p?.team?.teamShortName,
-      logo: p?.team?.logoImage,
-      members: p?.team?.members ?? [],
-      participants: p?.participants ?? [],
-      _id: p?._id,
-    })) || [];
+  const teams = useMemo(() => {
+    if (tournamentData?.tournamentType === "Solo") {
+      return (
+        teamData?.participentList?.map((p) => ({
+          name: p?.user?.username || "Unknown",
+          shortName: p?.user?.username || "Unknown",
+          logo: p?.user?.profilePicture || IMAGES.defaultImg,
+          members: [p?.user], // Single user as the "member"
+          participants: [p?.user], // Single user as the participant
+          _id: p?._id,
+        })) || []
+      );
+    }
+    return (
+      teamData?.participentList?.map((p) => ({
+        name: p?.team?.teamName,
+        shortName: p?.team?.teamShortName,
+        logo: p?.team?.logoImage,
+        members: p?.team?.members ?? [],
+        participants: p?.participants ?? [],
+        _id: p?._id,
+      })) || []
+    );
+  }, [teamData, tournamentData?.tournamentType]);
 
   // Ensure all dates are valid and compare only if all are valid
   const regStart = tournamentData?.registrationStartDate
@@ -215,6 +246,7 @@ const TournamentDetail = () => {
     isTournamentStarted,
     isTournamentFinished,
     t,
+    tournamentType,
   }) => {
     // Default state for disabled button
     const defaultState = {
@@ -260,17 +292,47 @@ const TournamentDetail = () => {
     // No user logged in
     if (!user?._id) {
       return {
-        // ...defaultState,
         image: IMAGES.ragister_og,
         isDisabled: false,
         text: t("auth.login"),
         onClick: () => dispatch(setLogin(true)),
+        className: "cursor-pointer",
       };
     }
 
-    // User has a team
+    if (tournamentType === "Solo") {
+      // Check if user is already registered for solo tournament
+      const isUserRegistered =
+        teamData?.dataFound && teamData?.data?.status !== 1;
+
+      if (isUserRegistered) {
+        return {
+          ...defaultState,
+          text: t("images.Registergn"),
+          image: IMAGES.ragister_gn,
+        };
+      }
+
+      // Allow registration if within registration period
+      if (isWithinRegistrationPeriod) {
+        return {
+          text: t("images.Registerog"),
+          image: IMAGES.ragister_og,
+          isDisabled: false,
+          onClick: onRegistration, // Trigger solo registration
+          className: "cursor-pointer",
+        };
+      }
+
+      return {
+        ...defaultState,
+        text: t("images.Registerog"),
+        image: IMAGES.ragister_og,
+      };
+    }
+
+    // Existing team-based logic
     if (currentTeam?._id) {
-      // Team already registered
       if (teamData?.dataFound && teamData?.data?.status !== 1) {
         return {
           ...defaultState,
@@ -279,7 +341,6 @@ const TournamentDetail = () => {
         };
       }
 
-      // Team incomplete
       if (teamData?.data?.status === 1) {
         return {
           ...defaultState,
@@ -288,7 +349,6 @@ const TournamentDetail = () => {
         };
       }
 
-      // Not Manager or President, or outside registration period
       if (
         !["Manager", "President"].includes(teamData?.userRole) ||
         !isWithinRegistrationPeriod
@@ -300,7 +360,6 @@ const TournamentDetail = () => {
         };
       }
 
-      // Team can register
       return {
         text: t("images.Registerog"),
         image: IMAGES.ragister_og,
@@ -310,7 +369,6 @@ const TournamentDetail = () => {
       };
     }
 
-    // No team, allow team creation
     return {
       text: t("images.create"),
       image: IMAGES.ragister_og,
@@ -332,6 +390,7 @@ const TournamentDetail = () => {
         isTournamentStarted,
         isTournamentFinished,
         t,
+        tournamentType: tournamentData?.tournamentType,
       }),
     [
       currentTeam,
@@ -343,6 +402,7 @@ const TournamentDetail = () => {
       isTournamentStarted,
       isTournamentFinished,
       t,
+      tournamentData?.tournamentType,
     ]
   );
 
@@ -563,190 +623,197 @@ const TournamentDetail = () => {
                           whileInView="visible"
                           viewport={{ once: true, amount: 0.1 }}
                         >
-                          {teamData?.dataFound && (
-                            <div className="your-team-card rounded-2xl md:mb-12 mb-9 bg-[linear-gradient(183.7deg,rgba(94,95,184,0.2)_3.03%,rgba(34,35,86,0.2)_97.05%)] shadow-[inset_0_2px_2px_0_rgba(94,95,184,0.12)] backdrop-blur-[0.75rem]">
-                              <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
-                                <div className="flex flex-wrap items-center sm:gap-4 gap-2">
-                                  <span className="text-[var(--white-col)] md:text-xl text-lg font-bold ltr:md:pr-6 ltr:md:mr-2 ltr:md:border-r md:border-[var(--purple-col)] rtl:md:pl-6 rtl:md:ml-2 rtl:md:border-l">
-                                    {t("league.yourteam")}
-                                  </span>
-                                  <span className="purple_col md:text-lg text-base font-semibold">
+                          {tournamentData?.tournamentType === "Team" &&
+                            teamData?.dataFound && (
+                              <div className="your-team-card rounded-2xl md:mb-12 mb-9 bg-[linear-gradient(183.7deg,rgba(94,95,184,0.2)_3.03%,rgba(34,35,86,0.2)_97.05%)] shadow-[inset_0_2px_2px_0_rgba(94,95,184,0.12)] backdrop-blur-[0.75rem]">
+                                <div className="flex sm:items-center sm:flex-row flex-col rounded-t-2xl justify-between md:gap-3 gap-2 md:px-8 md:py-5 p-5 border-b border-[#28374299] bg-[linear-gradient(180deg,rgba(94,95,184,0.3)_0%,rgba(34,35,86,0.4)_100%)] shadow-[inset_0_2px_2px_rgba(94,95,184,0.2)]">
+                                  <div className="flex flex-wrap items-center sm:gap-4 gap-2">
+                                    <span className="text-[var(--white-col)] md:text-xl text-lg font-bold ltr:md:pr-6 ltr:md:mr-2 ltr:md:border-r md:border-[var(--purple-col)] rtl:md:pl-6 rtl:md:ml-2 rtl:md:border-l">
+                                      {t("league.yourteam")}
+                                    </span>
+                                    <span className="purple_col md:text-lg text-base font-semibold">
+                                      {teamData?.data?.status == 1 && (
+                                        <>
+                                          {t(
+                                            "tournament.invite_players_to_team",
+                                            {
+                                              count:
+                                                tournamentData?.minPlayersPerTeam,
+                                            }
+                                          )}
+                                        </>
+                                      )}
+                                      {teamData?.data?.status == 2 && (
+                                        <>
+                                          {tournamentData?.registrationEndDate &&
+                                            (() => {
+                                              const endDate = new Date(
+                                                tournamentData.registrationEndDate
+                                              );
+                                              const now = new Date();
+                                              const diffMs = endDate - now;
+                                              if (diffMs > 0) {
+                                                const totalHours = Math.floor(
+                                                  diffMs / (1000 * 60 * 60)
+                                                );
+                                                const minutes = Math.floor(
+                                                  (diffMs % (1000 * 60 * 60)) /
+                                                    (1000 * 60)
+                                                );
+                                                const days = Math.floor(
+                                                  totalHours / 24
+                                                );
+                                                const hours = totalHours % 24;
+                                                const key =
+                                                  days > 0
+                                                    ? "tournament.roster_lock_in_days"
+                                                    : totalHours > 0
+                                                    ? "tournament.roster_lock_in_hour"
+                                                    : "tournament.roster_lock_in";
+                                                return (
+                                                  <>
+                                                    {t(key, {
+                                                      days,
+                                                      hours,
+                                                      minutes,
+                                                    })}
+                                                  </>
+                                                );
+                                              }
+                                              return null;
+                                            })()}
+                                        </>
+                                      )}
+                                      {teamData?.data?.status == 3 && (
+                                        <>{t("tournament.roster_locked")}</>
+                                      )}
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center gap-3">
                                     {teamData?.data?.status == 1 && (
                                       <>
-                                        {t(
-                                          "tournament.invite_players_to_team",
-                                          {
-                                            count:
-                                              tournamentData?.minPlayersPerTeam,
-                                          }
-                                        )}
+                                        <span className="purple_col md:text-lg text-base font-semibold">
+                                          {t("tourteam.notready")}
+                                        </span>
+                                        <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
                                       </>
                                     )}
                                     {teamData?.data?.status == 2 && (
                                       <>
-                                        {tournamentData?.registrationEndDate &&
-                                          (() => {
-                                            const endDate = new Date(
-                                              tournamentData.registrationEndDate
-                                            );
-                                            const now = new Date();
-                                            const diffMs = endDate - now;
-                                            if (diffMs > 0) {
-                                              const totalHours = Math.floor(
-                                                diffMs / (1000 * 60 * 60)
-                                              );
-                                              const minutes = Math.floor(
-                                                (diffMs % (1000 * 60 * 60)) /
-                                                  (1000 * 60)
-                                              );
-                                              const days = Math.floor(totalHours / 24);
-                                              const hours = totalHours % 24;
-                                              const key =
-                                                days > 0
-                                                  ? "tournament.roster_lock_in_days"
-                                                  : totalHours > 0
-                                                  ? "tournament.roster_lock_in_hour"
-                                                  : "tournament.roster_lock_in";
-                                              return (
-                                                <>
-                                                  {t(key, {
-                                                    days,
-                                                    hours,
-                                                    minutes,
-                                                  })}
-                                                </>
-                                              );
-                                            }
-                                            return null;
-                                          })()}
+                                        <span className="purple_col md:text-lg text-base font-semibold">
+                                          {t("tourteam.changeopen")}
+                                        </span>
+                                        <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#00FF00_0%,#008000_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#00FF001F] inline-block"></span>
                                       </>
                                     )}
                                     {teamData?.data?.status == 3 && (
-                                      <>{t("tournament.roster_locked")}</>
+                                      <>
+                                        <span className="purple_col md:text-lg text-base font-semibold">
+                                          {t("tourteam.changeclose")}
+                                        </span>
+                                        <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
+                                      </>
                                     )}
-                                  </span>
+                                  </div>
                                 </div>
-                                <div className="flex items-center gap-3">
-                                  {teamData?.data?.status == 1 && (
-                                    <>
-                                      <span className="purple_col md:text-lg text-base font-semibold">
-                                        {t("tourteam.notready")}
-                                      </span>
-                                      <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
-                                    </>
-                                  )}
-                                  {teamData?.data?.status == 2 && (
-                                    <>
-                                      <span className="purple_col md:text-lg text-base font-semibold">
-                                        {t("tourteam.changeopen")}
-                                      </span>
-                                      <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#00FF00_0%,#008000_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#00FF001F] inline-block"></span>
-                                    </>
-                                  )}
-                                  {teamData?.data?.status == 3 && (
-                                    <>
-                                      <span className="purple_col md:text-lg text-base font-semibold">
-                                        {t("tourteam.changeclose")}
-                                      </span>
-                                      <span className="w-2 h-2 rounded-full bg-[linear-gradient(180deg,#ED1D4A_0%,#BC096B_107.14%)] shadow-[inset_0px_4px_4px_0px_#FFFFFF3D,0px_4px_24px_0px_#ED1D4A1F] inline-block"></span>
-                                    </>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="flex items-center sm:flex-row flex-col gap-4 justify-between md:px-8 md:py-6 p-5">
-                                <div className="flex items-center gap-2">
-                                  {(() => {
-                                    // Get the players array, fallback to empty array
-                                    const players =
-                                      teamData?.data?.Players || [];
-                                    const maxPlayers =
-                                      tournamentData?.maxPlayersPerTeam || 1;
-                                    const totalPlayers = players.length;
-                                    const displayCount = Math.min(
-                                      5,
-                                      maxPlayers
-                                    );
-                                    const extraCount =
-                                      totalPlayers > 5 ? totalPlayers - 5 : 0;
+                                <div className="flex items-center sm:flex-row flex-col gap-4 justify-between md:px-8 md:py-6 p-5">
+                                  <div className="flex items-center gap-2">
+                                    {(() => {
+                                      // Get the players array, fallback to empty array
+                                      const players =
+                                        teamData?.data?.Players || [];
+                                      const maxPlayers =
+                                        tournamentData?.maxPlayersPerTeam || 1;
+                                      const totalPlayers = players.length;
+                                      const displayCount = Math.min(
+                                        5,
+                                        maxPlayers
+                                      );
+                                      const extraCount =
+                                        totalPlayers > 5 ? totalPlayers - 5 : 0;
 
-                                    // Prepare the slots to display (up to maxPlayers)
-                                    const slots = Array.from({
-                                      length: maxPlayers,
-                                    });
+                                      // Prepare the slots to display (up to maxPlayers)
+                                      const slots = Array.from({
+                                        length: maxPlayers,
+                                      });
 
-                                    return slots.map((_, idx) => {
-                                      // Show first 7 players or empty slots
-                                      if (idx < 5) {
-                                        const player = players[idx];
-                                        if (!player) {
+                                      return slots.map((_, idx) => {
+                                        // Show first 7 players or empty slots
+                                        if (idx < 5) {
+                                          const player = players[idx];
+                                          if (!player) {
+                                            return (
+                                              <div
+                                                key={idx}
+                                                className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center opacity-40"
+                                              ></div>
+                                            );
+                                          }
                                           return (
                                             <div
-                                              key={idx}
-                                              className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center opacity-40"
-                                            ></div>
+                                              key={player._id}
+                                              className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full overflow-hidden bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center mx-2"
+                                            >
+                                              <img
+                                                src={
+                                                  player.profilePicture
+                                                    ? getServerURL(
+                                                        player.profilePicture
+                                                      )
+                                                    : IMAGES.defaultImg
+                                                }
+                                                alt={player.username}
+                                                className="w-full h-full object-cover"
+                                              />
+                                            </div>
                                           );
                                         }
-                                        return (
-                                          <div
-                                            key={player._id}
-                                            className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full overflow-hidden bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center mx-2"
-                                          >
-                                            <img
-                                              src={
-                                                player.profilePicture
-                                                  ? getServerURL(
-                                                      player.profilePicture
-                                                    )
-                                                  : IMAGES.defaultImg
-                                              }
-                                              alt={player.username}
-                                              className="w-full h-full object-cover"
-                                            />
-                                          </div>
-                                        );
-                                      }
-                                      // For the 8th slot, if there are extra players, show "+N"
-                                      if (idx === 5 && extraCount > 0) {
-                                        return (
-                                          <div
-                                            key="extra-players"
-                                            className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center text-white font-bold text-lg "
-                                          >
-                                            +{extraCount}
-                                          </div>
-                                        );
-                                      }
-                                      // For slots after 8th, show nothing
-                                      return null;
-                                    });
-                                  })()}
+                                        // For the 8th slot, if there are extra players, show "+N"
+                                        if (idx === 5 && extraCount > 0) {
+                                          return (
+                                            <div
+                                              key="extra-players"
+                                              className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10 rounded-full bg-[linear-gradient(180deg,rgba(45,46,109,1)_0%,rgba(34,35,86,1)_100%)] shadow-[inset_0_1px_4px_rgba(87,89,195,0.2)] flex items-center justify-center text-white font-bold text-lg "
+                                            >
+                                              +{extraCount}
+                                            </div>
+                                          );
+                                        }
+                                        // For slots after 8th, show nothing
+                                        return null;
+                                      });
+                                    })()}
+                                  </div>
+                                  {tournamentData?.tournamentType === "Team" &&
+                                  (teamData?.userRole === "President" ||
+                                    teamData?.userRole === "Manager") &&
+                                  teamData?.data?.status !== 3 ? (
+                                    <div className="flex items-center md:gap-10 gap-4">
+                                      <button
+                                        className="purple_col sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
+                                        onClick={() => setIsManageOpen(true)} // open modal
+                                      >
+                                        {t("tournament.manageteam")}
+                                      </button>
+                                    </div>
+                                  ) : (
+                                    tournamentData?.tournamentType ===
+                                      "Team" && (
+                                      <div className="flex items-center md:gap-10 gap-4">
+                                        <button
+                                          className="purple_col sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
+                                          onClick={() => {
+                                            dispatch(setViewManagePopup(true));
+                                          }} // open modal
+                                        >
+                                          {t("tournament.viewteam")}
+                                        </button>
+                                      </div>
+                                    )
+                                  )}
                                 </div>
-                                {(teamData?.userRole === "President" ||
-                                  teamData?.userRole === "Manager") &&
-                                teamData?.data?.status !== 3 ? (
-                                  <div className="flex items-center md:gap-10 gap-4">
-                                    <button
-                                      className="purple_col sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
-                                      onClick={() => setIsManageOpen(true)} // open modal
-                                    >
-                                      {t("tournament.manageteam")}
-                                    </button>
-                                  </div>
-                                ) : (
-                                  <div className="flex items-center md:gap-10 gap-4">
-                                    <button
-                                      className="purple_col sm:py-3.5 sm:px-4.5 px-4 py-3 rounded-lg bg-[radial-gradient(100%_100%_at_50%_0%,rgba(45,46,109,0.92)_0%,rgba(34,35,86,0.8)_100%)] shadow-[inset_0px_2px_4px_0px_#5759C33D] font-bold cursor-pointer manage-team"
-                                      onClick={() => {
-                                        dispatch(setViewManagePopup(true));
-                                      }} // open modal
-                                    >
-                                      {t("tournament.viewteam")}
-                                    </button>
-                                  </div>
-                                )}
                               </div>
-                            </div>
-                          )}
+                            )}
                           <div className="about-tournament-card">
                             <h3 className="sm:text-[2rem] text-2xl grad_text-clip !font-black sm:mb-8 mb-6 tracking-wide uppercase bg-[linear-gradient(180deg,rgba(148,156,244,0.288)_32.47%,rgba(104,107,146,0.192)_92.29%)]">
                               {t("league.about_tournament")}
@@ -856,12 +923,6 @@ const TournamentDetail = () => {
                                     className={`mob-body-full flex justify-between gap-3 items-center lg:p-8 md:p-5 p-3 !w-full ltr:border-r rtl:border-l`}
                                   >
                                     <div className="flex items-center lg:gap-11 md:gap-4 gap-2">
-                                      {/* <div className="schdule-common">
-                                        <p className="text-base font-black grad_text-clip uppercase w-11">
-                                          {tIdx + 1}
-                                          {getOrdinal(tIdx + 1)}
-                                        </p>
-                                      </div> */}
                                       <div className="flex items-center sm:gap-4 gap-2">
                                         <img
                                           src={getServerURL(team?.logo)}
@@ -875,10 +936,17 @@ const TournamentDetail = () => {
                                     </div>
                                     <div className="flex items-center xl:gap-13 gap-4">
                                       <p className="text-lg font-bold text-[var(--green-color)]">
-                                        {team?.members?.length}
+                                        {tournamentData?.tournamentType ===
+                                        "Solo"
+                                          ? 1
+                                          : team?.members?.length}
                                         <span className="text-base font-semibold inline-block text-[var(--slate-blue)] ltr:pl-1 rtl:pr-1">
-                                          {" "}
-                                          {t("tournament.members")}
+                                          {t(
+                                            tournamentData?.tournamentType ===
+                                              "Solo"
+                                              ? "tournament.player"
+                                              : "tournament.members"
+                                          )}
                                         </span>
                                       </p>
                                     </div>
@@ -934,7 +1002,7 @@ const TournamentDetail = () => {
       )}
 
       {/* Popup */}
-      {viewManagePopup ? (
+      {viewManagePopup && tournamentData?.tournamentType === "Team" ? (
         <ViewTeamModal
           isOpen={viewManagePopup}
           onClose={() => dispatch(setViewManagePopup(false))}

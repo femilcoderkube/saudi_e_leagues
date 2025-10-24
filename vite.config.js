@@ -69,7 +69,7 @@ export default defineConfig(({ mode }) => {
             deadCodeInjection: true,
             stringArray: true,
             rotateStringArray: true,
-            stringArrayEncoding: ['rc4'],
+            stringArrayEncoding: ["rc4"],
             stringArrayThreshold: 0.75,
             splitStrings: true,
             // disableConsoleOutput: false,
