@@ -47,6 +47,8 @@ import ConfirmationPopUp from "../../components/Overlays/ConfirmationPopUp.jsx";
 import ViewTeamModal from "../../components/ManageTeam/ViewTeamModal.jsx";
 import { fetchInviteLink } from "../../app/slices/teamInvitationSlice/teamInvitationSlice.js";
 import TeamRegistrationPopup from "../../components/Overlays/TournamentTeam/TeamRegistrationPopup.jsx";
+import { setRegistrationModal } from "../../app/slices/leagueDetail/leagueDetailSlice.js";
+import LeagueRegistration from "../../components/Overlays/LeagueDetail/LeagueRegistration.jsx";
 const TournamentDetail = () => {
   const { t, i18n } = useTranslation();
   const {
@@ -56,6 +58,7 @@ const TournamentDetail = () => {
     activeStage,
     loader,
     tourmentTeamData,
+    isSoloRegister,
   } = useSelector((state) => state.tournament);
 
   const { viewManagePopup, isloading } = useSelector(
@@ -66,6 +69,8 @@ const TournamentDetail = () => {
   const { loading, showTeamRegistrationPopup } = useSelector(
     (state) => state.tournamentTeam
   );
+
+  const { registrationModal } = useSelector((state) => state.leagues);
 
   const handleClose = () => setShowModal(false);
 
@@ -302,10 +307,8 @@ const TournamentDetail = () => {
 
     if (tournamentType === "Solo") {
       // Check if user is already registered for solo tournament
-      const isUserRegistered =
-        teamData?.dataFound && teamData?.data?.status !== 1;
 
-      if (isUserRegistered) {
+      if (isSoloRegister) {
         return {
           ...defaultState,
           text: t("images.Registergn"),
@@ -319,7 +322,7 @@ const TournamentDetail = () => {
           text: t("images.Registerog"),
           image: IMAGES.ragister_og,
           isDisabled: false,
-          onClick: onRegistration, // Trigger solo registration
+          onClick: () => dispatch(setRegistrationModal(true)), // Trigger solo registration
           className: "cursor-pointer",
         };
       }
@@ -1052,6 +1055,7 @@ const TournamentDetail = () => {
       {showModal && <PDFViewer onClose={handleClose} />}
       <ConfirmationPopUp onRegisterTournament={handleRegisterTournament} />
       {showTeamRegistrationPopup && <TeamRegistrationPopup isEdit={false} />}
+      {registrationModal && <LeagueRegistration />}
     </main>
   );
 };

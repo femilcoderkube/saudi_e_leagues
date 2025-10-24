@@ -61,6 +61,7 @@ import defaultImg from "../../../assets/images/bydefault.webp";
 import left_arrow from "../../../assets/images/left-arrow.webp";
 
 import match_reg from "../../../assets/images/match_reg.webp";
+import tournament from "../../../assets/images/tournament.webp";
 import match_reg_ar from "../../../assets/images/match_reg_ar.webp";
 
 import rules_icon from "../../../assets/images/rules_icon.webp";
@@ -215,4 +216,5 @@ export const IMAGES = {
   deleteIcon,
   maskgroup,
   user_about,
+  tournament,
 };

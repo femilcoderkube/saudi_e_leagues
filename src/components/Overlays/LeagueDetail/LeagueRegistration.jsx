@@ -12,16 +12,26 @@ import { baseURL } from "../../../utils/axios.js";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { IMAGES } from "../../ui/images/images.js";
+import {
+  getTeamAndTournamentDetails,
+  registerTournamentParticipant,
+} from "../../../app/slices/tournamentSlice/tournamentSlice.js";
 
 const LeagueRegistration = () => {
   const { isAgreedToJoin, leagueData } = useSelector((state) => state.leagues);
+  const { tournamentData } = useSelector((state) => state.tournament);
+
   const dispatch = useDispatch();
   const isSocketConnected = useSelector((state) => state.socket.isConnected);
   const user = useSelector((state) => state.auth.user);
   const { t, i18n } = useTranslation();
 
-  const customFields = Array.isArray(leagueData?.customRegistrationFields)
-    ? leagueData.customRegistrationFields
+  const customFields = Array.isArray(
+    leagueData?.customRegistrationFields ||
+      tournamentData?.customRegistrationFields
+  )
+    ? leagueData?.customRegistrationFields ||
+      tournamentData?.customRegistrationFields
     : [];
 
   const { initialValues, validationSchema, fieldList } = useMemo(() => {
@@ -63,8 +73,11 @@ const LeagueRegistration = () => {
 
   const handleSubmit = (values) => {
     let payload = {
-      Lid: leagueData._id,
-      userId: user._id,
+      ...(tournamentData && {
+        tournament: tournamentData?._id,
+        user: user?._id,
+      }),
+      ...(leagueData && { Lid: leagueData?._id, userId: user?._id }),
     };
     payload["otherFields"] = [];
     try {
@@ -86,7 +99,31 @@ const LeagueRegistration = () => {
     } catch (e) {
       console.log("Error", e);
     }
-    joinLeagueSocket({ isSocketConnected, payload });
+    if (tournamentData) {
+      dispatch(registerTournamentParticipant(payload))
+        .unwrap()
+        .then((response) => {
+          dispatch(
+            getTeamAndTournamentDetails({
+              userId: user?._id,
+              tournamentId: tournamentData?._id,
+            })
+          );
+          dispatch(setRegistrationModal(false));
+        })
+        .catch((error) => {
+          console.log("err", error);
+          dispatch(
+            getTeamAndTournamentDetails({
+              userId: user?._id,
+              tournamentId: tournamentData?._id,
+            })
+          );
+          dispatch(setRegistrationModal(false));
+        });
+    } else {
+      joinLeagueSocket({ isSocketConnected, payload });
+    }
   };
 
   return (
@@ -116,6 +153,8 @@ const LeagueRegistration = () => {
                   src={
                     i18n.language === "ar"
                       ? IMAGES.match_reg_ar
+                      : tournamentData
+                      ? IMAGES.tournament
                       : IMAGES.match_reg
                   }
                   alt={t("images.match_registration")}
@@ -244,9 +283,26 @@ const LeagueRegistration = () => {
                                   dangerouslySetInnerHTML={{
                                     __html: field.checkboxText,
                                   }}
-                                />                              
-                                <span className="purple_light block sm:hidden text-sm">By Registering a Match I agree
-                                to <span className="break-text"> <a className="text-[var(--very-light-blue)] underline font-semibold" href="">Terms and Conditions</a> and <a className="text-[var(--very-light-blue)] underline font-semibold" href="">Privacy Policy</a></span></span>
+                                />
+                                <span className="purple_light block sm:hidden text-sm">
+                                  By Registering a Match I agree to{" "}
+                                  <span className="break-text">
+                                    {" "}
+                                    <a
+                                      className="text-[var(--very-light-blue)] underline font-semibold"
+                                      href=""
+                                    >
+                                      Terms and Conditions
+                                    </a>{" "}
+                                    and{" "}
+                                    <a
+                                      className="text-[var(--very-light-blue)] underline font-semibold"
+                                      href=""
+                                    >
+                                      Privacy Policy
+                                    </a>
+                                  </span>
+                                </span>
                               </div>
                             </label>
                           </div>
@@ -303,11 +359,14 @@ const LeagueRegistration = () => {
                               : "cursor-pointer"
                           }`}
                         >
-                          <span className="sm:block hidden">{fieldList.length > 0
-                            ? t("auth.submit")
-                            : t("auth.registration")}
-                            </span>
-                            <span className="block sm:hidden purple_col font-bold">Input ID</span>
+                          <span className="sm:block hidden">
+                            {fieldList.length > 0
+                              ? t("auth.submit")
+                              : t("auth.registration")}
+                          </span>
+                          <span className="block sm:hidden purple_col font-bold">
+                            Input ID
+                          </span>
                         </button>
                         <Popup_btn />
                       </div>

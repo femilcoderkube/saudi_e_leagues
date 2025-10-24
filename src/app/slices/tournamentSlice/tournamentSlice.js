@@ -10,6 +10,7 @@ const initialState = {
   stageSettings: null,
   loader: false,
   loading: false,
+  isSoloRegister: false,
   activeStage: -1,
   tourmentTeamData: null,
   currentTeam: null,
@@ -45,6 +46,7 @@ export const getTeamAndTournamentDetails = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      console.log("error", error);
       return rejectWithValue(
         error.response?.data?.message || "Failed to get tournament details"
       );
@@ -80,6 +82,25 @@ export const getTournamentStages = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch tournament stages"
+      );
+    }
+  }
+);
+
+export const registerTournamentParticipant = createAsyncThunk(
+  "tournament/registerTournamentParticipant",
+  async (participantData, { rejectWithValue }) => {
+    try {
+      console.log("participantData", participantData);
+      const response = await axiosInstance.post(
+        `/TournamentParticipants`,
+        participantData
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message ||
+          "Failed to register tournament participant"
       );
     }
   }
@@ -217,6 +238,7 @@ const tournamentSlice = createSlice({
         state.tournamentData = action.payload.data.tournamentData;
         state.teamData = action.payload.data.teamData;
         state.currentTeam = action.payload.data.currentTeam;
+        state.isSoloRegister = action.payload.data.isSoloRegister;
       })
       .addCase(getTeamAndTournamentDetails.rejected, (state, action) => {
         state.loading = false;
@@ -261,7 +283,6 @@ const tournamentSlice = createSlice({
 
         const { stageType, data } = action.payload.data;
 
-        console.log("stage data , data0", data )
         if (stageType === stageTypes.BattleRoyal) {
           state.battleRoyalGroup = data?.matcheData?.participantList || [];
           state.battleRoyalSchedule = data?.matcheData?.groupedByDate || {};
@@ -272,6 +293,18 @@ const tournamentSlice = createSlice({
       })
       .addCase(getTournamentStages.rejected, (state, action) => {
         state.loader = false;
+        state.error = action.payload;
+      })
+      .addCase(registerTournamentParticipant.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(registerTournamentParticipant.fulfilled, (state, action) => {
+        state.loading = false;
+        state.participantData = action.payload; // Store the participant data
+      })
+      .addCase(registerTournamentParticipant.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       });
   },
